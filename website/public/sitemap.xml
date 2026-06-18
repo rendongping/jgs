@@ -1,457 +1,457 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/</loc>
+    <loc>https://rendongping.github.io/jgs/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/data-state</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/data-state</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/data-state-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/data-state-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/data-state-interview</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/data-state-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/micro-frontend</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/micro-frontend</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/micro-frontend-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/micro-frontend-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/micro-frontend-interview</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/micro-frontend-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/observability</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/observability</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/observability-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/observability-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/observability-interview</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/observability-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/performance</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/performance</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/performance-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/performance-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/performance-interview</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/performance-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/quality</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/quality</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/quality-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/quality-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/quality-interview</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/quality-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/system-architecture</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/system-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/system-architecture-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/system-architecture-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/architecture/system-architecture-interview</loc>
+    <loc>https://rendongping.github.io/jgs/architecture/system-architecture-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/cases/from-url-to-interactive</loc>
+    <loc>https://rendongping.github.io/jgs/cases/from-url-to-interactive</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/cases/large-admin-system</loc>
+    <loc>https://rendongping.github.io/jgs/cases/large-admin-system</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/cases/technology-selection</loc>
+    <loc>https://rendongping.github.io/jgs/cases/technology-selection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/ai-engineering</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/ai-engineering</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/ai-engineering-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/ai-engineering-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/ai-engineering-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/ai-engineering-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/build-tools</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/build-tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/build-tools-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/build-tools-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/build-tools-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/build-tools-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/ci-cd</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/ci-cd</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/ci-cd-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/ci-cd-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/ci-cd-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/ci-cd-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/code-quality</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/code-quality</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/code-quality-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/code-quality-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/code-quality-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/code-quality-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/cross-platform</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/cross-platform</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/cross-platform-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/cross-platform-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/cross-platform-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/cross-platform-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/design-system</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/design-system</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/design-system-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/design-system-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/design-system-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/design-system-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/monorepo</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/monorepo</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/monorepo-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/monorepo-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/monorepo-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/monorepo-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/node-bff</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/node-bff</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/node-bff-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/node-bff-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/node-bff-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/node-bff-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/react</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/react</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/react-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/react-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/react-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/react-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/vue</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/vue</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/vue-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/vue-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/engineering/vue-interview</loc>
+    <loc>https://rendongping.github.io/jgs/engineering/vue-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/browser</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/browser</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/browser-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/browser-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/browser-interview</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/browser-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/javascript</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/javascript</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/javascript-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/javascript-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/javascript-interview</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/javascript-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/network</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/network</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/network-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/network-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/network-interview</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/network-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/security</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/security</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/security-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/security-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/security-interview</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/security-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/typescript</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/typescript</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/typescript-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/typescript-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/foundation/typescript-interview</loc>
+    <loc>https://rendongping.github.io/jgs/foundation/typescript-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/guide/getting-started</loc>
+    <loc>https://rendongping.github.io/jgs/guide/getting-started</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/guide/knowledge-map</loc>
+    <loc>https://rendongping.github.io/jgs/guide/knowledge-map</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/guide/learning-routes</loc>
+    <loc>https://rendongping.github.io/jgs/guide/learning-routes</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/guide/self-assessment</loc>
+    <loc>https://rendongping.github.io/jgs/guide/self-assessment</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/guide/workflow</loc>
+    <loc>https://rendongping.github.io/jgs/guide/workflow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/leadership/business</loc>
+    <loc>https://rendongping.github.io/jgs/leadership/business</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/leadership/business-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/leadership/business-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/leadership/business-interview</loc>
+    <loc>https://rendongping.github.io/jgs/leadership/business-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/leadership/strategy</loc>
+    <loc>https://rendongping.github.io/jgs/leadership/strategy</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/leadership/strategy-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/leadership/strategy-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/leadership/strategy-interview</loc>
+    <loc>https://rendongping.github.io/jgs/leadership/strategy-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/leadership/team</loc>
+    <loc>https://rendongping.github.io/jgs/leadership/team</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/leadership/team-exercises</loc>
+    <loc>https://rendongping.github.io/jgs/leadership/team-exercises</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/leadership/team-interview</loc>
+    <loc>https://rendongping.github.io/jgs/leadership/team-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/resources/architect-workflow</loc>
+    <loc>https://rendongping.github.io/jgs/resources/architect-workflow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/resources/glossary</loc>
+    <loc>https://rendongping.github.io/jgs/resources/glossary</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/resources/project-handbook</loc>
+    <loc>https://rendongping.github.io/jgs/resources/project-handbook</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/resources/resources</loc>
+    <loc>https://rendongping.github.io/jgs/resources/resources</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/resources/tech-radar</loc>
+    <loc>https://rendongping.github.io/jgs/resources/tech-radar</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/templates/adr</loc>
+    <loc>https://rendongping.github.io/jgs/templates/adr</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/templates/code-review</loc>
+    <loc>https://rendongping.github.io/jgs/templates/code-review</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/templates/performance-sop</loc>
+    <loc>https://rendongping.github.io/jgs/templates/performance-sop</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/templates/tech-debt</loc>
+    <loc>https://rendongping.github.io/jgs/templates/tech-debt</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://your-org.github.io/frontend-architect-knowledge/templates/tech-selection</loc>
+    <loc>https://rendongping.github.io/jgs/templates/tech-selection</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

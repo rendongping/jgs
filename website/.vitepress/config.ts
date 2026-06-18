@@ -16,7 +16,7 @@ export default defineConfig({
   lang: 'zh-CN',
   title: '前端架构师知识库',
   description: '从初级到架构师的系统化前端学习资料库，覆盖基础、工程化、架构、领导力四大层级。',
-  base: '/frontend-architect-knowledge/',
+  base: '/jgs/',
   cleanUrls: true,
   lastUpdated: true,
 
@@ -48,7 +48,7 @@ export default defineConfig({
     sidebar,
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/your-org/frontend-architect-knowledge' }
+      { icon: 'github', link: 'https://github.com/rendongping/jgs' }
     ],
 
     footer: {
@@ -94,7 +94,7 @@ export default defineConfig({
     lastUpdatedText: '更新时间',
 
     editLink: {
-      pattern: 'https://github.com/your-org/frontend-architect-knowledge/edit/master/website/:path',
+      pattern: 'https://github.com/rendongping/jgs/edit/master/website/:path',
       text: '在 GitHub 上编辑此页'
     }
   },

@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const rootDir = path.resolve(__dirname, '../../../');
 const websiteDir = path.resolve(__dirname, '../../');
-const siteBaseUrl = 'https://your-org.github.io/frontend-architect-knowledge';
+const siteBaseUrl = 'https://rendongping.github.io/jgs';
 
 const md = new MarkdownIt({ html: true, breaks: false, linkify: false });
 
