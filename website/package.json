@@ -1,0 +1,18 @@
+{
+  "name": "frontend-architect-website",
+  "version": "1.0.0",
+  "description": "前端架构师知识图谱增强型静态网站",
+  "type": "module",
+  "scripts": {
+    "sync": "node .vitepress/scripts/sync-content.mjs && node .vitepress/scripts/generate-sidebar.mjs",
+    "dev": "npm run sync && vitepress dev",
+    "build": "npm run sync && vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "echarts": "^5.5.0",
+    "markdown-it": "^14.2.0",
+    "vitepress": "^1.3.4",
+    "vue": "^3.4.0"
+  }
+}

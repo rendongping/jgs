@@ -1,0 +1,407 @@
+# 跨端技术练习册
+
+## 一、选择题
+
+### 1. 下列哪个跨端方案使用自绘引擎？
+
+A. React Native
+B. Flutter
+C. Cordova
+D. Taro
+
+**答案：B**
+
+**解析：** Flutter 使用 Skia/Impeller 自绘引擎，不依赖平台原生组件。
+
+---
+
+### 2. 微信小程序采用什么线程模型？
+
+A. 单线程
+B. 双线程
+C. 多线程
+D. 无线程
+
+**答案：B**
+
+**解析：** 微信小程序采用双线程模型：逻辑层（JavaScriptCore）和渲染层（WebView）。
+
+---
+
+### 3. Electron 中负责渲染前端页面的进程称为？
+
+A. 主进程
+B. 渲染进程
+C. GPU 进程
+D. 工作进程
+
+**答案：B**
+
+**解析：** Electron 中渲染进程负责运行前端页面，主进程负责应用生命周期和原生能力。
+
+---
+
+### 4. React Native 新架构中，允许 JS 直接调用 C++ 的接口是？
+
+A. Bridge
+B. JSI
+C. Fabric
+D. TurboModules
+
+**答案：B**
+
+**解析：** JSI（JavaScript Interface）允许 JS 直接持有 C++ 对象引用，减少 Bridge 通信开销。
+
+---
+
+### 5. 下列哪个框架使用 Vue 语法开发跨端应用？
+
+A. Taro
+B. React Native
+C. Flutter
+D. Electron
+
+**答案：A**
+
+**解析：** Taro 支持 React/Vue/Nerv 语法，UniApp 也使用 Vue 语法。
+
+---
+
+## 二、填空题
+
+### 6. 跨端方案主要分为 WebView 方案、______ 渲染方案和自绘引擎方案。
+
+**答案：原生**
+
+**解析：** 三类主流跨端方案是 WebView、原生渲染和自绘引擎。
+
+---
+
+### 7. 微信小程序的页面结构文件是 ______。
+
+**答案：WXML**
+
+**解析：** 微信小程序使用 WXML 作为页面结构文件，类似 HTML。
+
+---
+
+### 8. React Native 使用 ______ 编写业务逻辑。
+
+**答案：JavaScript / React**
+
+**解析：** React Native 使用 JavaScript/JSX/React 编写业务逻辑，UI 由原生组件渲染。
+
+---
+
+### 9. Electron 中主进程和渲染进程通过 ______ 通信。
+
+**答案：IPC**
+
+**解析：** Electron 中主进程与渲染进程通过 IPC（进程间通信）机制通信。
+
+---
+
+### 10. Tauri 使用 ______ 语言编写后端，打包体积比 Electron 小很多。
+
+**答案：Rust**
+
+**解析：** Tauri 使用 Web 前端 + Rust 后端，相比 Electron 大幅减小包体积。
+
+---
+
+## 三、代码分析题
+
+### 11. 分析以下 Taro 条件编译代码：
+
+```jsx
+{/* #ifdef H5 */}
+<View>H5 平台</View>
+{/* #endif */}
+{/* #ifdef MP-WEIXIN */}
+<View>微信小程序</View>
+{/* #endif */}
+```
+
+**答案与解析：**
+
+- `#ifdef H5` 表示只在 H5 平台编译
+- `#ifdef MP-WEIXIN` 表示只在微信小程序平台编译
+- 条件编译用于处理平台特定逻辑
+
+---
+
+### 12. 分析以下 UniApp 页面代码：
+
+```vue
+<template>
+  <view>
+    <text>&#123;&#123; title &#125;&#125;</text>
+  </view>
+</template>
+
+<script>
+export default {
+  data() {
+    return { title: 'Hello UniApp' };
+  }
+};
+</script>
+```
+
+**答案与解析：**
+
+- 使用 UniApp 的 `view` 和 `text` 组件
+- `data` 返回响应式数据
+- 编译后会对应到各平台的原生组件
+
+---
+
+### 13. 分析以下 Flutter Widget：
+
+```dart
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(child: Text('Hello Flutter')),
+      ),
+    );
+  }
+}
+```
+
+**答案与解析：**
+
+- `StatelessWidget` 是无状态组件
+- `MaterialApp` 提供 Material Design 风格
+- `Scaffold` 提供基本页面结构
+- `Center` 和 `Text` 是常用 Widget
+
+---
+
+## 四、编程实践题
+
+### 14. 编写一个 React Native 基础组件。
+
+**答案：**
+
+```javascript
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Hello React Native</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  text: {
+    fontSize: 20
+  }
+});
+```
+
+**解析：**
+
+- 使用 React Native 提供的 View 和 Text 组件
+- `StyleSheet.create` 创建样式
+- 样式属性与 CSS 类似但使用驼峰命名
+
+---
+
+### 15. 编写一个微信小程序页面。
+
+**答案：**
+
+```xml
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <text>&#123;&#123; message &#125;&#125;</text>
+  <button bindtap="handleTap">Click</button>
+</view>
+```
+
+```js
+// pages/index/index.js
+Page({
+  data: {
+    message: 'Hello Mini Program'
+  },
+  handleTap() {
+    this.setData({ message: 'Clicked!' });
+  }
+});
+```
+
+**解析：**
+
+- WXML 中绑定数据使用 `&#123;&#123; &#125;&#125;`
+- JS 中 `data` 定义页面数据
+- `setData` 更新数据并触发渲染
+- `bindtap` 绑定点击事件
+
+---
+
+### 16. 编写一个 Electron 主进程和渲染进程通信的示例。
+
+**答案：**
+
+```javascript
+// main.js
+const { app, BrowserWindow, ipcMain } = require('electron');
+
+ipcMain.on('get-message', (event) => {
+  event.reply('reply-message', 'Hello from Main');
+});
+```
+
+```javascript
+// renderer.js
+const { ipcRenderer } = require('electron');
+
+ipcRenderer.send('get-message');
+ipcRenderer.on('reply-message', (event, message) => {
+  console.log(message);
+});
+```
+
+**解析：**
+
+- 渲染进程通过 `ipcRenderer.send` 发送消息
+- 主进程通过 `ipcMain.on` 监听并回复
+- 渲染进程通过 `ipcRenderer.on` 接收回复
+
+---
+
+### 17. 编写一个 Taro 页面组件。
+
+**答案：**
+
+```jsx
+import { View, Text, Button } from '@tarojs/components';
+import { useState } from 'react';
+
+export default function Index() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <View>
+      <Text>Count: {count}</Text>
+      <Button onClick={() => setCount(count + 1)}>Add</Button>
+    </View>
+  );
+}
+```
+
+**解析：**
+
+- 使用 Taro 提供的跨端组件
+- 使用 React Hooks 管理状态
+- 编译后可运行在微信小程序、H5 等平台上
+
+---
+
+### 18. 说明小程序双线程模型中 setData 的作用和注意事项。
+
+**答案：**
+
+作用：
+
+- `setData` 把逻辑层的数据发送到渲染层
+- 渲染层根据新数据更新页面
+
+注意事项：
+
+- 避免频繁调用 setData
+- 不要一次传输大量数据
+- 只传需要变化的数据
+- 避免在滚动等高频事件中 setData
+
+**解析：**
+
+setData 是小程序逻辑层和渲染层通信的桥梁。不合理使用会导致性能问题。
+
+---
+
+### 19. 编写一个 Flutter 计数器应用。
+
+**答案：**
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: CounterPage());
+  }
+}
+
+class CounterPage extends StatefulWidget {
+  @override
+  _CounterPageState createState() => _CounterPageState();
+}
+
+class _CounterPageState extends State<CounterPage> {
+  int _count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Counter')),
+      body: Center(child: Text('$_count', style: TextStyle(fontSize: 40))),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => setState(() => _count++),
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
+**解析：**
+
+- `StatefulWidget` 管理状态
+- `setState` 更新 UI
+- `Scaffold` 提供基础页面结构
+
+---
+
+### 20. 如何根据业务需求选择合适的跨端方案？
+
+**答案：**
+
+选型维度：
+
+- 目标平台：移动端、小程序、桌面端、Web
+- 性能要求：是否接近原生
+- 团队技术栈：React、Vue、Dart、原生
+- 生态成熟度：第三方库、社区支持
+- 维护成本：长期迭代可行性
+
+示例：
+
+- 微信小程序：Taro / UniApp / 原生
+- 跨平台 App：Flutter / React Native
+- 桌面应用：Electron / Tauri
+- 快速多端覆盖：Taro / UniApp
+
+**解析：**
+
+跨端方案没有绝对最好，只有最适合。需要综合考虑业务需求、团队能力和长期维护成本。
+
+---
+
+> **领域编号**：E08 跨端技术  
+> **最后更新**：2026-06-18

@@ -1,0 +1,585 @@
+# Monorepo 学习文档
+
+---
+
+## 核心要点（TL;DR）
+
+- Monorepo 通过统一仓库实现代码共享、原子提交与规范统一，适合高协作、高复用场景，但需治理以避免构建与权限失控。
+- pnpm workspace 轻量易上手，Turborepo 强在任务调度与远程缓存，Nx/Rush 适合大型/超大型仓库。
+- 依赖管理要避免幽灵依赖与循环依赖，通过 workspace 协议与根目录统一 dev 依赖减少版本碎片化。
+- Changesets 是现代 Monorepo 版本与 changelog 管理的事实标准，CI 中应只构建 affected 项目。
+- TypeScript Project References、统一测试框架与 CODEOWNERS 是大型 Monorepo 高效运转的基础设施。
+
+## 学习时长与前置知识
+
+- **建议学习时长**：1-2 周（每周投入 6-8 小时）
+- **前置知识**：包管理器（npm/pnpm/yarn）、构建工具基础
+
+## 一、前言：代码仓库的两种活法
+
+想象你是一家连锁餐饮集团的技术负责人。集团旗下有汉堡品牌、奶茶品牌、披萨品牌，每个品牌都需要点餐小程序、会员系统、后台管理。现在有两种管理方式：
+
+**第一种（Polyrepo，多仓库）**：每个品牌甚至每个项目都建一个独立仓库。汉堡小程序一个仓库，奶茶小程序一个仓库，会员系统一个仓库。每个仓库有自己的依赖、自己的构建流程、自己的发布节奏。
+
+**第二种（Monorepo，单仓库）**：把所有相关项目都放在同一个仓库里管理。它们共享一套工具链、一套规范，代码可以互相引用。
+
+这两种方式没有绝对的好坏，只有适不适合。理解它们的差异、适用场景和实现方案，是前端工程师走向工程化管理的必修课。
+
+## 二、Monorepo vs Polyrepo
+
+### 2.1 Polyrepo 的特点
+
+Polyrepo 是传统的"一个项目一个仓库"模式。它的优点很直观：
+
+- **隔离性强**：每个项目独立演进，互不影响
+- **权限简单**：可以精确控制谁能访问哪个仓库
+- **工具简单**：每个仓库用自己的构建工具和发布流程
+
+但缺点也很明显：
+
+- **代码复用困难**：公共组件或工具库需要发布到 npm，其他项目再安装
+- **版本管理复杂**：A 项目升级了公共库，B 项目可能还停留在旧版本
+- **重复配置**：每个仓库都要配 ESLint、Prettier、Jest、CI/CD
+- **跨项目重构困难**：改一个公共 API 要改十几个仓库
+
+### 2.2 Monorepo 的特点
+
+Monorepo 把多个相关项目放在同一个仓库中。它的优势：
+
+- **代码共享方便**：公共模块直接引用，无需发布 npm
+- **原子化提交**：一次提交可以同时修改多个项目，保证一致性
+- **统一规范**：一套 ESLint、Prettier、CI/CD 配置管所有项目
+- **跨项目重构成本低**：改公共 API 只需改一处
+- **构建缓存复用**：Turborepo/Nx 等工具可以缓存任务结果
+
+缺点：
+
+- **仓库体积大**：项目多了之后，git 操作会变慢
+- **权限控制复杂**：不同团队可能访问不同目录
+- **构建耦合**：一个公共模块改动，可能触发大量项目的构建
+- **工具链要求高**：需要专门的 Monorepo 工具管理依赖和任务
+
+### 2.3 如何选择？
+
+生活化比喻：Polyrepo 像是每人住一套公寓，独立自由但家具（配置）要各自买；Monorepo 像是一家人住一栋别墅，共享客厅厨房，生活方便但隐私和规矩更多。
+
+适合 Monorepo 的场景：
+
+- 多个项目共享大量代码（组件库、工具函数、配置）
+- 需要频繁跨项目协作和重构
+- 希望统一技术栈和工程规范
+- 团队规模较大，需要统一的发布和版本管理
+
+适合 Polyrepo 的场景：
+
+- 项目之间关联度低
+- 团队完全独立，各自为政
+- 对权限隔离要求很高
+- 项目技术栈差异很大
+
+## 三、Monorepo 方案对比
+
+### 3.1 pnpm workspace
+
+pnpm workspace 是最轻量的 Monorepo 方案。它利用 pnpm 的软链接机制，把多个包放在同一个仓库中管理。
+
+目录结构：
+
+```
+my-monorepo/
+├── package.json
+├── pnpm-workspace.yaml
+├── packages/
+│   ├── ui/
+│   ├── utils/
+│   └── app/
+```
+
+`pnpm-workspace.yaml`：
+
+```yaml
+packages:
+  - 'packages/*'
+```
+
+优点：
+
+- 上手简单，零配置或少量配置
+- 依赖去重，节省磁盘空间
+- 天然支持 workspace 协议（`workspace:*`）
+
+缺点：
+
+- 缺少任务编排和构建缓存
+- 大型仓库需要配合 Turborepo/Nx 使用
+
+### 3.2 Nx
+
+Nx 是一个功能强大的 Monorepo 工具，起源于 Angular 生态，现在支持 React、Vue、Node 等多种技术栈。
+
+核心特性：
+
+- **Affected Commands**：只构建受改动影响的项目
+- **Task Pipeline**：定义任务之间的依赖关系
+- **Distributed Caching**：分布式构建缓存
+- **Code Generation**：代码生成器，快速创建项目模板
+
+```json
+// nx.json
+{
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
+    }
+  }
+}
+```
+
+优点：功能全面，适合大型企业级项目。
+
+缺点：学习曲线陡峭，配置较重。
+
+### 3.3 Turborepo
+
+Turborepo 是 Vercel 推出的 Monorepo 任务调度工具。它的口号是"Never run the same command twice"（永远不要让同样的命令跑两次），核心优势是构建缓存和任务并行。
+
+```json
+// turbo.json
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "test": {
+      "dependsOn": ["build"]
+    }
+  }
+}
+```
+
+优点：
+
+- 配置简单，与 pnpm/yarn/npm workspace 配合良好
+- 远程缓存（Remote Caching）可以团队共享构建结果
+- 任务并行执行，速度快
+
+缺点：主要解决任务编排，不解决依赖管理，需要配合包管理器使用。
+
+### 3.4 Rush
+
+Rush 是微软开源的 Monorepo 解决方案，强调"可扩展"和"严格"。它有自己独立的包管理器 Rush Stack，对依赖版本、发布流程有严格控制。
+
+优点：
+
+- 适合超大型仓库
+- 严格的依赖和版本管理
+- 支持"批量发布"和"变更日志自动生成"
+
+缺点：
+
+- 生态相对小众
+- 学习和迁移成本高
+
+### 3.5 方案对比总结
+
+| 方案 | 复杂度 | 构建缓存 | 任务编排 | 依赖管理 | 适用规模 |
+|------|--------|----------|----------|----------|----------|
+| pnpm workspace | 低 | 无 | 无 | 强 | 中小型 |
+| Turborepo | 中 | 强 | 强 | 依赖包管理器 | 中大型 |
+| Nx | 高 | 强 | 强 | 强 | 大型 |
+| Rush | 高 | 中 | 中 | 很强 | 超大型 |
+
+## 四、依赖管理
+
+### 4.1 根目录依赖 vs 子包依赖
+
+在 Monorepo 中，依赖可以放在根目录的 `package.json`，也可以放在各个子包的 `package.json`。
+
+- **根目录依赖**：通用的开发工具，如 TypeScript、ESLint、Jest
+- **子包依赖**：该包运行时真正需要的依赖
+
+```json
+// 根 package.json
+{
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0"
+  }
+}
+
+// packages/ui/package.json
+{
+  "dependencies": {
+    "react": "^18.0.0"
+  }
+}
+```
+
+### 4.2 Workspace 协议
+
+pnpm/yarn 支持 `workspace:*` 协议，表示引用同一个 workspace 下的包。
+
+```json
+{
+  "dependencies": {
+    "@myorg/utils": "workspace:*"
+  }
+}
+```
+
+发布到 npm 时，工具会自动把它替换成具体的版本号。
+
+### 4.3 依赖冲突与幽灵依赖
+
+Monorepo 中容易出现两个子包依赖同一个库的不同版本。pnpm 通过严格依赖隔离（不提升依赖）有效避免了"幽灵依赖"问题——即某个包没有声明依赖却可以使用上层安装的依赖。
+
+## 五、版本发布
+
+### 5.1 固定版本 vs 独立版本
+
+- **固定版本（Fixed/Locked）**：所有子包统一版本号，如 Babel 的 `7.x.x`
+- **独立版本（Independent）**：每个子包单独发版，如 Lerna 的 independent 模式
+
+### 5.2 Changesets
+
+Changesets 是现代 Monorepo 常用的版本管理工具。开发者提交代码时同时提交一个 "changeset" 文件，记录改了哪些包、是 major/minor/patch 哪种变更。发布时，工具自动计算版本号、生成 changelog、打 tag。
+
+```bash
+pnpm changeset
+pnpm changeset version
+pnpm changeset publish
+```
+
+## 六、代码共享与构建缓存
+
+### 6.1 代码共享的正确姿势
+
+- 把公共逻辑拆成独立的子包
+- 明确包的职责边界，避免循环依赖
+- 使用 TypeScript 项目引用（Project References）加速类型检查
+
+### 6.2 构建缓存
+
+构建缓存是 Monorepo 提效的关键。以 Turborepo 为例：
+
+```json
+{
+  "pipeline": {
+    "build": {
+      "outputs": ["dist/**", ".next/**"]
+    }
+  }
+}
+```
+
+如果输入文件没有变化，Turborepo 会直接复用上一次的构建产物，不需要重新执行命令。远程缓存更是让团队成员共享构建结果。
+
+## 七、常见误区与最佳实践
+
+### 误区一：Monorepo 就是简单地把项目放一个仓库
+
+如果只是物理上合并，没有统一的依赖管理、任务调度和代码规范，那只会把问题放大。
+
+### 误区二：所有项目都适合 Monorepo
+
+关联度低的项目硬塞到一个仓库，会增加管理和构建成本。
+
+### 误区三：忽视构建性能
+
+Monorepo 仓库大了之后，全量构建会很慢。必须引入 Affected Commands 和构建缓存。
+
+### 最佳实践
+
+1. 中小型 Monorepo：pnpm workspace + Turborepo
+2. 大型 Monorepo：Nx 或 Rush
+3. 公共包使用 TypeScript 项目引用
+4. 使用 Changesets 管理版本和发布
+5. 配置 Husky + lint-staged 保证提交质量
+6. CI 中只构建和测试受改动影响的项目
+
+## 八、总结
+
+Monorepo 不是银弹，而是一种在特定场景下能极大提升效率的代码组织方式。理解它与 Polyrepo 的差异，掌握 pnpm workspace、Turborepo、Nx、Rush 等工具的特点，关注依赖管理、版本发布、代码共享和构建缓存，才能真正发挥 Monorepo 的价值。
+
+## 九、Monorepo 中的依赖版本管理
+
+### 9.1 统一依赖版本
+
+在 Monorepo 中，如果不同子包依赖同一个库的不同版本，可能会导致运行时冲突或打包冗余。因此，通常建议在根目录统一指定常用依赖的版本。
+
+```json
+// 根 package.json
+{
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}
+```
+
+子包可以通过 `"typescript": "workspace:*"` 或 `"typescript": "^5.0.0"` 引用。使用 workspace 协议可以避免版本碎片化。
+
+### 9.2 幽灵依赖的危害
+
+幽灵依赖（Phantom Dependencies）是指某个包没有声明依赖，却可以使用 node_modules 中其他包安装的依赖。这在 npm/yarn 的经典模式下很常见。
+
+pnpm 通过严格的依赖隔离，每个包只能访问自己声明的依赖，有效避免了这个问题。这也是很多团队选择 pnpm workspace 的重要原因。
+
+### 9.3 循环依赖
+
+Monorepo 中容易出现 A 包依赖 B 包，B 包又依赖 A 包的情况。循环依赖会导致构建失败或运行时问题。
+
+解决方法：
+
+- 重新审视包的职责边界
+- 把公共部分抽成第三个包
+- 使用依赖注入或事件机制解耦
+
+## 十、Monorepo 中的任务调度
+
+### 10.1 为什么需要任务调度？
+
+Monorepo 中有多个子包，每个子包可能有 build、test、lint 等脚本。手动逐个执行效率低下，而且需要处理依赖顺序。任务调度工具可以：
+
+- 自动识别任务依赖
+- 并行执行无依赖的任务
+- 缓存任务结果，避免重复执行
+
+### 10.2 Turborepo Pipeline 详解
+
+```json
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "test": {
+      "dependsOn": ["build"]
+    },
+    "lint": {}
+  }
+}
+```
+
+`dependsOn: ["^build"]` 表示当前包的 build 任务依赖其依赖包的 build 任务。`^` 符号表示上游依赖。
+
+### 10.3 Affected Commands
+
+Nx 和 Turborepo 都支持 affected commands，只构建和测试受代码改动影响的项目。
+
+```bash
+# Turborepo
+npx turbo run build --filter=[HEAD^1]
+
+# Nx
+nx affected:build
+```
+
+这在大型 Monorepo 中非常重要，可以大幅减少 CI 时间。
+
+## 十一、Monorepo 的版本发布实战
+
+### 11.1 使用 Changesets 管理版本
+
+Changesets 是现代 Monorepo 版本管理的事实标准。它的工作流程：
+
+1. 开发者提交代码时，运行 `pnpm changeset` 生成一个 changeset 文件
+2. changeset 文件记录修改了哪些包、变更类型（major/minor/patch）
+3. 发布时运行 `pnpm changeset version` 自动 bump 版本、生成 changelog
+4. 最后运行 `pnpm changeset publish` 发布到 npm
+
+### 11.2 自动化发布流程
+
+可以结合 GitHub Actions 实现自动发布：
+
+```yaml
+name: Release
+on:
+  push:
+    branches: [main]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - name: Create Release Pull Request
+        uses: changesets/action@v1
+        with:
+          publish: npm run release
+```
+
+## 十二、Monorepo 最佳实践总结
+
+1. 根目录统一管理开发依赖和工具配置
+2. 子包职责单一，避免循环依赖
+3. 使用 workspace 协议引用内部包
+4. 使用 Turborepo/Nx 进行任务调度和缓存
+5. 使用 Changesets 管理版本和发布
+6. CI 中只运行 affected 任务
+7. 建立统一的代码规范和提交规范
+
+## 十三、Monorepo 中的 TypeScript 项目引用
+
+### 13.1 为什么需要项目引用
+
+在 Monorepo 中，如果每个子包都独立进行类型检查，不仅慢，还可能出现类型不一致。TypeScript 的 Project References 可以建立包之间的编译依赖关系。
+
+```json
+// packages/utils/tsconfig.json
+{
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "./dist"
+  }
+}
+
+// packages/app/tsconfig.json
+{
+  "references": [
+    { "path": "../utils" }
+  ]
+}
+```
+
+### 13.2 增量编译
+
+启用 `incremental` 后，TypeScript 会生成 `.tsbuildinfo` 文件，下次编译只检查变化的文件。
+
+## 十四、Monorepo 中的测试策略
+
+### 14.1 统一测试框架
+
+在 Monorepo 中，建议在根目录统一安装和配置测试框架，子包只需要写测试用例。
+
+```json
+// 根 package.json
+{
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run"
+  }
+}
+```
+
+### 14.2 测试范围控制
+
+使用 `--changed` 或 affected 命令只运行受改动影响的测试，避免全量测试浪费时间。
+
+## 十五、Monorepo 中的文档站点
+
+### 15.1 统一文档
+
+Monorepo 适合维护统一的文档站点。可以用 VitePress、Docusaurus 等工具搭建。
+
+### 15.2 文档与代码同步
+
+文档应该和代码放在同一个仓库，方便随代码一起更新。每个子包的 README 应该说明安装、使用和 API。
+
+## 十六、Monorepo 迁移指南
+
+### 16.1 迁移前的评估
+
+迁移到 Monorepo 前要考虑：
+
+- 当前项目之间的依赖关系
+- 团队是否接受新的工作方式
+- 工具链是否支持
+- 迁移成本和收益
+
+### 16.2 渐进式迁移
+
+不建议一次性迁移所有项目。可以先从最相关、最依赖公共代码的几个项目开始，逐步扩大范围。
+
+### 16.3 迁移后的治理
+
+迁移只是开始，更重要的是建立治理机制：
+
+- 明确每个包的职责
+- 制定代码贡献规范
+- 定期审查依赖关系
+- 持续优化构建和发布流程
+
+## 十七、总结
+
+Monorepo 是现代大型前端项目的重要组织方式。它通过统一的仓库管理多个相关项目，实现代码共享、规范统一和构建优化。但它也带来了仓库体积、构建耦合、权限管理等挑战。只有选择合适的工具（pnpm workspace、Turborepo、Nx、Rush），建立良好的依赖管理、版本发布和任务调度机制，才能真正发挥 Monorepo 的优势。
+
+## 十八、Monorepo 中的代码复用模式
+
+### 18.1 共享工具函数
+
+把常用的工具函数放到 `packages/utils` 中，各业务项目直接引用。
+
+```javascript
+// packages/utils/src/formatDate.js
+export function formatDate(date) {
+  return new Intl.DateTimeFormat('zh-CN').format(date);
+}
+```
+
+### 18.2 共享组件库
+
+组件库是 Monorepo 最常见的共享形式。通过 Storybook 文档化，通过 npm 发布版本。
+
+### 18.3 共享配置
+
+把 ESLint、Prettier、TypeScript、Tailwind 等配置抽成独立的 config 包。
+
+```json
+{
+  "extends": ["@myorg/eslint-config"]
+}
+```
+
+## 十九、Monorepo 中的权限与治理
+
+### 19.1 CODEOWNERS
+
+通过 `CODEOWNERS` 文件指定目录的负责人。
+
+```
+/packages/ui @team-ui
+/packages/api @team-backend
+```
+
+### 19.2 分支保护
+
+为 main 分支设置保护规则，要求 PR Review 和 CI 通过后才能合并。
+
+### 19.3 定期审计
+
+定期审查 Monorepo 中的依赖关系、包体积和构建时间，及时发现和解决问题。
+
+## 二十、Monorepo 中的文档与沟通
+
+### 20.1 统一文档
+
+维护一个根目录的 README，说明仓库结构、开发流程、常用命令。
+
+### 20.2 子包文档
+
+每个子包都应该有自己的 README，说明用途、安装方式和 API。
+
+### 20.3 变更日志
+
+使用 Changesets 自动生成变更日志，让使用者了解每个版本的变化。
+
+## 二十一、总结
+
+Monorepo 是一种强大的代码组织方式，尤其适合需要高度协作和代码共享的团队。但它不是免费的午餐，需要投入时间和精力进行治理。通过选择合适的工具、建立清晰的规范、持续优化构建和发布流程，Monorepo 能够成为团队效率的倍增器。
+
+---
+
+> **领域编号**：E02 Monorepo 工程管理  
+> **最后更新**：2026-06-18
+
+
+---
+
+## 本领域学习进度
+
+<MarkComplete domainId="monorepo" />
+<ProgressTracker />

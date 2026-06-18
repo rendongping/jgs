@@ -1,5 +1,7 @@
 # 前端架构师知识图谱与学习资料库
 
+[![Deploy to GitHub Pages](https://github.com/your-org/frontend-architect-knowledge/actions/workflows/deploy.yml/badge.svg)](https://github.com/your-org/frontend-architect-knowledge/actions/workflows/deploy.yml)
+
 > 本仓库按"前端架构师能力金字塔"四层模型，系统整理了从基础到架构、从技术到管理的完整学习资料。
 > 每个知识领域均包含：**学习文档**、**练习册**、**面试题**三部分，覆盖理论与实战。
 > 本知识库追求尽善尽美：即使是初级学员，也能按阶段循序渐进，最终成长为前端架构师。
@@ -204,6 +206,39 @@ level-04-leadership/       # 第四层：业务洞察 / 团队领导力 / 技术
 - **练习册**：24 份
 - **面试题**：24 份
 - **总文件数**：72 份学习资料 + 2 份规划索引 + 9 份规范/资源/手册文档 + 5 份工具模板 + 3 个综合案例 + 3 份学习路径文档 + 1 个检查脚本 + 4 个 GitHub 模板
+
+---
+
+## 在线访问
+
+增强型静态网站已部署至 GitHub Pages：
+
+🔗 **https://your-org.github.io/frontend-architect-knowledge/**
+
+网站特性：
+
+- 按四层金字塔组织的 24 个知识领域
+- 可视化知识依赖图
+- 在线能力自评表
+- 面试题折叠答案与掌握标记
+- 学习进度追踪
+- 本地全文搜索
+
+---
+
+## 本地开发
+
+网站源码位于 `website/` 目录，基于 [VitePress](https://vitepress.dev/) 构建。
+
+```bash
+cd website
+npm install
+npm run dev      # 启动本地开发服务器
+npm run build    # 构建生产站点
+npm run preview  # 预览构建产物
+```
+
+构建流程会先执行 `npm run sync`，将仓库根目录的学习资料自动同步到 `website/` 下，并生成侧边栏与站点地图。
 
 ---
 

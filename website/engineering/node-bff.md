@@ -1,0 +1,456 @@
+# E10 Node.js / BFF 服务端：前端架构师的服务端能力
+
+> 目标：掌握前端架构师必须的服务端能力，包括 Node.js 运行时、BFF 架构、SSR/SSG 服务、Serverless 与边缘计算。
+
+---
+
+## 核心要点（TL;DR）
+
+- Node.js 让前端工程师能用 JavaScript 写服务端，是前端向全栈和架构师进阶的必经之路。
+- BFF（Backend for Frontend）是前后端之间的适配层，解决多端接口聚合、数据适配、鉴权等问题。
+- SSR/SSG 服务是前端架构的重要组成，影响首屏性能、SEO 和用户体验。
+- Serverless 和 Edge Function 让前端能以更低成本运行服务端逻辑。
+- 服务端代码必须关注性能、安全、可观测性和错误处理，标准比前端更高。
+
+---
+
+## 学习时长与前置知识
+
+- **建议学习时长**：3-4 周（每周投入 6-8 小时）
+- **前置知识**：JavaScript、HTTP、基础后端概念
+
+## 一、为什么前端架构师必须懂 Node.js / BFF？
+
+### 1.1 前端架构的边界在扩展
+
+传统前端只负责浏览器里的界面，但现代前端架构已经扩展到：
+
+- **服务端渲染**（SSR/SSG）：首屏性能、SEO。
+- **BFF 层**：接口聚合、数据适配、鉴权。
+- **服务端状态**：缓存、会话、限流。
+- **构建时服务**：构建平台、部署流水线、边缘计算。
+
+如果前端架构师不懂服务端，就无法真正掌控用户体验的全链路。
+
+### 1.2 BFF 解决什么问题？
+
+假设后端有一个通用订单服务，返回完整订单数据。但不同端需求不同：
+
+| 端 | 需求 |
+|----|------|
+| PC | 展示完整订单详情 |
+| H5 | 只展示关键信息 |
+| 小程序 | 需要额外字段适配组件 |
+
+如果没有 BFF，后端会被迫为每端定制接口，导致：
+- 后端耦合严重
+- 前端拿到冗余数据
+- 多端需求互相影响
+
+BFF 在前后端之间加一层“面向前端的后端”，由各端或各业务领域维护。
+
+### 1.3 生活化比喻
+
+如果把后端比作**中央厨房**，前端比作**不同风格的餐厅**：
+
+- 中央厨房只做标准菜品（通用服务）。
+- 日式餐厅、西餐厅、快餐店（不同端）需要不同的摆盘和配料。
+- BFF 就是每个餐厅自己的**出餐台**，负责把标准菜品加工成顾客需要的样子。
+
+前端工程师最适合设计这个出餐台，因为最清楚顾客（用户）需要什么。
+
+---
+
+## 二、Node.js 运行时基础
+
+### 2.1 Node.js 是什么？
+
+Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时，让 JavaScript 可以脱离浏览器在服务器上运行。
+
+核心特点：
+- **单线程 + 事件驱动**：适合 I/O 密集型场景。
+- **非阻塞 I/O**：能处理大量并发连接。
+- **统一语言**：前后端都用 JavaScript/TypeScript，降低切换成本。
+
+### 2.2 事件循环（Node.js 版）
+
+浏览器和 Node.js 都有事件循环，但 Node.js 更复杂：
+
+```
+   ┌───────────────────────────┐
+┌─>│           timers            │  setTimeout/setInterval
+│  └─────────────┬─────────────┘
+│  ┌─────────────┴─────────────┐
+│  │     pending callbacks     │  系统级回调
+│  └─────────────┬─────────────┘
+│  ┌─────────────┴─────────────┐
+│  │       idle, prepare       │
+│  └─────────────┬─────────────┘
+│  ┌─────────────┴─────────────┐
+│  │           poll            │  主要执行 I/O 回调
+│  │     阻塞等待新 I/O        │
+│  └─────────────┬─────────────┘
+│  ┌─────────────┴─────────────┐
+│  │           check           │  setImmediate
+│  └─────────────┬─────────────┘
+│  ┌─────────────┴─────────────┐
+│  │      close callbacks      │  socket.close 等
+│  └───────────────────────────┘
+```
+
+前端工程师需要理解：
+- `process.nextTick` 和 `Promise.then` 属于微任务，优先级不同。
+- 不要把 CPU 密集型任务放到主线程，会阻塞事件循环。
+- I/O 密集型是 Node.js 的强项。
+
+### 2.3 模块系统
+
+Node.js 支持 CommonJS 和 ES Module：
+
+```js
+// CommonJS
+const fs = require('fs');
+module.exports = { foo };
+
+// ES Module
+import fs from 'fs';
+export { foo };
+```
+
+现代 Node.js 项目推荐：
+- 新代码用 ES Module（`"type": "module"`）。
+- 需要动态导入时用 `import()`。
+
+### 2.4 常用核心模块
+
+| 模块 | 用途 |
+|------|------|
+| `http` / `https` | 创建 HTTP 服务 |
+| `fs` | 文件系统操作 |
+| `path` | 路径处理 |
+| `os` | 操作系统信息 |
+| `cluster` | 多进程利用多核 |
+| `stream` | 流式数据处理 |
+| `child_process` | 子进程 |
+
+### 2.5 常用框架
+
+| 框架 | 特点 | 适用场景 |
+|------|------|---------|
+| Express | 最老牌、生态丰富、中间件模式 | 中小型项目、快速开发 |
+| Koa | 更现代、async/await 友好、轻量 | 需要高度定制的项目 |
+| Fastify | 高性能、Schema 验证、TypeScript 友好 | 性能要求高的项目 |
+| NestJS | 企业级、模块化、依赖注入 | 大型后端项目 |
+| Hono | 超轻量、边缘计算友好 | Edge Function、Serverless |
+
+---
+
+## 三、BFF 架构详解
+
+### 3.1 BFF 的核心职责
+
+```
+PC Web  →  PC-BFF  →
+H5      →  H5-BFF  →  通用后端服务（订单/用户/支付）
+小程序   →  小程序-BFF →
+```
+
+BFF 层负责：
+
+- **接口聚合**：一次请求聚合多个后端服务。
+- **数据适配**：把后端数据转成前端需要的格式。
+- **鉴权与限流**：统一处理登录态、权限、流控。
+- **缓存**：针对前端场景做缓存策略。
+- **协议转换**：REST ↔ GraphQL、HTTP ↔ gRPC。
+
+### 3.2 BFF 代码示例
+
+```typescript
+// H5-BFF /api/order-summary
+import express from 'express';
+import { orderService, userService } from './services';
+
+const app = express();
+
+app.get('/api/order-summary', async (req, res) => {
+  const order = await orderService.get(req.query.id as string);
+  const user = await userService.get(order.userId);
+
+  res.json({
+    title: `${user.name} 的订单`,
+    totalCount: order.items.length,
+    totalPrice: order.items.reduce((sum, item) => sum + item.price, 0),
+    statusText: STATUS_MAP[order.statusCode]
+  });
+});
+```
+
+### 3.3 BFF 的划分方式
+
+| 划分方式 | 说明 | 适用场景 |
+|----------|------|---------|
+| 按端划分 | PC-BFF、H5-BFF、小程序-BFF | 各端差异大 |
+| 按业务领域划分 | 订单 BFF、用户 BFF | 业务复杂、团队按领域划分 |
+| 混合划分 | 大团队按领域，小团队按端 | 多数公司实际情况 |
+
+### 3.4 BFF 的常见误区
+
+- **误区 1**：BFF 只是 API 转发。错，它的价值在于聚合和适配。
+- **误区 2**：一个前端团队一个 BFF。错，应该按业务领域或端来划分。
+- **误区 3**：所有请求都走 BFF。错，通用、稳定的接口可以直接调用。
+- **误区 4**：BFF 只做数据转换。错，它也承担鉴权、限流、缓存等职责。
+
+
+---
+
+## 四、SSR / SSG / ISR 服务
+
+### 4.1 客户端渲染（CSR）的问题
+
+传统 SPA 的问题是：
+- 首屏慢：需要下载 JS、执行、请求数据。
+- SEO 差：搜索引擎可能抓取不到内容。
+- 弱网体验差：空白时间长。
+
+### 4.2 SSR：服务端渲染
+
+```
+用户请求 → Node.js 服务端渲染 HTML → 返回完整 HTML → 浏览器 hydrate 为可交互应用
+```
+
+优点：
+- 首屏快
+- SEO 友好
+- 用户体验好
+
+缺点：
+- 服务端复杂度高
+- 需要处理 Node.js 特有的问题（内存、并发、缓存）
+
+### 4.3 SSG：静态站点生成
+
+构建时生成所有页面：
+
+```
+构建 → 生成静态 HTML → 部署到 CDN → 用户直接访问
+```
+
+优点：
+- 性能最好
+- 部署简单
+- 成本低
+
+缺点：
+- 不适合频繁变化的内容
+- 大型站点构建时间长
+
+### 4.4 ISR：增量静态再生
+
+结合 SSR 和 SSG 的优点：
+
+```
+首次请求：SSR 渲染并缓存
+后续请求：直接返回缓存
+间隔一定时间后：后台重新生成
+```
+
+Next.js 的 ISR 是典型代表。
+
+### 4.5 选型对比
+
+| 方案 | 首屏速度 | SEO | 实时性 | 复杂度 | 适用场景 |
+|------|---------|-----|--------|--------|---------|
+| CSR | 慢 | 差 | 高 | 低 | 后台系统、强交互应用 |
+| SSR | 快 | 好 | 高 | 高 | 内容站、电商、社交 |
+| SSG | 最快 | 最好 | 低 | 低 | 博客、文档、营销页 |
+| ISR | 快 | 好 | 中 | 中 | 新闻、商品详情页 |
+
+---
+
+## 五、Serverless 与 Edge Computing
+
+### 5.1 Serverless
+
+Serverless 让开发者只写函数，不用管理服务器：
+
+```typescript
+// Vercel Function 示例
+export default function handler(req, res) {
+  res.status(200).json({ message: 'Hello from Serverless' });
+}
+```
+
+优点：
+- 按需付费，无请求时几乎不花钱。
+- 自动扩缩容。
+- 部署简单。
+
+缺点：
+- 冷启动延迟。
+- 运行时长限制。
+- 本地调试复杂。
+
+### 5.2 Edge Function
+
+Edge Function 运行在 CDN 边缘节点，离用户更近：
+
+```typescript
+// Cloudflare Workers / Vercel Edge Function
+export default async function handler(request: Request) {
+  const url = new URL(request.url);
+  const country = request.headers.get('cf-ipcountry') || 'unknown';
+  return new Response(`Hello from ${country}`);
+}
+```
+
+适用场景：
+- A/B 测试
+- 地理位置个性化
+- 简单的 BFF 逻辑
+- 认证鉴权
+
+### 5.3 前端工程师的服务端选型
+
+| 场景 | 推荐方案 |
+|------|---------|
+| 简单 API、BFF | Node.js + Express/Fastify/Hono |
+| 全栈应用 | Next.js / Nuxt.js / Astro |
+| 轻量边缘逻辑 | Vercel Edge / Cloudflare Workers |
+| 重逻辑、长任务 | 传统 Node.js 服务 / Serverless 长运行 |
+
+---
+
+## 六、服务端工程化
+
+### 6.1 项目结构
+
+```
+server/
+├── src/
+│   ├── routes/          # 路由定义
+│   ├── controllers/     # 控制器
+│   ├── services/        # 业务逻辑
+│   ├── models/          # 数据模型
+│   ├── middlewares/     # 中间件
+│   ├── utils/           # 工具函数
+│   └── config/          # 配置
+├── tests/               # 测试
+├── Dockerfile           # 容器化
+└── docker-compose.yml
+```
+
+### 6.2 类型安全
+
+推荐用 TypeScript 写服务端，并共享前后端类型：
+
+```typescript
+// shared/types.ts
+export interface GetOrderRequest {
+  id: string;
+}
+
+export interface OrderSummary {
+  title: string;
+  totalPrice: number;
+  statusText: string;
+}
+```
+
+### 6.3 测试
+
+| 测试类型 | 工具 | 说明 |
+|----------|------|------|
+| 单元测试 | Jest / Vitest | 测试业务逻辑 |
+| 集成测试 | Supertest | 测试 API 接口 |
+| E2E 测试 | Playwright | 测试完整链路 |
+
+### 6.4 部署与运维
+
+- 使用 Docker 容器化。
+- 使用 CI/CD 自动构建和部署。
+- 使用 PM2 或 Kubernetes 管理进程。
+- 配置健康检查、日志、监控。
+
+---
+
+## 七、安全与性能
+
+### 7.1 服务端安全要点
+
+| 风险 | 防护 |
+|------|------|
+| SQL/NoSQL 注入 | 使用 ORM/参数化查询 |
+| XSS | 输出转义、Content Security Policy |
+| CSRF | Token 验证、SameSite Cookie |
+| 信息泄露 | 不返回堆栈信息、敏感数据脱敏 |
+| DDoS / 滥用 | 限流、验证码、WAF |
+| 权限绕过 | JWT 验证、RBAC 权限控制 |
+
+### 7.2 性能优化
+
+- **缓存**：Redis 缓存热点数据，CDN 缓存静态资源。
+- **连接池**：数据库连接池、HTTP Agent 连接池。
+- **压缩**：启用 gzip/brotli。
+- **流式响应**：大文件用 stream，避免内存爆炸。
+- **异步处理**：耗时任务放队列（Bull/BullMQ + Redis）。
+- **负载均衡**：多实例 + Nginx/反向代理。
+
+---
+
+## 八、最佳实践
+
+1. **BFF 不是后端的替代品**：它只做适配和聚合，复杂业务逻辑仍应由后端服务承担。
+2. **前后端共享类型**：减少接口联调成本，提升类型安全。
+3. **服务端代码也要写测试**：服务端的 Bug 影响面更大。
+4. **错误处理要健壮**：服务端的未捕获异常可能导致整个服务崩溃。
+5. **日志要结构化**：便于检索和监控。
+6. **监控比优化更重要**：先知道问题在哪，再优化。
+7. **谨慎使用同步阻塞操作**：Node.js 主线程阻塞会影响所有请求。
+
+---
+
+## 九、总结
+
+Node.js / BFF 是前端架构师能力版图的重要扩展：
+
+- **初级**：能用 Node.js 写简单脚本和 API。
+- **中级**：能搭建 BFF 服务，完成 SSR/SSG 配置。
+- **高级**：能设计服务端架构，权衡 CSR/SSR/SSG/ISR，处理高并发和安全问题。
+- **架构师**：能规划前后端协作边界，推动 Serverless/Edge 等新技术落地。
+
+掌握服务端能力，不是让前端变成后端，而是让前端能**更完整地对用户体验负责**。
+
+---
+
+## 十、延伸阅读与资源
+
+### 必读文章
+
+- 🟢 [Node.js 官方文档](https://nodejs.org/en/docs/)
+- 🟢 [BFF 模式详解](https://samnewman.io/patterns/architectural/bff/) — Sam Newman 经典文章。
+- 🟡 [SSR vs SSG vs ISR](https://nextjs.org/docs/pages/building-your-application/rendering) — Next.js 官方文档。
+
+### 书籍
+
+- 🟢 《Node.js 实战》
+- 🟡 《深入浅出 Node.js》— 朴灵
+- 🟡 《Designing Data-Intensive Applications》— Martin Kleppmann
+
+### 实践项目
+
+- 用 Express/Fastify 搭建一个 BFF 服务，聚合 2-3 个后端接口。
+- 用 Next.js 实现一个 SSR 应用，并部署到 Vercel。
+- 用 Cloudflare Workers 实现一个 Edge Function 做地理位置 A/B 测试。
+
+---
+
+> **领域编号**：E10 Node.js / BFF 服务端  
+> **最后更新**：2026-06-18
+
+
+---
+
+## 本领域学习进度
+
+<MarkComplete domainId="node-bff" />
+<ProgressTracker />

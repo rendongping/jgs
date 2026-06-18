@@ -1,0 +1,425 @@
+{
+  "/guide/": [
+    {
+      "text": "开始学习",
+      "items": [
+        {
+          "text": "快速开始",
+          "link": "/guide/getting-started"
+        },
+        {
+          "text": "知识依赖图",
+          "link": "/guide/knowledge-map"
+        },
+        {
+          "text": "能力自评",
+          "link": "/guide/self-assessment"
+        },
+        {
+          "text": "学习路线",
+          "link": "/guide/learning-routes"
+        },
+        {
+          "text": "架构师工作流",
+          "link": "/guide/workflow"
+        }
+      ]
+    }
+  ],
+  "/foundation/": [
+    {
+      "text": "Level 01 基础层",
+      "collapsed": false,
+      "items": [
+        {
+          "text": "浏览器原理",
+          "link": "/foundation/browser"
+        },
+        {
+          "text": "JavaScript 语言基础",
+          "link": "/foundation/javascript"
+        },
+        {
+          "text": "计算机网络",
+          "link": "/foundation/network"
+        },
+        {
+          "text": "Web 安全",
+          "link": "/foundation/security"
+        },
+        {
+          "text": "TypeScript 类型系统",
+          "link": "/foundation/typescript"
+        },
+        {
+          "text": "浏览器原理 — 练习册",
+          "link": "/foundation/browser-exercises"
+        },
+        {
+          "text": "JavaScript 语言基础 — 练习册",
+          "link": "/foundation/javascript-exercises"
+        },
+        {
+          "text": "计算机网络 — 练习册",
+          "link": "/foundation/network-exercises"
+        },
+        {
+          "text": "Web 安全 — 练习册",
+          "link": "/foundation/security-exercises"
+        },
+        {
+          "text": "TypeScript 类型系统 — 练习册",
+          "link": "/foundation/typescript-exercises"
+        },
+        {
+          "text": "浏览器原理 — 面试题",
+          "link": "/foundation/browser-interview"
+        },
+        {
+          "text": "JavaScript 语言基础 — 面试题",
+          "link": "/foundation/javascript-interview"
+        },
+        {
+          "text": "计算机网络 — 面试题",
+          "link": "/foundation/network-interview"
+        },
+        {
+          "text": "Web 安全 — 面试题",
+          "link": "/foundation/security-interview"
+        },
+        {
+          "text": "TypeScript 类型系统 — 面试题",
+          "link": "/foundation/typescript-interview"
+        }
+      ]
+    }
+  ],
+  "/engineering/": [
+    {
+      "text": "Level 02 工程化层",
+      "collapsed": false,
+      "items": [
+        {
+          "text": "AI 工程化",
+          "link": "/engineering/ai-engineering"
+        },
+        {
+          "text": "构建工具",
+          "link": "/engineering/build-tools"
+        },
+        {
+          "text": "CI/CD 与 DevOps",
+          "link": "/engineering/ci-cd"
+        },
+        {
+          "text": "代码质量与测试体系",
+          "link": "/engineering/code-quality"
+        },
+        {
+          "text": "跨端技术",
+          "link": "/engineering/cross-platform"
+        },
+        {
+          "text": "设计体系与组件库",
+          "link": "/engineering/design-system"
+        },
+        {
+          "text": "Monorepo 工程管理",
+          "link": "/engineering/monorepo"
+        },
+        {
+          "text": "Node.js / BFF 服务端",
+          "link": "/engineering/node-bff"
+        },
+        {
+          "text": "React 原理与生态",
+          "link": "/engineering/react"
+        },
+        {
+          "text": "Vue 原理与生态",
+          "link": "/engineering/vue"
+        },
+        {
+          "text": "AI 工程化 — 练习册",
+          "link": "/engineering/ai-engineering-exercises"
+        },
+        {
+          "text": "构建工具 — 练习册",
+          "link": "/engineering/build-tools-exercises"
+        },
+        {
+          "text": "CI/CD 与 DevOps — 练习册",
+          "link": "/engineering/ci-cd-exercises"
+        },
+        {
+          "text": "代码质量与测试体系 — 练习册",
+          "link": "/engineering/code-quality-exercises"
+        },
+        {
+          "text": "跨端技术 — 练习册",
+          "link": "/engineering/cross-platform-exercises"
+        },
+        {
+          "text": "设计体系与组件库 — 练习册",
+          "link": "/engineering/design-system-exercises"
+        },
+        {
+          "text": "Monorepo 工程管理 — 练习册",
+          "link": "/engineering/monorepo-exercises"
+        },
+        {
+          "text": "Node.js / BFF 服务端 — 练习册",
+          "link": "/engineering/node-bff-exercises"
+        },
+        {
+          "text": "React 原理与生态 — 练习册",
+          "link": "/engineering/react-exercises"
+        },
+        {
+          "text": "Vue 原理与生态 — 练习册",
+          "link": "/engineering/vue-exercises"
+        },
+        {
+          "text": "AI 工程化 — 面试题",
+          "link": "/engineering/ai-engineering-interview"
+        },
+        {
+          "text": "构建工具 — 面试题",
+          "link": "/engineering/build-tools-interview"
+        },
+        {
+          "text": "CI/CD 与 DevOps — 面试题",
+          "link": "/engineering/ci-cd-interview"
+        },
+        {
+          "text": "代码质量与测试体系 — 面试题",
+          "link": "/engineering/code-quality-interview"
+        },
+        {
+          "text": "跨端技术 — 面试题",
+          "link": "/engineering/cross-platform-interview"
+        },
+        {
+          "text": "设计体系与组件库 — 面试题",
+          "link": "/engineering/design-system-interview"
+        },
+        {
+          "text": "Monorepo 工程管理 — 面试题",
+          "link": "/engineering/monorepo-interview"
+        },
+        {
+          "text": "Node.js / BFF 服务端 — 面试题",
+          "link": "/engineering/node-bff-interview"
+        },
+        {
+          "text": "React 原理与生态 — 面试题",
+          "link": "/engineering/react-interview"
+        },
+        {
+          "text": "Vue 原理与生态 — 面试题",
+          "link": "/engineering/vue-interview"
+        }
+      ]
+    }
+  ],
+  "/architecture/": [
+    {
+      "text": "Level 03 架构层",
+      "collapsed": false,
+      "items": [
+        {
+          "text": "数据与状态管理",
+          "link": "/architecture/data-state"
+        },
+        {
+          "text": "微前端",
+          "link": "/architecture/micro-frontend"
+        },
+        {
+          "text": "可观测性与稳定性工程",
+          "link": "/architecture/observability"
+        },
+        {
+          "text": "性能工程",
+          "link": "/architecture/performance"
+        },
+        {
+          "text": "质量保障",
+          "link": "/architecture/quality"
+        },
+        {
+          "text": "系统架构设计",
+          "link": "/architecture/system-architecture"
+        },
+        {
+          "text": "数据与状态管理 — 练习册",
+          "link": "/architecture/data-state-exercises"
+        },
+        {
+          "text": "微前端 — 练习册",
+          "link": "/architecture/micro-frontend-exercises"
+        },
+        {
+          "text": "可观测性与稳定性工程 — 练习册",
+          "link": "/architecture/observability-exercises"
+        },
+        {
+          "text": "性能工程 — 练习册",
+          "link": "/architecture/performance-exercises"
+        },
+        {
+          "text": "质量保障 — 练习册",
+          "link": "/architecture/quality-exercises"
+        },
+        {
+          "text": "系统架构设计 — 练习册",
+          "link": "/architecture/system-architecture-exercises"
+        },
+        {
+          "text": "数据与状态管理 — 面试题",
+          "link": "/architecture/data-state-interview"
+        },
+        {
+          "text": "微前端 — 面试题",
+          "link": "/architecture/micro-frontend-interview"
+        },
+        {
+          "text": "可观测性与稳定性工程 — 面试题",
+          "link": "/architecture/observability-interview"
+        },
+        {
+          "text": "性能工程 — 面试题",
+          "link": "/architecture/performance-interview"
+        },
+        {
+          "text": "质量保障 — 面试题",
+          "link": "/architecture/quality-interview"
+        },
+        {
+          "text": "系统架构设计 — 面试题",
+          "link": "/architecture/system-architecture-interview"
+        }
+      ]
+    }
+  ],
+  "/leadership/": [
+    {
+      "text": "Level 04 领导力层",
+      "collapsed": false,
+      "items": [
+        {
+          "text": "业务洞察",
+          "link": "/leadership/business"
+        },
+        {
+          "text": "技术战略",
+          "link": "/leadership/strategy"
+        },
+        {
+          "text": "团队领导力",
+          "link": "/leadership/team"
+        },
+        {
+          "text": "业务洞察 — 练习册",
+          "link": "/leadership/business-exercises"
+        },
+        {
+          "text": "技术战略 — 练习册",
+          "link": "/leadership/strategy-exercises"
+        },
+        {
+          "text": "团队领导力 — 练习册",
+          "link": "/leadership/team-exercises"
+        },
+        {
+          "text": "业务洞察 — 面试题",
+          "link": "/leadership/business-interview"
+        },
+        {
+          "text": "技术战略 — 面试题",
+          "link": "/leadership/strategy-interview"
+        },
+        {
+          "text": "团队领导力 — 面试题",
+          "link": "/leadership/team-interview"
+        }
+      ]
+    }
+  ],
+  "/resources/": [
+    {
+      "text": "资源与工具",
+      "collapsed": false,
+      "items": [
+        {
+          "text": "术语表",
+          "link": "/resources/glossary"
+        },
+        {
+          "text": "技术雷达",
+          "link": "/resources/tech-radar"
+        },
+        {
+          "text": "精选资源",
+          "link": "/resources/resources"
+        },
+        {
+          "text": "通关项目手册",
+          "link": "/resources/project-handbook"
+        },
+        {
+          "text": "工作流与面试模拟",
+          "link": "/resources/architect-workflow"
+        }
+      ]
+    }
+  ],
+  "/cases/": [
+    {
+      "text": "跨领域综合案例",
+      "collapsed": false,
+      "items": [
+        {
+          "text": "从输入 URL 到页面可交互",
+          "link": "/cases/from-url-to-interactive"
+        },
+        {
+          "text": "设计大型中后台系统",
+          "link": "/cases/large-admin-system"
+        },
+        {
+          "text": "一次完整的技术选型",
+          "link": "/cases/technology-selection"
+        }
+      ]
+    }
+  ],
+  "/templates/": [
+    {
+      "text": "工具箱模板",
+      "collapsed": false,
+      "items": [
+        {
+          "text": "ADR 模板",
+          "link": "/templates/adr"
+        },
+        {
+          "text": "技术选型评分卡",
+          "link": "/templates/tech-selection"
+        },
+        {
+          "text": "Code Review 清单",
+          "link": "/templates/code-review"
+        },
+        {
+          "text": "性能优化 SOP",
+          "link": "/templates/performance-sop"
+        },
+        {
+          "text": "技术债登记册",
+          "link": "/templates/tech-debt"
+        }
+      ]
+    }
+  ]
+}

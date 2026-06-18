@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://your-org.github.io/frontend-architect-knowledge/sitemap.xml
