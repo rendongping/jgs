@@ -1,0 +1,37 @@
+name: 内容错误反馈
+description: 发现文档中的错误、过时内容或表述问题
+title: "[错误] 简短描述"
+labels: ["bug", "content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你的反馈！请帮助我们改进内容质量。
+
+  - type: input
+    id: file-path
+    attributes:
+      label: 文件路径
+      description: 出错的文件路径
+      placeholder: 例如：level-01-foundation/F01-javascript/01-学习文档.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题描述
+      description: 请描述具体错误
+      placeholder: |
+        - 概念错误
+        - 代码示例无法运行
+        - 链接失效
+        - 表述不清
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 修改建议
+      description: 如果有，请给出建议的修改内容

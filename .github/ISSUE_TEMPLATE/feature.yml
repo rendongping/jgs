@@ -1,0 +1,29 @@
+name: 功能建议
+description: 对知识库结构、工具、体验等方面的建议
+title: "[建议] 简短描述"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你的建议！请详细描述你的想法。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 建议描述
+      description: 你想建议什么？
+    validations:
+      required: true
+
+  - type: textarea
+    id: value
+    attributes:
+      label: 预期价值
+      description: 这个建议能给大家带来什么价值？
+
+  - type: textarea
+    id: implementation
+    attributes:
+      label: 实现思路
+      description: 如果有实现思路，请描述

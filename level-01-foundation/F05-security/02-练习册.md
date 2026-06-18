@@ -1,0 +1,395 @@
+# 第一层 security（Web 安全）练习册
+
+本练习册包含选择题、填空题、代码分析题、编程实践题四种题型，共 18 道，每道题均附参考答案与解析。
+
+---
+
+## 一、选择题（共 6 道）
+
+### 第 1 题
+
+以下哪种 XSS 类型会把恶意脚本长期保存到服务器数据库中？
+
+A. 反射型 XSS  
+B. 存储型 XSS  
+C. DOM 型 XSS  
+D. 基于盲注的 XSS
+
+**答案：B**
+
+**解析：** 存储型 XSS 的恶意脚本会被持久化到数据库、文件或缓存中，所有访问该资源的用户都可能触发。反射型 XSS 通过 URL 参数临时反射，DOM 型 XSS 主要在前端通过 JS 操作 DOM 触发。
+
+---
+
+### 第 2 题
+
+设置 Cookie 时，以下哪个属性可以防止 JavaScript 通过 `document.cookie` 读取该 Cookie？
+
+A. Secure  
+B. SameSite  
+C. HttpOnly  
+D. Path
+
+**答案：C**
+
+**解析：** `HttpOnly` 属性告诉浏览器不要让 JavaScript 访问该 Cookie，可有效降低 XSS 窃取 Cookie 的危害。`Secure` 要求 Cookie 只在 HTTPS 下传输；`SameSite` 控制跨站请求时是否携带 Cookie；`Path` 限制 Cookie 的作用路径。
+
+---
+
+### 第 3 题
+
+CSRF 攻击的核心利用了什么特性？
+
+A. 浏览器会自动在跨域请求中附带目标网站的 Cookie  
+B. 攻击者可以读取目标网站的 Cookie  
+C. 目标网站存在 SQL 注入漏洞  
+D. 浏览器禁止跨域请求
+
+**答案：A**
+
+**解析：** CSRF 不需要攻击者读取 Cookie，而是利用浏览器在请求目标网站时自动附带对应 Cookie 的特性，诱导已登录用户发起非自愿的请求。
+
+---
+
+### 第 4 题
+
+CSP 头中哪个指令用于限制页面可以被哪些来源的 iframe 嵌入？
+
+A. frame-src  
+B. frame-ancestors  
+C. child-src  
+D. sandbox
+
+**答案：B**
+
+**解析：** `frame-ancestors` 用于控制哪些页面可以嵌入当前页面（防止点击劫持）。`frame-src` 控制当前页面可以嵌入哪些 iframe 资源。
+
+---
+
+### 第 5 题
+
+OAuth 2.0 授权码模式中，前端在重定向到授权服务器时携带的 `state` 参数主要用来防御什么攻击？
+
+A. XSS  
+B. CSRF  
+C. 点击劫持  
+D. SQL 注入
+
+**答案：B**
+
+**解析：** `state` 参数用于在授权流程中维持会话状态并防止 CSRF。攻击者无法预测随机生成的 `state`，因此无法伪造授权回调。
+
+---
+
+### 第 6 题
+
+以下哪个 HTTP 响应头用于强制浏览器在一段时间内只通过 HTTPS 访问站点？
+
+A. Content-Security-Policy  
+B. X-Frame-Options  
+C. Strict-Transport-Security  
+D. X-Content-Type-Options
+
+**答案：C**
+
+**解析：** `Strict-Transport-Security`（HSTS）头告诉浏览器在 `max-age` 内始终使用 HTTPS 访问站点，防止 SSL 剥离攻击。
+
+---
+
+## 二、填空题（共 6 道）
+
+### 第 7 题
+
+XSS 根据攻击脚本是否经过服务器持久化，可分为反射型 XSS、_________ XSS 和 DOM 型 XSS。
+
+**答案：存储型**
+
+**解析：** XSS 的三大类型是反射型、存储型和 DOM 型。其中存储型 XSS 的脚本会长期保存在服务器端。
+
+---
+
+### 第 8 题
+
+React 的 JSX 默认会对插值内容进行 _________，从而防止大部分 XSS 攻击。
+
+**答案：转义 / HTML 实体编码**
+
+**解析：** React 在渲染 JSX 时会对 `{variable}` 中的内容进行转义，把 `<` 转换为 `&lt;` 等，使插入内容以文本形式展示。
+
+---
+
+### 第 9 题
+
+防止 CSRF 的常见方案包括 CSRF Token、双重 Cookie 验证和设置 Cookie 的 _________ 属性。
+
+**答案：SameSite**
+
+**解析：** `SameSite` 属性可以限制 Cookie 在跨站请求中的发送行为，是防御 CSRF 的重要手段。
+
+---
+
+### 第 10 题
+
+CSP 中 `'unsafe-inline'` 会允许内联脚本执行，这通常被认为是 _________（安全/不安全）的。
+
+**答案：不安全**
+
+**解析：** 允许 `'unsafe-inline'` 会显著削弱 CSP 对 XSS 的防护能力，应尽量避免，改用 Nonce 或 Hash。
+
+---
+
+### 第 11 题
+
+中间人攻击的英文缩写是 _________。
+
+**答案：MITM / Man-in-the-Middle**
+
+**解析：** MITM（Man-in-the-Middle）指攻击者位于通信双方之间，拦截、窃听或篡改通信内容。
+
+---
+
+### 第 12 题
+
+OAuth 2.0 中，授权服务器返回给客户端的临时凭证称为 _________，客户端用它向授权服务器换取 Access Token。
+
+**答案：授权码 / Authorization Code**
+
+**解析：** 授权码模式是 OAuth 2.0 中最安全的模式，前端只获取授权码，真正的 Token 交换由后端完成。
+
+---
+
+## 三、代码分析题（共 3 道）
+
+### 第 13 题
+
+分析以下代码是否存在安全问题，如果有，请说明类型并给出修复建议。
+
+```html
+<div id="msg"></div>
+<script>
+  const params = new URLSearchParams(location.search);
+  const name = params.get('name');
+  document.getElementById('msg').innerHTML = '你好，' + name;
+</script>
+```
+
+**答案与解析：**
+
+存在 **DOM 型 XSS** 漏洞。攻击者可以构造 URL：
+
+```
+https://example.com/?name=<img src=x onerror=alert(document.cookie)>
+```
+
+页面会把不可信数据直接写入 `innerHTML`，浏览器解析并执行了其中的 `<img onerror>` 事件处理器，导致恶意脚本执行。
+
+**修复建议：**
+
+```js
+const params = new URLSearchParams(location.search);
+const name = params.get('name');
+document.getElementById('msg').textContent = '你好，' + name;
+```
+
+使用 `textContent` 代替 `innerHTML`，浏览器会把内容当作纯文本处理，不会执行 HTML 或脚本。
+
+---
+
+### 第 14 题
+
+分析以下 Node.js 路由是否存在安全问题，并说明防御方法。
+
+```js
+app.post('/comment', (req, res) => {
+  db.save({ content: req.body.content });
+  res.send('评论已提交');
+});
+
+app.get('/article/:id', async (req, res) => {
+  const comments = await db.getComments(req.params.id);
+  const html = comments.map(c => `<p>${c.content}</p>`).join('');
+  res.send(html);
+});
+```
+
+**答案与解析：**
+
+存在 **存储型 XSS** 漏洞。用户在评论中提交 `<script>alert(1)</script>` 时，服务器不做任何过滤直接保存，渲染时直接拼接到 HTML 中，所有查看文章的用户都会触发该脚本。
+
+**防御方法：**
+
+1. 输出时进行 HTML 实体编码：
+   ```js
+   function escapeHtml(str) {
+     return String(str)
+       .replace(/&/g, '&amp;')
+       .replace(/</g, '&lt;')
+       .replace(/>/g, '&gt;')
+       .replace(/"/g, '&quot;')
+       .replace(/'/g, '&#039;');
+   }
+   ```
+2. 如果是富文本，使用白名单过滤（如 DOMPurify、sanitize-html）。
+3. 配置 CSP 限制脚本来源。
+4. 设置 Cookie 为 HttpOnly，降低脚本窃取 Cookie 的危害。
+
+---
+
+### 第 15 题
+
+分析以下表单提交是否存在 CSRF 风险，并说明原因。
+
+```html
+<form action="/transfer" method="POST">
+  <input type="text" name="to" />
+  <input type="number" name="amount" />
+  <button type="submit">转账</button>
+</form>
+```
+
+**答案与解析：**
+
+存在 **CSRF 风险**。该表单只包含业务字段，没有 CSRF Token，也没有其他来源校验。如果用户登录后访问了恶意网站，恶意网站可以自动提交表单到 `/transfer`，浏览器会自动带上用户在本站的 Cookie，服务器会误以为是用户本人操作。
+
+**防御方法：**
+
+1. 在表单中加入 CSRF Token：
+   ```html
+   <input type="hidden" name="csrf_token" value="服务器生成的随机值" />
+   ```
+2. 后端校验 Token 是否与会话一致。
+3. 设置 Cookie 的 `SameSite=Lax` 或 `Strict`。
+4. 对敏感操作增加二次验证，如短信验证码、支付密码。
+
+---
+
+## 四、编程实践题（共 3 道）
+
+### 第 16 题
+
+请编写一个安全的 `escapeHtml` 函数，用于在 HTML 上下文中转义用户输入。
+
+**参考答案：**
+
+```js
+function escapeHtml(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// 测试
+console.log(escapeHtml('<script>alert("xss")</script>'));
+// 输出：&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;
+```
+
+**解析：** 该函数将 HTML 中的特殊字符替换为对应的 HTML 实体，使浏览器把它们当作普通文本展示，而不是解析为标签或属性。
+
+---
+
+### 第 17 题
+
+请用原生 JavaScript 实现一个简单的双重 Cookie 验证：从前端读取名为 `csrf_cookie` 的 Cookie，将其值放入请求头 `X-CSRF-Token` 中发送给后端。
+
+**参考答案：**
+
+```js
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)'));
+  return match ? decodeURIComponent(match[1]) : undefined;
+}
+
+async function postWithCsrfToken(url, body) {
+  const csrfToken = getCookie('csrf_cookie');
+  if (!csrfToken) {
+    throw new Error('CSRF Token 不存在');
+  }
+  return fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
+    },
+    credentials: 'include',
+    body: JSON.stringify(body)
+  });
+}
+```
+
+**解析：**
+
+- 双重 Cookie 验证的核心是：Cookie 中的值由浏览器自动携带，攻击者无法跨域读取；前端再把同一值放到请求头中，后端比较两者是否一致。
+- `getCookie` 读取指定 Cookie 值，注意对特殊字符进行转义。
+- `credentials: 'include'` 保证跨域请求时携带 Cookie。
+
+---
+
+### 第 18 题
+
+请为一个简单的 SPA 配置合适的 CSP 头，要求：
+
+1. 只允许加载同源的脚本；
+2. 只允许加载同源和 `https://cdn.example.com` 的图片；
+3. 不允许任何页面把本站嵌入到 iframe 中；
+4. 违规时上报到 `/csp-report`。
+
+**参考答案：**
+
+```http
+Content-Security-Policy:
+  default-src 'self';
+  script-src 'self';
+  img-src 'self' https://cdn.example.com;
+  frame-ancestors 'none';
+  report-uri /csp-report
+```
+
+**解析：**
+
+- `default-src 'self'` 设置默认策略为同源。
+- `script-src 'self'` 明确只允许同源脚本，禁止内联脚本和外部不可信脚本。
+- `img-src 'self' https://cdn.example.com` 允许同源和指定 CDN 的图片。
+- `frame-ancestors 'none'` 防止点击劫持，禁止任何页面嵌入当前页。
+- `report-uri /csp-report` 在发生 CSP 违规时，浏览器会发送报告到该地址。
+
+---
+
+## 参考答案速查表
+
+| 题号 | 题型 | 答案 |
+|-----|------|------|
+| 1 | 选择 | B |
+| 2 | 选择 | C |
+| 3 | 选择 | A |
+| 4 | 选择 | B |
+| 5 | 选择 | B |
+| 6 | 选择 | C |
+| 7 | 填空 | 存储型 |
+| 8 | 填空 | 转义 / HTML 实体编码 |
+| 9 | 填空 | SameSite |
+| 10 | 填空 | 不安全 |
+| 11 | 填空 | MITM / Man-in-the-Middle |
+| 12 | 填空 | 授权码 / Authorization Code |
+| 13 | 代码分析 | DOM 型 XSS，使用 textContent |
+| 14 | 代码分析 | 存储型 XSS，输出编码/白名单/CSP |
+| 15 | 代码分析 | CSRF，添加 Token 和 SameSite |
+| 16 | 编程实践 | escapeHtml 函数 |
+| 17 | 编程实践 | 双重 Cookie 验证 |
+| 18 | 编程实践 | CSP 头配置 |
+
+---
+
+## 学习建议
+
+- 完成练习后，建议对照学习文档复习相关知识点。
+- 对代码分析题和编程实践题，可以在本地搭建一个最小化的示例进行验证。
+- 重点关注 XSS 的输出编码和 CSRF 的 Token/SameSite 两种防御方式。
+
+---
+
+> **领域编号**：F05 Web 安全  
+> **最后更新**：2026-06-18

@@ -1,0 +1,57 @@
+name: 新增知识领域建议
+description: 建议为知识库新增一个知识领域
+title: "[新增领域] 领域名称"
+labels: ["enhancement", "new-domain"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢你的建议！请尽可能详细地描述你希望新增的领域。
+
+  - type: input
+    id: domain-name
+    attributes:
+      label: 领域名称
+      description: 建议的领域名称
+      placeholder: 例如：WebAssembly 工程化
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: 新增理由
+      description: 为什么这个领域应该加入知识库？
+      placeholder: 说明该领域对前端架构师的重要性和当前缺失情况。
+    validations:
+      required: true
+
+  - type: textarea
+    id: content
+    attributes:
+      label: 建议包含的内容
+      description: 该领域应该包含哪些知识点？
+      placeholder: |
+        - 核心概念
+        - 常见工具/框架
+        - 最佳实践
+        - 常见面试题
+
+  - type: dropdown
+    id: level
+    attributes:
+      label: 建议所属层级
+      options:
+        - Level 01 基础层
+        - Level 02 工程化层
+        - Level 03 架构层
+        - Level 04 领导力层
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: willing
+    attributes:
+      label: 是否愿意贡献
+      options:
+        - label: 我愿意提交 PR 补充该领域内容
