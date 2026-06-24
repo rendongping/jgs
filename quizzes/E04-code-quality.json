@@ -1,0 +1,295 @@
+{
+  "domainId": "E04-code-quality",
+  "domainName": "Code Quality",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E04-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "ESLint 的主要作用是？",
+      "answer": [
+        "静态分析代码以发现潜在问题和风格违规"
+      ],
+      "explanation": "ESLint 是静态代码分析工具。",
+      "tags": [
+        "eslint"
+      ],
+      "options": [
+        "格式化代码",
+        "静态分析代码以发现潜在问题和风格违规",
+        "运行单元测试",
+        "压缩代码"
+      ]
+    },
+    {
+      "id": "E04-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Prettier 的主要定位是？",
+      "answer": [
+        "代码格式化工具"
+      ],
+      "explanation": "Prettier 是 opinionated 的代码格式化工具。",
+      "tags": [
+        "prettier"
+      ],
+      "options": [
+        "类型检查器",
+        "代码格式化工具",
+        "测试框架",
+        "包管理器"
+      ]
+    },
+    {
+      "id": "E04-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "单元测试的主要测试对象是？",
+      "answer": [
+        "独立的函数或模块"
+      ],
+      "explanation": "单元测试关注最小的可测试单元。",
+      "tags": [
+        "testing"
+      ],
+      "options": [
+        "整个用户流程",
+        "独立的函数或模块",
+        "生产数据库性能",
+        "浏览器渲染"
+      ]
+    },
+    {
+      "id": "E04-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "代码覆盖率通常衡量的是？",
+      "answer": [
+        "测试执行到的代码比例"
+      ],
+      "explanation": "覆盖率反映测试覆盖代码的程度。",
+      "tags": [
+        "coverage"
+      ],
+      "options": [
+        "代码行数",
+        "测试执行到的代码比例",
+        "Bug 数量",
+        "构建速度"
+      ]
+    },
+    {
+      "id": "E04-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "代码格式化工具能够自动修复所有逻辑错误。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "格式化工具只处理代码风格，不能修复逻辑错误。",
+      "tags": [
+        "formatting"
+      ]
+    },
+    {
+      "id": "E04-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "以下哪些属于提升代码质量的实践？",
+      "answer": [
+        "Lint 检查",
+        "代码格式化",
+        "类型检查",
+        "自动化测试",
+        "代码审查"
+      ],
+      "explanation": "这些都是常见的代码质量实践。",
+      "tags": [
+        "code-quality"
+      ],
+      "options": [
+        "Lint 检查",
+        "代码格式化",
+        "类型检查",
+        "自动化测试",
+        "代码审查"
+      ]
+    },
+    {
+      "id": "E04-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "快照测试最适合用于？",
+      "answer": [
+        "检测 UI 或数据结构的意外变化"
+      ],
+      "explanation": "快照测试捕获输出，与基准对比发现意外变更。",
+      "tags": [
+        "snapshot",
+        "testing"
+      ],
+      "options": [
+        "替代所有单元测试",
+        "检测 UI 或数据结构的意外变化",
+        "测试算法性能",
+        "检查类型安全"
+      ]
+    },
+    {
+      "id": "E04-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "集成测试主要验证什么？",
+      "answer": [
+        "多个模块或服务之间的交互"
+      ],
+      "explanation": "集成测试验证组合后的模块能否协同工作。",
+      "tags": [
+        "testing"
+      ],
+      "options": [
+        "单个函数正确性",
+        "多个模块或服务之间的交互",
+        "编译是否通过",
+        "代码风格"
+      ]
+    },
+    {
+      "id": "E04-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "代码审查应关注哪些方面？",
+      "answer": [
+        "正确性与逻辑",
+        "可读性与可维护性",
+        "测试覆盖",
+        "安全性与性能",
+        "是否符合团队规范"
+      ],
+      "explanation": "代码审查应全面覆盖功能、质量、规范等。",
+      "tags": [
+        "code-review"
+      ],
+      "options": [
+        "正确性与逻辑",
+        "可读性与可维护性",
+        "测试覆盖",
+        "安全性与性能",
+        "是否符合团队规范"
+      ]
+    },
+    {
+      "id": "E04-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "测试覆盖率达到 100% 意味着代码没有 Bug。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "高覆盖率不保证测试质量，也可能存在遗漏场景。",
+      "tags": [
+        "coverage"
+      ]
+    },
+    {
+      "id": "E04-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Husky 配合 lint-staged 通常用于？",
+      "answer": [
+        "在提交前对暂存区文件运行 lint/format 检查"
+      ],
+      "explanation": "Husky 管理 Git hooks，lint-staged 对暂存文件运行检查。",
+      "tags": [
+        "git-hooks"
+      ],
+      "options": [
+        "在 CI 中部署应用",
+        "在提交前对暂存区文件运行 lint/format 检查",
+        "自动生成版本号",
+        "监控系统性能"
+      ]
+    },
+    {
+      "id": "E04-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "变异测试用于评估什么？",
+      "answer": [
+        "测试套件本身的质量"
+      ],
+      "explanation": "变异测试通过故意修改代码来检验测试能否捕获缺陷。",
+      "tags": [
+        "mutation-testing"
+      ],
+      "options": [
+        "代码风格一致性",
+        "测试套件本身的质量",
+        "编译速度",
+        "网络延迟"
+      ]
+    },
+    {
+      "id": "E04-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "静态分析工具可以检测的问题类型包括？",
+      "answer": [
+        "语法错误",
+        "未使用变量",
+        "潜在的安全漏洞",
+        "类型不匹配（配合类型系统）"
+      ],
+      "explanation": "运行时性能瓶颈需要性能分析工具，静态分析不直接检测。",
+      "tags": [
+        "static-analysis"
+      ],
+      "options": [
+        "语法错误",
+        "未使用变量",
+        "潜在的安全漏洞",
+        "类型不匹配（配合类型系统）",
+        "运行时性能瓶颈"
+      ]
+    },
+    {
+      "id": "E04-014",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "以下哪项是典型的代码坏味道？",
+      "answer": [
+        "重复代码（Duplicated Code）"
+      ],
+      "explanation": "重复代码是常见的代码坏味道。",
+      "tags": [
+        "code-smell"
+      ],
+      "options": [
+        "单一职责",
+        "重复代码（Duplicated Code）",
+        "清晰命名",
+        "适度抽象"
+      ]
+    },
+    {
+      "id": "E04-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "Flaky Test 的主要危害是？",
+      "answer": [
+        "降低测试可信度，掩盖真正问题"
+      ],
+      "explanation": "不稳定测试结果不一致，会削弱对测试的信任。",
+      "tags": [
+        "testing"
+      ],
+      "options": [
+        "加快测试执行",
+        "降低测试可信度，掩盖真正问题",
+        "提高覆盖率",
+        "自动修复 Bug"
+      ]
+    }
+  ]
+}

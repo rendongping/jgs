@@ -9,6 +9,8 @@ import InterviewCard from './components/InterviewCard.vue';
 import ProgressTracker from './components/ProgressTracker.vue';
 import LearningPath from './components/LearningPath.vue';
 import MarkComplete from './components/MarkComplete.vue';
+import QuizPlayer from './components/QuizPlayer.vue';
+import CodingChallenge from './components/CodingChallenge.vue';
 
 export default {
   extends: DefaultTheme,
@@ -20,5 +22,7 @@ export default {
     app.component('ProgressTracker', ProgressTracker);
     app.component('LearningPath', LearningPath);
     app.component('MarkComplete', MarkComplete);
+    app.component('QuizPlayer', QuizPlayer);
+    app.component('CodingChallenge', CodingChallenge);
   }
 } as Theme;

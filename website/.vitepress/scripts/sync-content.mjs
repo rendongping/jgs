@@ -152,8 +152,30 @@ function syncContent() {
     syncedCount++;
   }
 
+  // 同步客观题题库到 public/quizzes
+  syncQuizzes();
+
   console.log(`✅ 已同步 ${syncedCount} 个文件`);
   generateSitemap();
+}
+
+function syncQuizzes() {
+  const quizSourceDir = path.join(rootDir, 'quizzes');
+  const quizTargetDir = path.join(websiteDir, 'public', 'quizzes');
+  if (!fs.existsSync(quizSourceDir)) {
+    console.warn('⚠️  题库源目录不存在：quizzes/');
+    return;
+  }
+  if (!fs.existsSync(quizTargetDir)) {
+    fs.mkdirSync(quizTargetDir, { recursive: true });
+  }
+  const files = fs.readdirSync(quizSourceDir).filter(f => f.endsWith('.json'));
+  for (const file of files) {
+    const src = path.join(quizSourceDir, file);
+    const dest = path.join(quizTargetDir, file);
+    fs.copyFileSync(src, dest);
+  }
+  console.log(`✅ 已同步 ${files.length} 个题库文件`);
 }
 
 function generateSitemap() {
@@ -166,6 +188,8 @@ function generateSitemap() {
   addUrl('/guide/self-assessment');
   addUrl('/guide/learning-routes');
   addUrl('/guide/workflow');
+  addUrl('/learning-path/quizzes');
+  addUrl('/learning-path/coding-challenges');
 
   for (const { to } of contentMapping) {
     if (to.endsWith('.md')) {

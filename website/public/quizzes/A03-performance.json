@@ -1,0 +1,294 @@
+{
+  "domainId": "A03-performance",
+  "domainName": "Performance",
+  "version": 1,
+  "questions": [
+    {
+      "id": "A03-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "LCP 衡量的是？",
+      "answer": [
+        "最大内容元素的渲染时间"
+      ],
+      "explanation": "LCP 是核心 Web 指标，衡量最大内容绘制。",
+      "tags": [
+        "lcp",
+        "web-vitals"
+      ],
+      "options": [
+        "首次内容绘制",
+        "最大内容元素的渲染时间",
+        "累积布局偏移",
+        "首次输入延迟"
+      ]
+    },
+    {
+      "id": "A03-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "CLS 衡量的是？",
+      "answer": [
+        "视觉稳定性（布局偏移累积）"
+      ],
+      "explanation": "CLS 反映页面加载过程中的视觉稳定性。",
+      "tags": [
+        "cls",
+        "web-vitals"
+      ],
+      "options": [
+        "加载性能",
+        "交互响应性",
+        "视觉稳定性（布局偏移累积）",
+        "资源大小"
+      ]
+    },
+    {
+      "id": "A03-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "INP 用于衡量？",
+      "answer": [
+        "交互到下一次绘制的延迟，反映响应性"
+      ],
+      "explanation": "INP 替代 FID 成为响应性核心指标。",
+      "tags": [
+        "inp",
+        "web-vitals"
+      ],
+      "options": [
+        "首次输入延迟",
+        "交互到下一次绘制的延迟，反映响应性",
+        "最大内容绘制",
+        "DNS 解析时间"
+      ]
+    },
+    {
+      "id": "A03-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "懒加载的主要作用是？",
+      "answer": [
+        "延迟加载非关键资源，减少初始请求"
+      ],
+      "explanation": "懒加载推迟非关键资源加载。",
+      "tags": [
+        "lazy-loading"
+      ],
+      "options": [
+        "提前加载所有资源",
+        "延迟加载非关键资源，减少初始请求",
+        "禁用图片",
+        "加速 DNS"
+      ]
+    },
+    {
+      "id": "A03-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "图片文件越大，页面加载速度通常越快。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "大图片增加传输与解码时间。",
+      "tags": [
+        "images"
+      ]
+    },
+    {
+      "id": "A03-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "以下哪些属于 Core Web Vitals（2024 年起）？",
+      "answer": [
+        "LCP",
+        "INP",
+        "CLS"
+      ],
+      "explanation": "Core Web Vitals 为 LCP、INP、CLS，FID 已被 INP 取代。",
+      "tags": [
+        "core-web-vitals"
+      ],
+      "options": [
+        "LCP",
+        "FID",
+        "INP",
+        "CLS",
+        "TTFB"
+      ]
+    },
+    {
+      "id": "A03-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "代码分割如何影响性能？",
+      "answer": [
+        "减少初始加载的 JavaScript 量，按需加载"
+      ],
+      "explanation": "代码分割降低首屏 JS 体积。",
+      "tags": [
+        "code-splitting"
+      ],
+      "options": [
+        "增加首屏 JS 体积",
+        "减少初始加载的 JavaScript 量，按需加载",
+        "减少 HTTP 请求",
+        "禁用缓存"
+      ]
+    },
+    {
+      "id": "A03-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪个资源提示用于提前解析 DNS？",
+      "answer": [
+        "dns-prefetch"
+      ],
+      "explanation": "dns-prefetch 提前解析域名。",
+      "tags": [
+        "resource-hints"
+      ],
+      "options": [
+        "preload",
+        "prefetch",
+        "preconnect",
+        "dns-prefetch"
+      ]
+    },
+    {
+      "id": "A03-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "以下哪些是优化图片加载的有效方法？",
+      "answer": [
+        "使用 WebP/AVIF 等现代格式",
+        "响应式图片 srcset/sizes",
+        "懒加载",
+        "压缩与 CDN"
+      ],
+      "explanation": "应避免使用不必要的大图。",
+      "tags": [
+        "image-optimization"
+      ],
+      "options": [
+        "使用 WebP/AVIF 等现代格式",
+        "响应式图片 srcset/sizes",
+        "懒加载",
+        "压缩与 CDN",
+        "使用超大分辨率原图"
+      ]
+    },
+    {
+      "id": "A03-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "requestAnimationFrame 会在浏览器下一次重绘之前调用回调。",
+      "answer": [
+        "true"
+      ],
+      "explanation": "rAF 在重绘前调用，适合做动画。",
+      "tags": [
+        "animation"
+      ]
+    },
+    {
+      "id": "A03-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "长任务会对性能产生什么影响？",
+      "answer": [
+        "阻塞主线程，影响交互响应与 INP"
+      ],
+      "explanation": "长任务阻塞主线程，降低响应性。",
+      "tags": [
+        "long-tasks"
+      ],
+      "options": [
+        "提升 FPS",
+        "阻塞主线程，影响交互响应与 INP",
+        "减少内存使用",
+        "加速网络请求"
+      ]
+    },
+    {
+      "id": "A03-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Service Worker 可用于？",
+      "answer": [
+        "拦截网络请求并实现缓存策略"
+      ],
+      "explanation": "Service Worker 可实现离线缓存和请求拦截。",
+      "tags": [
+        "service-worker"
+      ],
+      "options": [
+        "直接修改后端数据库",
+        "拦截网络请求并实现缓存策略",
+        "提升 DNS 速度",
+        "替代 HTML 解析"
+      ]
+    },
+    {
+      "id": "A03-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "Performance Budget 的主要作用是？",
+      "answer": [
+        "为关键指标/资源大小设定上限，防止性能回归"
+      ],
+      "explanation": "性能预算防止性能退化。",
+      "tags": [
+        "performance-budget"
+      ],
+      "options": [
+        "限制团队人数",
+        "为关键指标/资源大小设定上限，防止性能回归",
+        "增加广告数量",
+        "禁用第三方脚本"
+      ]
+    },
+    {
+      "id": "A03-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "减少主线程阻塞的方法包括？",
+      "answer": [
+        "代码分割与懒加载",
+        "将耗时计算放到 Web Workers",
+        "防抖/节流事件处理",
+        "减少强制同步布局"
+      ],
+      "explanation": "应避免将所有脚本都加载到主线程。",
+      "tags": [
+        "main-thread"
+      ],
+      "options": [
+        "代码分割与懒加载",
+        "将耗时计算放到 Web Workers",
+        "防抖/节流事件处理",
+        "减少强制同步布局",
+        "加载所有脚本到主线程"
+      ]
+    },
+    {
+      "id": "A03-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "RUM 与实验室数据（Lab Data）相比，主要特点是？",
+      "answer": [
+        "采集真实用户设备与网络环境下的性能数据"
+      ],
+      "explanation": "RUM 提供真实用户现场数据。",
+      "tags": [
+        "rum"
+      ],
+      "options": [
+        "在受控环境使用模拟设备测试",
+        "采集真实用户设备与网络环境下的性能数据",
+        "只测量服务器 CPU",
+        "不需要真实用户"
+      ]
+    }
+  ]
+}

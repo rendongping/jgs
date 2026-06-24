@@ -1,0 +1,291 @@
+{
+  "domainId": "E02-monorepo",
+  "domainName": "Monorepo",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E02-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Monorepo 的核心含义是？",
+      "answer": [
+        "多个相关项目/包放在同一个代码仓库中管理"
+      ],
+      "explanation": "Monorepo 指在一个仓库中管理多个包或项目。",
+      "tags": [
+        "monorepo"
+      ],
+      "options": [
+        "每个仓库只放一个项目",
+        "多个相关项目/包放在同一个代码仓库中管理",
+        "只存放配置文件",
+        "分布式版本控制"
+      ]
+    },
+    {
+      "id": "E02-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "pnpm 管理 monorepo 时，工作区配置文件通常是？",
+      "answer": [
+        "pnpm-workspace.yaml"
+      ],
+      "explanation": "pnpm 通过 pnpm-workspace.yaml 定义工作区包。",
+      "tags": [
+        "pnpm"
+      ],
+      "options": [
+        "lerna.json",
+        "nx.json",
+        "pnpm-workspace.yaml",
+        "turbo.json"
+      ]
+    },
+    {
+      "id": "E02-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Lerna 在前端 monorepo 历史上主要用于？",
+      "answer": [
+        "管理多包版本与发布"
+      ],
+      "explanation": "Lerna 主要用于 monorepo 中多包的版本和发布管理。",
+      "tags": [
+        "lerna"
+      ],
+      "options": [
+        "替代 Git",
+        "管理多包版本与发布",
+        "作为 CSS 预处理器",
+        "作为测试框架"
+      ]
+    },
+    {
+      "id": "E02-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Turborepo 的 remote caching 主要用于？",
+      "answer": [
+        "在团队/CI 间共享构建产物缓存"
+      ],
+      "explanation": "remote cache 让团队共享构建结果，加速 CI。",
+      "tags": [
+        "turborepo"
+      ],
+      "options": [
+        "替代 npm install",
+        "在团队/CI 间共享构建产物缓存",
+        "自动修复 lint 错误",
+        "托管代码仓库"
+      ]
+    },
+    {
+      "id": "E02-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "Monorepo 中的所有包必须使用完全相同的版本号。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "monorepo 中各包可以独立管理版本号。",
+      "tags": [
+        "monorepo"
+      ]
+    },
+    {
+      "id": "E02-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "以下哪些工具可用于前端 monorepo 管理？",
+      "answer": [
+        "Nx",
+        "Turborepo",
+        "Rush",
+        "pnpm workspaces",
+        "Lerna"
+      ],
+      "explanation": "这些都是常见的前端 monorepo 管理工具。",
+      "tags": [
+        "monorepo"
+      ],
+      "options": [
+        "Nx",
+        "Turborepo",
+        "Rush",
+        "pnpm workspaces",
+        "Lerna"
+      ]
+    },
+    {
+      "id": "E02-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Workspace 协议（workspace:*）的主要作用是？",
+      "answer": [
+        "让 monorepo 内包相互引用本地工作区版本"
+      ],
+      "explanation": "workspace:* 用于引用工作区中的本地包版本。",
+      "tags": [
+        "workspaces"
+      ],
+      "options": [
+        "指定包的远程版本",
+        "让 monorepo 内包相互引用本地工作区版本",
+        "安装全局工具",
+        "锁定子依赖"
+      ]
+    },
+    {
+      "id": "E02-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Changesets 工具主要用于？",
+      "answer": [
+        "管理包的版本变更、changelog 与发布流程"
+      ],
+      "explanation": "changesets 帮助管理 monorepo 版本和 changelog。",
+      "tags": [
+        "changesets"
+      ],
+      "options": [
+        "自动生成组件文档",
+        "管理包的版本变更、changelog 与发布流程",
+        "运行端到端测试",
+        "监控线上错误"
+      ]
+    },
+    {
+      "id": "E02-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "Monorepo 相比多仓库（polyrepo）的优势包括？",
+      "answer": [
+        "代码共享更方便",
+        "原子性跨包提交更容易",
+        "统一的构建与测试流水线"
+      ],
+      "explanation": "monorepo 不天然保证所有包版本一致。",
+      "tags": [
+        "monorepo"
+      ],
+      "options": [
+        "代码共享更方便",
+        "原子性跨包提交更容易",
+        "统一的构建与测试流水线",
+        "天然保证所有包版本一致"
+      ]
+    },
+    {
+      "id": "E02-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "在 Nx/Turborepo 中，task caching 只能基于文件内容哈希，不能考虑任务依赖关系。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "Nx/Turborepo 会基于任务依赖图和输入哈希进行缓存。",
+      "tags": [
+        "nx",
+        "turborepo"
+      ]
+    },
+    {
+      "id": "E02-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Nx 的核心能力之一是？",
+      "answer": [
+        "构建项目依赖图并据此编排任务"
+      ],
+      "explanation": "Nx 通过项目图分析依赖并编排构建任务。",
+      "tags": [
+        "nx"
+      ],
+      "options": [
+        "构建项目依赖图并据此编排任务",
+        "替代 React",
+        "作为 CSS 框架",
+        "提供图数据库"
+      ]
+    },
+    {
+      "id": "E02-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Module Federation 主要用于解决什么问题？",
+      "answer": [
+        "让独立构建的应用在运行时共享模块，常用于微前端"
+      ],
+      "explanation": "Module Federation 支持独立应用在运行时共享模块。",
+      "tags": [
+        "module-federation"
+      ],
+      "options": [
+        "静态类型检查",
+        "让独立构建的应用在运行时共享模块，常用于微前端",
+        "CSS 样式隔离",
+        "服务端渲染"
+      ]
+    },
+    {
+      "id": "E02-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "在 monorepo 中管理依赖时，应注意哪些事项？",
+      "answer": [
+        "避免包之间循环依赖",
+        "使用 workspace 协议引用内部包",
+        "保持工具链和 lint 规则一致"
+      ],
+      "explanation": "应通过公共 API 引用，避免内部实现耦合。",
+      "tags": [
+        "monorepo"
+      ],
+      "options": [
+        "避免包之间循环依赖",
+        "使用 workspace 协议引用内部包",
+        "保持工具链和 lint 规则一致",
+        "随意跨包引用内部实现"
+      ]
+    },
+    {
+      "id": "E02-014",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "Monorepo 中的原子提交主要价值是？",
+      "answer": [
+        "一次提交可跨多个包完成相关变更，保持历史一致性"
+      ],
+      "explanation": "原子提交让跨包变更在一个提交内完成，便于回滚和追溯。",
+      "tags": [
+        "monorepo"
+      ],
+      "options": [
+        "保证所有包同时发布",
+        "一次提交可跨多个包完成相关变更，保持历史一致性",
+        "减少 Git 仓库大小",
+        "自动合并冲突"
+      ]
+    },
+    {
+      "id": "E02-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "远程缓存（remote cache）对 CI 的主要收益是？",
+      "answer": [
+        "复用未变更任务的构建产物，大幅缩短构建时间"
+      ],
+      "explanation": "remote cache 使 CI 不必重复执行未变更的任务。",
+      "tags": [
+        "monorepo",
+        "ci"
+      ],
+      "options": [
+        "减少代码克隆时间",
+        "避免安装依赖",
+        "复用未变更任务的构建产物，大幅缩短构建时间",
+        "自动修复测试失败"
+      ]
+    }
+  ]
+}

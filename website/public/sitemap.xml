@@ -416,6 +416,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/learning-path/coding-challenges</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/learning-path/quizzes</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/resources/architect-workflow</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

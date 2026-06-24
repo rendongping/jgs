@@ -1,0 +1,296 @@
+{
+  "domainId": "E06-react",
+  "domainName": "React",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E06-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "JSX 在编译后本质上会转换成什么？",
+      "answer": [
+        "React.createElement 调用"
+      ],
+      "explanation": "JSX 是 React.createElement 的语法糖。",
+      "tags": [
+        "jsx"
+      ],
+      "options": [
+        "HTML 字符串",
+        "React.createElement 调用",
+        "DOM 节点",
+        "CSS 样式"
+      ]
+    },
+    {
+      "id": "E06-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "useState 钩子返回什么？",
+      "answer": [
+        "当前状态和一个用于更新状态的函数"
+      ],
+      "explanation": "useState 返回 [state, setState]。",
+      "tags": [
+        "hooks",
+        "usestate"
+      ],
+      "options": [
+        "当前状态和一个用于更新状态的函数",
+        "一个固定值",
+        "DOM 引用",
+        "生命周期方法"
+      ]
+    },
+    {
+      "id": "E06-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "在 React 中，props 应该是？",
+      "answer": [
+        "只读的，由父组件传入"
+      ],
+      "explanation": "props 是只读的，子组件不应修改 props。",
+      "tags": [
+        "props"
+      ],
+      "options": [
+        "组件内部可变",
+        "只读的，由父组件传入",
+        "全局状态",
+        "直接修改后会触发渲染"
+      ]
+    },
+    {
+      "id": "E06-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "列表渲染时 key 的主要作用是？",
+      "answer": [
+        "帮助 React 识别元素，优化 diff 与重渲染"
+      ],
+      "explanation": "key 帮助 React 在 reconciler 中识别列表项。",
+      "tags": [
+        "keys"
+      ],
+      "options": [
+        "提升样式优先级",
+        "帮助 React 识别元素，优化 diff 与重渲染",
+        "绑定事件",
+        "定义路由"
+      ]
+    },
+    {
+      "id": "E06-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "在函数组件中，可以直接修改 state 变量本身来更新 UI。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "必须通过 setter 函数更新状态，直接修改变量不会触发渲染。",
+      "tags": [
+        "hooks",
+        "state"
+      ]
+    },
+    {
+      "id": "E06-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "以下哪些是 React 内置 Hook？",
+      "answer": [
+        "useState",
+        "useEffect",
+        "useContext",
+        "useReducer",
+        "useMemo"
+      ],
+      "explanation": "useComponent 不是 React 内置 Hook。",
+      "tags": [
+        "hooks"
+      ],
+      "options": [
+        "useState",
+        "useEffect",
+        "useContext",
+        "useReducer",
+        "useMemo",
+        "useComponent"
+      ]
+    },
+    {
+      "id": "E06-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "useEffect 的返回函数何时执行？",
+      "answer": [
+        "在 effect 重新执行前以及组件卸载时"
+      ],
+      "explanation": "cleanup 在依赖变化导致 effect 重跑前和组件卸载时执行。",
+      "tags": [
+        "hooks",
+        "useeffect"
+      ],
+      "options": [
+        "只在组件卸载时",
+        "只在 effect 首次执行时",
+        "在 effect 重新执行前以及组件卸载时",
+        "在每次渲染后"
+      ]
+    },
+    {
+      "id": "E06-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "React.memo 的作用是？",
+      "answer": [
+        "当 props 未变化时跳过组件重渲染"
+      ],
+      "explanation": "React.memo 对 props 进行浅比较以跳过不必要的渲染。",
+      "tags": [
+        "performance",
+        "memo"
+      ],
+      "options": [
+        "替代 useState",
+        "缓存函数引用",
+        "当 props 未变化时跳过组件重渲染",
+        "处理副作用"
+      ]
+    },
+    {
+      "id": "E06-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "以下哪些做法有助于 React 性能优化？",
+      "answer": [
+        "使用 React.memo/useMemo/useCallback",
+        "虚拟化长列表",
+        "代码分割与懒加载"
+      ],
+      "explanation": "render 中创建新对象会破坏 memo 优化。",
+      "tags": [
+        "performance"
+      ],
+      "options": [
+        "使用 React.memo/useMemo/useCallback",
+        "虚拟化长列表",
+        "代码分割与懒加载",
+        "在 render 中创建新函数/对象而不使用 memo"
+      ]
+    },
+    {
+      "id": "E06-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "在 React 中，refs 只能用于类组件。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "函数组件可通过 useRef 使用 refs。",
+      "tags": [
+        "refs"
+      ]
+    },
+    {
+      "id": "E06-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Context API 主要用于解决什么问题？",
+      "answer": [
+        "跨层级传递数据而无需逐层传递 props"
+      ],
+      "explanation": "Context 避免 props drilling。",
+      "tags": [
+        "context"
+      ],
+      "options": [
+        "替代所有状态管理",
+        "跨层级传递数据而无需逐层传递 props",
+        "直接操作 DOM",
+        "实现服务端路由"
+      ]
+    },
+    {
+      "id": "E06-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "自定义 Hook 的命名约定是什么？",
+      "answer": [
+        "以 use 开头"
+      ],
+      "explanation": "自定义 Hook 函数名应以 use 开头。",
+      "tags": [
+        "hooks"
+      ],
+      "options": [
+        "以 use 开头",
+        "以 hook 开头",
+        "大写字母开头即可",
+        "没有特殊约定"
+      ]
+    },
+    {
+      "id": "E06-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "React 的并发特性允许什么？",
+      "answer": [
+        "渲染工作可中断以提升响应性"
+      ],
+      "explanation": "并发渲染可以被中断，让高优先级更新先执行。",
+      "tags": [
+        "concurrent-react"
+      ],
+      "options": [
+        "阻塞主线程直到渲染完成",
+        "渲染工作可中断以提升响应性",
+        "禁用所有副作用",
+        "一次性渲染整个应用"
+      ]
+    },
+    {
+      "id": "E06-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "以下哪些是合理的 React 渲染优化方向？",
+      "answer": [
+        "用 useMemo 缓存昂贵计算",
+        "避免不必要的状态提升",
+        "为列表提供稳定的 key",
+        "使用懒加载拆分组件"
+      ],
+      "explanation": "新回调会破坏 memo 优化。",
+      "tags": [
+        "performance"
+      ],
+      "options": [
+        "用 useMemo 缓存昂贵计算",
+        "避免不必要的状态提升",
+        "为列表提供稳定的 key",
+        "使用懒加载拆分组件",
+        "在每次渲染中创建新的回调函数"
+      ]
+    },
+    {
+      "id": "E06-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "useLayoutEffect 与 useEffect 的主要区别是？",
+      "answer": [
+        "useLayoutEffect 在 DOM 变更后同步执行、在绘制前完成"
+      ],
+      "explanation": "useLayoutEffect 同步执行，避免布局闪烁。",
+      "tags": [
+        "hooks"
+      ],
+      "options": [
+        "useLayoutEffect 在浏览器绘制之后异步执行",
+        "useLayoutEffect 在 DOM 变更后同步执行、在绘制前完成",
+        "useLayoutEffect 只运行一次",
+        "useLayoutEffect 不能返回清理函数"
+      ]
+    }
+  ]
+}

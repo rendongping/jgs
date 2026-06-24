@@ -1,0 +1,294 @@
+{
+  "domainId": "E07-vue",
+  "domainName": "Vue",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E07-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "v-bind 指令的简写形式是？",
+      "answer": [
+        ":"
+      ],
+      "explanation": "v-bind 的简写是冒号。",
+      "tags": [
+        "directives"
+      ],
+      "options": [
+        ":",
+        "@",
+        "#",
+        "="
+      ]
+    },
+    {
+      "id": "E07-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "v-model 在表单元素上主要用于实现？",
+      "answer": [
+        "双向数据绑定"
+      ],
+      "explanation": "v-model 提供双向绑定。",
+      "tags": [
+        "v-model"
+      ],
+      "options": [
+        "单向数据绑定",
+        "双向数据绑定",
+        "事件监听",
+        "条件渲染"
+      ]
+    },
+    {
+      "id": "E07-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "v-if 与 v-show 的主要区别是？",
+      "answer": [
+        "v-if 切换条件渲染（移除/插入元素），v-show 切换 display"
+      ],
+      "explanation": "v-if 是条件渲染，v-show 是 CSS display 切换。",
+      "tags": [
+        "directives"
+      ],
+      "options": [
+        "v-if 切换 display，v-show 移除元素",
+        "v-if 切换条件渲染（移除/插入元素），v-show 切换 display",
+        "两者完全相同",
+        "v-show 不支持过渡动画"
+      ]
+    },
+    {
+      "id": "E07-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Vue 选项式 API 中，组件的 data 为什么必须是一个函数？",
+      "answer": [
+        "为了每个组件实例拥有独立的数据副本"
+      ],
+      "explanation": "data 函数每次返回新的对象，保证实例独立。",
+      "tags": [
+        "options-api"
+      ],
+      "options": [
+        "为了性能",
+        "为了每个组件实例拥有独立的数据副本",
+        "为了兼容旧浏览器",
+        "为了支持 TS"
+      ]
+    },
+    {
+      "id": "E07-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "在 Vue 2 中，直接通过索引设置数组项或使用对象新增属性可以自动触发响应式更新。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "Vue 2 需要使用 Vue.set 或变更方法；Vue 3 Proxy 改进了部分场景。",
+      "tags": [
+        "reactivity"
+      ]
+    },
+    {
+      "id": "E07-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "以下哪些是 Vue 的内置指令？",
+      "answer": [
+        "v-if",
+        "v-for",
+        "v-bind",
+        "v-model",
+        "v-on",
+        "v-show"
+      ],
+      "explanation": "这些都是 Vue 内置指令。",
+      "tags": [
+        "directives"
+      ],
+      "options": [
+        "v-if",
+        "v-for",
+        "v-bind",
+        "v-model",
+        "v-on",
+        "v-show"
+      ]
+    },
+    {
+      "id": "E07-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "computed 属性与普通方法相比，主要特点是？",
+      "answer": [
+        "只在相关依赖变化时重新计算并缓存结果"
+      ],
+      "explanation": "computed 具有缓存特性。",
+      "tags": [
+        "computed"
+      ],
+      "options": [
+        "每次渲染都会重新执行",
+        "只在相关依赖变化时重新计算并缓存结果",
+        "可以接收参数",
+        "用于处理异步操作"
+      ]
+    },
+    {
+      "id": "E07-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "watch 的主要用途是？",
+      "answer": [
+        "监听响应式数据变化并执行副作用"
+      ],
+      "explanation": "watch 用于观察数据变化并执行副作用。",
+      "tags": [
+        "watch"
+      ],
+      "options": [
+        "缓存计算结果",
+        "监听响应式数据变化并执行副作用",
+        "声明响应式状态",
+        "模板条件渲染"
+      ]
+    },
+    {
+      "id": "E07-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "Vue 3 Composition API 相比 Options API 的优势包括？",
+      "answer": [
+        "更好的逻辑复用（composables）",
+        "更灵活地组织相关逻辑",
+        "更好的 TypeScript 类型推导"
+      ],
+      "explanation": "Options API 在 Vue 3 中仍然可用。",
+      "tags": [
+        "composition-api"
+      ],
+      "options": [
+        "更好的逻辑复用（composables）",
+        "更灵活地组织相关逻辑",
+        "更好的 TypeScript 类型推导",
+        "选项式 API 已不可用"
+      ]
+    },
+    {
+      "id": "E07-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "在 Vue 3 中，ref 创建的响应式数据需要通过 .value 访问和修改其内部值。",
+      "answer": [
+        "true"
+      ],
+      "explanation": "ref 返回包装对象，需要通过 .value 读写。",
+      "tags": [
+        "ref"
+      ]
+    },
+    {
+      "id": "E07-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Vue 中的 nextTick 用于？",
+      "answer": [
+        "在下次 DOM 更新循环结束后执行回调"
+      ],
+      "explanation": "nextTick 等待下一次 DOM 更新完成后执行。",
+      "tags": [
+        "nexttick"
+      ],
+      "options": [
+        "立即同步更新 DOM",
+        "在下次 DOM 更新循环结束后执行回调",
+        "延迟 1 秒执行",
+        "跳过本次更新"
+      ]
+    },
+    {
+      "id": "E07-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Vue 3 的响应式系统基于什么实现？",
+      "answer": [
+        "Proxy"
+      ],
+      "explanation": "Vue 3 使用 Proxy 实现响应式，Vue 2 使用 Object.defineProperty。",
+      "tags": [
+        "reactivity"
+      ],
+      "options": [
+        "Object.defineProperty",
+        "Proxy",
+        "Getter/Setter 手动劫持",
+        "Virtual DOM diff"
+      ]
+    },
+    {
+      "id": "E07-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "以下哪些方式可用于 Vue 组件间通信？",
+      "answer": [
+        "props / $emit",
+        "provide / inject",
+        "全局事件总线（event bus）",
+        "Pinia / Vuex 状态管理",
+        "$refs"
+      ],
+      "explanation": "事件总线虽可用但不推荐。",
+      "tags": [
+        "component-communication"
+      ],
+      "options": [
+        "props / $emit",
+        "provide / inject",
+        "全局事件总线（event bus）",
+        "Pinia / Vuex 状态管理",
+        "$refs"
+      ]
+    },
+    {
+      "id": "E07-014",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "<script setup> 是什么？",
+      "answer": [
+        "Composition API 的编译时语法糖"
+      ],
+      "explanation": "script setup 是 Composition API 的语法糖。",
+      "tags": [
+        "script-setup"
+      ],
+      "options": [
+        "Options API 的新写法",
+        "Composition API 的编译时语法糖",
+        "用于服务端渲染的指令",
+        "Vue Router 配置语法"
+      ]
+    },
+    {
+      "id": "E07-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "keep-alive 组件的主要作用是？",
+      "answer": [
+        "缓存组件实例以避免重复渲染和保持状态"
+      ],
+      "explanation": "keep-alive 缓存组件，保留状态。",
+      "tags": [
+        "keep-alive"
+      ],
+      "options": [
+        "销毁不活动的组件实例",
+        "缓存组件实例以避免重复渲染和保持状态",
+        "实现组件动画",
+        "拦截路由跳转"
+      ]
+    }
+  ]
+}

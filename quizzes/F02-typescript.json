@@ -1,0 +1,301 @@
+{
+  "domainId": "F02-typescript",
+  "domainName": "TypeScript",
+  "version": 1,
+  "questions": [
+    {
+      "id": "F02-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "TypeScript 中，将 TypeScript 编译为 JavaScript 的命令是？",
+      "answer": [
+        "tsc"
+      ],
+      "explanation": "tsc 是 TypeScript 编译器命令。",
+      "tags": [
+        "compiler",
+        "tsconfig"
+      ],
+      "options": [
+        "node",
+        "tsc",
+        "ts-node",
+        "babel"
+      ]
+    },
+    {
+      "id": "F02-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个类型表示任何值都可以赋值给它，但使用前必须进行类型检查？",
+      "answer": [
+        "unknown"
+      ],
+      "explanation": "unknown 是类型安全的 any，使用前需要类型收窄。",
+      "tags": [
+        "types",
+        "type-safety"
+      ],
+      "options": [
+        "any",
+        "unknown",
+        "never",
+        "void"
+      ]
+    },
+    {
+      "id": "F02-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "interface 与 type 别名相比，哪个支持声明合并？",
+      "answer": [
+        "interface"
+      ],
+      "explanation": "同名的 interface 可以多次声明并自动合并，type 不行。",
+      "tags": [
+        "interface",
+        "type-alias"
+      ],
+      "options": [
+        "interface",
+        "type",
+        "两者都支持",
+        "两者都不支持"
+      ]
+    },
+    {
+      "id": "F02-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "tsconfig.json 中 strict: true 会启用哪一组严格类型检查？",
+      "answer": [
+        "strictNullChecks 等所有严格选项"
+      ],
+      "explanation": "strict: true 同时启用多个严格类型检查开关。",
+      "tags": [
+        "tsconfig",
+        "strict"
+      ],
+      "options": [
+        "仅 noImplicitAny",
+        "strictNullChecks 等所有严格选项",
+        "仅 allowUnreachableCode",
+        "仅 strictFunctionTypes"
+      ]
+    },
+    {
+      "id": "F02-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "TypeScript 类型会在运行时保留并影响程序执行。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "TypeScript 类型在编译后被擦除，运行时只有 JavaScript。",
+      "tags": [
+        "type-system",
+        "runtime"
+      ]
+    },
+    {
+      "id": "F02-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "以下哪些是 TypeScript 内置的基本类型？",
+      "answer": [
+        "number",
+        "string",
+        "boolean",
+        "object"
+      ],
+      "explanation": "Array 和 tuple 属于更复杂的结构/泛型类型。",
+      "tags": [
+        "types"
+      ],
+      "options": [
+        "number",
+        "string",
+        "boolean",
+        "Array",
+        "object",
+        "tuple"
+      ]
+    },
+    {
+      "id": "F02-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪个是类型守卫的正确写法？",
+      "answer": [
+        "if (typeof x 的值为 string)"
+      ],
+      "explanation": "typeof 检查可收窄联合类型的范围。",
+      "tags": [
+        "type-guard",
+        "narrowing"
+      ],
+      "options": [
+        "if (typeof x 的值为 string)",
+        "if (x is string)",
+        "if (x as string)",
+        "if (string x)"
+      ]
+    },
+    {
+      "id": "F02-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "泛型函数 function identity<T>(arg: T): T 中，T 的作用是？",
+      "answer": [
+        "定义类型变量，让调用时推断具体类型"
+      ],
+      "explanation": "T 是类型参数，在编译期根据调用上下文推断。",
+      "tags": [
+        "generics"
+      ],
+      "options": [
+        "运行时类型检查",
+        "定义类型变量，让调用时推断具体类型",
+        "表示任意 JavaScript 值",
+        "固定为 string 类型"
+      ]
+    },
+    {
+      "id": "F02-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "以下哪些是 TypeScript 内置的工具类型？",
+      "answer": [
+        "Partial",
+        "Pick",
+        "Omit",
+        "Record"
+      ],
+      "explanation": "Map 和 Set 是 JavaScript 全局对象，不是 TS 工具类型。",
+      "tags": [
+        "utility-types"
+      ],
+      "options": [
+        "Partial",
+        "Pick",
+        "Omit",
+        "Record",
+        "Map",
+        "Set"
+      ]
+    },
+    {
+      "id": "F02-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "使用 as 类型断言可以改变运行时的实际类型。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "as 断言只影响编译期类型检查，不会生成运行时转换代码。",
+      "tags": [
+        "type-assertion"
+      ]
+    },
+    {
+      "id": "F02-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "条件类型的语法是？",
+      "answer": [
+        "T extends U ? X : Y"
+      ],
+      "explanation": "条件类型基于 extends 关系选择两个类型之一。",
+      "tags": [
+        "conditional-types"
+      ],
+      "options": [
+        "T & U",
+        "T | U",
+        "T extends U ? X : Y",
+        "keyof T"
+      ]
+    },
+    {
+      "id": "F02-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "keyof 操作符的作用是？",
+      "answer": [
+        "获取类型的所有属性名联合类型"
+      ],
+      "explanation": "keyof T 返回 T 所有已知公共属性名的联合类型。",
+      "tags": [
+        "mapped-types",
+        "keyof"
+      ],
+      "options": [
+        "获取类型的所有属性值",
+        "获取类型的所有属性名联合类型",
+        "判断属性是否存在",
+        "遍历对象属性"
+      ]
+    },
+    {
+      "id": "F02-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "关于 never 类型，正确的是？",
+      "answer": [
+        "可以赋值给任何类型",
+        "常用于穷尽性检查"
+      ],
+      "explanation": "never 是底类型，没有值；void 表示没有返回值，含义不同。",
+      "tags": [
+        "never",
+        "advanced-types"
+      ],
+      "options": [
+        "可以赋值给任何类型",
+        "任何类型都可以赋值给 never",
+        "常用于穷尽性检查",
+        "与 void 含义相同"
+      ]
+    },
+    {
+      "id": "F02-014",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "infer 关键字通常用于什么场景？",
+      "answer": [
+        "在条件类型中推断类型变量"
+      ],
+      "explanation": "infer 用于在条件类型中提取并声明一个待推断的类型变量。",
+      "tags": [
+        "infer",
+        "conditional-types"
+      ],
+      "options": [
+        "定义泛型约束",
+        "在条件类型中推断类型变量",
+        "声明可选属性",
+        "创建命名空间"
+      ]
+    },
+    {
+      "id": "F02-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "TypeScript 中使用装饰器需要在 tsconfig.json 中开启哪个选项？",
+      "answer": [
+        "experimentalDecorators"
+      ],
+      "explanation": "experimentalDecorators 启用装饰器语法的实验性支持。",
+      "tags": [
+        "decorators",
+        "tsconfig"
+      ],
+      "options": [
+        "experimentalDecorators",
+        "emitDecoratorMetadata",
+        "allowDecorators",
+        "useDecorators"
+      ]
+    }
+  ]
+}

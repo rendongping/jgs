@@ -1,0 +1,294 @@
+{
+  "domainId": "E01-build-tools",
+  "domainName": "Build Tools",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E01-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "在 Webpack 中，entry 配置的作用是？",
+      "answer": [
+        "指定打包的起始模块"
+      ],
+      "explanation": "entry 指定 Webpack 构建的入口模块。",
+      "tags": [
+        "webpack"
+      ],
+      "options": [
+        "定义输出文件名",
+        "指定打包的起始模块",
+        "配置开发服务器端口",
+        "设置代码压缩"
+      ]
+    },
+    {
+      "id": "E01-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Webpack 中 loader 的主要作用是？",
+      "answer": [
+        "处理非 JavaScript 文件并转换为有效模块"
+      ],
+      "explanation": "loader 用于转换模块的源代码。",
+      "tags": [
+        "webpack",
+        "loader"
+      ],
+      "options": [
+        "优化打包体积",
+        "处理非 JavaScript 文件并转换为有效模块",
+        "管理插件生命周期",
+        "启动热更新"
+      ]
+    },
+    {
+      "id": "E01-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Vite 在开发环境主要依赖什么实现快速启动？",
+      "answer": [
+        "原生 ES Modules 和按需编译"
+      ],
+      "explanation": "Vite 开发服务器利用浏览器原生 ESM 进行按需编译。",
+      "tags": [
+        "vite"
+      ],
+      "options": [
+        "Webpack 完整打包",
+        "原生 ES Modules 和按需编译",
+        "Gulp 任务流",
+        "Rollup 全量打包"
+      ]
+    },
+    {
+      "id": "E01-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "下列哪个工具是基于 Go 语言编写、以极速构建著称的 bundler？",
+      "answer": [
+        "esbuild"
+      ],
+      "explanation": "esbuild 使用 Go 实现，构建速度非常快。",
+      "tags": [
+        "esbuild"
+      ],
+      "options": [
+        "Webpack",
+        "Rollup",
+        "esbuild",
+        "Parcel"
+      ]
+    },
+    {
+      "id": "E01-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "Tree shaking 可以移除所有未被引用的代码，无论模块是否有副作用。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "有副作用的模块需要正确声明 sideEffects，否则 bundler 不敢安全移除。",
+      "tags": [
+        "tree-shaking"
+      ]
+    },
+    {
+      "id": "E01-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "以下哪些是前端常用的打包/构建工具？",
+      "answer": [
+        "Webpack",
+        "Rollup",
+        "Vite",
+        "esbuild",
+        "Parcel"
+      ],
+      "explanation": "Gulp 是任务运行器，不是打包工具。",
+      "tags": [
+        "build-tools"
+      ],
+      "options": [
+        "Webpack",
+        "Rollup",
+        "Vite",
+        "esbuild",
+        "Parcel",
+        "Gulp"
+      ]
+    },
+    {
+      "id": "E01-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "代码分割的主要目的是？",
+      "answer": [
+        "将代码拆分为多个 chunk，按需加载以降低首屏加载"
+      ],
+      "explanation": "代码分割减少初始加载，提高首屏性能。",
+      "tags": [
+        "code-splitting"
+      ],
+      "options": [
+        "减少 HTTP 请求数",
+        "将代码拆分为多个 chunk，按需加载以降低首屏加载",
+        "合并所有模块到一个文件",
+        "消除所有第三方依赖"
+      ]
+    },
+    {
+      "id": "E01-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "热模块替换（HMR）指的是？",
+      "answer": [
+        "在应用运行时替换、添加或删除模块而无需刷新"
+      ],
+      "explanation": "HMR 允许开发时局部更新模块。",
+      "tags": [
+        "hmr"
+      ],
+      "options": [
+        "重新加载整个页面",
+        "在应用运行时替换、添加或删除模块而无需刷新",
+        "仅刷新 CSS",
+        "重新安装依赖"
+      ]
+    },
+    {
+      "id": "E01-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "关于 source map，以下说法正确的是？",
+      "answer": [
+        "将压缩后的代码映射回源码",
+        "便于生产环境调试",
+        "可能暴露源码"
+      ],
+      "explanation": "source map 有利有弊，生产环境发布需谨慎。",
+      "tags": [
+        "sourcemap"
+      ],
+      "options": [
+        "将压缩后的代码映射回源码",
+        "便于生产环境调试",
+        "可能暴露源码",
+        "应该随意发布到生产环境"
+      ]
+    },
+    {
+      "id": "E01-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "Babel 会将 TypeScript 类型注解编译为运行时的类型检查代码。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "Babel 会剥离 TypeScript 类型，不做类型检查。",
+      "tags": [
+        "babel",
+        "typescript"
+      ]
+    },
+    {
+      "id": "E01-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "SWC 相比于 Babel 的主要优势通常是？",
+      "answer": [
+        "用 Rust 编写，编译/转换速度更快"
+      ],
+      "explanation": "SWC 是用 Rust 编写的高性能编译器。",
+      "tags": [
+        "swc"
+      ],
+      "options": [
+        "更强的插件生态",
+        "用 Rust 编写，编译/转换速度更快",
+        "内置类型检查",
+        "支持更多非标准语法"
+      ]
+    },
+    {
+      "id": "E01-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "package.json 中的 sideEffects: false 告诉构建工具什么？",
+      "answer": [
+        "该包没有任何副作用，可以更激进地 tree-shake"
+      ],
+      "explanation": "sideEffects: false 帮助 bundler 更有效地 tree-shake。",
+      "tags": [
+        "tree-shaking"
+      ],
+      "options": [
+        "该包没有任何副作用，可以更激进地 tree-shake",
+        "该包有副作用，必须全部保留",
+        "该包不使用 ES 模块",
+        "该包依赖外部副作用"
+      ]
+    },
+    {
+      "id": "E01-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "以下哪些属于常见的代码分割策略？",
+      "answer": [
+        "基于路由的分割",
+        "第三方依赖（vendor）分割",
+        "动态 import() 懒加载",
+        "组件级懒加载"
+      ],
+      "explanation": "这些都是常见的前端代码分割策略。",
+      "tags": [
+        "code-splitting"
+      ],
+      "options": [
+        "基于路由的分割",
+        "第三方依赖（vendor）分割",
+        "动态 import() 懒加载",
+        "组件级懒加载"
+      ]
+    },
+    {
+      "id": "E01-014",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "Webpack Bundle Analyzer 主要用于？",
+      "answer": [
+        "分析打包产物大小构成"
+      ],
+      "explanation": "Bundle Analyzer 可视化展示各 chunk 和模块体积。",
+      "tags": [
+        "webpack",
+        "analyzer"
+      ],
+      "options": [
+        "分析打包产物大小构成",
+        "运行单元测试",
+        "格式化代码",
+        "类型检查"
+      ]
+    },
+    {
+      "id": "E01-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "esbuild 的主要局限性通常是？",
+      "answer": [
+        "插件生态和配置灵活性相对 Webpack 较弱"
+      ],
+      "explanation": "esbuild 速度快，但插件生态和配置灵活性不如 Webpack。",
+      "tags": [
+        "esbuild"
+      ],
+      "options": [
+        "不支持 TypeScript",
+        "构建速度较慢",
+        "插件生态和配置灵活性相对 Webpack 较弱",
+        "不支持代码压缩"
+      ]
+    }
+  ]
+}

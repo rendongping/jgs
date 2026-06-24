@@ -1,0 +1,289 @@
+{
+  "domainId": "F05-security",
+  "domainName": "Security",
+  "version": 1,
+  "questions": [
+    {
+      "id": "F05-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "XSS 的本质是？",
+      "answer": [
+        "在目标网站注入并执行恶意脚本"
+      ],
+      "explanation": "XSS 通过在页面中注入并执行恶意脚本来攻击用户。",
+      "tags": [
+        "xss"
+      ],
+      "options": [
+        "窃取用户 Cookie",
+        "在目标网站注入并执行恶意脚本",
+        "伪造用户请求",
+        "拦截网络流量"
+      ]
+    },
+    {
+      "id": "F05-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "CSRF 攻击利用的是？",
+      "answer": [
+        "用户在已认证网站上的会话凭证，诱使其执行非预期操作"
+      ],
+      "explanation": "CSRF 利用用户已登录的凭证发起伪造请求。",
+      "tags": [
+        "csrf"
+      ],
+      "options": [
+        "用户未验证的输入",
+        "用户在已认证网站上的会话凭证，诱使其执行非预期操作",
+        "弱密码策略",
+        "浏览器同源策略缺失"
+      ]
+    },
+    {
+      "id": "F05-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "CSP 主要用于缓解哪类风险？",
+      "answer": [
+        "XSS 和数据注入"
+      ],
+      "explanation": "CSP 限制页面可以加载和执行的脚本与资源来源。",
+      "tags": [
+        "csp"
+      ],
+      "options": [
+        "SQL 注入",
+        "XSS 和数据注入",
+        "DDoS",
+        "中间人攻击"
+      ]
+    },
+    {
+      "id": "F05-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "设置 Cookie 的 Secure 属性后，Cookie 会怎样传输？",
+      "answer": [
+        "仅通过 HTTPS"
+      ],
+      "explanation": "Secure 属性要求 Cookie 只在 HTTPS 连接中传输。",
+      "tags": [
+        "cookies"
+      ],
+      "options": [
+        "仅通过 HTTPS",
+        "仅通过 HTTP",
+        "可被 JavaScript 读取",
+        "忽略 SameSite"
+      ]
+    },
+    {
+      "id": "F05-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "只要使用 HTTPS，就无需对用户输入进行转义即可安全地插入到 HTML 中。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "HTTPS 不能防御 XSS，输出前必须转义或使用安全 API。",
+      "tags": [
+        "xss"
+      ]
+    },
+    {
+      "id": "F05-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "哪些措施可有效防御 XSS？",
+      "answer": [
+        "输出编码/转义",
+        "内容安全策略（CSP）",
+        "输入验证与过滤",
+        "HttpOnly Cookie"
+      ],
+      "explanation": "SRI 用于验证第三方资源完整性，不是 XSS 主防手段；HttpOnly 可降低 Cookie 被盗影响。",
+      "tags": [
+        "xss"
+      ],
+      "options": [
+        "输出编码/转义",
+        "内容安全策略（CSP）",
+        "输入验证与过滤",
+        "HttpOnly Cookie",
+        "Subresource Integrity"
+      ]
+    },
+    {
+      "id": "F05-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Cookie 的 SameSite=Lax 属性通常限制什么？",
+      "answer": [
+        "Cookie 仅在同一站点请求时发送，部分跨站导航除外"
+      ],
+      "explanation": "Lax 限制跨站请求携带 Cookie，但允许顶层 GET 导航。",
+      "tags": [
+        "csrf",
+        "cookies"
+      ],
+      "options": [
+        "Cookie 仅在同一站点请求时发送，部分跨站导航除外",
+        "Cookie 可在任何跨站请求发送",
+        "禁止 JavaScript 访问 Cookie",
+        "Cookie 仅对 POST 请求有效"
+      ]
+    },
+    {
+      "id": "F05-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Clickjacking 的常见防护手段是？",
+      "answer": [
+        "CSP frame-ancestors 或 X-Frame-Options"
+      ],
+      "explanation": "通过控制页面是否允许被嵌入 frame 来防御点击劫持。",
+      "tags": [
+        "clickjacking"
+      ],
+      "options": [
+        "CSP frame-ancestors 或 X-Frame-Options",
+        "HttpOnly",
+        "HSTS",
+        "CORS"
+      ]
+    },
+    {
+      "id": "F05-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "防御 CSRF 的有效方法包括？",
+      "answer": [
+        "CSRF Token",
+        "SameSite Cookie",
+        "验证 Origin/Referer"
+      ],
+      "explanation": "CORS 不是 CSRF 防御机制。",
+      "tags": [
+        "csrf"
+      ],
+      "options": [
+        "CSRF Token",
+        "SameSite Cookie",
+        "验证 Origin/Referer",
+        "仅依赖 CORS 配置"
+      ]
+    },
+    {
+      "id": "F05-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "Content Security Policy 可以彻底消除所有 XSS 攻击风险。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "CSP 是纵深防御手段，不能 100% 消除 XSS，如内联脚本绕过、DOM XSS 等。",
+      "tags": [
+        "csp"
+      ]
+    },
+    {
+      "id": "F05-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Subresource Integrity (SRI) 的作用是？",
+      "answer": [
+        "验证第三方资源是否被篡改"
+      ],
+      "explanation": "SRI 通过哈希校验确保加载的第三方资源未被篡改。",
+      "tags": [
+        "sri"
+      ],
+      "options": [
+        "防止子资源被缓存",
+        "验证第三方资源是否被篡改",
+        "加密子资源传输",
+        "阻止跨域请求"
+      ]
+    },
+    {
+      "id": "F05-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "HSTS 的作用是？",
+      "answer": [
+        "强制浏览器只通过 HTTPS 访问站点"
+      ],
+      "explanation": "HSTS 告诉浏览器只能通过 HTTPS 访问该域名。",
+      "tags": [
+        "hsts"
+      ],
+      "options": [
+        "强制浏览器只通过 HTTPS 访问站点",
+        "允许混合内容",
+        "禁用 Cookie",
+        "阻止 XSS"
+      ]
+    },
+    {
+      "id": "F05-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "前端在保障应用安全方面的责任包括哪些？",
+      "answer": [
+        "对用户输入做校验和消毒",
+        "避免将敏感密钥硬编码在客户端",
+        "安全地存储 tokens 并设置合适的 Cookie 属性"
+      ],
+      "explanation": "不应使用 eval 处理不可信数据。",
+      "tags": [
+        "security-practices"
+      ],
+      "options": [
+        "对用户输入做校验和消毒",
+        "避免将敏感密钥硬编码在客户端",
+        "使用 eval 处理不可信数据",
+        "安全地存储 tokens 并设置合适的 Cookie 属性"
+      ]
+    },
+    {
+      "id": "F05-014",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "DOM-based XSS 的特点是？",
+      "answer": [
+        "恶意输入由客户端 JavaScript 写入 DOM 时未做处理导致"
+      ],
+      "explanation": "DOM XSS 发生在客户端脚本操作 DOM 的过程中。",
+      "tags": [
+        "xss"
+      ],
+      "options": [
+        "恶意脚本由服务器返回",
+        "恶意输入由客户端 JavaScript 写入 DOM 时未做处理导致",
+        "通过修改 DNS 实现",
+        "仅影响 HTTP 网站"
+      ]
+    },
+    {
+      "id": "F05-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "为 target=_blank 的链接添加 rel=noopener noreferrer 主要防止什么？",
+      "answer": [
+        "Tabnabbing / 反向窗口对象操控"
+      ],
+      "explanation": "noopener 防止新页面通过 window.opener 操控原页面。",
+      "tags": [
+        "security"
+      ],
+      "options": [
+        "XSS",
+        "CSRF",
+        "Tabnabbing / 反向窗口对象操控",
+        "点击劫持"
+      ]
+    }
+  ]
+}

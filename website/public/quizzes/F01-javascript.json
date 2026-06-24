@@ -1,0 +1,308 @@
+{
+  "domainId": "F01-javascript",
+  "domainName": "JavaScript",
+  "version": 1,
+  "questions": [
+    {
+      "id": "F01-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "下列值中，哪个是 JavaScript 的 falsy 值？",
+      "answer": [
+        "0"
+      ],
+      "explanation": "0 是 falsy；字符串 0、数组 []、对象 {} 都是 truthy。",
+      "tags": [
+        "types",
+        "falsy"
+      ],
+      "options": [
+        "0",
+        "字符串 0",
+        "[]",
+        "{}"
+      ]
+    },
+    {
+      "id": "F01-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "typeof null 的返回值是什么？",
+      "answer": [
+        "object"
+      ],
+      "explanation": "JavaScript 的历史遗留问题，typeof null 返回 object。",
+      "tags": [
+        "types",
+        "operators"
+      ],
+      "options": [
+        "null",
+        "object",
+        "undefined",
+        "number"
+      ]
+    },
+    {
+      "id": "F01-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "使用 var 声明的变量具有什么作用域？",
+      "answer": [
+        "函数作用域"
+      ],
+      "explanation": "var 是函数作用域，let 和 const 是块级作用域。",
+      "tags": [
+        "scope",
+        "var"
+      ],
+      "options": [
+        "块级作用域",
+        "函数作用域",
+        "模块作用域",
+        "词法作用域"
+      ]
+    },
+    {
+      "id": "F01-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "下列哪个方法可以可靠地判断一个值是否为数组？",
+      "answer": [
+        "Array.isArray(arr)"
+      ],
+      "explanation": "Array.isArray 能跨 iframe 等边界可靠判断数组。",
+      "tags": [
+        "array",
+        "types"
+      ],
+      "options": [
+        "typeof arr 等于 array",
+        "arr instanceof Array",
+        "Array.isArray(arr)",
+        "arr.isArray()"
+      ]
+    },
+    {
+      "id": "F01-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "在 JavaScript 中，字符串 1 与数字 1 使用 == 比较会返回 true。",
+      "answer": [
+        "true"
+      ],
+      "explanation": "== 会进行类型转换，字符串 1 会被转换为数字 1。",
+      "tags": [
+        "coercion",
+        "operators"
+      ]
+    },
+    {
+      "id": "F01-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "下列哪些是 JavaScript 的原始类型？",
+      "answer": [
+        "string",
+        "number",
+        "boolean",
+        "null",
+        "undefined",
+        "symbol"
+      ],
+      "explanation": "object 是引用类型；bigint 也是原始类型但不在选项中。",
+      "tags": [
+        "types"
+      ],
+      "options": [
+        "string",
+        "number",
+        "boolean",
+        "null",
+        "undefined",
+        "object",
+        "symbol"
+      ]
+    },
+    {
+      "id": "F01-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下代码的输出顺序是？\nconsole.log(1);\nsetTimeout(() => console.log(2), 0);\nPromise.resolve().then(() => console.log(3));\nconsole.log(4);",
+      "answer": [
+        "1 4 3 2"
+      ],
+      "explanation": "同步代码先执行，Promise.then 进入微任务队列，优先于 setTimeout 宏任务。",
+      "tags": [
+        "event-loop",
+        "async"
+      ],
+      "options": [
+        "1 4 2 3",
+        "1 4 3 2",
+        "1 2 3 4",
+        "1 3 4 2"
+      ]
+    },
+    {
+      "id": "F01-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "关于闭包，以下说法正确的是？",
+      "answer": [
+        "闭包是函数与其词法环境的组合，可以访问外部作用域变量"
+      ],
+      "explanation": "闭包让函数能够记住并访问其外部词法作用域中的变量。",
+      "tags": [
+        "closure",
+        "scope"
+      ],
+      "options": [
+        "闭包只能访问外部函数的全局变量",
+        "闭包是函数与其词法环境的组合，可以访问外部作用域变量",
+        "闭包会立即释放外部变量",
+        "闭包只在类组件中存在"
+      ]
+    },
+    {
+      "id": "F01-009",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "箭头函数中的 this 由什么决定？",
+      "answer": [
+        "定义时外层作用域的 this"
+      ],
+      "explanation": "箭头函数没有自己的 this，它继承外层词法作用域的 this。",
+      "tags": [
+        "this",
+        "arrow-function"
+      ],
+      "options": [
+        "调用时动态绑定",
+        "定义时外层作用域的 this",
+        "arguments 对象",
+        "call/apply 可以改变"
+      ]
+    },
+    {
+      "id": "F01-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "JSON.parse(JSON.stringify(obj)) 可以完美地深拷贝任意 JavaScript 对象。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "该方法不能处理函数、Date、循环引用、undefined、Map/Set 等特殊情况。",
+      "tags": [
+        "json",
+        "deep-copy"
+      ]
+    },
+    {
+      "id": "F01-011",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "以下哪些数组方法会改变原数组？",
+      "answer": [
+        "push",
+        "pop",
+        "splice",
+        "shift"
+      ],
+      "explanation": "slice 和 concat 返回新数组，不修改原数组。",
+      "tags": [
+        "array",
+        "mutation"
+      ],
+      "options": [
+        "push",
+        "pop",
+        "splice",
+        "slice",
+        "concat",
+        "shift"
+      ]
+    },
+    {
+      "id": "F01-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Promise.all([p1, p2, p3]) 的行为是？",
+      "answer": [
+        "等待所有 Promise 成功，任一失败立即拒绝"
+      ],
+      "explanation": "Promise.all 在所有 Promise 都 resolve 时返回结果数组；任一 reject 会立即 reject。",
+      "tags": [
+        "promise",
+        "async"
+      ],
+      "options": [
+        "等待所有 Promise 成功，任一失败立即拒绝",
+        "按顺序执行并返回首个结果",
+        "只要有一个成功就返回",
+        "总是并行但忽略错误"
+      ]
+    },
+    {
+      "id": "F01-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在 Proxy 中，拦截对象属性赋值的陷阱是哪个？",
+      "answer": [
+        "set"
+      ],
+      "explanation": "set trap 用于拦截对目标对象属性的赋值操作。",
+      "tags": [
+        "proxy",
+        "meta-programming"
+      ],
+      "options": [
+        "get",
+        "set",
+        "has",
+        "ownKeys"
+      ]
+    },
+    {
+      "id": "F01-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "关于 JavaScript 内存管理，以下说法正确的是？",
+      "answer": [
+        "现代引擎主要使用标记-清除算法",
+        "WeakMap 的键不会阻止垃圾回收"
+      ],
+      "explanation": "现代引擎能回收循环引用；闭包变量若仍被引用则不会被回收。",
+      "tags": [
+        "memory",
+        "garbage-collection"
+      ],
+      "options": [
+        "现代引擎主要使用标记-清除算法",
+        "循环引用一定导致内存泄漏",
+        "WeakMap 的键不会阻止垃圾回收",
+        "闭包引用的变量在函数执行结束后一定被回收"
+      ]
+    },
+    {
+      "id": "F01-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "关于 Generator 函数，以下说法正确的是？",
+      "answer": [
+        "generator 函数返回一个可迭代对象，调用 next() 执行到下一个 yield"
+      ],
+      "explanation": "调用 function* 返回迭代器，next() 控制执行到下一个 yield。",
+      "tags": [
+        "generator",
+        "iterator"
+      ],
+      "options": [
+        "调用 generator 函数会立即执行完函数体",
+        "generator 函数返回一个可迭代对象，调用 next() 执行到下一个 yield",
+        "yield 只能在普通函数中使用",
+        "generator 不支持通过 for...of 遍历"
+      ]
+    }
+  ]
+}

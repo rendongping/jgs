@@ -1,0 +1,291 @@
+{
+  "domainId": "A01-system-architecture",
+  "domainName": "System Architecture",
+  "version": 1,
+  "questions": [
+    {
+      "id": "A01-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "MVC 架构模式中，V 代表什么？",
+      "answer": [
+        "视图（View）"
+      ],
+      "explanation": "MVC 是 Model-View-Controller 的缩写。",
+      "tags": [
+        "mvc"
+      ],
+      "options": [
+        "视图（View）",
+        "视图模型（ViewModel）",
+        "控制器（Controller）",
+        "模型（Model）"
+      ]
+    },
+    {
+      "id": "A01-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "组件化架构的核心思想是？",
+      "answer": [
+        "将 UI 拆分为独立、可复用的组件"
+      ],
+      "explanation": "组件化提高复用性和可维护性。",
+      "tags": [
+        "components"
+      ],
+      "options": [
+        "将所有代码写在一个文件",
+        "将 UI 拆分为独立、可复用的组件",
+        "仅使用类组件",
+        "避免使用状态管理"
+      ]
+    },
+    {
+      "id": "A01-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "设计系统通常包含什么？",
+      "answer": [
+        "组件库、设计规范、模式与最佳实践"
+      ],
+      "explanation": "设计系统提供一致的设计与开发基础。",
+      "tags": [
+        "design-system"
+      ],
+      "options": [
+        "仅包含设计稿",
+        "组件库、设计规范、模式与最佳实践",
+        "仅包含 CSS 框架",
+        "仅包含测试用例"
+      ]
+    },
+    {
+      "id": "A01-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "状态管理库的主要价值是？",
+      "answer": [
+        "集中管理跨组件共享状态"
+      ],
+      "explanation": "状态管理库用于共享和管理全局状态。",
+      "tags": [
+        "state-management"
+      ],
+      "options": [
+        "替代组件化",
+        "集中管理跨组件共享状态",
+        "提升 CSS 性能",
+        "处理网络协议"
+      ]
+    },
+    {
+      "id": "A01-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "前端架构只关心项目的目录结构和文件命名。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "前端架构还涉及状态、通信、性能、可维护性、团队协作等。",
+      "tags": [
+        "architecture"
+      ]
+    },
+    {
+      "id": "A01-006",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "前端架构设计需要关注哪些质量属性？",
+      "answer": [
+        "可维护性",
+        "可扩展性",
+        "性能",
+        "安全性",
+        "开发体验"
+      ],
+      "explanation": "架构关注非功能需求和长期演化。",
+      "tags": [
+        "architecture"
+      ],
+      "options": [
+        "可维护性",
+        "可扩展性",
+        "性能",
+        "安全性",
+        "开发体验"
+      ]
+    },
+    {
+      "id": "A01-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "BFF 模式的主要目的是？",
+      "answer": [
+        "为前端定制 API 聚合与适配层"
+      ],
+      "explanation": "BFF 为前端提供量身定制的 API。",
+      "tags": [
+        "bff"
+      ],
+      "options": [
+        "替代数据库",
+        "为前端定制 API 聚合与适配层",
+        "实现浏览器缓存",
+        "替代 CDN"
+      ]
+    },
+    {
+      "id": "A01-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "微前端的核心目标是？",
+      "answer": [
+        "将前端应用拆分为可独立开发、部署的单元"
+      ],
+      "explanation": "微前端提升团队独立性和交付速度。",
+      "tags": [
+        "micro-frontend"
+      ],
+      "options": [
+        "使用单一技术栈",
+        "将前端应用拆分为可独立开发、部署的单元",
+        "消除所有状态管理",
+        "替代后端服务"
+      ]
+    },
+    {
+      "id": "A01-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "微前端的常见集成方式包括？",
+      "answer": [
+        "Module Federation",
+        "iframe",
+        "Web Components",
+        "single-spa / qiankun"
+      ],
+      "explanation": "直接共享 node_modules 不是运行时集成方式。",
+      "tags": [
+        "micro-frontend"
+      ],
+      "options": [
+        "Module Federation",
+        "iframe",
+        "Web Components",
+        "single-spa / qiankun",
+        "直接共享 node_modules"
+      ]
+    },
+    {
+      "id": "A01-010",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "全局状态管理可以解决所有组件通信问题，不需要其他方式。",
+      "answer": [
+        "false"
+      ],
+      "explanation": "应根据场景选择 props、context、local state 等。",
+      "tags": [
+        "state-management"
+      ]
+    },
+    {
+      "id": "A01-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "关注点分离在前端通常指？",
+      "answer": [
+        "将 UI、业务逻辑、数据访问等职责分开"
+      ],
+      "explanation": "关注点分离提升可维护性。",
+      "tags": [
+        "architecture"
+      ],
+      "options": [
+        "所有逻辑放在模板中",
+        "将 UI、业务逻辑、数据访问等职责分开",
+        "只写内联样式",
+        "只使用一个框架"
+      ]
+    },
+    {
+      "id": "A01-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "CQRS 模式的基本含义是？",
+      "answer": [
+        "命令与查询职责分离"
+      ],
+      "explanation": "CQRS 将读模型和写模型分离。",
+      "tags": [
+        "cqrs"
+      ],
+      "options": [
+        "命令与查询职责分离",
+        "单一职责原则",
+        "事件溯源",
+        "数据库分片"
+      ]
+    },
+    {
+      "id": "A01-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "领域驱动设计（DDD）在前端架构中通常强调什么？",
+      "answer": [
+        "按业务领域/限界上下文组织代码"
+      ],
+      "explanation": "DDD 按业务领域组织代码。",
+      "tags": [
+        "ddd"
+      ],
+      "options": [
+        "按技术层组织代码",
+        "按业务领域/限界上下文组织代码",
+        "完全避免使用框架",
+        "只关注页面样式"
+      ]
+    },
+    {
+      "id": "A01-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "前端性能架构的常见策略包括？",
+      "answer": [
+        "代码分割与懒加载",
+        "资源缓存与 CDN",
+        "服务端渲染/静态生成"
+      ],
+      "explanation": "应避免无限制加载所有依赖。",
+      "tags": [
+        "performance-architecture"
+      ],
+      "options": [
+        "代码分割与懒加载",
+        "资源缓存与 CDN",
+        "服务端渲染/静态生成",
+        "无限制地加载所有依赖"
+      ]
+    },
+    {
+      "id": "A01-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "API 层抽象的主要价值是？",
+      "answer": [
+        "将前后端端点细节解耦，统一错误处理与请求逻辑"
+      ],
+      "explanation": "API 层解耦前后端细节。",
+      "tags": [
+        "api-layer"
+      ],
+      "options": [
+        "将前后端端点细节解耦，统一错误处理与请求逻辑",
+        "直接暴露后端所有接口",
+        "禁止缓存",
+        "替代数据库"
+      ]
+    }
+  ]
+}

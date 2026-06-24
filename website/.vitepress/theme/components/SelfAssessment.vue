@@ -24,6 +24,29 @@
           <span v-if="index < weakAreas.length - 1">、</span>
         </span>
       </div>
+      <div class="assessment-quick-links">
+        <a href="/learning-path/quizzes" class="quick-link">去客观题测评</a>
+        <a href="/learning-path/coding-challenges" class="quick-link">去在线编程题</a>
+        <a href="/guide/learning-routes" class="quick-link">查看学习路径</a>
+      </div>
+    </div>
+
+    <div class="evidence-panel" v-if="selectedDomainForEvidence">
+      <div class="evidence-header">
+        <strong>{{ selectedDomainForEvidence.name }} — 可观察行为证据</strong>
+        <button class="evidence-close" @click="selectedDomainForEvidence = null" aria-label="关闭">×</button>
+      </div>
+      <div class="evidence-list">
+        <div
+          v-for="level in 6"
+          :key="level"
+          class="evidence-item"
+          :class="{ active: ratings[selectedDomainForEvidence.id] === level }"
+        >
+          <span class="evidence-level">L{{ level }}</span>
+          <span class="evidence-text">{{ evidenceFor(selectedDomainForEvidence.id, level) }}</span>
+        </div>
+      </div>
     </div>
 
     <div class="assessment-table-wrapper">
@@ -35,6 +58,7 @@
               L{{ level }}
               <span class="level-hint" :title="levelDescriptions[level - 1]">{{ levelLabels[level - 1] }}</span>
             </th>
+            <th scope="col">证据</th>
           </tr>
         </thead>
         <tbody>
@@ -49,8 +73,18 @@
                 @click="setRating(domain.id, level)"
                 :aria-label="`${domain.name} 等级 ${level}`"
                 :aria-pressed="ratings[domain.id] === level"
+                :title="evidenceFor(domain.id, level)"
               >
                 {{ level }}
+              </button>
+            </td>
+            <td class="evidence-cell">
+              <button
+                class="evidence-toggle"
+                @click="toggleEvidence(domain)"
+                :aria-label="`查看 ${domain.name} 行为证据`"
+              >
+                查看
               </button>
             </td>
           </tr>
@@ -119,6 +153,202 @@ const domains = [
   { id: 'strategy', name: 'Strategy', link: '/leadership/strategy', level: 4 },
 ];
 
+// 每个领域每个等级的可观察行为证据（简化关键描述）
+const evidenceMap = {
+  javascript: {
+    1: '能列出 JS 基本数据类型与变量声明方式',
+    2: '能解释闭包、原型链、事件循环等核心概念',
+    3: '能独立完成 DOM 操作、异步请求与常见工具函数封装',
+    4: '能手写符合 Promise/A+ 的 Promise，分析事件循环与异步边界',
+    5: '能设计并落地框架级工具库，制定团队编码规范',
+    6: '能推动语言标准与工程实践演进，输出具有行业影响力的方案'
+  },
+  typescript: {
+    1: '能说明 TypeScript 与 JavaScript 的关系',
+    2: '能解释类型注解、接口、泛型的基本用法',
+    3: '能在项目中使用类型推断、联合类型与常用工具类型',
+    4: '能编写条件类型、映射类型与类型守卫，解决复杂类型问题',
+    5: '能设计类型安全的 SDK 与 DSL，建立类型约束规范',
+    6: '能推动类型系统架构演进，提升大型项目可维护性'
+  },
+  browser: {
+    1: '能说出浏览器的主要组成',
+    2: '能解释渲染流程、事件冒泡捕获、跨域基本概念',
+    3: '能使用 DevTools 定位性能与兼容性问题',
+    4: '能分析关键渲染路径、重排重绘与内存泄漏根因',
+    5: '能制定浏览器兼容性策略与性能优化体系',
+    6: '能主导浏览器新技术落地，建立跨团队最佳实践'
+  },
+  network: {
+    1: '能说出 HTTP 与 HTTPS 的区别',
+    2: '能解释请求方法、状态码、缓存机制的基本含义',
+    3: '能独立完成接口联调、错误处理与简单缓存配置',
+    4: '能分析网络时延、并发限制与安全传输细节',
+    5: '能设计高可用接口方案、CDN 策略与容灾机制',
+    6: '能主导网络架构升级，量化传输性能与稳定性收益'
+  },
+  security: {
+    1: '能列举常见前端安全问题',
+    2: '能解释 XSS、CSRF、CSP 的基本原理',
+    3: '能在项目中应用输入校验、转义与安全头部配置',
+    4: '能进行安全漏洞审计并制定修复方案',
+    5: '能建立安全开发流程与自动化检测体系',
+    6: '能推动企业安全文化，主导安全治理与合规落地'
+  },
+  'build-tools': {
+    1: '能说出常见构建工具名称',
+    2: '能解释 Webpack/Vite/Rollup 的基本概念',
+    3: '能配置常用 Loader、Plugin 与开发服务器',
+    4: '能优化构建性能、拆分产物并排查构建问题',
+    5: '能设计构建工程化体系，支撑多业务线需求',
+    6: '能主导下一代构建方案选型，持续降低构建成本'
+  },
+  monorepo: {
+    1: '能说明 Monorepo 与 Multirepo 的区别',
+    2: '能解释 pnpm workspace、Changesets 等基础概念',
+    3: '能在 Monorepo 中管理依赖、版本与脚本',
+    4: '能设计模块边界、构建顺序与私有包发布流程',
+    5: '能建立 Monorepo 治理规范与自动化变更管理',
+    6: '能推动大规模 Monorepo 架构演进，提升协作效率'
+  },
+  'ci-cd': {
+    1: '能说出 CI/CD 的基本含义',
+    2: '能解释 GitHub Actions / GitLab CI 的基本流程',
+    3: '能编写简单流水线实现构建、测试、部署',
+    4: '能设计多环境部署、灰度发布与回滚策略',
+    5: '能建立端到端交付体系与安全门禁',
+    6: '能主导 DevOps 文化落地，持续优化交付效率'
+  },
+  'code-quality': {
+    1: '能列举代码质量相关工具',
+    2: '能解释 ESLint、Prettier、单元测试的作用',
+    3: '能在项目中配置规范与测试并坚持执行',
+    4: '能设计质量门禁、覆盖率目标与重构计划',
+    5: '能建立团队代码质量治理体系',
+    6: '能推动质量文化，将质量指标纳入组织考核'
+  },
+  'design-system': {
+    1: '能说出设计系统的组成部分',
+    2: '能解释组件库、Token、设计规范的关系',
+    3: '能使用现有设计系统完成页面开发',
+    4: '能参与设计系统组件开发与文档维护',
+    5: '能主导设计系统架构与多平台适配',
+    6: '能推动设计系统生态建设，提升跨团队一致性'
+  },
+  react: {
+    1: '能说出 React 核心概念',
+    2: '能解释组件、Props、State、生命周期/Hook',
+    3: '能独立完成 React 项目开发与状态管理',
+    4: '能优化渲染性能、封装高复用 Hooks',
+    5: '能设计 React 应用架构与工程化规范',
+    6: '能推动 React 技术栈演进，输出框架级方案'
+  },
+  vue: {
+    1: '能说出 Vue 的核心特性',
+    2: '能解释响应式、组件、指令与生命周期',
+    3: '能独立完成 Vue 项目开发与状态管理',
+    4: '能优化 Vue 性能、封装可复用组合式函数',
+    5: '能设计 Vue 应用架构与工程化规范',
+    6: '能推动 Vue 技术栈演进，主导大型项目落地'
+  },
+  'cross-platform': {
+    1: '能列举常见跨端技术',
+    2: '能解释 Hybrid、小程序、RN/Flutter 的基本原理',
+    3: '能使用跨端框架完成业务开发',
+    4: '能处理跨端性能、兼容性与原生通信问题',
+    5: '能设计跨端架构与组件复用方案',
+    6: '能主导跨端技术选型，构建跨业务线能力中台'
+  },
+  'ai-engineering': {
+    1: '能说出 AI 工程化的基本概念',
+    2: '能解释 Prompt Engineering、RAG、Agent 等概念',
+    3: '能在项目中调用 LLM API 并实现简单应用',
+    4: '能设计 AI 应用架构、评估与可观测方案',
+    5: '能建立 AI 工程化流程与安全治理规范',
+    6: '能推动 AI 与业务深度融合，量化 AI 投入产出'
+  },
+  'node-bff': {
+    1: '能说明 Node.js 在前端的应用场景',
+    2: '能解释 Express/Koa/Nest 的基本概念',
+    3: '能独立完成 BFF 接口开发与部署',
+    4: '能设计 BFF 架构、错误处理与性能优化',
+    5: '能建立 Node 工程化与可观测体系',
+    6: '能主导全栈架构演进，支撑业务高速增长'
+  },
+  'system-architecture': {
+    1: '能列举常见架构模式',
+    2: '能解释 MVC、MVVM、微前端等基本概念',
+    3: '能在项目中应用成熟架构模式',
+    4: '能主持架构评审，输出 ADR 并推动团队共识',
+    5: '能设计企业级前端架构并权衡多维度方案',
+    6: '能主导技术战略，推动组织级架构治理'
+  },
+  'micro-frontend': {
+    1: '能说出微前端要解决什么问题',
+    2: '能解释 qiankun、Module Federation 等方案',
+    3: '能在项目中接入微前端框架',
+    4: '能解决微前端样式隔离、通信、加载性能问题',
+    5: '能设计微前端基座与拆分策略',
+    6: '能主导微前端平台化建设，支撑多团队协作'
+  },
+  performance: {
+    1: '能说出常见性能指标',
+    2: '能解释 FCP、LCP、CLS 等指标含义',
+    3: '能使用 Lighthouse 定位并修复基础性能问题',
+    4: '能制定性能优化方案并量化收益',
+    5: '能建立性能监控、预算与持续优化机制',
+    6: '能主导性能体系建设，将性能融入组织流程'
+  },
+  quality: {
+    1: '能列举软件质量相关维度',
+    2: '能解释测试金字塔、自动化测试基本概念',
+    3: '能编写单元测试与集成测试',
+    4: '能设计质量保障体系与缺陷预防流程',
+    5: '能建立全链路质量门禁与度量体系',
+    6: '能推动质量文化，实现质量驱动的工程组织'
+  },
+  'data-state': {
+    1: '能说出状态管理的作用',
+    2: '能解释 Redux/Vuex/Pinia/Zustand 等概念',
+    3: '能在项目中使用状态管理库',
+    4: '能设计状态建模、异步流与性能优化方案',
+    5: '能建立跨应用状态同步与数据一致性规范',
+    6: '能主导数据架构演进，支撑复杂业务场景'
+  },
+  observability: {
+    1: '能说出可观测性的三大支柱',
+    2: '能解释日志、指标、追踪的基本概念',
+    3: '能在项目中接入监控工具并配置告警',
+    4: '能设计可观测方案并定位线上问题',
+    5: '能建立统一可观测平台与故障响应流程',
+    6: '能推动可观测文化，提升系统韧性与恢复能力'
+  },
+  business: {
+    1: '能描述自己所负责的业务',
+    2: '能理解需求背景与业务目标',
+    3: '能与产品经理协作评估技术可行性',
+    4: '能将业务目标拆解为技术方案与里程碑',
+    5: '能通过技术驱动业务增长与创新',
+    6: '能参与商业决策，用技术构建竞争壁垒'
+  },
+  team: {
+    1: '能说明团队协作基本规范',
+    2: '能进行有效的代码评审与技术分享',
+    3: '能指导初级成员并推动任务落地',
+    4: '能建设团队梯队与人才培养机制',
+    5: '能打造高效技术团队与文化',
+    6: '能制定组织人才战略，支撑业务长期发展'
+  },
+  strategy: {
+    1: '能说出技术规划的重要性',
+    2: '能理解团队或项目的技术目标',
+    3: '能参与技术选型与优先级讨论',
+    4: '能制定领域级技术演进路线',
+    5: '能制定 1-3 年技术战略并推动落地',
+    6: '能主导组织级技术战略，获得业务方高度认可'
+  }
+};
+
 const levelGroups = [
   { name: '基础层', key: 'level01', ids: domains.filter(d => d.level === 1).map(d => d.id) },
   { name: '工程化层', key: 'level02', ids: domains.filter(d => d.level === 2).map(d => d.id) },
@@ -130,6 +360,7 @@ const ratings = ref({});
 const isClient = ref(false);
 const radarChartRef = ref(null);
 const fileInputRef = ref(null);
+const selectedDomainForEvidence = ref(null);
 let chartInstance = null;
 let echartsLib = null;
 
@@ -163,6 +394,18 @@ const weakAreas = computed(() => {
     .slice(0, 5)
     .map(d => ({ id: d.id, name: d.name, link: d.link }));
 });
+
+function evidenceFor(domainId, level) {
+  return evidenceMap[domainId]?.[level] || '暂无描述';
+}
+
+function toggleEvidence(domain) {
+  if (selectedDomainForEvidence.value?.id === domain.id) {
+    selectedDomainForEvidence.value = null;
+  } else {
+    selectedDomainForEvidence.value = domain;
+  }
+}
 
 function setRating(domainId, level) {
   ratings.value[domainId] = level;
@@ -402,6 +645,7 @@ onUnmounted(() => {
   font-size: 14px;
   padding-top: 12px;
   border-top: 1px solid var(--vp-c-divider);
+  margin-bottom: 12px;
 }
 
 .recommendation a {
@@ -411,6 +655,77 @@ onUnmounted(() => {
 
 .recommendation a:hover {
   text-decoration: underline;
+}
+
+.assessment-quick-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.quick-link {
+  font-size: 14px;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+}
+
+.quick-link:hover {
+  text-decoration: underline;
+}
+
+.evidence-panel {
+  background: var(--vp-c-bg);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.evidence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.evidence-close {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--vp-c-text-2);
+}
+
+.evidence-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.evidence-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  background: var(--vp-c-bg-soft);
+}
+
+.evidence-item.active {
+  border-left: 4px solid var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+}
+
+.evidence-level {
+  font-weight: 700;
+  color: var(--vp-c-brand-1);
+  min-width: 32px;
+}
+
+.evidence-text {
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .assessment-table-wrapper {
@@ -480,6 +795,25 @@ onUnmounted(() => {
   border-color: var(--vp-c-brand-1);
 }
 
+.evidence-cell {
+  padding: 0 !important;
+}
+
+.evidence-toggle {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  color: var(--vp-c-brand-1);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.evidence-toggle:hover {
+  background: var(--vp-c-brand-soft);
+}
+
 .assessment-actions {
   display: flex;
   gap: 12px;
@@ -524,6 +858,16 @@ onUnmounted(() => {
 
   .radar-chart {
     height: 260px;
+  }
+
+  .evidence-item {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .assessment-quick-links {
+    flex-direction: column;
+    gap: 8px;
   }
 }
 </style>

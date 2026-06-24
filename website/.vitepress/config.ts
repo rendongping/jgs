@@ -40,8 +40,20 @@ export default defineConfig({
           { text: '领导力层', link: '/leadership/business' },
         ]
       },
-      { text: '学习路径', link: '/guide/learning-routes' },
-      { text: '能力自评', link: '/guide/self-assessment' },
+      {
+        text: '学习路径',
+        items: [
+          { text: '学习路线', link: '/guide/learning-routes' },
+          { text: '能力自评', link: '/guide/self-assessment' },
+        ]
+      },
+      {
+        text: '测评',
+        items: [
+          { text: '客观题测评', link: '/learning-path/quizzes' },
+          { text: '在线编程题', link: '/learning-path/coding-challenges' },
+        ]
+      },
       { text: '资源工具', link: '/resources/glossary' },
     ],
 
