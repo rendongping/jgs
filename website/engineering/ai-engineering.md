@@ -12,6 +12,9 @@
 - RAG（检索增强生成）让 LLM 能基于私有知识回答，是企业级 AI 应用的核心模式。
 - AI Native 应用的设计范式正在形成：从“用户点击按钮”到“用户用自然语言表达意图”。
 - AI 工程化必须关注成本、延迟、安全、可观测性和伦理问题。
+- **MCP（Model Context Protocol）** 正在成为 AI 应用连接外部系统的标准协议。
+- **结构化输出、LLM 评估与可观测性** 是生产级 AI 应用的质量基石。
+- **Vibe Coding / AI Coding Agent** 正在重塑前端开发工作流。
 
 ---
 
@@ -220,6 +223,179 @@ Agent 是一种能**感知环境、做出决策、执行动作**的 AI 系统。
 - 开发 Agent 调用的工具函数（Tool Calling）。
 - 处理 Agent 的流式输出和状态管理。
 
+### 2.5 MCP：AI 应用的标准接口协议
+
+#### 为什么需要 MCP？
+
+大模型要真正有用，必须能连接外部世界：读取文件、查询数据库、调用 API、操作浏览器。
+
+传统方式是每个应用单独为 LLM 写一套工具调用接口，**碎片化严重、复用性差**。MCP 由 Anthropic 提出，目标是成为 AI 应用连接外部系统的 **USB-C 标准**。
+
+#### MCP 的核心模型
+
+MCP 采用 Client-Server 架构：
+
+```
+┌─────────────────────────────────────────┐
+│              MCP Host                   │
+│  （如 Claude Desktop、Cursor、自定义客户端）│
+├─────────────────────────────────────────┤
+│  MCP Client ←→ MCP Server（本地/远程）   │
+└─────────────────────────────────────────┘
+```
+
+一个 MCP Server 对外暴露三类能力：
+
+| 能力 | 说明 | 示例 |
+|------|------|------|
+| **Resources** | 只读资源，供 LLM 读取 | 文件内容、数据库记录、Git 提交历史 |
+| **Tools** | 可执行函数，供 LLM 调用 | 发送邮件、创建 Jira 工单、运行测试 |
+| **Prompts** | 预定义 Prompt 模板 | 代码审查模板、会议纪要模板 |
+
+#### 前端如何接入 MCP
+
+前端本身通常作为 **MCP Host/Client**，或调用后端已集成的 MCP Server：
+
+```typescript
+// 示例：前端通过 SSE 与本地 MCP Server 通信
+const client = new MCPClient({
+  transport: new SSETransport('/api/mcp/weather-server')
+});
+
+await client.connect();
+
+// 获取可用工具
+const tools = await client.listTools();
+
+// 调用工具
+const result = await client.callTool('getWeather', { city: '北京' });
+```
+
+#### MCP 与 Function Calling 的区别
+
+| 维度 | Function Calling | MCP |
+|------|-----------------|-----|
+| 定位 | LLM 调用函数的通用机制 | 函数/资源/提示的标准化协议 |
+| 复用性 | 每个应用单独实现 | 一个 MCP Server 可被多个 Client 复用 |
+| 发现性 | 调用前需人工配置工具 | Client 可动态发现 Server 能力 |
+| 适用 | 单一应用内部 | 跨应用、跨平台的生态连接 |
+
+#### 前端应用场景
+
+- **AI 数据看板**：通过 MCP 读取企业数据库，自然语言生成图表。
+- **AI DevOps 助手**：通过 MCP 调用 CI/CD API、日志系统、监控平台。
+- **AI 文档助手**：通过 MCP 读取 Confluence、Notion、Git 仓库内容。
+
+### 2.6 结构化输出（Structured Output）
+
+#### 为什么需要结构化输出？
+
+LLM 默认返回的是自由文本，但前端应用通常需要**可解析、可校验、可渲染**的数据（如 JSON、表格、配置对象）。
+
+结构化输出让模型按照预定义的格式返回数据，避免手动解析文本带来的脆弱性。
+
+#### 常见实现方式
+
+| 方式 | 说明 | 示例 |
+|------|------|------|
+| JSON mode | 强制返回合法 JSON | OpenAI `response_format: { type: 'json_object' }` |
+| JSON Schema | 强制返回符合指定 Schema 的 JSON | OpenAI Structured Outputs、Zod → JSON Schema |
+| Function Calling | 让模型返回函数调用参数，天然结构化 | `tools` 中的 `parameters` |
+| 提示词约束 | 在 Prompt 中要求按格式返回 | 成本低但可靠性差 |
+
+#### 前端场景示例：自然语言生成表单配置
+
+```typescript
+import { z } from 'zod';
+import { zodToJsonSchema } from 'zod-to-json-schema';
+
+const FormConfigSchema = z.object({
+  components: z.array(
+    z.object({
+      type: z.enum(['Input', 'Select', 'DatePicker', 'Button']),
+      label: z.string(),
+      field: z.string(),
+      required: z.boolean().optional()
+    })
+  )
+});
+
+const response = await fetch('/api/ai/generate-form', {
+  method: 'POST',
+  body: JSON.stringify({
+    messages: [{ role: 'user', content: '创建一个用户注册表单' }],
+    response_format: zodToJsonSchema(FormConfigSchema)
+  })
+});
+
+const formConfig = await response.json();
+// 直接渲染表单
+renderForm(formConfig);
+```
+
+#### 最佳实践
+
+1. **用 Zod/JSON Schema 定义输出**：类型安全，可校验。
+2. **给模型足够示例**：Few-shot 能显著提升格式正确率。
+3. **设置重试机制**：解析失败时，把错误信息回传给模型重新生成。
+4. **前端做好降级**：当结构化输出不可用时，展示原始文本或友好提示。
+
+### 2.7 多模态与 Edge AI
+
+#### 多模态输入
+
+现代 LLM 不仅能处理文本，还能理解图片、音频、视频：
+
+| 模态 | 代表模型/工具 | 前端场景 |
+|------|--------------|---------|
+| 图像 | GPT-4V、Claude 3、Qwen-VL | 截图生成代码、图片 OCR、设计稿转组件 |
+| 语音 | Whisper、SenseVoice | 语音输入、实时字幕、会议转录 |
+| 视频 | Gemini、Sora | 视频内容分析、自动生成摘要 |
+
+#### Edge AI：在端侧运行模型
+
+**为什么要在端侧运行？**
+
+- **隐私**：敏感数据不离开设备。
+- **延迟**：无需网络请求，响应更快。
+- **成本**：减少服务端推理费用。
+- **离线**：无网络时也能使用。
+
+**前端端侧方案**：
+
+| 方案 | 说明 | 适用场景 |
+|------|------|---------|
+| Transformers.js | Hugging Face 的浏览器 ML 库 | 文本分类、Embedding、小模型推理 |
+| ONNX Runtime Web | 跨平台模型运行时 | 运行 ONNX 格式的 CV/NLP 模型 |
+| Ollama + Web UI | 本地大模型 + 前端界面 | 本地知识库、隐私敏感应用 |
+| TensorFlow.js | Google 的浏览器 ML 框架 | 图像识别、手势检测 |
+
+```typescript
+// 示例：用 Transformers.js 做本地文本 Embedding
+import { pipeline } from '@xenova/transformers';
+
+const extractor = await pipeline(
+  'feature-extraction',
+  'Xenova/all-MiniLM-L6-v2'
+);
+
+const output = await extractor('前端架构师知识库', {
+  pooling: 'mean',
+  normalize: true
+});
+```
+
+#### 多模态与 Edge AI 的设计权衡
+
+| 维度 | 云端大模型 | 端侧小模型 |
+|------|-----------|-----------|
+| 能力 | 强 | 弱 |
+| 延迟 | 高（需网络） | 低 |
+| 隐私 | 数据上传 | 本地处理 |
+| 成本 | 按 token 计费 | 一次性下载 |
+| 复杂度 | 低 | 高（模型优化、分包加载） |
+
+**最佳实践**：敏感/高频任务走端侧，复杂/通用任务走云端。
 
 ---
 
@@ -279,7 +455,56 @@ AI → 生成页面配置 → 前端渲染出真实图表和表格
 
 这是 AI Native 前端的重要方向，也是低代码/无代码平台的演进方向。
 
-### 3.3 AI 生成代码与低代码
+### 3.3 Vibe Coding 与 AI Coding Agent
+
+#### 什么是 Vibe Coding？
+
+**Vibe Coding**（氛围编程）是指开发者用自然语言描述需求，由 AI Agent 自动生成、修改、运行代码，开发者通过对话和审查与 AI 协作完成开发。
+
+它不是简单的代码补全，而是：
+- 用自然语言描述功能需求。
+- AI 自动创建/修改多个文件。
+- AI 自动运行测试、修复错误。
+- 开发者负责审查、引导和验收。
+
+#### 代表工具
+
+| 工具 | 特点 | 适用场景 |
+|------|------|---------|
+| Cursor Composer | 多文件编辑、上下文感知强 | 前端项目开发、重构 |
+| Windsurf | Cascade 工作流，强调人机协作 | 复杂功能实现 |
+| Cline | 开源，基于 VS Code | 自动化任务、代码生成 |
+| GitHub Copilot Workspace | 与 GitHub 深度集成 | Issue 到 PR 的端到端 |
+
+#### 前端工程师如何适应
+
+1. **从“写代码”转向“描述意图”**：学会把需求拆分为 AI 可执行的任务。
+2. **强化代码审查能力**：AI 生成代码速度快，但质量需要人把关。
+3. **建立 AI 安全边界**：明确哪些文件/操作可以让 AI 自动修改，哪些必须人工确认。
+4. **维护知识上下文**：通过 `.cursorrules`、prompt 模板、项目文档让 AI 更懂项目。
+
+#### AI Coding Agent 的工作流
+
+```
+用户描述需求
+    ↓
+AI 分析项目结构与上下文
+    ↓
+AI 规划修改步骤（Plan）
+    ↓
+用户确认或调整计划
+    ↓
+AI 执行修改（Create/Edit/Run/Test）
+    ↓
+用户审查并接受/回滚
+```
+
+**风险与边界**：
+- AI 可能引入安全漏洞、性能问题或破坏现有逻辑。
+- 不适合直接修改生产配置、数据库 schema、核心算法。
+- 应把 AI Agent 当作“高级实习生”，重要决策仍需人工。
+
+### 3.4 AI 生成代码与低代码
 
 AI 可以显著提升低代码平台的表达能力：
 
@@ -287,7 +512,7 @@ AI 可以显著提升低代码平台的表达能力：
 - **智能推荐组件**：根据页面上下文推荐合适的组件。
 - **自动布局**：根据内容自动生成响应式布局。
 
-### 3.4 AI 辅助测试
+### 3.5 AI 辅助测试
 
 - 根据组件 props 自动生成单元测试。
 - 根据用户行为自动生成 E2E 测试脚本。
@@ -371,8 +596,6 @@ const tools = [
 
 **生产环境建议**：前端不直接暴露大模型 API Key，而是通过后端或 Edge Function 代理。
 
----
-
 ## 五、AI Native 应用的设计范式
 
 ### 5.1 从 GUI 到 LUI
@@ -434,14 +657,104 @@ LUI: "导出上个月已完成的订单"
 
 ### 6.4 可观测性
 
-需要监控：
+生产级 AI 应用必须建立完整的可观测性体系，否则无法持续优化和排障。
 
-- 请求量、延迟、失败率
-- Token 消耗和成本
-- 用户满意度（点赞/点踩）
-- AI 回答质量（人工抽检 + 自动评估）
+#### 需要监控的指标
 
-### 6.5 伦理与合规
+| 维度 | 指标 | 说明 |
+|------|------|------|
+| **系统** | 请求量、延迟、失败率 | 与传统 API 监控相同 |
+| **成本** | Token 消耗、调用次数、费用 | 大模型特有，直接影响预算 |
+| **质量** | 用户满意度、回答相关性、幻觉率 | 决定产品价值 |
+| **业务** | 转化率、任务完成率、用户留存 | AI 功能是否带来业务收益 |
+
+#### LLM 可观测性工具
+
+| 工具 | 定位 | 前端/全栈适用 |
+|------|------|--------------|
+| **LangSmith** | LangChain 生态的调试与监控平台 | 全栈 |
+| **Langfuse** | 开源 LLM 可观测性平台 | 全栈 |
+| **Weights & Biases (W&B)** | 模型训练与实验追踪 | 偏训练 |
+| **OpenTelemetry + 自定义** | 将 LLM 调用接入现有 APM | 全栈 |
+
+#### 前端可观测性实践
+
+```typescript
+// 示例：在前端封装 LLM 调用，统一上报指标
+async function callLLM(request) {
+  const start = performance.now();
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      body: JSON.stringify(request)
+    });
+    const data = await response.json();
+
+    reportMetric({
+      type: 'llm_request',
+      latency: performance.now() - start,
+      success: true,
+      model: request.model,
+      inputTokens: data.usage?.prompt_tokens,
+      outputTokens: data.usage?.completion_tokens
+    });
+
+    return data;
+  } catch (error) {
+    reportMetric({
+      type: 'llm_request',
+      latency: performance.now() - start,
+      success: false,
+      error: error.message
+    });
+    throw error;
+  }
+}
+```
+
+### 6.5 LLM 评估框架
+
+#### 为什么要评估 LLM？
+
+LLM 的输出具有不确定性，必须通过系统化评估来：
+- 对比不同模型/Prompt 的效果。
+- 发现幻觉、偏见、格式错误等 Badcase。
+- 建立持续优化闭环。
+
+#### 评估维度
+
+| 维度 | 说明 | 评估方式 |
+|------|------|---------|
+| **正确性** | 回答是否准确 | 人工标注、与标准答案对比 |
+| **相关性** | 回答是否切题 | RAGAS、TruLens |
+| **连贯性** | 多轮对话是否上下文一致 | 人工 + 自动评分 |
+| **安全性** | 是否有有害、偏见内容 | 规则 + 模型检测 |
+| **可用性** | 前端能否直接渲染 | 结构化输出校验 |
+
+#### 常用评估工具
+
+| 工具 | 特点 | 适用场景 |
+|------|------|---------|
+| **RAGAS** | 专门评估 RAG 系统 | 检索质量、回答忠实度 |
+| **TruLens** | 与 LangChain/LlamaIndex 集成 | 反馈循环、可解释性 |
+| **Promptfoo** | 开源 Prompt 评估与回归测试 | Prompt A/B 测试、CI 集成 |
+| **LangEval** | 中文 LLM 评估工具集 | 中文场景 |
+
+#### 评估工作流
+
+```
+收集用户问题与 LLM 回答
+    ↓
+人工/自动标注正确答案或评分
+    ↓
+计算指标（正确率、相关性、幻觉率）
+    ↓
+分析 Badcase，定位问题（Prompt/RAG/模型）
+    ↓
+迭代优化并回归测试
+```
+
+### 6.6 伦理与合规
 
 - 避免生成有害、歧视、违法内容。
 - 尊重用户隐私和数据主权。
@@ -455,9 +768,11 @@ LUI: "导出上个月已完成的订单"
 2. **优先使用后端代理**：生产环境不要直接暴露 API Key。
 3. **设计好流式交互**：流式输出是 AI 产品体验的关键。
 4. **结合 RAG 减少幻觉**：企业级应用几乎都需要 RAG。
-5. **建立评估体系**：用真实用户反馈和数据指标持续优化。
-6. **关注成本**：从小模型开始，根据效果逐步升级。
-7. **保持 skepticism**：AI 是工具，不是 oracle，关键决策需要人工审核。
+5. **结合 RAG 减少幻觉**：企业级应用几乎都需要 RAG。
+6. **建立评估与可观测体系**：用 Promptfoo/RAGAS 做回归测试，用 Langfuse/LangSmith 监控线上效果。
+7. **关注成本**：从小模型开始，根据效果逐步升级。
+8. **拥抱 MCP 与结构化输出**：让 AI 能稳定连接外部系统并返回可用数据。
+9. **保持 skepticism**：AI 是工具，不是 oracle，关键决策需要人工审核。
 
 ---
 
@@ -481,12 +796,19 @@ AI 工程化正在重塑前端工程师的能力边界：
 - 🟢 [Prompt Engineering Guide](https://www.promptingguide.ai/) — 最系统的 Prompt 工程指南。
 - 🟡 [Building LLM Applications](https://huyenchip.com/2023/04/11/llm-engineering.html) — Chip Huyen 的 LLM 应用工程化长文。
 - 🟡 [RAG 入门：检索增强生成详解](https://www.elastic.co/what-is/retrieval-augmented-generation) — Elastic 官方解释。
+- 🟡 [MCP 介绍](https://www.anthropic.com/news/model-context-protocol) — Anthropic 官方博客。
+- 🟡 [Vibe Coding 实践](https://www.youtube.com/watch?v=krMFrklfH8M) — Andrej Karpathy 关于 AI 辅助编程的思考。
+- 🟡 [LLM 可观测性指南](https://langfuse.com/docs) — Langfuse 官方文档。
+- 🟡 [RAGAS 文档](https://docs.ragas.io/) — RAG 系统评估框架。
 
 ### 官方文档
 
 - 🟢 [OpenAI API 文档](https://platform.openai.com/docs)
 - 🟢 [LangChain 文档](https://js.langchain.com/) — 前端/Node 可用的 LLM 应用框架。
 - 🟡 [Vercel AI SDK](https://sdk.vercel.ai/) — 前端流式 AI 交互 SDK。
+- 🟢 [MCP 官方文档](https://modelcontextprotocol.io/) — AI 应用标准接口协议。
+- 🟡 [OpenAI Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs) — 结构化输出指南。
+- 🟡 [Transformers.js 文档](https://huggingface.co/docs/transformers.js) — 浏览器端 ML 推理。
 
 ### 书籍
 
@@ -498,11 +820,13 @@ AI 工程化正在重塑前端工程师的能力边界：
 - 搭建一个基于 RAG 的内部知识库问答系统。
 - 用 Vercel AI SDK 实现一个流式对话组件。
 - 设计一个“自然语言生成页面”的低代码原型。
+- 实现一个支持 MCP 工具的 AI Agent 控制台。
+- 用 Vercel AI SDK + Zod 实现结构化输出表单生成器。
 
 ---
 
 > **领域编号**：E09 AI 工程化 / AI Native 前端  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24
 
 
 ---

@@ -66,4 +66,4 @@ features:
 
 ---
 
-> 本网站内容源自 [前端架构师知识图谱与学习资料库](https://github.com/your-org/frontend-architect-knowledge)。
+> 本网站内容源自 [前端架构师知识图谱与学习资料库](https://github.com/rendongping/jgs)。

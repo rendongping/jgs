@@ -16,6 +16,7 @@
           <span class="stat-label">平均等级</span>
         </div>
       </div>
+      <div class="radar-chart" ref="radarChartRef" v-if="isClient"></div>
       <div class="recommendation" v-if="weakAreas.length > 0">
         <strong>优先补强：</strong>
         <span v-for="(area, index) in weakAreas" :key="area.id">
@@ -26,16 +27,14 @@
     </div>
 
     <div class="assessment-table-wrapper">
-      <table class="assessment-table">
+      <table class="assessment-table" role="grid" aria-label="能力自评表">
         <thead>
           <tr>
-            <th>领域</th>
-            <th>L1 了解</th>
-            <th>L2 理解</th>
-            <th>L3 应用</th>
-            <th>L4 分析</th>
-            <th>L5 评估</th>
-            <th>L6 创造</th>
+            <th scope="col">领域</th>
+            <th v-for="level in 6" :key="level" scope="col">
+              L{{ level }}
+              <span class="level-hint" :title="levelDescriptions[level - 1]">{{ levelLabels[level - 1] }}</span>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -48,6 +47,8 @@
                 class="level-btn"
                 :class="{ active: ratings[domain.id] === level }"
                 @click="setRating(domain.id, level)"
+                :aria-label="`${domain.name} 等级 ${level}`"
+                :aria-pressed="ratings[domain.id] === level"
               >
                 {{ level }}
               </button>
@@ -60,12 +61,32 @@
     <div class="assessment-actions">
       <button class="action-btn" @click="resetRatings">重置评估</button>
       <button class="action-btn primary" @click="saveRatings">保存评估</button>
+      <button class="action-btn" @click="exportRatings">导出 JSON</button>
+      <button class="action-btn" @click="triggerImport">导入 JSON</button>
+      <input
+        type="file"
+        ref="fileInputRef"
+        accept="application/json"
+        style="display: none"
+        @change="importRatings"
+        aria-label="导入评估 JSON 文件"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
+
+const levelLabels = ['了解', '理解', '应用', '分析', '评估', '创造'];
+const levelDescriptions = [
+  '听说过概念',
+  '能解释概念',
+  '能在项目中独立使用',
+  '能指导他人并排查复杂问题',
+  '能设计体系化方案',
+  '能在组织层面推广并量化价值'
+];
 
 const domains = [
   // Level 01
@@ -98,7 +119,19 @@ const domains = [
   { id: 'strategy', name: 'Strategy', link: '/leadership/strategy', level: 4 },
 ];
 
+const levelGroups = [
+  { name: '基础层', key: 'level01', ids: domains.filter(d => d.level === 1).map(d => d.id) },
+  { name: '工程化层', key: 'level02', ids: domains.filter(d => d.level === 2).map(d => d.id) },
+  { name: '架构层', key: 'level03', ids: domains.filter(d => d.level === 3).map(d => d.id) },
+  { name: '领导力层', key: 'level04', ids: domains.filter(d => d.level === 4).map(d => d.id) },
+];
+
 const ratings = ref({});
+const isClient = ref(false);
+const radarChartRef = ref(null);
+const fileInputRef = ref(null);
+let chartInstance = null;
+let echartsLib = null;
 
 const totalDomains = computed(() => domains.length);
 
@@ -112,9 +145,21 @@ const averageLevel = computed(() => {
   return (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1);
 });
 
+const levelAverages = computed(() => {
+  return levelGroups.map(group => {
+    const values = group.ids
+      .map(id => ratings.value[id])
+      .filter(r => r > 0);
+    if (values.length === 0) return 0;
+    return Number((values.reduce((a, b) => a + b, 0) / values.length).toFixed(1));
+  });
+});
+
 const weakAreas = computed(() => {
   return domains
-    .filter(d => !ratings.value[d.id] || ratings.value[d.id] <= 2)
+    .map(d => ({ ...d, score: ratings.value[d.id] || 0 }))
+    .filter(d => d.score <= 2)
+    .sort((a, b) => a.score - b.score)
     .slice(0, 5)
     .map(d => ({ id: d.id, name: d.name, link: d.link }));
 });
@@ -122,6 +167,7 @@ const weakAreas = computed(() => {
 function setRating(domainId, level) {
   ratings.value[domainId] = level;
   localStorage.setItem(`self-rating-${domainId}`, String(level));
+  updateRadarChart();
 }
 
 function loadRatings() {
@@ -136,18 +182,170 @@ function loadRatings() {
 }
 
 function resetRatings() {
+  if (typeof window !== 'undefined' && !window.confirm('确定要重置所有评估结果吗？')) {
+    return;
+  }
   domains.forEach(d => {
     localStorage.removeItem(`self-rating-${d.id}`);
   });
   ratings.value = {};
+  updateRadarChart();
 }
 
 function saveRatings() {
-  alert('评估结果已自动保存到浏览器本地存储');
+  if (typeof window !== 'undefined') {
+    window.alert('评估结果已自动保存到浏览器本地存储');
+  }
+}
+
+function exportRatings() {
+  if (typeof window === 'undefined') return;
+  const data = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    ratings: ratings.value
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `frontend-architect-assessment-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function triggerImport() {
+  fileInputRef.value?.click();
+}
+
+function importRatings(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data.ratings || typeof data.ratings !== 'object') {
+        throw new Error('Invalid format');
+      }
+      ratings.value = { ...data.ratings };
+      domains.forEach(d => {
+        const value = ratings.value[d.id];
+        if (value && value >= 1 && value <= 6) {
+          localStorage.setItem(`self-rating-${d.id}`, String(value));
+        } else {
+          localStorage.removeItem(`self-rating-${d.id}`);
+        }
+      });
+      updateRadarChart();
+      if (typeof window !== 'undefined') {
+        window.alert('评估数据导入成功');
+      }
+    } catch (err) {
+      if (typeof window !== 'undefined') {
+        window.alert('导入失败：文件格式不正确');
+      }
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+async function initRadarChart() {
+  if (!radarChartRef.value || typeof window === 'undefined') return;
+  if (!echartsLib) {
+    echartsLib = await import('echarts');
+  }
+  if (chartInstance) {
+    chartInstance.dispose();
+  }
+  chartInstance = echartsLib.init(radarChartRef.value);
+  updateRadarChart();
+  window.addEventListener('resize', handleResize);
+}
+
+function updateRadarChart() {
+  if (!chartInstance || !echartsLib) return;
+  const averages = levelAverages.value;
+  const option = {
+    tooltip: {
+      trigger: 'item',
+      formatter: () => {
+        return levelGroups
+          .map((group, i) => `${group.name}: ${averages[i] || 0}`)
+          .join('<br>');
+      }
+    },
+    radar: {
+      indicator: levelGroups.map(group => ({
+        name: group.name,
+        max: 6
+      })),
+      radius: '65%',
+      splitNumber: 6,
+      axisName: {
+        color: 'var(--vp-c-text-1)'
+      },
+      splitLine: {
+        lineStyle: {
+          color: 'var(--vp-c-divider)'
+        }
+      },
+      splitArea: {
+        areaStyle: {
+          color: ['var(--vp-c-bg-soft)', 'var(--vp-c-bg)']
+        }
+      },
+      axisLine: {
+        lineStyle: {
+          color: 'var(--vp-c-divider)'
+        }
+      }
+    },
+    series: [
+      {
+        type: 'radar',
+        data: [
+          {
+            value: averages,
+            name: '当前能力',
+            areaStyle: {
+              color: 'rgba(100, 108, 255, 0.3)'
+            },
+            lineStyle: {
+              color: 'var(--vp-c-brand-1)'
+            },
+            itemStyle: {
+              color: 'var(--vp-c-brand-1)'
+            }
+          }
+        ]
+      }
+    ]
+  };
+  chartInstance.setOption(option);
+}
+
+function handleResize() {
+  chartInstance?.resize();
 }
 
 onMounted(() => {
+  isClient.value = true;
   loadRatings();
+  nextTick(() => {
+    initRadarChart();
+  });
+});
+
+onUnmounted(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('resize', handleResize);
+  }
+  chartInstance?.dispose();
+  chartInstance = null;
 });
 </script>
 
@@ -171,7 +369,7 @@ onMounted(() => {
 .summary-stats {
   display: flex;
   gap: 24px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
 }
 
@@ -190,6 +388,14 @@ onMounted(() => {
 .stat-label {
   font-size: 12px;
   color: var(--vp-c-text-2);
+}
+
+.radar-chart {
+  width: 100%;
+  height: 320px;
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .recommendation {
@@ -228,6 +434,14 @@ onMounted(() => {
   background: var(--vp-c-bg-soft);
   font-weight: 600;
   white-space: nowrap;
+}
+
+.level-hint {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--vp-c-text-2);
+  margin-top: 2px;
 }
 
 .domain-name {
@@ -270,6 +484,7 @@ onMounted(() => {
   display: flex;
   gap: 12px;
   margin-top: 16px;
+  flex-wrap: wrap;
 }
 
 .action-btn {
@@ -278,12 +493,18 @@ onMounted(() => {
   border: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg);
   cursor: pointer;
+  font-size: 14px;
 }
 
 .action-btn.primary {
   background: var(--vp-c-brand-1);
   color: white;
   border-color: var(--vp-c-brand-1);
+}
+
+.action-btn:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
 }
 
 @media (max-width: 768px) {
@@ -295,6 +516,14 @@ onMounted(() => {
     width: 24px;
     height: 24px;
     padding: 0;
+  }
+
+  .level-hint {
+    display: none;
+  }
+
+  .radar-chart {
+    height: 260px;
   }
 }
 </style>

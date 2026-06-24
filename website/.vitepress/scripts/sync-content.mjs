@@ -222,6 +222,13 @@ function escapeProp(value) {
     .replace(/\r/g, '');
 }
 
+function base64Encode(value) {
+  if (typeof Buffer !== 'undefined') {
+    return Buffer.from(value, 'utf-8').toString('base64');
+  }
+  return btoa(unescape(encodeURIComponent(value)));
+}
+
 function getDifficultyBySection(title) {
   if (title.includes('基础')) return '🟢';
   if (title.includes('进阶')) return '🟡';
@@ -335,7 +342,7 @@ function transformQuestions(bodyLines, slug, difficulty) {
 
     output.push('');
     output.push(
-      `<InterviewCard id="${id}" title="${escapeProp(title)}" difficulty="${difficulty}" questionHtml="${escapeProp(questionHtml)}" answerHtml="${escapeProp(answerHtml)}" />`
+      `<InterviewCard id="${id}" title="${escapeProp(title)}" difficulty="${difficulty}" questionBase64="${base64Encode(questionHtml)}" answerBase64="${base64Encode(answerHtml)}" />`
     );
 
     currentQuestion = [];

@@ -1060,5 +1060,247 @@ function UserList({ users }: UserListProps) {
 
 ---
 
+### 题目 12：设计一个支持 MCP 工具的 AI Agent 控制台
+
+**考察点**：MCP 协议理解、Agent 交互设计、工具调用状态管理。
+
+**题目**：
+你需要为一个企业内部系统开发一个 AI Agent 控制台，支持通过 MCP Server 调用以下工具：
+- `queryDatabase(sql: string)`：查询业务数据库。
+- `createJiraTicket(title: string, description: string)`：创建 Jira 工单。
+- `sendEmail(to: string, subject: string, body: string)`：发送邮件。
+
+请设计：
+1. 前端如何发现可用工具并展示给用户。
+2. Agent 调用工具时的交互流程（请求用户确认、执行、展示结果）。
+3. 如何防止工具被滥用（如高频调用、敏感操作）。
+
+**参考答案**：
+
+#### 1. 工具发现与展示
+
+```typescript
+// 连接 MCP Server 后获取工具列表
+const tools = await mcpClient.listTools();
+
+// 工具列表展示
+interface Tool {
+  name: string;
+  description: string;
+  parameters: JSONSchema;
+}
+
+// UI：侧边栏展示可用工具，点击可查看参数说明
+<ToolList tools={tools} onSelect={showToolDetail} />
+```
+
+#### 2. 工具调用交互流程
+
+```
+Agent 决定调用 createJiraTicket
+    ↓
+前端展示“待执行工具卡片”，包含：工具名、参数、用途说明
+    ↓
+用户点击“确认执行”或“取消/修改参数”
+    ↓
+前端调用 mcpClient.callTool(name, params)
+    ↓
+展示执行状态和结果（成功/失败/部分成功）
+    ↓
+Agent 根据结果继续推理或给出最终回答
+```
+
+#### 3. 防滥用策略
+
+- **权限控制**：不同角色可调用不同工具（如普通员工不能发邮件）。
+- **敏感操作二次确认**：涉及写操作、跨系统调用的必须人工确认。
+- **限流与配额**：按用户限制每分钟调用次数。
+- **审计日志**：记录每次工具调用的用户、参数、结果、时间。
+- **沙箱执行**：对数据库查询等操作做只读限制或 SQL 白名单。
+
+### 题目 13：用结构化输出实现自然语言生成表单配置
+
+**考察点**：结构化输出、Zod/JSON Schema、前端动态渲染。
+
+**题目**：
+实现一个功能：用户用自然语言描述表单需求，AI 返回 JSON 配置，前端根据配置渲染出真实表单。
+
+要求：
+1. 用 Zod 定义表单组件 Schema。
+2. 将 Schema 转换为 JSON Schema 传给 LLM。
+3. 前端解析返回结果并渲染表单。
+4. 处理解析失败和降级展示。
+
+**参考答案**：
+
+```typescript
+import { z } from 'zod';
+import { zodToJsonSchema } from 'zod-to-json-schema';
+
+const FormComponentSchema = z.object({
+  type: z.enum(['Input', 'Select', 'DatePicker', 'Switch', 'Button']),
+  field: z.string(),
+  label: z.string(),
+  required: z.boolean().optional(),
+  options: z.array(z.object({ label: z.string(), value: z.string() })).optional()
+});
+
+const FormConfigSchema = z.object({
+  title: z.string(),
+  components: z.array(FormComponentSchema)
+});
+
+async function generateFormConfig(userInput: string) {
+  const response = await fetch('/api/ai/structured', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages: [
+        {
+          role: 'system',
+          content: '你是一个表单配置生成助手。请根据用户需求返回符合 JSON Schema 的表单配置。'
+        },
+        { role: 'user', content: userInput }
+      ],
+      response_format: zodToJsonSchema(FormConfigSchema)
+    })
+  });
+
+  const result = await response.json();
+
+  // 校验返回结果
+  const parsed = FormConfigSchema.safeParse(result);
+  if (!parsed.success) {
+    console.error('结构化输出解析失败', parsed.error);
+    return null;
+  }
+
+  return parsed.data;
+}
+```
+
+```tsx
+// 前端渲染
+function AIForm({ config }: { config: FormConfig }) {
+  return (
+    <form>
+      <h3>{config.title}</h3>
+      {config.components.map(component => {
+        switch (component.type) {
+          case 'Input':
+            return <input key={component.field} name={component.field} placeholder={component.label} required={component.required} />;
+          case 'Select':
+            return (
+              <select key={component.field} name={component.field} required={component.required}>
+                {component.options?.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+              </select>
+            );
+          // ... 其他组件
+        }
+      })}
+    </form>
+  );
+}
+```
+
+#### 关键设计点
+
+- **Schema 约束**：用 Zod 保证类型安全，避免运行时错误。
+- **Few-shot 示例**：在系统提示中给出 1-2 个示例，提升格式正确率。
+- **降级策略**：解析失败时展示原始 AI 回答，并提示用户手动调整。
+- **重试机制**：把解析错误信息回传给模型，请求重新生成。
+
+### 题目 14：为 RAG 应用设计评估指标与 Badcase 复盘流程
+
+**考察点**：RAG 评估、LLM 效果度量、持续优化。
+
+**题目**：
+你正在维护一个基于内部文档的 AI 问答系统。请设计：
+1. 3-5 个核心评估指标。
+2. 收集和标注 Badcase 的流程。
+3. 根据 Badcase 定位问题（是检索问题、还是生成问题）的方法。
+4. 持续优化闭环。
+
+**参考答案**：
+
+#### 1. 核心评估指标
+
+| 指标 | 说明 | 计算方式 |
+|------|------|---------|
+| **回答忠实度（Faithfulness）** | 回答是否基于检索到的文档 | 人工/模型判断 |
+| **回答相关性（Answer Relevance）** | 回答是否切题 | RAGAS |
+| **上下文精确率（Context Precision）** | 检索结果中相关片段的比例 | 人工标注 |
+| **上下文召回率（Context Recall）** | 回答问题所需信息是否被检索到 | 人工标注 |
+| **用户满意度** | 点赞/点踩比例 | 产品埋点 |
+
+#### 2. Badcase 收集与标注
+
+```
+用户问题 + AI 回答 + 检索到的文档片段
+    ↓
+运营/产品标注：回答是否正确、是否幻觉、是否遗漏
+    ↓
+分类标签：检索问题 / 生成问题 / Prompt 问题 / 文档缺失
+    ↓
+进入优化 backlog
+```
+
+#### 3. 问题定位方法
+
+- **检索问题**：标准答案在知识库中，但未被检索到 → 优化 Embedding、Chunking、重排序。
+- **生成问题**：检索到了相关片段，但模型没利用好 → 优化 Prompt、Few-shot、模型。
+- **文档缺失**：知识库本身没有答案 → 补充文档或设计兜底话术。
+- **Prompt 问题**：模型理解偏差 → 改写系统 Prompt、增加约束。
+
+#### 4. 持续优化闭环
+
+```
+线上收集问题
+    ↓
+定期抽检与自动评估（RAGAS / Promptfoo）
+    ↓
+定位根因并优化（检索/生成/文档/Prompt）
+    ↓
+回归测试：用历史 Badcase 验证是否修复
+    ↓
+A/B 测试上线 → 监控指标 → 继续收集
+```
+
+### 题目 15：对比 Vibe Coding 与传统开发的工作流
+
+**考察点**：AI Coding Agent、开发工作流、风险控制。
+
+**题目**：
+请对比 Vibe Coding（如 Cursor Composer）与传统手写代码开发的工作流，并说明：
+1. 什么类型的任务适合用 Vibe Coding？
+2. 什么类型的任务不适合？
+3. 前端工程师应如何调整自己的角色和技能？
+
+**参考答案**：
+
+#### 1. 适合 Vibe Coding 的任务
+
+- **样板代码生成**：表单、CRUD 页面、类型定义、测试用例。
+- **重构与重命名**：批量修改组件名、迁移 API、调整文件结构。
+- **代码解释与文档**：为复杂函数生成注释、写 README。
+- **简单功能实现**：根据明确需求实现独立功能模块。
+
+#### 2. 不适合 Vibe Coding 的任务
+
+- **核心架构设计**：技术选型、模块边界、数据流设计。
+- **安全敏感代码**：鉴权、加密、支付相关逻辑。
+- **性能关键路径**：复杂算法、大规模数据处理。
+- **数据库 schema 变更**：可能导致数据丢失或兼容性问题。
+- **生产配置修改**：CI/CD、密钥管理、域名配置。
+
+#### 3. 前端工程师的角色转变
+
+- **从“写代码”到“描述意图”**：学会把需求拆分为 AI 可执行的任务。
+- **从“实现”到“审查”**：重点检查 AI 生成代码的边界条件、安全性和性能。
+- **维护 AI 上下文**：通过 `.cursorrules`、项目文档、Prompt 模板让 AI 更懂项目。
+- **建立安全边界**：明确哪些文件/操作可以让 AI 自动修改，哪些必须人工确认。
+
+---
+
 > **领域编号**：E09 AI 工程化 / AI Native 前端  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

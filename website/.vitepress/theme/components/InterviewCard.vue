@@ -1,22 +1,36 @@
 <template>
-  <div class="interview-card">
+  <div class="interview-card" role="region" :aria-label="`面试题：${title}`">
     <div class="interview-card-header">
       <span class="interview-card-title">{{ title }}</span>
-      <span class="difficulty-badge" :class="difficultyClass">{{ difficultyText }}</span>
+      <span class="difficulty-badge" :class="difficultyClass" aria-label="难度">{{ difficultyText }}</span>
     </div>
 
-    <div v-if="questionHtml.trim()" class="interview-content vp-doc" v-html="questionHtml"></div>
+    <div v-if="decodedQuestionHtml.trim()" class="interview-content vp-doc" v-html="decodedQuestionHtml"></div>
 
     <div class="interview-actions">
-      <button class="interview-toggle-btn" @click="toggleAnswer">
+      <button
+        class="interview-toggle-btn"
+        @click="toggleAnswer"
+        :aria-expanded="showAnswer"
+        :aria-controls="answerId"
+      >
         {{ showAnswer ? '隐藏答案' : '查看答案' }}
       </button>
-      <button class="interview-toggle-btn" @click="toggleMastered">
+      <button
+        class="interview-toggle-btn"
+        @click="toggleMastered"
+        :aria-pressed="mastered"
+      >
         {{ mastered ? '已掌握 ✓' : '标记掌握' }}
       </button>
     </div>
 
-    <div v-if="showAnswer" class="interview-answer vp-doc" v-html="answerHtml"></div>
+    <div
+      v-if="showAnswer"
+      :id="answerId"
+      class="interview-answer vp-doc"
+      v-html="decodedAnswerHtml"
+    ></div>
   </div>
 </template>
 
@@ -43,11 +57,41 @@ const props = defineProps({
   answerHtml: {
     type: String,
     default: ''
+  },
+  questionBase64: {
+    type: String,
+    default: ''
+  },
+  answerBase64: {
+    type: String,
+    default: ''
   }
 });
 
 const showAnswer = ref(false);
 const mastered = ref(false);
+const answerId = computed(() => `interview-answer-${props.id}`);
+
+function decodeBase64(value) {
+  if (!value) return '';
+  try {
+    if (typeof Buffer !== 'undefined') {
+      return Buffer.from(value, 'base64').toString('utf-8');
+    }
+    return decodeURIComponent(escape(atob(value)));
+  } catch (err) {
+    console.warn('Failed to decode base64:', err);
+    return '';
+  }
+}
+
+const decodedQuestionHtml = computed(() => {
+  return props.questionBase64 ? decodeBase64(props.questionBase64) : props.questionHtml;
+});
+
+const decodedAnswerHtml = computed(() => {
+  return props.answerBase64 ? decodeBase64(props.answerBase64) : props.answerHtml;
+});
 
 const difficultyClass = computed(() => {
   const map = {
@@ -157,6 +201,11 @@ onMounted(() => {
 
 .interview-toggle-btn:hover {
   background: var(--vp-c-brand-soft);
+}
+
+.interview-toggle-btn:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
 }
 
 .interview-answer {

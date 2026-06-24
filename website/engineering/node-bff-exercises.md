@@ -1158,5 +1158,269 @@ app.get('/api/users/:id', (req, res) => {
 
 ---
 
+
+### 题目 12：设计一个高可用 BFF 架构（大促场景）
+
+**考察点**：高可用 BFF 架构设计、缓存、限流、降级、异步化。
+
+**题目**：
+某电商平台大促期间，详情页 BFF 需要承载 10 倍日常流量，峰值 QPS 5 万。请设计一个高可用 BFF 架构，要求：
+
+1. 接口响应时间 P99 < 200ms。
+2. 下游服务故障时，核心数据不丢、非核心数据可降级。
+3. 写操作（如下单、领券）不丢失，库存扣减最终一致。
+4. 具备完整的可观测性。
+
+**参考答案**：
+
+#### 1. 整体架构
+
+```
+用户请求 → CDN / WAF / DNS → API Gateway / Nginx
+                ↓
+        ┌─────────────────┐
+        │   BFF 服务集群    │  K8s HPA 自动扩缩容
+        │  Node.js/NestJS  │
+        └────────┬────────┘
+                 │
+    ┌────────────┼────────────┐
+    ▼            ▼            ▼
+ Redis 缓存   限流/熔断中心   消息队列（Kafka/RabbitMQ）
+    │            │            │
+    ▼            ▼            ▼
+ 下游微服务   配置/注册中心   异步任务处理
+```
+
+#### 2. 分层策略
+
+| 层级 | 职责 | 具体措施 |
+|------|------|---------|
+| 接入层 | 流量清洗、全局负载均衡 | CDN + WAF + 云 LB |
+| 网关层 | 路由、鉴权、入口限流 | Kong/Nginx + Redis 限流 |
+| BFF 层 | 接口聚合、数据适配、降级 | NestJS + 熔断器 + 缓存 |
+| 服务层 | 业务逻辑 | 下游微服务 |
+| 数据层 | 持久化 | 主从数据库 + 读写分离 |
+| 消息层 | 异步削峰 | Kafka 订单流、BullMQ 任务 |
+
+#### 3. 缓存策略
+
+- **浏览器/CDN 缓存**：静态资源、商品基础信息。
+- **BFF 本地缓存**：商品类目、配置项，TTL 30 秒。
+- **Redis 分布式缓存**：热点商品详情、用户信息，命中率目标 90%。
+- **缓存更新**：商品变更通过 Kafka 广播，BFF 本地缓存失效。
+
+```typescript
+// 伪代码：缓存优先 + 降级
+async function getProductDetail(id: string) {
+  const cacheKey = `product:${id}`;
+  let data = await redis.get(cacheKey);
+  if (data) return JSON.parse(data);
+
+  try {
+    data = await productService.get(id);
+    await redis.setex(cacheKey, 60, JSON.stringify(data));
+    return data;
+  } catch (err) {
+    // 下游故障时返回过期缓存或兜底数据
+    const stale = await redis.get(`product:${id}:stale`);
+    if (stale) return JSON.parse(stale);
+    throw new AppError(503, 'SERVICE_UNAVAILABLE', '商品服务暂不可用');
+  }
+}
+```
+
+#### 4. 限流与熔断
+
+- **入口限流**：API Gateway 按 IP、用户 ID 限流，防止刷单。
+- **接口限流**：核心接口（下单、领券）使用 Token Bucket，限制每秒请求数。
+- **下游熔断**：使用 Resilience4j/opossum，失败率超过 50% 自动熔断，10 秒后半开试探。
+
+```typescript
+// 基于 Redis 的分布式限流（概念）
+const limiter = new RateLimiterRedis({
+  storeClient: redis,
+  keyPrefix: 'bff_limit',
+  points: 100, // 每分钟 100 次
+  duration: 60,
+});
+```
+
+#### 5. 异步化与最终一致
+
+- **下单流程**：BFF 校验后写入 Kafka，返回“处理中”状态；订单服务消费后异步处理。
+- **库存扣减**：使用 Redis 预扣 + Kafka 异步同步到数据库，失败可回滚。
+- **非关键数据**：埋点、日志、推荐点击通过 BullMQ 异步发送，不阻塞主链路。
+
+#### 6. 可观测性
+
+- **指标**：Prometheus + Grafana 监控 QPS、P99、错误率、CPU、内存。
+- **链路追踪**：OpenTelemetry + Jaeger，traceId 全链路透传。
+- **日志**：结构化 JSON 日志，ELK/Loki 集中收集。
+- **告警**：P99 > 200ms、错误率 > 0.5%、CPU > 80% 触发告警。
+
+---
+
+### 题目 13：tRPC 与 gRPC 在 BFF 中如何选型？
+
+**考察点**：现代接口模式理解、选型能力。
+
+**题目**：
+请对比 tRPC 和 gRPC，说明它们各自适用的场景。如果你要为一个全 TypeScript 栈的 SaaS 项目设计 BFF，会如何选择？如果后端是多语言微服务（Java、Go、Python），又该如何选择？
+
+**参考答案**：
+
+#### 1. tRPC 特点
+
+- **端到端类型安全**：前后端共享 TypeScript 类型，无需手写 Swagger。
+- **开发体验好**：与 React Query、Next.js 集成顺畅。
+- **仅 TypeScript 生态**：服务端和客户端都必须是 TS。
+- **适合 BFF → 前端**：BFF 层暴露 tRPC，前端直接调用。
+
+```typescript
+// 服务端定义
+const appRouter = router({
+  user: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ input }) => db.user.findById(input.id)),
+});
+
+// 前端调用，自动有类型
+const { data } = trpc.user.useQuery({ id: '123' });
+```
+
+#### 2. gRPC 特点
+
+- **高性能**：基于 HTTP/2 + Protocol Buffers，二进制序列化。
+- **多语言支持**：Java、Go、Python、Node.js 都有成熟客户端。
+- **适合微服务间通信**：BFF 调用后端 gRPC 服务。
+- **浏览器不友好**：前端需通过 gRPC-Web 或 BFF 代理。
+
+```protobuf
+service UserService {
+  rpc GetUser (GetUserRequest) returns (User);
+}
+message GetUserRequest { string id = 1; }
+message User { string id = 1; string name = 2; }
+```
+
+#### 3. 选型建议
+
+| 场景 | 推荐 |
+|------|------|
+| 全 TypeScript 栈，BFF → 前端 | tRPC |
+| 多语言后端，BFF → 微服务 | gRPC |
+| 需要强类型 + 高性能内部通信 | gRPC |
+| 快速迭代、小团队 | tRPC |
+| 大型企业、多团队协作 | gRPC + GraphQL Federation |
+
+#### 4. 混合方案
+
+实际项目中 often 采用混合方案：
+
+- BFF 与前端之间用 tRPC 或 REST/GraphQL。
+- BFF 与后端微服务之间用 gRPC 或 HTTP。
+- 通过 API Gateway 统一接入，内部按团队技术栈选择。
+
+---
+
+### 题目 14：设计一个 BFF 的可观测性方案
+
+**考察点**：可观测性、OpenTelemetry、Prometheus、Jaeger、APM。
+
+**题目**：
+请为一套 Node.js BFF 服务设计完整的可观测性方案，要求覆盖日志、指标、链路追踪，并能在生产环境快速定位慢请求和错误根因。
+
+**参考答案**：
+
+#### 1. 可观测性三大支柱
+
+| 支柱 | 工具 | 用途 |
+|------|------|------|
+| 日志 | Pino/Winston + ELK/Loki | 记录请求上下文、错误详情 |
+| 指标 | Prometheus + Grafana | QPS、延迟、错误率、资源使用 |
+| 链路追踪 | OpenTelemetry + Jaeger | 请求全链路耗时分析 |
+
+#### 2. Trace ID 透传
+
+在 BFF 入口生成 traceId，通过 HTTP Header 透传到下游服务。
+
+```typescript
+import { AsyncLocalStorage } from 'async_hooks';
+const context = new AsyncLocalStorage();
+
+app.use((req, res, next) => {
+  const traceId = req.headers['x-trace-id'] || uuid();
+  context.run({ traceId, userId: req.userId }, next);
+});
+
+function log(level: string, message: string, meta?: object) {
+  const ctx = context.getStore() || {};
+  console.log(JSON.stringify({ ...ctx, level, message, ...meta, time: new Date().toISOString() }));
+}
+```
+
+#### 3. OpenTelemetry 接入
+
+```typescript
+import { NodeSDK } from '@opentelemetry/sdk-node';
+import { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+
+const sdk = new NodeSDK({
+  serviceName: 'bff-service',
+  traceExporter: new OTLPTraceExporter({ url: 'http://otel-collector:4318/v1/traces' }),
+  instrumentations: [getNodeAutoInstrumentations()],
+});
+
+sdk.start();
+```
+
+#### 4. Prometheus 指标
+
+```typescript
+import client from 'prom-client';
+const register = new client.Registry();
+
+const httpDuration = new client.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'HTTP 请求耗时',
+  labelNames: ['route', 'method', 'status'],
+});
+register.registerMetric(httpDuration);
+
+app.use((req, res, next) => {
+  const end = httpDuration.startTimer();
+  res.on('finish', () => {
+    end({ route: req.route?.path || req.path, method: req.method, status: res.statusCode });
+  });
+  next();
+});
+
+app.get('/metrics', (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(register.metrics());
+});
+```
+
+#### 5. 关键 SLO 与告警
+
+| 指标 | 目标 | 告警阈值 |
+|------|------|---------|
+| P99 延迟 | < 200ms | > 300ms |
+| 错误率 | < 0.1% | > 0.5% |
+| QPS | 按业务设定 | 突增 300% |
+| CPU | < 70% | > 80% |
+| 内存 | < 80% | > 90% |
+
+#### 6. 故障排查流程
+
+1. **收到告警**：Grafana 发现 P99 升高。
+2. **查看链路**：Jaeger 找到慢请求的 span，定位到某个下游服务。
+3. **查看日志**：通过 traceId 检索相关日志，发现下游超时。
+4. **查看指标**：确认下游服务错误率上升。
+5. **采取措施**：熔断、扩容、联系下游团队。
+
+---
+
 > **领域编号**：E10 Node.js / BFF 服务端  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

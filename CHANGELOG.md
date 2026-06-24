@@ -7,6 +7,24 @@
 ## [Unreleased]
 
 ### Added
+- 网站能力自评表新增四层能力雷达图（ECharts）。
+- 网站能力自评表新增评估数据导入/导出功能。
+- 网站面试题卡片支持 Base64 编码传输，提升复杂答案渲染稳定性。
+- 网站自定义组件补充无障碍属性（`aria-label`、`aria-expanded`、`aria-pressed` 等）。
+- 文档写作规范新增网站组件无障碍（a11y）章节。
+- E09 AI 工程化学习文档新增 MCP、Vibe Coding、结构化输出、多模态与 Edge AI、LLM 可观测性与评估框架等前沿内容。
+- E09 AI 工程化练习册新增 4 道深入练习题，面试题新增 7 题。
+- A01 系统架构学习文档新增现代前端架构模式：微内核、插件化、低代码/搭建、Server-Driven UI、事件驱动/CQRS、六边形/整洁架构、Monorepo 组织方案、架构模式选型决策树。
+- A01 系统架构练习册新增 3 道深入练习题，面试题新增 4 题。
+- E08 跨端技术学习文档新增鸿蒙 ArkTS/ArkUI、车载 HMI/穿戴/TV、Kotlin Multiplatform、小程序 Skyline/GL、Capacitor/Tauri 等前沿内容。
+- E08 跨端技术练习册新增 3 道深入练习题，面试题新增 5 题。
+- E10 Node.js/BFF 学习文档新增 Deno/Bun、NestJS 企业级特性、tRPC/gRPC/GraphQL Federation、消息队列、数据库 ORM、可观测性等深度内容。
+- E10 Node.js/BFF 练习册新增 3 道深入练习题，面试题新增 5 题。
+
+### Fixed
+- 统一网站首页源码仓库链接指向 `https://github.com/rendongping/jgs`。
+
+### Added
 - 建立文档写作规范（`docs/STYLE-GUIDE.md`）。
 - 建立贡献指南（`docs/CONTRIBUTING.md`）。
 - 建立领域编号体系，覆盖全部 24 个领域。

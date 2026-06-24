@@ -409,5 +409,203 @@ BFF 划分建议：
 
 ---
 
+### 17. 为电商大促活动页设计一个 Server-Driven UI 架构
+
+**考察点**：SDUI 架构、组件映射、版本兼容、降级策略。
+
+**题目**：
+电商大促期间，活动页模块组合频繁变化，需要服务端动态控制页面结构，且不能每次改动都发版。请设计一个 SDUI 架构：
+1. 服务端 Schema 如何定义？
+2. 客户端如何解析 Schema 并渲染？
+3. 如何处理新旧版本客户端的兼容？
+4. 未知组件如何降级？
+
+**参考答案**：
+
+#### 1. Schema 设计
+
+```json
+{
+  "version": "2.1",
+  "modules": [
+    {
+      "type": "BannerCarousel",
+      "minClientVersion": "2.0",
+      "props": { "items": [...] }
+    },
+    {
+      "type": "FlashSale",
+      "minClientVersion": "1.5",
+      "props": { "products": [...] }
+    },
+    {
+      "type": "CouponRain",
+      "minClientVersion": "2.1",
+      "props": {}
+    }
+  ]
+}
+```
+
+#### 2. 客户端渲染
+
+```typescript
+const componentMap: Record<string, ComponentType> = {
+  BannerCarousel,
+  FlashSale,
+  CouponRain
+};
+
+function SDUIRenderer({ schema }: { schema: SDUISchema }) {
+  return (
+    <>
+      {schema.modules.map((module, index) => {
+        const Component = componentMap[module.type];
+        if (!Component) return <UnknownModule key={index} type={module.type} />;
+        if (compareVersion(appVersion, module.minClientVersion) < 0) {
+          return <UnsupportedModule key={index} type={module.type} />;
+        }
+        return <Component key={index} {...module.props} />;
+      })}
+    </>
+  );
+}
+```
+
+#### 3. 版本兼容
+
+- Schema 中标注 `minClientVersion` 和 `maxClientVersion`。
+- 客户端根据当前版本决定是否渲染。
+- 对低版本客户端，服务端可返回兼容版 Schema。
+
+#### 4. 降级策略
+
+- 未知组件：展示占位或跳过。
+- 渲染失败：捕获错误，展示错误占位，不影响其他模块。
+- 数据缺失：组件内部展示空状态或骨架屏。
+
+### 18. 设计一个微内核插件系统
+
+**考察点**：微内核架构、插件生命周期、隔离与安全。
+
+**题目**：
+你需要为一个企业级中台系统设计插件机制，支持不同业务线以插件形式接入。请设计：
+1. Kernel 的核心职责。
+2. 插件的生命周期管理。
+3. 插件间通信机制。
+4. 如何防止插件影响系统稳定性。
+
+**参考答案**：
+
+#### 1. Kernel 职责
+
+- 插件注册与卸载。
+- 生命周期管理（初始化、激活、停用）。
+- 事件总线或消息机制。
+- 基础服务提供（日志、权限、配置）。
+
+#### 2. 插件生命周期
+
+```
+加载 → 校验 → 初始化 → 激活 → 运行 → 停用 → 卸载
+```
+
+每个阶段插件可提供钩子函数。
+
+#### 3. 插件间通信
+
+- **事件总线**：插件发布/订阅事件，松耦合。
+- **依赖注入**：插件声明依赖，Kernel 负责解析。
+- **共享状态**：通过 Kernel 提供的 Store 访问公共状态。
+
+#### 4. 稳定性保障
+
+- **沙箱隔离**：插件运行在 iframe 或 Web Worker 中，限制 DOM/API 访问。
+- **错误边界**：单个插件崩溃不影响主应用。
+- **超时控制**：插件初始化/执行设置超时。
+- **权限控制**：插件只能访问声明的权限范围。
+- **版本管理**：插件与 Kernel 版本兼容检查。
+
+### 19. 用六边形架构思想重构一个依赖后端 API 的前端模块
+
+**考察点**：六边形架构、端口与适配器、依赖倒置。
+
+**题目**：
+当前有一个 `UserService` 直接调用 `fetch('/api/users')`，业务逻辑与 API 调用强耦合。请用六边形架构思想重构。
+
+**参考答案**：
+
+```typescript
+// domain/user.ts —— 领域模型
+export class User {
+  constructor(public id: string, public name: string, public email: string) {}
+
+  validateEmail(): boolean {
+    return /\S+@\S+\.\S+/.test(this.email);
+  }
+}
+
+// ports/userRepository.ts —— 抽象端口
+export interface UserRepository {
+  findById(id: string): Promise<User>;
+  save(user: User): Promise<void>;
+}
+
+// adapters/restUserRepository.ts —— REST 适配器
+export class RestUserRepository implements UserRepository {
+  async findById(id: string) {
+    const dto = await fetch(`/api/users/${id}`).then(r => r.json());
+    return new User(dto.id, dto.name, dto.email);
+  }
+
+  async save(user: User) {
+    await fetch(`/api/users/${user.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ name: user.name, email: user.email })
+    });
+  }
+}
+
+// adapters/mockUserRepository.ts —— 测试适配器
+export class MockUserRepository implements UserRepository {
+  private users = new Map<string, User>();
+
+  async findById(id: string) {
+    return this.users.get(id) || new User(id, '', '');
+  }
+
+  async save(user: User) {
+    this.users.set(user.id, user);
+  }
+}
+
+// application/userService.ts —— 应用层
+export class UserService {
+  constructor(private repository: UserRepository) {}
+
+  async updateEmail(id: string, email: string) {
+    const user = await this.repository.findById(id);
+    user.email = email;
+    if (!user.validateEmail()) {
+      throw new Error('Invalid email');
+    }
+    await this.repository.save(user);
+  }
+}
+
+// UI 层只依赖 UserService 和端口
+function UserProfile({ userService }: { userService: UserService }) {
+  // ...
+}
+```
+
+#### 关键收益
+
+- 业务逻辑不依赖具体 API 实现。
+- 测试时可以替换为 Mock 适配器。
+- 后端接口变化只需修改适配器。
+
+---
+
 > **领域编号**：A01 系统架构  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

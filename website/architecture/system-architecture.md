@@ -9,6 +9,8 @@
 - BFF 在前后端之间提供面向前端的适配层，负责接口聚合、数据适配、鉴权与缓存。
 - DDD 思想可帮助前端按领域拆分模块、定义领域模型并通过防腐层隔离后端 DTO 变化。
 - 分层架构、模块化、依赖倒置与架构决策记录（ADR）是控制复杂度与可维护性的关键实践。
+- 现代前端架构模式包括：微内核、插件化、低代码/搭建、Server-Driven UI、事件驱动/CQRS、六边形/整洁架构等。
+- 架构模式选型应基于业务场景、团队能力、可维护性和演进成本，使用决策树和 ADR 记录决策过程。
 
 ## 学习时长与前置知识
 
@@ -456,7 +458,347 @@ export function onRouteChange(route) {
 
 ---
 
-## 七、常见误区与最佳实践
+## 七、现代前端架构模式
+
+传统 MVC/MVVM、BFF、DDD 是前端架构的基础，但随着业务复杂度提升，更多现代架构模式涌现。掌握这些模式，能让我们在特定场景下做出更优的架构决策。
+
+### 1. 微内核架构（Microkernel / Plugin Architecture）
+
+#### 核心思想
+
+将系统拆分为一个**最小核心（Kernel）**和一组**可插拔的插件（Plugins）**。核心负责生命周期管理、模块通信和基础服务；插件负责具体业务功能。
+
+```
+┌─────────────────────────────────────┐
+│           Application               │
+├─────────────────────────────────────┤
+│  Plugin A   │  Plugin B  │ Plugin C │
+├─────────────────────────────────────┤
+│         Plugin Manager              │
+├─────────────────────────────────────┤
+│  Kernel（生命周期、事件总线、依赖注入）│
+└─────────────────────────────────────┘
+```
+
+#### 前端应用场景
+
+- **IDE / 低代码平台**：VS Code、Figma 插件生态。
+- **企业级中台**：不同业务线以插件形式接入统一基座。
+- **微前端的一种实现方式**：基座作为 Kernel，子应用作为 Plugin。
+
+#### 简单实现示例
+
+```typescript
+// kernel.ts
+class Kernel {
+  private plugins = new Map<string, Plugin>();
+  private eventBus = new EventTarget();
+
+  register(name: string, plugin: Plugin) {
+    this.plugins.set(name, plugin);
+    plugin.activate(this.eventBus);
+  }
+
+  unregister(name: string) {
+    const plugin = this.plugins.get(name);
+    plugin?.deactivate();
+    this.plugins.delete(name);
+  }
+}
+
+interface Plugin {
+  activate(eventBus: EventTarget): void;
+  deactivate(): void;
+}
+```
+
+#### 优缺点
+
+| 优点 | 缺点 |
+|------|------|
+| 功能可独立开发、部署、卸载 | 插件接口设计难度大 |
+| 系统核心稳定，扩展灵活 | 插件间通信和依赖管理复杂 |
+| 适合多团队协作 | 需要完善的安全隔离机制 |
+
+---
+
+### 2. 插件化架构的进阶：模块联邦与动态加载
+
+除了自己实现插件系统，现代前端还可以借助：
+
+- **Module Federation**：运行时共享和加载远程模块。
+- **ESM Dynamic Import**：按需加载业务模块。
+- **Web Components**：用标准组件封装插件 UI。
+
+```typescript
+// 动态加载远程模块作为插件
+async function loadPlugin(url: string) {
+  const module = await import(/* @vite-ignore */ url);
+  return module.default;
+}
+```
+
+---
+
+### 3. 低代码 / 搭建体系（Low-Code / Schema-Driven UI）
+
+#### 核心思想
+
+用**配置（Schema）描述界面**，而不是直接写代码。渲染引擎解析 Schema 并生成真实 UI。
+
+```
+用户拖拽/自然语言 → 生成 Schema → 渲染引擎 → 真实页面
+```
+
+#### 典型 Schema 示例
+
+```json
+{
+  "type": "Page",
+  "props": { "title": "销售数据看板" },
+  "children": [
+    {
+      "type": "Chart",
+      "props": { "chartType": "line", "dataSource": "salesTrend" }
+    },
+    {
+      "type": "Table",
+      "props": { "columns": ["商品", "销量", "金额"], "dataSource": "topProducts" }
+    }
+  ]
+}
+```
+
+#### 前端架构要点
+
+| 层面 | 职责 | 关键技术 |
+|------|------|---------|
+| 物料层 | 组件库、图表库、模板 | React/Vue 组件 |
+| 协议层 | Schema 定义、版本管理 | JSON Schema、Proprietary DSL |
+| 渲染层 | 解析 Schema 并渲染 | 递归渲染器、动态组件映射 |
+| 数据层 | 数据源绑定、状态管理 | 变量引擎、API 编排 |
+| 权限层 | 组件级/字段级权限 | 权限表达式 |
+
+#### 适用场景
+
+- 运营后台、数据看板、活动页搭建。
+- 表单、列表、报表等高度模式化的页面。
+- 需要业务人员自助配置的场景。
+
+---
+
+### 4. Server-Driven UI（SDUI）
+
+#### 核心思想
+
+服务端不仅提供数据，还提供**界面结构**。客户端根据服务端下发的 UI 描述动态渲染。
+
+```
+传统方式：服务端返回数据，前端决定如何展示。
+SDUI：服务端返回“数据 + 界面结构”，前端只负责渲染。
+```
+
+#### 典型应用场景
+
+- **电商首页**：不同活动、不同用户看到不同模块组合。
+- **金融 App**：合规要求下，页面结构需服务端动态控制。
+- **A/B 测试**：服务端下发不同 UI 版本，无需发版即可实验。
+
+#### 与低代码的关系
+
+| 维度 | 低代码平台 | SDUI |
+|------|-----------|------|
+| 控制方 | 运营/产品经理通过编辑器配置 | 服务端根据业务逻辑动态下发 |
+| 灵活性 | 高（可拖拽设计） | 中（受限于预定义组件） |
+| 实时性 | 配置后发布生效 | 请求时即时生效 |
+| 适用 | 后台系统、活动页 | C 端动态页面、首页、卡片流 |
+
+#### 前端实现要点
+
+1. **组件映射表**：将服务端组件类型映射到本地组件。
+2. **版本兼容**：服务端 Schema 升级时，旧版本客户端能兼容。
+3. **降级策略**：未知组件类型时展示占位或跳过。
+4. **性能优化**：对常用 Schema 做缓存和预编译。
+
+---
+
+### 5. 事件驱动架构（Event-Driven Architecture）
+
+#### 核心思想
+
+模块之间不直接调用，而是通过**事件总线**发布和订阅事件来通信。
+
+```typescript
+// 发布事件
+eventBus.emit('order:created', { orderId: '123' });
+
+// 订阅事件
+eventBus.on('order:created', ({ orderId }) => {
+  analytics.track('purchase', { orderId });
+});
+```
+
+#### 前端应用场景
+
+- **跨模块通信**：订单模块创建订单后，通知购物车、优惠券、埋点模块。
+- **Undo/Redo**：用事件溯源实现操作历史。
+- **复杂 UI 流程**：表单校验、审批流、多步骤向导。
+
+#### 与 CQRS / 事件溯源的关系
+
+| 模式 | 核心思想 | 前端应用 |
+|------|---------|---------|
+| 事件驱动 | 通过事件解耦模块 | 跨模块通信、埋点 |
+| CQRS | 读模型和写模型分离 | 复杂列表/详情页的状态优化 |
+| 事件溯源 | 用事件序列表示状态 | Undo/Redo、操作回放 |
+
+```typescript
+// 事件溯源示例：用命令和事件管理状态
+interface Command {
+  type: 'ADD_TODO' | 'REMOVE_TODO';
+  payload: any;
+}
+
+interface Event {
+  type: 'TODO_ADDED' | 'TODO_REMOVED';
+  payload: any;
+}
+
+function reducer(events: Event[], command: Command): Event[] {
+  switch (command.type) {
+    case 'ADD_TODO':
+      return [...events, { type: 'TODO_ADDED', payload: command.payload }];
+    // ...
+  }
+}
+```
+
+---
+
+### 6. 六边形架构 / 整洁架构在前端
+
+#### 核心思想
+
+**业务逻辑独立于框架、UI 和外部服务**。通过端口（Port）和适配器（Adapter）与外部交互。
+
+```
+         ┌─────────────┐
+         │     UI      │
+         └──────┬──────┘
+                │ 适配器
+         ┌──────▼──────┐
+         │  应用层/业务 │
+         │    逻辑      │
+         └──────┬──────┘
+                │ 适配器
+         ┌──────▼──────┐
+         │  外部服务    │
+         │ （API/Storage）│
+         └─────────────┘
+```
+
+#### 前端落地示例
+
+```typescript
+// domain/todo.ts —— 核心业务逻辑，不依赖任何框架
+export class Todo {
+  constructor(public id: string, public title: string, public completed = false) {}
+
+  toggle() {
+    this.completed = !this.completed;
+  }
+}
+
+// ports/todoRepository.ts —— 抽象端口
+export interface TodoRepository {
+  findAll(): Promise<Todo[]>;
+  save(todo: Todo): Promise<void>;
+}
+
+// adapters/apiTodoRepository.ts —— 具体适配器
+export class ApiTodoRepository implements TodoRepository {
+  async findAll() {
+    const dtos = await fetch('/api/todos').then(r => r.json());
+    return dtos.map(dto => new Todo(dto.id, dto.title, dto.completed));
+  }
+  // ...
+}
+
+// UI 层只依赖应用层和端口，不依赖具体适配器
+function TodoList({ repository }: { repository: TodoRepository }) {
+  // ...
+}
+```
+
+#### 价值
+
+- **可测试性**：业务逻辑可以脱离浏览器和 API 单独测试。
+- **可替换性**：今天用 REST API，明天可以换成 GraphQL 或本地缓存，业务逻辑不变。
+- **长期可维护**：框架更新换代时，领域层代码可以复用。
+
+---
+
+### 7. Monorepo 组织方案
+
+Monorepo 不仅是代码托管方式，也是一种架构组织方式。不同组织方式对应不同的团队协作模式：
+
+| 组织方式 | 结构 | 适用场景 |
+|----------|------|---------|
+| **按领域划分** | `packages/order`、`packages/product` | 业务复杂、团队按领域负责 |
+| **按产品划分** | `apps/web`、`apps/admin`、`apps/mobile` | 多端产品、团队按产品负责 |
+| **按技术栈划分** | `packages/ui`、`packages/utils`、`packages/api` | 技术平台型团队 |
+| **混合划分** | `apps/` + `packages/` | 中大型团队，兼顾产品和技术复用 |
+
+#### 选择依据
+
+- 团队规模与组织结构（康威定律）。
+- 代码复用需求。
+- 构建和部署复杂度。
+- 发布节奏是否一致。
+
+---
+
+### 8. 架构模式选型决策树
+
+面对一个具体业务场景，如何快速选择合适的架构模式？可以按以下问题逐步判断：
+
+```
+1. 业务是否高度模式化、需要频繁配置？
+   ├─ 是 → 低代码/搭建体系
+   └─ 否 → 继续判断
+
+2. 页面结构是否需要服务端动态控制、无需发版即可调整？
+   ├─ 是 → Server-Driven UI
+   └─ 否 → 继续判断
+
+3. 是否需要多个独立团队/业务线在一个系统中并行开发？
+   ├─ 是 → 微内核/插件化 或 微前端
+   └─ 否 → 继续判断
+
+4. 业务规则是否复杂、需要长期演进和大量测试？
+   ├─ 是 → DDD + 六边形/整洁架构
+   └─ 否 → 继续判断
+
+5. 模块间通信是否复杂、需要解耦和可追溯？
+   ├─ 是 → 事件驱动/CQRS/事件溯源
+   └─ 否 → 经典分层架构 + 模块化
+```
+
+#### 架构选型评分卡
+
+| 维度 | 权重 | 说明 |
+|------|------|------|
+| 业务契合度 | 30% | 是否能自然表达业务结构 |
+| 团队能力 | 20% | 团队是否具备实施和维护能力 |
+| 可维护性 | 20% | 长期迭代成本 |
+| 性能影响 | 15% | 对首屏、交互性能的影响 |
+| 生态成熟度 | 15% | 工具链、社区、案例丰富度 |
+
+建议将选型过程和评分结果记录到 ADR 中，便于后续回顾。
+
+---
+
+## 八、常见误区与最佳实践
 
 ### 误区 1：架构越复杂越好
 
@@ -478,10 +820,12 @@ export function onRouteChange(route) {
 4. **显式优于隐式**：配置和约定要清晰可追踪。
 5. **可测试性驱动设计**：如果一个模块难以测试，通常意味着架构有问题。
 6. **持续重构**：架构不是一次性设计出来的，是演进出来的。
+7. **用决策树和评分卡辅助架构选型**：避免盲目跟风，把选型过程记录为 ADR。
+8. **根据业务场景选择现代架构模式**：低代码、SDUI、微内核、事件驱动、整洁架构各有适用场景。
 
 ---
 
-## 八、架构决策记录与可维护性
+## 九、架构决策记录与可维护性
 
 ### 1. 为什么需要记录架构决策？
 
@@ -528,7 +872,7 @@ ADR 是一份简短文档，记录某个重要的架构决策：
 
 ---
 
-## 九、前端与后端的协作边界
+## 十、前端与后端的协作边界
 
 前端架构不是孤立的，它必须与后端架构协同。常见的协作边界问题包括：
 
@@ -551,7 +895,7 @@ ADR 是一份简短文档，记录某个重要的架构决策：
 
 ---
 
-## 十、总结
+## 十一、总结
 
 前端架构不是炫技，而是为了解决复杂系统在多人协作、快速迭代、长期演进中的问题。从 MVC 到 MVVM，从模块化到组件化，从 BFF 到 DDD，背后贯穿的是同一个思想：**把变化隔离、把职责分离、把复杂度控制在可理解的范围内**。
 
@@ -566,7 +910,7 @@ ADR 是一份简短文档，记录某个重要的架构决策：
 ---
 
 > **领域编号**：A01 系统架构设计  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24
 
 
 ---

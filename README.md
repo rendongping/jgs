@@ -1,6 +1,6 @@
 # 前端架构师知识图谱与学习资料库
 
-[![Deploy to GitHub Pages](https://github.com/your-org/frontend-architect-knowledge/actions/workflows/deploy.yml/badge.svg)](https://github.com/your-org/frontend-architect-knowledge/actions/workflows/deploy.yml)
+[![Deploy to GitHub Pages](https://github.com/rendongping/jgs/actions/workflows/deploy.yml/badge.svg)](https://github.com/rendongping/jgs/actions/workflows/deploy.yml)
 
 > 本仓库按"前端架构师能力金字塔"四层模型，系统整理了从基础到架构、从技术到管理的完整学习资料。
 > 每个知识领域均包含：**学习文档**、**练习册**、**面试题**三部分，覆盖理论与实战。
@@ -213,7 +213,7 @@ level-04-leadership/       # 第四层：业务洞察 / 团队领导力 / 技术
 
 增强型静态网站已部署至 GitHub Pages：
 
-🔗 **https://your-org.github.io/frontend-architect-knowledge/**
+🔗 **https://rendongping.github.io/jgs/**
 
 网站特性：
 

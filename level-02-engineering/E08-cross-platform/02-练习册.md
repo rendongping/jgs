@@ -403,5 +403,156 @@ class _CounterPageState extends State<CounterPage> {
 
 ---
 
+## 五、深入练习题
+
+### 21. 跨端公共层架构设计题
+
+**题目：**
+
+某出行公司需要同时支持微信小程序、鸿蒙 App（HarmonyOS NEXT）、iOS/Android（React Native）和 H5。请设计一个跨端公共层，统一封装网络请求、本地存储、用户定位、分享、埋点等能力，并说明：
+
+1. 分层结构（业务层、公共层、平台适配层、原生实现层）。
+2. 如何处理各平台 API 差异（如微信小程序 `wx.request`、鸿蒙 `@ohos.net.http`、RN `fetch`、H5 `fetch`）。
+3. 如何保证新增平台时改动成本最小。
+4. 针对鸿蒙分布式能力，如何设计"手机下单、车机续导航"的场景。
+
+**参考答案要点：**
+
+1. **分层结构**：
+   - 业务层：只调用 `sdk.request()`、`sdk.storage.set()` 等统一接口；
+   - 公共层：定义 TypeScript/Kotlin 接口和通用逻辑；
+   - 平台适配层：根据运行平台分发到具体实现；
+   - 原生实现层：各端分别实现网络、存储、定位等能力。
+
+2. **差异处理**：
+   - 网络：统一 `request(url, options)` 接口，内部判断 `isMiniProgram / isHarmony / isRN / isH5`；
+   - 存储：统一 `storage.get/set`，底层分别调用 `wx.getStorageSync`、鸿蒙 `preferences`、RN `AsyncStorage`、H5 `localStorage`；
+   - 分享：各平台实现不同，公共层返回能力探测结果，业务层按需降级。
+
+3. **新增平台最小改动**：
+   - 适配层使用依赖注入或工厂模式；
+   - 新平台只需实现接口并注册到适配器；
+   - 业务代码零改动。
+
+4. **鸿蒙分布式场景**：
+   - 使用 `distributedMissionManager.continueMission` 将导航 Ability 从手机迁移到车机；
+   - 通过分布式数据服务同步订单状态；
+   - 车机端 UIAbility 接收迁移参数后恢复导航页面。
+
+---
+
+### 22. 鸿蒙 ArkTS 响应式页面实践题
+
+**题目：**
+
+使用 ArkTS 编写一个支持手机与车机双端响应式布局的页面：
+
+1. 手机端显示单列列表，车机端（宽屏）显示左右分栏；
+2. 点击列表项后，右侧或详情页显示选中内容；
+3. 说明 EntryAbility 生命周期中 `onCreate`、`onWindowStageCreate`、`onForeground` 的调用时机。
+
+**参考答案：**
+
+```typescript
+// pages/Index.ets
+import mediaquery from '@ohos.mediaquery';
+
+@Entry
+@Component
+struct Index {
+  @State isWide: boolean = false;
+  @State selected: string = '';
+  private listener = mediaquery.matchMediaSync('(width>=600vp)');
+
+  aboutToAppear() {
+    this.listener.on('change', (matches) => {
+      this.isWide = matches;
+    });
+  }
+
+  build() {
+    if (this.isWide) {
+      Row() {
+        this.ListColumn()
+        this.DetailColumn()
+      }
+      .width('100%')
+      .height('100%')
+    } else {
+      this.ListColumn()
+    }
+  }
+
+  @Builder
+  ListColumn() {
+    Column() {
+      ForEach(['导航', '音乐', '电话', '设置'], (item: string) => {
+        Text(item)
+          .fontSize(18)
+          .height(48)
+          .width('100%')
+          .backgroundColor(this.selected === item ? '#E6F7FF' : '#FFFFFF')
+          .onClick(() => this.selected = item)
+      })
+    }
+    .width(this.isWide ? '30%' : '100%')
+    .height('100%')
+    .padding(16)
+  }
+
+  @Builder
+  DetailColumn() {
+    Column() {
+      Text(this.selected || '请选择项目')
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+    }
+    .width('70%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+生命周期说明：
+
+- `onCreate`：Ability 首次创建时调用，用于一次性初始化（如读取启动参数）。
+- `onWindowStageCreate`：窗口阶段创建完成，此时加载主页面。
+- `onForeground`：Ability 切换到前台时调用，适合恢复状态或开始定位/计时。
+
+---
+
+### 23. Kotlin Multiplatform 选型分析题
+
+**题目：**
+
+你所在团队已有成熟的 iOS（SwiftUI）和 Android（Jetpack Compose）原生应用，现在希望降低双端业务逻辑重复代码。请分析 KMP 与 Flutter 在该项目中的适用性，并给出迁移路径。
+
+**参考答案要点：**
+
+1. **现状分析**：
+   - 已有原生 UI 体系，UI 改动频繁且对体验要求高；
+   - 业务逻辑（网络、数据、领域模型、计算）重复严重；
+   - 团队有 Kotlin 和双端原生开发能力。
+
+2. **KMP 适用性**：
+   - 保留现有 SwiftUI / Jetpack Compose UI，风险最小；
+   - 将网络层、Repository、领域模型、校验逻辑下沉到 `shared` 模块；
+   - 使用 expect/actual 处理平台差异（如 Keychain/Keystore、日志）。
+
+3. **Flutter 适用性**：
+   - 需要推翻现有双端 UI，重写成本高；
+   - 适合从零开始或 UI 一致性要求极高的新应用；
+   - 包体积和学习成本对现有团队挑战较大。
+
+4. **迁移路径**：
+   - 第一步：创建 `shared` 模块，迁移工具类和数据模型；
+   - 第二步：迁移网络层与 Repository，iOS/Android 分别接入；
+   - 第三步：迁移核心业务逻辑（订单、支付、用户状态）；
+   - 第四步：建立 CI 流程，确保共享模块测试覆盖；
+   - 第五步：评估是否将部分 UI 也纳入共享（通常不建议）。
+
+---
+
 > **领域编号**：E08 跨端技术  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24
