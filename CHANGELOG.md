@@ -4,6 +4,20 @@
 
 ---
 
+## [1.4.0] - 2026-06-24
+
+### Added
+- 新增客观题测评题库 `quizzes/`，覆盖 12 个核心领域共 180 题（单选/多选/判断）。
+- 新增 `QuizPlayer.vue` 组件与 `/learning-path/quizzes` 在线测评页面，支持随机抽题、历史记录、薄弱点分析。
+- 新增 `CodingChallenge.vue` 组件与 `/learning-path/coding-challenges` 在线编程题页面，覆盖 JS/React/Vue/性能/架构 8 道实战题。
+- 能力自评表补充 24 个领域 × L1-L6 可观察行为证据，让自评有据可依。
+- 增强 `SelfAssessment.vue`：支持查看每个领域的行为证据、快速跳转测评与编程题。
+- 增强 `LearningPath.vue`：基于自评薄弱项与测评历史动态生成个性化学习推荐。
+- 更新网站导航与侧边栏，新增「测评」入口与「客观题测评 / 在线编程题」页面。
+- `sync-content.mjs` 自动同步题库到 `website/public/quizzes/`。
+
+---
+
 ## [Unreleased]
 
 ### Added
