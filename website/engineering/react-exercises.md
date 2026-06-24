@@ -500,6 +500,97 @@ function Counter() {
 
 ---
 
+### 第 21 题
+
+使用 `useOptimistic` 实现一个乐观更新的消息发送组件。当用户点击发送时，消息立即显示在列表中（透明度 0.5），等服务器确认后再恢复正常。
+
+<details>
+<summary>答案与解析</summary>
+
+```jsx
+import { useOptimistic } from "react";
+
+function Messages({ messages, sendMessage }) {
+  const [optimisticMessages, addOptimisticMessage] = useOptimistic(
+    messages,
+    (state, text) => [...state, { id: "temp", text, sending: true }]
+  );
+
+  async function handleSubmit(formData) {
+    const text = formData.get("message");
+    addOptimisticMessage(text);
+    await sendMessage(text);
+  }
+
+  return (
+    <>
+      {optimisticMessages.map((msg) => (
+        <div key={msg.id} style=&#123;&#123; opacity: msg.sending ? 0.5 : 1 &#125;&#125;>
+          {msg.text}
+        </div>
+      ))}
+      <form action={handleSubmit}>
+        <input name="message" />
+        <button>发送</button>
+      </form>
+    </>
+  );
+}
+```
+
+**解析：**
+
+- `useOptimistic` 接收当前状态和更新函数。
+- 在 action 中先调用 `addOptimisticMessage` 更新 UI，再等待异步操作完成。
+- 服务器返回真实数据后，React 会用真实状态替换乐观状态。
+</details>
+
+---
+
+### 第 22 题
+
+下面的 SSR 页面为什么会出现 hydration 失败？如何修复？
+
+```jsx
+function Page() {
+  return <div>当前时间：{new Date().toLocaleString()}</div>;
+}
+```
+
+<details>
+<summary>答案与解析</summary>
+
+**原因**：服务端生成 HTML 时的时间和客户端 hydration 时的时间不同，导致文本内容不一致。
+
+**修复方案一**：只在客户端渲染时间。
+
+```jsx
+import { useEffect, useState } from "react";
+
+function Page() {
+  const [time, setTime] = useState(null);
+  useEffect(() => setTime(new Date().toLocaleString()), []);
+  return <div>当前时间：{time ?? "加载中..."}</div>;
+}
+```
+
+**修复方案二**：对确实无法避免的不一致加 `suppressHydrationWarning`。
+
+```jsx
+function Page() {
+  return <div suppressHydrationWarning>当前时间：{new Date().toLocaleString()}</div>;
+}
+```
+
+**解析：**
+
+- SSR 要求服务端和客户端首次渲染结果一致。
+- 时间、随机数、浏览器 API 等容易导致不一致。
+- `useEffect` 只在客户端执行，适合处理此类数据。
+</details>
+
+---
+
 ## 参考答案速查表
 
 | 题号 | 题型 | 答案 |
@@ -524,8 +615,10 @@ function Counter() {
 | 18 | 代码分析 | 防止竞态条件 |
 | 19 | 编程实践 | `useWindowWidth` 自定义 Hook |
 | 20 | 编程实践 | Context + `useReducer` 计数器 |
+| 21 | 编程实践 | `useOptimistic` 乐观更新 |
+| 22 | 代码分析 | hydration 失败原因与修复 |
 
 ---
 
 > **领域编号**：E06 React  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

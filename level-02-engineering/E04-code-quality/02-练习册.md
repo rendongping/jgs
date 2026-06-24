@@ -360,5 +360,52 @@ module.exports = {
 
 ---
 
+### 16. 使用 fast-check 为 `reverse` 函数写一个属性测试：数组反转两次应等于原数组。
+
+**参考答案**：
+
+```ts
+import * as fc from "fast-check";
+import { reverse } from "./array-utils";
+
+fc.assert(
+  fc.property(fc.array(fc.integer()), (arr) => {
+    return JSON.stringify(arr) === JSON.stringify(reverse(reverse(arr)));
+  })
+);
+```
+
+**解析**：
+- 属性测试不依赖具体例子，而是验证对所有输入都成立的属性。
+- `fc.array(fc.integer())` 自动生成随机整数数组。
+- 如果失败，fast-check 会尝试 shrink 出最小反例。
+
+---
+
+### 17. 写出一条 ts-arch 规则，要求 `src/ui` 目录下的文件不能依赖 `src/domain` 目录下的文件（假设 domain 是更底层）。
+
+**参考答案**：
+
+```ts
+import { filesOfProject } from "ts-arch";
+
+it("ui 层不应依赖 domain 层", async () => {
+  const rule = filesOfProject()
+    .inFolder("src/ui")
+    .shouldNot()
+    .dependOnFiles()
+    .inFolder("src/domain");
+
+  await expect(rule).toPass();
+});
+```
+
+**解析**：
+- 架构测试把代码结构约束变成可执行的测试。
+- `shouldNot().dependOnFiles()` 表达“不应依赖”的约束。
+- 违反规则时测试失败，CI 可以拦截不合规的依赖。
+
+---
+
 > **领域编号**：E04 代码质量  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

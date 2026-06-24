@@ -415,13 +415,77 @@ Promise.all([fetchOnce("/api/user"), fetchOnce("/api/user")])
 
 ---
 
+### 第 16 题
+
+为以下 RESTful 接口选择合适的 HTTP 状态码：
+
+1. 用户成功登录并返回 Token。
+2. 用户请求的管理员接口，但当前用户只是普通角色。
+3. 请求体中手机号格式错误。
+4. 后端数据库连接失败。
+5. 客户端在 1 秒内请求了 100 次接口。
+
+**参考答案**：
+
+1. **200 OK**（或 201 Created，如果认为登录创建了会话资源）。
+2. **403 Forbidden**。
+3. **400 Bad Request**。
+4. **500 Internal Server Error**（不应暴露具体数据库错误）。
+5. **429 Too Many Requests**。
+
+**解析**：
+- 401 是未认证，403 是已认证但无权限。
+- 参数校验失败用 400。
+- 服务端内部异常用 500 系列。
+- 限流用 429。
+
+---
+
+### 第 17 题
+
+补全 WebRTC 获取本地摄像头并展示的基本代码。
+
+```js
+async function startLocalVideo(videoElement) {
+  const stream = await navigator.mediaDevices.________({
+    video: true,
+    audio: true
+  });
+  videoElement.srcObject = stream;
+}
+```
+
+**参考答案**：
+
+横线处应填入 `getUserMedia`。
+
+完整代码：
+
+```js
+async function startLocalVideo(videoElement) {
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: true,
+    audio: true
+  });
+  videoElement.srcObject = stream;
+}
+```
+
+**解析**：
+- `getUserMedia` 用于获取用户的摄像头和麦克风媒体流。
+- 需要在 HTTPS 或 localhost 环境下调用。
+- 调用前应考虑权限处理和错误捕获。
+
+---
+
 ## 练习建议
 
 1. 使用 Wireshark 或 Chrome Network 面板观察 TCP 握手和 HTTP/2 帧。
 2. 搭建本地 HTTP/2 或 WebSocket 服务，验证协议行为。
 3. 分析自己项目的网络请求，找出可优化点（如重复请求、缓存策略）。
+4. 用 WebRTC 实现一个本地双人视频通话 Demo。
 
 ---
 
 > **领域编号**：F04 网络  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

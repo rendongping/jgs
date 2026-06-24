@@ -2,6 +2,7 @@
 
 > ADR（Architecture Decision Record，架构决策记录）用于记录重要的技术决策。
 > 本模板遵循 `docs/STYLE-GUIDE.md` 规范。
+> 📄 [查看已填写示例：Monorepo  Adoption](/templates/examples/adr-001-monorepo-adoption) | [AI SDK 选型](/templates/examples/adr-002-ai-sdk-selection)
 
 ---
 

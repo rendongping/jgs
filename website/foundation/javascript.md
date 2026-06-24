@@ -439,21 +439,337 @@ add(1, 2);   // 优化为数字加法
 add("a", "b"); // 类型变化，触发反优化
 ```
 
+## 十一、Promise/A+ 规范：手写一个可靠的 Promise
+
+> 生活化比喻：Promise 像一家餐厅的等位系统。你拿到一张等位单（pending），等有位置时服务员叫你（resolve），或者告诉你今晚没位置了（reject）。你不需要一直站在门口等，可以去做别的事。
+
+### 11.1 为什么要手写 Promise？
+
+日常开发中我们直接使用原生 `Promise`，但手写一个符合 Promise/A+ 规范的实现，能帮助我们理解：
+
+- 为什么 `Promise` 构造函数中的代码是同步执行的？
+- 为什么 `.then` 里的回调是异步的？
+- 为什么 `then` 可以链式调用？
+- 为什么 Promise 的状态一旦改变就不可再变？
+
+### 11.2 Promise/A+ 核心规则
+
+1. Promise 有三种状态：`pending`、`fulfilled`、`rejected`，状态只能从 `pending` 变为 `fulfilled` 或 `rejected`，且不可再次改变。
+2. `then` 方法接收两个可选参数 `onFulfilled` 和 `onRejected`，它们必须在当前执行栈清空后以异步方式执行（即微任务）。
+3. `then` 必须返回一个新的 Promise，支持链式调用。
+4. 如果 `onFulfilled`/`onRejected` 返回一个值，新 Promise 以该值 resolve；如果抛出异常，新 Promise 以该异常 reject；如果返回一个 Promise，则等待其状态决定新 Promise 的状态。
+
+### 11.3 最简符合规范的实现
+
+```js
+const PENDING = "pending";
+const FULFILLED = "fulfilled";
+const REJECTED = "rejected";
+
+class MyPromise {
+  constructor(executor) {
+    this.state = PENDING;
+    this.value = undefined;
+    this.reason = undefined;
+    this.onFulfilledCallbacks = [];
+    this.onRejectedCallbacks = [];
+
+    const resolve = (value) => {
+      if (this.state === PENDING) {
+        this.state = FULFILLED;
+        this.value = value;
+        this.onFulfilledCallbacks.forEach((fn) => fn());
+      }
+    };
+
+    const reject = (reason) => {
+      if (this.state === PENDING) {
+        this.state = REJECTED;
+        this.reason = reason;
+        this.onRejectedCallbacks.forEach((fn) => fn());
+      }
+    };
+
+    try {
+      executor(resolve, reject);
+    } catch (err) {
+      reject(err);
+    }
+  }
+
+  then(onFulfilled, onRejected) {
+    onFulfilled = typeof onFulfilled === "function" ? onFulfilled : (v) => v;
+    onRejected = typeof onRejected === "function" ? onRejected : (e) => { throw e; };
+
+    const promise2 = new MyPromise((resolve, reject) => {
+      const fulfilledMicrotask = () => {
+        queueMicrotask(() => {
+          try {
+            const x = onFulfilled(this.value);
+            resolvePromise(promise2, x, resolve, reject);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      };
+
+      const rejectedMicrotask = () => {
+        queueMicrotask(() => {
+          try {
+            const x = onRejected(this.reason);
+            resolvePromise(promise2, x, resolve, reject);
+          } catch (err) {
+            reject(err);
+          }
+        });
+      };
+
+      if (this.state === FULFILLED) {
+        fulfilledMicrotask();
+      } else if (this.state === REJECTED) {
+        rejectedMicrotask();
+      } else {
+        this.onFulfilledCallbacks.push(fulfilledMicrotask);
+        this.onRejectedCallbacks.push(rejectedMicrotask);
+      }
+    });
+
+    return promise2;
+  }
+
+  catch(onRejected) {
+    return this.then(null, onRejected);
+  }
+}
+
+function resolvePromise(promise2, x, resolve, reject) {
+  if (promise2 === x) {
+    reject(new TypeError("Chaining cycle detected for promise"));
+    return;
+  }
+  if (x !== null && (typeof x === "object" || typeof x === "function")) {
+    let called = false;
+    try {
+      const then = x.then;
+      if (typeof then === "function") {
+        then.call(
+          x,
+          (y) => {
+            if (called) return;
+            called = true;
+            resolvePromise(promise2, y, resolve, reject);
+          },
+          (r) => {
+            if (called) return;
+            called = true;
+            reject(r);
+          }
+        );
+      } else {
+        resolve(x);
+      }
+    } catch (err) {
+      if (called) return;
+      called = true;
+      reject(err);
+    }
+  } else {
+    resolve(x);
+  }
+}
+```
+
+**关键点解析**：
+
+- `queueMicrotask` 保证 `then` 回调异步执行（真实 Promise 使用更底层的微任务队列）。
+- `resolvePromise` 处理 thenable（鸭子类型），支持返回 Promise 的链式等待。
+- 防止循环引用：如果 `promise2 === x` 则报 TypeError。
+- `called` 标志防止同一个 thenable 被 resolve 又 reject。
+
+### 11.4 常见面试陷阱
+
+```js
+const p = new MyPromise((resolve) => {
+  console.log("1");
+  resolve("2");
+});
+p.then((v) => console.log(v));
+console.log("3");
+// 输出：1 3 2
+```
+
+构造函数同步执行，但 `then` 回调必须等同步代码执行完后再执行。
+
+---
+
+## 十二、Iterator / Iterable 协议与 `for…of` 底层
+
+### 12.1 什么是可迭代协议（Iterable Protocol）？
+
+一个对象要成为“可迭代对象”，必须实现 `Symbol.iterator` 方法，该方法返回一个“迭代器”（Iterator）。迭代器必须有一个 `next()` 方法，返回 `{ value, done }` 对象。
+
+可以把迭代器理解为书签：翻开一本书，书签告诉你当前页（value）和是否读完了（done）。
+
+### 12.2 手写一个可迭代对象
+
+```js
+const range = {
+  from: 1,
+  to: 5,
+  [Symbol.iterator]() {
+    return {
+      current: this.from,
+      last: this.to,
+      next() {
+        if (this.current <= this.last) {
+          return { value: this.current++, done: false };
+        }
+        return { done: true };
+      }
+    };
+  }
+};
+
+for (const num of range) {
+  console.log(num); // 1 2 3 4 5
+}
+```
+
+### 12.3 哪些内置对象是可迭代的？
+
+- `Array`、`String`、`Map`、`Set`、`TypedArray`、函数的 `arguments`、NodeList 等。
+- `Object` 默认不可迭代，因为对象的键没有明确的顺序语义。
+
+### 12.4 `for…of` 的底层行为
+
+```js
+for (const item of iterable) {
+  // body
+}
+```
+
+大致等价于：
+
+```js
+const iterator = iterable[Symbol.iterator]();
+let result = iterator.next();
+while (!result.done) {
+  const item = result.value;
+  // body
+  result = iterator.next();
+}
+```
+
+### 12.5 生成器函数与迭代器的关系
+
+生成器函数 `function*` 会返回一个 Generator 对象，它同时是迭代器也是可迭代对象，因此可以直接用于 `for…of`。
+
+```js
+function* idMaker() {
+  let id = 0;
+  while (true) yield id++;
+}
+
+const gen = idMaker();
+console.log(gen.next().value); // 0
+console.log(gen.next().value); // 1
+```
+
+生成器让异步流程控制、无限序列、懒加载等场景变得非常自然。Redux-Saga、co 等库都基于生成器实现。
+
+### 12.6 迭代器协议 vs 可迭代协议
+
+| 协议 | 要求 | 示例 |
+|------|------|------|
+| 可迭代协议（Iterable） | 对象有 `Symbol.iterator` 方法 | `Array`、`Map`、`自定义 range` |
+| 迭代器协议（Iterator） | 对象有 `next()` 方法，返回 `{ value, done }` | `[1,2,3][Symbol.iterator]()` |
+
+---
+
+## 十三、Error Cause 与错误处理体系
+
+### 13.1 为什么需要 Error Cause？
+
+在复杂应用中，错误往往一环套一环。比如用户下单失败，底层可能是因为网络超时、库存服务返回 500、支付网关拒绝等。如果每一层都只抛出当前层的错误，原始错误信息会被“吞掉”，排查非常困难。
+
+ES2022 引入了 `Error Cause`，允许在创建错误时通过 `cause` 选项保留原始错误：
+
+```js
+try {
+  fetchUser();
+} catch (err) {
+  throw new Error("获取订单详情失败", { cause: err });
+}
+```
+
+这样上层捕获后可以通过 `error.cause` 追溯到真正的根因。
+
+### 13.2 构建分层错误处理体系
+
+生活化比喻：错误处理像医院的分诊台。小感冒自己吃药（业务内处理），发烧看门诊（抛给上层组件），急症直接送 ICU（全局错误边界 + 监控上报）。
+
+一个健康的错误处理体系通常分三层：
+
+1. **业务层**：对可预期错误做友好提示和降级。
+2. **框架层**：用错误边界（React Error Boundary）或 Vue 的 `errorHandler` 捕获渲染期错误，防止整个应用白屏。
+3. **全局层**：`window.onerror` / `window.addEventListener('unhandledrejection')` 捕获未处理错误并上报到 Sentry 等监控系统。
+
+### 13.3 实战示例：统一错误处理
+
+```js
+class BizError extends Error {
+  constructor(message, { code, cause } = {}) {
+    super(message, { cause });
+    this.name = "BizError";
+    this.code = code;
+  }
+}
+
+async function fetchOrder(orderId) {
+  try {
+    const res = await fetch(`/api/orders/${orderId}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (cause) {
+    throw new BizError("订单查询失败，请稍后重试", { code: "ORDER_FETCH_ERROR", cause });
+  }
+}
+
+fetchOrder(123).catch((err) => {
+  console.error(err.message);      // 订单查询失败，请稍后重试
+  console.error(err.cause.message); // HTTP 500
+  reportToSentry(err);
+});
+```
+
+### 13.4 错误处理最佳实践
+
+| 实践 | 说明 |
+|------|------|
+| 保留 Error Cause | 不吞掉原始错误，便于链路追踪 |
+| 自定义错误类 | 按业务域划分错误类型，携带 code、level 等元信息 |
+| 异步错误统一处理 | 使用 `try/catch` 或 `.catch`，避免未处理的 Promise 拒绝 |
+| 用户提示与日志分离 | 给用户看友好文案，给开发看详细堆栈 |
+| 关键路径兜底 | 对支付、下单等关键操作提供重试和回滚能力 |
+
+---
+
 ## 总结
 
-JavaScript 看似简单，实则底蕴深厚。掌握数据类型、类型转换、作用域闭包、this、原型链、事件循环、异步编程和 ES6+ 特性，是成为高级前端工程师的必经之路。建议学习时多画图、多写示例、多在浏览器控制台验证，把抽象概念变成可触摸的代码行为。
+JavaScript 看似简单，实则底蕴深厚。掌握数据类型、类型转换、作用域闭包、this、原型链、事件循环、异步编程和 ES6+ 特性，是成为高级前端工程师的必经之路。深入理解 Promise/A+ 规范、迭代器协议和错误处理体系，能让我们在写异步代码、处理复杂数据流和定位线上问题时更加游刃有余。建议学习时多画图、多写示例、多在浏览器控制台验证，把抽象概念变成可触摸的代码行为。
 
 ---
 
 **延伸阅读**：
 - ECMAScript 规范（tc39.es/ecma262/）
+- Promise/A+ 规范（promisesaplus.com）
 - 《你不知道的 JavaScript》
 - V8 博客（v8.dev/blog）
 
 ---
 
 > **领域编号**：F01 JavaScript 语言基础  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24
 
 
 ---

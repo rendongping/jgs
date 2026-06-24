@@ -538,6 +538,121 @@ function myNew(Constructor, ...args) {
 
 ---
 
+### 第 21 题
+
+补全下面的 `MyPromise` 实现，使其支持 `Promise.resolve().then(() => ...)` 的链式调用。
+
+```js
+class MyPromise {
+  constructor(executor) {
+    this.state = "pending";
+    this.value = undefined;
+    this.reason = undefined;
+    this.onFulfilledCallbacks = [];
+    this.onRejectedCallbacks = [];
+
+    const resolve = (value) => {
+      if (this.state === "pending") {
+        this.state = "fulfilled";
+        this.value = value;
+        this.onFulfilledCallbacks.forEach((fn) => fn());
+      }
+    };
+
+    const reject = (reason) => {
+      if (this.state === "pending") {
+        this.state = "rejected";
+        this.reason = reason;
+        this.onRejectedCallbacks.forEach((fn) => fn());
+      }
+    };
+
+    try {
+      executor(resolve, reject);
+    } catch (err) {
+      reject(err);
+    }
+  }
+
+  then(onFulfilled, onRejected) {
+    // 请补全：返回新的 MyPromise，并异步执行 onFulfilled/onRejected
+  }
+}
+```
+
+**参考答案**：
+
+```js
+then(onFulfilled, onRejected) {
+  onFulfilled = typeof onFulfilled === "function" ? onFulfilled : (v) => v;
+  onRejected = typeof onRejected === "function" ? onRejected : (e) => { throw e; };
+
+  return new MyPromise((resolve, reject) => {
+    const handle = (callback, value) => {
+      queueMicrotask(() => {
+        try {
+          const x = callback(value);
+          resolve(x);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    };
+
+    if (this.state === "fulfilled") {
+      handle(onFulfilled, this.value);
+    } else if (this.state === "rejected") {
+      handle(onRejected, this.reason);
+    } else {
+      this.onFulfilledCallbacks.push(() => handle(onFulfilled, this.value));
+      this.onRejectedCallbacks.push(() => handle(onRejected, this.reason));
+    }
+  });
+}
+```
+
+**解析**：
+- `then` 必须返回新的 Promise。
+- 使用 `queueMicrotask` 保证回调异步执行。
+- 对回调返回值 `x` 直接 resolve（简化版未处理 thenable，面试中可进一步展开）。
+
+---
+
+### 第 22 题
+
+下面的对象如何实现 `for…of` 遍历？写出 `[Symbol.iterator]` 的完整实现，使其支持 `for (const n of range(1, 3))` 输出 1、2、3。
+
+**参考答案**：
+
+```js
+function range(from, to) {
+  return {
+    [Symbol.iterator]() {
+      let current = from;
+      return {
+        next() {
+          if (current <= to) {
+            return { value: current++, done: false };
+          }
+          return { done: true };
+        }
+      };
+    }
+  };
+}
+
+for (const n of range(1, 3)) {
+  console.log(n); // 1 2 3
+}
+```
+
+**解析**：
+- 可迭代协议要求对象实现 `Symbol.iterator` 方法。
+- 迭代器对象必须有 `next()` 方法，返回 `{ value, done }`。
+- 函数返回的对象同时拥有闭包变量 `current` 和 `to`，实现范围遍历。
+
+---
+
 ## 练习建议
 
 1. 每道题在浏览器控制台或 Node.js 中实际运行一遍。
@@ -547,4 +662,4 @@ function myNew(Constructor, ...args) {
 ---
 
 > **领域编号**：F01 JavaScript  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

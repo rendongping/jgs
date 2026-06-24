@@ -791,14 +791,241 @@ React 应用可以作为微前端子应用，通过 qiankun、Module Federation 
 
 微前端场景下要注意样式隔离，避免子应用间互相影响。
 
-## 三十五、总结
+## 三十六、React 19：Actions、useOptimistic、use 与 React Compiler
 
-React 的学习永无止境。本文从核心概念、Fiber、Hooks、并发特性、状态管理、性能优化、SSR 等方面进行了系统介绍。希望你能够把这些知识融会贯通，在实际项目中不断实践和提升。
+### 36.1 React 19 新特性概览
+
+React 19 是 React 团队近年来最大的版本升级之一，核心目标是让数据变更、表单处理、乐观更新和异步数据消费变得更简单、更符合直觉。
+
+主要新特性：
+
+- **Actions**：把异步数据变更函数标记为 action，自动处理 pending 状态和错误。
+- **useOptimistic**：在异步操作完成前，先乐观地更新 UI。
+- **use**：在渲染中读取 Promise / Context / Context-like 值。
+- **React Compiler**：自动记忆化组件，减少手动使用 `useMemo`/`useCallback`/`React.memo`。
+- **Server Actions**：允许客户端直接调用服务端函数。
+- **改进的表单处理**：原生表单与 React 状态更深度集成。
+
+### 36.2 Actions
+
+Action 是一个被 `startTransition` 包裹的异步函数。React 会自动追踪 action 的执行状态。
+
+```jsx
+import { useTransition } from "react";
+
+function UpdateNameForm() {
+  const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = (formData) => {
+    startTransition(async () => {
+      await updateName(formData.get("name"));
+    });
+  };
+
+  return (
+    <form action={handleSubmit}>
+      <input name="name" />
+      <button disabled={isPending}>更新</button>
+    </form>
+  );
+}
+```
+
+在 React 19 中，你可以直接把异步函数作为 `action` 属性，React 会自动处理 pending 状态。
+
+### 36.3 useOptimistic
+
+乐观更新让用户操作后立即看到结果，而不需要等待服务器响应。
+
+```jsx
+import { useOptimistic } from "react";
+
+function Messages({ messages }) {
+  const [optimisticMessages, addOptimisticMessage] = useOptimistic(
+    messages,
+    (state, newMessage) => [...state, { text: newMessage, sending: true }]
+  );
+
+  async function sendMessage(formData) {
+    const text = formData.get("message");
+    addOptimisticMessage(text);
+    await deliverMessage(text);
+  }
+
+  return (
+    <>
+      {optimisticMessages.map((msg, i) => (
+        <div key={i} style=&#123;&#123; opacity: msg.sending ? 0.5 : 1 &#125;&#125;>
+          {msg.text}
+        </div>
+      ))}
+      <form action={sendMessage}>
+        <input name="message" />
+        <button>发送</button>
+      </form>
+    </>
+  );
+}
+```
+
+### 36.4 use Hook
+
+`use` 是一个新的 Hook，允许在渲染过程中读取 Promise 或 Context。它只能在渲染、其他 Hook 或 Server Components 中调用。
+
+```jsx
+import { use, Suspense } from "react";
+
+function Comments({ commentsPromise }) {
+  const comments = use(commentsPromise); // 像 await，但在渲染中
+  return comments.map((c) => <p key={c.id}>{c.text}</p>);
+}
+
+function Page({ commentsPromise }) {
+  return (
+    <Suspense fallback={<div>Loading comments...</div>}>
+      <Comments commentsPromise={commentsPromise} />
+    </Suspense>
+  );
+}
+```
+
+`use` 让数据获取组件化，配合 Server Components 和 Suspense 使用效果更佳。
+
+### 36.5 React Compiler
+
+React Compiler 是 React 官方推出的编译时自动记忆化工具。它会在构建阶段分析组件和 Hook 的依赖关系，自动插入 memoization，开发者不再需要手动写 `useMemo`、`useCallback`、`React.memo`。
+
+```jsx
+// 之前可能需要 useMemo/useCallback
+function Expensive({ items, onSelect }) {
+  // React Compiler 会自动优化这里
+  return <List items={items} onSelect={onSelect} />;
+}
+```
+
+注意事项：
+
+- React Compiler 目前仍在逐步推广中，需要配合 Babel 插件使用。
+- 它遵循 React 规则，因此项目需要遵守 Hooks 规则。
+- 不是万能的，极端场景仍需手动优化。
+
+---
+
+## 三十七、Server Actions：客户端直接调用服务端
+
+### 37.1 什么是 Server Actions？
+
+Server Actions 是 React 生态中的一项能力（主要见于 Next.js App Router），允许你在服务端定义函数，然后像调用普通函数一样在客户端调用它们。这消除了传统 REST/GraphQL API 的样板代码。
+
+生活化比喻：以前客户端想和后端通信，需要写一封信（HTTP 请求）并等回信；Server Actions 像给客户端和后端之间装了一部直通电话，直接说话。
+
+### 37.2 基本用法
+
+```jsx
+// actions.js
+"use server";
+
+export async function updateName(formData) {
+  const name = formData.get("name");
+  await db.user.update({ where: { id: 1 }, data: { name } });
+  return { success: true };
+}
+
+// page.jsx
+import { updateName } from "./actions";
+
+export default function Page() {
+  return (
+    <form action={updateName}>
+      <input name="name" />
+      <button>更新名字</button>
+    </form>
+  );
+}
+```
+
+### 37.3 Server Actions 的优势
+
+- **减少样板代码**：不需要写 API 路由、fetch 调用、序列化/反序列化。
+- **类型安全**：函数参数和返回值天然类型化。
+- **服务端能力**：可以直接访问数据库、文件系统、内部服务。
+- **渐进增强**：即使 JavaScript 禁用，原生表单也能工作。
+
+### 37.4 安全注意事项
+
+- Server Actions 必须验证所有输入，因为客户端可以被绕过。
+- 需要做好权限校验，不能假设调用者都是合法用户。
+- 敏感操作应配合 CSRF 防护和速率限制。
+
+---
+
+## 三十八、Hydration 失败处理
+
+### 38.1 什么是 Hydration？
+
+Hydration 是 SSR/SSG 应用把服务端生成的静态 HTML“激活”为可交互 React 组件的过程。React 会对比服务端生成的 HTML 和客户端首次渲染的结果，如果两者不一致，就会发生 hydration 失败。
+
+### 38.2 Hydration 失败的常见原因
+
+| 原因 | 示例 |
+|------|------|
+| 服务端和客户端时间不同 | `new Date()` 在两端结果不同 |
+| 浏览器 API 仅在客户端可用 | `window`、`localStorage`、`document` |
+| 随机数/UUID | `Math.random()`、`crypto.randomUUID()` |
+| 用户相关数据 | 客户端从 localStorage 读取主题/语言 |
+| 第三方脚本修改 DOM | 客服插件、统计脚本插入元素 |
+
+### 38.3 如何避免 Hydration 失败
+
+```jsx
+import { useEffect, useState } from "react";
+
+function ClientOnly({ children }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted ? children : null;
+}
+
+function Page() {
+  return (
+    <div>
+      <h1>服务端渲染的内容</h1>
+      <ClientOnly>
+        <div>只在客户端渲染的内容</div>
+      </ClientOnly>
+    </div>
+  );
+}
+```
+
+### 38.4 React 18 的 `hydrateRoot` 与错误处理
+
+```jsx
+import { hydrateRoot } from "react-dom/client";
+
+hydrateRoot(document.getElementById("root"), <App />);
+```
+
+React 18 会在 hydration 不匹配时尽可能恢复，而不是直接白屏。你可以在 `console.error` 中查看具体的不匹配信息，定位问题。
+
+### 38.5 Hydration 失败处理最佳实践
+
+1. **避免在 SSR 阶段使用浏览器 API**：把客户端逻辑放到 `useEffect` 或 `ClientOnly` 组件中。
+2. **统一数据源**：时间、随机数等尽量从服务端传入或固定。
+3. **谨慎使用第三方脚本**：避免它们修改 React 管理的 DOM。
+4. **使用 `suppressHydrationWarning`**：对确实无法避免的不一致（如时间戳）加此属性抑制警告。
+5. **监控与上报**：把 hydration 错误接入错误监控系统。
+
+---
+
+## 三十九、总结
+
+React 的学习永无止境。本文从核心概念、Fiber、Hooks、并发特性、状态管理、性能优化、SSR 等方面进行了系统介绍，并深入探讨了 React 19 的新特性、Server Actions 和 Hydration 失败处理。React 19 让数据变更和异步数据消费更加直观，Server Actions 模糊了前后端的边界，而对 Hydration 问题的理解则是 SSR 应用稳定性的关键。希望你能够把这些知识融会贯通，在实际项目中不断实践和提升。
 
 ---
 
 > **领域编号**：E06 React 原理与生态  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24
 
 
 ---

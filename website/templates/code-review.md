@@ -1,6 +1,7 @@
 # Code Review 清单
 
 > 用于规范代码审查流程，保证代码质量和团队一致性。
+> 📄 [查看完整 Review 记录示例](./examples/code-review-sample.md)
 
 ---
 

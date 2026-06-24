@@ -103,6 +103,8 @@ const contentMapping = [
   { from: 'docs/case-studies/01-from-url-to-interactive.md', to: 'cases/from-url-to-interactive.md' },
   { from: 'docs/case-studies/02-large-admin-system.md', to: 'cases/large-admin-system.md' },
   { from: 'docs/case-studies/03-technology-selection.md', to: 'cases/technology-selection.md' },
+  { from: 'docs/case-studies/04-ai-native-dashboard.md', to: 'cases/ai-native-dashboard.md' },
+  { from: 'docs/case-studies/05-cross-platform-commerce.md', to: 'cases/cross-platform-commerce.md' },
   { from: 'docs/learning-path/01-knowledge-dependency-map.md', to: 'guide/knowledge-map.md' },
   { from: 'docs/learning-path/02-capability-self-assessment.md', to: 'guide/self-assessment.md' },
   { from: 'docs/learning-path/03-learning-routes.md', to: 'guide/learning-routes.md' },
@@ -113,6 +115,13 @@ const contentMapping = [
   { from: 'templates/CODE-REVIEW-CHECKLIST.md', to: 'templates/code-review.md' },
   { from: 'templates/PERFORMANCE-OPTIMIZATION-SOP.md', to: 'templates/performance-sop.md' },
   { from: 'templates/TECH-DEBT-REGISTER.md', to: 'templates/tech-debt.md' },
+
+  // 模板示例
+  { from: 'templates/examples/ADR-001-monorepo-adoption.md', to: 'templates/examples/adr-001-monorepo-adoption.md' },
+  { from: 'templates/examples/ADR-002-ai-sdk-selection.md', to: 'templates/examples/adr-002-ai-sdk-selection.md' },
+  { from: 'templates/examples/tech-debt-sample.md', to: 'templates/examples/tech-debt-sample.md' },
+  { from: 'templates/examples/performance-sop-sample.md', to: 'templates/examples/performance-sop-sample.md' },
+  { from: 'templates/examples/code-review-sample.md', to: 'templates/examples/code-review-sample.md' },
 ];
 
 function ensureDir(filePath) {

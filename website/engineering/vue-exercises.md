@@ -521,5 +521,84 @@ const { x, y } = useMouse();
 
 ---
 
+### 第 21 题
+
+使用 Vue 3.4 的 `defineModel` 实现一个自定义输入组件 `MyInput`，支持 `v-model`。
+
+**参考答案**：
+
+```vue
+<!-- MyInput.vue -->
+<script setup>
+const modelValue = defineModel();
+</script>
+
+<template>
+  <input v-model="modelValue" />
+</template>
+```
+
+父组件：
+
+```vue
+<script setup>
+import { ref } from "vue";
+import MyInput from "./MyInput.vue";
+
+const text = ref("");
+</script>
+
+<template>
+  <MyInput v-model="text" />
+  <p>&#123;&#123; text &#125;&#125;</p>
+</template>
+```
+
+**解析**：
+- `defineModel` 是 Vue 3.4 引入的编译器宏，简化了 `v-model` 的实现。
+- 不再需要手动声明 props 和 emits。
+- 支持多个 `v-model`，如 `defineModel("title")`。
+
+---
+
+### 第 22 题
+
+使用 Vue Router Data Loaders 写一个 `useUserData` loader，根据路由参数 `id` 获取用户数据。
+
+**参考答案**：
+
+```js
+// loaders.js
+import { defineLoader } from "vue-router";
+
+export const useUserData = defineLoader(async (route) => {
+  const res = await fetch(`/api/users/${route.params.id}`);
+  if (!res.ok) throw new Error("获取用户失败");
+  return res.json();
+});
+```
+
+```vue
+<!-- UserDetail.vue -->
+<script setup>
+import { useUserData } from "./loaders";
+
+const { data, error, isLoading } = useUserData();
+</script>
+
+<template>
+  <div v-if="isLoading">加载中...</div>
+  <div v-else-if="error">错误：&#123;&#123; error.message &#125;&#125;</div>
+  <div v-else>&#123;&#123; data.name &#125;&#125;</div>
+</template>
+```
+
+**解析**：
+- `defineLoader` 定义路由级数据加载逻辑。
+- `useUserData` 在组件中返回 `data`、`error`、`isLoading` 等状态。
+- 适合路由进入时必须加载的数据场景。
+
+---
+
 > **领域编号**：E07 Vue  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

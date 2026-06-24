@@ -445,6 +445,71 @@ function fetchUser(userId: number, options?: FetchOptions): Promise<User> {
 
 ---
 
+### 第 21 题
+
+使用 `satisfies` 改写以下代码，使 `config.host` 既被约束为合法主机名，又保留字面量类型 `"api.example.com"`。
+
+```ts
+type Hostname = `${string}.${string}`;
+const config = {
+  host: "api.example.com",
+  port: 443
+};
+```
+
+**参考答案**：
+
+```ts
+type Hostname = `${string}.${string}`;
+const config = {
+  host: "api.example.com",
+  port: 443
+} satisfies { host: Hostname; port: number };
+
+config.host; // 类型为 "api.example.com"
+config.port; // 类型为 443
+```
+
+**解析**：
+- `satisfies` 对 `config` 做结构约束，但不改变其推断类型。
+- 因此 `config.host` 仍保留 `"api.example.com"` 字面量类型，而不是被放宽为 `Hostname`。
+- 如果写 `: { host: Hostname; port: number }`，则 `config.host` 会变成 `Hostname`。
+
+---
+
+### 第 22 题
+
+实现 Branded Type 区分 `UserId` 和 `OrderId`，并写出工厂函数和错误调用示例。
+
+**参考答案**：
+
+```ts
+type UserId = string & { __brand: "UserId" };
+type OrderId = string & { __brand: "OrderId" };
+
+function createUserId(id: string): UserId {
+  return id as UserId;
+}
+
+function createOrderId(id: string): OrderId {
+  return id as OrderId;
+}
+
+function queryOrder(orderId: OrderId) {
+  console.log(orderId);
+}
+
+const uid = createUserId("u123");
+queryOrder(uid); // ❌ 报错：类型 UserId 不能赋给 OrderId
+```
+
+**解析**：
+- 利用交叉类型 `string & { __brand: ... }` 创建运行时无开销、编译期可区分的类型。
+- 必须显式通过工厂函数或类型断言创建 Branded Type。
+- 适用于 ID、URL、金额等容易混淆的原始值场景。
+
+---
+
 ## 练习建议
 
 1. 在 TS Playground 中实时验证类型推导结果。
@@ -454,4 +519,4 @@ function fetchUser(userId: number, options?: FetchOptions): Promise<User> {
 ---
 
 > **领域编号**：F02 TypeScript  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

@@ -707,14 +707,209 @@ Lighthouse CI 可以把性能评分纳入 CI 流程。
 
 定期回顾指标，识别薄弱环节，制定改进计划。代码质量提升是一个持续的过程。
 
-## 三十二、总结
+## 三十三、Biome / Oxc：下一代前端工具链
 
-代码质量是软件工程永恒的话题。通过合理的工具配置、严格的流程规范和积极的团队文化，我们可以在日常开发中不断提升代码质量。高质量的代码不仅能够减少 Bug、提高开发效率，更能让团队成员在维护和扩展时感到愉悦。这是每一位前端工程师都应该追求的目标。
+### 33.1 为什么需要 Biome 和 Oxc？
+
+传统前端工具链（ESLint、Prettier、Babel、TypeScript）虽然成熟，但各自独立、配置复杂、运行速度有限。Biome 和 Oxc 代表了新一代用 Rust 编写的高性能工具链，目标是统一格式化、Lint、编译等环节，大幅提升开发者体验。
+
+生活化比喻：传统工具链像由不同厂家生产的工具，每件都要单独插电、单独维护；Biome 和 Oxc 像一把集成电钻，一个电源、一个接口，干活更快更稳。
+
+### 33.2 Biome
+
+Biome（前身 Rome）是一个用 Rust 编写的前端工具链，目标是“一个工具完成所有事”。目前主要提供：
+
+- **Formatter**：替代 Prettier，速度极快。
+- **Linter**：替代 ESLint，内置大量规则。
+- **未来计划**：编译、打包、测试等。
+
+```json
+// biome.json
+{
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab"
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  }
+}
+```
+
+### 33.3 Oxc
+
+Oxc 是另一款用 Rust 编写的高性能 JavaScript/TypeScript 工具集，目前包含：
+
+- **Parser**：比 babel/parser 更快的 AST 解析器。
+- **Linter**：轻量级 Lint 工具。
+- **Resolver**：模块解析器。
+- **Formatter / Minifier**：正在开发中。
+
+Oxc 的设计哲学是“只做一件事并做好”，可以作为构建工具（如 Rspack、Farm）的底层基础设施。
+
+### 33.4 与传统工具链的对比
+
+| 特性 | ESLint + Prettier | Biome | Oxc |
+|------|-------------------|-------|-----|
+| 语言 | JavaScript/Node | Rust | Rust |
+| 速度 | 较快 | 极快 | 极快 |
+| 功能范围 | Lint + Format | Lint + Format + 未来更多 | 解析/Resolve/Lint |
+| 生态成熟度 | 非常成熟 | 快速成长 | 新兴 |
+| 配置复杂度 | 较高（多配置文件） | 单一配置文件 | 偏底层 |
+
+### 33.5 选型建议
+
+- 成熟项目继续用 ESLint + Prettier，生态和规则最丰富。
+- 追求极致速度和简化配置的新项目可尝试 Biome。
+- 自研构建工具或需要高性能解析的场景可关注 Oxc。
+
+---
+
+## 三十四、Codemod：大规模代码迁移的“机器人”
+
+### 34.1 什么是 Codemod？
+
+Codemod 指通过脚本批量修改代码的技术。当 API 变更、框架升级、代码规范调整时，手动修改成百上千个文件既低效又容易出错。Codemod 可以把这些重复工作自动化。
+
+生活化比喻：Codemod 像工厂里的自动化机械臂，按照图纸（规则）把旧零件（代码）统一替换为新零件。
+
+### 34.2 常用工具
+
+- **jscodeshift**：Facebook 开源的 Codemod 工具，基于 recast AST 转换。
+- **ts-morph**：基于 TypeScript AST 的代码操作库，类型感知的转换更安全。
+- **eslint --fix**：规则级别的自动修复。
+- **prettier --write**：格式级别的自动修复。
+
+### 34.3 jscodeshift 示例
+
+把老旧的 `React.PropTypes` 迁移到 prop-types 包：
+
+```js
+// transform.js
+module.exports = function transformer(file, api) {
+  const j = api.jscodeshift;
+  return j(file.source)
+    .find(j.MemberExpression, { object: { name: "React" }, property: { name: "PropTypes" } })
+    .replaceWith(j.identifier("PropTypes"))
+    .toSource();
+};
+```
+
+执行：
+
+```bash
+npx jscodeshift -t transform.js src/
+```
+
+### 34.4 Codemod 最佳实践
+
+1. **先写测试**：对关键转换规则写单元测试，确保不会误改。
+2. **小步快跑**：先在小范围验证，再全量执行。
+3. **代码审查**：Codemod 的结果仍需人工 Review。
+4. **版本控制**：在 Git 中执行，方便回滚。
+5. **结合 AST**：尽量用 AST 转换而不是正则替换，减少误伤。
+
+---
+
+## 三十五、架构测试：用 ts-arch 守护代码结构
+
+### 35.1 为什么需要架构测试？
+
+随着项目规模增长，模块间的依赖关系容易变得混乱：底层工具函数调用上层业务代码、UI 层直接访问数据库、不同功能模块循环依赖……这些问题会破坏架构的可维护性。架构测试通过声明式规则约束模块依赖，让违反架构的代码无法通过 CI。
+
+### 35.2 ts-arch 简介
+
+`ts-arch` 是一个基于 TypeScript 项目结构的架构测试工具，允许你写类似自然语言的规则：
+
+```ts
+import { filesOfProject } from "ts-arch";
+
+describe("架构约束", () => {
+  it("领域层不能依赖 UI 层", async () => {
+    const rule = filesOfProject()
+      .inFolder("src/domain")
+      .shouldNot()
+      .dependOnFiles()
+      .inFolder("src/ui");
+
+    await expect(rule).toPass();
+  });
+});
+```
+
+### 35.3 常见架构测试规则
+
+- **分层依赖方向**：domain → application → ui，禁止反向依赖。
+- **禁止循环依赖**：模块 A 不能间接依赖模块 A。
+- **公共工具位置**：utils 只能被业务层使用，不能反向依赖业务层。
+- **命名约定**：所有 Hook 必须以 `use` 开头。
+
+### 35.4 架构测试的收益
+
+- 把架构约定变成可执行的测试。
+- 新成员容易理解项目边界。
+- 防止技术债务在不知不觉中积累。
+
+---
+
+## 三十六、属性测试：用 fast-check 发现边界 Bug
+
+### 36.1 什么是属性测试？
+
+传统单元测试是“举例测试”：你写几个具体输入，验证输出是否符合预期。属性测试（Property-Based Testing）则相反：你定义一个“属性”（即对所有输入都成立的断言），工具自动生成大量随机输入来验证这个属性。
+
+生活化比喻：举例测试像老师抽查几个学生；属性测试像让全班学生都做一次测验，更容易发现隐藏的问题。
+
+### 36.2 fast-check 示例
+
+```ts
+import * as fc from "fast-check";
+
+// 属性：数组反转两次等于原数组
+fc.assert(
+  fc.property(fc.array(fc.integer()), (arr) => {
+    return JSON.stringify(arr) === JSON.stringify(arr.reverse().reverse());
+  })
+);
+```
+
+如果存在反例，fast-check 会尝试“收缩”（shrink）输入，给出最小可复现的 case。
+
+### 36.3 属性测试适用场景
+
+- 纯函数、算法、数据转换。
+- 排序、去重、序列化/反序列化。
+- 状态机、表单校验、编码解码。
+
+### 36.4 属性测试 vs 单元测试
+
+| 特性 | 单元测试 | 属性测试 |
+|------|---------|---------|
+| 用例来源 | 人工编写 | 自动生成 |
+| 覆盖范围 | 有限的例子 | 大量随机输入 |
+| 发现边界 Bug | 依赖开发者经验 | 更容易发现 |
+| 可读性 | 高 | 需要抽象属性 |
+| 适用场景 | 具体业务逻辑 | 通用算法和转换 |
+
+### 36.5 最佳实践
+
+- 属性测试不替代单元测试，而是补充。
+- 属性描述要准确，避免过于宽松导致无法发现 bug。
+- 结合示例测试使用：属性测试覆盖边界，示例测试覆盖业务语义。
+
+---
+
+## 三十七、总结
+
+代码质量是软件工程永恒的话题。通过合理的工具配置、严格的流程规范和积极的团队文化，我们可以在日常开发中不断提升代码质量。新一代工具如 Biome、Oxc 让我们更快地发现和修复问题；Codemod 让大规模迁移变得可控；架构测试和属性测试则从更高维度保障代码的结构正确性和鲁棒性。高质量的代码不仅能够减少 Bug、提高开发效率，更能让团队成员在维护和扩展时感到愉悦。这是每一位前端工程师都应该追求的目标。
 
 ---
 
 > **领域编号**：E04 代码质量与测试体系  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24
 
 
 ---

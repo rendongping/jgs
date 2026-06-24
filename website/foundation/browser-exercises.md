@@ -410,13 +410,69 @@ function scrollToTop(duration = 500) {
 
 ---
 
+### 第 16 题
+
+使用 PerformanceObserver 编写一段代码，测量页面 LCP 并打印出来。
+
+**参考答案**：
+
+```js
+new PerformanceObserver((list) => {
+  const entries = list.getEntries();
+  const lastEntry = entries[entries.length - 1];
+  console.log("LCP:", lastEntry.startTime);
+}).observe({ type: "largest-contentful-paint", buffered: true });
+```
+
+**解析**：
+- `largest-contentful-paint` 类型的 PerformanceObserver 可以监听 LCP 条目。
+- 页面加载过程中可能有多个 LCP 候选，通常取最后一个作为最终 LCP。
+- `buffered: true` 可以获取到观察者注册前已经发生的条目。
+
+---
+
+### 第 17 题
+
+补全 CLS 测量代码，使其正确累加非用户输入触发的布局偏移。
+
+```js
+let clsValue = 0;
+new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+    // 请补全条件与累加逻辑
+  }
+}).observe({ type: "layout-shift", buffered: true });
+```
+
+**参考答案**：
+
+```js
+let clsValue = 0;
+new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+    if (!entry.hadRecentInput) {
+      clsValue += entry.value;
+    }
+  }
+  console.log("CLS:", clsValue);
+}).observe({ type: "layout-shift", buffered: true });
+```
+
+**解析**：
+- `entry.value` 表示单次布局偏移的分数。
+- `hadRecentInput` 表示该偏移是否由用户输入（如点击）触发，CLS 只统计非用户输入触发的偏移。
+- CLS 是累积值，需要持续累加。
+
+---
+
 ## 练习建议
 
 1. 打开 Chrome DevTools Performance 面板，实际录制页面渲染过程。
 2. 在 Layers 面板中观察合成层，理解 will-change 和 transform 的效果。
 3. 用 Network 面板验证强缓存和协商缓存的行为。
+4. 在真实项目中接入 web-vitals 库，监控 LCP、INP、CLS。
 
 ---
 
 > **领域编号**：F03 浏览器  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24

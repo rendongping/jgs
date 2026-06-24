@@ -20,6 +20,10 @@
 - E08 跨端技术练习册新增 3 道深入练习题，面试题新增 5 题。
 - E10 Node.js/BFF 学习文档新增 Deno/Bun、NestJS 企业级特性、tRPC/gRPC/GraphQL Federation、消息队列、数据库 ORM、可观测性等深度内容。
 - E10 Node.js/BFF 练习册新增 3 道深入练习题，面试题新增 5 题。
+- 深化 3 个现有综合案例：从 URL 到页面可交互、大型中后台系统、技术选型，补充业务 KPI、优化前后对比、架构决策会议纪要、可下载资源、组织与成本维度。
+- 新增 2 个跨领域综合案例：AI Native 数据看板、跨端电商平台架构演进。
+- 为工具模板补充 5 个已填写示例：ADR（2 个）、技术债登记册、性能优化 SOP、Code Review 记录。
+- 基础层与工程化层细节深化：Promise/A+、Iterator/Error Cause、TS `satisfies`/装饰器/Branded Type、Web Vitals/INP/Passkeys、DoH/DoT/WebRTC、供应链安全/WebAuthn、Biome/Oxc/Codemod、React 19/Server Actions、Vue 3.4+/Vapor Mode。
 
 ### Fixed
 - 统一网站首页源码仓库链接指向 `https://github.com/rendongping/jgs`。

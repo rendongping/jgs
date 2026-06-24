@@ -1,6 +1,7 @@
 # 前端性能优化 SOP
 
 > 标准化的性能问题排查和优化流程。
+> 📄 [查看已填写示例](./examples/performance-sop-sample.md)
 
 ---
 

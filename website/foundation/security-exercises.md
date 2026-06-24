@@ -1,6 +1,6 @@
 # 第一层 security（Web 安全）练习册
 
-本练习册包含选择题、填空题、代码分析题、编程实践题四种题型，共 18 道，每道题均附参考答案与解析。
+本练习册包含选择题、填空题、代码分析题、编程实践题四种题型，共 20 道，每道题均附参考答案与解析。
 
 ---
 
@@ -383,13 +383,86 @@ Content-Security-Policy:
 
 ---
 
+### 第 19 题
+
+找出以下代码中的原型污染漏洞并修复。
+
+```js
+function merge(target, source) {
+  for (const key in source) {
+    if (typeof source[key] === "object") {
+      merge(target[key], source[key]);
+    } else {
+      target[key] = source[key];
+    }
+  }
+}
+
+merge({}, JSON.parse('{"__proto__": {"isAdmin": true&#125;&#125;'));
+```
+
+**参考答案**：
+
+```js
+function isPrototypePollutedKey(key) {
+  return key === "__proto__" || key === "constructor" || key === "prototype";
+}
+
+function merge(target, source) {
+  for (const key in source) {
+    if (isPrototypePollutedKey(key)) continue;
+    if (typeof source[key] === "object" && source[key] !== null) {
+      merge(target[key], source[key]);
+    } else {
+      target[key] = source[key];
+    }
+  }
+}
+```
+
+**解析**：
+- `__proto__`、`constructor`、`prototype` 是原型污染攻击的关键键名。
+- 合并对象前应过滤这些危险键名。
+- 更安全的做法是使用 `Object.create(null)` 创建无原型对象，或使用经过安全审计的库（如 lodash 的最新版本）。
+
+---
+
+### 第 20 题
+
+如何检测当前浏览器是否支持 WebAuthn / Passkeys？写出兼容性检测代码。
+
+**参考答案**：
+
+```js
+function isWebAuthnSupported() {
+  return window.PublicKeyCredential !== undefined &&
+    typeof window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable === "function";
+}
+
+isWebAuthnSupported().then((supported) => {
+  if (supported) {
+    console.log("支持 Passkeys");
+  } else {
+    console.log("不支持 Passkeys，使用传统登录");
+  }
+});
+```
+
+**解析**：
+- `window.PublicKeyCredential` 是 WebAuthn 的入口。
+- `isUserVerifyingPlatformAuthenticatorAvailable` 检测是否有平台验证器（如指纹、面容）。
+- 不支持时应降级到密码登录或 OTP。
+
+---
+
 ## 学习建议
 
 - 完成练习后，建议对照学习文档复习相关知识点。
 - 对代码分析题和编程实践题，可以在本地搭建一个最小化的示例进行验证。
 - 重点关注 XSS 的输出编码和 CSRF 的 Token/SameSite 两种防御方式。
+- 定期使用 `npm audit` 检查项目依赖漏洞。
 
 ---
 
 > **领域编号**：F05 Web 安全  
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-24
