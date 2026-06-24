@@ -1,0 +1,155 @@
+{
+  "domainId": "L03-strategy",
+  "domainName": "技术战略",
+  "version": 1,
+  "questions": [
+    {
+      "id": "L03-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "技术战略规划最根本的出发点是？",
+      "answer": ["支撑业务长期目标和竞争优势"],
+      "explanation": "技术战略应服务于业务战略，通过技术能力构建长期竞争优势。",
+      "tags": ["strategy", "business-alignment"],
+      "options": ["追求最新技术栈", "支撑业务长期目标和竞争优势", "增加技术团队预算", "复制竞争对手架构"]
+    },
+    {
+      "id": "L03-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "技术选型时，最应优先评估的因素是？",
+      "answer": ["与业务场景、团队能力和长期维护成本的匹配度"],
+      "explanation": "技术选型需综合考虑业务需求、团队熟悉度和长期维护成本，而非单纯技术先进性。",
+      "tags": ["strategy", "tech-selection"],
+      "options": ["技术是否最新", "与业务场景、团队能力和长期维护成本的匹配度", "社区 hype 程度", "是否开源免费"]
+    },
+    {
+      "id": "L03-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "技术路线图（Technology Roadmap）应随业务变化定期审视和调整。",
+      "answer": ["true"],
+      "explanation": "技术路线图是动态规划工具，需要根据业务和外部环境变化持续更新。",
+      "tags": ["strategy", "roadmap"]
+    },
+    {
+      "id": "L03-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "企业在技术投入上最常见的短视行为是？",
+      "answer": ["只关注短期交付，忽视技术债务和长期能力建设"],
+      "explanation": "过度关注短期交付会积累技术债务，削弱长期竞争力。",
+      "tags": ["strategy", "tech-debt"],
+      "options": ["只关注短期交付，忽视技术债务和长期能力建设", "长期投入基础设施", "持续培养团队", "定期复盘优化"]
+    },
+    {
+      "id": "L03-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "制定前端技术战略时，通常需要明确的内容有哪些？",
+      "answer": ["技术栈标准", "工程化目标", "质量基线", "人才能力模型"],
+      "explanation": "前端技术战略应包括技术栈、工程化、质量和人才等多维度规划。",
+      "tags": ["strategy", "planning"],
+      "options": ["技术栈标准", "工程化目标", "质量基线", "人才能力模型", "随意更换技术栈"]
+    },
+    {
+      "id": "L03-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "技术委员会在技术决策中的主要作用是？",
+      "answer": ["统筹技术标准、评审重大决策并促进跨团队共识"],
+      "explanation": "技术委员会负责重大技术决策、标准制定和跨团队协调，避免各自为政。",
+      "tags": ["strategy", "governance"],
+      "options": ["替代所有开发工作", "统筹技术标准、评审重大决策并促进跨团队共识", "只审批报销", "决定每个人的工资"]
+    },
+    {
+      "id": "L03-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "当发现当前技术栈已难以支撑业务增长时，最合适的应对策略是？",
+      "answer": ["制定渐进式演进方案，分阶段验证和迁移"],
+      "explanation": "技术栈演进应渐进式推进，分阶段验证风险，避免大规模重写带来的不确定性。",
+      "tags": ["strategy", "migration"],
+      "options": ["立即全面替换", "制定渐进式演进方案，分阶段验证和迁移", "坚持使用直到无法运转", "让业务停止增长"]
+    },
+    {
+      "id": "L03-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "技术战略应平衡创新与稳健，避免盲目追逐新技术而忽视业务连续性。",
+      "answer": ["true"],
+      "explanation": "技术战略需要在创新和稳定之间取得平衡，保障业务连续性。",
+      "tags": ["strategy", "innovation"]
+    },
+    {
+      "id": "L03-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "评估引入一项新技术的风险时，应考虑哪些因素？",
+      "answer": ["社区成熟度", "团队学习成本", "与现有系统的兼容性", "长期维护和支持"],
+      "explanation": "新技术引入需评估成熟度、学习成本、兼容性和长期维护风险。",
+      "tags": ["strategy", "risk"],
+      "options": ["社区成熟度", "团队学习成本", "与现有系统的兼容性", "长期维护和支持", "是否上过技术大会"]
+    },
+    {
+      "id": "L03-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "技术战略落地过程中，最关键的保障机制是？",
+      "answer": ["将战略目标拆解为可衡量的阶段目标并持续跟踪"],
+      "explanation": "战略目标需要拆解为可执行、可衡量的阶段目标，并通过跟踪机制保证落地。",
+      "tags": ["strategy", "execution"],
+      "options": ["只制定不跟踪", "将战略目标拆解为可衡量的阶段目标并持续跟踪", "完全依赖个人魅力", "一次性完成所有项目"]
+    },
+    {
+      "id": "L03-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在进行技术投资决策时，应优先选择哪类项目？",
+      "answer": ["能够形成长期复利能力或消除系统性风险的项目"],
+      "explanation": "技术投资应关注长期复利和系统性风险消除，而非一次性炫技。",
+      "tags": ["strategy", "investment"],
+      "options": ["最吸引眼球的项目", "能够形成长期复利能力或消除系统性风险的项目", "耗时最短的项目", "只用新技术的项目"]
+    },
+    {
+      "id": "L03-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "技术战略与组织能力的匹配包括哪些方面？",
+      "answer": ["人才梯队建设", "工程文化塑造", "决策流程设计"],
+      "explanation": "技术战略成功需要人才、文化和决策流程等组织能力支撑。",
+      "tags": ["strategy", "organization"],
+      "options": ["人才梯队建设", "工程文化塑造", "决策流程设计", "只购买工具", "压缩培训投入"]
+    },
+    {
+      "id": "L03-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "公司计划进入新市场，需要快速支撑多个新产品线，技术战略应优先？",
+      "answer": ["构建可复用的平台能力和标准化的研发流程"],
+      "explanation": "多产品线扩张需要平台化能力和标准化流程支撑，避免重复建设。",
+      "tags": ["strategy", "platform"],
+      "options": ["每个产品线独立建设所有能力", "构建可复用的平台能力和标准化的研发流程", "只招更多人手", "推迟技术规划"]
+    },
+    {
+      "id": "L03-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "技术战略复盘应包含哪些关键动作？",
+      "answer": ["回顾目标达成情况", "分析偏差根因", "沉淀经验教训", "调整下一阶段计划"],
+      "explanation": "战略复盘需要回顾目标、分析偏差、沉淀经验并调整计划，形成闭环。",
+      "tags": ["strategy", "review"],
+      "options": ["回顾目标达成情况", "分析偏差根因", "沉淀经验教训", "调整下一阶段计划", "只表彰成功者"]
+    },
+    {
+      "id": "L03-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "面对行业技术范式变化，技术负责人最应保持的态度是？",
+      "answer": ["持续学习并带领团队小步验证，避免盲目跟进或固步自封"],
+      "explanation": "范式变化需要保持开放、持续学习和理性验证，既不盲目追逐也不拒绝变化。",
+      "tags": ["strategy", "adaptation"],
+      "options": ["立即全面拥抱所有新技术", "持续学习并带领团队小步验证，避免盲目跟进或固步自封", "坚持现有技术不变", "等待行业统一后再行动"]
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "domainId": "E08-cross-platform",
+  "domainName": "跨端技术",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E08-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "React Native 渲染原生视图时，最终是通过什么与原生层通信？",
+      "answer": ["Bridge"],
+      "explanation": "传统 React Native 通过 Bridge 进行 JavaScript 与原生代码的异步通信。",
+      "tags": ["react-native", "architecture"],
+      "options": ["Bridge", "WebView", "Shadow DOM", "V8 引擎直接渲染"]
+    },
+    {
+      "id": "E08-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "小程序（如微信小程序）的运行环境是？",
+      "answer": ["App 内置的 JavaScript 引擎和渲染引擎"],
+      "explanation": "小程序运行在宿主 App 提供的 JS 引擎和渲染引擎中，不是完整浏览器。",
+      "tags": ["mini-program", "runtime"],
+      "options": ["完整 Chrome 浏览器", "App 内置的 JavaScript 引擎和渲染引擎", "Node.js 服务端", "原生操作系统"]
+    },
+    {
+      "id": "E08-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "Flutter 使用自绘引擎 Skia/Impeller，不依赖原生 UI 组件。",
+      "answer": ["true"],
+      "explanation": "Flutter 通过自绘引擎直接在屏幕上绘制像素，使用 Widget 而非平台原生控件。",
+      "tags": ["flutter", "rendering"]
+    },
+    {
+      "id": "E08-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪项是 Hybrid App 的典型特征？",
+      "answer": ["原生容器加载 WebView 运行 H5 页面"],
+      "explanation": "Hybrid App 通常用原生外壳承载 WebView，通过 H5 实现业务逻辑。",
+      "tags": ["hybrid", "webview"],
+      "options": ["完全使用原生代码开发", "原生容器加载 WebView 运行 H5 页面", "只能在 iOS 运行", "不需要网络连接"]
+    },
+    {
+      "id": "E08-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "跨端开发框架的主要目标包括哪些？",
+      "answer": ["一套代码多平台运行", "降低多端研发成本", "保证一致的交互体验"],
+      "explanation": "跨端框架旨在通过共享代码降低多平台成本并提升体验一致性。",
+      "tags": ["cross-platform", "concept"],
+      "options": ["一套代码多平台运行", "降低多端研发成本", "保证一致的交互体验", "完全取代原生开发", "消除所有平台差异"]
+    },
+    {
+      "id": "E08-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Electron 开发桌面应用的核心架构是？",
+      "answer": ["Chromium + Node.js"],
+      "explanation": "Electron 将 Chromium 渲染引擎与 Node.js 运行时结合，实现跨平台桌面应用。",
+      "tags": ["electron", "desktop"],
+      "options": ["Chromium + Node.js", "JavaFX", "SwiftUI", "Win32 API"]
+    },
+    {
+      "id": "E08-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在 React Native 新架构（Fabric + TurboModules）中，JS 与原生通信的主要改进是？",
+      "answer": ["支持同步调用和更高效的类型安全通信"],
+      "explanation": "新架构通过 JSI 支持同步调用和 C++ 共享层，提高通信效率与类型安全。",
+      "tags": ["react-native", "new-architecture"],
+      "options": ["完全放弃原生代码", "支持同步调用和更高效的类型安全通信", "改用 WebView 渲染", "只支持 Android"]
+    },
+    {
+      "id": "E08-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "Taro、UniApp 等框架通过编译时转换，可将类 React/Vue 代码编译为多个小程序平台的代码。",
+      "answer": ["true"],
+      "explanation": "这类框架主要通过编译时 DSL 转换和运行时适配，实现一次编写、多端运行。",
+      "tags": ["taro", "uniapp", "compile"]
+    },
+    {
+      "id": "E08-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "选择跨端方案时，需要重点权衡的因素有哪些？",
+      "answer": ["性能要求", "团队技术栈", "平台特定能力依赖", "长期维护成本"],
+      "explanation": "跨端方案选择应综合考虑性能、团队能力、平台特性依赖和维护成本。",
+      "tags": ["cross-platform", "decision"],
+      "options": ["性能要求", "团队技术栈", "平台特定能力依赖", "长期维护成本", "框架是否开源"]
+    },
+    {
+      "id": "E08-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "小程序性能优化中，减少 setData 调用次数的主要目的是？",
+      "answer": ["降低 JS 与渲染层通信开销"],
+      "explanation": "小程序 setData 会触发 JS 与渲染层的数据序列化和通信，频繁调用影响性能。",
+      "tags": ["mini-program", "performance"],
+      "options": ["降低 JS 与渲染层通信开销", "减少网络请求", "节省图片资源", "减少页面数量"]
+    },
+    {
+      "id": "E08-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在 React Native 中处理长列表性能问题时，推荐的组件是？",
+      "answer": ["FlatList"],
+      "explanation": "FlatList 内置虚拟化和懒加载，适合长列表场景。",
+      "tags": ["react-native", "performance"],
+      "options": ["ScrollView", "FlatList", "View", "Text"]
+    },
+    {
+      "id": "E08-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "Flutter 的热重载（Hot Reload）与热重启（Hot Restart）的区别包括哪些？",
+      "answer": ["热重载保留状态", "热重启不保留状态", "热重载速度通常更快"],
+      "explanation": "Hot Reload 保留应用状态并快速更新 UI，Hot Restart 会重新执行 main 函数并丢失状态。",
+      "tags": ["flutter", "dev-tool"],
+      "options": ["热重载保留状态", "热重启不保留状态", "热重载速度通常更快", "两者没有任何区别", "热重启保留状态"]
+    },
+    {
+      "id": "E08-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在跨端框架中，遇到平台特定 API 无法统一封装时，最佳实践是？",
+      "answer": ["设计插件/扩展机制，由业务层按平台实现并保持一致调用接口"],
+      "explanation": "无法统一的平台能力应通过插件化、条件编译或平台扩展点暴露，保持上层接口一致。",
+      "tags": ["cross-platform", "architecture"],
+      "options": ["完全放弃跨端方案", "设计插件/扩展机制，由业务层按平台实现并保持一致调用接口", "硬编码所有平台分支", "禁止业务使用平台 API"]
+    },
+    {
+      "id": "E08-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "大型跨端项目构建高效研发流程，需要关注哪些环节？",
+      "answer": ["统一的组件和工具库", "真机/模拟器自动化测试", "产物分包与动态下发", "错误监控与灰度发布"],
+      "explanation": "大型跨端项目需要组件复用、自动化测试、动态下发和监控灰度等综合能力。",
+      "tags": ["cross-platform", "engineering"],
+      "options": ["统一的组件和工具库", "真机/模拟器自动化测试", "产物分包与动态下发", "错误监控与灰度发布", "每个平台完全独立仓库"]
+    },
+    {
+      "id": "E08-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "当 Flutter 出现界面卡顿（jank）时，优先排查的方向是？",
+      "answer": ["是否有阻塞 UI 线程的同步耗时操作"],
+      "explanation": "Flutter UI 线程负责构建和渲染，阻塞操作会导致帧率下降和卡顿。",
+      "tags": ["flutter", "performance"],
+      "options": ["是否使用了太多图片", "是否有阻塞 UI 线程的同步耗时操作", "网络请求是否过多", "是否使用了 Material 组件"]
+    }
+  ]
+}

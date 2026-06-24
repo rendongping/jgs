@@ -142,13 +142,37 @@ const sidebar = {
       ]
     }
   ],
+  '/contribute/': [
+    {
+      text: '社区',
+      collapsed: false,
+      items: [
+        { text: '参与贡献', link: '/contribute' },
+      ]
+    }
+  ],
   '/learning-path/': [
+    {
+      text: '学习数据',
+      collapsed: false,
+      items: [
+        { text: '学习数据中心', link: '/learning-path/dashboard' },
+      ]
+    },
     {
       text: '测评与练习',
       collapsed: false,
       items: [
         { text: '客观题测评', link: '/learning-path/quizzes' },
         { text: '在线编程题', link: '/learning-path/coding-challenges' },
+        { text: '面试题抽测', link: '/learning-path/interview-practice' },
+      ]
+    },
+    {
+      text: 'AI 助手',
+      collapsed: false,
+      items: [
+        { text: 'AI 学习助手', link: '/learning-path/ai-assistant' },
       ]
     }
   ],

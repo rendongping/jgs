@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import MarkdownIt from 'markdown-it';
+import { buildIndex as buildKnowledgeIndex } from './build-knowledge-index.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -131,6 +132,8 @@ function ensureDir(filePath) {
   }
 }
 
+const interviewIndex = [];
+
 function syncContent() {
   let syncedCount = 0;
 
@@ -155,8 +158,27 @@ function syncContent() {
   // 同步客观题题库到 public/quizzes
   syncQuizzes();
 
+  // 构建知识库索引供 AI 助手使用
+  buildKnowledgeIndex();
+
+  // 生成面试题索引供随机抽测使用
+  generateInterviewIndex();
+
   console.log(`✅ 已同步 ${syncedCount} 个文件`);
   generateSitemap();
+}
+
+function generateInterviewIndex() {
+  if (!interviewIndex.length) return;
+  const publicDir = path.join(websiteDir, 'public');
+  if (!fs.existsSync(publicDir)) {
+    fs.mkdirSync(publicDir, { recursive: true });
+  }
+  fs.writeFileSync(
+    path.join(publicDir, 'interview-index.json'),
+    JSON.stringify({ version: 1, generatedAt: new Date().toISOString(), total: interviewIndex.length, questions: interviewIndex }, null, 2)
+  );
+  console.log(`✅ 已生成面试题索引：${interviewIndex.length} 道题`);
 }
 
 function syncQuizzes() {
@@ -190,6 +212,10 @@ function generateSitemap() {
   addUrl('/guide/workflow');
   addUrl('/learning-path/quizzes');
   addUrl('/learning-path/coding-challenges');
+  addUrl('/learning-path/dashboard');
+  addUrl('/learning-path/ai-assistant');
+  addUrl('/learning-path/interview-practice');
+  addUrl('/contribute');
 
   for (const { to } of contentMapping) {
     if (to.endsWith('.md')) {
@@ -377,6 +403,18 @@ function transformQuestions(bodyLines, slug, difficulty) {
     output.push(
       `<InterviewCard id="${id}" title="${escapeProp(title)}" difficulty="${difficulty}" questionBase64="${base64Encode(questionHtml)}" answerBase64="${base64Encode(answerHtml)}" />`
     );
+
+    // 收集面试题索引
+    const cleanQuestionText = questionBody.replace(/^#+\s*/gm, '').replace(/\*\*/g, '').slice(0, 300);
+    const cleanAnswerText = (answerBody + ' ' + dimensionBody).replace(/^#+\s*/gm, '').replace(/\*\*/g, '').slice(0, 500);
+    interviewIndex.push({
+      id,
+      slug,
+      title: currentTitle,
+      difficulty: difficulty || '🟢',
+      question: cleanQuestionText,
+      answer: cleanAnswerText,
+    });
 
     currentQuestion = [];
     currentQNum = '';

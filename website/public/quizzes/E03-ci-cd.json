@@ -1,0 +1,155 @@
+{
+  "domainId": "E03-ci-cd",
+  "domainName": "CI/CD 与 DevOps",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E03-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "CI/CD 中 CI 的含义是？",
+      "answer": ["持续集成"],
+      "explanation": "CI 是 Continuous Integration（持续集成）的缩写，强调频繁地将代码集成到主干并自动验证。",
+      "tags": ["ci-cd", "concept"],
+      "options": ["持续集成", "持续部署", "持续交付", "持续监控"]
+    },
+    {
+      "id": "E03-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "GitLab CI/CD 中，定义流水线任务的配置文件通常是什么？",
+      "answer": [".gitlab-ci.yml"],
+      "explanation": "GitLab CI/CD 使用仓库根目录下的 .gitlab-ci.yml 文件定义流水线。",
+      "tags": ["gitlab-ci", "config"],
+      "options": [".gitlab-ci.yml", ".github/workflows/ci.yml", "Jenkinsfile", ".travis.yml"]
+    },
+    {
+      "id": "E03-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "持续部署（Continuous Deployment）是指在通过自动化测试后，自动将代码发布到生产环境。",
+      "answer": ["true"],
+      "explanation": "持续部署强调无需人工干预，自动化测试通过后即可自动部署到生产环境。",
+      "tags": ["ci-cd", "concept"]
+    },
+    {
+      "id": "E03-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪种做法最符合“基础设施即代码”（IaC）的理念？",
+      "answer": ["使用 Terraform 脚本声明式管理云资源"],
+      "explanation": "IaC 通过代码或配置文件管理基础设施，保证可版本控制、可复现。",
+      "tags": ["iac", "devops"],
+      "options": ["使用 Terraform 脚本声明式管理云资源", "手动在控制台创建服务器", "通过邮件申请服务器资源", "将服务器密码记录在本地文档"]
+    },
+    {
+      "id": "E03-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "CI 流水线中常见的阶段包括哪些？",
+      "answer": ["代码检出", "依赖安装", "自动化测试", "构建产物"],
+      "explanation": "典型 CI 流水线包括检出代码、安装依赖、运行测试、构建产物等阶段。",
+      "tags": ["ci-cd", "pipeline"],
+      "options": ["代码检出", "依赖安装", "自动化测试", "构建产物", "手动评审"]
+    },
+    {
+      "id": "E03-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Docker 镜像构建命令是？",
+      "answer": ["docker build"],
+      "explanation": "docker build 根据 Dockerfile 构建镜像。",
+      "tags": ["docker", "container"],
+      "options": ["docker run", "docker build", "docker pull", "docker push"]
+    },
+    {
+      "id": "E03-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在 Jenkins 中，用于定义流水线的 DSL 语法被称为？",
+      "answer": ["Pipeline"],
+      "explanation": "Jenkins Pipeline 提供 Groovy 风格的 DSL，用于声明式或脚本式定义流水线。",
+      "tags": ["jenkins", "pipeline"],
+      "options": ["Pipeline", "Workflow", "JobDSL", "Blue Ocean"]
+    },
+    {
+      "id": "E03-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "GitHub Actions 中，同一工作流的不同 job 默认会并行执行，除非显式配置 needs 依赖。",
+      "answer": ["true"],
+      "explanation": "GitHub Actions 的 job 默认并行运行，needs 字段可定义任务依赖关系。",
+      "tags": ["github-actions", "workflow"]
+    },
+    {
+      "id": "E03-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "以下哪些策略有助于缩短 CI 流水线反馈时间？",
+      "answer": ["并行运行测试", "缓存依赖", "增量构建"],
+      "explanation": "并行测试、依赖缓存、增量构建都能有效缩短反馈时间；人工审批会增加等待时间。",
+      "tags": ["ci-cd", "performance"],
+      "options": ["并行运行测试", "缓存依赖", "增量构建", "每次全量重新安装依赖", "所有阶段都加人工审批"]
+    },
+    {
+      "id": "E03-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在 Blue/Green 部署中，切换流量前需要保证？",
+      "answer": ["新版本已通过健康检查"],
+      "explanation": "Blue/Green 部署通过两套环境切换流量，切换前必须确认新版本健康可用。",
+      "tags": ["deployment", "strategy"],
+      "options": ["旧版本已删除", "新版本已通过健康检查", "数据库已回滚", "所有用户已登出"]
+    },
+    {
+      "id": "E03-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪个工具常用于 Kubernetes 环境的持续交付？",
+      "answer": ["Argo CD"],
+      "explanation": "Argo CD 是 Kubernetes 原生声明式 GitOps 持续交付工具。",
+      "tags": ["k8s", "cd", "gitops"],
+      "options": ["Maven", "Argo CD", "Webpack", "Postman"]
+    },
+    {
+      "id": "E03-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "DevOps 的核心目标包括哪些？",
+      "answer": ["缩短交付周期", "提高部署频率", "增强系统稳定性"],
+      "explanation": "DevOps 旨在通过协作、自动化和反馈循环，实现快速、稳定、高质量的软件交付。",
+      "tags": ["devops", "culture"],
+      "options": ["缩短交付周期", "提高部署频率", "增强系统稳定性", "完全消除所有故障", "开发不再参与运维"]
+    },
+    {
+      "id": "E03-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "GitOps 工作流中，当集群状态与 Git 仓库声明不一致时，理想的做法是？",
+      "answer": ["由控制器自动或告警后将集群状态同步回 Git 期望状态"],
+      "explanation": "GitOps 以 Git 为唯一真实来源，控制器负责检测差异并使集群状态收敛到 Git 声明。",
+      "tags": ["gitops", "k8s"],
+      "options": ["直接修改集群资源以快速修复", "由控制器自动或告警后将集群状态同步回 Git 期望状态", "忽略差异等待下次发布", "删除集群重新部署"]
+    },
+    {
+      "id": "E03-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "在构建高可靠的前端 CI/CD 流水线时，应重点关注哪些实践？",
+      "answer": ["制品版本可追溯", "部署可回滚", "环境配置隔离", "密钥不硬编码在仓库"],
+      "explanation": "高可靠流水线需要可追溯、可回滚、环境隔离和安全的密钥管理。",
+      "tags": ["ci-cd", "reliability"],
+      "options": ["制品版本可追溯", "部署可回滚", "环境配置隔离", "密钥不硬编码在仓库", "只在本地执行测试"]
+    },
+    {
+      "id": "E03-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在 Canary 发布中，决定灰度流量比例调整的关键依据通常是？",
+      "answer": ["监控指标和业务指标表现"],
+      "explanation": "Canary 发布根据错误率、延迟、业务转化率等指标逐步放大或回滚流量。",
+      "tags": ["deployment", "canary", "observability"],
+      "options": ["开发人员主观判断", "监控指标和业务指标表现", "发布当天的日期", "代码行数多少"]
+    }
+  ]
+}

@@ -12,7 +12,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { useLearningData } from '../composables/useLearningData.js';
 
 const props = defineProps({
   totalCount: {
@@ -25,14 +26,18 @@ const props = defineProps({
   }
 });
 
-const completedCount = ref(0);
+const { completedCount: dataCompletedCount, resetData } = useLearningData();
+const localCompleted = ref(0);
+
+const completedCount = computed(() => dataCompletedCount.value || localCompleted.value);
 
 const progressPercent = computed(() => {
   if (props.totalCount === 0) return 0;
   return Math.round((completedCount.value / props.totalCount) * 100);
 });
 
-function updateProgress() {
+function updateLocal() {
+  if (typeof window === 'undefined') return;
   let count = 0;
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
@@ -40,26 +45,28 @@ function updateProgress() {
       count++;
     }
   }
-  completedCount.value = count;
+  localCompleted.value = count;
 }
 
 function resetProgress() {
-  const keysToRemove = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key && key.startsWith('domain-completed-')) {
-      keysToRemove.push(key);
-    }
+  resetData();
+  localCompleted.value = 0;
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('progress-updated'));
   }
-  keysToRemove.forEach(key => localStorage.removeItem(key));
-  completedCount.value = 0;
-  window.dispatchEvent(new CustomEvent('progress-updated'));
+}
+
+function handleUpdate() {
+  updateLocal();
 }
 
 onMounted(() => {
-  updateProgress();
-  // 监听其他组件的进度更新
-  window.addEventListener('progress-updated', updateProgress);
+  updateLocal();
+  window.addEventListener('progress-updated', handleUpdate);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('progress-updated', handleUpdate);
 });
 </script>
 

@@ -4,6 +4,22 @@
 
 ---
 
+## [2.0.0] - 2026-06-24
+
+### Added
+- 新增统一学习数据层 `useLearningData.js`，迁移 v1.x 分散在 localStorage 中的数据，支持导入/导出/重置。
+- 新增学习数据中心 `/learning-path/dashboard` 与 `LearningDashboard.vue`，展示 24 领域完成热力图、四层能力雷达、测评分数趋势、每日学习推荐。
+- 客观题题库从 12 领域扩展至全部 24 领域，新增 180 题，全站累计 360 题。
+- 新增 AI 学习助手 `/learning-path/ai-assistant` 与 `AIAssistant.vue`，支持基于知识库 RAG 的问答（离线检索 + OpenRouter/GitHub Models/Ollama）。
+- 新增面试题随机抽测 `/learning-path/interview-practice` 与 `InterviewPractice.vue`，支持按领域/难度抽题、计时、语音回答辅助。
+- 编程题组件增强为 Web Worker 沙箱判题，新增 12 道实战题，累计 20 道覆盖 JS/React/Vue/性能/安全/架构/AI/Node/工程化/微前端。
+- 新增 PWA 支持：`manifest.json`、`sw.js`、Service Worker 注册，支持离线访问已浏览页面。
+- 新增内容贡献页面 `/contribute` 与 `ContentFeedback.vue`，一键生成 GitHub Issue 草稿。
+- `sync-content.mjs` 自动构建面试题索引 `public/interview-index.json` 与知识库索引 `public/knowledge-index.json`。
+- 网站导航与侧边栏重构，新增「数据中心」「AI 助手」「参与贡献」入口。
+
+---
+
 ## [1.4.0] - 2026-06-24
 
 ### Added

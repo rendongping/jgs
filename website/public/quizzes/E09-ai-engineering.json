@@ -1,0 +1,155 @@
+{
+  "domainId": "E09-ai-engineering",
+  "domainName": "AI 工程化",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E09-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "大语言模型（LLM）与前端交互最常见的协议或接口形式是？",
+      "answer": ["HTTP SSE/Streaming API"],
+      "explanation": "前端调用 LLM 通常通过 HTTP 流式接口（如 SSE）获取逐字输出，提升体验。",
+      "tags": ["llm", "api"],
+      "options": ["WebSocket 实时视频", "HTTP SSE/Streaming API", "FTP 文件传输", "SSH 远程命令"]
+    },
+    {
+      "id": "E09-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Prompt Engineering 的核心目标是？",
+      "answer": ["通过优化输入提示词，引导模型产生更准确、可用的输出"],
+      "explanation": "Prompt Engineering 关注如何设计提示词以提升模型输出质量和可控性。",
+      "tags": ["prompt-engineering", "concept"],
+      "options": ["修改模型权重", "通过优化输入提示词，引导模型产生更准确、可用的输出", "训练新的神经网络", "提高服务器带宽"]
+    },
+    {
+      "id": "E09-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "RAG（检索增强生成）通过引入外部知识检索，可减少模型幻觉并补充时效性信息。",
+      "answer": ["true"],
+      "explanation": "RAG 在生成前检索相关文档，将上下文注入提示，提升准确性和时效性。",
+      "tags": ["rag", "concept"]
+    },
+    {
+      "id": "E09-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪项是前端集成 AI 能力时最需要注意的安全问题？",
+      "answer": ["API Key 泄露"],
+      "explanation": "前端代码容易被反编译，直接暴露 API Key 会导致滥用和费用风险。",
+      "tags": ["ai", "security"],
+      "options": ["API Key 泄露", "CSS 兼容性问题", "图片加载慢", "字体渲染模糊"]
+    },
+    {
+      "id": "E09-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "前端场景中常见的 AI 应用形态有哪些？",
+      "answer": ["智能客服对话", "代码自动补全", "文本生成与润色"],
+      "explanation": "前端可集成对话、代码补全、文本生成等 AI 能力，但通常不直接训练基础模型。",
+      "tags": ["ai", "frontend"],
+      "options": ["智能客服对话", "代码自动补全", "文本生成与润色", "大规模训练 GPT", "编译器优化"]
+    },
+    {
+      "id": "E09-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "将 LLM 输出转换为结构化数据（如 JSON）时，最常用的方法是？",
+      "answer": ["在提示词中要求模型按指定 JSON 格式返回，并在代码中解析"],
+      "explanation": "通过明确提示词约束输出格式，并在应用层校验解析，是常见的结构化输出做法。",
+      "tags": ["llm", "output-format"],
+      "options": ["直接信任模型返回的任意文本", "在提示词中要求模型按指定 JSON 格式返回，并在代码中解析", "使用 CSS 选择器提取", "手动复制到 Excel"]
+    },
+    {
+      "id": "E09-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "前端实现流式 AI 回复时，通常采用哪种技术？",
+      "answer": ["Server-Sent Events (SSE)"],
+      "explanation": "SSE 是服务器向客户端单向推送文本流的轻量级方案，常用于流式 AI 输出。",
+      "tags": ["sse", "streaming"],
+      "options": ["长轮询", "Server-Sent Events (SSE)", "gRPC", "WebRTC"]
+    },
+    {
+      "id": "E09-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "Function Calling 允许大模型根据用户输入自动决定调用外部函数，并将参数结构化返回给应用。",
+      "answer": ["true"],
+      "explanation": "Function Calling 让模型能识别需要调用的工具并生成参数，由应用实际执行。",
+      "tags": ["function-calling", "llm"]
+    },
+    {
+      "id": "E09-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "构建前端 AI 应用时，降低 LLM 调用成本的常见手段有哪些？",
+      "answer": ["缓存常见问题的回答", "使用更小的模型处理简单任务", "限制输出 token 长度"],
+      "explanation": "缓存、模型路由和限制输出长度都能有效降低成本；增加调用频率会提高成本。",
+      "tags": ["ai", "cost"],
+      "options": ["缓存常见问题的回答", "使用更小的模型处理简单任务", "限制输出 token 长度", "增加调用频率", "每次请求都发送完整历史"]
+    },
+    {
+      "id": "E09-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "AI 生成内容直接展示给用户前，最合适的处理方式是？",
+      "answer": ["进行安全与事实性校验，并提供人工复核入口"],
+      "explanation": "AI 输出存在幻觉和合规风险，应用层应校验并在关键场景提供人工复核。",
+      "tags": ["ai", "safety"],
+      "options": ["直接原样展示", "进行安全与事实性校验，并提供人工复核入口", "只展示给管理员", "保存到本地不展示"]
+    },
+    {
+      "id": "E09-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "向量数据库在 RAG 系统中的主要作用是？",
+      "answer": ["存储和检索语义相似的文档片段"],
+      "explanation": "向量数据库通过嵌入向量实现语义检索，为 RAG 提供相关上下文。",
+      "tags": ["rag", "vector-db"],
+      "options": ["训练大模型", "存储和检索语义相似的文档片段", "替代关系型数据库", "生成图片"]
+    },
+    {
+      "id": "E09-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "前端 Agent 框架（如 LangChain、LlamaIndex）通常提供哪些能力？",
+      "answer": ["提示词模板管理", "工具链编排", "记忆上下文管理"],
+      "explanation": "Agent 框架主要提供提示词管理、工具编排和记忆管理，帮助构建复杂 AI 工作流。",
+      "tags": ["agent", "framework"],
+      "options": ["提示词模板管理", "工具链编排", "记忆上下文管理", "自动设计 UI", "替代数据库"]
+    },
+    {
+      "id": "E09-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在 AI 驱动的代码生成工具集成到团队工作流时，最关键的治理措施是？",
+      "answer": ["建立代码审查规范，要求 AI 生成代码必须经过人工审核和测试"],
+      "explanation": "AI 生成代码需要人类监督、审查和测试，以保证质量、安全和知识产权合规。",
+      "tags": ["ai", "governance"],
+      "options": ["完全信任 AI 输出并直接合并", "建立代码审查规范，要求 AI 生成代码必须经过人工审核和测试", "禁止任何 AI 工具使用", "仅用于生成注释"]
+    },
+    {
+      "id": "E09-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计可观测的 AI 应用系统，应关注哪些指标？",
+      "answer": ["请求延迟", "token 消耗", "输出准确率/幻觉率", "用户满意度反馈"],
+      "explanation": "AI 应用需要监控延迟、成本、输出质量和用户反馈，以持续优化系统。",
+      "tags": ["ai", "observability"],
+      "options": ["请求延迟", "token 消耗", "输出准确率/幻觉率", "用户满意度反馈", "页面背景颜色"]
+    },
+    {
+      "id": "E09-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在多轮对话场景中，控制上下文窗口最有效的方法是？",
+      "answer": ["对历史消息进行摘要、截断或按 Token 预算动态选择"],
+      "explanation": "上下文窗口有限，需通过摘要、截断或相关检索动态管理历史，避免超出模型限制。",
+      "tags": ["llm", "context-window"],
+      "options": ["发送全部历史记录不限制长度", "对历史消息进行摘要、截断或按 Token 预算动态选择", "每轮对话都新建会话", "只保留第一条用户消息"]
+    }
+  ]
+}

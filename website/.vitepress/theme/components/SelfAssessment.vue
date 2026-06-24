@@ -27,7 +27,7 @@
       <div class="assessment-quick-links">
         <a href="/learning-path/quizzes" class="quick-link">去客观题测评</a>
         <a href="/learning-path/coding-challenges" class="quick-link">去在线编程题</a>
-        <a href="/guide/learning-routes" class="quick-link">查看学习路径</a>
+        <a href="/learning-path/dashboard" class="quick-link">学习数据中心</a>
       </div>
     </div>
 
@@ -111,6 +111,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue';
+import { useLearningData } from '../composables/useLearningData.js';
 
 const levelLabels = ['了解', '理解', '应用', '分析', '评估', '创造'];
 const levelDescriptions = [
@@ -153,7 +154,6 @@ const domains = [
   { id: 'strategy', name: 'Strategy', link: '/leadership/strategy', level: 4 },
 ];
 
-// 每个领域每个等级的可观察行为证据（简化关键描述）
 const evidenceMap = {
   javascript: {
     1: '能列出 JS 基本数据类型与变量声明方式',
@@ -356,7 +356,7 @@ const levelGroups = [
   { name: '领导力层', key: 'level04', ids: domains.filter(d => d.level === 4).map(d => d.id) },
 ];
 
-const ratings = ref({});
+const { data, setRating: saveRating, exportData, importData, resetData } = useLearningData();
 const isClient = ref(false);
 const radarChartRef = ref(null);
 const fileInputRef = ref(null);
@@ -364,6 +364,7 @@ const selectedDomainForEvidence = ref(null);
 let chartInstance = null;
 let echartsLib = null;
 
+const ratings = computed(() => data.value?.ratings || {});
 const totalDomains = computed(() => domains.length);
 
 const ratedCount = computed(() => {
@@ -408,30 +409,15 @@ function toggleEvidence(domain) {
 }
 
 function setRating(domainId, level) {
-  ratings.value[domainId] = level;
-  localStorage.setItem(`self-rating-${domainId}`, String(level));
+  saveRating(domainId, level);
   updateRadarChart();
-}
-
-function loadRatings() {
-  const newRatings = {};
-  domains.forEach(d => {
-    const saved = localStorage.getItem(`self-rating-${d.id}`);
-    if (saved) {
-      newRatings[d.id] = parseInt(saved, 10);
-    }
-  });
-  ratings.value = newRatings;
 }
 
 function resetRatings() {
   if (typeof window !== 'undefined' && !window.confirm('确定要重置所有评估结果吗？')) {
     return;
   }
-  domains.forEach(d => {
-    localStorage.removeItem(`self-rating-${d.id}`);
-  });
-  ratings.value = {};
+  resetData();
   updateRadarChart();
 }
 
@@ -443,12 +429,7 @@ function saveRatings() {
 
 function exportRatings() {
   if (typeof window === 'undefined') return;
-  const data = {
-    version: 1,
-    exportedAt: new Date().toISOString(),
-    ratings: ratings.value
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify(exportData(), null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -469,19 +450,7 @@ function importRatings(event) {
   const reader = new FileReader();
   reader.onload = (e) => {
     try {
-      const data = JSON.parse(e.target.result);
-      if (!data.ratings || typeof data.ratings !== 'object') {
-        throw new Error('Invalid format');
-      }
-      ratings.value = { ...data.ratings };
-      domains.forEach(d => {
-        const value = ratings.value[d.id];
-        if (value && value >= 1 && value <= 6) {
-          localStorage.setItem(`self-rating-${d.id}`, String(value));
-        } else {
-          localStorage.removeItem(`self-rating-${d.id}`);
-        }
-      });
+      importData(e.target.result);
       updateRadarChart();
       if (typeof window !== 'undefined') {
         window.alert('评估数据导入成功');
@@ -577,7 +546,6 @@ function handleResize() {
 
 onMounted(() => {
   isClient.value = true;
-  loadRatings();
   nextTick(() => {
     initRadarChart();
   });

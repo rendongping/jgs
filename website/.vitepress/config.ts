@@ -22,6 +22,7 @@ export default defineConfig({
 
   head: [
     ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'manifest', href: '/manifest.json' }],
     ['meta', { name: 'theme-color', content: '#3c3c43' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
     ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
@@ -48,13 +49,17 @@ export default defineConfig({
         ]
       },
       {
-        text: '测评',
+        text: '数据中心',
         items: [
+          { text: '学习数据中心', link: '/learning-path/dashboard' },
           { text: '客观题测评', link: '/learning-path/quizzes' },
           { text: '在线编程题', link: '/learning-path/coding-challenges' },
+          { text: '面试题抽测', link: '/learning-path/interview-practice' },
+          { text: 'AI 学习助手', link: '/learning-path/ai-assistant' },
         ]
       },
       { text: '资源工具', link: '/resources/glossary' },
+      { text: '参与贡献', link: '/contribute' },
     ],
 
     sidebar,

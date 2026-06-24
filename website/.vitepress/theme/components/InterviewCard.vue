@@ -1,134 +1,77 @@
 <template>
-  <div class="interview-card" role="region" :aria-label="`面试题：${title}`">
+  <div class="interview-card">
     <div class="interview-card-header">
       <span class="interview-card-title">{{ title }}</span>
-      <span class="difficulty-badge" :class="difficultyClass" aria-label="难度">{{ difficultyText }}</span>
+      <span class="difficulty-badge" :class="difficultyClass">{{ difficultyText }}</span>
     </div>
-
-    <div v-if="decodedQuestionHtml.trim()" class="interview-content vp-doc" v-html="decodedQuestionHtml"></div>
-
+    <div v-if="questionHtml.trim()" class="interview-content vp-doc" v-html="questionHtml"></div>
     <div class="interview-actions">
-      <button
-        class="interview-toggle-btn"
-        @click="toggleAnswer"
-        :aria-expanded="showAnswer"
-        :aria-controls="answerId"
-      >
+      <button class="interview-toggle-btn" @click="toggleAnswer" :aria-expanded="showAnswer">
         {{ showAnswer ? '隐藏答案' : '查看答案' }}
       </button>
-      <button
-        class="interview-toggle-btn"
-        @click="toggleMastered"
-        :aria-pressed="mastered"
-      >
+      <button class="interview-toggle-btn" @click="toggleMastered">
         {{ mastered ? '已掌握 ✓' : '标记掌握' }}
       </button>
     </div>
-
-    <div
-      v-if="showAnswer"
-      :id="answerId"
-      class="interview-answer vp-doc"
-      v-html="decodedAnswerHtml"
-    ></div>
+    <div v-if="showAnswer" class="interview-answer vp-doc" v-html="answerHtml"></div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { useLearningData } from '../composables/useLearningData.js';
 
 const props = defineProps({
-  id: {
-    type: String,
-    required: true
-  },
-  title: {
-    type: String,
-    default: '面试题'
-  },
-  difficulty: {
-    type: String,
-    default: ''
-  },
-  questionHtml: {
-    type: String,
-    default: ''
-  },
-  answerHtml: {
-    type: String,
-    default: ''
-  },
-  questionBase64: {
-    type: String,
-    default: ''
-  },
-  answerBase64: {
-    type: String,
-    default: ''
-  }
+  id: { type: String, required: true },
+  title: { type: String, required: true },
+  difficulty: { type: String, default: '' },
+  questionHtml: { type: String, default: '' },
+  answerHtml: { type: String, default: '' },
+  questionBase64: { type: String, default: '' },
+  answerBase64: { type: String, default: '' },
 });
+
+const { isQuestionMastered, setQuestionMastered } = useLearningData();
 
 const showAnswer = ref(false);
 const mastered = ref(false);
-const answerId = computed(() => `interview-answer-${props.id}`);
-
-function decodeBase64(value) {
-  if (!value) return '';
-  try {
-    if (typeof Buffer !== 'undefined') {
-      return Buffer.from(value, 'base64').toString('utf-8');
-    }
-    return decodeURIComponent(escape(atob(value)));
-  } catch (err) {
-    console.warn('Failed to decode base64:', err);
-    return '';
-  }
-}
-
-const decodedQuestionHtml = computed(() => {
-  return props.questionBase64 ? decodeBase64(props.questionBase64) : props.questionHtml;
-});
-
-const decodedAnswerHtml = computed(() => {
-  return props.answerBase64 ? decodeBase64(props.answerBase64) : props.answerHtml;
-});
 
 const difficultyClass = computed(() => {
-  const map = {
-    '🟢': 'easy',
-    '🟡': 'medium',
-    '🔴': 'hard'
-  };
-  return map[props.difficulty] || '';
+  if (props.difficulty.includes('🔴')) return 'difficulty-advanced';
+  if (props.difficulty.includes('🟡')) return 'difficulty-intermediate';
+  return 'difficulty-basic';
 });
 
 const difficultyText = computed(() => {
-  const map = {
-    '🟢': '基础',
-    '🟡': '进阶',
-    '🔴': '深入'
-  };
-  return map[props.difficulty] || props.difficulty;
+  if (props.difficulty.includes('🔴')) return '深入';
+  if (props.difficulty.includes('🟡')) return '进阶';
+  return '基础';
 });
+
+function decodeBase64(value) {
+  if (!value) return '';
+  if (typeof Buffer !== 'undefined') {
+    return Buffer.from(value, 'base64').toString('utf-8');
+  }
+  return decodeURIComponent(escape(atob(value)));
+}
+
+const questionHtml = computed(() => props.questionHtml || decodeBase64(props.questionBase64));
+const answerHtml = computed(() => props.answerHtml || decodeBase64(props.answerBase64));
 
 function toggleAnswer() {
   showAnswer.value = !showAnswer.value;
 }
 
 function toggleMastered() {
-  mastered.value = !mastered.value;
-  const key = `interview-mastered-${props.id}`;
-  if (mastered.value) {
-    localStorage.setItem(key, 'true');
-  } else {
-    localStorage.removeItem(key);
-  }
+  const next = !mastered.value;
+  setQuestionMastered(props.id, next);
+  mastered.value = next;
 }
 
-onMounted(() => {
-  const key = `interview-mastered-${props.id}`;
-  mastered.value = localStorage.getItem(key) === 'true';
-});
+watch(() => props.id, (newId) => {
+  mastered.value = isQuestionMastered(newId);
+}, { immediate: true });
 </script>
 
 <style scoped>
@@ -145,37 +88,33 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-  gap: 12px;
 }
 
 .interview-card-title {
   font-weight: 600;
-  font-size: 16px;
-  line-height: 1.4;
+  font-size: 15px;
 }
 
 .difficulty-badge {
   padding: 2px 8px;
-  border-radius: 12px;
+  border-radius: 4px;
   font-size: 12px;
-  white-space: nowrap;
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
+  font-weight: 600;
 }
 
-.difficulty-badge.easy {
-  color: #52c41a;
-  border-color: #52c41a;
+.difficulty-basic {
+  background: #e8f5e9;
+  color: #43a047;
 }
 
-.difficulty-badge.medium {
-  color: #faad14;
-  border-color: #faad14;
+.difficulty-intermediate {
+  background: #fff3e0;
+  color: #fb8c00;
 }
 
-.difficulty-badge.hard {
-  color: #f5222d;
-  border-color: #f5222d;
+.difficulty-advanced {
+  background: #ffebee;
+  color: #e53935;
 }
 
 .interview-content {
@@ -185,39 +124,26 @@ onMounted(() => {
 .interview-actions {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
 }
 
 .interview-toggle-btn {
-  padding: 6px 14px;
+  padding: 6px 12px;
   border-radius: 4px;
-  border: 1px solid var(--vp-c-brand-1);
-  background: transparent;
-  color: var(--vp-c-brand-1);
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   transition: all 0.2s;
 }
 
 .interview-toggle-btn:hover {
-  background: var(--vp-c-brand-soft);
-}
-
-.interview-toggle-btn:focus-visible {
-  outline: 2px solid var(--vp-c-brand-1);
-  outline-offset: 2px;
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
 }
 
 .interview-answer {
-  margin-top: 16px;
-  padding-top: 16px;
+  margin-top: 12px;
+  padding-top: 12px;
   border-top: 1px dashed var(--vp-c-divider);
-}
-
-@media (max-width: 768px) {
-  .interview-card-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
 </style>

@@ -1,0 +1,19 @@
+{
+  "name": "前端架构师知识库",
+  "short_name": "前端架构师",
+  "description": "从初级到架构师的系统化前端学习资料库",
+  "start_url": "/jgs/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3c3c43",
+  "orientation": "portrait-primary",
+  "scope": "/jgs/",
+  "icons": [
+    {
+      "src": "/jgs/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

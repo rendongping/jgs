@@ -1,0 +1,155 @@
+{
+  "domainId": "L02-team",
+  "domainName": "团队领导力",
+  "version": 1,
+  "questions": [
+    {
+      "id": "L02-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "技术团队新人入职后，技术负责人最应优先做的是？",
+      "answer": ["明确职责范围，提供清晰的导师和入门路径"],
+      "explanation": "新人快速融入需要明确职责、导师指导和循序渐进的任务安排。",
+      "tags": ["team", "onboarding"],
+      "options": ["立即分配最复杂的任务", "明确职责范围，提供清晰的导师和入门路径", "让其独立阅读所有代码", "忽略培养直接要求产出"]
+    },
+    {
+      "id": "L02-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "代码评审（Code Review）最重要的价值是？",
+      "answer": ["提升代码质量并促进团队知识共享"],
+      "explanation": "Code Review 不仅是找错，更是知识传递、风格统一和团队协作的过程。",
+      "tags": ["team", "code-review"],
+      "options": ["增加审批环节", "提升代码质量并促进团队知识共享", "显示审查者权威", "拖延开发进度"]
+    },
+    {
+      "id": "L02-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "技术负责人应鼓励团队成员在关键决策中表达不同意见，以避免群体思维。",
+      "answer": ["true"],
+      "explanation": "多元化意见有助于发现盲点，避免群体思维带来的决策风险。",
+      "tags": ["team", "decision-making"]
+    },
+    {
+      "id": "L02-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "团队中出现持续低绩效成员时，技术负责人首先应？",
+      "answer": ["了解原因，提供反馈和改进计划"],
+      "explanation": "绩效管理应始于沟通和反馈，了解问题根源并提供改进支持。",
+      "tags": ["team", "performance"],
+      "options": ["立即辞退", "了解原因，提供反馈和改进计划", "孤立该成员", "降低团队目标"]
+    },
+    {
+      "id": "L02-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "建设高效技术团队文化，应关注哪些方面？",
+      "answer": ["心理安全感", "持续学习", "开放反馈"],
+      "explanation": "高效团队需要成员敢于试错、持续学习和坦诚反馈。",
+      "tags": ["team", "culture"],
+      "options": ["心理安全感", "持续学习", "开放反馈", "惩罚失败", "信息不透明"]
+    },
+    {
+      "id": "L02-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "技术分享会的主要目的是？",
+      "answer": ["促进知识沉淀与团队成员共同成长"],
+      "explanation": "技术分享是团队知识沉淀和成长的重要机制。",
+      "tags": ["team", "knowledge-sharing"],
+      "options": ["检查成员是否加班", "促进知识沉淀与团队成员共同成长", "评比谁最聪明", "完成行政任务"]
+    },
+    {
+      "id": "L02-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "两个团队成员因技术方案产生激烈争执，技术负责人应？",
+      "answer": ["引导双方聚焦问题本身，基于数据和目标达成决策"],
+      "explanation": "技术争论应回归问题本质，通过数据和目标驱动决策，避免个人对立。",
+      "tags": ["team", "conflict"],
+      "options": ["支持资历更老的一方", "引导双方聚焦问题本身，基于数据和目标达成决策", "让双方继续争论", "回避不做决定"]
+    },
+    {
+      "id": "L02-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "授权不等于放任，技术负责人在授权后仍需提供支持和问责机制。",
+      "answer": ["true"],
+      "explanation": "有效授权需要清晰的目标、必要的资源和结果问责，才能达到培养人和提升效率的目的。",
+      "tags": ["team", "delegation"]
+    },
+    {
+      "id": "L02-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "技术负责人进行一对一沟通（1-on-1）时，应关注哪些内容？",
+      "answer": ["成员工作状态与满意度", "职业发展规划", "遇到的阻碍与需要的支持"],
+      "explanation": "1-on-1 应关注成员状态、成长和障碍，而非单纯的项目进度汇报。",
+      "tags": ["team", "one-on-one"],
+      "options": ["成员工作状态与满意度", "职业发展规划", "遇到的阻碍与需要的支持", "只汇报项目进度", "批评所有工作细节"]
+    },
+    {
+      "id": "L02-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "团队长期加班但产出未提升，技术负责人最应反思的是？",
+      "answer": ["流程、优先级和效率是否出现问题"],
+      "explanation": "加班不等于高产出，应反思流程、优先级、工具和效率问题。",
+      "tags": ["team", "efficiency"],
+      "options": ["成员不够努力", "流程、优先级和效率是否出现问题", "继续延长工作时间", "增加更多 KPI"]
+    },
+    {
+      "id": "L02-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在跨团队协作项目中，技术负责人最重要的协调能力是？",
+      "answer": ["建立清晰的接口、责任和沟通机制"],
+      "explanation": "跨团队协作需要明确责任边界、接口约定和沟通节奏。",
+      "tags": ["team", "collaboration"],
+      "options": ["亲自完成所有工作", "建立清晰的接口、责任和沟通机制", "隐瞒风险避免冲突", "减少会议完全依赖文档"]
+    },
+    {
+      "id": "L02-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "激励技术团队持续成长的有效方式包括哪些？",
+      "answer": ["提供挑战性任务", "给予及时认可和反馈", "支持技术探索和时间"],
+      "explanation": "挑战性任务、及时认可和探索空间是激励技术人员成长的有效方式。",
+      "tags": ["team", "motivation"],
+      "options": ["提供挑战性任务", "给予及时认可和反馈", "支持技术探索和时间", "只按工时考核", "禁止技术讨论"]
+    },
+    {
+      "id": "L02-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "核心骨干成员提出离职，技术负责人最优先的应对是？",
+      "answer": ["坦诚沟通了解原因，做好知识交接，并评估团队梯队建设"],
+      "explanation": "核心人员离职需要沟通、交接和梯队反思，防止单点风险并持续建设团队。",
+      "tags": ["team", "retention"],
+      "options": ["立即批准并删除所有权限", "坦诚沟通了解原因，做好知识交接，并评估团队梯队建设", "强行挽留并承诺一切", "归咎于成员忠诚度"]
+    },
+    {
+      "id": "L02-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "打造自驱型技术团队，技术负责人应建立哪些机制？",
+      "answer": ["清晰的目标与自主权", "容错与复盘文化", "透明的绩效与成长路径"],
+      "explanation": "自驱型团队需要目标清晰、自主空间、容错复盘和透明成长机制。",
+      "tags": ["team", "self-driven"],
+      "options": ["清晰的目标与自主权", "容错与复盘文化", "透明的绩效与成长路径", " micromanagement 式管理", "只惩罚不奖励"]
+    },
+    {
+      "id": "L02-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "当团队处于高压交付期，技术负责人最应注意的是？",
+      "answer": ["平衡交付压力与团队健康，防止 burnout 和质量失控"],
+      "explanation": "高压期需要关注团队可持续性和成员身心健康，避免短期透支导致长期损失。",
+      "tags": ["team", "wellbeing"],
+      "options": ["不顾一切完成交付", "平衡交付压力与团队健康，防止 burnout 和质量失控", "取消所有沟通", "隐瞒真实进度"]
+    }
+  ]
+}

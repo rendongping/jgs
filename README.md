@@ -4,6 +4,7 @@
 
 > 本仓库按"前端架构师能力金字塔"四层模型，系统整理了从基础到架构、从技术到管理的完整学习资料。
 > 每个知识领域均包含：**学习文档**、**练习册**、**面试题**三部分，覆盖理论与实战。
+> 配套网站提供能力自评、客观题测评、在线编程题、面试题抽测、AI 学习助手、学习数据中心等智能化学习体验，并支持 PWA 离线访问。
 > 本知识库追求尽善尽美：即使是初级学员，也能按阶段循序渐进，最终成长为前端架构师。
 
 ---
@@ -29,6 +30,11 @@ docs/
     ├── 01-knowledge-dependency-map.md
     ├── 02-capability-self-assessment.md
     └── 03-learning-routes.md
+quizzes/                   # 客观题题库（24 领域，360 题）
+website/                   # VitePress 增强型静态网站
+└── .vitepress/
+    ├── theme/             # 自定义 Vue 组件
+    └── scripts/           # 内容同步与索引构建脚本
 templates/                 # 工具箱模板
 scripts/                   # 自动化脚本
 └── lint-docs.sh           # 文档规范检查脚本

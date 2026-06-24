@@ -1,0 +1,155 @@
+{
+  "domainId": "A02-micro-frontend",
+  "domainName": "微前端",
+  "version": 1,
+  "questions": [
+    {
+      "id": "A02-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "微前端架构最核心的目标是什么？",
+      "answer": ["将前端应用拆分为可独立开发、部署的多个子应用"],
+      "explanation": "微前端借鉴微服务理念，将大型前端应用按业务域拆分为独立子应用。",
+      "tags": ["micro-frontend", "concept"],
+      "options": ["减少页面加载时间", "将前端应用拆分为可独立开发、部署的多个子应用", "统一所有技术栈", "替代后端微服务"]
+    },
+    {
+      "id": "A02-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪项是常见的微前端集成方案？",
+      "answer": ["qiankun"],
+      "explanation": "qiankun 是国内常用的微前端框架，基于 single-spa 封装，提供 JS 沙箱和样式隔离。",
+      "tags": ["micro-frontend", "framework"],
+      "options": ["React Router", "qiankun", "Redux", "Axios"]
+    },
+    {
+      "id": "A02-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "微前端允许不同子应用使用不同的前端框架和技术栈。",
+      "answer": ["true"],
+      "explanation": "微前端的一个重要价值就是技术栈无关，各子应用可独立选择技术栈。",
+      "tags": ["micro-frontend", "tech-stack"]
+    },
+    {
+      "id": "A02-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "single-spa 框架的核心概念是？",
+      "answer": ["通过注册应用和生命周期函数管理多个前端应用"],
+      "explanation": "single-spa 通过注册子应用及 bootstrap/mount/unmount 生命周期实现应用级集成。",
+      "tags": ["single-spa", "concept"],
+      "options": ["通过注册应用和生命周期函数管理多个前端应用", "将应用编译为 WebAssembly", "只支持 Vue 项目", "自动生成数据库表"]
+    },
+    {
+      "id": "A02-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "微前端带来的主要优势包括哪些？",
+      "answer": ["团队自治", "独立部署", "技术栈无关"],
+      "explanation": "微前端支持团队自治、独立部署和技术栈无关，但会增加架构复杂度。",
+      "tags": ["micro-frontend", "benefits"],
+      "options": ["团队自治", "独立部署", "技术栈无关", "完全消除所有性能问题", "自动统一代码风格"]
+    },
+    {
+      "id": "A02-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "微前端方案中，通过 iframe 集成子应用的主要缺陷是？",
+      "answer": ["路由、弹窗、通信和体验一致性难以保证"],
+      "explanation": "iframe 隔离性强但会导致路由同步困难、弹窗遮挡、通信复杂和体验割裂。",
+      "tags": ["micro-frontend", "iframe"],
+      "options": ["加载速度最快", "路由、弹窗、通信和体验一致性难以保证", "无法跨域加载", "不支持 CSS"]
+    },
+    {
+      "id": "A02-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "微前端中处理子应用间样式冲突的关键机制是？",
+      "answer": ["样式隔离（如 Shadow DOM、CSS Module、命名空间前缀、沙箱）"],
+      "explanation": "样式隔离是微前端的核心挑战之一，常用 Shadow DOM、CSS Module、前缀或 JS 沙箱实现。",
+      "tags": ["micro-frontend", "style-isolation"],
+      "options": ["不使用 CSS", "样式隔离（如 Shadow DOM、CSS Module、命名空间前缀、沙箱）", "所有子应用共享全局样式", "只使用内联样式"]
+    },
+    {
+      "id": "A02-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "微前端中，主子应用之间的通信应尽量避免直接共享全局变量，推荐通过约定的事件总线或状态管理方案。",
+      "answer": ["true"],
+      "explanation": "直接共享全局变量会增加耦合和调试难度，应通过明确的事件或状态方案通信。",
+      "tags": ["micro-frontend", "communication"]
+    },
+    {
+      "id": "A02-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "微前端基座（主应用）通常承担的职责有哪些？",
+      "answer": ["应用注册与调度", "路由分发", "公共依赖和权限管理"],
+      "explanation": "基座负责子应用注册、路由分发、公共依赖和权限等公共能力，但不负责子应用内部实现。",
+      "tags": ["micro-frontend", "shell"],
+      "options": ["应用注册与调度", "路由分发", "公共依赖和权限管理", "替子应用实现所有业务逻辑", "禁止子应用使用自己的路由"]
+    },
+    {
+      "id": "A02-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Module Federation 的主要价值是？",
+      "answer": ["在构建时或运行时共享模块，实现应用间代码共享"],
+      "explanation": "Module Federation 允许应用间共享模块，减少重复依赖，实现运行时组合。",
+      "tags": ["module-federation", "webpack"],
+      "options": ["替代 CSS 预处理器", "在构建时或运行时共享模块，实现应用间代码共享", "自动生成测试用例", "只用于后端服务"]
+    },
+    {
+      "id": "A02-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "微前端架构下，公共资源（如组件库、工具函数）最合适的复用方式是？",
+      "answer": ["通过 Module Federation 或打包为共享依赖，由基座统一加载"],
+      "explanation": "公共资源应通过共享依赖或 Module Federation 复用，避免各子应用重复打包。",
+      "tags": ["micro-frontend", "sharing"],
+      "options": ["每个子应用各自打包一份", "通过 Module Federation 或打包为共享依赖，由基座统一加载", "复制粘贴代码", "不使用公共库"]
+    },
+    {
+      "id": "A02-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "微前端实施过程中常见的挑战有哪些？",
+      "answer": ["公共依赖版本冲突", "子应用路由与浏览器路由协调", "全局状态管理复杂"],
+      "explanation": "微前端面临依赖冲突、路由协调、状态管理、性能等挑战，需要合理设计。",
+      "tags": ["micro-frontend", "challenges"],
+      "options": ["公共依赖版本冲突", "子应用路由与浏览器路由协调", "全局状态管理复杂", "所有子应用必须使用同一框架", "自动消除所有 Bug"]
+    },
+    {
+      "id": "A02-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "当微前端子应用数量增多，首屏性能显著下降时，首要优化方向是？",
+      "answer": ["按需加载子应用，优化公共依赖共享和预加载策略"],
+      "explanation": "微前端性能优化需要聚焦按需加载、公共依赖共享、预加载和缓存策略。",
+      "tags": ["micro-frontend", "performance"],
+      "options": ["一次性加载所有子应用", "按需加载子应用，优化公共依赖共享和预加载策略", "禁用浏览器缓存", "将所有子应用合并为一个应用"]
+    },
+    {
+      "id": "A02-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计可演进的微前端基座时，应考虑哪些架构原则？",
+      "answer": ["子应用接入标准化", "运行时能力插件化", "主子应用弱耦合"],
+      "explanation": "可演进的基座需要标准化接入、插件化扩展和弱耦合设计，避免成为新的单体瓶颈。",
+      "tags": ["micro-frontend", "architecture"],
+      "options": ["子应用接入标准化", "运行时能力插件化", "主子应用弱耦合", "基座包含所有业务逻辑", "所有配置硬编码"]
+    },
+    {
+      "id": "A02-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "微前端项目出现子应用内存泄漏，最可能的原因是？",
+      "answer": ["子应用卸载时未正确清理全局事件、定时器和 DOM 引用"],
+      "explanation": "子应用切换时需正确执行 unmount 生命周期，清理事件监听、定时器和 DOM，否则会导致内存泄漏。",
+      "tags": ["micro-frontend", "memory"],
+      "options": ["子应用卸载时未正确清理全局事件、定时器和 DOM 引用", "使用了 CSS 预处理器", "路由路径太长", "网络带宽不足"]
+    }
+  ]
+}

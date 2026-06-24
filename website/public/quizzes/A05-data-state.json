@@ -1,0 +1,155 @@
+{
+  "domainId": "A05-data-state",
+  "domainName": "数据与状态管理",
+  "version": 1,
+  "questions": [
+    {
+      "id": "A05-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Redux 中唯一可以改变状态的方式是？",
+      "answer": ["dispatch 一个 action"],
+      "explanation": "Redux 强调单向数据流，状态只能通过 dispatch action 触发 reducer 更新。",
+      "tags": ["redux", "state-management"],
+      "options": ["直接修改 state", "dispatch 一个 action", "调用组件 setState", "修改 DOM 属性"]
+    },
+    {
+      "id": "A05-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪种状态最适合用全局状态管理？",
+      "answer": ["用户登录信息和跨页面共享数据"],
+      "explanation": "全局状态适合跨组件、跨页面共享的数据，如用户信息、主题等。",
+      "tags": ["state-management", "concept"],
+      "options": ["单个输入框的临时值", "用户登录信息和跨页面共享数据", "组件内部动画状态", "一次性弹窗显隐"]
+    },
+    {
+      "id": "A05-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "MobX 采用响应式编程，当可观察数据变化时会自动追踪依赖并更新视图。",
+      "answer": ["true"],
+      "explanation": "MobX 通过可观察对象和自动依赖追踪实现响应式更新。",
+      "tags": ["mobx", "reactive"]
+    },
+    {
+      "id": "A05-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "React 中 useState 返回的第二个值的作用是？",
+      "answer": ["用于更新状态的函数"],
+      "explanation": "useState 返回当前状态和更新函数 [state, setState]。",
+      "tags": ["react", "hooks"],
+      "options": ["组件的引用", "用于更新状态的函数", "上一次的 props", "DOM 节点"]
+    },
+    {
+      "id": "A05-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "前端数据持久化常见的存储方式有哪些？",
+      "answer": ["localStorage", "sessionStorage", "IndexedDB"],
+      "explanation": "localStorage、sessionStorage、IndexedDB 是浏览器端常见的持久化存储方案。",
+      "tags": ["storage", "browser"],
+      "options": ["localStorage", "sessionStorage", "IndexedDB", "MySQL", "Redis"]
+    },
+    {
+      "id": "A05-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "GraphQL 与 REST 相比，最核心的区别是？",
+      "answer": ["客户端可以精确声明所需数据，减少过度获取"],
+      "explanation": "GraphQL 允许客户端按需查询字段，避免 REST 中常见的过度获取或不足获取。",
+      "tags": ["graphql", "api"],
+      "options": ["只能使用 POST 请求", "客户端可以精确声明所需数据，减少过度获取", "不支持缓存", "必须使用 WebSocket"]
+    },
+    {
+      "id": "A05-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Redux Toolkit 中 createSlice 的作用是？",
+      "answer": ["简化 reducer 和 action 的创建，自动生成 action creators"],
+      "explanation": "createSlice 通过定义初始状态和 reducers，自动生成 action creators 和 reducer。",
+      "tags": ["redux-toolkit", "state-management"],
+      "options": ["创建 React 组件", "简化 reducer 和 action 的创建，自动生成 action creators", "发送 HTTP 请求", "管理路由状态"]
+    },
+    {
+      "id": "A05-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "React Query / TanStack Query 主要用于服务端状态管理，而非客户端全局状态管理。",
+      "answer": ["true"],
+      "explanation": "React Query 专注于服务端状态的缓存、同步和更新，与 Redux 等客户端状态管理工具定位不同。",
+      "tags": ["react-query", "server-state"]
+    },
+    {
+      "id": "A05-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "设计大型前端应用的状态管理架构时，应考虑哪些原则？",
+      "answer": ["按领域拆分状态", "区分服务端状态与客户端状态", "避免状态过度集中"],
+      "explanation": "大型应用应按领域拆分状态，区分服务端和客户端状态，避免单一状态树过于臃肿。",
+      "tags": ["state-management", "architecture"],
+      "options": ["按领域拆分状态", "区分服务端状态与客户端状态", "避免状态过度集中", "所有状态都放全局", "不区分 UI 状态和业务状态"]
+    },
+    {
+      "id": "A05-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Zustand 相比 Redux 的一个显著优势是？",
+      "answer": ["API 更简洁，配置更少，适合中小型状态管理"],
+      "explanation": "Zustand 以简洁的 API 和较少的样板代码著称，适合中小规模状态管理。",
+      "tags": ["zustand", "state-management"],
+      "options": ["必须配合大量中间件", "API 更简洁，配置更少，适合中小型状态管理", "只能用于 Vue", "不支持 TypeScript"]
+    },
+    {
+      "id": "A05-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在数据同步场景中，处理乐观更新（Optimistic Update）的关键是？",
+      "answer": ["先更新 UI，请求失败时回滚或补偿"],
+      "explanation": "乐观更新先假设请求成功更新 UI，失败时进行回滚或错误提示。",
+      "tags": ["state-management", "optimistic-update"],
+      "options": ["等待服务器返回后再更新 UI", "先更新 UI，请求失败时回滚或补偿", "禁止用户操作直到请求完成", "直接丢弃失败请求"]
+    },
+    {
+      "id": "A05-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "前端状态管理中的副作用处理通常包括哪些场景？",
+      "answer": ["异步数据请求", "本地存储读写", "路由跳转"],
+      "explanation": "副作用是不直接修改状态的操作，如异步请求、存储读写、路由跳转等。",
+      "tags": ["state-management", "side-effects"],
+      "options": ["异步数据请求", "本地存储读写", "路由跳转", "纯函数计算新状态", "组件渲染"]
+    },
+    {
+      "id": "A05-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在微前端架构中，多个子应用共享全局状态的最佳实践是？",
+      "answer": ["通过基座定义最小化的共享协议，各子应用保持自身状态自治"],
+      "explanation": "微前端应尽量减少全局状态耦合，通过基座约定最小共享协议，子应用保持自治。",
+      "tags": ["micro-frontend", "state-management"],
+      "options": ["所有子应用直接修改同一个全局对象", "通过基座定义最小化的共享协议，各子应用保持自身状态自治", "禁止使用任何状态管理", "将状态全部存放到 localStorage"]
+    },
+    {
+      "id": "A05-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计高性能的状态更新策略时，应避免哪些问题？",
+      "answer": ["不必要的状态提升", "频繁创建新引用导致过度渲染", "在 reducer 中执行副作用"],
+      "explanation": "状态设计应避免不必要提升、避免引用频繁变化导致重渲染，reducer 应保持纯函数。",
+      "tags": ["state-management", "performance"],
+      "options": ["不必要的状态提升", "频繁创建新引用导致过度渲染", "在 reducer 中执行副作用", "合理使用选择器缓存", "将派生状态也存入 store"]
+    },
+    {
+      "id": "A05-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "对于需要离线可用的前端应用，数据同步架构应优先考虑？",
+      "answer": ["本地优先（Local-first）或缓存策略与冲突解决机制"],
+      "explanation": "离线场景需要本地数据优先、网络恢复后同步，并处理并发冲突。",
+      "tags": ["state-management", "offline"],
+      "options": ["完全依赖实时网络请求", "本地优先（Local-first）或缓存策略与冲突解决机制", "禁用所有缓存", "每次操作都刷新整个页面"]
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "domainId": "E10-node-bff",
+  "domainName": "Node.js / BFF 服务端",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E10-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "BFF（Backend for Frontend）层的主要职责是？",
+      "answer": ["为前端聚合和适配后端服务接口"],
+      "explanation": "BFF 作为面向前端的中间层，负责接口聚合、数据裁剪和协议转换。",
+      "tags": ["bff", "architecture"],
+      "options": ["替代数据库", "为前端聚合和适配后端服务接口", "编写 CSS 样式", "渲染原生应用界面"]
+    },
+    {
+      "id": "E10-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Node.js 中处理 HTTP 请求最常用的 Web 框架是？",
+      "answer": ["Express / Koa / Fastify"],
+      "explanation": "Express、Koa、Fastify 是 Node.js 生态中最流行的 Web 框架。",
+      "tags": ["nodejs", "framework"],
+      "options": ["Express / Koa / Fastify", "Spring Boot", "Django", "Laravel"]
+    },
+    {
+      "id": "E10-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "Node.js 采用单线程事件循环模型，因此适合处理 I/O 密集型任务。",
+      "answer": ["true"],
+      "explanation": "Node.js 的非阻塞 I/O 和事件循环使其在 I/O 密集型场景表现出色。",
+      "tags": ["nodejs", "event-loop"]
+    },
+    {
+      "id": "E10-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "在 BFF 层对后端微服务接口进行聚合的主要好处是？",
+      "answer": ["减少前端请求次数，简化前端数据模型"],
+      "explanation": "聚合接口可以减少前端与服务端的交互次数，降低前端处理复杂度。",
+      "tags": ["bff", "aggregation"],
+      "options": ["减少前端请求次数，简化前端数据模型", "提高数据库写入速度", "替代前端框架", "减少服务器数量"]
+    },
+    {
+      "id": "E10-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "Node.js 服务端常见的安全防护措施包括哪些？",
+      "answer": ["输入校验", "防止 SQL/NoSQL 注入", "设置合理的 CORS 策略"],
+      "explanation": "服务端安全需要从输入校验、注入防护、CORS 等方面综合防护。",
+      "tags": ["nodejs", "security"],
+      "options": ["输入校验", "防止 SQL/NoSQL 注入", "设置合理的 CORS 策略", "禁用所有日志", "信任所有客户端输入"]
+    },
+    {
+      "id": "E10-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "package.json 中用于定义项目入口文件的字段是？",
+      "answer": ["main"],
+      "explanation": "main 字段指定模块的入口文件。",
+      "tags": ["nodejs", "package"],
+      "options": ["scripts", "main", "dependencies", "devDependencies"]
+    },
+    {
+      "id": "E10-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Node.js 中避免回调地狱最常用的方案是？",
+      "answer": ["Promise / async-await"],
+      "explanation": "Promise 和 async/await 让异步代码更接近同步写法，避免深层回调嵌套。",
+      "tags": ["nodejs", "async"],
+      "options": ["同步阻塞调用", "Promise / async-await", "全局变量传递", "eval 执行字符串"]
+    },
+    {
+      "id": "E10-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "BFF 层适合承载用户认证、限流、缓存等横切关注点。",
+      "answer": ["true"],
+      "explanation": "BFF 常作为前端与后端之间的网关，处理认证、限流、缓存等通用能力。",
+      "tags": ["bff", "gateway"]
+    },
+    {
+      "id": "E10-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "提升 Node.js BFF 服务性能的可行措施有哪些？",
+      "answer": ["启用接口缓存", "使用连接池访问数据库", "异步非阻塞调用下游服务"],
+      "explanation": "缓存、连接池和非阻塞调用都是提升 Node.js 服务性能的有效手段。",
+      "tags": ["nodejs", "performance"],
+      "options": ["启用接口缓存", "使用连接池访问数据库", "异步非阻塞调用下游服务", "每个请求都新建数据库连接", "在主线程执行大量计算"]
+    },
+    {
+      "id": "E10-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在 BFF 中处理微服务调用超时的最佳策略是？",
+      "answer": ["设置超时和熔断降级，返回兜底数据或友好错误"],
+      "explanation": "BFF 应通过超时控制、熔断和降级保证前端体验稳定。",
+      "tags": ["bff", "resilience"],
+      "options": ["无限等待直到成功", "设置超时和熔断降级，返回兜底数据或友好错误", "直接让前端重试", "忽略该请求"]
+    },
+    {
+      "id": "E10-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪个中间件常用于 Node.js 服务的请求体解析？",
+      "answer": ["body-parser"],
+      "explanation": "body-parser 是 Express/Koa 生态中解析 JSON、URL 编码请求体的常用中间件。",
+      "tags": ["nodejs", "middleware"],
+      "options": ["body-parser", "redux", "lodash", "webpack"]
+    },
+    {
+      "id": "E10-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "Node.js 服务端日志记录应包含哪些关键信息？",
+      "answer": ["请求路径与方法", "响应状态码", "耗时", "错误堆栈"],
+      "explanation": "完整日志应包含请求信息、状态码、耗时和错误堆栈，便于排查问题。",
+      "tags": ["nodejs", "logging"],
+      "options": ["请求路径与方法", "响应状态码", "耗时", "错误堆栈", "用户密码明文"]
+    },
+    {
+      "id": "E10-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "BFF 层演变为多个前端团队共用一套服务时，最合理的演进方向是？",
+      "answer": ["按业务域拆分为多个 BFF 服务，各团队自治"],
+      "explanation": "随着团队扩大，BFF 应按业务域拆分，避免单点瓶颈和职责混乱。",
+      "tags": ["bff", "scalability"],
+      "options": ["所有前端共用一个巨型 BFF", "按业务域拆分为多个 BFF 服务，各团队自治", "将 BFF 逻辑全部迁移到前端", "删除 BFF 层"]
+    },
+    {
+      "id": "E10-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计高可用的 Node.js BFF 架构时，应考虑哪些方面？",
+      "answer": ["负载均衡", "健康检查", "优雅启停", "分布式追踪"],
+      "explanation": "高可用 BFF 需要负载均衡、健康检查、优雅启停和链路追踪等能力。",
+      "tags": ["nodejs", "high-availability"],
+      "options": ["负载均衡", "健康检查", "优雅启停", "分布式追踪", "单点部署以简化运维"]
+    },
+    {
+      "id": "E10-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "Node.js 服务中，CPU 密集型任务最合适的处理方式是？",
+      "answer": ["使用 Worker Threads 或将计算任务异步化到独立服务"],
+      "explanation": "CPU 密集型任务会阻塞事件循环，应使用 Worker Threads 或独立服务处理。",
+      "tags": ["nodejs", "worker-threads"],
+      "options": ["在主线程同步执行", "使用 Worker Threads 或将计算任务异步化到独立服务", "增加更多 HTTP 路由", "关闭事件循环"]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "frontend-architect-website",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "前端架构师知识图谱增强型静态网站",
   "type": "module",
   "scripts": {

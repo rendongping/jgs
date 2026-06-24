@@ -1,0 +1,155 @@
+{
+  "domainId": "E05-design-system",
+  "domainName": "设计体系与组件库",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E05-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "设计体系（Design System）最核心的价值是？",
+      "answer": ["统一设计语言并提升产品一致性与研发效率"],
+      "explanation": "设计体系通过统一的设计语言、组件和模式，保证跨团队、跨产品的一致性与效率。",
+      "tags": ["design-system", "concept"],
+      "options": ["替代产品经理写需求", "统一设计语言并提升产品一致性与研发效率", "减少设计师数量", "自动生成后端接口"]
+    },
+    {
+      "id": "E05-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "组件库中，描述组件 API 的文档通常使用哪种工具或格式？",
+      "answer": ["Storybook"],
+      "explanation": "Storybook 是前端组件开发和文档化的常用工具。",
+      "tags": ["component-library", "documentation"],
+      "options": ["Storybook", "Jenkins", "Docker", "Kubernetes"]
+    },
+    {
+      "id": "E05-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "设计 Token（Design Token）通常用于存储颜色、字号、间距等可复用的设计变量。",
+      "answer": ["true"],
+      "explanation": "Design Token 是设计体系中的原子化变量，用于颜色和尺寸等视觉属性。",
+      "tags": ["design-token", "concept"]
+    },
+    {
+      "id": "E05-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪项最符合原子化设计（Atomic Design）中“原子”的定义？",
+      "answer": ["按钮、输入框等不可再拆分的最小 UI 元素"],
+      "explanation": "Atomic Design 将界面拆分为原子、分子、组织、模板、页面，原子是最小不可再拆分元素。",
+      "tags": ["atomic-design", "methodology"],
+      "options": ["完整页面", "按钮、输入框等不可再拆分的最小 UI 元素", "页面模板", "业务组件组合"]
+    },
+    {
+      "id": "E05-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "组件库研发中常用的代码质量保障手段包括哪些？",
+      "answer": ["单元测试", "类型检查", "视觉回归测试"],
+      "explanation": "组件库需要单元测试、类型检查和视觉回归测试来保证 API 和 UI 稳定。",
+      "tags": ["component-library", "quality"],
+      "options": ["单元测试", "类型检查", "视觉回归测试", "手动逐个页面检查", "删除所有注释"]
+    },
+    {
+      "id": "E05-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Headless UI 组件库的主要特点是？",
+      "answer": ["提供交互逻辑，不自带样式"],
+      "explanation": "Headless UI 只封装交互和无障碍逻辑，样式完全由使用者决定。",
+      "tags": ["headless-ui", "component-library"],
+      "options": ["提供完整视觉样式", "提供交互逻辑，不自带样式", "只支持移动端", "不包含任何事件处理"]
+    },
+    {
+      "id": "E05-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "组件库版本发布时，采用语义化版本（SemVer），修复非兼容性 Bug 应升级？",
+      "answer": ["patch 位"],
+      "explanation": "SemVer 中 MAJOR.MINOR.PATCH，PATCH 用于兼容的问题修复。",
+      "tags": ["semver", "release"],
+      "options": ["major 位", "minor 位", "patch 位", "任意位都可以"]
+    },
+    {
+      "id": "E05-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "在 Monorepo 中管理组件库时，每个组件可以独立版本发布，也可以统一版本发布。",
+      "answer": ["true"],
+      "explanation": "Monorepo 支持独立版本和固定版本两种策略，具体取决于工具和发布策略。",
+      "tags": ["monorepo", "component-library"]
+    },
+    {
+      "id": "E05-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "设计 Token 相比硬编码样式值的优势有哪些？",
+      "answer": ["支持主题切换", "便于跨平台复用", "集中管理品牌一致性"],
+      "explanation": "Token 化样式支持主题、跨平台和集中管理，但不能自动修复所有设计问题。",
+      "tags": ["design-token", "theming"],
+      "options": ["支持主题切换", "便于跨平台复用", "集中管理品牌一致性", "完全替代设计师工作", "减少 HTML 标签"]
+    },
+    {
+      "id": "E05-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "组件库的无障碍（a11y）测试，最合适的方式是？",
+      "answer": ["结合自动化检查工具和键盘/屏幕阅读器人工测试"],
+      "explanation": "无障碍需要自动化工具筛查与人工真实使用场景测试相结合。",
+      "tags": ["a11y", "testing"],
+      "options": ["只看视觉设计稿", "结合自动化检查工具和键盘/屏幕阅读器人工测试", "仅检查颜色是否鲜艳", "只测试 Chrome 浏览器"]
+    },
+    {
+      "id": "E05-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在跨团队协作中，设计体系最有效的推广方式是？",
+      "answer": ["提供文档、示例、模板并建立贡献和反馈机制"],
+      "explanation": "设计体系需要通过文档、示例、反馈和贡献机制持续运营，而非一次性发布。",
+      "tags": ["design-system", "collaboration"],
+      "options": ["强制要求使用但不提供文档", "提供文档、示例、模板并建立贡献和反馈机制", "只在设计团队内部使用", "每次需求都重新设计"]
+    },
+    {
+      "id": "E05-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "评估一个组件库成熟度可考虑的维度有哪些？",
+      "answer": ["文档完整度", "测试覆盖率", "API 稳定性", "主题定制能力"],
+      "explanation": "成熟的组件库应有完善文档、高测试覆盖率、稳定 API 和可定制主题。",
+      "tags": ["component-library", "maturity"],
+      "options": ["文档完整度", "测试覆盖率", "API 稳定性", "主题定制能力", "组件数量无限多"]
+    },
+    {
+      "id": "E05-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在大型企业内推广设计体系时，遇到业务团队抵触的首要应对策略是？",
+      "answer": ["找到业务痛点，用实际案例证明效率和质量提升"],
+      "explanation": "推广设计体系需要解决真实业务问题，通过数据和案例建立信任。",
+      "tags": ["design-system", "adoption"],
+      "options": ["强制行政命令推广", "找到业务痛点，用实际案例证明效率和质量提升", "停止所有其他开发工作", "仅依赖设计团队宣讲"]
+    },
+    {
+      "id": "E05-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "构建可扩展的设计 Token 架构时，应遵循哪些原则？",
+      "answer": ["按用途分层（如 global、alias、component）", "命名语义化", "支持多主题和多平台"],
+      "explanation": "可扩展的 Token 架构需要分层、语义化命名并支持多主题和多平台输出。",
+      "tags": ["design-token", "architecture"],
+      "options": ["按用途分层（如 global、alias、component）", "命名语义化", "支持多主题和多平台", "所有值都写死在组件内部", "只支持一个品牌色"]
+    },
+    {
+      "id": "E05-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "当设计体系需要同时支持 Web、iOS、Android 时，最适合的做法是？",
+      "answer": ["建立跨平台 Design Token 和共享设计原则，各平台实现对应组件"],
+      "explanation": "跨平台设计体系应共享 Token 和设计原则，同时允许各平台按自身技术栈实现。",
+      "tags": ["design-system", "cross-platform"],
+      "options": ["每个平台完全独立设计", "建立跨平台 Design Token 和共享设计原则，各平台实现对应组件", "强制所有平台使用同一套代码", "只支持 Web 平台"]
+    }
+  ]
+}

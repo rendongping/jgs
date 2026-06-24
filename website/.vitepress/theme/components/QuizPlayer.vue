@@ -50,6 +50,7 @@
       <div class="quiz-result-actions">
         <button class="quiz-start-btn" @click="resetQuiz">再测一次</button>
         <button class="quiz-start-btn secondary" @click="goToAssessment">查看自评雷达</button>
+        <button class="quiz-start-btn secondary" @click="goToDashboard">学习数据中心</button>
       </div>
 
       <div v-if="weakTags.length" class="quiz-weak-tags">
@@ -151,7 +152,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
+import { useLearningData } from '../composables/useLearningData.js';
 
 const domains = [
   { id: 'F01-javascript', name: 'JavaScript' },
@@ -161,12 +163,27 @@ const domains = [
   { id: 'F05-security', name: 'Security' },
   { id: 'E01-build-tools', name: 'Build Tools' },
   { id: 'E02-monorepo', name: 'Monorepo' },
+  { id: 'E03-ci-cd', name: 'CI/CD' },
   { id: 'E04-code-quality', name: 'Code Quality' },
+  { id: 'E05-design-system', name: 'Design System' },
   { id: 'E06-react', name: 'React' },
   { id: 'E07-vue', name: 'Vue' },
+  { id: 'E08-cross-platform', name: 'Cross Platform' },
+  { id: 'E09-ai-engineering', name: 'AI Engineering' },
+  { id: 'E10-node-bff', name: 'Node.js/BFF' },
   { id: 'A01-system-architecture', name: 'System Architecture' },
+  { id: 'A02-micro-frontend', name: 'Micro Frontend' },
   { id: 'A03-performance', name: 'Performance' },
+  { id: 'A04-quality', name: 'Quality' },
+  { id: 'A05-data-state', name: 'Data & State' },
+  { id: 'A06-observability', name: 'Observability' },
+  { id: 'L01-business', name: 'Business' },
+  { id: 'L02-team', name: 'Team' },
+  { id: 'L03-strategy', name: 'Strategy' },
 ];
+
+const { data, addQuizRecord } = useLearningData();
+const history = computed(() => data.value?.quizHistory || []);
 
 const selectedDomain = ref('');
 const questionCount = ref(10);
@@ -174,7 +191,6 @@ const loading = ref(false);
 const error = ref('');
 const currentIndex = ref(0);
 const answers = ref({});
-const history = ref([]);
 const quizState = ref({
   started: false,
   finished: false,
@@ -197,13 +213,6 @@ const weakTags = computed(() => {
     }
   });
   return Array.from(tagSet).slice(0, 10);
-});
-
-onMounted(() => {
-  try {
-    const raw = localStorage.getItem('quiz-history');
-    if (raw) history.value = JSON.parse(raw);
-  } catch {}
 });
 
 function levelText(level) {
@@ -240,10 +249,9 @@ async function startQuiz() {
       allQuestions = (data.questions || []).map(q => ({ ...q, domainId: data.domainId, domainName: data.domainName }));
     } else {
       const files = domains.map(d => `/quizzes/${d.id}.json`);
-      const results = await Promise.all(files.map(f => fetch(f).then(r => r.json())));
+      const results = await Promise.all(files.map(f => fetch(f).then(r => r.json()).catch(() => ({ questions: [] }))));
       results.forEach(data => {
         const qs = (data.questions || []).map(q => ({ ...q, domainId: data.domainId, domainName: data.domainName }));
-        // 综合测评每个领域均匀抽题
         const perDomain = Math.max(1, Math.floor(questionCount.value / domains.length));
         allQuestions.push(...shuffle(qs).slice(0, perDomain));
       });
@@ -351,10 +359,7 @@ function submitQuiz() {
     total: quizState.value.questions.length,
     correct,
   };
-  history.value.unshift(record);
-  try {
-    localStorage.setItem('quiz-history', JSON.stringify(history.value.slice(0, 20)));
-  } catch {}
+  addQuizRecord(record);
 }
 
 function resetQuiz() {
@@ -365,7 +370,13 @@ function resetQuiz() {
 
 function goToAssessment() {
   if (typeof window !== 'undefined') {
-    window.location.href = '/learning-path/capability-self-assessment';
+    window.location.href = '/guide/self-assessment';
+  }
+}
+
+function goToDashboard() {
+  if (typeof window !== 'undefined') {
+    window.location.href = '/learning-path/dashboard';
   }
 }
 

@@ -11,7 +11,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, watch } from 'vue';
+import { useLearningData } from '../composables/useLearningData.js';
 
 const props = defineProps({
   domainId: {
@@ -20,23 +21,23 @@ const props = defineProps({
   }
 });
 
+const { isDomainCompleted, setDomainCompleted } = useLearningData();
 const isCompleted = ref(false);
 
-function toggleComplete() {
-  isCompleted.value = !isCompleted.value;
-  const key = `domain-completed-${props.domainId}`;
-  if (isCompleted.value) {
-    localStorage.setItem(key, 'true');
-  } else {
-    localStorage.removeItem(key);
-  }
-  window.dispatchEvent(new CustomEvent('progress-updated'));
+function sync() {
+  isCompleted.value = isDomainCompleted(props.domainId);
 }
 
-onMounted(() => {
-  const key = `domain-completed-${props.domainId}`;
-  isCompleted.value = localStorage.getItem(key) === 'true';
-});
+function toggleComplete() {
+  const next = !isCompleted.value;
+  setDomainCompleted(props.domainId, next);
+  isCompleted.value = next;
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('progress-updated'));
+  }
+}
+
+watch(() => props.domainId, sync, { immediate: true });
 </script>
 
 <style scoped>

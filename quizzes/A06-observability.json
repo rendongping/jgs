@@ -1,0 +1,155 @@
+{
+  "domainId": "A06-observability",
+  "domainName": "可观测性与稳定性",
+  "version": 1,
+  "questions": [
+    {
+      "id": "A06-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "可观测性（Observability）的三大支柱通常指？",
+      "answer": ["日志、指标、链路追踪"],
+      "explanation": "日志（Logs）、指标（Metrics）、链路追踪（Traces）是可观测性的三大支柱。",
+      "tags": ["observability", "concept"],
+      "options": ["日志、指标、链路追踪", "HTML、CSS、JavaScript", "需求、设计、测试", "编译、打包、部署"]
+    },
+    {
+      "id": "A06-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "前端错误监控中，用于收集 JavaScript 运行时错误的事件是？",
+      "answer": ["window.onerror 和 unhandledrejection"],
+      "explanation": "window.onerror 捕获同步错误，unhandledrejection 捕获未处理的 Promise 拒绝。",
+      "tags": ["monitoring", "error"],
+      "options": ["click", "window.onerror 和 unhandledrejection", "resize", "scroll"]
+    },
+    {
+      "id": "A06-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "SLA（服务等级协议）通常用于量化服务的可用性目标，例如 99.9% 表示每年允许约 8.76 小时停机。",
+      "answer": ["true"],
+      "explanation": "99.9% 年化可用性对应约 8.76 小时停机时间，是常见的 SLA 指标。",
+      "tags": ["sla", "reliability"]
+    },
+    {
+      "id": "A06-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "前端性能监控中，衡量页面最大内容绘制时间的指标是？",
+      "answer": ["LCP"],
+      "explanation": "LCP（Largest Contentful Paint）衡量视口中最大内容元素的渲染时间。",
+      "tags": ["performance", "web-vitals"],
+      "options": ["FCP", "LCP", "FID", "CLS"]
+    },
+    {
+      "id": "A06-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "稳定性建设中的常见实践包括哪些？",
+      "answer": ["降级策略", "熔断限流", "超时控制"],
+      "explanation": "降级、熔断、限流和超时控制是保障系统稳定性的常用手段。",
+      "tags": ["stability", "reliability"],
+      "options": ["降级策略", "熔断限流", "超时控制", "无限重试", "关闭所有监控"]
+    },
+    {
+      "id": "A06-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个工具常用于前端错误监控和性能追踪？",
+      "answer": ["Sentry"],
+      "explanation": "Sentry 是常用的前端错误监控和性能追踪平台。",
+      "tags": ["monitoring", "sentry"],
+      "options": ["Sentry", "Webpack", "Babel", "PostCSS"]
+    },
+    {
+      "id": "A06-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "链路追踪（Tracing）中，用于标识一次完整请求上下文的 ID 是？",
+      "answer": ["Trace ID"],
+      "explanation": "Trace ID 贯穿一次完整请求的所有服务调用，用于关联链路中的各个 Span。",
+      "tags": ["tracing", "distributed"],
+      "options": ["User ID", "Trace ID", "Session ID", "Cookie ID"]
+    },
+    {
+      "id": "A06-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "熔断器打开后，短期内会直接拒绝请求，防止故障级联扩散。",
+      "answer": ["true"],
+      "explanation": "熔断器在检测到足够多错误后打开，快速失败以避免对故障服务持续施压。",
+      "tags": ["circuit-breaker", "stability"]
+    },
+    {
+      "id": "A06-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "前端可观测性数据采集时，应注意哪些问题？",
+      "answer": ["避免采集敏感用户信息", "控制采样率以降低成本", "保证异步上报不阻塞主线程"],
+      "explanation": "前端监控需要平衡数据价值与隐私、成本和性能，避免阻塞主线程和泄露隐私。",
+      "tags": ["observability", "data-collection"],
+      "options": ["避免采集敏感用户信息", "控制采样率以降低成本", "保证异步上报不阻塞主线程", "采集所有用户输入明文", "同步阻塞上报以保证不丢失"]
+    },
+    {
+      "id": "A06-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "衡量前端页面交互响应性的 Core Web Vitals 指标是？",
+      "answer": ["INP"],
+      "explanation": "INP（Interaction to Next Paint）衡量页面对用户交互的整体响应性，已替代 FID。",
+      "tags": ["performance", "web-vitals"],
+      "options": ["LCP", "INP", "TTFB", "FCP"]
+    },
+    {
+      "id": "A06-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在告警策略设计中，避免告警疲劳的关键是？",
+      "answer": ["设置合理的阈值、分级和降噪策略"],
+      "explanation": "合理的阈值、告警分级、合并降噪可以减少无效告警，避免告警疲劳。",
+      "tags": ["monitoring", "alerting"],
+      "options": ["所有事件都触发 P0 告警", "设置合理的阈值、分级和降噪策略", "关闭所有告警", "只发给一个人"]
+    },
+    {
+      "id": "A06-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "提升前端稳定性的监控维度包括哪些？",
+      "answer": ["JS 错误率", "接口成功率与耗时", "资源加载失败率", "核心页面性能"],
+      "explanation": "前端稳定性需要从错误、接口、资源、性能等多维度进行监控。",
+      "tags": ["monitoring", "stability"],
+      "options": ["JS 错误率", "接口成功率与耗时", "资源加载失败率", "核心页面性能", "开发人员每日步数"]
+    },
+    {
+      "id": "A06-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "系统出现偶发性故障但难以复现，最有效的排查思路是？",
+      "answer": ["通过链路追踪、日志关联和监控指标定位异常窗口和依赖"],
+      "explanation": "偶发故障需要借助可观测数据关联分析，从时间窗口、依赖和指标中寻找规律。",
+      "tags": ["troubleshooting", "observability"],
+      "options": ["反复手动点击尝试复现", "通过链路追踪、日志关联和监控指标定位异常窗口和依赖", "直接重启服务器", "等待故障自行消失"]
+    },
+    {
+      "id": "A06-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计高可用前端服务时，应考虑的容灾策略有哪些？",
+      "answer": ["静态资源多 CDN 备份", "接口异常降级", "客户端缓存兜底", "异常自动上报与回滚"],
+      "explanation": "高可用前端需要资源多备份、接口降级、缓存兜底和快速回滚等容灾能力。",
+      "tags": ["high-availability", "disaster-recovery"],
+      "options": ["静态资源多 CDN 备份", "接口异常降级", "客户端缓存兜底", "异常自动上报与回滚", "所有服务部署在单一节点"]
+    },
+    {
+      "id": "A06-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在混沌工程实践中，故意注入故障的主要目的是？",
+      "answer": ["验证系统在异常条件下的恢复能力和韧性"],
+      "explanation": "混沌工程通过主动注入故障，验证系统韧性和恢复机制是否有效。",
+      "tags": ["chaos-engineering", "reliability"],
+      "options": ["制造线上事故", "验证系统在异常条件下的恢复能力和韧性", "降低系统可用性", "惩罚值班人员"]
+    }
+  ]
+}

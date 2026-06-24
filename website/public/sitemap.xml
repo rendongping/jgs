@@ -121,6 +121,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/contribute</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/engineering/ai-engineering</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -416,7 +421,22 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/learning-path/ai-assistant</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/learning-path/coding-challenges</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/learning-path/dashboard</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/learning-path/interview-practice</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

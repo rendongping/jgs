@@ -34,8 +34,9 @@
         </a>
       </div>
       <div class="recommendation-actions">
-        <a href="/learning-path/capability-self-assessment" class="recommendation-link">去自评</a>
+        <a href="/guide/self-assessment" class="recommendation-link">去自评</a>
         <a href="/learning-path/quizzes" class="recommendation-link">去测评</a>
+        <a href="/learning-path/dashboard" class="recommendation-link">数据中心</a>
       </div>
     </div>
 
@@ -56,7 +57,7 @@
               :key="domain.id"
               :href="domain.link"
               class="domain-tag"
-              :class="{ weak: isWeak(domain.id) }"
+              :class="{ weak: isWeak(domain.id), completed: isCompleted(domain.id) }"
             >
               {{ domain.name }}
               <span v-if="ratings[domain.id]" class="domain-rating">L{{ ratings[domain.id] }}</span>
@@ -69,7 +70,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
+import { useLearningData } from '../composables/useLearningData.js';
 
 const routes = [
   {
@@ -208,19 +210,19 @@ const allDomains = routes.flatMap(r => r.levels.flatMap(l => l.domains));
 const idToDomain = Object.fromEntries(allDomains.map(d => [d.id, d]));
 
 const selectedRoute = ref('business');
-const ratings = ref({});
-const quizHistory = ref([]);
+const { data, getRating, isDomainCompleted } = useLearningData();
+
+const ratings = computed(() => data.value?.ratings || {});
+const ratedCount = computed(() => Object.keys(ratings.value).length);
+const quizHistory = computed(() => data.value?.quizHistory || []);
 
 const currentRoute = computed(() => {
   return routes.find(r => r.id === selectedRoute.value);
 });
 
-const ratedCount = computed(() => Object.keys(ratings.value).length);
-
 const recommendations = computed(() => {
   const list = [];
 
-  // 1. 自评 <= 2 的薄弱领域
   Object.entries(ratings.value).forEach(([id, rating]) => {
     const d = idToDomain[id];
     if (d && rating <= 2) {
@@ -228,7 +230,6 @@ const recommendations = computed(() => {
     }
   });
 
-  // 2. 测评历史得分 < 60 的领域
   const latestByDomain = {};
   quizHistory.value.forEach(h => {
     if (h.domainId && !latestByDomain[h.domainId]) {
@@ -242,7 +243,6 @@ const recommendations = computed(() => {
     }
   });
 
-  // 3. 当前路径中尚未自评的领域（优先级较低）
   const currentIds = currentRoute.value?.levels.flatMap(l => l.domains.map(d => d.id)) || [];
   currentIds.forEach(id => {
     if (!ratings.value[id] && !list.find(item => item.id === id)) {
@@ -251,22 +251,15 @@ const recommendations = computed(() => {
     }
   });
 
-  // 4. 去除重复，按优先级排序
   const seen = new Set();
   return list.filter(item => {
     if (seen.has(item.id)) return false;
     seen.add(item.id);
     return true;
   }).sort((a, b) => {
-    // 自评薄弱 > 测评低分 > 路径缺口
     const priority = { 'self-rating': 0, quiz: 1, 'route-gap': 2 };
     return priority[a.source] - priority[b.source];
   });
-});
-
-onMounted(() => {
-  loadRatings();
-  loadQuizHistory();
 });
 
 function selectRoute(id) {
@@ -274,33 +267,17 @@ function selectRoute(id) {
 }
 
 function isWeak(id) {
-  const r = ratings.value[id];
-  return r !== undefined && r <= 2;
+  const r = getRating(id);
+  return r > 0 && r <= 2;
+}
+
+function isCompleted(id) {
+  return isDomainCompleted(id);
 }
 
 function sourceText(source) {
   const map = { 'self-rating': '自评薄弱', quiz: '测评低分', 'route-gap': '路径缺口' };
   return map[source] || source;
-}
-
-function loadRatings() {
-  const result = {};
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key && key.startsWith('self-rating-')) {
-      const id = key.replace('self-rating-', '');
-      const value = parseInt(localStorage.getItem(key), 10);
-      if (!isNaN(value)) result[id] = value;
-    }
-  }
-  ratings.value = result;
-}
-
-function loadQuizHistory() {
-  try {
-    const raw = localStorage.getItem('quiz-history');
-    if (raw) quizHistory.value = JSON.parse(raw);
-  } catch {}
 }
 </script>
 
@@ -480,6 +457,12 @@ function loadQuizHistory() {
 .domain-tag.weak {
   border-color: #e53935;
   color: #e53935;
+}
+
+.domain-tag.completed {
+  background: #e8f5e9;
+  border-color: #43a047;
+  color: #43a047;
 }
 
 .domain-rating {

@@ -1,0 +1,155 @@
+{
+  "domainId": "L01-business",
+  "domainName": "业务洞察",
+  "version": 1,
+  "questions": [
+    {
+      "id": "L01-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "技术方案评审时，首要关注的业务价值是？",
+      "answer": ["方案是否解决核心业务问题并带来可衡量的收益"],
+      "explanation": "技术方案应服务于业务目标，优先评估其对业务问题的解决程度和可衡量收益。",
+      "tags": ["business", "decision"],
+      "options": ["使用了多少新技术", "方案是否解决核心业务问题并带来可衡量的收益", "代码行数是否最少", "是否能获得个人技术声誉"]
+    },
+    {
+      "id": "L01-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "产品需求文档中技术指标缺失时，技术负责人最合适的做法是？",
+      "answer": ["与产品经理共同补充性能、可用性、安全等关键指标"],
+      "explanation": "技术负责人应主动补齐技术指标，确保需求可落地、可验收。",
+      "tags": ["business", "requirements"],
+      "options": ["完全按字面理解开发", "与产品经理共同补充性能、可用性、安全等关键指标", "拒绝所有需求", "自行决定不告知产品"]
+    },
+    {
+      "id": "L01-003",
+      "type": "true-false",
+      "level": "basic",
+      "question": "理解业务模型有助于技术团队做出更符合长期发展的架构决策。",
+      "answer": ["true"],
+      "explanation": "业务理解能帮助技术团队识别核心域、优先级和扩展方向，做出更合理的架构选择。",
+      "tags": ["business", "architecture"]
+    },
+    {
+      "id": "L01-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "在资源有限的情况下，多个业务需求同时提出，最合理的优先级判断依据是？",
+      "answer": ["业务价值、紧急程度和实现成本的综合评估"],
+      "explanation": "优先级应基于业务价值、紧急程度和成本综合判断，而非单一因素。",
+      "tags": ["business", "prioritization"],
+      "options": ["哪个需求提出者职级最高", "业务价值、紧急程度和实现成本的综合评估", "哪个技术最有趣", "随机选择"]
+    },
+    {
+      "id": "L01-005",
+      "type": "multiple-choice",
+      "level": "basic",
+      "question": "技术负责人向业务方解释技术方案时，应避免哪些做法？",
+      "answer": ["堆砌技术术语", "忽视业务目标和成本约束", "只谈实现细节不谈收益"],
+      "explanation": "与业务方沟通应聚焦价值、成本和风险，避免过度技术化和忽视业务目标。",
+      "tags": ["business", "communication"],
+      "options": ["堆砌技术术语", "忽视业务目标和成本约束", "只谈实现细节不谈收益", "用业务语言说明价值", "明确风险与收益"]
+    },
+    {
+      "id": "L01-006",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "评估一个技术改进项目是否值得投入，最应关注的是？",
+      "answer": ["投入产出比和对业务目标的贡献"],
+      "explanation": "技术改进应服务于业务目标，评估其投入产出比和实际贡献。",
+      "tags": ["business", "roi"],
+      "options": ["技术是否前沿", "投入产出比和对业务目标的贡献", "是否能增加团队人数", "是否能延长项目周期"]
+    },
+    {
+      "id": "L01-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "业务方要求在极短时间内上线一个重要活动页面，技术团队应优先？",
+      "answer": ["评估可行性与风险，提出最小可行方案并明确质量边界"],
+      "explanation": "面对紧急需求，应在承诺前评估风险和可行方案，明确质量边界，避免盲目承诺。",
+      "tags": ["business", "risk"],
+      "options": ["无条件接受并全力加班", "评估可行性与风险，提出最小可行方案并明确质量边界", "直接拒绝", "推迟到下个季度"]
+    },
+    {
+      "id": "L01-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "技术债务的清理计划应与业务节奏对齐，而不是完全脱离业务独立推进。",
+      "answer": ["true"],
+      "explanation": "技术债务清理需要业务资源支持，应与业务目标和时间窗口对齐，持续小步推进。",
+      "tags": ["business", "tech-debt"]
+    },
+    {
+      "id": "L01-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "进行技术方案投资回报分析时，应纳入考虑的因素有哪些？",
+      "answer": ["开发成本", "运维成本", "预期业务收益", "机会成本"],
+      "explanation": "投资分析应综合考虑开发、运维、收益和机会成本，做出理性决策。",
+      "tags": ["business", "roi"],
+      "options": ["开发成本", "运维成本", "预期业务收益", "机会成本", "开发人员的个人偏好"]
+    },
+    {
+      "id": "L01-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "当业务数据指标出现明显下滑，技术团队第一步应做的是？",
+      "answer": ["配合业务和产品定位问题根因，区分技术因素与业务因素"],
+      "explanation": "指标下滑可能由多种因素导致，技术团队应先定位根因，再采取针对性措施。",
+      "tags": ["business", "data"],
+      "options": ["立即重构所有代码", "配合业务和产品定位问题根因，区分技术因素与业务因素", "增加服务器数量", "否认与系统有关"]
+    },
+    {
+      "id": "L01-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "技术团队推动一项需要跨部门协作的优化，最有效的切入方式是？",
+      "answer": ["找到共同目标，用数据和案例建立跨部门共识"],
+      "explanation": "跨部门协作需要共同目标和利益，数据和案例是建立信任的有效方式。",
+      "tags": ["business", "collaboration"],
+      "options": ["单方面下发命令", "找到共同目标，用数据和案例建立跨部门共识", "等待对方主动配合", "绕过对方直接实施"]
+    },
+    {
+      "id": "L01-012",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "技术负责人在业务规划中应承担的角色包括哪些？",
+      "answer": ["将业务目标转化为技术能力地图", "识别技术风险与机会", "评估资源投入与交付节奏"],
+      "explanation": "技术负责人应连接业务与技术，参与目标拆解、风险识别和资源评估。",
+      "tags": ["business", "leadership"],
+      "options": ["将业务目标转化为技术能力地图", "识别技术风险与机会", "评估资源投入与交付节奏", "只负责写代码", "完全由业务方决定技术方案"]
+    },
+    {
+      "id": "L01-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "公司业务战略转向，原有技术栈不再匹配新方向，技术负责人应？",
+      "answer": ["制定渐进式迁移路线，平衡业务连续性与技术演进"],
+      "explanation": "战略转向需要渐进式迁移，避免一刀切导致业务中断，同时推动技术演进。",
+      "tags": ["business", "strategy"],
+      "options": ["立即全面重写系统", "制定渐进式迁移路线，平衡业务连续性与技术演进", "坚持使用原有技术栈", "停止所有业务开发"]
+    },
+    {
+      "id": "L01-014",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "衡量技术团队对业务贡献的合理指标有哪些？",
+      "answer": ["需求交付周期", "线上故障率", "业务目标达成率", "系统稳定性"],
+      "explanation": "技术团队对业务的贡献应通过交付效率、质量、稳定性和业务目标达成来衡量。",
+      "tags": ["business", "metrics"],
+      "options": ["需求交付周期", "线上故障率", "业务目标达成率", "系统稳定性", "代码提交次数"]
+    },
+    {
+      "id": "L01-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在面对一个高价值但技术风险未知的新业务时，最合适的探索方式是？",
+      "answer": ["先以 MVP 快速验证假设，再根据反馈决定投入规模"],
+      "explanation": "高风险新业务应通过 MVP 验证假设，降低不确定性，再逐步扩大投入。",
+      "tags": ["business", "innovation"],
+      "options": ["直接投入全部资源开发完整产品", "先以 MVP 快速验证假设，再根据反馈决定投入规模", "完全放弃该业务", "复制竞品所有功能"]
+    }
+  ]
+}
