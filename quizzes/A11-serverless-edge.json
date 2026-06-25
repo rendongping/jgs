@@ -1,0 +1,136 @@
+{
+  "domainId": "A11-serverless-edge",
+  "domainName": "Serverless / Edge 架构",
+  "questions": [
+    {
+      "id": "A11-q01",
+      "type": "single",
+      "question": "Serverless 的核心优势是？",
+      "options": [
+        "完全免费",
+        "无需管理服务器，按需付费",
+        "没有冷启动",
+        "适合长时间任务"
+      ],
+      "answer": 1,
+      "explanation": "Serverless 无需管理服务器，按调用次数和资源使用付费。"
+    },
+    {
+      "id": "A11-q02",
+      "type": "single",
+      "question": "Edge 计算相比传统 Serverless 的主要优势是？",
+      "options": [
+        "更强的计算能力",
+        "更低的网络延迟",
+        "更便宜",
+        "更长的执行时间"
+      ],
+      "answer": 1,
+      "explanation": "Edge 计算在靠近用户的节点运行，延迟更低。"
+    },
+    {
+      "id": "A11-q03",
+      "type": "single",
+      "question": "以下哪个场景最适合 Edge 函数？",
+      "options": [
+        "大规模批处理",
+        "边缘 SSR 和 A/B 测试",
+        "训练 AI 模型",
+        "数据库主从同步"
+      ],
+      "answer": 1,
+      "explanation": "边缘 SSR 和 A/B 测试是 Edge 函数的典型场景。"
+    },
+    {
+      "id": "A11-q04",
+      "type": "single",
+      "question": "Edge 函数的主要限制是？",
+      "options": [
+        "不能使用 JavaScript",
+        "执行时间和资源受限",
+        "不能访问网络",
+        "不能处理 HTTP 请求"
+      ],
+      "answer": 1,
+      "explanation": "Edge 函数执行时间和 CPU/内存资源受限。"
+    },
+    {
+      "id": "A11-q05",
+      "type": "single",
+      "question": "以下哪种方式可以降低 Serverless 冷启动影响？",
+      "options": [
+        "增加函数代码体积",
+        "使用预留实例或保持活跃",
+        "减少依赖",
+        "B 和 C"
+      ],
+      "answer": 3,
+      "explanation": "减少依赖可降低启动时间，预留实例/保持活跃可避免冷启动。"
+    },
+    {
+      "id": "A11-q06",
+      "type": "multi",
+      "question": "Serverless 的常见触发源包括？",
+      "options": [
+        "HTTP 请求",
+        "定时触发",
+        "消息队列",
+        "用户本地文件"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "HTTP、定时、消息队列都是常见触发源，本地文件不是。"
+    },
+    {
+      "id": "A11-q07",
+      "type": "multi",
+      "question": "Edge 计算适用场景包括？",
+      "options": [
+        "边缘 SSR",
+        "A/B 测试",
+        "安全网关",
+        "大规模离线计算"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "边缘 SSR、A/B 测试、安全网关适合 Edge，大规模离线计算不适合。"
+    },
+    {
+      "id": "A11-q08",
+      "type": "multi",
+      "question": "降低供应商锁定的策略包括？",
+      "options": [
+        "抽象函数入口",
+        "避免专有 API",
+        "使用开源框架",
+        "深度使用某平台特有功能"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "抽象入口、避免专有 API、开源框架可降低锁定，深度使用专有功能会加剧锁定。"
+    },
+    {
+      "id": "A11-q09",
+      "type": "single",
+      "question": "以下哪个平台最适合 Next.js 的 Edge SSR？",
+      "options": [
+        "Cloudflare Workers",
+        "Vercel Edge",
+        "AWS Lambda@Edge",
+        "Deno Deploy"
+      ],
+      "answer": 1,
+      "explanation": "Vercel Edge 与 Next.js 集成最好，适合 Edge SSR。"
+    },
+    {
+      "id": "A11-q10",
+      "type": "single",
+      "question": "Edge 函数中的状态管理最佳实践是？",
+      "options": [
+        "使用全局变量保存状态",
+        "使用无状态 Token 或外部 KV",
+        "依赖单例对象",
+        "在内存中缓存所有用户会话"
+      ],
+      "answer": 1,
+      "explanation": "Edge 函数应无状态，使用 Token 或外部 KV 管理状态。"
+    }
+  ]
+}

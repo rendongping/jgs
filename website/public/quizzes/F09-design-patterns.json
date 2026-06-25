@@ -1,0 +1,137 @@
+{
+  "domainId": "F09-design-patterns",
+  "domainName": "设计模式与软件工程基础",
+  "questions": [
+    {
+      "id": "F09-q01",
+      "type": "single",
+      "question": "SOLID 原则中，S 代表？",
+      "options": [
+        "Simple",
+        "Single Responsibility",
+        "Stable",
+        "Scalable"
+      ],
+      "answer": 1,
+      "explanation": "S 是 Single Responsibility Principle，单一职责原则。"
+    },
+    {
+      "id": "F09-q02",
+      "type": "single",
+      "question": "Vue 3 的响应式系统主要使用了哪种设计模式？",
+      "options": [
+        "单例",
+        "代理",
+        "工厂",
+        "适配器"
+      ],
+      "answer": 1,
+      "explanation": "Vue 3 使用 Proxy 实现响应式，属于代理模式。"
+    },
+    {
+      "id": "F09-q03",
+      "type": "single",
+      "question": "Redux 中的发布-订阅机制属于哪种模式？",
+      "options": [
+        "观察者模式",
+        "策略模式",
+        "装饰器模式",
+        "命令模式"
+      ],
+      "answer": 0,
+      "explanation": "Redux 的订阅-发布机制属于观察者模式。"
+    },
+    {
+      "id": "F09-q04",
+      "type": "single",
+      "question": "以下哪种情况适合使用策略模式？",
+      "options": [
+        "需要一个全局唯一实例",
+        "有多种算法可以互相替换",
+        "需要兼容旧接口",
+        "需要撤销操作"
+      ],
+      "answer": 1,
+      "explanation": "策略模式用于封装可互相替换的算法或行为。"
+    },
+    {
+      "id": "F09-q05",
+      "type": "single",
+      "question": "高阶组件（HOC）本质上是哪种设计模式？",
+      "options": [
+        "工厂模式",
+        "装饰器模式",
+        "代理模式",
+        "适配器模式"
+      ],
+      "answer": 1,
+      "explanation": "HOC 在不修改原组件的情况下增强功能，本质是装饰器模式。"
+    },
+    {
+      "id": "F09-q06",
+      "type": "multi",
+      "question": "SOLID 原则包括？",
+      "options": [
+        "单一职责",
+        "开闭原则",
+        "里氏替换",
+        "接口隔离",
+        "依赖倒置"
+      ],
+      "answer": [0, 1, 2, 3, 4],
+      "explanation": "SOLID 包括单一职责、开闭原则、里氏替换、接口隔离、依赖倒置。"
+    },
+    {
+      "id": "F09-q07",
+      "type": "multi",
+      "question": "前端常见的设计模式包括？",
+      "options": [
+        "观察者模式",
+        "策略模式",
+        "单例模式",
+        "装饰器模式"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explanation": "观察者、策略、单例、装饰器都是前端常见模式。"
+    },
+    {
+      "id": "F09-q08",
+      "type": "multi",
+      "question": "重构的好处包括？",
+      "options": [
+        "提高可读性",
+        "降低维护成本",
+        "改变外部行为",
+        "消除技术债"
+      ],
+      "answer": [0, 1, 3],
+      "explanation": "重构改善内部结构，不改变外部行为。"
+    },
+    {
+      "id": "F09-q09",
+      "type": "single",
+      "question": "以下哪个不是创建型模式？",
+      "options": [
+        "工厂模式",
+        "单例模式",
+        "观察者模式",
+        "建造者模式"
+      ],
+      "answer": 2,
+      "explanation": "观察者模式是行为型模式，不是创建型模式。"
+    },
+    {
+      "id": "F09-q10",
+      "type": "single",
+      "question": "组合优于继承的主要理由是？",
+      "options": [
+        "组合代码更少",
+        "组合耦合度更低、更灵活",
+        "继承运行更快",
+        "继承不能复用代码"
+      ],
+      "answer": 1,
+      "explanation": "组合通过接口/委托复用，耦合度更低、更灵活。"
+    }
+  ]
+}

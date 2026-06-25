@@ -1,0 +1,136 @@
+{
+  "domainId": "L07-tech-branding",
+  "domainName": "技术品牌与社区影响力",
+  "questions": [
+    {
+      "id": "L07-q01",
+      "type": "single",
+      "question": "技术品牌对团队的主要价值是？",
+      "options": [
+        "增加代码量",
+        "吸引人才、建立信任",
+        "减少项目需求",
+        "降低工资"
+      ],
+      "answer": 1,
+      "explanation": "技术品牌帮助团队吸引人才、建立行业信任。"
+    },
+    {
+      "id": "L07-q02",
+      "type": "single",
+      "question": "开源项目成功的关键不包括？",
+      "options": [
+        "解决真实问题",
+        "完善的文档",
+        "只发布代码不管维护",
+        "活跃的社区"
+      ],
+      "answer": 2,
+      "explanation": "开源项目需要持续维护，只发布代码不管维护无法成功。"
+    },
+    {
+      "id": "L07-q03",
+      "type": "single",
+      "question": "雇主品牌建设最重要的是？",
+      "options": [
+        "高薪",
+        "真实的技术文化和工作体验",
+        "漂亮的办公室",
+        "大量招聘广告"
+      ],
+      "answer": 1,
+      "explanation": "雇主品牌的核心是真实的技术文化和工作体验。"
+    },
+    {
+      "id": "L07-q04",
+      "type": "single",
+      "question": "技术演讲准备的第一步是？",
+      "options": [
+        "写 PPT",
+        "明确听众和核心观点",
+        "找模板",
+        "报名大会"
+      ],
+      "answer": 1,
+      "explanation": "演讲前应先明确听众和核心观点。"
+    },
+    {
+      "id": "L07-q05",
+      "type": "single",
+      "question": "衡量开源项目健康度最常用的指标是？",
+      "options": [
+        "代码行数",
+        "contributors、issue 响应、release 频率",
+        "README 字数",
+        "项目名长度"
+      ],
+      "answer": 1,
+      "explanation": "contributors、issue 响应、release 频率是开源健康度的关键指标。"
+    },
+    {
+      "id": "L07-q06",
+      "type": "multi",
+      "question": "技术品牌建设渠道包括？",
+      "options": [
+        "技术博客",
+        "技术大会",
+        "开源项目",
+        "技术社交媒体"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explanation": "博客、大会、开源、社交媒体都是品牌建设渠道。"
+    },
+    {
+      "id": "L07-q07",
+      "type": "multi",
+      "question": "成功开源项目需要？",
+      "options": [
+        "解决真实问题",
+        "完善文档",
+        "活跃维护",
+        "清晰治理"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explanation": "成功开源需要解决问题、文档、维护和治理。"
+    },
+    {
+      "id": "L07-q08",
+      "type": "multi",
+      "question": "激励团队技术输出的方法包括？",
+      "options": [
+        "提供培训",
+        "给予时间资源",
+        "建立奖励机制",
+        "强制每人写博客"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "培训、时间、奖励是正向激励，强制容易产生抵触。"
+    },
+    {
+      "id": "L07-q09",
+      "type": "single",
+      "question": "以下哪项不是技术品牌建设的误区？",
+      "options": [
+        "追求单篇爆款",
+        "持续输出高质量内容",
+        "忽视文档和社区",
+        "与业务价值脱节"
+      ],
+      "answer": 1,
+      "explanation": "持续输出高质量内容是正确做法，其他都是误区。"
+    },
+    {
+      "id": "L07-q10",
+      "type": "single",
+      "question": "开源项目 burnout 的主要预防措施是？",
+      "options": [
+        "减少功能",
+        "培养更多维护者和贡献者",
+        "停止回复 issue",
+        "关闭 PR"
+      ],
+      "answer": 1,
+      "explanation": "培养更多维护者和贡献者可以分担维护压力，预防 burnout。"
+    }
+  ]
+}

@@ -40,6 +40,14 @@
           "link": "/foundation/browser"
         },
         {
+          "text": "数据结构与算法",
+          "link": "/foundation/data-structures-algorithms"
+        },
+        {
+          "text": "设计模式与软件工程基础",
+          "link": "/foundation/design-patterns"
+        },
+        {
           "text": "HTML/CSS 工程化",
           "link": "/foundation/html-css"
         },
@@ -68,6 +76,14 @@
           "link": "/foundation/browser-exercises"
         },
         {
+          "text": "数据结构与算法 — 练习册",
+          "link": "/foundation/data-structures-algorithms-exercises"
+        },
+        {
+          "text": "设计模式与软件工程基础 — 练习册",
+          "link": "/foundation/design-patterns-exercises"
+        },
+        {
           "text": "HTML/CSS 工程化 — 练习册",
           "link": "/foundation/html-css-exercises"
         },
@@ -94,6 +110,14 @@
         {
           "text": "浏览器原理 — 面试题",
           "link": "/foundation/browser-interview"
+        },
+        {
+          "text": "数据结构与算法 — 面试题",
+          "link": "/foundation/data-structures-algorithms-interview"
+        },
+        {
+          "text": "设计模式与软件工程基础 — 面试题",
+          "link": "/foundation/design-patterns-interview"
         },
         {
           "text": "HTML/CSS 工程化 — 面试题",
@@ -144,6 +168,10 @@
           "link": "/engineering/cross-platform"
         },
         {
+          "text": "前端部署与运维（SRE）",
+          "link": "/engineering/deployment-sre"
+        },
+        {
           "text": "设计体系与组件库",
           "link": "/engineering/design-system"
         },
@@ -162,6 +190,10 @@
         {
           "text": "Node.js / BFF 服务端",
           "link": "/engineering/node-bff"
+        },
+        {
+          "text": "前端包管理与供应链安全",
+          "link": "/engineering/package-supply-chain"
         },
         {
           "text": "React 原理与生态",
@@ -192,6 +224,10 @@
           "link": "/engineering/cross-platform-exercises"
         },
         {
+          "text": "前端部署与运维（SRE） — 练习册",
+          "link": "/engineering/deployment-sre-exercises"
+        },
+        {
           "text": "设计体系与组件库 — 练习册",
           "link": "/engineering/design-system-exercises"
         },
@@ -210,6 +246,10 @@
         {
           "text": "Node.js / BFF 服务端 — 练习册",
           "link": "/engineering/node-bff-exercises"
+        },
+        {
+          "text": "前端包管理与供应链安全 — 练习册",
+          "link": "/engineering/package-supply-chain-exercises"
         },
         {
           "text": "React 原理与生态 — 练习册",
@@ -240,6 +280,10 @@
           "link": "/engineering/cross-platform-interview"
         },
         {
+          "text": "前端部署与运维（SRE） — 面试题",
+          "link": "/engineering/deployment-sre-interview"
+        },
+        {
           "text": "设计体系与组件库 — 面试题",
           "link": "/engineering/design-system-interview"
         },
@@ -260,6 +304,10 @@
           "link": "/engineering/node-bff-interview"
         },
         {
+          "text": "前端包管理与供应链安全 — 面试题",
+          "link": "/engineering/package-supply-chain-interview"
+        },
+        {
           "text": "React 原理与生态 — 面试题",
           "link": "/engineering/react-interview"
         },
@@ -275,6 +323,10 @@
       "text": "Level 03 架构层",
       "collapsed": false,
       "items": [
+        {
+          "text": "前端数据工程",
+          "link": "/architecture/data-engineering"
+        },
         {
           "text": "数据与状态管理",
           "link": "/architecture/data-state"
@@ -308,8 +360,20 @@
           "link": "/architecture/security-architecture"
         },
         {
+          "text": "Serverless / Edge 架构",
+          "link": "/architecture/serverless-edge"
+        },
+        {
           "text": "系统架构设计",
           "link": "/architecture/system-architecture"
+        },
+        {
+          "text": "前端可视化与图形架构",
+          "link": "/architecture/visualization-graphics"
+        },
+        {
+          "text": "前端数据工程 — 练习册",
+          "link": "/architecture/data-engineering-exercises"
         },
         {
           "text": "数据与状态管理 — 练习册",
@@ -344,8 +408,20 @@
           "link": "/architecture/security-architecture-exercises"
         },
         {
+          "text": "Serverless / Edge 架构 — 练习册",
+          "link": "/architecture/serverless-edge-exercises"
+        },
+        {
           "text": "系统架构设计 — 练习册",
           "link": "/architecture/system-architecture-exercises"
+        },
+        {
+          "text": "前端可视化与图形架构 — 练习册",
+          "link": "/architecture/visualization-graphics-exercises"
+        },
+        {
+          "text": "前端数据工程 — 面试题",
+          "link": "/architecture/data-engineering-interview"
         },
         {
           "text": "数据与状态管理 — 面试题",
@@ -380,8 +456,16 @@
           "link": "/architecture/security-architecture-interview"
         },
         {
+          "text": "Serverless / Edge 架构 — 面试题",
+          "link": "/architecture/serverless-edge-interview"
+        },
+        {
           "text": "系统架构设计 — 面试题",
           "link": "/architecture/system-architecture-interview"
+        },
+        {
+          "text": "前端可视化与图形架构 — 面试题",
+          "link": "/architecture/visualization-graphics-interview"
         }
       ]
     }
@@ -416,6 +500,14 @@
           "link": "/leadership/team"
         },
         {
+          "text": "技术品牌与社区影响力",
+          "link": "/leadership/tech-branding"
+        },
+        {
+          "text": "技术治理与变革管理",
+          "link": "/leadership/tech-governance"
+        },
+        {
           "text": "业务洞察 — 练习册",
           "link": "/leadership/business-exercises"
         },
@@ -440,6 +532,14 @@
           "link": "/leadership/team-exercises"
         },
         {
+          "text": "技术品牌与社区影响力 — 练习册",
+          "link": "/leadership/tech-branding-exercises"
+        },
+        {
+          "text": "技术治理与变革管理 — 练习册",
+          "link": "/leadership/tech-governance-exercises"
+        },
+        {
           "text": "业务洞察 — 面试题",
           "link": "/leadership/business-interview"
         },
@@ -462,6 +562,14 @@
         {
           "text": "团队领导力 — 面试题",
           "link": "/leadership/team-interview"
+        },
+        {
+          "text": "技术品牌与社区影响力 — 面试题",
+          "link": "/leadership/tech-branding-interview"
+        },
+        {
+          "text": "技术治理与变革管理 — 面试题",
+          "link": "/leadership/tech-governance-interview"
         }
       ]
     }

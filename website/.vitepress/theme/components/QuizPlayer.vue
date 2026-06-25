@@ -156,11 +156,17 @@ import { ref, computed } from 'vue';
 import { useLearningData } from '../composables/useLearningData.js';
 
 const domains = [
+  // Level 01 基础层
   { id: 'F01-javascript', name: 'JavaScript' },
   { id: 'F02-typescript', name: 'TypeScript' },
   { id: 'F03-browser', name: 'Browser' },
   { id: 'F04-network', name: 'Network' },
   { id: 'F05-security', name: 'Security' },
+  { id: 'F06-html-css', name: 'HTML/CSS' },
+  { id: 'F07-a11y', name: 'Accessibility' },
+  { id: 'F08-data-structures-algorithms', name: 'Data Structures & Algorithms' },
+  { id: 'F09-design-patterns', name: 'Design Patterns' },
+  // Level 02 工程化层
   { id: 'E01-build-tools', name: 'Build Tools' },
   { id: 'E02-monorepo', name: 'Monorepo' },
   { id: 'E03-ci-cd', name: 'CI/CD' },
@@ -171,15 +177,32 @@ const domains = [
   { id: 'E08-cross-platform', name: 'Cross Platform' },
   { id: 'E09-ai-engineering', name: 'AI Engineering' },
   { id: 'E10-node-bff', name: 'Node.js/BFF' },
+  { id: 'E11-git-workflow', name: 'Git Workflow' },
+  { id: 'E12-developer-experience', name: 'Developer Experience' },
+  { id: 'E13-deployment-sre', name: 'Frontend SRE' },
+  { id: 'E14-package-supply-chain', name: 'Package & Supply Chain' },
+  // Level 03 架构层
   { id: 'A01-system-architecture', name: 'System Architecture' },
   { id: 'A02-micro-frontend', name: 'Micro Frontend' },
   { id: 'A03-performance', name: 'Performance' },
   { id: 'A04-quality', name: 'Quality' },
   { id: 'A05-data-state', name: 'Data & State' },
   { id: 'A06-observability', name: 'Observability' },
+  { id: 'A07-security-architecture', name: 'Security Architecture' },
+  { id: 'A08-real-time', name: 'Real-time' },
+  { id: 'A09-internationalization', name: 'Internationalization' },
+  { id: 'A10-visualization-graphics', name: 'Visualization & Graphics' },
+  { id: 'A11-serverless-edge', name: 'Serverless & Edge' },
+  { id: 'A12-data-engineering', name: 'Data Engineering' },
+  // Level 04 领导力层
   { id: 'L01-business', name: 'Business' },
   { id: 'L02-team', name: 'Team' },
   { id: 'L03-strategy', name: 'Strategy' },
+  { id: 'L04-communication', name: 'Communication' },
+  { id: 'L05-project-management', name: 'Project Management' },
+  { id: 'L06-hiring', name: 'Hiring' },
+  { id: 'L07-tech-branding', name: 'Tech Brand & Community' },
+  { id: 'L08-tech-governance', name: 'Tech Governance' },
 ];
 
 const { data, addQuizRecord } = useLearningData();

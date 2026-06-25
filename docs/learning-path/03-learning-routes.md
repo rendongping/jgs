@@ -33,6 +33,8 @@
 - F05 Security（L3）
 - F06 HTML/CSS（L4）
 - F07 a11y（L3）
+- F08 Data Structures & Algorithms（L3）
+- F09 Design Patterns（L3）
 
 **工程化层**：
 - E05 Design System（L4）
@@ -40,6 +42,8 @@
 - E10 Node.js/BFF（L4）
 - E02 Monorepo（L3）
 - E09 AI Engineering（L3）
+- E13 Frontend SRE（L3）
+- E14 Package & Supply Chain（L3）
 
 **架构层**：
 - A01 System Architecture（L5）
@@ -47,6 +51,8 @@
 - A02 Micro Frontend（L3）
 - A04 Quality（L3）
 - A09 Internationalization（L3）
+- A10 Visualization & Graphics（L3）
+- A12 Data Engineering（L4）
 
 **领导力层**：
 - L01 Business（L5）
@@ -54,6 +60,9 @@
 - L02 Team（L3）
 - L04 Communication（L4）
 - L05 Project Management（L3）
+- L06 Hiring（L3）
+- L07 Tech Brand & Community（L3）
+- L08 Tech Governance（L3）
 
 ### 通关项目
 
@@ -82,14 +91,20 @@
 - F05 Security（L3）
 - F06 HTML/CSS（L4）
 - F07 a11y（L3）
+- F08 Data Structures & Algorithms（L3）
+- F09 Design Patterns（L3）
 
 **工程化层**：
 - E01 Build Tools（L5）
 - E02 Monorepo（L4）
 - E03 CI/CD（L4）
 - E04 Code Quality（L4）
+- E11 Git Workflow（L3）
+- E12 DX（L3）
 - E06 React 或 E07 Vue（L3）
 - E10 Node.js/BFF（L3）
+- E13 Frontend SRE（L4）
+- E14 Package & Supply Chain（L3）
 
 **架构层**：
 - A03 Performance（L5）
@@ -98,6 +113,7 @@
 - A01 System Architecture（L4）
 - A07 Security Architecture（L4）
 - A05 Data & State（L3）
+- A11 Serverless/Edge（L3）
 
 **领导力层**：
 - L02 Team（L4）
@@ -105,6 +121,9 @@
 - L01 Business（L3）
 - L04 Communication（L3）
 - L05 Project Management（L4）
+- L06 Hiring（L3）
+- L07 Tech Brand & Community（L3）
+- L08 Tech Governance（L4）
 
 ### 通关项目
 
@@ -133,6 +152,8 @@
 - F05 Security（L2）
 - F06 HTML/CSS（L4）
 - F07 a11y（L3）
+- F08 Data Structures & Algorithms（L3）
+- F09 Design Patterns（L3）
 
 **工程化层**：
 - E05 Design System（L5）
@@ -141,6 +162,8 @@
 - E06 React / E07 Vue（L3）
 - E09 AI Engineering（L3）
 - E01 Build Tools（L3）
+- E13 Frontend SRE（L3）
+- E14 Package & Supply Chain（L3）
 
 **架构层**：
 - A02 Micro Frontend（L5）
@@ -149,12 +172,17 @@
 - A03 Performance（L3）
 - A08 Real-time（L3）
 - A09 Internationalization（L4）
+- A10 Visualization & Graphics（L4）
+- A11 Serverless/Edge（L3）
 
 **领导力层**：
 - L03 Strategy（L4）
 - L02 Team（L4）
 - L01 Business（L3）
 - L04 Communication（L4）
+- L06 Hiring（L3）
+- L07 Tech Brand & Community（L3）
+- L08 Tech Governance（L3）
 
 ### 通关项目
 
@@ -183,6 +211,8 @@
 - F05 Security（L3）
 - F06 HTML/CSS（L3）
 - F07 a11y（L3）
+- F08 Data Structures & Algorithms（L3）
+- F09 Design Patterns（L3）
 
 **工程化层**：
 - E01-E05 全面了解（L3-L4）
@@ -190,6 +220,8 @@
 - E10 Node.js/BFF（L3）
 - E11 Git Workflow（L4）
 - E12 DX（L4）
+- E13 Frontend SRE（L4）
+- E14 Package & Supply Chain（L4）
 
 **架构层**：
 - A01 System Architecture（L5）
@@ -199,6 +231,7 @@
 - A07 Security Architecture（L4）
 - A05 Data & State（L3）
 - A02 Micro Frontend（L3）
+- A12 Data Engineering（L4）
 
 **领导力层**：
 - L03 Strategy（L6）
@@ -207,6 +240,8 @@
 - L04 Communication（L5）
 - L05 Project Management（L5）
 - L06 Hiring（L5）
+- L07 Tech Brand & Community（L5）
+- L08 Tech Governance（L5）
 
 ### 通关项目
 

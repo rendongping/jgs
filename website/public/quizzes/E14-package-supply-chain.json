@@ -1,0 +1,136 @@
+{
+  "domainId": "E14-package-supply-chain",
+  "domainName": "前端包管理与供应链安全",
+  "questions": [
+    {
+      "id": "E14-q01",
+      "type": "single",
+      "question": "pnpm 相比 npm/yarn 的主要优势是？",
+      "options": [
+        "安装速度更快、磁盘占用更小",
+        "支持更多包",
+        "不生成 lockfile",
+        "不需要 node_modules"
+      ],
+      "answer": 0,
+      "explanation": "pnpm 通过硬链接和严格 node_modules 结构，实现更快安装和更小磁盘占用。"
+    },
+    {
+      "id": "E14-q02",
+      "type": "single",
+      "question": "lockfile 的主要作用是？",
+      "options": [
+        "加速安装",
+        "保证构建可复现",
+        "减少包体积",
+        "自动修复漏洞"
+      ],
+      "answer": 1,
+      "explanation": "lockfile 锁定确切版本，保证不同环境构建结果一致。"
+    },
+    {
+      "id": "E14-q03",
+      "type": "single",
+      "question": "以下哪种攻击属于供应链攻击？",
+      "options": [
+        "XSS",
+        "CSRF",
+        "依赖混淆",
+        "SQL 注入"
+      ],
+      "answer": 2,
+      "explanation": "依赖混淆是通过上传与内部包同名的公共包窃取敏感信息，属于供应链攻击。"
+    },
+    {
+      "id": "E14-q04",
+      "type": "single",
+      "question": "`^1.2.3` 允许更新的版本范围是？",
+      "options": [
+        ">=1.2.3 <2.0.0",
+        ">=1.2.3 <1.3.0",
+        ">=1.0.0 <2.0.0",
+        "只能 1.2.3"
+      ],
+      "answer": 0,
+      "explanation": "`^1.2.3` 允许更新到 1.x 的最新版本，但不包括 2.0.0。"
+    },
+    {
+      "id": "E14-q05",
+      "type": "single",
+      "question": "SBOM 的主要用途是？",
+      "options": [
+        "加速构建",
+        "记录软件物料清单，支持审计和漏洞响应",
+        "替代 lockfile",
+        "自动升级依赖"
+      ],
+      "answer": 1,
+      "explanation": "SBOM 记录软件所有依赖及其来源，用于审计、合规和漏洞响应。"
+    },
+    {
+      "id": "E14-q06",
+      "type": "multi",
+      "question": "供应链安全防护措施包括？",
+      "options": [
+        "使用私有 registry",
+        "固定版本和 lockfile",
+        "依赖审计",
+        "随意安装公共包"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "私有 registry、固定版本、依赖审计都是供应链安全防护措施。"
+    },
+    {
+      "id": "E14-q07",
+      "type": "multi",
+      "question": "引入新包前应评估？",
+      "options": [
+        "功能必要性",
+        "维护活跃度",
+        "包体积",
+        "许可证"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explanation": "引入新包前应评估功能、维护、体积、许可和安全。"
+    },
+    {
+      "id": "E14-q08",
+      "type": "multi",
+      "question": "pnpm 的优势包括？",
+      "options": [
+        "严格 node_modules 结构",
+        "避免幽灵依赖",
+        "磁盘占用小",
+        "不支持 workspace"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "pnpm 严格结构、避免幽灵依赖、磁盘占用小，且支持 workspace。"
+    },
+    {
+      "id": "E14-q09",
+      "type": "single",
+      "question": "以下哪个是幽灵依赖的成因？",
+      "options": [
+        "依赖树太深",
+        "扁平化 node_modules 导致间接依赖可被直接引用",
+        "lockfile 缺失",
+        "包体积过大"
+      ],
+      "answer": 1,
+      "explanation": "npm/yarn 的扁平化结构使间接依赖出现在顶层，容易被直接引用。"
+    },
+    {
+      "id": "E14-q10",
+      "type": "single",
+      "question": "`~1.2.3` 允许更新的版本范围是？",
+      "options": [
+        ">=1.2.3 <1.3.0",
+        ">=1.2.3 <2.0.0",
+        ">=1.2.0 <1.3.0",
+        ">=1.0.0 <2.0.0"
+      ],
+      "answer": 0,
+      "explanation": "`~1.2.3` 允许更新到 1.2.x 的最新版本，不包括 1.3.0。"
+    }
+  ]
+}

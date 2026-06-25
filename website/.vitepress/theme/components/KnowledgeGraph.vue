@@ -41,6 +41,8 @@ const nodes = [
   { id: 'security', name: 'Security', level: 1, x: 700, y: 400 },
   { id: 'html-css', name: 'HTML/CSS', level: 1, x: 850, y: 400 },
   { id: 'a11y', name: 'Accessibility', level: 1, x: 1000, y: 350 },
+  { id: 'data-structures-algorithms', name: 'Data Structures & Algorithms', level: 1, x: 1150, y: 400 },
+  { id: 'design-patterns', name: 'Design Patterns', level: 1, x: 1300, y: 350 },
   // Level 2
   { id: 'build-tools', name: 'Build Tools', level: 2, x: 100, y: 250 },
   { id: 'monorepo', name: 'Monorepo', level: 2, x: 220, y: 200 },
@@ -54,6 +56,8 @@ const nodes = [
   { id: 'node-bff', name: 'Node.js/BFF', level: 2, x: 640, y: 150 },
   { id: 'git-workflow', name: 'Git Workflow', level: 2, x: 760, y: 200 },
   { id: 'developer-experience', name: 'Developer Experience', level: 2, x: 880, y: 250 },
+  { id: 'deployment-sre', name: 'Deployment & SRE', level: 2, x: 1000, y: 200 },
+  { id: 'package-supply-chain', name: 'Package & Supply Chain', level: 2, x: 1120, y: 250 },
   // Level 3
   { id: 'system-architecture', name: 'System Architecture', level: 3, x: 150, y: 50 },
   { id: 'micro-frontend', name: 'Micro Frontend', level: 3, x: 300, y: 20 },
@@ -64,6 +68,9 @@ const nodes = [
   { id: 'security-architecture', name: 'Security Architecture', level: 3, x: 650, y: 50 },
   { id: 'real-time', name: 'Real-time', level: 3, x: 800, y: 20 },
   { id: 'internationalization', name: 'Internationalization', level: 3, x: 950, y: 50 },
+  { id: 'visualization-graphics', name: 'Visualization & Graphics', level: 3, x: 1100, y: 20 },
+  { id: 'serverless-edge', name: 'Serverless & Edge', level: 3, x: 1250, y: 50 },
+  { id: 'data-engineering', name: 'Data Engineering', level: 3, x: 1400, y: 20 },
   // Level 4
   { id: 'business', name: 'Business', level: 4, x: 250, y: -120 },
   { id: 'team', name: 'Team', level: 4, x: 400, y: -150 },
@@ -71,6 +78,8 @@ const nodes = [
   { id: 'communication', name: 'Communication', level: 4, x: 100, y: -120 },
   { id: 'project-management', name: 'Project Management', level: 4, x: 750, y: -150 },
   { id: 'hiring', name: 'Hiring', level: 4, x: 900, y: -120 },
+  { id: 'tech-branding', name: 'Tech Branding', level: 4, x: 1050, y: -150 },
+  { id: 'tech-governance', name: 'Tech Governance', level: 4, x: 1200, y: -120 },
 ];
 
 const edges = [
@@ -84,6 +93,8 @@ const edges = [
   { source: 'javascript', target: 'html-css' },
   { source: 'browser', target: 'html-css' },
   { source: 'html-css', target: 'a11y' },
+  { source: 'javascript', target: 'data-structures-algorithms' },
+  { source: 'javascript', target: 'design-patterns' },
   // Level 1 -> Level 2
   { source: 'javascript', target: 'build-tools' },
   { source: 'javascript', target: 'react' },
@@ -100,6 +111,10 @@ const edges = [
   { source: 'git-workflow', target: 'monorepo' },
   { source: 'git-workflow', target: 'ci-cd' },
   { source: 'git-workflow', target: 'code-quality' },
+  { source: 'ci-cd', target: 'deployment-sre' },
+  { source: 'observability', target: 'deployment-sre' },
+  { source: 'monorepo', target: 'package-supply-chain' },
+  { source: 'security', target: 'package-supply-chain' },
   { source: 'react', target: 'cross-platform' },
   { source: 'vue', target: 'cross-platform' },
   { source: 'react', target: 'ai-engineering' },
@@ -130,6 +145,13 @@ const edges = [
   { source: 'node-bff', target: 'real-time' },
   { source: 'html-css', target: 'internationalization' },
   { source: 'design-system', target: 'internationalization' },
+  { source: 'javascript', target: 'visualization-graphics' },
+  { source: 'browser', target: 'visualization-graphics' },
+  { source: 'performance', target: 'visualization-graphics' },
+  { source: 'node-bff', target: 'serverless-edge' },
+  { source: 'system-architecture', target: 'serverless-edge' },
+  { source: 'observability', target: 'data-engineering' },
+  { source: 'business', target: 'data-engineering' },
   // Level 3 -> Level 4
   { source: 'system-architecture', target: 'business' },
   { source: 'system-architecture', target: 'team' },
@@ -144,6 +166,11 @@ const edges = [
   { source: 'communication', target: 'project-management' },
   { source: 'team', target: 'hiring' },
   { source: 'project-management', target: 'hiring' },
+  { source: 'communication', target: 'tech-branding' },
+  { source: 'business', target: 'tech-branding' },
+  { source: 'team', target: 'tech-governance' },
+  { source: 'strategy', target: 'tech-governance' },
+  { source: 'project-management', target: 'tech-governance' },
 ];
 
 const linkMap = {

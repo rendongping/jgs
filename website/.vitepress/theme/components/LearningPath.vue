@@ -103,6 +103,8 @@ const routes = [
           { id: 'system-architecture', name: 'System Architecture', link: '/architecture/system-architecture' },
           { id: 'data-state', name: 'Data & State', link: '/architecture/data-state' },
           { id: 'micro-frontend', name: 'Micro Frontend', link: '/architecture/micro-frontend' },
+          { id: 'data-engineering', name: 'Data Engineering', link: '/architecture/data-engineering' },
+          { id: 'visualization-graphics', name: 'Visualization & Graphics', link: '/architecture/visualization-graphics' },
           { id: 'business', name: 'Business', link: '/leadership/business' },
           { id: 'strategy', name: 'Strategy', link: '/leadership/strategy' },
         ]
@@ -129,6 +131,8 @@ const routes = [
           { id: 'monorepo', name: 'Monorepo', link: '/engineering/monorepo' },
           { id: 'ci-cd', name: 'CI/CD', link: '/engineering/ci-cd' },
           { id: 'code-quality', name: 'Code Quality', link: '/engineering/code-quality' },
+          { id: 'deployment-sre', name: 'Deployment & SRE', link: '/engineering/deployment-sre' },
+          { id: 'package-supply-chain', name: 'Package & Supply Chain', link: '/engineering/package-supply-chain' },
         ]
       },
       {
@@ -138,6 +142,7 @@ const routes = [
           { id: 'quality', name: 'Quality', link: '/architecture/quality' },
           { id: 'observability', name: 'Observability', link: '/architecture/observability' },
           { id: 'system-architecture', name: 'System Architecture', link: '/architecture/system-architecture' },
+          { id: 'security-architecture', name: 'Security Architecture', link: '/architecture/security-architecture' },
           { id: 'team', name: 'Team', link: '/leadership/team' },
         ]
       }
@@ -165,6 +170,8 @@ const routes = [
           { id: 'system-architecture', name: 'System Architecture', link: '/architecture/system-architecture' },
           { id: 'data-state', name: 'Data & State', link: '/architecture/data-state' },
           { id: 'performance', name: 'Performance', link: '/architecture/performance' },
+          { id: 'visualization-graphics', name: 'Visualization & Graphics', link: '/architecture/visualization-graphics' },
+          { id: 'serverless-edge', name: 'Serverless & Edge', link: '/architecture/serverless-edge' },
           { id: 'strategy', name: 'Strategy', link: '/leadership/strategy' },
         ]
       }
@@ -203,6 +210,8 @@ const routes = [
           { id: 'communication', name: 'Communication', link: '/leadership/communication' },
           { id: 'project-management', name: 'Project Management', link: '/leadership/project-management' },
           { id: 'hiring', name: 'Hiring', link: '/leadership/hiring' },
+          { id: 'tech-branding', name: 'Tech Branding', link: '/leadership/tech-branding' },
+          { id: 'tech-governance', name: 'Tech Governance', link: '/leadership/tech-governance' },
         ]
       }
     ]
@@ -212,7 +221,7 @@ const routes = [
 const allDomains = routes.flatMap(r => r.levels.flatMap(l => l.domains));
 const idToDomain = Object.fromEntries(allDomains.map(d => [d.id, d]));
 
-const totalDomains = 34;
+const totalDomains = 43;
 const selectedRoute = ref('business');
 const { data, getRating, isDomainCompleted } = useLearningData();
 

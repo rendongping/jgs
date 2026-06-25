@@ -132,6 +132,8 @@ const domains = [
   { id: 'security', name: 'Security', link: '/foundation/security', level: 1 },
   { id: 'html-css', name: 'HTML/CSS', link: '/foundation/html-css', level: 1 },
   { id: 'a11y', name: 'Accessibility', link: '/foundation/a11y', level: 1 },
+  { id: 'data-structures-algorithms', name: 'Data Structures & Algorithms', link: '/foundation/data-structures-algorithms', level: 1 },
+  { id: 'design-patterns', name: 'Design Patterns', link: '/foundation/design-patterns', level: 1 },
   // Level 02
   { id: 'build-tools', name: 'Build Tools', link: '/engineering/build-tools', level: 2 },
   { id: 'monorepo', name: 'Monorepo', link: '/engineering/monorepo', level: 2 },
@@ -145,6 +147,8 @@ const domains = [
   { id: 'node-bff', name: 'Node.js/BFF', link: '/engineering/node-bff', level: 2 },
   { id: 'git-workflow', name: 'Git Workflow', link: '/engineering/git-workflow', level: 2 },
   { id: 'developer-experience', name: 'Developer Experience', link: '/engineering/developer-experience', level: 2 },
+  { id: 'deployment-sre', name: 'Deployment & SRE', link: '/engineering/deployment-sre', level: 2 },
+  { id: 'package-supply-chain', name: 'Package & Supply Chain', link: '/engineering/package-supply-chain', level: 2 },
   // Level 03
   { id: 'system-architecture', name: 'System Architecture', link: '/architecture/system-architecture', level: 3 },
   { id: 'micro-frontend', name: 'Micro Frontend', link: '/architecture/micro-frontend', level: 3 },
@@ -155,6 +159,9 @@ const domains = [
   { id: 'security-architecture', name: 'Security Architecture', link: '/architecture/security-architecture', level: 3 },
   { id: 'real-time', name: 'Real-time', link: '/architecture/real-time', level: 3 },
   { id: 'internationalization', name: 'Internationalization', link: '/architecture/internationalization', level: 3 },
+  { id: 'visualization-graphics', name: 'Visualization & Graphics', link: '/architecture/visualization-graphics', level: 3 },
+  { id: 'serverless-edge', name: 'Serverless & Edge', link: '/architecture/serverless-edge', level: 3 },
+  { id: 'data-engineering', name: 'Data Engineering', link: '/architecture/data-engineering', level: 3 },
   // Level 04
   { id: 'business', name: 'Business', link: '/leadership/business', level: 4 },
   { id: 'team', name: 'Team', link: '/leadership/team', level: 4 },
@@ -162,6 +169,8 @@ const domains = [
   { id: 'communication', name: 'Communication', link: '/leadership/communication', level: 4 },
   { id: 'project-management', name: 'Project Management', link: '/leadership/project-management', level: 4 },
   { id: 'hiring', name: 'Hiring', link: '/leadership/hiring', level: 4 },
+  { id: 'tech-branding', name: 'Tech Branding', link: '/leadership/tech-branding', level: 4 },
+  { id: 'tech-governance', name: 'Tech Governance', link: '/leadership/tech-governance', level: 4 },
 ];
 
 const evidenceMap = {
@@ -436,6 +445,78 @@ const evidenceMap = {
     4: '能设计招聘流程、面试评估与培养体系',
     5: '能建设团队梯队、晋升通道与绩效管理机制',
     6: '能制定组织人才战略，塑造高绩效技术文化与雇主品牌'
+  },
+  'data-structures-algorithms': {
+    1: '能说出常见数据结构的名字和基本用途',
+    2: '能分析简单算法的时间/空间复杂度',
+    3: '能使用栈、队列、哈希表等解决前端常见问题',
+    4: '能手写二叉树遍历、双指针、滑动窗口等算法',
+    5: '能根据业务场景选择最优数据结构并优化性能瓶颈',
+    6: '能设计高性能算法方案，指导团队算法能力提升'
+  },
+  'design-patterns': {
+    1: '能列举几种常见设计模式',
+    2: '能解释 SOLID 原则和常见模式的应用场景',
+    3: '能在代码中识别并使用观察者、策略、单例等模式',
+    4: '能运用设计模式重构代码，提升可维护性',
+    5: '能制定团队设计模式规范和代码审查标准',
+    6: '能设计面向未来的可扩展架构模式并推广到组织'
+  },
+  'deployment-sre': {
+    1: '能说明前端部署的基本流程',
+    2: '能理解缓存策略和 CDN 基本原理',
+    3: '能配置灰度发布和基础监控',
+    4: '能设计完整的 CI/CD 和回滚方案',
+    5: '能建设前端 SRE 体系，保障高可用',
+    6: '能制定跨团队可靠性目标和灾备策略'
+  },
+  'package-supply-chain': {
+    1: '能说明 npm install 的基本流程',
+    2: '能理解 package.json 和 lockfile 的作用',
+    3: '能进行依赖审计和漏洞修复',
+    4: '能设计依赖治理流程和私有 registry',
+    5: '能建立供应链安全体系和 SBOM',
+    6: '能制定行业级依赖安全标准和开源治理策略'
+  },
+  'visualization-graphics': {
+    1: '能区分 SVG、Canvas、WebGL 的适用场景',
+    2: '能使用 ECharts/D3 等库实现常见图表',
+    3: '能优化中等数据量下的图表性能',
+    4: '能设计可视化组件架构和渲染抽象层',
+    5: '能主导大型可视化项目并解决性能瓶颈',
+    6: '能设计行业领先的可视化引擎或图表标准'
+  },
+  'serverless-edge': {
+    1: '能说明 Serverless 和 Edge 的基本概念',
+    2: '能使用一种平台编写简单的 Edge 函数',
+    3: '能在项目中引入边缘 SSR 或网关',
+    4: '能设计基于 Edge 的全球化架构',
+    5: '能权衡 Serverless/Edge 与传统架构的优劣',
+    6: '能制定企业级边缘计算战略和技术标准'
+  },
+  'data-engineering': {
+    1: '能说明埋点和指标的基本概念',
+    2: '能设计简单的埋点方案和数据报表',
+    3: '能独立完成 AB 实验设计和分析',
+    4: '能建立指标体系并推动数据驱动决策',
+    5: '能设计数据平台和增长实验体系',
+    6: '能构建企业级数据战略，推动产品持续增长'
+  },
+  'tech-branding': {
+    1: '能认识到技术品牌的价值',
+    2: '能撰写技术博客或进行技术分享',
+    3: '能运营开源项目或组织技术活动',
+    4: '能制定团队技术品牌策略并落地',
+    5: '能建立行业影响力并吸引优秀人才',
+    6: '能打造具有国际影响力的技术品牌'
+  },
+  'tech-governance': {
+    1: '能说明技术治理的基本概念',
+    2: '能参与代码规范和技术标准制定',
+    3: '能推动技术债管理和重构计划',
+    4: '能设计跨团队技术治理组织',
+    5: '能主导技术变革并平衡创新与规范',
+    6: '能建立企业级技术治理体系和变革文化'
   }
 };
 

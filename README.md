@@ -30,7 +30,7 @@ docs/
     ├── 01-knowledge-dependency-map.md
     ├── 02-capability-self-assessment.md
     └── 03-learning-routes.md
-quizzes/                   # 客观题题库（34 领域，495 题）
+quizzes/                   # 客观题题库（43 领域，585 题）
 website/                   # VitePress 增强型静态网站
 └── .vitepress/
     ├── theme/             # 自定义 Vue 组件
@@ -52,7 +52,7 @@ scripts/                   # 自动化脚本
 └── TECH-DEBT-REGISTER.md
 CHANGELOG.md               # 变更日志
 
-level-01-foundation/       # 第一层：语言基础 / 浏览器 / 网络 / 安全 / HTML/CSS / 可访问性
+level-01-foundation/       # 第一层：语言基础 / 浏览器 / 网络 / 安全 / HTML/CSS / 可访问性 / 算法 / 设计模式
 ├── F01-javascript/        # JavaScript 语言基础
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
@@ -81,8 +81,16 @@ level-01-foundation/       # 第一层：语言基础 / 浏览器 / 网络 / 安
     ├── 01-学习文档.md
     ├── 02-练习册.md
     └── 03-面试题.md
+├── F08-data-structures-algorithms/  # 数据结构与算法
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+└── F09-design-patterns/   # 设计模式与软件工程基础
+    ├── 01-学习文档.md
+    ├── 02-练习册.md
+    └── 03-面试题.md
 
-level-02-engineering/      # 第二层：工程化 / 框架原理 / 跨端技术 / AI 工程化 / Git / DX
+level-02-engineering/      # 第二层：工程化 / 框架原理 / 跨端技术 / AI 工程化 / Git / DX / SRE / 供应链安全
 ├── E01-build-tools/       # 构建工具
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
@@ -131,8 +139,16 @@ level-02-engineering/      # 第二层：工程化 / 框架原理 / 跨端技术
     ├── 01-学习文档.md
     ├── 02-练习册.md
     └── 03-面试题.md
+├── E13-deployment-sre/    # 前端部署与运维（SRE）
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+└── E14-package-supply-chain/  # 前端包管理与供应链安全
+    ├── 01-学习文档.md
+    ├── 02-练习册.md
+    └── 03-面试题.md
 
-level-03-architecture/     # 第三层：系统架构 / 性能工程 / 质量保障 / 数据与可观测性
+level-03-architecture/     # 第三层：系统架构 / 性能工程 / 质量保障 / 数据与可观测性 / 可视化 / Serverless / 数据工程
 ├── A01-system-architecture/  # 系统架构设计
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
@@ -169,8 +185,20 @@ level-03-architecture/     # 第三层：系统架构 / 性能工程 / 质量保
     ├── 01-学习文档.md
     ├── 02-练习册.md
     └── 03-面试题.md
+├── A10-visualization-graphics/  # 前端可视化与图形架构
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+├── A11-serverless-edge/   # Serverless / Edge 架构
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+└── A12-data-engineering/  # 前端数据工程
+    ├── 01-学习文档.md
+    ├── 02-练习册.md
+    └── 03-面试题.md
 
-level-04-leadership/       # 第四层：业务洞察 / 团队领导力 / 技术战略 / 沟通 / 项目管理 / 招聘
+level-04-leadership/       # 第四层：业务洞察 / 团队领导力 / 技术战略 / 沟通 / 项目管理 / 招聘 / 品牌 / 治理
 ├── L01-business/          # 业务洞察
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
@@ -192,6 +220,14 @@ level-04-leadership/       # 第四层：业务洞察 / 团队领导力 / 技术
 │   ├── 02-练习册.md
 │   └── 03-面试题.md
 └── L06-hiring/            # 招聘与组织发展
+    ├── 01-学习文档.md
+    ├── 02-练习册.md
+    └── 03-面试题.md
+├── L07-tech-branding/     # 技术品牌与社区影响力
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+└── L08-tech-governance/   # 技术治理与变革管理
     ├── 01-学习文档.md
     ├── 02-练习册.md
     └── 03-面试题.md

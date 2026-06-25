@@ -43,6 +43,14 @@
 
 `a11y`, `wcag`, `aria`, `keyboard-navigation`, `screen-reader`, `color-contrast`, `focus-management`, `inclusive-design`
 
+### F08 数据结构与算法（新增）
+
+`algorithms`, `data-structures`, `complexity-analysis`, `big-o`, `leetcode`, `lru`, `tree`, `graph`, `dynamic-programming`
+
+### F09 设计模式与软件工程基础（新增）
+
+`design-patterns`, `solid`, `refactoring`, `software-engineering`, `hoc`, `composition`, `observer`, `strategy`
+
 ---
 
 ## Level 02 工程化层
@@ -95,6 +103,14 @@
 
 `dx`, `developer-experience`, `scaffold`, `local-dev`, `ide`, `documentation-engineering`, `inner-loop`, `developer-productivity`
 
+### E13 前端部署与运维（SRE）（新增）
+
+`deployment`, `sre`, `cdn`, `canary-release`, `blue-green`, `rollback`, `observability`, `reliability`, `rto`, `rpo`
+
+### E14 前端包管理与供应链安全（新增）
+
+`package-management`, `npm`, `pnpm`, `lockfile`, `supply-chain`, `sbom`, `dependency-audit`, `private-registry`
+
 ---
 
 ## Level 03 架构层
@@ -135,6 +151,18 @@
 
 `i18n`, `l10n`, `rtl`, `multi-language`, `localization`, `translation-workflow`, `timezone`, `currency`, `compliance`
 
+### A10 前端可视化与图形架构（新增）
+
+`visualization`, `svg`, `canvas`, `webgl`, `echarts`, `d3`, `deck-gl`, `large-data-rendering`, `gpu`
+
+### A11 Serverless / Edge 架构（新增）
+
+`serverless`, `edge`, `cloudflare-workers`, `vercel-edge`, `faas`, `cdn`, `cold-start`, `global-deployment`
+
+### A12 前端数据工程（新增）
+
+`data-engineering`, `tracking`, `ab-testing`, `metrics`, `north-star-metric`, `dashboard`, `funnel`, `retention`
+
 ---
 
 ## Level 04 领导力层
@@ -162,6 +190,14 @@
 ### L06 招聘培养与组织发展（新增）
 
 `hiring`, `interview`, `performance-review`, `promotion`, `team-culture`, `psychological-safety`, `talent-development`
+
+### L07 技术品牌与社区影响力（新增）
+
+`tech-branding`, `open-source`, `community`, `tech-talk`, `blogging`, `employer-branding`, `influence`
+
+### L08 技术治理与变革管理（新增）
+
+`tech-governance`, `change-management`, `technical-debt`, `standards`, `architecture-review`, `komitee`, `kotter`
 
 ---
 

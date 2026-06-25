@@ -6,6 +6,21 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/architecture/data-engineering</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/data-engineering-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/data-engineering-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/architecture/data-state</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -126,6 +141,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/architecture/serverless-edge</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/serverless-edge-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/serverless-edge-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/architecture/system-architecture</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -137,6 +167,21 @@
   </url>
   <url>
     <loc>https://rendongping.github.io/jgs/architecture/system-architecture-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/visualization-graphics</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/visualization-graphics-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/visualization-graphics-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -246,6 +291,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/engineering/deployment-sre</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/engineering/deployment-sre-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/engineering/deployment-sre-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/engineering/design-system</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -321,6 +381,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/engineering/package-supply-chain</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/engineering/package-supply-chain-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/engineering/package-supply-chain-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/engineering/react</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -377,6 +452,36 @@
   </url>
   <url>
     <loc>https://rendongping.github.io/jgs/foundation/browser-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/data-structures-algorithms</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/data-structures-algorithms-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/data-structures-algorithms-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/design-patterns</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/design-patterns-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/design-patterns-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -567,6 +672,36 @@
   </url>
   <url>
     <loc>https://rendongping.github.io/jgs/leadership/team-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/tech-branding</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/tech-branding-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/tech-branding-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/tech-governance</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/tech-governance-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/tech-governance-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

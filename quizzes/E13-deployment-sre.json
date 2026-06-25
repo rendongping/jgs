@@ -1,0 +1,136 @@
+{
+  "domainId": "E13-deployment-sre",
+  "domainName": "前端部署与运维（SRE）",
+  "questions": [
+    {
+      "id": "E13-q01",
+      "type": "single",
+      "question": "前端静态资源最适合长期缓存的是？",
+      "options": [
+        "HTML",
+        "带 hash 的 JS/CSS",
+        "API 响应",
+        "用户上传图片"
+      ],
+      "answer": 1,
+      "explanation": "带 hash 的 JS/CSS 文件名变化即失效，可长期缓存。"
+    },
+    {
+      "id": "E13-q02",
+      "type": "single",
+      "question": "金丝雀发布的特点是？",
+      "options": [
+        "一次性全量上线",
+        "小范围验证后逐步扩大",
+        "同时运行两套独立环境",
+        "只给内部员工使用"
+      ],
+      "answer": 1,
+      "explanation": "金丝雀发布先小范围验证，再逐步扩大流量。"
+    },
+    {
+      "id": "E13-q03",
+      "type": "single",
+      "question": "可观测性三大支柱不包括？",
+      "options": [
+        "日志",
+        "指标",
+        "链路追踪",
+        "单元测试"
+      ],
+      "answer": 3,
+      "explanation": "可观测性三大支柱是日志、指标、链路追踪。"
+    },
+    {
+      "id": "E13-q04",
+      "type": "single",
+      "question": "RTO 表示？",
+      "options": [
+        "恢复点目标",
+        "恢复时间目标",
+        "恢复资源目标",
+        "恢复流量目标"
+      ],
+      "answer": 1,
+      "explanation": "RTO（Recovery Time Objective）是恢复时间目标。"
+    },
+    {
+      "id": "E13-q05",
+      "type": "single",
+      "question": "以下哪种方式最能降低前端发布风险？",
+      "options": [
+        "全量发布",
+        "灰度发布 + 实时监控 + 一键回滚",
+        "凌晨手动发布",
+        "不做测试直接发布"
+      ],
+      "answer": 1,
+      "explanation": "灰度发布 + 监控 + 回滚是降低发布风险的最佳实践。"
+    },
+    {
+      "id": "E13-q06",
+      "type": "multi",
+      "question": "前端发布策略包括？",
+      "options": [
+        "全量发布",
+        "灰度发布",
+        "金丝雀发布",
+        "蓝绿发布"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explanation": "全量、灰度、金丝雀、蓝绿都是常见发布策略。"
+    },
+    {
+      "id": "E13-q07",
+      "type": "multi",
+      "question": "前端监控应覆盖？",
+      "options": [
+        "JS 错误",
+        "性能指标",
+        "业务指标",
+        "用户密码"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "前端监控覆盖错误、性能、业务指标，不应采集用户密码。"
+    },
+    {
+      "id": "E13-q08",
+      "type": "multi",
+      "question": "CDN 优化手段包括？",
+      "options": [
+        "资源压缩",
+        "HTTP/2 或 HTTP/3",
+        "边缘缓存",
+        "所有资源都不缓存"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "CDN 优化包括压缩、新协议、边缘缓存，不是所有资源都不缓存。"
+    },
+    {
+      "id": "E13-q09",
+      "type": "single",
+      "question": "HTML 入口文件通常应设置？",
+      "options": [
+        "长期缓存",
+        "不缓存或短缓存",
+        "永久缓存",
+        "CDN 忽略"
+      ],
+      "answer": 1,
+      "explanation": "HTML 入口应不缓存或短缓存，保证用户获取最新入口。"
+    },
+    {
+      "id": "E13-q10",
+      "type": "single",
+      "question": "蓝绿发布的主要缺点是？",
+      "options": [
+        "回滚慢",
+        "资源成本高",
+        "无法验证",
+        "用户无感知"
+      ],
+      "answer": 1,
+      "explanation": "蓝绿发布需要两套独立环境，资源成本高。"
+    }
+  ]
+}

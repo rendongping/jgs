@@ -1,0 +1,26 @@
+# 技术治理与变革管理面试题
+
+> 模拟真实面试场景，训练对技术治理和变革管理的思考与表达。
+
+---
+
+
+## 一、基础题
+
+<InterviewCard id="tech-governance-interview-q1" title="1. 什么是技术治理？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPuaKgOacr+ayu+eQhuaYr+WcqOWIm+aWsOWSjOinhOiMg+S5i+mXtOaJvuWIsOW5s+ihoe+8jOmAmui/h+agh+WHhuOAgea1geeoi+WSjOe7hOe7h+acuuWItu+8jOehruS/neaKgOacr+WGs+etluS4gOiHtOaAp+OAgeWboumYn+WNj+S9nOmrmOaViOOAgeezu+e7n+mVv+acn+WBpeW6t+OAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuWumuS5ie+8iDUwJe+8iTwvbGk+CjxsaT7nm67moIfvvIgzMCXvvIk8L2xpPgo8bGk+6IyD5Zu077yIMjAl77yJPC9saT4KPC91bD4KPGhyPgo=" />
+
+<InterviewCard id="tech-governance-interview-q2" title="2. 技术债是否可以完全消除？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPuS4jeWPr+S7peOAguaKgOacr+WAuuaYr+S4muWKoeW/q+mAn+WPkeWxleWSjOaKgOacr+a8lOi/m+S4reeahOiHqueEtuS6p+eJqe+8jOebruagh+S4jeaYr+a4hembtu+8jOiAjOaYr+WPr+inhuOAgeWPr+aOp+OAgeWPr+aMgee7reWBv+i/mOOAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPue7k+iuuu+8iDMwJe+8iTwvbGk+CjxsaT7ljp/lm6DvvIg0MCXvvIk8L2xpPgo8bGk+566h55CG5pa55rOV77yIMzAl77yJPC9saT4KPC91bD4KPGhyPgo=" />
+
+<InterviewCard id="tech-governance-interview-q3" title="3. 技术标准制定应该由谁主导？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPueUsei3qOWboumYn+aKgOacr+WnlOWRmOS8muaIluaetuaehOe7hOS4u+WvvO+8jOS9huW/hemhu+W5v+azm+aUtumbhuS4gOe6v+WboumYn+aEj+inge+8jOe7j+i/h+ivhOWuoeWSjOivleihjOWQjuaJjeiDveato+W8j+WPkeW4g+OAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuS4u+WvvOaWue+8iDQwJe+8iTwvbGk+CjxsaT7lj4LkuI7mlrnvvIgzMCXvvIk8L2xpPgo8bGk+5rWB56iL77yIMzAl77yJPC9saT4KPC91bD4KPGhyPgo=" />
+
+## 二、进阶题
+
+<InterviewCard id="tech-governance-interview-q4" title="4. 如何推动团队采用新的技术标准？" difficulty="🟡" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuivtOaYjuaWsOagh+WHhueahOS7t+WAvOWSjOino+WGs+eahOmXrumimOOAgjwvbGk+CjxsaT7mj5Dkvpvlt6Xlhbflkozoh6rliqjljJbov4Hnp7vmlrnmoYjjgII8L2xpPgo8bGk+5bCP6IyD5Zu06K+V54K577yM5bGV56S65pWI5p6c44CCPC9saT4KPGxpPue6s+WFpSBDSSDlkozotKjph4/pl6jnpoHjgII8L2xpPgo8bGk+57uZ5LqI6YCC5bqU5pyf77yM5pS26ZuG5Y+N6aaI5bm26L+t5Luj44CCPC9saT4KPC91bD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuS7t+WAvOS8oOmAku+8iDI1Je+8iTwvbGk+CjxsaT7lt6XlhbfmlK/mjIHvvIgyNSXvvIk8L2xpPgo8bGk+6K+V54K55o6o5bm/77yIMjAl77yJPC9saT4KPGxpPuW8uuWItuaJp+ihjO+8iDE1Je+8iTwvbGk+CjxsaT7lj43ppojov63ku6PvvIgxNSXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" />
+
+<InterviewCard id="tech-governance-interview-q5" title="5. 变革阻力通常来自哪里？" difficulty="🟡" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPuS5oOaDr+aUueWPmOOAgeWvueS4jeehruWumuaAp+eahOaBkOaDp+OAgeWIqeebiuWPl+aNn+OAgeS/oeaBr+S4jemAj+aYjuOAgee8uuS5j+S/oeS7u+OAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuadpea6kOivhuWIq++8iDYwJe+8iTwvbGk+CjxsaT7lupTlr7nnrZbnlaXvvIg0MCXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" />
+
+## 三、高级题
+
+<InterviewCard id="tech-governance-interview-q6" title="6. 设计一个技术治理体系。" difficulty="🔴" questionBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjopoHngrk8L3N0cm9uZz7vvJo8L3A+CjxvbD4KPGxpPuaYjuehruayu+eQhuiMg+WbtOWSjOebruagh+OAgjwvbGk+CjxsaT7lu7rnq4vmsrvnkIbnu4Tnu4fvvJrmioDmnK/lp5TlkZjkvJrjgIFTSUfjgIFPd25lcuOAgjwvbGk+CjxsaT7liLblrprmoIflh4bvvJrmnrbmnoTjgIHku6PnoIHjgIHlronlhajjgIHmlbDmja7jgIHov5Dnu7TjgII8L2xpPgo8bGk+5bu656uL6K+E5a6h5ZKM55uR552j5py65Yi244CCPC9saT4KPGxpPuW8leWFpeW3peWFt+iHquWKqOWMluajgOafpeOAgjwvbGk+CjxsaT7lrprmnJ/luqbph4/lkozlpI3nm5jjgII8L2xpPgo8L29sPgo8cD48c3Ryb25nPuivhOWIhue7tOW6pjwvc3Ryb25nPu+8mjwvcD4KPHVsPgo8bGk+6IyD5Zu055uu5qCH77yIMjAl77yJPC9saT4KPGxpPue7hOe7h+aetuaehO+8iDIwJe+8iTwvbGk+CjxsaT7moIflh4bkvZPns7vvvIgyMCXvvIk8L2xpPgo8bGk+6K+E5a6h55uR552j77yIMTUl77yJPC9saT4KPGxpPuW3peWFt+iHquWKqOWMlu+8iDE1Je+8iTwvbGk+CjxsaT7luqbph4/lpI3nm5jvvIgxMCXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" answerBase64="" />
+
+<InterviewCard id="tech-governance-interview-q7" title="7. 如何管理大规模技术迁移？" difficulty="🔴" questionBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjopoHngrk8L3N0cm9uZz7vvJo8L3A+CjxvbD4KPGxpPuaIkOeri+i/geenu+mhueebrue7hO+8jOaYjuehruebruagh+WSjOaXtumXtOihqOOAgjwvbGk+CjxsaT7lhYXliIbmsp/pgJrvvIzlu7rnq4vlhbHor4bjgII8L2xpPgo8bGk+5YWI6K+V54K577yM5YaN5o6o5bm/44CCPC9saT4KPGxpPuaPkOS+m+W3peWFt+OAgeaWh+aho+OAgeWfueiureWSjOaUr+aMgeOAgjwvbGk+CjxsaT7liIbpmLbmrrXpqozmlLbvvIzluobnpZ3ph4znqIvnopHjgII8L2xpPgo8bGk+5bCG5paw5a6e6Le15Zu65YyW5Yiw5rWB56iL5Lit44CCPC9saT4KPC9vbD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqY8L3N0cm9uZz7vvJo8L3A+Cjx1bD4KPGxpPuinhOWIku+8iDI1Je+8iTwvbGk+CjxsaT7msp/pgJrvvIgyMCXvvIk8L2xpPgo8bGk+6K+V54K577yIMjAl77yJPC9saT4KPGxpPuaUr+aMge+8iDE1Je+8iTwvbGk+CjxsaT7lm7rljJbvvIgxMCXvvIk8L2xpPgo8bGk+5Y+v5oyB57ut5oCn77yIMTAl77yJPC9saT4KPC91bD4KPGhyPgo8cD48c3Ryb25nPuagh+etvjwvc3Ryb25nPu+8mjxjb2RlPiN0ZWNoLWdvdmVybmFuY2U8L2NvZGU+IDxjb2RlPiNjaGFuZ2UtbWFuYWdlbWVudDwvY29kZT4gPGNvZGU+I+mdouivlemimDwvY29kZT48L3A+CjxibG9ja3F1b3RlPgo8cD48c3Ryb25nPuacgOWQjuabtOaWsDwvc3Ryb25nPu+8mjIwMjYtMDYtMjU8L3A+CjwvYmxvY2txdW90ZT4K" answerBase64="" />

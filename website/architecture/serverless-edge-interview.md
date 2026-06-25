@@ -1,0 +1,24 @@
+# Serverless / Edge 架构面试题
+
+> 模拟真实面试场景，训练对 Serverless 和 Edge 的思考与表达。
+
+---
+
+
+## 一、基础题
+
+<InterviewCard id="serverless-edge-interview-q1" title="1. 什么是 Serverless？它的优缺点是什么？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPlNlcnZlcmxlc3Mg5piv5LiA56eN5LqR6K6h566X5qih5byP77yM5byA5Y+R6ICF57yW5YaZ5Ye95pWw77yM55Sx5bmz5Y+w6Ieq5Yqo566h55CG5pyN5Yqh5Zmo5ZKM5omp57yp5a6544CC5LyY54K55piv5peg6ZyA6L+Q57u044CB5oyJ6ZyA5LuY6LS544CB5b+r6YCf5LiK57q/77yb57y654K55piv5Ya35ZCv5Yqo44CB5omn6KGM5pe26ZW/6ZmQ5Yi244CB6LCD6K+V5aSN5p2C44CB5L6b5bqU5ZWG6ZSB5a6a44CCPC9wPgo8cD48c3Ryb25nPuivhOWIhue7tOW6pu+8mjwvc3Ryb25nPjwvcD4KPHVsPgo8bGk+5a6a5LmJ77yINDAl77yJPC9saT4KPGxpPuS8mOeCue+8iDMwJe+8iTwvbGk+CjxsaT7nvLrngrnvvIgzMCXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" />
+
+<InterviewCard id="serverless-edge-interview-q2" title="2. Edge 计算适合哪些前端场景？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPui+uee8mCBTU1LjgIFBL0Ig5rWL6K+V44CB54Gw5bqm5YiG5rWB44CB5Zyw55CG5L2N572u5Liq5oCn5YyW44CB5a6J5YWo572R5YWz44CB6K+35rGC5pS55YaZ44CB6L6557yY57yT5a2Y44CCPC9wPgo8cD48c3Ryb25nPuivhOWIhue7tOW6pu+8mjwvc3Ryb25nPjwvcD4KPHVsPgo8bGk+5Zy65pmv6KaG55uW77yINjAl77yJPC9saT4KPGxpPuWOn+WboOivtOaYju+8iDQwJe+8iTwvbGk+CjwvdWw+Cjxocj4K" />
+
+<InterviewCard id="serverless-edge-interview-q3" title="3. 什么是冷启动？如何缓解？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPuWGt+WQr+WKqOaYr+WHveaVsOmVv+aXtumXtOacquiwg+eUqOWQjummluasoeiwg+eUqOaXtueahOWIneWni+WMluW7tui/n+OAgue8k+ino+aWueazle+8muWHj+WwkeS+nei1luOAgeS9v+eUqOi9u+mHj+i/kOihjOaXtuOAgemihOeVmeWunuS+i+OAgeS/neaMgea0u+i3g+OAgeS9v+eUqCBFZGdlIOWHveaVsOmZjeS9juW7tui/n+OAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuWOn+WboO+8iDQwJe+8iTwvbGk+CjxsaT7nvJPop6Pmlrnms5XvvIg2MCXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" />
+
+## 二、进阶题
+
+<InterviewCard id="serverless-edge-interview-q4" title="4. Serverless 架构下如何做好可观测性？" difficulty="🟡" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPue7k+aehOWMluaXpeW/l+i+k+WHuuOAgjwvbGk+CjxsaT7mjqXlhaXliIbluIPlvI/ov73ouKrjgII8L2xpPgo8bGk+55uR5o6n6LCD55So5qyh5pWw44CB6ZSZ6K+v546H44CB5bu26L+f44CB5Ya35ZCv5Yqo5qyh5pWw44CCPC9saT4KPGxpPuiuvue9ruWRiuitpumYiOWAvOOAgjwvbGk+CjwvdWw+CjxwPjxzdHJvbmc+6K+E5YiG57u05bqm77yaPC9zdHJvbmc+PC9wPgo8dWw+CjxsaT7ml6Xlv5fvvIgyNSXvvIk8L2xpPgo8bGk+5oyH5qCH77yIMjUl77yJPC9saT4KPGxpPui/vei4qu+8iDI1Je+8iTwvbGk+CjxsaT7lkYrorabvvIgyNSXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" />
+
+<InterviewCard id="serverless-edge-interview-q5" title="5. 如何避免 Serverless 供应商锁定？" difficulty="🟡" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuaKveixoeWHveaVsOWFpeWPo+WSjOS6i+S7tuaooeWei+OAgjwvbGk+CjxsaT7pgb/lhY3kvb/nlKjkvpvlupTllYbnibnmnInnmoQgQVBJ44CCPC9saT4KPGxpPuS9v+eUqOW8gOa6kOahhuaetu+8iOWmgiBTZXJ2ZXJsZXNzIEZyYW1ld29ya+OAgU9wZW5GYWFT77yJ44CCPC9saT4KPGxpPuaguOW/g+mAu+i+keS4jumDqOe9sumFjee9ruWIhuemu+OAgjwvbGk+CjwvdWw+CjxwPjxzdHJvbmc+6K+E5YiG57u05bqm77yaPC9zdHJvbmc+PC9wPgo8dWw+CjxsaT7mir3osaHlsYLvvIg0MCXvvIk8L2xpPgo8bGk+6YG/5YWN5LiT5pyJIEFQSe+8iDMwJe+8iTwvbGk+CjxsaT7lt6XlhbfpgInmi6nvvIgzMCXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" />
+
+## 三、高级题
+
+<InterviewCard id="serverless-edge-interview-q6" title="6. 设计一个基于 Edge 的全球化前端架构。" difficulty="🔴" questionBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjopoHngrk8L3N0cm9uZz7vvJo8L3A+CjxvbD4KPGxpPumdmeaAgei1hOa6kOWFqOeQgyBDRE4g5YiG5Y+R44CCPC9saT4KPGxpPkVkZ2Ug5Ye95pWw5aSE55CGIFNTUuOAgUEvQiDmtYvor5XjgIHmnKzlnLDljJbjgII8L2xpPgo8bGk+5aSa5Yy65Z+f5pWw5o2u5a2Y5YKo5ZKM57yT5a2Y44CCPC9saT4KPGxpPue7n+S4gOWPr+ingua1i+aAp+WSjOeBsOW6puWPkeW4g+OAgjwvbGk+CjxsaT7lronlhajnvZHlhbPlpITnkIbpibTmnYPlkozpmZDmtYHjgII8L2xpPgo8L29sPgo8cD48c3Ryb25nPuivhOWIhue7tOW6pjwvc3Ryb25nPu+8mjwvcD4KPHVsPgo8bGk+6Z2Z5oCB6LWE5rqQ77yIMjAl77yJPC9saT4KPGxpPkVkZ2Ug5Ye95pWw77yIMjUl77yJPC9saT4KPGxpPuaVsOaNruWxgu+8iDIwJe+8iTwvbGk+CjxsaT7lj6/op4LmtYvmgKfvvIgxNSXvvIk8L2xpPgo8bGk+5a6J5YWo5oCn77yIMTAl77yJPC9saT4KPGxpPuWPr+aJqeWxleaAp++8iDEwJe+8iTwvbGk+CjwvdWw+Cjxocj4KPHA+PHN0cm9uZz7moIfnrb48L3N0cm9uZz7vvJo8Y29kZT4jc2VydmVybGVzczwvY29kZT4gPGNvZGU+I2VkZ2U8L2NvZGU+IDxjb2RlPiPpnaLor5Xpopg8L2NvZGU+PC9wPgo8YmxvY2txdW90ZT4KPHA+PHN0cm9uZz7mnIDlkI7mm7TmlrA8L3N0cm9uZz7vvJoyMDI2LTA2LTI1PC9wPgo8L2Jsb2NrcXVvdGU+Cg==" answerBase64="" />

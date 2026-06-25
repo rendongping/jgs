@@ -1,0 +1,26 @@
+# 设计模式与软件工程基础面试题
+
+> 模拟真实面试场景，训练对设计模式和软件工程原则的思考与表达。
+
+---
+
+
+## 一、基础题
+
+<InterviewCard id="design-patterns-interview-q1" title="1. 什么是 SOLID 原则？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPlNPTElEIOaYr+S6lOS4qumdouWQkeWvueixoeiuvuiuoeWOn+WImeeahOmmluWtl+avjee8qeWGme+8mjwvcD4KPHVsPgo8bGk+U1JQIOWNleS4gOiBjOi0ozwvbGk+CjxsaT5PQ1Ag5byA6Zet5Y6f5YiZPC9saT4KPGxpPkxTUCDph4zmsI/mm7/mjaI8L2xpPgo8bGk+SVNQIOaOpeWPo+malOemuzwvbGk+CjxsaT5ESVAg5L6d6LWW5YCS572uPC9saT4KPC91bD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuWIl+WHuuS6lOmhue+8iDYwJe+8iTwvbGk+CjxsaT7nroDopoHop6Pph4rmr4/pobnvvIg0MCXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" />
+
+<InterviewCard id="design-patterns-interview-q2" title="2. 单例模式有什么优缺点？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPuS8mOeCue+8muWFqOWxgOWUr+S4gOWunuS+i++8jOiKguecgei1hOa6kOOAgue8uueCue+8mumakOiXj+S+nei1lu+8jOmavuS7pea1i+ivle+8jOWPr+iDveW8leWPkeW5tuWPkemXrumimOOAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuS8mOeCue+8iDQwJe+8iTwvbGk+CjxsaT7nvLrngrnvvIg0MCXvvIk8L2xpPgo8bGk+5YmN56uv56S65L6L77yIMjAl77yJPC9saT4KPC91bD4KPGhyPgo=" />
+
+<InterviewCard id="design-patterns-interview-q3" title="3. 观察者模式和发布订阅模式有什么区别？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPuinguWvn+iAheaooeW8j+S4reinguWvn+iAheWSjOebruagh+ebtOaOpemAmuS/oe+8m+WPkeW4g+iuoumYheaooeW8j+mAmui/h+S6i+S7tuS4reW/g+ino+iApu+8jOWPkeW4g+iAheWSjOiuoumYheiAheS4jeebtOaOpeS+nei1luOAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPue7k+aehOW3ruW8gu+8iDUwJe+8iTwvbGk+CjxsaT7ogKblkIjluqblt67lvILvvIgzMCXvvIk8L2xpPgo8bGk+5Li+5L6L6K+05piO77yIMjAl77yJPC9saT4KPC91bD4KPGhyPgo=" />
+
+## 二、进阶题
+
+<InterviewCard id="design-patterns-interview-q4" title="4. 什么时候应该使用策略模式？" difficulty="🟡" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPuW9k+WtmOWcqOWkmuenjeWPr+S6kuebuOabv+aNoueahOeul+azleaIluihjOS4uu+8jOS4lOmcgOimgeagueaNrui/kOihjOaXtuadoeS7tumAieaLqeaXtuOAguS+i+WmguihqOWNleagoemqjOOAgeS4u+mimOWIh+aNouOAgeaUr+S7mOaWueW8j+OAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPumAgueUqOWcuuaZr++8iDUwJe+8iTwvbGk+CjxsaT7ku6PnoIHnu5PmnoTvvIgzMCXvvIk8L2xpPgo8bGk+5aW95aSE77yIMjAl77yJPC9saT4KPC91bD4KPGhyPgo=" />
+
+<InterviewCard id="design-patterns-interview-q5" title="5. 如何理解&quot;组合优于继承&quot;？" difficulty="🟡" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPue7p+aJv+aYr+eZveebkuWkjeeUqO+8jOiApuWQiOW6pumrmO+8m+e7hOWQiOmAmui/h+aOpeWPoy/lp5TmiZjlpI3nlKjvvIzmm7TngbXmtLvjgIJSZWFjdC9WdWUg6YO95o6o6I2Q57uE5ZCI44CCPC9wPgo8cD48c3Ryb25nPuivhOWIhue7tOW6pu+8mjwvc3Ryb25nPjwvcD4KPHVsPgo8bGk+6Kej6YeK5beu5byC77yINDAl77yJPC9saT4KPGxpPuS8mOe8uueCueWvueavlO+8iDQwJe+8iTwvbGk+CjxsaT7liY3nq6/npLrkvovvvIgyMCXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" />
+
+## 三、高级题
+
+<InterviewCard id="design-patterns-interview-q6" title="6. 设计一个可扩展的权限系统。" difficulty="🔴" questionBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjopoHngrk8L3N0cm9uZz7vvJo8L3A+CjxvbD4KPGxpPuWumuS5ieadg+mZkOaooeWei++8mueUqOaIt+OAgeinkuiJsuOAgei1hOa6kOOAgeaTjeS9nOOAgjwvbGk+CjxsaT7kvb/nlKjnrZbnlaXmqKHlvI/lrp7njrDkuI3lkIznmoTpibTmnYPnrpfms5XjgII8L2xpPgo8bGk+5L2/55So6KOF6aWw5Zmo5qih5byP5Zyo57uE5Lu2L+i3r+eUseWxgue7n+S4gOmJtOadg+OAgjwvbGk+CjxsaT7mlK/mjIHliqjmgIHmnYPpmZDphY3nva7lkozliY3nq6/nvJPlrZjjgII8L2xpPgo8L29sPgo8cD48c3Ryb25nPuivhOWIhue7tOW6pjwvc3Ryb25nPu+8mjwvcD4KPHVsPgo8bGk+5qih5Z6L6K6+6K6h77yIMjUl77yJPC9saT4KPGxpPuaooeW8j+mAieaLqe+8iDI1Je+8iTwvbGk+CjxsaT7lj6/mianlsZXmgKfvvIgyNSXvvIk8L2xpPgo8bGk+5a6J5YWo5oCn77yIMTUl77yJPC9saT4KPGxpPuS7o+eggee7hOe7h++8iDEwJe+8iTwvbGk+CjwvdWw+Cjxocj4K" answerBase64="" />
+
+<InterviewCard id="design-patterns-interview-q7" title="7. 如何在前端项目中推动重构？" difficulty="🔴" questionBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjopoHngrk8L3N0cm9uZz7vvJo8L3A+CjxvbD4KPGxpPuivhuWIq+S7o+eggeWdj+WRs+mBk++8iOmHjeWkjeOAgei/h+mVv+WHveaVsOOAgei/h+Wkp+exu++8ieOAgjwvbGk+CjxsaT7lu7rnq4vmtYvor5Xopobnm5bvvIzkv53or4Hph43mnoTlronlhajjgII8L2xpPgo8bGk+5bCP5q2l6YeN5p6E77yM5q+P5qyh5Y+q5pS55LiA5Liq54K544CCPC9saT4KPGxpPuS9v+eUqOS7o+eggeivhOWuoeWSjOmdmeaAgeWIhuaekOW3peWFt+OAgjwvbGk+CjxsaT7orrDlvZXmioDmnK/lgLrvvIzmjpLmnJ/pgJDmraXlgb/ov5jjgII8L2xpPgo8L29sPgo8cD48c3Ryb25nPuivhOWIhue7tOW6pjwvc3Ryb25nPu+8mjwvcD4KPHVsPgo8bGk+6K+G5Yir6Zeu6aKY77yIMjUl77yJPC9saT4KPGxpPuS/nemanOaOquaWve+8iDI1Je+8iTwvbGk+CjxsaT7mjqjov5vmlrnms5XvvIgyNSXvvIk8L2xpPgo8bGk+5Zui6Zif5Y2P5L2c77yIMTUl77yJPC9saT4KPGxpPuWPr+aMgee7reaAp++8iDEwJe+8iTwvbGk+CjwvdWw+Cjxocj4KPHA+PHN0cm9uZz7moIfnrb48L3N0cm9uZz7vvJo8Y29kZT4jZGVzaWduLXBhdHRlcm5zPC9jb2RlPiA8Y29kZT4jc29saWQ8L2NvZGU+IDxjb2RlPiPpnaLor5Xpopg8L2NvZGU+PC9wPgo8YmxvY2txdW90ZT4KPHA+PHN0cm9uZz7mnIDlkI7mm7TmlrA8L3N0cm9uZz7vvJoyMDI2LTA2LTI1PC9wPgo8L2Jsb2NrcXVvdGU+Cg==" answerBase64="" />

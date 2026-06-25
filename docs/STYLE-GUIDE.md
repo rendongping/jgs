@@ -246,10 +246,10 @@ graph LR
 
 | 层级 | 编号前缀 | 范围 | 示例 |
 |------|---------|------|------|
-| Level 01 基础层 | F | F01-F07 | F01 JavaScript |
-| Level 02 工程化层 | E | E01-E12 | E06 React |
-| Level 03 架构层 | A | A01-A09 | A03 Performance |
-| Level 04 领导力层 | L | L01-L06 | L03 Strategy |
+| Level 01 基础层 | F | F01-F09 | F01 JavaScript |
+| Level 02 工程化层 | E | E01-E14 | E06 React |
+| Level 03 架构层 | A | A01-A12 | A03 Performance |
+| Level 04 领导力层 | L | L01-L08 | L03 Strategy |
 
 编号用于 README、进阶规划、文档内部引用。目录名采用 `编号-领域英文名` 的格式，如 `F06-html-css`。
 

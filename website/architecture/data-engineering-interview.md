@@ -1,0 +1,24 @@
+# 前端数据工程面试题
+
+> 模拟真实面试场景，训练对数据埋点、AB 实验和指标体系的思考与表达。
+
+---
+
+
+## 一、基础题
+
+<InterviewCard id="data-engineering-interview-q1" title="1. 埋点有哪些类型？各举一个前端例子。" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPueCueWHu+Wfi+eCue+8muaMiemSrueCueWHu+OAgjwvbGk+CjxsaT7mm53lhYnln4vngrnvvJrlub/lkYrov5vlhaXlj6/op4bljLrjgII8L2xpPgo8bGk+6aG16Z2i5Z+L54K577ya6aG16Z2iIFBWL1VW44CCPC9saT4KPGxpPuiHquWumuS5ieS6i+S7tu+8muWKoOWFpei0reeJqei9puOAgeaPkOS6pOiuouWNleOAgjwvbGk+CjwvdWw+CjxwPjxzdHJvbmc+6K+E5YiG57u05bqm77yaPC9zdHJvbmc+PC9wPgo8dWw+CjxsaT7nsbvlnovopobnm5bvvIg2MCXvvIk8L2xpPgo8bGk+5L6L5a2Q5oGw5b2T77yINDAl77yJPC9saT4KPC91bD4KPGhyPgo=" />
+
+<InterviewCard id="data-engineering-interview-q2" title="2. AB 实验为什么要随机分流？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPumaj+acuuWIhua1geS/neivgeWvueeFp+e7hOWSjOWunumqjOe7hOWcqOe7n+iuoeWtpuS4iuWPr+avlO+8jOaOkumZpOa3t+adguWboOe0oOW9seWTje+8jOS9v+WunumqjOe7k+aenOWFt+acieWboOaenOaOqOaWreaViOWKm+OAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPumaj+acuuaAp+aEj+S5ie+8iDUwJe+8iTwvbGk+CjxsaT7mjpLpmaTlgY/lt67vvIgzMCXvvIk8L2xpPgo8bGk+57uf6K6h5pi+6JGX5oCn77yIMjAl77yJPC9saT4KPC91bD4KPGhyPgo=" />
+
+<InterviewCard id="data-engineering-interview-q3" title="3. 什么是北极星指标？" difficulty="🟢" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+CjxwPuWMl+aegeaYn+aMh+agh+aYr+acgOiDveWPjeaYoOS6p+WTgeaguOW/g+S7t+WAvOWSjOmVv+acn+aIkOWKn+eahOWNleS4gOaMh+agh++8jOaJgOacieWboumYn+S8mOWMluaWueWQkemDveW6lOWbtOe7leWug+WxleW8gOOAgjwvcD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuWumuS5ie+8iDUwJe+8iTwvbGk+CjxsaT7kvZznlKjvvIgzMCXvvIk8L2xpPgo8bGk+5Li+5L6L77yIMjAl77yJPC9saT4KPC91bD4KPGhyPgo=" />
+
+## 二、进阶题
+
+<InterviewCard id="data-engineering-interview-q4" title="4. 如何设计一个科学的 AB 实验？" difficulty="🟡" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuaYjuehruWBh+iuvuWSjOaguOW/g+aMh+agh+OAgjwvbGk+CjxsaT7noa7lrprmoLfmnKzph4/lkozlrp7pqozml7bplb/jgII8L2xpPgo8bGk+6ZqP5py65YiG5rWB77yM5L+d6K+B55So5oi357qn5LiA6Ie044CCPC9saT4KPGxpPuiuvue9ruaKpOagj+aMh+agh+OAgjwvbGk+CjxsaT7ov5DooYzlrp7pqozlubborqHnrpfnu5/orqHmmL7okZfmgKfjgII8L2xpPgo8bGk+5b6X5Ye657uT6K665bm25YWo6YeP5oiW5Zue5rua44CCPC9saT4KPC91bD4KPHA+PHN0cm9uZz7or4TliIbnu7TluqbvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuWBh+iuvuS4juaMh+agh++8iDI1Je+8iTwvbGk+CjxsaT7moLfmnKzph4/vvIgyMCXvvIk8L2xpPgo8bGk+5YiG5rWB77yIMjAl77yJPC9saT4KPGxpPuaKpOagj+aMh+agh++8iDE1Je+8iTwvbGk+CjxsaT7lhrPnrZbvvIgyMCXvvIk8L2xpPgo8L3VsPgo8aHI+Cg==" />
+
+<InterviewCard id="data-engineering-interview-q5" title="5. 埋点口径不一致会带来什么问题？" difficulty="🟡" questionBase64="" answerBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjvvJo8L3N0cm9uZz48L3A+Cjx1bD4KPGxpPuS4jeWQjOWboumYn+WvueWQjOS4gOaMh+agh+eQhuino+S4jeWQjOOAgjwvbGk+CjxsaT7mlbDmja7miqXooajnm7jkupLnn5vnm77jgII8L2xpPgo8bGk+5Yaz562W5L6d5o2u5LiN5Y+v6Z2g44CCPC9saT4KPGxpPuS/ruWkjeaIkOacrOmrmO+8jOmcgOimgemHjeaWsOa4hea0l+WOhuWPsuaVsOaNruOAgjwvbGk+CjwvdWw+CjxwPjxzdHJvbmc+6K+E5YiG57u05bqm77yaPC9zdHJvbmc+PC9wPgo8dWw+CjxsaT7pl67popjmj4/ov7DvvIg1MCXvvIk8L2xpPgo8bGk+5Lia5Yqh5b2x5ZON77yIMzAl77yJPC9saT4KPGxpPuayu+eQhuaIkOacrO+8iDIwJe+8iTwvbGk+CjwvdWw+Cjxocj4K" />
+
+## 三、高级题
+
+<InterviewCard id="data-engineering-interview-q6" title="6. 如何设计一个数据驱动的增长体系？" difficulty="🔴" questionBase64="PHA+PHN0cm9uZz7lj4LogIPnrZTmoYjopoHngrk8L3N0cm9uZz7vvJo8L3A+CjxvbD4KPGxpPuWumuS5ieWMl+aegeaYn+aMh+agh+WSjOWIhuWxguaMh+agh+OAgjwvbGk+CjxsaT7lu7rnq4vlrozlloTnmoTln4vngrnlkozmlbDmja7ku5PlupPjgII8L2xpPgo8bGk+6YCa6L+H5ryP5paX44CB55WZ5a2Y44CB6Lev5b6E5YiG5p6Q5a6a5L2N5py65Lya44CCPC9saT4KPGxpPueUqCBBQiDlrp7pqozpqozor4HmlLnov5vmlrnmoYjjgII8L2xpPgo8bGk+5b2i5oiQ5rSe5a+fIOKGkiDlrp7pqowg4oaSIOWtpuS5oOeahOmXreeOr+OAgjwvbGk+Cjwvb2w+CjxwPjxzdHJvbmc+6K+E5YiG57u05bqmPC9zdHJvbmc+77yaPC9wPgo8dWw+CjxsaT7mjIfmoIfkvZPns7vvvIgyNSXvvIk8L2xpPgo8bGk+5pWw5o2u5Z+65bu677yIMjAl77yJPC9saT4KPGxpPuWIhuaekOaWueazle+8iDIwJe+8iTwvbGk+CjxsaT7lrp7pqozmnLrliLbvvIgyMCXvvIk8L2xpPgo8bGk+6Zet546v5paH5YyW77yIMTUl77yJPC9saT4KPC91bD4KPGhyPgo8cD48c3Ryb25nPuagh+etvjwvc3Ryb25nPu+8mjxjb2RlPiNkYXRhLWVuZ2luZWVyaW5nPC9jb2RlPiA8Y29kZT4jYWItdGVzdGluZzwvY29kZT4gPGNvZGU+I+mdouivlemimDwvY29kZT48L3A+CjxibG9ja3F1b3RlPgo8cD48c3Ryb25nPuacgOWQjuabtOaWsDwvc3Ryb25nPu+8mjIwMjYtMDYtMjU8L3A+CjwvYmxvY2txdW90ZT4K" answerBase64="" />

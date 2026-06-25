@@ -79,10 +79,10 @@ import { useLearningData } from '../composables/useLearningData.js';
 import * as echarts from 'echarts';
 
 const domainGroups = [
-  { name: '基础层', ids: ['javascript','typescript','browser','network','security','html-css','a11y'] },
-  { name: '工程化层', ids: ['build-tools','monorepo','ci-cd','code-quality','design-system','react','vue','cross-platform','ai-engineering','node-bff','git-workflow','developer-experience'] },
-  { name: '架构层', ids: ['system-architecture','micro-frontend','performance','quality','data-state','observability','security-architecture','real-time','internationalization'] },
-  { name: '领导力层', ids: ['business','team','strategy','communication','project-management','hiring'] }
+  { name: '基础层', ids: ['javascript','typescript','browser','network','security','html-css','a11y','data-structures-algorithms','design-patterns'] },
+  { name: '工程化层', ids: ['build-tools','monorepo','ci-cd','code-quality','design-system','react','vue','cross-platform','ai-engineering','node-bff','git-workflow','developer-experience','deployment-sre','package-supply-chain'] },
+  { name: '架构层', ids: ['system-architecture','micro-frontend','performance','quality','data-state','observability','security-architecture','real-time','internationalization','visualization-graphics','serverless-edge','data-engineering'] },
+  { name: '领导力层', ids: ['business','team','strategy','communication','project-management','hiring','tech-branding','tech-governance'] }
 ];
 
 const domainMeta = domainGroups.flatMap(g => g.ids.map(id => ({ id, group: g.name })));
@@ -146,15 +146,19 @@ function formatDomainName(id) {
   const map = {
     javascript: 'JavaScript', typescript: 'TypeScript', browser: 'Browser', network: 'Network', security: 'Security',
     'html-css': 'HTML/CSS', a11y: 'Accessibility',
+    'data-structures-algorithms': 'Data Structures & Algorithms', 'design-patterns': 'Design Patterns',
     'build-tools': 'Build Tools', monorepo: 'Monorepo', 'ci-cd': 'CI/CD', 'code-quality': 'Code Quality',
     'design-system': 'Design System', react: 'React', vue: 'Vue', 'cross-platform': 'Cross Platform',
     'ai-engineering': 'AI Engineering', 'node-bff': 'Node.js/BFF',
     'git-workflow': 'Git Workflow', 'developer-experience': 'Developer Experience',
+    'deployment-sre': 'Deployment & SRE', 'package-supply-chain': 'Package & Supply Chain',
     'system-architecture': 'System Architecture', 'micro-frontend': 'Micro Frontend',
     performance: 'Performance', quality: 'Quality', 'data-state': 'Data & State', observability: 'Observability',
     'security-architecture': 'Security Architecture', 'real-time': 'Real-time', internationalization: 'Internationalization',
+    'visualization-graphics': 'Visualization & Graphics', 'serverless-edge': 'Serverless & Edge', 'data-engineering': 'Data Engineering',
     business: 'Business', team: 'Team', strategy: 'Strategy',
-    communication: 'Communication', 'project-management': 'Project Management', hiring: 'Hiring'
+    communication: 'Communication', 'project-management': 'Project Management', hiring: 'Hiring',
+    'tech-branding': 'Tech Branding', 'tech-governance': 'Tech Governance'
   };
   return map[id] || id;
 }
@@ -163,15 +167,19 @@ function getDomainLink(id) {
   const groupMap = {
     javascript: 'foundation', typescript: 'foundation', browser: 'foundation', network: 'foundation', security: 'foundation',
     'html-css': 'foundation', a11y: 'foundation',
+    'data-structures-algorithms': 'foundation', 'design-patterns': 'foundation',
     'build-tools': 'engineering', monorepo: 'engineering', 'ci-cd': 'engineering', 'code-quality': 'engineering',
     'design-system': 'engineering', react: 'engineering', vue: 'engineering', 'cross-platform': 'engineering',
     'ai-engineering': 'engineering', 'node-bff': 'engineering',
     'git-workflow': 'engineering', 'developer-experience': 'engineering',
+    'deployment-sre': 'engineering', 'package-supply-chain': 'engineering',
     'system-architecture': 'architecture', 'micro-frontend': 'architecture',
     performance: 'architecture', quality: 'architecture', 'data-state': 'architecture', observability: 'architecture',
     'security-architecture': 'architecture', 'real-time': 'architecture', internationalization: 'architecture',
+    'visualization-graphics': 'architecture', 'serverless-edge': 'architecture', 'data-engineering': 'architecture',
     business: 'leadership', team: 'leadership', strategy: 'leadership',
-    communication: 'leadership', 'project-management': 'leadership', hiring: 'leadership'
+    communication: 'leadership', 'project-management': 'leadership', hiring: 'leadership',
+    'tech-branding': 'leadership', 'tech-governance': 'leadership'
   };
   return `/${groupMap[id]}/${id}`;
 }

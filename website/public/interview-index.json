@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-25T02:51:29.410Z",
-  "total": 611,
+  "generatedAt": "2026-06-25T07:40:07.796Z",
+  "total": 670,
   "questions": [
     {
       "id": "javascript-interview-q1",
@@ -1129,6 +1129,118 @@
       "title": "解释一下 aria-live 的使用场景和注意事项。",
       "difficulty": "🔴",
       "question": "参考答案要点：\n\n`aria-live` 用于告知屏幕阅读器某个区域的内容会动态更新，需要播报。\n\n取值：\n- `off`：不自动播报（默认）。\n- `polite`：当前任务完成后再播报。\n- `assertive`：立即打断当前播报。\n\n使用场景：\n- 表单提交后的成功/错误提示。\n- 实时通知、Toast 消息。\n- 加载状态变化。\n\n注意事项：\n- 避免过度使用 `assertive`，会打断用户。\n- 动态区域应在页面加载时就存在，而不是动态创建。\n- 搭配 `aria-atomic` 和 `aria-relevant` 控制播报范围。\n\n评分维度：\n- 解释 aria-live 取",
+      "answer": " "
+    },
+    {
+      "id": "data-structures-algorithms-interview-q1",
+      "slug": "data-structures-algorithms-interview",
+      "title": "什么是时间复杂度和空间复杂度？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "时间复杂度描述算法执行时间随输入规模增长的变化趋势，空间复杂度描述算法额外占用内存随输入规模增长的变化趋势。通常使用大 O 表示法。 - 定义准确（50%）\n- 举例说明（30%）\n- 能区分最好/平均/最坏情况（20%）\n\n---"
+    },
+    {
+      "id": "data-structures-algorithms-interview-q2",
+      "slug": "data-structures-algorithms-interview",
+      "title": "数组和链表的区别是什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 数组：连续内存，随机访问 O(1)，插入删除 O(n)。\n- 链表：非连续内存，随机访问 O(n)，插入删除 O(1)。 - 存储结构（30%）\n- 访问复杂度（30%）\n- 增删复杂度（30%）\n- 前端应用场景（10%）\n\n---"
+    },
+    {
+      "id": "data-structures-algorithms-interview-q3",
+      "slug": "data-structures-algorithms-interview",
+      "title": "什么是哈希表？前端有哪些应用？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "哈希表通过哈希函数将键映射到存储位置，实现 O(1) 查询。前端应用包括：Map/Set、缓存、去重、索引。 - 原理（50%）\n- 复杂度（20%）\n- 应用举例（30%）\n\n---"
+    },
+    {
+      "id": "data-structures-algorithms-interview-q4",
+      "slug": "data-structures-algorithms-interview",
+      "title": "如何用栈实现队列？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "使用两个栈，一个负责入队，一个负责出队。当出队栈为空时，将入队栈全部倒入出队栈。 - 思路清晰（40%）\n- 复杂度分析（30%）\n- 边界处理（30%）\n\n---"
+    },
+    {
+      "id": "data-structures-algorithms-interview-q5",
+      "slug": "data-structures-algorithms-interview",
+      "title": "解释二叉树的前序、中序、后序遍历，并说明应用场景。",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 前序：根左右，用于复制树、序列化。\n- 中序：左根右，BST 中序有序。\n- 后序：左右根，用于释放节点、计算高度。 - 三种遍历说明（50%）\n- 代码或递归过程（30%）\n- 应用场景（20%）\n\n---"
+    },
+    {
+      "id": "data-structures-algorithms-interview-q6",
+      "slug": "data-structures-algorithms-interview",
+      "title": "设计一个虚拟列表，支持 10 万条数据的高效渲染。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 计算可视区高度和每项高度。\n2. 只渲染可视区内的项。\n3. 使用 translate 偏移模拟滚动位置。\n4. 监听滚动事件动态更新起始索引。\n5. 分析时间复杂度 O(k)，空间复杂度 O(k)。\n\n评分维度：\n- 核心思路（30%）\n- 复杂度分析（20%）\n- 边界处理（20%）\n- 性能优化（20%）\n- 代码清晰度（10%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "data-structures-algorithms-interview-q7",
+      "slug": "data-structures-algorithms-interview",
+      "title": "如何检测有向图中的环？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 使用 DFS + 三色标记法（白/灰/黑）。\n2. 若遇到灰色节点，说明存在环。\n3. 或用拓扑排序，若无法完成排序则存在环。\n4. 应用于依赖检测、死锁检测。\n\n评分维度：\n- 算法选择（30%）\n- 实现细节（30%）\n- 复杂度分析（20%）\n- 应用场景（20%）\n\n---\n\n标签：`#algorithms` `#data-structures` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "design-patterns-interview-q1",
+      "slug": "design-patterns-interview",
+      "title": "什么是 SOLID 原则？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "SOLID 是五个面向对象设计原则的首字母缩写：\n- SRP 单一职责\n- OCP 开闭原则\n- LSP 里氏替换\n- ISP 接口隔离\n- DIP 依赖倒置 - 列出五项（60%）\n- 简要解释每项（40%）\n\n---"
+    },
+    {
+      "id": "design-patterns-interview-q2",
+      "slug": "design-patterns-interview",
+      "title": "单例模式有什么优缺点？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "优点：全局唯一实例，节省资源。缺点：隐藏依赖，难以测试，可能引发并发问题。 - 优点（40%）\n- 缺点（40%）\n- 前端示例（20%）\n\n---"
+    },
+    {
+      "id": "design-patterns-interview-q3",
+      "slug": "design-patterns-interview",
+      "title": "观察者模式和发布订阅模式有什么区别？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "观察者模式中观察者和目标直接通信；发布订阅模式通过事件中心解耦，发布者和订阅者不直接依赖。 - 结构差异（50%）\n- 耦合度差异（30%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "design-patterns-interview-q4",
+      "slug": "design-patterns-interview",
+      "title": "什么时候应该使用策略模式？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "当存在多种可互相替换的算法或行为，且需要根据运行时条件选择时。例如表单校验、主题切换、支付方式。 - 适用场景（50%）\n- 代码结构（30%）\n- 好处（20%）\n\n---"
+    },
+    {
+      "id": "design-patterns-interview-q5",
+      "slug": "design-patterns-interview",
+      "title": "如何理解\"组合优于继承\"？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "继承是白盒复用，耦合度高；组合通过接口/委托复用，更灵活。React/Vue 都推荐组合。 - 解释差异（40%）\n- 优缺点对比（40%）\n- 前端示例（20%）\n\n---"
+    },
+    {
+      "id": "design-patterns-interview-q6",
+      "slug": "design-patterns-interview",
+      "title": "设计一个可扩展的权限系统。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 定义权限模型：用户、角色、资源、操作。\n2. 使用策略模式实现不同的鉴权算法。\n3. 使用装饰器模式在组件/路由层统一鉴权。\n4. 支持动态权限配置和前端缓存。\n\n评分维度：\n- 模型设计（25%）\n- 模式选择（25%）\n- 可扩展性（25%）\n- 安全性（15%）\n- 代码组织（10%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "design-patterns-interview-q7",
+      "slug": "design-patterns-interview",
+      "title": "如何在前端项目中推动重构？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 识别代码坏味道（重复、过长函数、过大类）。\n2. 建立测试覆盖，保证重构安全。\n3. 小步重构，每次只改一个点。\n4. 使用代码评审和静态分析工具。\n5. 记录技术债，排期逐步偿还。\n\n评分维度：\n- 识别问题（25%）\n- 保障措施（25%）\n- 推进方法（25%）\n- 团队协作（15%）\n- 可持续性（10%）\n\n---\n\n标签：`#design-patterns` `#solid` `#面试题`\n\n> 最后更新：2026-06-25",
       "answer": " "
     },
     {
@@ -3020,6 +3132,118 @@
       "answer": " "
     },
     {
+      "id": "deployment-sre-interview-q1",
+      "slug": "deployment-sre-interview",
+      "title": "前端部署为什么要给 JS/CSS 加 hash？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "加 hash 后文件名与内容绑定，内容变化 hash 变化，浏览器会重新请求；未变化的资源可长期缓存，提升缓存命中率。 - 缓存失效机制（50%）\n- 长期缓存好处（30%）\n- 构建实践（20%）\n\n---"
+    },
+    {
+      "id": "deployment-sre-interview-q2",
+      "slug": "deployment-sre-interview",
+      "title": "灰度发布和 A/B 测试有什么区别？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "灰度发布关注风险控制，逐步放量；A/B 测试关注效果对比，同时运行多个版本，用业务指标决策。 - 目标差异（50%）\n- 分流方式（30%）\n- 决策依据（20%）\n\n---"
+    },
+    {
+      "id": "deployment-sre-interview-q3",
+      "slug": "deployment-sre-interview",
+      "title": "什么是 CDN？前端如何利用 CDN？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "CDN 是内容分发网络，通过边缘节点缓存静态资源，降低访问延迟。前端将 JS/CSS/图片/字体等资源部署到 CDN，并配置合理缓存策略。 - CDN 原理（40%）\n- 前端应用（40%）\n- 缓存策略（20%）\n\n---"
+    },
+    {
+      "id": "deployment-sre-interview-q4",
+      "slug": "deployment-sre-interview",
+      "title": "如何设计前端错误监控体系？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 捕获：window.onerror、unhandledrejection、资源加载错误。\n- 上报：采样、聚合、去重。\n- 分析：按错误类型、页面、版本、浏览器统计。\n- 告警：核心错误实时通知。 - 捕获完整（30%）\n- 上报策略（25%）\n- 分析方法（25%）\n- 告警机制（20%）\n\n---"
+    },
+    {
+      "id": "deployment-sre-interview-q5",
+      "slug": "deployment-sre-interview",
+      "title": "发布回滚有哪些策略？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 版本回滚：切换到上一个稳定构建。\n- 配置回滚：关闭开关、调整灰度。\n- 流量切换：蓝绿或 DNS 切换。\n- 数据修复：清理异常本地存储。 - 策略种类（40%）\n- 回滚速度（30%）\n- 自动化程度（30%）\n\n---"
+    },
+    {
+      "id": "deployment-sre-interview-q6",
+      "slug": "deployment-sre-interview",
+      "title": "如何保障大促期间前端稳定性？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 提前压测和容量评估。\n2. CDN 预热和带宽扩容。\n3. 关键资源多副本、多 CDN 容灾。\n4. 限流、降级、兜底方案。\n5. 实时监控和快速响应预案。\n\n评分维度：\n- 预防措施（30%）\n- 容量保障（20%）\n- 容灾降级（25%）\n- 监控响应（15%）\n- 预案完整性（10%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "deployment-sre-interview-q7",
+      "slug": "deployment-sre-interview",
+      "title": "设计一个前端零停机发布方案。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 构建产物版本化，保留历史版本。\n2. 通过网关或 CDN 边缘控制流量路由。\n3. 灰度发布，逐步切流。\n4. 实时健康检查和自动回滚。\n5. 发布窗口期保留旧版本入口。\n\n评分维度：\n- 版本管理（25%）\n- 流量控制（25%）\n- 灰度策略（20%）\n- 回滚能力（20%）\n- 用户体验（10%）\n\n---\n\n标签：`#deployment` `#sre` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "package-supply-chain-interview-q1",
+      "slug": "package-supply-chain-interview",
+      "title": "npm 的语义化版本规范是什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "版本号格式 MAJOR.MINOR.PATCH：\n- MAJOR：不兼容的 API 修改。\n- MINOR：向下兼容的功能新增。\n- PATCH：向下兼容的问题修复。 - 格式解释（50%）\n- 三个字段含义（30%）\n- 前缀 ^/~ 区别（20%）\n\n---"
+    },
+    {
+      "id": "package-supply-chain-interview-q2",
+      "slug": "package-supply-chain-interview",
+      "title": "什么是幽灵依赖？如何避免？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "幽灵依赖是指项目直接使用了未在 package.json 中声明的间接依赖。npm/yarn 的扁平化结构容易导致这个问题。pnpm 的严格 node_modules 结构可以避免。 - 定义准确（40%）\n- 产生原因（30%）\n- 解决方案（30%）\n\n---"
+    },
+    {
+      "id": "package-supply-chain-interview-q3",
+      "slug": "package-supply-chain-interview",
+      "title": "lockfile 是否应该提交到版本控制？为什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "应该提交。lockfile 锁定确切版本，保证团队成员和 CI/CD 环境安装的依赖一致，避免\"我本地可以跑\"的问题。 - 结论（30%）\n- 可复现性（40%）\n- 团队协作（30%）\n\n---"
+    },
+    {
+      "id": "package-supply-chain-interview-q4",
+      "slug": "package-supply-chain-interview",
+      "title": "如何评估是否引入一个新的 npm 包？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 功能是否必要，是否有更轻量替代。\n- 维护活跃度、issue 响应、发布频率。\n- 包体积和依赖数量。\n- 许可证是否合规。\n- 安全记录和审计结果。 - 功能评估（25%）\n- 维护活跃度（25%）\n- 体积与依赖（20%）\n- 许可与安全（20%）\n- 团队影响（10%）\n\n---"
+    },
+    {
+      "id": "package-supply-chain-interview-q5",
+      "slug": "package-supply-chain-interview",
+      "title": "供应链攻击有哪些常见形式？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 恶意包：包中植入后门或窃取代码。\n- 依赖混淆：上传与内部包同名的公共包。\n- 版本劫持：篡改已发布版本或 typosquatting。\n- 安装脚本攻击：利用 postinstall 执行恶意命令。 - 攻击类型覆盖（50%）\n- 原理说明（30%）\n- 防护措施（20%）\n\n---"
+    },
+    {
+      "id": "package-supply-chain-interview-q6",
+      "slug": "package-supply-chain-interview",
+      "title": "设计一个企业级依赖安全治理体系。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 引入审批：白名单 + 自动化扫描。\n2. 私有 registry：统一来源，禁止直接从公共源安装。\n3. 持续审计：CI 中集成 npm audit/Snyk/SBOM 检查。\n4. 漏洞响应：分级处理、SLA、紧急修复流程。\n5. 定期清理：移除无用依赖，降低攻击面。\n\n评分维度：\n- 引入管控（25%）\n- 来源控制（20%）\n- 持续审计（20%）\n- 响应机制（20%）\n- 可持续性（15%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "package-supply-chain-interview-q7",
+      "slug": "package-supply-chain-interview",
+      "title": "Monorepo 中如何做好依赖版本管理？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 公共依赖提升到 root，减少重复。\n2. 内部包使用 workspace 协议。\n3. 统一版本策略，避免多版本冲突。\n4. 使用 Changesets 管理版本和 changelog。\n5. 构建依赖图，检测循环依赖和无用依赖。\n\n评分维度：\n- 公共依赖管理（25%）\n- 内部包协议（20%）\n- 版本策略（20%）\n- 工具选择（15%）\n- 风险控制（20%）\n\n---\n\n标签：`#package-management` `#supply-chain` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
       "id": "system-architecture-interview-q1",
       "slug": "system-architecture-interview",
       "title": "什么是前端架构？它和框架有什么关系？",
@@ -4148,6 +4372,150 @@
       "answer": " "
     },
     {
+      "id": "visualization-graphics-interview-q1",
+      "slug": "visualization-graphics-interview",
+      "title": "SVG 和 Canvas 的主要区别是什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "SVG 是矢量图形，基于 DOM，适合交互和样式控制；Canvas 是位图渲染，通过脚本绘制像素，适合大量图形和动画。 - 渲染方式（40%）\n- 性能差异（30%）\n- 交互差异（20%）\n- 适用场景（10%）\n\n---"
+    },
+    {
+      "id": "visualization-graphics-interview-q2",
+      "slug": "visualization-graphics-interview",
+      "title": "什么是 WebGL？前端什么时候需要它？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "WebGL 是在浏览器中使用 GPU 进行 2D/3D 渲染的 API。需要处理大规模数据点、3D 场景、实时渲染时使用。 - 原理（40%）\n- 适用场景（40%）\n- 复杂度（20%）\n\n---"
+    },
+    {
+      "id": "visualization-graphics-interview-q3",
+      "slug": "visualization-graphics-interview",
+      "title": "如何解决大数据量可视化性能问题？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 数据降采样。\n- Canvas/WebGL 替代 SVG。\n- 虚拟化/瓦片化。\n- 分层渲染和离屏渲染。\n- 减少绘制调用和状态切换。 - 方案覆盖（50%）\n- 具体实现（30%）\n- 取舍分析（20%）\n\n---"
+    },
+    {
+      "id": "visualization-graphics-interview-q4",
+      "slug": "visualization-graphics-interview",
+      "title": "设计一个实时数据可视化大屏，需要关注哪些方面？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 数据源和推送方式（WebSocket/SSE）。\n- 渲染性能：Canvas/WebGL、增量更新。\n- 内存管理：避免数据无限增长。\n- 交互：缩放、刷选、下钻。\n- 容错：断线重连、数据补偿。 - 数据流（25%）\n- 渲染性能（25%）\n- 内存管理（20%）\n- 交互（15%）\n- 容错（15%）\n\n---"
+    },
+    {
+      "id": "visualization-graphics-interview-q5",
+      "slug": "visualization-graphics-interview",
+      "title": "如何设计一个可扩展的图表库？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 抽象渲染层，支持多后端。\n- 数据 → 比例尺 → 图形属性的管道。\n- 插件化扩展：坐标系、组件、交互。\n- 主题系统和响应式布局。\n- 完整的类型定义和文档。 - 架构抽象（30%）\n- 扩展性（25%）\n- 数据流（20%）\n- 主题/布局（15%）\n- 工程化（10%）\n\n---"
+    },
+    {
+      "id": "visualization-graphics-interview-q6",
+      "slug": "visualization-graphics-interview",
+      "title": "设计一个支持百万级数据点的地图可视化系统。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 使用 WebGL 或 Deck.gl 渲染。\n2. 数据按地理网格聚合。\n3. 瓦片化加载和渲染。\n4. 聚合级别随缩放级别变化。\n5. 交互时查询原始数据局部细节。\n\n评分维度：\n- 渲染技术（25%）\n- 数据聚合（25%）\n- 瓦片化（20%）\n- 交互设计（15%）\n- 性能优化（15%）\n\n---\n\n标签：`#visualization` `#graphics` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "serverless-edge-interview-q1",
+      "slug": "serverless-edge-interview",
+      "title": "什么是 Serverless？它的优缺点是什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "Serverless 是一种云计算模式，开发者编写函数，由平台自动管理服务器和扩缩容。优点是无需运维、按需付费、快速上线；缺点是冷启动、执行时长限制、调试复杂、供应商锁定。 - 定义（40%）\n- 优点（30%）\n- 缺点（30%）\n\n---"
+    },
+    {
+      "id": "serverless-edge-interview-q2",
+      "slug": "serverless-edge-interview",
+      "title": "Edge 计算适合哪些前端场景？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "边缘 SSR、A/B 测试、灰度分流、地理位置个性化、安全网关、请求改写、边缘缓存。 - 场景覆盖（60%）\n- 原因说明（40%）\n\n---"
+    },
+    {
+      "id": "serverless-edge-interview-q3",
+      "slug": "serverless-edge-interview",
+      "title": "什么是冷启动？如何缓解？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "冷启动是函数长时间未调用后首次调用时的初始化延迟。缓解方法：减少依赖、使用轻量运行时、预留实例、保持活跃、使用 Edge 函数降低延迟。 - 原因（40%）\n- 缓解方法（60%）\n\n---"
+    },
+    {
+      "id": "serverless-edge-interview-q4",
+      "slug": "serverless-edge-interview",
+      "title": "Serverless 架构下如何做好可观测性？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 结构化日志输出。\n- 接入分布式追踪。\n- 监控调用次数、错误率、延迟、冷启动次数。\n- 设置告警阈值。 - 日志（25%）\n- 指标（25%）\n- 追踪（25%）\n- 告警（25%）\n\n---"
+    },
+    {
+      "id": "serverless-edge-interview-q5",
+      "slug": "serverless-edge-interview",
+      "title": "如何避免 Serverless 供应商锁定？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 抽象函数入口和事件模型。\n- 避免使用供应商特有的 API。\n- 使用开源框架（如 Serverless Framework、OpenFaaS）。\n- 核心逻辑与部署配置分离。 - 抽象层（40%）\n- 避免专有 API（30%）\n- 工具选择（30%）\n\n---"
+    },
+    {
+      "id": "serverless-edge-interview-q6",
+      "slug": "serverless-edge-interview",
+      "title": "设计一个基于 Edge 的全球化前端架构。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 静态资源全球 CDN 分发。\n2. Edge 函数处理 SSR、A/B 测试、本地化。\n3. 多区域数据存储和缓存。\n4. 统一可观测性和灰度发布。\n5. 安全网关处理鉴权和限流。\n\n评分维度：\n- 静态资源（20%）\n- Edge 函数（25%）\n- 数据层（20%）\n- 可观测性（15%）\n- 安全性（10%）\n- 可扩展性（10%）\n\n---\n\n标签：`#serverless` `#edge` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "data-engineering-interview-q1",
+      "slug": "data-engineering-interview",
+      "title": "埋点有哪些类型？各举一个前端例子。",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 点击埋点：按钮点击。\n- 曝光埋点：广告进入可视区。\n- 页面埋点：页面 PV/UV。\n- 自定义事件：加入购物车、提交订单。 - 类型覆盖（60%）\n- 例子恰当（40%）\n\n---"
+    },
+    {
+      "id": "data-engineering-interview-q2",
+      "slug": "data-engineering-interview",
+      "title": "AB 实验为什么要随机分流？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "随机分流保证对照组和实验组在统计学上可比，排除混杂因素影响，使实验结果具有因果推断效力。 - 随机性意义（50%）\n- 排除偏差（30%）\n- 统计显著性（20%）\n\n---"
+    },
+    {
+      "id": "data-engineering-interview-q3",
+      "slug": "data-engineering-interview",
+      "title": "什么是北极星指标？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "北极星指标是最能反映产品核心价值和长期成功的单一指标，所有团队优化方向都应围绕它展开。 - 定义（50%）\n- 作用（30%）\n- 举例（20%）\n\n---"
+    },
+    {
+      "id": "data-engineering-interview-q4",
+      "slug": "data-engineering-interview",
+      "title": "如何设计一个科学的 AB 实验？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 明确假设和核心指标。\n- 确定样本量和实验时长。\n- 随机分流，保证用户级一致。\n- 设置护栏指标。\n- 运行实验并计算统计显著性。\n- 得出结论并全量或回滚。 - 假设与指标（25%）\n- 样本量（20%）\n- 分流（20%）\n- 护栏指标（15%）\n- 决策（20%）\n\n---"
+    },
+    {
+      "id": "data-engineering-interview-q5",
+      "slug": "data-engineering-interview",
+      "title": "埋点口径不一致会带来什么问题？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 不同团队对同一指标理解不同。\n- 数据报表相互矛盾。\n- 决策依据不可靠。\n- 修复成本高，需要重新清洗历史数据。 - 问题描述（50%）\n- 业务影响（30%）\n- 治理成本（20%）\n\n---"
+    },
+    {
+      "id": "data-engineering-interview-q6",
+      "slug": "data-engineering-interview",
+      "title": "如何设计一个数据驱动的增长体系？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 定义北极星指标和分层指标。\n2. 建立完善的埋点和数据仓库。\n3. 通过漏斗、留存、路径分析定位机会。\n4. 用 AB 实验验证改进方案。\n5. 形成洞察 → 实验 → 学习的闭环。\n\n评分维度：\n- 指标体系（25%）\n- 数据基建（20%）\n- 分析方法（20%）\n- 实验机制（20%）\n- 闭环文化（15%）\n\n---\n\n标签：`#data-engineering` `#ab-testing` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
       "id": "business-interview-q0",
       "slug": "business-interview",
       "title": "第 1 题",
@@ -4889,6 +5257,110 @@
       "title": "如何应对核心人才流失？",
       "difficulty": "🔴",
       "question": "参考答案要点：\n\n1. 识别关键岗位和关键人才。\n2. 了解离职风险信号（士气、成长、薪酬）。\n3. 建立保留机制：成长机会、薪酬竞争力、工作意义感。\n4. 建立接班人计划和知识沉淀。\n5. 即使流失，也要做好交接和 alumni 关系。\n6. 复盘流失原因，持续优化。\n\n评分维度：\n- 风险识别（25%）\n- 保留机制（25%）\n- 梯队建设（20%）\n- 交接与沉淀（15%）\n- 复盘改进（15%）\n\n---\n\n标签：`#hiring` `#performance` `#career-development` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "tech-branding-interview-q1",
+      "slug": "tech-branding-interview",
+      "title": "技术品牌对团队有什么价值？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "吸引优秀人才、增强业务合作信任、提升团队凝聚力、扩大行业影响力。 - 招聘价值（30%）\n- 业务价值（25%）\n- 内部价值（25%）\n- 行业价值（20%）\n\n---"
+    },
+    {
+      "id": "tech-branding-interview-q2",
+      "slug": "tech-branding-interview",
+      "title": "一个成功的开源项目需要哪些要素？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "解决真实问题、完善文档、活跃维护、清晰治理、友好社区、稳定发布。 - 问题解决（30%）\n- 文档（25%）\n- 维护（20%）\n- 社区治理（15%）\n- 发布规范（10%）\n\n---"
+    },
+    {
+      "id": "tech-branding-interview-q3",
+      "slug": "tech-branding-interview",
+      "title": "如何衡量技术品牌影响力？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "博客阅读量、开源项目 stars/contributors、大会演讲邀请、招聘转化率、员工 NPS。 - 内容指标（30%）\n- 开源指标（25%）\n- 演讲/活动（20%）\n- 招聘效果（15%）\n- 内部反馈（10%）\n\n---"
+    },
+    {
+      "id": "tech-branding-interview-q4",
+      "slug": "tech-branding-interview",
+      "title": "如何激励团队成员参与技术品牌输出？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 明确输出对职业发展的价值。\n- 提供写作和演讲培训。\n- 给予时间资源和工作量认可。\n- 建立奖励机制。\n- 领导以身作则。 - 激励机制（30%）\n- 资源支持（25%）\n- 培训辅导（20%）\n- 文化氛围（15%）\n- 认可回报（10%）\n\n---"
+    },
+    {
+      "id": "tech-branding-interview-q5",
+      "slug": "tech-branding-interview",
+      "title": "开源项目维护者 burnout 如何预防？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 培养更多 maintainer 和 contributor。\n- 设定合理的响应预期。\n- 使用自动化工具处理重复工作。\n- 明确项目边界，学会拒绝。\n- 建立可持续的资助或赞助模式。 - 分担维护（30%）\n- 自动化（25%）\n- 边界管理（20%）\n- 社区支持（15%）\n- 可持续性（10%）\n\n---"
+    },
+    {
+      "id": "tech-branding-interview-q6",
+      "slug": "tech-branding-interview",
+      "title": "设计一个团队技术影响力建设体系。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 明确品牌定位和目标受众。\n2. 建立多渠道内容输出机制。\n3. 开源内部优质工具。\n4. 积极参与行业会议和标准制定。\n5. 将影响力与招聘、业务目标挂钩。\n6. 定期评估 ROI 并调整策略。\n\n评分维度：\n- 定位（20%）\n- 内容体系（20%）\n- 开源策略（15%）\n- 行业参与（15%）\n- 目标关联（15%）\n- 评估机制（15%）\n\n---\n\n标签：`#tech-branding` `#open-source` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "tech-governance-interview-q1",
+      "slug": "tech-governance-interview",
+      "title": "什么是技术治理？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "技术治理是在创新和规范之间找到平衡，通过标准、流程和组织机制，确保技术决策一致性、团队协作高效、系统长期健康。 - 定义（50%）\n- 目标（30%）\n- 范围（20%）\n\n---"
+    },
+    {
+      "id": "tech-governance-interview-q2",
+      "slug": "tech-governance-interview",
+      "title": "技术债是否可以完全消除？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "不可以。技术债是业务快速发展和技术演进中的自然产物，目标不是清零，而是可视、可控、可持续偿还。 - 结论（30%）\n- 原因（40%）\n- 管理方法（30%）\n\n---"
+    },
+    {
+      "id": "tech-governance-interview-q3",
+      "slug": "tech-governance-interview",
+      "title": "技术标准制定应该由谁主导？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "由跨团队技术委员会或架构组主导，但必须广泛收集一线团队意见，经过评审和试行后才能正式发布。 - 主导方（40%）\n- 参与方（30%）\n- 流程（30%）\n\n---"
+    },
+    {
+      "id": "tech-governance-interview-q4",
+      "slug": "tech-governance-interview",
+      "title": "如何推动团队采用新的技术标准？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 说明新标准的价值和解决的问题。\n- 提供工具和自动化迁移方案。\n- 小范围试点，展示效果。\n- 纳入 CI 和质量门禁。\n- 给予适应期，收集反馈并迭代。 - 价值传递（25%）\n- 工具支持（25%）\n- 试点推广（20%）\n- 强制执行（15%）\n- 反馈迭代（15%）\n\n---"
+    },
+    {
+      "id": "tech-governance-interview-q5",
+      "slug": "tech-governance-interview",
+      "title": "变革阻力通常来自哪里？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "习惯改变、对不确定性的恐惧、利益受损、信息不透明、缺乏信任。 - 来源识别（60%）\n- 应对策略（40%）\n\n---"
+    },
+    {
+      "id": "tech-governance-interview-q6",
+      "slug": "tech-governance-interview",
+      "title": "设计一个技术治理体系。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 明确治理范围和目标。\n2. 建立治理组织：技术委员会、SIG、Owner。\n3. 制定标准：架构、代码、安全、数据、运维。\n4. 建立评审和监督机制。\n5. 引入工具自动化检查。\n6. 定期度量和复盘。\n\n评分维度：\n- 范围目标（20%）\n- 组织架构（20%）\n- 标准体系（20%）\n- 评审监督（15%）\n- 工具自动化（15%）\n- 度量复盘（10%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "tech-governance-interview-q7",
+      "slug": "tech-governance-interview",
+      "title": "如何管理大规模技术迁移？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 成立迁移项目组，明确目标和时间表。\n2. 充分沟通，建立共识。\n3. 先试点，再推广。\n4. 提供工具、文档、培训和支持。\n5. 分阶段验收，庆祝里程碑。\n6. 将新实践固化到流程中。\n\n评分维度：\n- 规划（25%）\n- 沟通（20%）\n- 试点（20%）\n- 支持（15%）\n- 固化（10%）\n- 可持续性（10%）\n\n---\n\n标签：`#tech-governance` `#change-management` `#面试题`\n\n> 最后更新：2026-06-25",
       "answer": " "
     }
   ]

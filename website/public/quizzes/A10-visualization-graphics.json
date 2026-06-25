@@ -1,0 +1,136 @@
+{
+  "domainId": "A10-visualization-graphics",
+  "domainName": "前端可视化与图形架构",
+  "questions": [
+    {
+      "id": "A10-q01",
+      "type": "single",
+      "question": "以下哪种技术最适合大规模 3D 渲染？",
+      "options": [
+        "SVG",
+        "Canvas 2D",
+        "WebGL",
+        "CSS"
+      ],
+      "answer": 2,
+      "explanation": "WebGL 利用 GPU 并行渲染，适合大规模 3D 场景。"
+    },
+    {
+      "id": "A10-q02",
+      "type": "single",
+      "question": "SVG 的主要优势是？",
+      "options": [
+        "适合海量数据渲染",
+        "矢量缩放、DOM 可交互",
+        "像素级控制",
+        "GPU 加速"
+      ],
+      "answer": 1,
+      "explanation": "SVG 是矢量图形，缩放不失真，每个图形都是 DOM 节点，易于交互。"
+    },
+    {
+      "id": "A10-q03",
+      "type": "single",
+      "question": "Canvas 渲染大量图形时，性能瓶颈通常是什么？",
+      "options": [
+        "内存不足",
+        "绘制调用过多",
+        "CPU 计算慢",
+        "网络延迟"
+      ],
+      "answer": 1,
+      "explanation": "Canvas 性能瓶颈通常是绘制调用过多，应批量绘制。"
+    },
+    {
+      "id": "A10-q04",
+      "type": "single",
+      "question": "以下哪种策略最适合 10 万点散点图？",
+      "options": [
+        "SVG 渲染每个点",
+        "Canvas 批量绘制",
+        "用 DOM 节点表示",
+        "直接渲染原始数据"
+      ],
+      "answer": 1,
+      "explanation": "10 万点散点图应使用 Canvas 批量绘制或 WebGL。"
+    },
+    {
+      "id": "A10-q05",
+      "type": "single",
+      "question": "虚拟化在可视化中的主要作用是？",
+      "options": [
+        "提高代码可读性",
+        "只渲染可视区域数据",
+        "增加交互效果",
+        "简化数据结构"
+      ],
+      "answer": 1,
+      "explanation": "虚拟化只渲染可视区域，减少绘制量。"
+    },
+    {
+      "id": "A10-q06",
+      "type": "multi",
+      "question": "前端可视化库包括？",
+      "options": [
+        "ECharts",
+        "D3.js",
+        "Three.js",
+        "jQuery"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "ECharts、D3.js、Three.js 都是前端可视化库，jQuery 不是。"
+    },
+    {
+      "id": "A10-q07",
+      "type": "multi",
+      "question": "提升可视化性能的手段包括？",
+      "options": [
+        "数据降采样",
+        "分层渲染",
+        "虚拟化",
+        "全部用 SVG"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "降采样、分层渲染、虚拟化都能提升性能，全部用 SVG 不适合大数据量。"
+    },
+    {
+      "id": "A10-q08",
+      "type": "multi",
+      "question": "WebGL 适用场景包括？",
+      "options": [
+        "大规模散点图",
+        "3D 场景",
+        "实时渲染",
+        "简单静态图表"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "WebGL 适合大规模、3D、实时渲染，简单静态图表不需要 WebGL。"
+    },
+    {
+      "id": "A10-q09",
+      "type": "single",
+      "question": "以下哪种图表最适合用 SVG 实现？",
+      "options": [
+        "100 万点散点图",
+        "可交互的流程图",
+        "实时粒子效果",
+        "大规模地图"
+      ],
+      "answer": 1,
+      "explanation": "可交互流程图节点少，SVG 的 DOM 交互能力强，适合用 SVG。"
+    },
+    {
+      "id": "A10-q10",
+      "type": "single",
+      "question": "数据降采样的主要目的是？",
+      "options": [
+        "提高数据准确性",
+        "减少渲染数据量同时保持趋势",
+        "增加交互细节",
+        "简化代码"
+      ],
+      "answer": 1,
+      "explanation": "降采样在减少数据量的同时尽量保持原始趋势。"
+    }
+  ]
+}

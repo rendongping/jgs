@@ -1,0 +1,136 @@
+{
+  "domainId": "F08-data-structures-algorithms",
+  "domainName": "数据结构与算法",
+  "questions": [
+    {
+      "id": "F08-q01",
+      "type": "single",
+      "question": "数组的随机访问时间复杂度是？",
+      "options": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n²)"
+      ],
+      "answer": 0,
+      "explanation": "数组通过索引随机访问，时间复杂度 O(1)。"
+    },
+    {
+      "id": "F08-q02",
+      "type": "single",
+      "question": "二分查找的前提条件是？",
+      "options": [
+        "数组无序",
+        "数组有序",
+        "数组长度固定",
+        "数组元素唯一"
+      ],
+      "answer": 1,
+      "explanation": "二分查找要求数组有序。"
+    },
+    {
+      "id": "F08-q03",
+      "type": "single",
+      "question": "以下哪种数据结构最适合实现 LRU 缓存？",
+      "options": [
+        "数组",
+        "栈",
+        "Map + 双向链表",
+        "队列"
+      ],
+      "answer": 2,
+      "explanation": "Map 提供 O(1) 查询，双向链表维护访问顺序，两者结合实现 O(1) 的 get/put。"
+    },
+    {
+      "id": "F08-q04",
+      "type": "single",
+      "question": "快速排序的平均时间复杂度是？",
+      "options": [
+        "O(n)",
+        "O(n log n)",
+        "O(n²)",
+        "O(log n)"
+      ],
+      "answer": 1,
+      "explanation": "快速排序平均时间复杂度 O(n log n)，最坏 O(n²)。"
+    },
+    {
+      "id": "F08-q05",
+      "type": "single",
+      "question": "动态规划的核心思想是？",
+      "options": [
+        "递归",
+        "分治",
+        "保存子问题结果，避免重复计算",
+        "贪心选择"
+      ],
+      "answer": 2,
+      "explanation": "动态规划通过保存子问题结果避免重复计算。"
+    },
+    {
+      "id": "F08-q06",
+      "type": "multi",
+      "question": "以下哪些数据结构常用于前端开发？",
+      "options": [
+        "栈",
+        "队列",
+        "树",
+        "图"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explanation": "栈、队列、树、图都在前端有广泛应用。"
+    },
+    {
+      "id": "F08-q07",
+      "type": "multi",
+      "question": "前端性能优化中常用的算法思想包括？",
+      "options": [
+        "虚拟列表（滑动窗口）",
+        "防抖/节流",
+        "LRU 缓存",
+        "全部渲染"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "虚拟列表、防抖节流、LRU 都是前端常用优化手段。"
+    },
+    {
+      "id": "F08-q08",
+      "type": "multi",
+      "question": "哈希表的应用场景包括？",
+      "options": [
+        "缓存",
+        "去重",
+        "索引",
+        "有序遍历"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "哈希表适合缓存、去重、索引，但不保证有序遍历。"
+    },
+    {
+      "id": "F08-q09",
+      "type": "single",
+      "question": "栈的典型应用场景是？",
+      "options": [
+        "任务调度",
+        "括号匹配",
+        "最短路径",
+        "自动补全"
+      ],
+      "answer": 1,
+      "explanation": "括号匹配、撤销操作、函数调用栈都是栈的典型应用。"
+    },
+    {
+      "id": "F08-q10",
+      "type": "single",
+      "question": "以下哪种遍历方式会得到二叉搜索树的有序序列？",
+      "options": [
+        "前序遍历",
+        "中序遍历",
+        "后序遍历",
+        "层序遍历"
+      ],
+      "answer": 1,
+      "explanation": "二叉搜索树中序遍历得到有序序列。"
+    }
+  ]
+}

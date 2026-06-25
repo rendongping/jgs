@@ -18,7 +18,7 @@ import { useLearningData } from '../composables/useLearningData.js';
 const props = defineProps({
   totalCount: {
     type: Number,
-    default: 34
+    default: 43
   },
   showReset: {
     type: Boolean,

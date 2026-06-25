@@ -83,11 +83,17 @@
 import { ref, computed } from 'vue';
 
 const domains = [
+  // Level 01 基础层
   { id: 'javascript', name: 'JavaScript' },
   { id: 'typescript', name: 'TypeScript' },
   { id: 'browser', name: 'Browser' },
   { id: 'network', name: 'Network' },
   { id: 'security', name: 'Security' },
+  { id: 'html-css', name: 'HTML/CSS' },
+  { id: 'a11y', name: 'Accessibility' },
+  { id: 'data-structures-algorithms', name: 'Data Structures & Algorithms' },
+  { id: 'design-patterns', name: 'Design Patterns' },
+  // Level 02 工程化层
   { id: 'build-tools', name: 'Build Tools' },
   { id: 'monorepo', name: 'Monorepo' },
   { id: 'ci-cd', name: 'CI/CD' },
@@ -98,15 +104,32 @@ const domains = [
   { id: 'cross-platform', name: 'Cross Platform' },
   { id: 'ai-engineering', name: 'AI Engineering' },
   { id: 'node-bff', name: 'Node.js/BFF' },
+  { id: 'git-workflow', name: 'Git Workflow' },
+  { id: 'developer-experience', name: 'Developer Experience' },
+  { id: 'deployment-sre', name: 'Frontend SRE' },
+  { id: 'package-supply-chain', name: 'Package & Supply Chain' },
+  // Level 03 架构层
   { id: 'system-architecture', name: 'System Architecture' },
   { id: 'micro-frontend', name: 'Micro Frontend' },
   { id: 'performance', name: 'Performance' },
   { id: 'quality', name: 'Quality' },
   { id: 'data-state', name: 'Data & State' },
   { id: 'observability', name: 'Observability' },
+  { id: 'security-architecture', name: 'Security Architecture' },
+  { id: 'real-time', name: 'Real-time' },
+  { id: 'internationalization', name: 'Internationalization' },
+  { id: 'visualization-graphics', name: 'Visualization & Graphics' },
+  { id: 'serverless-edge', name: 'Serverless & Edge' },
+  { id: 'data-engineering', name: 'Data Engineering' },
+  // Level 04 领导力层
   { id: 'business', name: 'Business' },
   { id: 'team', name: 'Team' },
   { id: 'strategy', name: 'Strategy' },
+  { id: 'communication', name: 'Communication' },
+  { id: 'project-management', name: 'Project Management' },
+  { id: 'hiring', name: 'Hiring' },
+  { id: 'tech-branding', name: 'Tech Brand & Community' },
+  { id: 'tech-governance', name: 'Tech Governance' },
 ];
 
 const selectedDomain = ref('');
@@ -153,7 +176,7 @@ async function startSession() {
     const data = await res.json();
     let questions = data.questions || [];
     if (selectedDomain.value) {
-      questions = questions.filter(q => q.slug === selectedDomain.value || q.slug.endsWith(`-${selectedDomain.value}`));
+      questions = questions.filter(q => q.slug === selectedDomain.value || q.slug.startsWith(`${selectedDomain.value}-`));
     }
     if (!questions.length) throw new Error('未找到匹配题目');
     const selected = shuffle(questions).slice(0, count.value).map(q => ({ ...q, showAnswer: false }));
