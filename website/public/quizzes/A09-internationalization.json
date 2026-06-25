@@ -1,0 +1,187 @@
+{
+  "domainId": "A09-internationalization",
+  "domainName": "国际化与本地化架构",
+  "version": 1,
+  "questions": [
+    {
+      "id": "A09-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "i18n 和 l10n 分别代表什么？",
+      "answer": ["国际化和本地化"],
+      "explanation": "i18n = Internationalization（国际化），l10n = Localization（本地化）。",
+      "tags": ["i18n", "l10n"],
+      "options": ["国际化和本地化", "本地化和国际化", "导入和导出", "输入和输出"]
+    },
+    {
+      "id": "A09-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个 CSS 属性更适合 RTL 布局？",
+      "answer": ["margin-inline-start"],
+      "explanation": "margin-inline-start 是逻辑属性，会根据文本方向自动适配 LTR/RTL。",
+      "tags": ["i18n", "rtl"],
+      "options": ["margin-left", "margin-inline-start", "margin-right", "padding-left"]
+    },
+    {
+      "id": "A09-003",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "ICU MessageFormat 主要用于解决什么问题？",
+      "answer": ["复数和插值等复杂翻译"],
+      "explanation": "ICU MessageFormat 用于处理插值、复数、选择等复杂翻译场景。",
+      "tags": ["i18n", "message-format"],
+      "options": ["样式适配", "复数和插值等复杂翻译", "图片国际化", "网络请求"]
+    },
+    {
+      "id": "A09-004",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪个 API 用于格式化货币？",
+      "answer": ["Intl.NumberFormat"],
+      "explanation": "Intl.NumberFormat 配合 style: 'currency' 可格式化货币。",
+      "tags": ["i18n", "intl"],
+      "options": ["Intl.DateTimeFormat", "Intl.NumberFormat", "Intl.Collator", "Intl.ListFormat"]
+    },
+    {
+      "id": "A09-005",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "GDPR 对前端应用的主要影响是？",
+      "answer": ["数据处理和用户同意"],
+      "explanation": "GDPR 主要影响个人数据的处理、用户同意、知情权、删除权等。",
+      "tags": ["i18n", "compliance"],
+      "options": ["必须使用 React", "数据处理和用户同意", "必须使用 HTTPS", "必须使用 SSR"]
+    },
+    {
+      "id": "A09-006",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "前端 i18n 需要解决哪些核心问题？",
+      "answer": ["文本翻译", "日期数字格式化", "RTL 适配"],
+      "explanation": "前端 i18n 需要解决文本翻译、格式化、RTL、内容管理、地区路由等问题。",
+      "tags": ["i18n", "concepts"],
+      "options": [
+        "文本翻译",
+        "日期数字格式化",
+        "RTL 适配",
+        "数据库设计",
+        "服务器扩容"
+      ]
+    },
+    {
+      "id": "A09-007",
+      "type": "true-false",
+      "level": "basic",
+      "question": "RTL 适配只需要将文字方向改为从右到左。",
+      "answer": ["false"],
+      "explanation": "RTL 适配还包括布局镜像、图标方向、动画方向、焦点顺序等。",
+      "tags": ["i18n", "rtl"]
+    },
+    {
+      "id": "A09-008",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "以下哪种方式最适合管理多语言翻译内容？",
+      "answer": ["翻译平台 + CI 自动同步"],
+      "explanation": "翻译平台（Crowdin/Lokalise）配合 CI 自动同步，是管理多语言翻译的标准做法。",
+      "tags": ["i18n", "workflow"],
+      "options": [
+        "开发者在代码中手写所有语言",
+        "翻译平台 + CI 自动同步",
+        "不维护翻译文件",
+        "每次发布前临时翻译"
+      ]
+    },
+    {
+      "id": "A09-009",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "全球化 SaaS 部署时需要考虑哪些合规问题？",
+      "answer": ["数据本地化", "用户同意", "数据跨境传输"],
+      "explanation": "全球化部署需要考虑数据本地化、用户同意、跨境传输、内容合规等。",
+      "tags": ["i18n", "compliance"],
+      "options": [
+        "数据本地化",
+        "用户同意",
+        "数据跨境传输",
+        "必须使用 jQuery"
+      ]
+    },
+    {
+      "id": "A09-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "时区处理的最佳实践是？",
+      "answer": ["后端存储 UTC，前端按用户时区显示"],
+      "explanation": "后端统一存储 UTC 时间，前端根据用户时区本地化显示，避免时区混乱。",
+      "tags": ["i18n", "timezone"],
+      "options": [
+        "前后端都使用本地时区",
+        "后端存储 UTC，前端按用户时区显示",
+        "只显示服务器时区",
+        "不处理时区"
+      ]
+    },
+    {
+      "id": "A09-011",
+      "type": "true-false",
+      "level": "basic",
+      "question": "i18n 应该在项目基本完成后再引入。",
+      "answer": ["false"],
+      "explanation": "i18n 应从项目启动时就引入，后期硬编码替换成本很高。",
+      "tags": ["i18n", "best-practice"]
+    },
+    {
+      "id": "A09-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪种语言属于 RTL 语言？",
+      "answer": ["阿拉伯语"],
+      "explanation": "阿拉伯语、希伯来语、波斯语等属于从右到左（RTL）语言。",
+      "tags": ["i18n", "rtl"],
+      "options": ["中文", "英文", "阿拉伯语", "日文"]
+    },
+    {
+      "id": "A09-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计企业级 i18n 架构时，应考虑哪些因素？",
+      "answer": ["统一的 key 规范", "翻译工作流", "RTL 支持", "按地区部署"],
+      "explanation": "企业级 i18n 需要考虑规范、工作流、RTL、部署、测试等多方面。",
+      "tags": ["i18n", "architecture"],
+      "options": [
+        "统一的 key 规范",
+        "翻译工作流",
+        "RTL 支持",
+        "按地区部署",
+        "只支持一种语言"
+      ]
+    },
+    {
+      "id": "A09-014",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "缺失翻译时，最佳处理策略是？",
+      "answer": ["回退到默认语言并标记缺失"],
+      "explanation": "缺失翻译时应回退到默认语言，并标记或记录缺失，便于后续补充。",
+      "tags": ["i18n", "fallback"],
+      "options": [
+        "显示空字符串",
+        "回退到默认语言并标记缺失",
+        "直接报错",
+        "显示翻译 key"
+      ]
+    },
+    {
+      "id": "A09-015",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪个不是 i18n 中常见的格式化需求？",
+      "answer": ["图片压缩"],
+      "explanation": "图片压缩不属于 i18n 格式化需求。i18n 主要涉及日期、数字、货币、复数等。",
+      "tags": ["i18n", "formatting"],
+      "options": ["日期格式化", "货币格式化", "图片压缩", "复数处理"]
+    }
+  ]
+}

@@ -8,10 +8,10 @@
 
 | 部分 | 说明 |
 |------|------|
-| [基础层](/foundation/javascript) | JavaScript、TypeScript、浏览器、网络、安全 |
-| [工程化层](/engineering/build-tools) | 构建工具、Monorepo、CI/CD、框架、跨端、AI 工程化、Node.js |
-| [架构层](/architecture/system-architecture) | 系统架构、微前端、性能、质量、数据状态、可观测性 |
-| [领导力层](/leadership/business) | 业务洞察、团队领导力、技术战略 |
+| [基础层](/foundation/javascript) | JavaScript、TypeScript、浏览器、网络、安全、HTML/CSS、可访问性 |
+| [工程化层](/engineering/build-tools) | 构建工具、Monorepo、CI/CD、代码质量、设计体系、框架、跨端、AI 工程化、Node.js、Git 工作流、开发者体验 |
+| [架构层](/architecture/system-architecture) | 系统架构、微前端、性能、质量、数据状态、可观测性、安全架构、实时与协同、国际化 |
+| [领导力层](/leadership/business) | 业务洞察、团队领导力、技术战略、沟通表达、项目管理、招聘与组织发展 |
 | [资源工具](/resources/glossary) | 术语表、技术雷达、精选资源、实战手册、工作流 |
 | [综合案例](/cases/from-url-to-interactive) | 跨领域实战案例 |
 | [工具模板](/templates/adr) | 可直接使用的架构师工具模板 |
@@ -20,7 +20,7 @@
 
 ### 第一步：能力自评
 
-点击 [能力自评](/guide/self-assessment)，对 24 个知识领域进行打分。系统会：
+点击 [能力自评](/guide/self-assessment)，对 34 个知识领域进行打分。系统会：
 
 - 展示你的能力雷达图
 - 识别薄弱环节
@@ -53,7 +53,7 @@
 
 本网站提供以下增强学习体验的功能：
 
-- **知识依赖图**：可视化 24 个领域的前置关系。
+- **知识依赖图**：可视化 34 个领域的前置关系。
 - **能力自评表**：在线评分，自动生成雷达图。
 - **面试题折叠答案**：先做题，再展开看答案。
 - **学习进度追踪**：标记已学领域，查看总体进度。

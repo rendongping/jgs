@@ -1,0 +1,181 @@
+{
+  "domainId": "F07-a11y",
+  "domainName": "Web 无障碍",
+  "version": 1,
+  "questions": [
+    {
+      "id": "F07-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "WCAG 2.1 的四项原则 POUR 中，O 代表什么？",
+      "answer": ["Operable"],
+      "explanation": "POUR 分别代表 Perceivable（可感知）、Operable（可操作）、Understandable（可理解）、Robust（健壮）。",
+      "tags": ["a11y", "wcag"],
+      "options": ["Observable", "Operable", "Optimizable", "Organized"]
+    },
+    {
+      "id": "F07-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪种标签最适合表示页面的主要内容区域？",
+      "answer": ["main"],
+      "explanation": "<main> 是 HTML5 原生标签，用于标识页面的主要内容区域。",
+      "tags": ["a11y", "html"],
+      "options": ["section", "main", "article", "div role=\"main\""]
+    },
+    {
+      "id": "F07-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "WCAG AA 级对普通文本与背景的对比度要求是？",
+      "answer": ["4.5:1"],
+      "explanation": "WCAG AA 级要求普通文本与背景对比度至少 4.5:1，大文本至少 3:1。",
+      "tags": ["a11y", "wcag"],
+      "options": ["3:1", "4.5:1", "7:1", "2:1"]
+    },
+    {
+      "id": "F07-004",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪个 ARIA 属性用于表示当前元素是否展开？",
+      "answer": ["aria-expanded"],
+      "explanation": "aria-expanded 用于表示控件是否展开或折叠，常用于折叠面板、下拉菜单等。",
+      "tags": ["a11y", "aria"],
+      "options": ["aria-hidden", "aria-expanded", "aria-selected", "aria-pressed"]
+    },
+    {
+      "id": "F07-005",
+      "type": "true-false",
+      "level": "basic",
+      "question": "ARIA 可以完全替代语义化 HTML。",
+      "answer": ["false"],
+      "explanation": "应优先使用原生语义化 HTML，ARIA 仅作为补充。错误的 ARIA 比没有 ARIA 更危险。",
+      "tags": ["a11y", "aria"]
+    },
+    {
+      "id": "F07-006",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "以下哪些做法有助于提升表单可访问性？",
+      "answer": ["使用 label 与输入框关联", "使用 aria-describedby 关联错误提示", "使用 fieldset 和 legend 分组"],
+      "explanation": "表单可访问性需要标签关联、错误提示关联、分组标识等。placeholder 不能替代 label。",
+      "tags": ["a11y", "forms"],
+      "options": [
+        "使用 placeholder 替代 label",
+        "使用 label 与输入框关联",
+        "使用 aria-describedby 关联错误提示",
+        "使用 fieldset 和 legend 分组"
+      ]
+    },
+    {
+      "id": "F07-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪种 alt 写法适合装饰性图片？",
+      "answer": ["alt=\"\""],
+      "explanation": "装饰性图片应使用空 alt（alt=\"\"），让屏幕阅读器忽略它。",
+      "tags": ["a11y", "images"],
+      "options": ["alt=\"图片\"", "alt=\"装饰\"", "alt=\"\"", "不写 alt"]
+    },
+    {
+      "id": "F07-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "aria-live=\"polite\" 的含义是？",
+      "answer": ["当前任务完成后再播报更新内容"],
+      "explanation": "polite 表示在当前任务完成后再播报更新，assertive 则会立即打断当前播报。",
+      "tags": ["a11y", "aria"],
+      "options": [
+        "立即打断当前播报",
+        "当前任务完成后再播报更新内容",
+        "不播报任何内容",
+        "只在页面加载时播报"
+      ]
+    },
+    {
+      "id": "F07-009",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计可访问的模态对话框时，以下哪些是必须的？",
+      "answer": ["将焦点移到对话框内", "限制焦点在对话框内", "关闭后返回触发按钮", "支持 Esc 关闭"],
+      "explanation": "模态对话框必须管理焦点、限制焦点在对话框内、关闭后恢复焦点、支持键盘关闭。",
+      "tags": ["a11y", "focus-management"],
+      "options": [
+        "将焦点移到对话框内",
+        "限制焦点在对话框内",
+        "关闭页面滚动",
+        "关闭后返回触发按钮",
+        "支持 Esc 关闭"
+      ]
+    },
+    {
+      "id": "F07-010",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "以下哪个工具可用于自动化可访问性测试？",
+      "answer": ["axe DevTools"],
+      "explanation": "axe DevTools 是常用的浏览器插件，可自动化检测 WCAG 违规。",
+      "tags": ["a11y", "testing"],
+      "options": ["Webpack", "axe DevTools", "PostCSS", "Babel"]
+    },
+    {
+      "id": "F07-011",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "使用 tabindex=\"1\" 可以优化页面的焦点顺序。",
+      "answer": ["false"],
+      "explanation": "tabindex 大于 0 会破坏自然焦点顺序，应避免使用。优先通过调整 DOM 顺序管理焦点。",
+      "tags": ["a11y", "keyboard"]
+    },
+    {
+      "id": "F07-012",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在自定义选项卡组件中，当前激活的 tab 应使用哪个 ARIA 属性？",
+      "answer": ["aria-selected"],
+      "explanation": "aria-selected 用于表示当前选中的 tab，aria-expanded 用于展开/折叠控件。",
+      "tags": ["a11y", "aria"],
+      "options": ["aria-expanded", "aria-selected", "aria-pressed", "aria-checked"]
+    },
+    {
+      "id": "F07-013",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "以下哪些做法符合'不要只用颜色传达信息'的原则？",
+      "answer": ["配合图标", "使用文字说明", "使用不同形状"],
+      "explanation": "应通过图标、文字、形状等多种方式传达信息，避免色盲用户无法识别。",
+      "tags": ["a11y", "color"],
+      "options": [
+        "仅使用红色和绿色区分状态",
+        "配合图标",
+        "使用文字说明",
+        "使用不同形状"
+      ]
+    },
+    {
+      "id": "F07-014",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个标签最适合包裹页面中的导航链接组？",
+      "answer": ["nav"],
+      "explanation": "<nav> 用于定义导航链接组，是地标元素之一。",
+      "tags": ["a11y", "html"],
+      "options": ["header", "nav", "aside", "footer"]
+    },
+    {
+      "id": "F07-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在无障碍测试中，以下哪项最贴近真实用户体验？",
+      "answer": ["邀请真实障碍用户参与测试"],
+      "explanation": "自动化工具和手动测试都有价值，但真实用户测试能发现工具无法捕捉的问题。",
+      "tags": ["a11y", "testing"],
+      "options": [
+        "仅使用 Lighthouse 跑分",
+        "邀请真实障碍用户参与测试",
+        "仅检查代码中的 ARIA 属性",
+        "仅在桌面浏览器测试"
+      ]
+    }
+  ]
+}

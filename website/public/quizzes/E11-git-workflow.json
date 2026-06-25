@@ -1,0 +1,192 @@
+{
+  "domainId": "E11-git-workflow",
+  "domainName": "Git 工作流与版本控制",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E11-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个命令用于临时保存当前修改，方便切换到其他分支？",
+      "answer": ["git stash"],
+      "explanation": "git stash 用于临时保存工作目录修改，之后可以通过 git stash pop 恢复。",
+      "tags": ["git", "commands"],
+      "options": ["git reset", "git stash", "git rebase", "git cherry-pick"]
+    },
+    {
+      "id": "E11-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Conventional Commits 中，feat 表示什么类型？",
+      "answer": ["新功能"],
+      "explanation": "feat 表示新增功能（feature），fix 表示修复 Bug。",
+      "tags": ["git", "conventional-commits"],
+      "options": ["修复 Bug", "新功能", "文档更新", "代码重构"]
+    },
+    {
+      "id": "E11-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "Git Flow 中，用于修复线上紧急问题的分支是？",
+      "answer": ["hotfix/*"],
+      "explanation": "hotfix/* 分支用于从 main 切出修复线上紧急问题，修复后合并回 main 和 develop。",
+      "tags": ["git", "git-flow"],
+      "options": ["feature/*", "release/*", "hotfix/*", "develop"]
+    },
+    {
+      "id": "E11-004",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪种情况适合使用 git rebase？",
+      "answer": ["本地功能分支整理提交历史"],
+      "explanation": "git rebase 适合本地整理提交历史。不要对已推送到远程的公共分支执行 rebase。",
+      "tags": ["git", "rebase"],
+      "options": [
+        "已推送到远程的公共分支",
+        "本地功能分支整理提交历史",
+        "合并两个长期分支并保留完整历史",
+        "撤销某个已发布提交"
+      ]
+    },
+    {
+      "id": "E11-005",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "语义化版本 2.1.3 中，1 代表什么？",
+      "answer": ["次版本号"],
+      "explanation": "语义化版本 MAJOR.MINOR.PATCH 中，MINOR 表示向下兼容的功能新增。",
+      "tags": ["git", "semver"],
+      "options": ["主版本号", "次版本号", "修订号", "预发布版本"]
+    },
+    {
+      "id": "E11-006",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "Code Review 应该关注哪些方面？",
+      "answer": ["功能正确性", "代码质量", "测试覆盖", "性能与安全"],
+      "explanation": "Code Review 应关注功能、质量、测试、性能、安全、可访问性、设计合理性等多个维度。",
+      "tags": ["git", "code-review"],
+      "options": [
+        "功能正确性",
+        "代码格式",
+        "代码质量",
+        "测试覆盖",
+        "性能与安全"
+      ]
+    },
+    {
+      "id": "E11-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "Trunk-Based Development 中，未完成的功能通常如何管理？",
+      "answer": ["特性开关（Feature Toggle）"],
+      "explanation": "Trunk-Based Development 通过特性开关管理未完成的功能，实现高频集成。",
+      "tags": ["git", "trunk-based"],
+      "options": [
+        "长期 feature 分支",
+        "特性开关（Feature Toggle）",
+        "不提交代码",
+        "单独 release 分支"
+      ]
+    },
+    {
+      "id": "E11-008",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "git rebase 适合用于已经推送到远程的公共分支。",
+      "answer": ["false"],
+      "explanation": "对已推送到远程的公共分支执行 rebase 会改写历史，影响其他协作者，应避免。",
+      "tags": ["git", "rebase"]
+    },
+    {
+      "id": "E11-009",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "以下哪些做法有助于保障 main 分支稳定性？",
+      "answer": ["分支保护", "Required Status Checks", "Required Reviews", "自动化测试"],
+      "explanation": "分支保护、CI 检查、Review 机制和自动化测试都是保障 main 分支稳定性的关键手段。",
+      "tags": ["git", "quality"],
+      "options": [
+        "分支保护",
+        "直接 push 到 main",
+        "Required Status Checks",
+        "Required Reviews",
+        "自动化测试"
+      ]
+    },
+    {
+      "id": "E11-010",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "大型仓库优化中，以下哪个命令可以实现只拉取部分目录？",
+      "answer": ["git sparse-checkout"],
+      "explanation": "git sparse-checkout 允许只检出仓库的部分目录，减少工作区大小和克隆时间。",
+      "tags": ["git", "performance"],
+      "options": ["git clone --depth 1", "git sparse-checkout", "git lfs", "git bisect"]
+    },
+    {
+      "id": "E11-011",
+      "type": "true-false",
+      "level": "basic",
+      "question": "Conventional Commits 可以支撑自动生成 CHANGELOG。",
+      "answer": ["true"],
+      "explanation": "Conventional Commits 规范化的提交消息可以被工具解析，自动生成 CHANGELOG 和语义化版本。",
+      "tags": ["git", "conventional-commits"]
+    },
+    {
+      "id": "E11-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪个命令可以安全地撤销某个已发布提交，而不改写历史？",
+      "answer": ["git revert"],
+      "explanation": "git revert 会生成一个新的反向提交来撤销变更，不改写历史，适合已发布提交。",
+      "tags": ["git", "commands"],
+      "options": ["git reset --hard", "git revert", "git rebase", "git cherry-pick"]
+    },
+    {
+      "id": "E11-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "在 Monorepo 中，以下哪些做法有助于版本管理？",
+      "answer": ["使用 Changesets", "通过 affected 检测只构建变更包", "明确包边界和 CODEOWNERS"],
+      "explanation": "Monorepo 版本管理需要 Changesets、增量构建、代码所有权等机制配合。",
+      "tags": ["git", "monorepo"],
+      "options": [
+        "使用 Changesets",
+        "手动维护每个包的版本号",
+        "通过 affected 检测只构建变更包",
+        "明确包边界和 CODEOWNERS"
+      ]
+    },
+    {
+      "id": "E11-014",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "GitHub Flow 相比 Git Flow 的主要特点是？",
+      "answer": ["分支更简单，适合持续部署"],
+      "explanation": "GitHub Flow 只有 main 和 feature 分支，流程简单，适合持续部署和发布频繁的团队。",
+      "tags": ["git", "github-flow"],
+      "options": [
+        "分支更多，适合大型项目",
+        "分支更简单，适合持续部署",
+        "不需要 Code Review",
+        "必须手动发布"
+      ]
+    },
+    {
+      "id": "E11-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "CODEOWNERS 文件的主要作用是？",
+      "answer": ["指定目录或文件的负责人，控制 Review 权限"],
+      "explanation": "CODEOWNERS 用于指定代码负责人，确保关键目录的变更由相关人员 Review。",
+      "tags": ["git", "governance"],
+      "options": [
+        "自动生成 CHANGELOG",
+        "指定目录或文件的负责人，控制 Review 权限",
+        "管理 Git 仓库大小",
+        "定义分支策略"
+      ]
+    }
+  ]
+}

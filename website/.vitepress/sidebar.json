@@ -32,8 +32,16 @@
       "collapsed": false,
       "items": [
         {
+          "text": "Web 无障碍",
+          "link": "/foundation/a11y"
+        },
+        {
           "text": "浏览器原理",
           "link": "/foundation/browser"
+        },
+        {
+          "text": "HTML/CSS 工程化",
+          "link": "/foundation/html-css"
         },
         {
           "text": "JavaScript 语言基础",
@@ -52,8 +60,16 @@
           "link": "/foundation/typescript"
         },
         {
+          "text": "Web 无障碍 — 练习册",
+          "link": "/foundation/a11y-exercises"
+        },
+        {
           "text": "浏览器原理 — 练习册",
           "link": "/foundation/browser-exercises"
+        },
+        {
+          "text": "HTML/CSS 工程化 — 练习册",
+          "link": "/foundation/html-css-exercises"
         },
         {
           "text": "JavaScript 语言基础 — 练习册",
@@ -72,8 +88,16 @@
           "link": "/foundation/typescript-exercises"
         },
         {
+          "text": "Web 无障碍 — 面试题",
+          "link": "/foundation/a11y-interview"
+        },
+        {
           "text": "浏览器原理 — 面试题",
           "link": "/foundation/browser-interview"
+        },
+        {
+          "text": "HTML/CSS 工程化 — 面试题",
+          "link": "/foundation/html-css-interview"
         },
         {
           "text": "JavaScript 语言基础 — 面试题",
@@ -124,6 +148,14 @@
           "link": "/engineering/design-system"
         },
         {
+          "text": "Developer Experience",
+          "link": "/engineering/developer-experience"
+        },
+        {
+          "text": "Git 工作流与版本控制",
+          "link": "/engineering/git-workflow"
+        },
+        {
           "text": "Monorepo 工程管理",
           "link": "/engineering/monorepo"
         },
@@ -162,6 +194,14 @@
         {
           "text": "设计体系与组件库 — 练习册",
           "link": "/engineering/design-system-exercises"
+        },
+        {
+          "text": "Developer Experience — 练习册",
+          "link": "/engineering/developer-experience-exercises"
+        },
+        {
+          "text": "Git 工作流与版本控制 — 练习册",
+          "link": "/engineering/git-workflow-exercises"
         },
         {
           "text": "Monorepo 工程管理 — 练习册",
@@ -204,6 +244,14 @@
           "link": "/engineering/design-system-interview"
         },
         {
+          "text": "Developer Experience — 面试题",
+          "link": "/engineering/developer-experience-interview"
+        },
+        {
+          "text": "Git 工作流与版本控制 — 面试题",
+          "link": "/engineering/git-workflow-interview"
+        },
+        {
           "text": "Monorepo 工程管理 — 面试题",
           "link": "/engineering/monorepo-interview"
         },
@@ -232,6 +280,10 @@
           "link": "/architecture/data-state"
         },
         {
+          "text": "国际化与本地化架构",
+          "link": "/architecture/internationalization"
+        },
+        {
           "text": "微前端",
           "link": "/architecture/micro-frontend"
         },
@@ -248,12 +300,24 @@
           "link": "/architecture/quality"
         },
         {
+          "text": "实时与协同架构",
+          "link": "/architecture/real-time"
+        },
+        {
+          "text": "前端安全架构",
+          "link": "/architecture/security-architecture"
+        },
+        {
           "text": "系统架构设计",
           "link": "/architecture/system-architecture"
         },
         {
           "text": "数据与状态管理 — 练习册",
           "link": "/architecture/data-state-exercises"
+        },
+        {
+          "text": "国际化与本地化架构 — 练习册",
+          "link": "/architecture/internationalization-exercises"
         },
         {
           "text": "微前端 — 练习册",
@@ -272,12 +336,24 @@
           "link": "/architecture/quality-exercises"
         },
         {
+          "text": "实时与协同架构 — 练习册",
+          "link": "/architecture/real-time-exercises"
+        },
+        {
+          "text": "前端安全架构 — 练习册",
+          "link": "/architecture/security-architecture-exercises"
+        },
+        {
           "text": "系统架构设计 — 练习册",
           "link": "/architecture/system-architecture-exercises"
         },
         {
           "text": "数据与状态管理 — 面试题",
           "link": "/architecture/data-state-interview"
+        },
+        {
+          "text": "国际化与本地化架构 — 面试题",
+          "link": "/architecture/internationalization-interview"
         },
         {
           "text": "微前端 — 面试题",
@@ -296,6 +372,14 @@
           "link": "/architecture/quality-interview"
         },
         {
+          "text": "实时与协同架构 — 面试题",
+          "link": "/architecture/real-time-interview"
+        },
+        {
+          "text": "前端安全架构 — 面试题",
+          "link": "/architecture/security-architecture-interview"
+        },
+        {
           "text": "系统架构设计 — 面试题",
           "link": "/architecture/system-architecture-interview"
         }
@@ -312,6 +396,18 @@
           "link": "/leadership/business"
         },
         {
+          "text": "沟通表达与影响力",
+          "link": "/leadership/communication"
+        },
+        {
+          "text": "招聘培养与组织发展",
+          "link": "/leadership/hiring"
+        },
+        {
+          "text": "项目管理与交付",
+          "link": "/leadership/project-management"
+        },
+        {
           "text": "技术战略",
           "link": "/leadership/strategy"
         },
@@ -324,6 +420,18 @@
           "link": "/leadership/business-exercises"
         },
         {
+          "text": "沟通表达与影响力 — 练习册",
+          "link": "/leadership/communication-exercises"
+        },
+        {
+          "text": "招聘培养与组织发展 — 练习册",
+          "link": "/leadership/hiring-exercises"
+        },
+        {
+          "text": "项目管理与交付 — 练习册",
+          "link": "/leadership/project-management-exercises"
+        },
+        {
           "text": "技术战略 — 练习册",
           "link": "/leadership/strategy-exercises"
         },
@@ -334,6 +442,18 @@
         {
           "text": "业务洞察 — 面试题",
           "link": "/leadership/business-interview"
+        },
+        {
+          "text": "沟通表达与影响力 — 面试题",
+          "link": "/leadership/communication-interview"
+        },
+        {
+          "text": "招聘培养与组织发展 — 面试题",
+          "link": "/leadership/hiring-interview"
+        },
+        {
+          "text": "项目管理与交付 — 面试题",
+          "link": "/leadership/project-management-interview"
         },
         {
           "text": "技术战略 — 面试题",
@@ -390,6 +510,14 @@
         {
           "text": "一次完整的技术选型",
           "link": "/cases/technology-selection"
+        },
+        {
+          "text": "AI Native 数据看板",
+          "link": "/cases/ai-native-dashboard"
+        },
+        {
+          "text": "跨端电商平台架构演进",
+          "link": "/cases/cross-platform-commerce"
         }
       ]
     }

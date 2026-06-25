@@ -15,7 +15,7 @@
     <div v-if="recommendations.length" class="recommendation-panel">
       <h5>🎯 个性化学习推荐</h5>
       <p class="recommendation-desc">
-        基于你的能力自评（{{ ratedCount }}/24 领域）和测评历史，以下领域建议优先补强：
+        基于你的能力自评（{{ ratedCount }}/{{ totalDomains }} 领域）和测评历史，以下领域建议优先补强：
       </p>
       <div class="recommendation-list">
         <a
@@ -200,6 +200,9 @@ const routes = [
           { id: 'business', name: 'Business', link: '/leadership/business' },
           { id: 'team', name: 'Team', link: '/leadership/team' },
           { id: 'strategy', name: 'Strategy', link: '/leadership/strategy' },
+          { id: 'communication', name: 'Communication', link: '/leadership/communication' },
+          { id: 'project-management', name: 'Project Management', link: '/leadership/project-management' },
+          { id: 'hiring', name: 'Hiring', link: '/leadership/hiring' },
         ]
       }
     ]
@@ -209,6 +212,7 @@ const routes = [
 const allDomains = routes.flatMap(r => r.levels.flatMap(l => l.domains));
 const idToDomain = Object.fromEntries(allDomains.map(d => [d.id, d]));
 
+const totalDomains = 34;
 const selectedRoute = ref('business');
 const { data, getRating, isDomainCompleted } = useLearningData();
 

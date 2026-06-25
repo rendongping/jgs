@@ -1,0 +1,313 @@
+# 前端安全架构：从防御点到体系化
+
+> 目标：建立前端安全架构思维，掌握威胁建模、SDL、供应链安全与隐私架构设计方法。
+
+---
+
+## 核心要点（TL;DR）
+
+- 前端安全不仅是防范 XSS/CSRF，更是贯穿设计、开发、发布、运营全生命周期的系统工程。
+- 安全架构的核心是**识别资产、评估威胁、设计控制、持续验证**。
+- 威胁建模（Threat Modeling）是安全设计的起点，STRIDE 是常用方法论。
+- 供应链安全已成为前端重大风险来源，依赖审计和 SRI 是基础防护。
+- 隐私架构需要遵循"隐私设计"（Privacy by Design）和最小必要原则。
+- 安全左移：将安全检查融入 CI/CD 和 Code Review，而非上线前突击。
+
+---
+
+## 学习时长与前置知识
+
+- **建议学习时长**：3-4 周（每周投入 6-8 小时）
+- **前置知识**：Web 安全基础（F05）、网络协议（F04）、JavaScript/Node.js（F01/E10）
+
+---
+
+## 一、为什么需要前端安全架构？
+
+### 1.1 前端安全的新挑战
+
+传统前端安全主要关注 XSS、CSRF。现代前端面临更复杂的威胁：
+
+| 威胁 | 说明 |
+|------|------|
+| 供应链攻击 | npm 包被植入恶意代码，影响数百万项目 |
+| 第三方脚本风险 | 广告、统计脚本可能窃取数据或篡改页面 |
+| API 滥用 | 前端凭证泄露、业务接口被逆向 |
+| 隐私合规 | GDPR、个保法要求明确的数据处理边界 |
+| 客户端逻辑暴露 | 前端代码被逆向分析，暴露业务规则 |
+
+### 1.2 从"修漏洞"到"建体系"
+
+| 阶段 | 特征 |
+|------|------|
+| 被动防御 | 出现漏洞后修复 |
+| 主动防御 | 编码规范、安全扫描 |
+| 安全架构 | 威胁建模、SDL、持续监控、应急响应 |
+
+前端架构师需要将安全从"技术点"提升为"组织能力"。
+
+---
+
+## 二、威胁建模（Threat Modeling）
+
+### 2.1 什么是威胁建模？
+
+威胁建模是一种结构化方法，用于识别系统面临的潜在威胁，并设计缓解措施。
+
+### 2.2 STRIDE 模型
+
+| 威胁 | 含义 | 前端示例 |
+|------|------|---------|
+| Spoofing | 伪装 | 伪造身份认证 |
+| Tampering | 篡改 | 修改本地存储、请求参数 |
+| Repudiation | 抵赖 | 缺乏操作日志 |
+| Information Disclosure | 信息泄露 | 敏感信息打印到控制台 |
+| Denial of Service | 拒绝服务 | 无限循环导致页面卡死 |
+| Elevation of Privilege | 权限提升 | 普通用户越权访问管理接口 |
+
+### 2.3 威胁建模步骤
+
+```
+1. 识别资产（用户数据、API 凭证、业务逻辑）
+2. 绘制数据流图（DFD）
+3. 识别威胁（STRIDE）
+4. 评估风险（概率 × 影响）
+5. 设计缓解措施
+6. 验证和迭代
+```
+
+### 2.4 前端数据流图示例
+
+```
+用户 → 浏览器 → CDN/静态资源 → BFF → 后端服务 → 数据库
+         ↓
+      第三方脚本
+         ↓
+      埋点/分析平台
+```
+
+通过这个图可以识别：
+- CDN 被劫持的风险（使用 SRI）。
+- 第三方脚本越权访问数据的风险（CSP、沙箱）。
+- 传输过程中被窃听的风险（HTTPS、HSTS）。
+
+---
+
+## 三、安全开发生命周期（SDL）
+
+### 3.1 SDL 阶段
+
+```
+需求分析 → 安全设计 → 安全编码 → 安全测试 → 安全发布 → 安全运营
+```
+
+### 3.2 前端 SDL 实践
+
+| 阶段 | 实践 |
+|------|------|
+| 需求分析 | 识别敏感数据、合规要求、信任边界 |
+| 安全设计 | 威胁建模、选择安全控制措施 |
+| 安全编码 | 安全编码规范、输入校验、输出编码 |
+| 安全测试 | SAST、DAST、依赖审计、渗透测试 |
+| 安全发布 | CSP、SRI、安全响应头、签名验证 |
+| 安全运营 | 漏洞响应、安全监控、事件复盘 |
+
+---
+
+## 四、供应链安全
+
+### 4.1 npm 生态的风险
+
+- 包被恶意 takeover。
+- 依赖传递过多，难以审计。
+- lockfile 被篡改。
+
+### 4.2 防护措施
+
+```bash
+# 审计依赖
+npm audit
+pnpm audit
+
+# 检查许可证
+pnpm licenses list
+
+# 依赖签名验证
+npm audit signatures
+```
+
+**工程实践**：
+- 固定依赖版本，使用 lockfile。
+- 定期更新依赖，关注安全公告。
+- 使用私有 registry 和内部审批流程。
+- 对关键依赖做源码审查。
+- 使用 SRI（Subresource Integrity）校验 CDN 资源。
+
+```html
+<script
+  src="https://cdn.example.com/lib.js"
+  integrity="sha384-..."
+  crossorigin="anonymous"
+></script>
+```
+
+---
+
+## 五、运行时安全控制
+
+### 5.1 内容安全策略（CSP）
+
+CSP 是防御 XSS 和数据注入的强大工具：
+
+```http
+Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted.cdn.com; style-src 'self' 'unsafe-inline'
+```
+
+### 5.2 安全响应头
+
+| 响应头 | 作用 |
+|--------|------|
+| `X-Content-Type-Options: nosniff` | 禁止 MIME 嗅探 |
+| `X-Frame-Options: DENY` | 防止点击劫持 |
+| `Strict-Transport-Security` | 强制 HTTPS |
+| `Referrer-Policy` | 控制 Referrer 信息 |
+| `Permissions-Policy` | 限制浏览器特性（摄像头、麦克风等） |
+
+### 5.3 输入输出安全
+
+- 所有用户输入默认不可信。
+- 输出到 DOM 前必须转义或使用安全 API。
+- 避免使用 `innerHTML`、`eval`、`new Function`。
+
+### 5.4 第三方脚本治理
+
+- 使用 CSP 限制脚本来源。
+- 对第三方脚本使用 iframe 或 Shadow DOM 隔离。
+- 使用 Partytown 将第三方脚本移到 Web Worker。
+
+---
+
+## 六、隐私架构
+
+### 6.1 隐私设计原则
+
+- **数据最小化**：只收集必要数据。
+- **目的限制**：数据仅用于声明目的。
+- **默认隐私**：默认开启最高隐私保护。
+- **透明可控**：用户知晓数据用途，可撤回同意。
+
+### 6.2 前端隐私实践
+
+- 敏感数据不存储在 localStorage。
+- 埋点数据脱敏。
+- 提供"拒绝所有非必要 Cookie"选项。
+- 用户注销后清除客户端缓存。
+- 使用 DNT（Do Not Track）和 GPC（Global Privacy Control）。
+
+### 6.3 合规要求
+
+| 法规 | 关键要求 |
+|------|---------|
+| GDPR | 用户同意、数据可携带、被遗忘权 |
+| 中国个保法 | 告知-同意、最小必要、敏感信息保护 |
+| CCPA | 用户知情权、删除权、退出权 |
+
+---
+
+## 七、身份认证与授权
+
+### 7.1 Token 安全
+
+- Access Token 短期有效。
+- Refresh Token 安全存储（HttpOnly、Secure、SameSite）。
+- 避免将 Token 暴露给前端可访问存储。
+
+### 7.2 OAuth 2.0 / OIDC
+
+- 使用 PKCE 扩展保护移动端和 SPA。
+- 授权码流程比隐式授权更安全。
+- Token 验证在服务端完成。
+
+### 7.3 权限控制
+
+- 前端做 UI 权限控制（可见性）。
+- 服务端做 API 权限控制（不可绕过）。
+- 避免将权限规则硬编码在前端。
+
+---
+
+## 八、安全测试与监控
+
+### 8.1 自动化安全测试
+
+| 类型 | 工具/方法 | 阶段 |
+|------|----------|------|
+| SAST | Semgrep、SonarQube、CodeQL | CI |
+| 依赖审计 | npm audit、Snyk、Dependabot | CI |
+| 密钥扫描 | GitLeaks、truffleHog | Pre-commit/CI |
+| DAST | OWASP ZAP | 测试 |
+| 渗透测试 | 人工 | 上线前 |
+
+### 8.2 运行时监控
+
+- 异常行为埋点。
+- CSP 违规报告：`report-uri`。
+- 前端错误监控（Sentry）中的安全相关错误。
+
+---
+
+## 九、常见误区与反模式
+
+| 误区 | 说明 | 正确做法 |
+|------|------|---------|
+| "前端没有敏感逻辑" | 前端仍有权限、凭证、业务规则 | 前端做体验层控制，服务端做最终控制 |
+| "HTTPS 就够了" | HTTPS 只是传输安全 | 配合 CSP、HSTS、SRI 等多层防御 |
+| "依赖不用审计" | 供应链攻击频发 | 定期审计和更新依赖 |
+| "安全是安全团队的事" | 安全需要全员参与 | 建立 SDL 和安全文化 |
+| "上线前扫描即可" | 安全应左移 | 从需求和设计阶段介入 |
+
+---
+
+## 十、最佳实践
+
+1. **威胁建模先行**：新功能设计前进行 STRIDE 分析。
+2. **安全左移**：将安全扫描纳入 CI 和 Code Review。
+3. **最小权限**：前端只拥有必要的权限和数据。
+4. **纵深防御**：不依赖单一安全控制。
+5. **供应链治理**：固定版本、审计依赖、SRI 校验。
+6. **隐私默认**：收集数据前明确目的并获得同意。
+7. **应急响应**：建立漏洞响应流程和回滚机制。
+
+---
+
+## 十一、相关领域
+
+- [F05 Web 安全](../foundation/security)：XSS、CSRF、CSP 基础
+- [F04 Network](../foundation/network)：HTTPS、TLS、DNS
+- [E10 Node.js/BFF](../engineering/node-bff)：服务端安全、鉴权
+- [A01 System Architecture](./system-architecture)：架构设计、信任边界
+- [A06 Observability](./observability)：安全事件监控
+- [L03 Strategy](../leadership/strategy)：安全投入与成本权衡
+
+---
+
+## 十二、延伸阅读
+
+- 🟢 [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- 🟡 [OWASP Threat Modeling](https://owasp.org/www-community/Application_Threat_Modeling)
+- 🟡 [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security)
+- 🔴 [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+
+---
+
+**标签**：`#security` `#security-architecture` `#threat-modeling` `#supply-chain` `#privacy` `#sdl`
+
+> **最后更新**：2026-06-25
+
+
+---
+
+## 本领域学习进度
+
+<MarkComplete domainId="security-architecture" />
+<ProgressTracker />

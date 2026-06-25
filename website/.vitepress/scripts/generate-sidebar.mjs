@@ -30,6 +30,8 @@ function getFiles(dir) {
         'browser': '浏览器原理',
         'network': '计算机网络',
         'security': 'Web 安全',
+        'html-css': 'HTML/CSS 工程化',
+        'a11y': 'Web 无障碍',
         'build-tools': '构建工具',
         'monorepo': 'Monorepo 工程管理',
         'ci-cd': 'CI/CD 与 DevOps',
@@ -40,15 +42,23 @@ function getFiles(dir) {
         'cross-platform': '跨端技术',
         'ai-engineering': 'AI 工程化',
         'node-bff': 'Node.js / BFF 服务端',
+        'git-workflow': 'Git 工作流与版本控制',
+        'developer-experience': 'Developer Experience',
         'system-architecture': '系统架构设计',
         'micro-frontend': '微前端',
         'performance': '性能工程',
         'quality': '质量保障',
         'data-state': '数据与状态管理',
         'observability': '可观测性与稳定性工程',
+        'security-architecture': '前端安全架构',
+        'real-time': '实时与协同架构',
+        'internationalization': '国际化与本地化架构',
         'business': '业务洞察',
         'team': '团队领导力',
         'strategy': '技术战略',
+        'communication': '沟通表达与影响力',
+        'project-management': '项目管理与交付',
+        'hiring': '招聘培养与组织发展',
       };
 
       let text = textMap[name] || name;
@@ -126,6 +136,8 @@ const sidebar = {
         { text: '从输入 URL 到页面可交互', link: '/cases/from-url-to-interactive' },
         { text: '设计大型中后台系统', link: '/cases/large-admin-system' },
         { text: '一次完整的技术选型', link: '/cases/technology-selection' },
+        { text: 'AI Native 数据看板', link: '/cases/ai-native-dashboard' },
+        { text: '跨端电商平台架构演进', link: '/cases/cross-platform-commerce' },
       ]
     }
   ],

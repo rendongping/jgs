@@ -12,10 +12,10 @@ cd "$ROOT_DIR"
 ERRORS=0
 WARNINGS=0
 
-# 检查 24 个领域的三件套完整性
+# 检查所有领域的三件套完整性
 echo ""
-echo "[检查 1/6] 三件套完整性"
-for dir in $(find level-* -mindepth 1 -maxdepth 1 -type d); do
+echo "[检查 1/7] 三件套完整性"
+for dir in $(find level-* -mindepth 1 -maxdepth 1 -type d | sort); do
   for file in "01-学习文档.md" "02-练习册.md" "03-面试题.md"; do
     if [ ! -f "$dir/$file" ]; then
       echo "缺少文件：$dir/$file"
@@ -29,7 +29,7 @@ fi
 
 # 检查学习文档是否包含 TL;DR
 echo ""
-echo "[检查 2/6] 学习文档 TL;DR"
+echo "[检查 2/7] 学习文档 TL;DR"
 missing_tldr=0
 for file in level-*/**/01-学习文档.md; do
   if ! grep -q "## 核心要点（TL;DR）" "$file"; then
@@ -45,7 +45,7 @@ fi
 
 # 检查面试题是否包含评分维度
 echo ""
-echo "[检查 3/6] 面试题评分维度"
+echo "[检查 3/7] 面试题评分维度"
 missing_score=0
 for file in level-*/**/03-面试题.md; do
   if ! grep -q "评分维度" "$file"; then
@@ -61,7 +61,7 @@ fi
 
 # 检查文档末尾是否有最后更新时间
 echo ""
-echo "[检查 4/6] 最后更新时间"
+echo "[检查 4/7] 最后更新时间"
 missing_update=0
 for file in level-*/**/*.md; do
   if ! grep -q "最后更新" "$file"; then
@@ -77,7 +77,7 @@ fi
 
 # 检查文档标题层级是否超过四级
 echo ""
-echo "[检查 5/6] 标题层级"
+echo "[检查 5/7] 标题层级"
 too_deep=0
 for file in level-*/**/*.md docs/*.md; do
   if grep -qE "^#####+ " "$file"; then
@@ -91,10 +91,30 @@ else
   WARNINGS=$((WARNINGS + too_deep))
 fi
 
-# 检查 README 和进阶规划是否存在
+# 检查题库 JSON 格式合法性
 echo ""
-echo "[检查 6/6] 索引文件"
-for file in README.md 前端架构师进阶规划.md CHANGELOG.md docs/STYLE-GUIDE.md docs/CONTRIBUTING.md; do
+echo "[检查 6/7] 题库 JSON 格式"
+invalid_quiz=0
+if [ -d "quizzes" ]; then
+  for file in quizzes/*.json; do
+    if [ -f "$file" ]; then
+      if ! jq empty "$file" 2>/dev/null; then
+        echo "JSON 格式非法：$file"
+        invalid_quiz=$((invalid_quiz + 1))
+      fi
+    fi
+  done
+fi
+if [ "$invalid_quiz" -eq 0 ]; then
+  echo "题库 JSON 格式检查通过"
+else
+  ERRORS=$((ERRORS + invalid_quiz))
+fi
+
+# 检查索引文件是否存在
+echo ""
+echo "[检查 7/7] 索引文件"
+for file in README.md 前端架构师进阶规划.md CHANGELOG.md docs/STYLE-GUIDE.md docs/CONTRIBUTING.md docs/tags-taxonomy.md docs/knowledge-graph-schema.json; do
   if [ ! -f "$file" ]; then
     echo "缺少文件：$file"
     ERRORS=$((ERRORS + 1))

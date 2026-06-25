@@ -1,0 +1,202 @@
+{
+  "domainId": "E12-developer-experience",
+  "domainName": "Developer Experience",
+  "version": 1,
+  "questions": [
+    {
+      "id": "E12-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "DX 中的\"内循环\"主要指什么？",
+      "answer": ["开发者日常编码到提交的反馈循环"],
+      "explanation": "内循环指开发者日常最高频的工作流：编码 → 保存 → 构建 → 测试 → 调试 → 提交。",
+      "tags": ["dx", "inner-loop"],
+      "options": [
+        "CI/CD 流水线",
+        "开发者日常编码到提交的反馈循环",
+        "代码评审流程",
+        "生产环境监控"
+      ]
+    },
+    {
+      "id": "E12-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个指标最能反映本地开发反馈速度？",
+      "answer": ["HMR 时间"],
+      "explanation": "HMR（Hot Module Replacement）时间直接反映保存代码后看到效果的反馈速度。",
+      "tags": ["dx", "metrics"],
+      "options": ["代码行数", "HMR 时间", "团队人数", "发布次数"]
+    },
+    {
+      "id": "E12-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个工具最适合生成组件文档？",
+      "answer": ["Storybook"],
+      "explanation": "Storybook 是专门用于组件文档和交互式测试的工具。",
+      "tags": ["dx", "documentation"],
+      "options": ["VitePress", "Storybook", "TypeDoc", "Docusaurus"]
+    },
+    {
+      "id": "E12-004",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "为了保证团队 Node 版本一致，以下哪种做法最推荐？",
+      "answer": ["使用 .nvmrc 和 engines 字段，并结合 volta/fnm"],
+      "explanation": "通过 .nvmrc、package.json 的 engines 字段，结合 volta 或 fnm，可以自动固定和切换 Node 版本。",
+      "tags": ["dx", "environment"],
+      "options": [
+        "在 README 中写明版本号",
+        "使用 .nvmrc 和 engines 字段，并结合 volta/fnm",
+        "依赖开发者自觉安装",
+        "不限制版本"
+      ]
+    },
+    {
+      "id": "E12-005",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪项不属于 DX 的核心维度？",
+      "answer": ["代码复杂度"],
+      "explanation": "DX 的核心维度包括认知负荷、反馈速度、可靠性、可发现性、自动化、愉悦感。代码复杂度是影响因素，不是 DX 本身的维度。",
+      "tags": ["dx", "concepts"],
+      "options": ["认知负荷", "反馈速度", "代码复杂度", "可发现性"]
+    },
+    {
+      "id": "E12-006",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "以下哪些做法有助于优化大型前端项目的本地构建速度？",
+      "answer": ["使用 Vite/esbuild/Rspack", "增量构建", "使用远程缓存", "按需加载"],
+      "explanation": "优化构建速度可以从构建工具、增量构建、缓存、按需加载等多方面入手。",
+      "tags": ["dx", "performance"],
+      "options": [
+        "使用 Vite/esbuild/Rspack",
+        "每次全量构建",
+        "增量构建",
+        "使用远程缓存",
+        "按需加载"
+      ]
+    },
+    {
+      "id": "E12-007",
+      "type": "true-false",
+      "level": "basic",
+      "question": "文档工程是 DX 的重要组成部分。",
+      "answer": ["true"],
+      "explanation": "清晰、及时、可搜索的文档能显著降低开发者的认知负荷，是 DX 的核心组成部分。",
+      "tags": ["dx", "documentation"]
+    },
+    {
+      "id": "E12-008",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "以下哪种方式最适合管理 Monorepo 中的本地构建缓存？",
+      "answer": ["Turborepo 或 Nx 的远程缓存"],
+      "explanation": "Turborepo 和 Nx 提供本地和远程缓存机制，能显著加速 Monorepo 的重复构建。",
+      "tags": ["dx", "monorepo"],
+      "options": [
+        "每次删除 node_modules",
+        "Turborepo 或 Nx 的远程缓存",
+        "禁用缓存",
+        "只构建一个包"
+      ]
+    },
+    {
+      "id": "E12-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "好的错误信息应该具备哪些特点？",
+      "answer": ["说明出了什么问题", "指出错误位置", "提供解决路径"],
+      "explanation": "好的错误信息应说明问题、指出位置、提供解决路径，而不是简单的 fail 或 error。",
+      "tags": ["dx", "error-handling"],
+      "options": [
+        "只显示 Error: fail",
+        "说明出了什么问题",
+        "指出错误位置",
+        "提供解决路径"
+      ]
+    },
+    {
+      "id": "E12-010",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "以下哪个做法最有助于降低新成员的上手成本？",
+      "answer": ["提供自动化环境检查脚本和清晰的 README"],
+      "explanation": "自动化脚本和清晰文档能显著降低新成员环境搭建和理解的成本。",
+      "tags": ["dx", "onboarding"],
+      "options": [
+        "让新成员自己摸索",
+        "提供自动化环境检查脚本和清晰的 README",
+        "只提供口头指导",
+        "减少文档，依赖代码自解释"
+      ]
+    },
+    {
+      "id": "E12-011",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "工具越多越好，能覆盖更多场景。",
+      "answer": ["false"],
+      "explanation": "过多工具会增加学习成本、配置复杂度和认知负荷。应精简工具链，选择成熟且适合团队的工具。",
+      "tags": ["dx", "tooling"]
+    },
+    {
+      "id": "E12-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "\"文档即代码\"的主要优势是什么？",
+      "answer": ["文档与代码同步更新，支持版本控制和代码审查"],
+      "explanation": "将文档纳入版本控制后，可以与代码同步更新，通过 PR 审查，避免文档过时。",
+      "tags": ["dx", "documentation"],
+      "options": [
+        "不需要写文档",
+        "文档与代码同步更新，支持版本控制和代码审查",
+        "文档自动执行",
+        "文档可以替代测试"
+      ]
+    },
+    {
+      "id": "E12-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计企业级 DX 平台时，应包含哪些核心能力？",
+      "answer": ["统一脚手架", "标准化配置", "CI/CD 模板", "度量面板"],
+      "explanation": "企业级 DX 平台通常需要脚手架、标准配置、CI/CD 模板、文档站点、度量面板和反馈渠道。",
+      "tags": ["dx", "platform"],
+      "options": [
+        "统一脚手架",
+        "标准化配置",
+        "手动复制配置",
+        "CI/CD 模板",
+        "度量面板"
+      ]
+    },
+    {
+      "id": "E12-014",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个不属于 DX 度量指标？",
+      "answer": ["代码行数"],
+      "explanation": "代码行数通常不是 DX 度量指标。DX 更关注构建时间、HMR 时间、测试时间、满意度等。",
+      "tags": ["dx", "metrics"],
+      "options": ["构建时间", "HMR 时间", "代码行数", "开发者满意度"]
+    },
+    {
+      "id": "E12-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在团队中推动新 DX 工具落地的第一步应该是什么？",
+      "answer": ["识别当前痛点并证明新工具能解决"],
+      "explanation": "推动新工具前应先识别真实痛点，通过数据或案例证明新工具的价值，再进入选型和试点。",
+      "tags": ["dx", "adoption"],
+      "options": [
+        "直接全团队强制切换",
+        "识别当前痛点并证明新工具能解决",
+        "购买商业工具",
+        "忽略旧工具用户反馈"
+      ]
+    }
+  ]
+}

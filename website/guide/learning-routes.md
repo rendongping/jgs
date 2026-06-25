@@ -33,6 +33,8 @@
 - F03 Browser（L3）
 - F04 Network（L3）
 - F05 Security（L3）
+- F06 HTML/CSS（L4）
+- F07 a11y（L3）
 
 **工程化层**：
 - E05 Design System（L4）
@@ -46,11 +48,14 @@
 - A05 Data & State（L4）
 - A02 Micro Frontend（L3）
 - A04 Quality（L3）
+- A09 Internationalization（L3）
 
 **领导力层**：
 - L01 Business（L5）
 - L03 Strategy（L4）
 - L02 Team（L3）
+- L04 Communication（L4）
+- L05 Project Management（L3）
 
 ### 通关项目
 
@@ -77,6 +82,8 @@
 - F03 Browser（L4）
 - F04 Network（L3）
 - F05 Security（L3）
+- F06 HTML/CSS（L4）
+- F07 a11y（L3）
 
 **工程化层**：
 - E01 Build Tools（L5）
@@ -91,12 +98,15 @@
 - A04 Quality（L5）
 - A06 Observability（L5）
 - A01 System Architecture（L4）
+- A07 Security Architecture（L4）
 - A05 Data & State（L3）
 
 **领导力层**：
 - L02 Team（L4）
 - L03 Strategy（L4）
 - L01 Business（L3）
+- L04 Communication（L3）
+- L05 Project Management（L4）
 
 ### 通关项目
 
@@ -123,6 +133,8 @@
 - F03 Browser（L3）
 - F04 Network（L3）
 - F05 Security（L2）
+- F06 HTML/CSS（L4）
+- F07 a11y（L3）
 
 **工程化层**：
 - E05 Design System（L5）
@@ -137,11 +149,14 @@
 - A01 System Architecture（L4）
 - A05 Data & State（L3）
 - A03 Performance（L3）
+- A08 Real-time（L3）
+- A09 Internationalization（L4）
 
 **领导力层**：
 - L03 Strategy（L4）
 - L02 Team（L4）
 - L01 Business（L3）
+- L04 Communication（L4）
 
 ### 通关项目
 
@@ -168,17 +183,22 @@
 - F03 Browser（L3）
 - F04 Network（L3）
 - F05 Security（L3）
+- F06 HTML/CSS（L3）
+- F07 a11y（L3）
 
 **工程化层**：
 - E01-E05 全面了解（L3-L4）
 - E06 React / E07 Vue（L3）
 - E10 Node.js/BFF（L3）
+- E11 Git Workflow（L4）
+- E12 DX（L4）
 
 **架构层**：
 - A01 System Architecture（L5）
 - A03 Performance（L4）
 - A04 Quality（L4）
 - A06 Observability（L4）
+- A07 Security Architecture（L4）
 - A05 Data & State（L3）
 - A02 Micro Frontend（L3）
 
@@ -186,6 +206,9 @@
 - L03 Strategy（L6）
 - L02 Team（L6）
 - L01 Business（L5）
+- L04 Communication（L5）
+- L05 Project Management（L5）
+- L06 Hiring（L5）
 
 ### 通关项目
 
@@ -226,4 +249,4 @@
 
 ---
 
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-25

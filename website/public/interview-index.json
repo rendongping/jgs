@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-24T09:43:40.034Z",
-  "total": 517,
+  "generatedAt": "2026-06-25T02:51:29.410Z",
+  "total": 611,
   "questions": [
     {
       "id": "javascript-interview-q1",
@@ -938,6 +938,198 @@
       "difficulty": "🟢",
       "question": "",
       "answer": "WebAuthn 是 W3C/FIDO 制定的基于公钥密码学的认证标准。Passkeys 是其用户友好实现。\n\n流程：\n\n1. 注册时，浏览器生成公私钥对，私钥保存在设备，公钥发送服务器。\n2. 认证时，服务器发送 challenge，设备用私钥签名，服务器用公钥验证。\n\n优势：\n\n- 抗钓鱼：凭据绑定 RP ID，无法跨站使用。\n- 无密码：用户用生物识别或 PIN。\n- 服务器不存密码，降低泄露风险。\n- 每次认证有新 challenge，抵抗重放攻击。\n\n前端 API：\n\n- `navigator.credentials.create({ publicKey: ... })` 注册。\n- `navigator.credentials.get({ publicKey: ... })` 登录。 - 能解释公钥认证流程（30%）。\n- 能说出 3 个以上优势（30%）。\n- 能提到 API 和 RP ID（25%）。\n- 能说明兼容性和降级（15%）。\n\n---"
+    },
+    {
+      "id": "html-css-interview-q1",
+      "slug": "html-css-interview",
+      "title": "什么是语义化 HTML？为什么要语义化？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "语义化 HTML 是指使用恰当的 HTML 标签表达内容的含义，而不仅仅是呈现效果。\n\n主要收益：\n- 可访问性：屏幕阅读器依赖语义标签进行导航。\n- SEO：搜索引擎更容易理解页面结构。\n- 可维护性：代码更易读，结构更清晰。\n- 默认行为：`<button>`、`<a>` 等标签自带键盘交互和焦点管理。 - 说出语义化的定义（40%）\n- 列举至少 3 个收益（40%）\n- 能举例说明（20%）\n\n---"
+    },
+    {
+      "id": "html-css-interview-q2",
+      "slug": "html-css-interview",
+      "title": "解释 BEM 命名规范，并说明其优缺点。",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "BEM 是 Block-Element-Modifier 的缩写，通过命名约定组织 CSS 类名：\n- Block：独立模块，如 `.card`\n- Element：块的组成部分，如 `.card__title`\n- Modifier：状态或变体，如 `.card--featured`\n\n优点：\n- 命名即作用域，降低冲突。\n- 无需工具即可实现模块化。\n\n缺点：\n- 类名较长。\n- 深层嵌套组件表达力有限。 - 解释 BEM 三部分（40%）\n- 说出优点（30%）\n- 说出缺点并给出替代方案（30%）\n\n---"
+    },
+    {
+      "id": "html-css-interview-q3",
+      "slug": "html-css-interview",
+      "title": "CSS 中 `em`、`rem`、`px`、`vw` 有什么区别？如何选择？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "| 单位 | 参考基准 | 适用场景 |\n|------|---------|---------|\n| px | 物理像素 | 边框、阴影等不需要缩放的场景 |\n| em | 父元素字体大小 | 需要相对父级缩放的场景 |\n| rem | 根元素字体大小 | 字体大小、间距，便于整体缩放 |\n| vw/vh | 视口宽高 | 全屏布局、流体排版 |\n\n选择建议：\n- 字体和间距优先使用 `rem`。\n- 边框使用 `px`。\n- 响应式布局可结合 `clamp()` 使用 `vw`。 - 区分四个单位（50%）\n- 给出选择建议（30%）\n- 提到 `clamp()` 等现代方案（20%）\n\n---"
+    },
+    {
+      "id": "html-css-interview-q4",
+      "slug": "html-css-interview",
+      "title": "什么是 CSS 优先级？如何计算？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "CSS 优先级由选择器的特殊性决定，从高到低：\n1. 内联样式（1000）\n2. ID 选择器（100）\n3. 类选择器、属性选择器、伪类（10）\n4. 元素选择器、伪元素（1）\n\n`!important` 可以覆盖优先级，但应尽量避免。\n\n当优先级相同时，后声明的规则生效。 - 说出优先级计算规则（50%）\n- 解释 `!important` 的影响（25%）\n- 提到层叠顺序（25%）\n\n---"
+    },
+    {
+      "id": "html-css-interview-q5",
+      "slug": "html-css-interview",
+      "title": "如何实现一个三栏布局，中间自适应？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "方案一：Flexbox\n\n```css\n.layout {\n  display: flex;\n}\n.layout__side {\n  width: 200px;\n}\n.layout__main {\n  flex: 1;\n}\n```\n\n方案二：Grid\n\n```css\n.layout {\n  display: grid;\n  grid-template-columns: 200px 1fr 200px;\n}\n```\n\nGrid 更适合二维布局，Flexbox 更适合一维布局。 - 写出 Flexbox 实现（40%）\n- 写出 Grid 实现（30%）\n- 说明两种方案适用场景（30%）\n\n---"
+    },
+    {
+      "id": "html-css-interview-q6",
+      "slug": "html-css-interview",
+      "title": "什么是 CSS 工程化？前端项目中为什么需要 CSS 工程化？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "CSS 工程化是指建立一套可预测、可复用、可度量的样式生产体系，解决大型项目中的样式管理问题。\n\n需要工程化的原因：\n- 全局命名冲突\n- 选择器优先级战争\n- 样式冗余与包体积膨胀\n- 主题切换困难\n- 响应式逻辑分散\n- 可访问性合规要求\n\n工程化手段包括：BEM、ITCSS、CSS Modules、CSS-in-JS、Atomic CSS、Design Token、Stylelint 等。 - 定义 CSS 工程化（30%）\n- 列举痛点（40%）\n- 列举工程化手段（30%）\n\n---"
+    },
+    {
+      "id": "html-css-interview-q7",
+      "slug": "html-css-interview",
+      "title": "解释一下容器查询（Container Query）及其使用场景。",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "容器查询允许组件根据其所在容器的大小调整样式，而不是基于整个视口。\n\n```css\n.card-wrapper {\n  container-type: inline-size;\n}\n\n@container (min-width: 400px) {\n  .card {\n    flex-direction: row;\n  }\n}\n```\n\n使用场景：\n- 同一个组件在不同布局中表现不同。\n- 侧边栏、网格项等局部容器需要响应式。\n- 组件库中需要组件级响应式能力。 - 解释容器查询原理（40%）\n- 写出基本语法（30%）\n- 给出使用场景（30%）\n\n---"
+    },
+    {
+      "id": "html-css-interview-q8",
+      "slug": "html-css-interview",
+      "title": "如何减少 CSS 引起的重排和重绘？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "减少重排：\n- 避免频繁读写会触发布局的属性（width、height、top、margin）。\n- 批量修改样式时，先读取再写入，或使用 `requestAnimationFrame`。\n- 使用 `transform` 和 `opacity` 做动画。\n\n减少重绘：\n- 避免频繁修改颜色、背景等外观属性。\n- 使用 `will-change` 提示浏览器优化（慎用）。\n- 提升独立渲染层，减少整体重绘范围。 - 区分重排和重绘（30%）\n- 说出减少重排的方法（40%）\n- 说出减少重绘的方法（30%）\n\n---"
+    },
+    {
+      "id": "html-css-interview-q9",
+      "slug": "html-css-interview",
+      "title": "Design Token 是什么？为什么现代设计系统需要它？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "Design Token 是设计系统中的最小原子，如颜色、字体、间距、圆角等，以代码可消费的形式存在。\n\n为什么需要：\n- 统一设计与开发之间的语言。\n- 支持主题切换（浅色/深色/多品牌）。\n- 避免硬编码，减少样式冗余。\n- 便于工具链集成（Figma、Storybook、代码）。\n\nToken 通常分层：\n- 原始 Token：`--color-blue-500`\n- 语义 Token：`--color-brand-primary`\n- 组件 Token：`--button-bg-primary` - 解释 Design Token 概念（30%）\n- 说明其价值（40%）\n- 说明 Token 分层（30%）\n\n---"
+    },
+    {
+      "id": "html-css-interview-q10",
+      "slug": "html-css-interview",
+      "title": "设计一个支持多主题的组件库样式体系。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. Token 层：定义原始 Token 和语义 Token，使用 CSS 变量。\n2. 主题切换：通过切换根元素的 `data-theme` 属性修改变量值。\n3. 组件层：组件只引用语义 Token，不直接引用原始颜色。\n4. 构建层：使用 PostCSS 或构建工具处理变量回退。\n5. 文档与工具：在 Storybook 中提供主题切换器。\n\n```css\n:root {\n  --color-primary: #3b82f6;\n}\n\n[data-theme=\"dark\"] {\n  --color-primary: #60a5fa;\n}\n\n.btn-primary {\n",
+      "answer": " "
+    },
+    {
+      "id": "html-css-interview-q11",
+      "slug": "html-css-interview",
+      "title": "你如何评估和重构一个存在大量技术债的样式代码库？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 现状评估：统计样式文件大小、重复规则、`!important` 数量、选择器平均深度。\n2. 建立基线：用 Lighthouse、Stylelint、PurgeCSS 等工具量化问题。\n3. 制定规范：命名约定、分层架构、Token 体系。\n4. 分阶段重构：\n   - 第一阶段：禁止新增 `!important`，引入变量。\n   - 第二阶段：拆分文件，建立组件样式。\n   - 第三阶段：响应式统一，主题化。\n5. 验证与监控：自动化检查、视觉回归测试、性能指标跟踪。\n\n评分维度：\n- 评估方法（25%）\n- 规范制定（25%）\n- 分阶段方案（35%）\n- 验证机",
+      "answer": " "
+    },
+    {
+      "id": "html-css-interview-q12",
+      "slug": "html-css-interview",
+      "title": "在前端性能优化中，CSS 加载策略有哪些最佳实践？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 关键 CSS 内联：将首屏所需 CSS 直接写入 `<head>`，减少渲染阻塞。\n2. 异步加载非关键 CSS：\n   - `<link rel=\"preload\" as=\"style\" href=\"non-critical.css\">`\n   - `<link rel=\"stylesheet\" href=\"non-critical.css\" media=\"print\" onload=\"this.media='all'\">`\n3. 避免 @import：串行加载会阻塞解析。\n4. 压缩与去重：Minify、PurgeCSS、CSS 分割。\n5. 利用缓存：为 CSS ",
+      "answer": " "
+    },
+    {
+      "id": "a11y-interview-q1",
+      "slug": "a11y-interview",
+      "title": "什么是 Web 无障碍（a11y）？为什么要关注它？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "Web 无障碍是指让网站和应用能够被尽可能多的人使用，包括视觉、听觉、运动、认知障碍者，以及临时性障碍用户。\n\n关注原因：\n- 法律合规：国内外法规要求数字产品达到一定可访问性标准。\n- 商业收益：扩大用户群体，提升 SEO 和用户体验。\n- 社会责任：体现包容性设计价值。\n- 技术质量：无障碍代码通常语义化更好、可维护性更高。 - 定义准确（40%）\n- 列举至少 3 个关注原因（40%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "a11y-interview-q2",
+      "slug": "a11y-interview",
+      "title": "解释 WCAG 的 POUR 四项原则。",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "| 原则 | 含义 |\n|------|------|\n| Perceivable（可感知） | 用户能感知信息和界面 |\n| Operable（可操作） | 用户能操作界面 |\n| Understandable（可理解） | 内容和操作可理解 |\n| Robust（健壮） | 内容可被各种辅助技术解析 |\n\n每项原则下都有具体成功标准，按 A/AA/AAA 三级划分。 - 完整解释四项原则（60%）\n- 说明 conformance 等级（25%）\n- 举例说明（15%）\n\n---"
+    },
+    {
+      "id": "a11y-interview-q3",
+      "slug": "a11y-interview",
+      "title": "语义化 HTML 对无障碍有什么作用？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "语义化 HTML 的作用：\n- 为屏幕阅读器提供结构信息（标题、地标、列表、表格）。\n- 让键盘导航更自然（`<button>`、`<a>` 默认可聚焦）。\n- 提供默认交互行为（表单提交、链接跳转）。\n- 改善 SEO 和可维护性。\n\n例如：\n- `<nav>` 让屏幕阅读器用户快速找到导航。\n- `<main>` 帮助跳转到主要内容。\n- `<button>` 自带键盘激活行为。 - 说出语义化对辅助技术的作用（40%）\n- 说明键盘和默认行为收益（30%）\n- 举例说明（30%）\n\n---"
+    },
+    {
+      "id": "a11y-interview-q4",
+      "slug": "a11y-interview",
+      "title": "图片的 alt 属性应该如何填写？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "| 图片类型 | alt 写法 |\n|---------|---------|\n| 信息性图片 | 简洁描述图片内容 |\n| 功能性图片 | 描述功能而非外观 |\n| 装饰性图片 | `alt=\"\"` |\n| 复杂图表 | 简要概述 + 详细描述放在附近 |\n\n示例：\n- `alt=\"2024 年 Q1 销售额同比增长 25%\"`\n- `alt=\"\"`（装饰性）\n- 避免 `alt=\"图片\"` 这类无意义描述。 - 区分图片类型（40%）\n- 给出正确示例（40%）\n- 说明常见错误（20%）\n\n---"
+    },
+    {
+      "id": "a11y-interview-q5",
+      "slug": "a11y-interview",
+      "title": "为什么不应该只用颜色传达信息？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "色盲、低视力或在强光环境下的用户可能无法区分颜色。如果仅用颜色表示状态，这些用户会丢失关键信息。\n\n正确做法：\n- 配合图标、文字、形状。\n- 使用纹理或图案区分。\n- 确保信息有多个感知通道。\n\n示例：\n- 错误：`<span class=\"red\">失败</span>`\n- 正确：`<span class=\"error\">✕ 失败</span>` - 说明问题（40%）\n- 给出解决方案（40%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "a11y-interview-q6",
+      "slug": "a11y-interview",
+      "title": "什么是 ARIA？应该在什么情况下使用？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "ARIA（Accessible Rich Internet Applications）是一组属性，用于补充 HTML 无法表达的语义信息，包括角色（role）、状态（state）和属性（property）。\n\n使用原则：\n1. 优先使用原生 HTML：能用 `<button>` 就不用 `role=\"button\"`。\n2. 需要时使用 ARIA：自定义组件（标签页、对话框、下拉菜单）需要补充语义。\n3. 确保状态同步：ARIA 属性必须随组件状态实时更新。\n4. 提供可访问名称：每个交互元素都应有名称。 - 解释 ARIA 组成（40%）\n- 说明使用原则（40%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "a11y-interview-q7",
+      "slug": "a11y-interview",
+      "title": "如何设计一个可访问的模态对话框？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "1. 语义结构：使用 `<dialog>` 或 `role=\"dialog\"`、`aria-modal=\"true\"`。\n2. 标题关联：使用 `aria-labelledby` 关联标题。\n3. 焦点管理：\n   - 打开时焦点移到对话框内第一个可聚焦元素或标题。\n   - Tab 在对话框内循环（焦点陷阱）。\n   - 关闭时焦点返回触发按钮。\n4. 关闭方式：支持 Esc 键和明确的关闭按钮。\n5. 背景处理：建议禁用背景交互（非必须，但提升体验）。 - 语义结构（20%）\n- 焦点管理（40%）\n- 关闭与恢复（25%）\n- 代码示例（15%）\n\n---"
+    },
+    {
+      "id": "a11y-interview-q8",
+      "slug": "a11y-interview",
+      "title": "表单可访问性有哪些关键点？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "1. 标签关联：每个输入框都有 `<label>`，使用 `for` 或隐式关联。\n2. 错误提示：使用 `aria-invalid`、`aria-describedby` 关联错误信息。\n3. 必填标识：使用 `required` 和视觉/辅助技术提示。\n4. 分组：使用 `<fieldset>` 和 `<legend>` 对单选/多选分组。\n5. 实时验证：使用 `aria-live` 播报动态错误。 - 标签关联（30%）\n- 错误提示（30%）\n- 分组与必填（25%）\n- 实时验证（15%）\n\n---"
+    },
+    {
+      "id": "a11y-interview-q9",
+      "slug": "a11y-interview",
+      "title": "如何进行可访问性测试？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "自动化测试：\n- axe DevTools、Lighthouse、Pa11y\n- Storybook a11y addon\n- ESLint 插件（jsx-a11y、vue-a11y）\n\n手动测试：\n- 键盘-only 操作全站。\n- 使用屏幕阅读器（NVDA、JAWS、VoiceOver）。\n- 高对比度模式、页面放大 200%。\n- 色盲模拟器。\n\n用户测试：\n- 邀请真实障碍用户参与测试。 - 自动化工具（30%）\n- 手动测试方法（40%）\n- 用户测试价值（20%）\n- 测试融入流程（10%）\n\n---"
+    },
+    {
+      "id": "a11y-interview-q10",
+      "slug": "a11y-interview",
+      "title": "设计一个可访问的自定义下拉选择组件。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 语义：使用 `role=\"combobox\"`、`aria-expanded`、`aria-controls`、`aria-activedescendant`。\n2. 键盘交互：\n   - Alt + ↓ / Enter：打开列表\n   - ↑ ↓：移动选项\n   - Enter：选中\n   - Esc：关闭\n3. 焦点管理：列表项使用 `tabindex=\"-1\"`，通过 aria-activedescendant 管理高亮。\n4. 状态播报：使用 `aria-live` 或正确 ARIA 属性让屏幕阅读器感知变化。\n5. 视觉：高亮项清晰可见，选中项有明确标识。\n\n",
+      "answer": " "
+    },
+    {
+      "id": "a11y-interview-q11",
+      "slug": "a11y-interview",
+      "title": "如何在大型团队中推动无障碍文化落地？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 建立规范：制定无障碍开发规范和检查清单。\n2. 工具链集成：在 CI 中接入 axe/Pa11y，阻塞明显违规。\n3. 组件库默认可访问：组件库提供无障碍默认实现和文档。\n4. 培训与意识：定期分享无障碍知识和案例。\n5. 度量和问责：将可访问性指标纳入质量门禁和绩效。\n6. 真实用户反馈：建立无障碍反馈渠道。\n\n评分维度：\n- 规范与清单（25%）\n- 工具链集成（25%）\n- 组件库与培训（25%）\n- 度量与反馈（25%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "a11y-interview-q12",
+      "slug": "a11y-interview",
+      "title": "解释一下 aria-live 的使用场景和注意事项。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n`aria-live` 用于告知屏幕阅读器某个区域的内容会动态更新，需要播报。\n\n取值：\n- `off`：不自动播报（默认）。\n- `polite`：当前任务完成后再播报。\n- `assertive`：立即打断当前播报。\n\n使用场景：\n- 表单提交后的成功/错误提示。\n- 实时通知、Toast 消息。\n- 加载状态变化。\n\n注意事项：\n- 避免过度使用 `assertive`，会打断用户。\n- 动态区域应在页面加载时就存在，而不是动态创建。\n- 搭配 `aria-atomic` 和 `aria-relevant` 控制播报范围。\n\n评分维度：\n- 解释 aria-live 取",
+      "answer": " "
     },
     {
       "id": "build-tools-interview-q0",
@@ -2636,6 +2828,198 @@
       "answer": "可观测性三大支柱是日志、指标、链路追踪。\n\n1. 日志（Logs）：\n- 使用结构化 JSON 日志（Pino/Winston）。\n- 每个请求生成 traceId，贯穿全链路。\n- 使用 AsyncLocalStorage 传递上下文。\n- 避免打印敏感信息。\n\n2. 指标（Metrics）：\n- Prometheus 收集 QPS、P99 延迟、错误率、CPU、内存、GC。\n- Grafana 可视化，设置 SLO 告警。\n\n```typescript\nconst httpDuration = new client.Histogram({\n  name: 'http_request_duration_seconds',\n  help: 'HTTP 请求耗时',\n  labelNames: ['route', 'method', 'status'],\n});\n```\n\n3. 链路追踪（Traces）：\n- OpenTelemetry 自动埋点 HTTP、数据库、Redis、gRPC 调用。\n- Jaeger 展示请求全链路，定位慢 span。\n- traceId 通过 Header "
     },
     {
+      "id": "git-workflow-interview-q1",
+      "slug": "git-workflow-interview",
+      "title": "解释 git merge 和 git rebase 的区别及适用场景。",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- Merge：将两个分支的历史合并，生成一个新的合并提交。保留完整历史，适合公共分支。\n- Rebase：将当前分支的提交应用到目标分支顶端，使历史线性。适合本地整理提交历史。\n\n适用场景：\n- 已推送到远程的公共分支：用 merge。\n- 本地功能分支整理历史：用 rebase。\n- 想保留功能边界：用 `git merge --no-ff`。 - 说清两者区别（50%）\n- 给出适用场景（40%）\n- 提到风险（10%）\n\n---"
+    },
+    {
+      "id": "git-workflow-interview-q2",
+      "slug": "git-workflow-interview",
+      "title": "什么是 Conventional Commits？为什么要用它？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "Conventional Commits 是一种提交消息规范，格式为 `<type>(<scope>): <subject>`。\n\n常见 type：feat、fix、docs、style、refactor、test、chore。\n\n价值：\n- 自动生成 CHANGELOG。\n- 支撑语义化版本。\n- 提升提交历史可读性。\n- 便于问题追踪和回滚。 - 解释规范格式（40%）\n- 列举 type（30%）\n- 说明价值（30%）\n\n---"
+    },
+    {
+      "id": "git-workflow-interview-q3",
+      "slug": "git-workflow-interview",
+      "title": "描述 Git Flow 的主要分支和流程。",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "主要分支：\n- `main`：稳定分支。\n- `develop`：日常开发集成分支。\n- `feature/*`：功能分支。\n- `release/*`：发布分支。\n- `hotfix/*`：紧急修复分支。\n\n流程：\n1. 从 develop 切出 feature 分支开发。\n2. 完成后合并回 develop。\n3. 发布前切 release 分支测试修复。\n4. release 合并到 main 并打 Tag。\n5. hotfix 从 main 切出，修复后合并回 main 和 develop。 - 说清分支类型（40%）\n- 描述流程（40%）\n- 说明适用场景（20%）\n\n---"
+    },
+    {
+      "id": "git-workflow-interview-q4",
+      "slug": "git-workflow-interview",
+      "title": "Code Review 应该关注哪些方面？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 功能正确性：是否满足需求。\n- 代码质量：可读性、可维护性、是否符合规范。\n- 测试覆盖：是否有单元测试、集成测试。\n- 性能：是否有明显性能问题。\n- 安全：是否有注入、XSS 等风险。\n- 可访问性：是否符合 a11y 要求。\n- 设计合理性：是否引入不必要复杂度。 - 列举关注点（60%）\n- 强调 Review 的文化价值（20%）\n- 结合自身经验（20%）\n\n---"
+    },
+    {
+      "id": "git-workflow-interview-q5",
+      "slug": "git-workflow-interview",
+      "title": "语义化版本 SemVer 中 MAJOR、MINOR、PATCH 分别代表什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- MAJOR：不兼容的 API 修改。\n- MINOR：向下兼容的功能新增。\n- PATCH：向下兼容的问题修复。\n\n例如 `2.1.3`：2 是主版本，1 是次版本，3 是补丁版本。 - 准确解释三者（60%）\n- 举例说明（25%）\n- 说明与 Conventional Commits 的关系（15%）\n\n---"
+    },
+    {
+      "id": "git-workflow-interview-q6",
+      "slug": "git-workflow-interview",
+      "title": "如何为一个团队选择合适的 Git 工作流？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "选择因素：\n- 团队规模：小团队适合 GitHub Flow，大团队适合 Trunk-Based。\n- 发布频率：持续部署选 GitHub Flow/Trunk-Based，固定周期选 Git Flow。\n- 项目复杂度：复杂项目可能需要 release 分支。\n- 团队成熟度：Trunk-Based 要求高频率集成和自动化测试。\n\n没有银弹，应根据实际情况选型，并定期 review。 - 列举选择因素（50%）\n- 给出不同场景推荐（30%）\n- 强调持续优化（20%）\n\n---"
+    },
+    {
+      "id": "git-workflow-interview-q7",
+      "slug": "git-workflow-interview",
+      "title": "什么是 Feature Toggle？什么时候使用？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "Feature Toggle（特性开关）是一种在代码中通过配置控制功能是否启用的技术。\n\n使用场景：\n- Trunk-Based Development 中隐藏未完成功能。\n- A/B 测试。\n- 渐进式发布（Canary）。\n- 紧急回滚某个功能而不回滚代码。\n\n注意：需要定期清理已稳定的开关，避免技术债。 - 解释概念（30%）\n- 使用场景（50%）\n- 提到维护成本（20%）\n\n---"
+    },
+    {
+      "id": "git-workflow-interview-q8",
+      "slug": "git-workflow-interview",
+      "title": "大型 Git 仓库有哪些性能优化手段？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 浅克隆：`git clone --depth 1` 只拉取最近历史。\n- 稀疏检出：`git sparse-checkout` 只拉取需要的目录。\n- Git LFS：大文件交给 LFS 管理。\n- 拆分仓库：必要时拆分子仓库或迁移到 Monorepo 工具。\n- 优化 CI：只构建 affected 的包。\n- 定期清理：`git gc`、删除无用分支。 - 浅克隆与稀疏检出（40%）\n- LFS 与大文件管理（25%）\n- CI 与 Monorepo 优化（25%）\n- 表达清晰度（10%）\n\n---"
+    },
+    {
+      "id": "git-workflow-interview-q9",
+      "slug": "git-workflow-interview",
+      "title": "如何处理代码冲突？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "1. 先拉取最新目标分支代码。\n2. 在本地合并或 rebase。\n3. 手动解决冲突，保留双方合理改动。\n4. 与相关开发者沟通，确认冲突部分的设计意图。\n5. 测试通过后再提交。\n\n避免冲突的方法：\n- 小步提交、频繁集成。\n- 明确模块边界。\n- 避免多人同时修改同一文件。 - 解决步骤（50%）\n- 预防措施（30%）\n- 沟通协作意识（20%）\n\n---"
+    },
+    {
+      "id": "git-workflow-interview-q10",
+      "slug": "git-workflow-interview",
+      "title": "设计一个支持 50 人前端团队的 Git 工作流。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 分支策略：Trunk-Based Development + Feature Toggle。\n   - main 始终可发布。\n   - 开发者从 main 切出短生命周期 feature 分支（< 3 天）。\n2. Code Review：\n   - 每个 PR 至少 1 名 OWNER 批准。\n   - PR 必须通过 CI。\n   - PR 大小控制在 400 行以内。\n3. 发布：\n   - 使用 Changesets 管理版本。\n   - CI/CD 自动部署到测试/预发布/生产环境。\n4. 治理：\n   - CODEOWNERS 明确目录负责人。\n   - ",
+      "answer": " "
+    },
+    {
+      "id": "git-workflow-interview-q11",
+      "slug": "git-workflow-interview",
+      "title": "如果团队 Code Review 流于形式，你会如何改进？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 明确 Review 标准：制定检查清单，关注设计、测试、安全、性能。\n2. 自动化基础检查：lint、format、test 由 CI 完成，减少人工检查噪音。\n3. 控制 PR 大小：设定行数上限，鼓励小步提交。\n4. 设定 Review SLA：规定响应时间，避免阻塞。\n5. 建立文化：对事不对人，Reviewer 也对质量负责。\n6. 度量和反馈：统计 Review 发现的问题类型，持续改进。\n\n评分维度：\n- 标准与清单（25%）\n- 自动化与 PR 大小（25%）\n- SLA 与文化（25%）\n- 度量机制（25%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "git-workflow-interview-q12",
+      "slug": "git-workflow-interview",
+      "title": "如何保障 main 分支的稳定性？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 分支保护：禁止直接 push，必须通过 PR。\n2. Required Status Checks：CI 通过才能合并。\n3. Required Reviews：至少 1-2 人批准。\n4. Merge Queue：高并发时按顺序合并，确保每次合并前都基于最新 main 跑 CI。\n5. 自动化测试：单元测试、集成测试、E2E 测试覆盖核心路径。\n6. 回滚机制：发现问题能快速 revert 或 rollback。\n7. 监控与告警：发布后监控错误率和关键指标。\n\n评分维度：\n- 分支保护与 CI（30%）\n- Review 机制（20%）\n- Merge Queue ",
+      "answer": " "
+    },
+    {
+      "id": "developer-experience-interview-q1",
+      "slug": "developer-experience-interview",
+      "title": "什么是 Developer Experience（DX）？为什么重要？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "DX 是开发者在使用工具、流程和系统完成工作时的整体感受，包括认知负荷、反馈速度、可靠性、可发现性、自动化和愉悦感。\n\n重要性：\n- 提升开发效率。\n- 减少低级错误。\n- 提升团队满意度和人才留存。\n- 释放开发者时间用于创新。 - 定义准确（40%）\n- 列举 DX 维度（30%）\n- 说明重要性（30%）\n\n---"
+    },
+    {
+      "id": "developer-experience-interview-q2",
+      "slug": "developer-experience-interview",
+      "title": "什么是\"内循环\"（Inner Loop）？如何优化？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "内循环是开发者日常最高频的工作流：编码 → 保存 → 构建 → 测试 → 调试 → 提交。\n\n优化手段：\n- 使用 HMR 缩短反馈时间。\n- 使用增量构建和缓存。\n- 并行运行测试。\n- 提供清晰的错误信息。\n- 使用 watch 模式自动运行测试。 - 解释内循环（40%）\n- 列举优化手段（50%）\n- 结合自身经验（10%）\n\n---"
+    },
+    {
+      "id": "developer-experience-interview-q3",
+      "slug": "developer-experience-interview",
+      "title": "如何保证团队本地开发环境的一致性？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 固定 Node 版本：`.nvmrc`、`.node-version`、`package.json` 的 `engines`。\n- 固定包管理器版本：`packageManager` 字段、`corepack`。\n- 使用 Docker 或 Dev Container。\n- 提供自动化环境检查脚本。\n- 文档化环境搭建步骤。 - Node 版本管理（30%）\n- 包管理器管理（20%）\n- 容器化方案（25%）\n- 文档化（25%）\n\n---"
+    },
+    {
+      "id": "developer-experience-interview-q4",
+      "slug": "developer-experience-interview",
+      "title": "脚手架解决了什么问题？设计脚手架时应考虑什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "脚手架解决新项目启动时重复配置的问题，如构建工具、代码规范、测试框架、CI/CD 等。\n\n设计考虑：\n- 最小可用：默认配置能直接运行。\n- 可扩展：支持插件或模板扩展。\n- 可升级：提供升级命令。\n- 文档清晰：说明每个选项用途。\n- 与团队规范一致。 - 问题解决（30%）\n- 设计原则（50%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "developer-experience-interview-q5",
+      "slug": "developer-experience-interview",
+      "title": "好的错误信息应该具备哪些特点？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 说明出了什么问题。\n- 指出错误发生的位置。\n- 提供解决路径或文档链接。\n- 避免专业术语堆砌。\n- 区分用户错误和系统错误。 - 特点列举（60%）\n- 举例说明（25%）\n- 提到日志和监控（15%）\n\n---"
+    },
+    {
+      "id": "developer-experience-interview-q6",
+      "slug": "developer-experience-interview",
+      "title": "如何度量一个团队的 DX 水平？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "定量指标：\n- 构建时间、HMR 时间、测试时间。\n- CI/CD 流水线时间。\n- 新成员首次提交时间。\n- Bug 回归率、代码 review 时间。\n\n定性指标：\n- 开发者满意度调研（NPS）。\n- 痛点收集和访谈。\n\n度量方式：\n- CI 日志和工具埋点。\n- 定期问卷。\n- DX 周会和报告。 - 定量指标（40%）\n- 定性指标（30%）\n- 收集方式（20%）\n- 持续改进意识（10%）\n\n---"
+    },
+    {
+      "id": "developer-experience-interview-q7",
+      "slug": "developer-experience-interview",
+      "title": "文档工程在 DX 中的作用是什么？如何做好？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "作用：\n- 降低新成员上手成本。\n- 统一团队知识。\n- 减少重复问题。\n- 支撑 API 和组件复用。\n\n做好文档的方法：\n- 文档即代码，与代码同步更新。\n- 多种文档类型匹配不同受众。\n- 文档可搜索、可执行。\n- 通过 CI 自动部署文档站点。\n- 定期 review 和更新文档。 - 作用说明（30%）\n- 文档类型（25%）\n- 实践方法（35%）\n- 工具举例（10%）\n\n---"
+    },
+    {
+      "id": "developer-experience-interview-q8",
+      "slug": "developer-experience-interview",
+      "title": "如何优化大型前端项目的本地构建速度？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 构建工具：使用 Vite、esbuild、Rspack 等快速工具。\n- 增量构建：只构建变更的模块。\n- 缓存：本地缓存和远程缓存（Turborepo、Nx）。\n- 按需加载：路由懒加载、组件按需引入。\n- Monorepo 优化：affected 检测、并行构建。\n- 减少插件：移除不必要的构建插件。\n- Source Map 策略：开发环境使用 cheap-source-map。 - 工具选择（25%）\n- 增量与缓存（30%）\n- Monorepo 优化（25%）\n- 其他优化手段（20%）\n\n---"
+    },
+    {
+      "id": "developer-experience-interview-q9",
+      "slug": "developer-experience-interview",
+      "title": "你如何看待\"工具越多越好\"这个观点？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "不认同。工具过多会增加：\n- 学习成本。\n- 配置复杂度。\n- 版本兼容性风险。\n- 认知负荷。\n\n应遵循\"够用即可\"原则：\n- 选择成熟、社区活跃的工具。\n- 统一团队工具栈。\n- 定期清理不再使用的工具。\n- 优先选择能组合的工具链。 - 指出问题（40%）\n- 给出原则（40%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "developer-experience-interview-q10",
+      "slug": "developer-experience-interview",
+      "title": "设计一个企业级前端 DX 平台。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 统一脚手架：支持创建项目、组件、页面模板。\n2. 标准化配置：统一的 ESLint、Prettier、TS、Vite 配置包。\n3. 本地开发：统一的 dev server、proxy、mock。\n4. CI/CD 模板：提供可复用的流水线模板。\n5. 文档站点：聚合项目文档、组件文档、API 文档。\n6. 度量面板：展示构建时间、测试时间、满意度等指标。\n7. 反馈渠道：收集开发者痛点和建议。\n\n评分维度：\n- 脚手架与配置（25%）\n- 本地开发体验（20%）\n- CI/CD 与文档（20%）\n- 度量与反馈（20%）\n- 可扩展性（15%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "developer-experience-interview-q11",
+      "slug": "developer-experience-interview",
+      "title": "新成员入职体验差，如何系统改进？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 文档优化：清晰的 README、环境要求、常见问题。\n2. 自动化：提供 setup 脚本自动检查环境、安装依赖。\n3. Mock 数据：减少对外部服务的依赖。\n4. 导师制度：指定 buddy 帮助新成员。\n5. First Issue：提供适合新人的首个任务。\n6. 反馈机制：收集新成员入职体验，持续优化。\n\n评分维度：\n- 文档与自动化（30%）\n- 环境一致性（25%）\n- 导师与任务设计（25%）\n- 反馈机制（20%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "developer-experience-interview-q12",
+      "slug": "developer-experience-interview",
+      "title": "如何在团队中推动一个新的 DX 工具落地？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 识别痛点：证明现有工具确实存在问题。\n2. 选型对比：评估 2-3 个候选方案，输出评分卡。\n3. POC 验证：在小范围试点，收集数据。\n4. 制定迁移计划：分阶段迁移，降低风险。\n5. 培训与文档：编写使用文档，组织分享。\n6. 度量收益：对比迁移前后的关键指标。\n7. 收集反馈：持续优化，解决使用中的问题。\n\n评分维度：\n- 痛点与选型（25%）\n- POC 与迁移计划（30%）\n- 培训与文档（20%）\n- 度量与反馈（25%）\n\n---\n\n标签：`#dx` `#developer-experience` `#面试题` `#脚手架` `#文档工程`\n\n> 最后更",
+      "answer": " "
+    },
+    {
       "id": "system-architecture-interview-q1",
       "slug": "system-architecture-interview",
       "title": "什么是前端架构？它和框架有什么关系？",
@@ -3564,6 +3948,206 @@
       "answer": " "
     },
     {
+      "id": "security-architecture-interview-q1",
+      "slug": "security-architecture-interview",
+      "title": "什么是威胁建模？前端为什么需要威胁建模？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "威胁建模是一种结构化方法，用于识别系统面临的潜在威胁并设计缓解措施。前端需要威胁建模是因为现代前端涉及大量用户交互、第三方依赖、敏感数据和 API 调用，存在复杂的攻击面。 - 定义准确（40%）\n- 说明前端场景（40%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "security-architecture-interview-q2",
+      "slug": "security-architecture-interview",
+      "title": "解释 STRIDE 模型。",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "STRIDE 是六种威胁类型的缩写：\n- Spoofing：伪装\n- Tampering：篡改\n- Repudiation：抵赖\n- Information Disclosure：信息泄露\n- Denial of Service：拒绝服务\n- Elevation of Privilege：权限提升 - 完整解释六项（60%）\n- 前端示例（30%）\n- 表达清晰（10%）\n\n---"
+    },
+    {
+      "id": "security-architecture-interview-q3",
+      "slug": "security-architecture-interview",
+      "title": "CSP 能解决什么问题？给出一个基本配置示例。",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "CSP（Content Security Policy）用于防御 XSS 和数据注入，限制页面可以加载的资源来源。\n\n```http\nContent-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'\n``` - 说明作用（40%）\n- 写出配置（40%）\n- 解释指令（20%）\n\n---"
+    },
+    {
+      "id": "security-architecture-interview-q4",
+      "slug": "security-architecture-interview",
+      "title": "什么是供应链安全？前端如何防护？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "供应链安全指防止第三方依赖、工具、CDN 资源被篡改或植入恶意代码。前端防护措施包括：依赖审计、lockfile、SRI、私有 registry、定期更新、关键依赖源码审查。 - 解释概念（30%）\n- 列举防护措施（50%）\n- 结合自身经验（20%）\n\n---"
+    },
+    {
+      "id": "security-architecture-interview-q5",
+      "slug": "security-architecture-interview",
+      "title": "前端如何处理用户身份认证安全？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- Access Token 短期有效，尽量存内存。\n- Refresh Token 存 HttpOnly Cookie。\n- 使用 OAuth 2.0 + PKCE 流程。\n- 服务端做最终权限校验。\n- 注销时清除 Token 和客户端状态。 - Token 存储（40%）\n- 认证流程（30%）\n- 权限控制（30%）\n\n---"
+    },
+    {
+      "id": "security-architecture-interview-q6",
+      "slug": "security-architecture-interview",
+      "title": "什么是安全左移？前端如何实践？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "安全左移指将安全实践融入软件开发生命周期的早期阶段。前端实践包括：需求阶段识别敏感数据、设计阶段威胁建模、编码阶段安全规范、CI 阶段 SAST/依赖审计、发布前渗透测试。 - 解释概念（30%）\n- 分阶段说明（50%）\n- 工具举例（20%）\n\n---"
+    },
+    {
+      "id": "security-architecture-interview-q7",
+      "slug": "security-architecture-interview",
+      "title": "如何设计一个隐私合规的前端应用？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 数据最小化：只收集必要数据。\n- 告知同意：明确告知用户数据用途并获得同意。\n- 敏感数据不存本地：避免 localStorage 存 Token、PII。\n- 可撤回：提供撤回同意入口。\n- 埋点脱敏：避免上报敏感信息。\n- 支持 DNT/GPC。 - 原则说明（40%）\n- 前端实践（40%）\n- 合规意识（20%）\n\n---"
+    },
+    {
+      "id": "security-architecture-interview-q8",
+      "slug": "security-architecture-interview",
+      "title": "第三方脚本有哪些风险？如何治理？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "风险：窃取数据、篡改页面、引入漏洞、影响性能。\n\n治理：\n- CSP 限制脚本来源。\n- 使用 SRI 校验。\n- iframe/Shadow DOM 隔离。\n- Partytown 移到 Web Worker。\n- 定期审计第三方脚本。 - 风险识别（30%）\n- 治理措施（50%）\n- 实际案例（20%）\n\n---"
+    },
+    {
+      "id": "security-architecture-interview-q9",
+      "slug": "security-architecture-interview",
+      "title": "设计一个前端安全架构方案。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 威胁建模：识别资产和信任边界。\n2. 编码安全：输入校验、输出编码、安全 API。\n3. 运行时控制：CSP、安全响应头、SRI。\n4. 供应链安全：依赖审计、私有 registry、SRI。\n5. 认证授权：短期 Token、HttpOnly Cookie、服务端校验。\n6. 隐私合规：数据最小化、告知同意、脱敏。\n7. 测试运营：SAST、DAST、监控、应急响应。\n\n评分维度：\n- 架构完整性（30%）\n- 控制措施（30%）\n- 流程设计（25%）\n- 可落地性（15%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "security-architecture-interview-q10",
+      "slug": "security-architecture-interview",
+      "title": "如何建立一个可持续的安全文化？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 领导支持：将安全纳入 OKR 和考核。\n2. 安全培训：定期分享漏洞案例和修复方法。\n3. 工具赋能：自动化扫描降低人工负担。\n4. 激励机制：奖励发现安全问题。\n5. 复盘机制：每次安全事件后复盘并更新规范。\n6. 建立 SLA：漏洞修复时限明确。\n\n评分维度：\n- 组织层面（30%）\n- 培训与工具（30%）\n- 激励与复盘（25%）\n- 可执行性（15%）\n\n---\n\n标签：`#security` `#security-architecture` `#面试题` `#threat-modeling` `#privacy`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "real-time-interview-q1",
+      "slug": "real-time-interview",
+      "title": "WebSocket 和 SSE 有什么区别？分别适用什么场景？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "| 特性 | WebSocket | SSE |\n|------|-----------|-----|\n| 方向 | 双向 | 服务端 → 客户端 |\n| 协议 | ws/wss | HTTP |\n| 自动重连 | 需手动实现 | 浏览器原生支持 |\n| 适用 | 聊天、游戏、协同编辑 | 推送、行情、通知 | - 方向区别（30%）\n- 协议区别（20%）\n- 场景举例（40%）\n- 重连机制（10%）\n\n---"
+    },
+    {
+      "id": "real-time-interview-q2",
+      "slug": "real-time-interview",
+      "title": "如何设计 WebSocket 重连机制？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 监听 onclose/onerror 触发重连。\n- 使用指数退避控制重连频率。\n- 设置最大重试次数或无限重试。\n- 断线期间缓存待发送消息。\n- 重连后恢复房间状态、补发未确认消息。 - 触发条件（20%）\n- 退避策略（30%）\n- 消息缓存（25%）\n- 状态恢复（25%）\n\n---"
+    },
+    {
+      "id": "real-time-interview-q3",
+      "slug": "real-time-interview",
+      "title": "什么是 CRDT？与 OT 有什么区别？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "CRDT 是具有数学特性的数据结构，允许多个副本独立修改并最终一致。OT 需要中央服务器对操作进行变换。\n\nCRDT 更适合离线优先、去中心化场景；OT 适合强一致、中心化场景。 - 解释 CRDT（40%）\n- 解释 OT（30%）\n- 选型对比（30%）\n\n---"
+    },
+    {
+      "id": "real-time-interview-q4",
+      "slug": "real-time-interview",
+      "title": "WebSocket 集群如何实现跨节点广播？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 使用 Redis Pub/Sub、RabbitMQ 等消息中间件。\n- 每个 WebSocket 节点订阅房间频道。\n- 消息发送到中间件，所有订阅节点转发给本地连接。\n- 或使用 sticky session 将同一房间用户路由到同一节点。 - 中间件方案（40%）\n- 订阅机制（30%）\n- 扩展性考虑（30%）\n\n---"
+    },
+    {
+      "id": "real-time-interview-q5",
+      "slug": "real-time-interview",
+      "title": "实时系统的可观测性应关注哪些指标？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 连接数、在线用户数。\n- 消息延迟（端到端）。\n- 断线率、重连成功率。\n- 消息丢失率/重复率。\n- 服务端资源使用（CPU、内存、带宽）。 - 连接相关指标（30%）\n- 消息质量指标（40%）\n- 资源指标（20%）\n- 告警机制（10%）\n\n---"
+    },
+    {
+      "id": "real-time-interview-q6",
+      "slug": "real-time-interview",
+      "title": "设计一个支持离线编辑的协同文档系统。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 客户端使用 CRDT（如 Yjs）管理文档。\n2. 本地持久化操作日志。\n3. 联网后同步操作，CRDT 自动解决冲突。\n4. 服务端持久化操作历史，支持版本回溯。\n5. 设计心跳和同步确认机制。\n\n评分维度：\n- CRDT 选择（25%）\n- 离线存储（25%）\n- 同步机制（25%）\n- 版本与可观测性（25%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "real-time-interview-q7",
+      "slug": "real-time-interview",
+      "title": "设计一个百万级在线直播弹幕系统。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. WebSocket 网关集群 + 负载均衡。\n2. 消息队列削峰（Kafka/Pulsar）。\n3. 按房间分片，减少广播范围。\n4. 弹幕过滤、频率限制、合并相似内容。\n5. 多级缓存和降级策略。\n6. 实时监控连接数、消息延迟、丢包率。\n\n评分维度：\n- 接入层设计（25%）\n- 消息流转（25%）\n- 限流与降级（25%）\n- 可观测性（25%）\n\n---\n\n标签：`#real-time` `#websocket` `#面试题` `#crdt` `#collaborative-editing`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "internationalization-interview-q1",
+      "slug": "internationalization-interview",
+      "title": "什么是 i18n 和 l10n？有什么区别？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "i18n（Internationalization）是国际化，使产品具备支持多语言和地区的能力。l10n（Localization）是本地化，针对特定地区进行适配，如翻译、RTL、货币、日期格式。\n\n区别：i18n 是能力，l10n 是具体适配。 - 定义准确（50%）\n- 区别说明（30%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "internationalization-interview-q2",
+      "slug": "internationalization-interview",
+      "title": "前端 i18n 有哪些核心问题需要解决？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 文本翻译：key 管理、插值、复数。\n- 格式化：日期、数字、货币、度量单位。\n- RTL 适配：布局镜像、图标、动画。\n- 内容管理：翻译平台集成、版本控制。\n- 地区路由：URL/域名切换语言。 - 文本翻译（25%）\n- 格式化（25%）\n- RTL（25%）\n- 内容管理（15%）\n- 路由（10%）\n\n---"
+    },
+    {
+      "id": "internationalization-interview-q3",
+      "slug": "internationalization-interview",
+      "title": "如何处理 RTL 布局？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 使用 CSS 逻辑属性（margin-inline-start、text-align: start）。\n- 设置 html dir=\"rtl\"。\n- 布局使用 flex/grid 时自动适配。\n- 方向性图标需要镜像。\n- 测试真实 RTL 语言。 - 逻辑属性（40%）\n- dir 属性（20%）\n- 图标与动画（25%）\n- 测试（15%）\n\n---"
+    },
+    {
+      "id": "internationalization-interview-q4",
+      "slug": "internationalization-interview",
+      "title": "ICU MessageFormat 有什么作用？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "ICU MessageFormat 用于处理复杂翻译场景，如插值、复数、选择、日期数字格式化。\n\n示例：\n\n```\n{count, plural, =0 {无消息} one {1 条消息} other {# 条消息&#125;&#125;\n``` - 作用说明（40%）\n- 复数示例（30%）\n- 其他场景（30%）\n\n---"
+    },
+    {
+      "id": "internationalization-interview-q5",
+      "slug": "internationalization-interview",
+      "title": "如何设计一个可扩展的翻译工作流？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 开发者使用 key，不手写翻译。\n- 提取工具自动抽取 key 到翻译文件。\n- 上传翻译平台（Crowdin/Lokalise）。\n- 翻译人员翻译，审核人员审核。\n- CI 自动下载翻译并构建。\n- 缺失翻译回退到默认语言。 - 角色分工（30%）\n- 工具集成（30%）\n- CI/CD（25%）\n- 兜底机制（15%）\n\n---"
+    },
+    {
+      "id": "internationalization-interview-q6",
+      "slug": "internationalization-interview",
+      "title": "全球化部署需要考虑哪些合规问题？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 数据本地化（中国个保法、GDPR）。\n- 用户同意（Cookie、隐私政策）。\n- 数据跨境传输。\n- 内容合规（不同地区法律）。\n- 未成年人保护。 - 数据本地化（30%）\n- 用户同意（25%）\n- 跨境传输（20%）\n- 内容合规（15%）\n- 其他（10%）\n\n---"
+    },
+    {
+      "id": "internationalization-interview-q7",
+      "slug": "internationalization-interview",
+      "title": "设计一个支持 50 种语言的 SaaS 国际化架构。",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 统一 i18n 框架和 key 规范。\n2. 翻译文件分层（common、feature、error）。\n3. 集成翻译平台，支持机器翻译+人工审核。\n4. RTL 自动检测和布局适配。\n5. 按地区 CDN 分发翻译包。\n6. 功能开关支持地区特性。\n7. 自动化测试覆盖多语言、RTL、长文本。\n\n评分维度：\n- 框架与规范（20%）\n- 翻译工作流（25%）\n- RTL 适配（20%）\n- 部署与分发（20%）\n- 测试（15%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "internationalization-interview-q8",
+      "slug": "internationalization-interview",
+      "title": "如何处理翻译缺失或延迟的情况？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n- 开发语言作为 fallback。\n- 标记缺失翻译，便于追踪。\n- 关键路径先完成，非关键可后补。\n- 使用英文作为第二 fallback。\n- 灰度发布新语言。\n\n评分维度：\n- fallback 策略（30%）\n- 追踪机制（25%）\n- 优先级管理（25%）\n- 发布策略（20%）\n\n---\n\n标签：`#i18n` `#l10n` `#rtl` `#面试题` `#internationalization`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
       "id": "business-interview-q0",
       "slug": "business-interview",
       "title": "第 1 题",
@@ -4138,6 +4722,174 @@
       "difficulty": "🟢",
       "question": "第 24 题\n\n题目：作为技术负责人，你如何在技术创新和系统稳定之间做取舍？",
       "answer": "技术创新和系统稳定不是绝对对立的，关键在于场景和节奏。\n\n1. 区分场景：\n   - 核心业务、高频场景以稳定优先。\n   - 实验性业务、边缘场景可以大胆创新。\n\n2. 控制风险：\n   - 新技术通过 POC 验证后再推广。\n   - 建立灰度发布和快速回滚机制。\n   - 核心系统保留成熟技术栈。\n\n3. 渐进式演进：\n   - 不追求一步到位，而是小步快跑。\n   - 在稳定基础上逐步引入创新。\n\n4. 建立文化：\n   - 鼓励在安全边界内尝试新技术。\n   - 对失败保持宽容，从中学习。\n   - 建立技术雷达，定期评估新技术成熟度。\n\n例如：核心业务继续用成熟 React/Vue 技术栈，实验性业务可尝试 RSC、AI 辅助开发等新技术，并通过灰度和快速回滚控制风险。 - 能辩证看待创新与稳定（35%）\n- 提出场景区分和风险控制策略（35%）\n- 体现渐进式演进思路（20%）\n- 能举例说明（10%）\n\n---"
+    },
+    {
+      "id": "communication-interview-q1",
+      "slug": "communication-interview",
+      "title": "为什么沟通表达对架构师很重要？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "架构师需要把技术方案翻译给不同角色理解，协调资源，推动决策。沟通表达能力决定了技术方案能否落地，个人影响力能否扩大。 - 说明架构师沟通场景（50%）\n- 说明影响力价值（30%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "communication-interview-q2",
+      "slug": "communication-interview",
+      "title": "如何向非技术人员解释技术方案？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 使用业务语言，避免术语。\n- 用比喻和故事降低理解门槛。\n- 先说结论和价值，再补充关键信息。\n- 用数据支撑观点。 - 语言转换（40%）\n- 结构清晰（30%）\n- 数据与故事（30%）\n\n---"
+    },
+    {
+      "id": "communication-interview-q3",
+      "slug": "communication-interview",
+      "title": "向上管理的核心是什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "向上管理是帮助上级做出更好决策，同时为团队争取资源。核心是主动、透明、有方案地沟通。 - 定义准确（40%）\n- 核心原则（40%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "communication-interview-q4",
+      "slug": "communication-interview",
+      "title": "如何处理团队内部的技术选型冲突？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 分别倾听各方观点。\n- 建立选型标准（性能、成本、团队能力、维护性）。\n- 要求用数据和 POC 支撑。\n- 聚焦问题而非人身攻击。\n- 必要时由负责人做决策并承担。 - 倾听与标准（30%）\n- 数据驱动（30%）\n- 冲突处理（25%）\n- 决策担当（15%）\n\n---"
+    },
+    {
+      "id": "communication-interview-q5",
+      "slug": "communication-interview",
+      "title": "如何准备一次技术演讲？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 明确听众和目的。\n- 设计清晰的结构：开场、问题、方案、行动、结尾。\n- 用故事和案例支撑。\n- 控制信息量，避免 dump。\n- 反复演练，预留 Q&A。 - 结构设计（30%）\n- 内容准备（30%）\n- 表达技巧（25%）\n- 演练与反馈（15%）\n\n---"
+    },
+    {
+      "id": "communication-interview-q6",
+      "slug": "communication-interview",
+      "title": "你推动的技术方案遭到多个部门反对，怎么办？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 了解每个部门的反对原因。\n2. 找到共同目标和利益交集。\n3. 调整方案，减少对方顾虑。\n4. 用数据和试点证明价值。\n5. 争取关键决策者支持。\n6. 分阶段推进，降低风险。\n\n评分维度：\n- 倾听与理解（25%）\n- 寻找共赢（25%）\n- 数据与试点（25%）\n- 推进策略（25%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "communication-interview-q7",
+      "slug": "communication-interview",
+      "title": "如何建立个人技术影响力？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 持续输出高质量技术内容（博客、演讲）。\n2. 解决真实业务问题，建立口碑。\n3. 参与开源社区和技术标准。\n4. 培养团队成员，扩大影响半径。\n5. 建立跨部门信任。\n\n评分维度：\n- 内容输出（30%）\n- 业务成果（25%）\n- 社区参与（20%）\n- 团队培养（15%）\n- 跨部门影响（10%）\n\n---\n\n标签：`#communication` `#leadership` `#面试题` `#influence`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "project-management-interview-q1",
+      "slug": "project-management-interview",
+      "title": "项目管理的五大过程组是什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "启动、规划、执行、监控、收尾。 - 完整列出五大过程组（60%）\n- 简要说明每个过程组核心任务（40%）\n\n---"
+    },
+    {
+      "id": "project-management-interview-q2",
+      "slug": "project-management-interview",
+      "title": "Scrum 中的三个角色是什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "Product Owner、Scrum Master、Development Team。 - 角色名称准确（60%）\n- 说明职责（40%）\n\n---"
+    },
+    {
+      "id": "project-management-interview-q3",
+      "slug": "project-management-interview",
+      "title": "什么是 OKR？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "OKR 是 Objectives and Key Results 的缩写，即目标与关键结果。O 是有野心的目标，KR 是可衡量的关键结果。 - 定义准确（50%）\n- 说明 O 和 KR 的区别（30%）\n- 举例说明（20%）\n\n---"
+    },
+    {
+      "id": "project-management-interview-q4",
+      "slug": "project-management-interview",
+      "title": "项目进度落后时，你会怎么做？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 分析落后的真实原因。\n- 重新评估关键路径和剩余工作。\n- 识别可以加资源、并行或砍范围的地方。\n- 与干系人沟通调整预期。\n- 加强每日跟踪，避免进一步偏离。 - 原因分析（25%）\n- 关键路径分析（25%）\n- 调整方案（25%）\n- 沟通与跟踪（25%）\n\n---"
+    },
+    {
+      "id": "project-management-interview-q5",
+      "slug": "project-management-interview",
+      "title": "如何管理需求变更？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 建立统一的变更申请和评审机制。\n- 评估变更对范围、进度、成本、质量的影响。\n- 由相关方共同决策是否接受。\n- 接受后更新计划和风险登记册。\n- 定期同步变更状态。 - 流程设计（40%）\n- 影响评估（30%）\n- 决策与更新（30%）\n\n---"
+    },
+    {
+      "id": "project-management-interview-q6",
+      "slug": "project-management-interview",
+      "title": "如何在资源有限的情况下保证项目质量？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 优先保障关键路径和核心功能质量。\n2. 建立自动化测试和质量门禁。\n3. 用风险驱动测试，重点覆盖高风险场景。\n4. 引入代码评审和结对编程。\n5. 设定性能预算和安全基线。\n6. 灰度发布，逐步放量。\n\n评分维度：\n- 优先级判断（25%）\n- 自动化与门禁（25%）\n- 风险驱动（20%）\n- 过程改进（15%）\n- 发布策略（15%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "project-management-interview-q7",
+      "slug": "project-management-interview",
+      "title": "你如何进行项目复盘？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 回顾目标和关键结果。\n2. 对比实际结果，找出差异。\n3. 分析成功和失败的原因。\n4. 提取可复用的经验和教训。\n5. 制定改进行动项并跟进。\n6. 沉淀为团队知识库或 SOP。\n\n评分维度：\n- 结构完整（30%）\n- 根因分析（25%）\n- 经验沉淀（25%）\n- 行动跟进（20%）\n\n---\n\n标签：`#project-management` `#agile` `#okr` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
+    },
+    {
+      "id": "hiring-interview-q1",
+      "slug": "hiring-interview",
+      "title": "结构化面试有什么好处？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "- 提高面试公平性和一致性。\n- 减少面试官主观偏见。\n- 便于横向比较候选人。\n- 提升招聘决策质量。 - 公平性（40%）\n- 可比性（30%）\n- 决策质量（30%）\n\n---"
+    },
+    {
+      "id": "hiring-interview-q2",
+      "slug": "hiring-interview",
+      "title": "什么是人才画像？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "人才画像是对目标岗位所需能力、经验、特质的标准化描述，用于指导招聘、培养和评估。 - 定义准确（50%）\n- 包含要素（30%）\n- 应用场景（20%）\n\n---"
+    },
+    {
+      "id": "hiring-interview-q3",
+      "slug": "hiring-interview",
+      "title": "绩效反馈的 SBI 模型是什么？",
+      "difficulty": "🟢",
+      "question": "",
+      "answer": "SBI 是 Situation（情境）、Behavior（行为）、Impact（影响）。反馈时要描述具体情境、行为和带来的影响。 - 模型解释（60%）\n- 举例说明（40%）\n\n---"
+    },
+    {
+      "id": "hiring-interview-q4",
+      "slug": "hiring-interview",
+      "title": "如何设计一份好的代码作业？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 控制时长，2-4 小时为宜。\n- 贴近真实业务场景。\n- 明确需求和评分标准。\n- 考察编码规范、测试、文档。\n- 避免过度依赖框架熟练度。 - 时长合理（25%）\n- 场景真实（25%）\n- 标准清晰（25%）\n- 考察维度（25%）\n\n---"
+    },
+    {
+      "id": "hiring-interview-q5",
+      "slug": "hiring-interview",
+      "title": "如何处理绩效不达标的员工？",
+      "difficulty": "🟡",
+      "question": "",
+      "answer": "- 明确问题，收集事实和数据。\n- 与员工沟通，了解原因。\n- 制定可衡量的改进计划（PIP）。\n- 提供辅导和资源支持。\n- 定期回顾进展。\n- 若无改进，按公司流程处理。 - 事实依据（20%）\n- 沟通方式（20%）\n- 改进计划（25%）\n- 支持与跟进（20%）\n- 合规处理（15%）\n\n---"
+    },
+    {
+      "id": "hiring-interview-q6",
+      "slug": "hiring-interview",
+      "title": "如何为前端团队设计职业发展通道？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 设计专业和管理的双通道。\n2. 每个级别明确能力要求、代表作、评审标准。\n3. 与薪酬体系挂钩。\n4. 定期晋升评审，保持透明。\n5. 为高潜人才提供 IDP 和导师。\n6. 根据业务阶段调整通道设计。\n\n评分维度：\n- 双通道设计（25%）\n- 标准清晰（25%）\n- 与激励挂钩（20%）\n- 评审透明（15%）\n- 培养机制（15%）\n\n---",
+      "answer": " "
+    },
+    {
+      "id": "hiring-interview-q7",
+      "slug": "hiring-interview",
+      "title": "如何应对核心人才流失？",
+      "difficulty": "🔴",
+      "question": "参考答案要点：\n\n1. 识别关键岗位和关键人才。\n2. 了解离职风险信号（士气、成长、薪酬）。\n3. 建立保留机制：成长机会、薪酬竞争力、工作意义感。\n4. 建立接班人计划和知识沉淀。\n5. 即使流失，也要做好交接和 alumni 关系。\n6. 复盘流失原因，持续优化。\n\n评分维度：\n- 风险识别（25%）\n- 保留机制（25%）\n- 梯队建设（20%）\n- 交接与沉淀（15%）\n- 复盘改进（15%）\n\n---\n\n标签：`#hiring` `#performance` `#career-development` `#面试题`\n\n> 最后更新：2026-06-25",
+      "answer": " "
     }
   ]
 }

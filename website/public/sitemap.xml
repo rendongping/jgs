@@ -21,6 +21,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/architecture/internationalization</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/internationalization-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/internationalization-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/architecture/micro-frontend</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -77,6 +92,36 @@
   </url>
   <url>
     <loc>https://rendongping.github.io/jgs/architecture/quality-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/real-time</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/real-time-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/real-time-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/security-architecture</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/security-architecture-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/architecture/security-architecture-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -216,6 +261,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/engineering/developer-experience</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/engineering/developer-experience-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/engineering/developer-experience-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/engineering/git-workflow</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/engineering/git-workflow-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/engineering/git-workflow-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/engineering/monorepo</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -276,6 +351,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://rendongping.github.io/jgs/foundation/a11y</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/a11y-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/a11y-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://rendongping.github.io/jgs/foundation/browser</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -287,6 +377,21 @@
   </url>
   <url>
     <loc>https://rendongping.github.io/jgs/foundation/browser-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/html-css</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/html-css-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/foundation/html-css-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -387,6 +492,51 @@
   </url>
   <url>
     <loc>https://rendongping.github.io/jgs/leadership/business-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/communication</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/communication-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/communication-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/hiring</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/hiring-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/hiring-interview</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/project-management</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/project-management-exercises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rendongping.github.io/jgs/leadership/project-management-interview</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

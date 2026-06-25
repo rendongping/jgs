@@ -39,6 +39,8 @@ const nodes = [
   { id: 'browser', name: 'Browser', level: 1, x: 400, y: 400 },
   { id: 'network', name: 'Network', level: 1, x: 550, y: 350 },
   { id: 'security', name: 'Security', level: 1, x: 700, y: 400 },
+  { id: 'html-css', name: 'HTML/CSS', level: 1, x: 850, y: 400 },
+  { id: 'a11y', name: 'Accessibility', level: 1, x: 1000, y: 350 },
   // Level 2
   { id: 'build-tools', name: 'Build Tools', level: 2, x: 100, y: 250 },
   { id: 'monorepo', name: 'Monorepo', level: 2, x: 220, y: 200 },
@@ -50,6 +52,8 @@ const nodes = [
   { id: 'cross-platform', name: 'Cross Platform', level: 2, x: 400, y: 150 },
   { id: 'ai-engineering', name: 'AI Engineering', level: 2, x: 520, y: 120 },
   { id: 'node-bff', name: 'Node.js/BFF', level: 2, x: 640, y: 150 },
+  { id: 'git-workflow', name: 'Git Workflow', level: 2, x: 760, y: 200 },
+  { id: 'developer-experience', name: 'Developer Experience', level: 2, x: 880, y: 250 },
   // Level 3
   { id: 'system-architecture', name: 'System Architecture', level: 3, x: 150, y: 50 },
   { id: 'micro-frontend', name: 'Micro Frontend', level: 3, x: 300, y: 20 },
@@ -57,10 +61,16 @@ const nodes = [
   { id: 'quality', name: 'Quality', level: 3, x: 600, y: 20 },
   { id: 'data-state', name: 'Data & State', level: 3, x: 200, y: -30 },
   { id: 'observability', name: 'Observability', level: 3, x: 500, y: -30 },
+  { id: 'security-architecture', name: 'Security Architecture', level: 3, x: 650, y: 50 },
+  { id: 'real-time', name: 'Real-time', level: 3, x: 800, y: 20 },
+  { id: 'internationalization', name: 'Internationalization', level: 3, x: 950, y: 50 },
   // Level 4
   { id: 'business', name: 'Business', level: 4, x: 250, y: -120 },
   { id: 'team', name: 'Team', level: 4, x: 400, y: -150 },
   { id: 'strategy', name: 'Strategy', level: 4, x: 550, y: -120 },
+  { id: 'communication', name: 'Communication', level: 4, x: 100, y: -120 },
+  { id: 'project-management', name: 'Project Management', level: 4, x: 750, y: -150 },
+  { id: 'hiring', name: 'Hiring', level: 4, x: 900, y: -120 },
 ];
 
 const edges = [
@@ -71,6 +81,9 @@ const edges = [
   { source: 'javascript', target: 'security' },
   { source: 'browser', target: 'security' },
   { source: 'network', target: 'security' },
+  { source: 'javascript', target: 'html-css' },
+  { source: 'browser', target: 'html-css' },
+  { source: 'html-css', target: 'a11y' },
   // Level 1 -> Level 2
   { source: 'javascript', target: 'build-tools' },
   { source: 'javascript', target: 'react' },
@@ -83,6 +96,10 @@ const edges = [
   { source: 'build-tools', target: 'ci-cd' },
   { source: 'build-tools', target: 'code-quality' },
   { source: 'build-tools', target: 'design-system' },
+  { source: 'build-tools', target: 'developer-experience' },
+  { source: 'git-workflow', target: 'monorepo' },
+  { source: 'git-workflow', target: 'ci-cd' },
+  { source: 'git-workflow', target: 'code-quality' },
   { source: 'react', target: 'cross-platform' },
   { source: 'vue', target: 'cross-platform' },
   { source: 'react', target: 'ai-engineering' },
@@ -107,6 +124,12 @@ const edges = [
   { source: 'performance', target: 'observability' },
   { source: 'ci-cd', target: 'observability' },
   { source: 'node-bff', target: 'observability' },
+  { source: 'security', target: 'security-architecture' },
+  { source: 'node-bff', target: 'security-architecture' },
+  { source: 'network', target: 'real-time' },
+  { source: 'node-bff', target: 'real-time' },
+  { source: 'html-css', target: 'internationalization' },
+  { source: 'design-system', target: 'internationalization' },
   // Level 3 -> Level 4
   { source: 'system-architecture', target: 'business' },
   { source: 'system-architecture', target: 'team' },
@@ -116,6 +139,11 @@ const edges = [
   { source: 'observability', target: 'strategy' },
   { source: 'business', target: 'strategy' },
   { source: 'team', target: 'strategy' },
+  { source: 'communication', target: 'business' },
+  { source: 'communication', target: 'team' },
+  { source: 'communication', target: 'project-management' },
+  { source: 'team', target: 'hiring' },
+  { source: 'project-management', target: 'hiring' },
 ];
 
 const linkMap = {

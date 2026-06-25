@@ -1,0 +1,196 @@
+{
+  "domainId": "F06-html-css",
+  "domainName": "HTML/CSS 工程化",
+  "version": 1,
+  "questions": [
+    {
+      "id": "F06-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个 HTML 标签最适合表示页面的主要导航链接组？",
+      "answer": ["nav"],
+      "explanation": "<nav> 专门用于定义页面中的导航链接组，是最合适的语义标签。",
+      "tags": ["html", "semantics"],
+      "options": ["header", "nav", "section", "aside"]
+    },
+    {
+      "id": "F06-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "BEM 命名中 .button--primary 表示什么？",
+      "answer": ["button 块的 primary 修饰符"],
+      "explanation": "BEM 中 -- 表示 Modifier（修饰符），用于描述块或元素的不同状态或变体。",
+      "tags": ["css", "bem"],
+      "options": [
+        "button 块的 primary 元素",
+        "button 块的 primary 修饰符",
+        "primary 块下的 button 元素",
+        "以上都不对"
+      ]
+    },
+    {
+      "id": "F06-003",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "CSS 中 rem 单位的参考基准是什么？",
+      "answer": ["根元素（html）的字体大小"],
+      "explanation": "rem 是相对于根元素（html）字体大小的单位，常用于实现整体可缩放的布局。",
+      "tags": ["css", "units"],
+      "options": [
+        "父元素的字体大小",
+        "根元素的字体大小",
+        "视口宽度",
+        "自身元素的字体大小"
+      ]
+    },
+    {
+      "id": "F06-004",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪个 CSS 属性修改后不会触发重排（Reflow）？",
+      "answer": ["transform"],
+      "explanation": "transform 和 opacity 通常可以运行在合成层，不触发重排；width、top、margin 都会触发布局计算。",
+      "tags": ["css", "performance"],
+      "options": ["width", "transform", "top", "margin"]
+    },
+    {
+      "id": "F06-005",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "以下哪些是 CSS 工程化需要解决的问题？",
+      "answer": ["全局命名冲突", "样式冗余", "主题切换困难", "响应式逻辑分散"],
+      "explanation": "CSS 工程化主要解决全局命名冲突、样式冗余、主题切换困难、响应式逻辑分散等问题。",
+      "tags": ["css", "engineering"],
+      "options": [
+        "全局命名冲突",
+        "样式冗余",
+        "JavaScript 性能",
+        "主题切换困难",
+        "响应式逻辑分散"
+      ]
+    },
+    {
+      "id": "F06-006",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "容器查询（Container Query）与媒体查询（Media Query）的主要区别是？",
+      "answer": ["容器查询基于组件所在容器的大小"],
+      "explanation": "容器查询基于元素所在容器的大小，而不是整个视口，因此更适合组件级响应式。",
+      "tags": ["css", "responsive"],
+      "options": [
+        "容器查询基于视口宽度",
+        "容器查询基于组件所在容器的大小",
+        "容器查询只能用于 Grid 布局",
+        "容器查询性能更好"
+      ]
+    },
+    {
+      "id": "F06-007",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "CSS 中 @layer 的作用是什么？",
+      "answer": ["创建级联层，管理选择器优先级"],
+      "explanation": "@layer 用于创建级联层，可以显式控制不同层级样式的优先级，解决优先级战争问题。",
+      "tags": ["css", "cascade"],
+      "options": [
+        "定义动画关键帧",
+        "创建级联层，管理选择器优先级",
+        "声明自定义属性",
+        "实现容器查询"
+      ]
+    },
+    {
+      "id": "F06-008",
+      "type": "true-false",
+      "level": "basic",
+      "question": "使用 <div class=\"button\"> 模拟按钮可以达到与 <button> 完全相同的可访问性效果。",
+      "answer": ["false"],
+      "explanation": "<div> 模拟按钮需要额外实现键盘聚焦、回车触发、禁用状态、焦点环等，容易遗漏可访问性功能。",
+      "tags": ["html", "a11y"]
+    },
+    {
+      "id": "F06-009",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "以下哪些做法有利于减少首屏渲染阻塞？",
+      "answer": ["关键 CSS 内联", "非关键 CSS 异步加载"],
+      "explanation": "关键 CSS 内联可保证首屏快速渲染；非关键 CSS 异步加载避免阻塞首次内容绘制。将所有 CSS 放在底部或用 @import 都会损害性能。",
+      "tags": ["css", "performance"],
+      "options": [
+        "将所有 CSS 放在外部文件底部加载",
+        "关键 CSS 内联",
+        "使用 @import 引入所有样式",
+        "非关键 CSS 异步加载"
+      ]
+    },
+    {
+      "id": "F06-010",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "ITCSS 架构中，哪一层应该包含最高特殊性的样式？",
+      "answer": ["Trumps"],
+      "explanation": "ITCSS 按特殊性递增组织，Trumps（工具类/覆盖类）位于最顶层，特殊性最高。",
+      "tags": ["css", "architecture"],
+      "options": ["Settings", "Components", "Trumps", "Base"]
+    },
+    {
+      "id": "F06-011",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "margin-inline-start 替代 margin-left 的主要优势是什么？",
+      "answer": ["支持 RTL 等国际化布局"],
+      "explanation": "margin-inline-start 是逻辑属性，根据文本方向自动适配，适合 RTL（从右到左）语言布局。",
+      "tags": ["css", "i18n"],
+      "options": [
+        "性能更好",
+        "支持 RTL 等国际化布局",
+        "优先级更高",
+        "兼容性更好"
+      ]
+    },
+    {
+      "id": "F06-012",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计多主题组件库时，Design Token 通常如何分层？",
+      "answer": ["原始 Token", "语义 Token", "组件 Token"],
+      "explanation": "Design Token 通常分为原始 Token（如 --color-blue-500）、语义 Token（如 --color-brand-primary）和组件 Token（如 --button-bg-primary）三层。",
+      "tags": ["css", "design-tokens"],
+      "options": ["原始 Token", "语义 Token", "组件 Token", "动画 Token"]
+    },
+    {
+      "id": "F06-013",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "以下哪种 CSS-in-JS 方案以编译期零运行时开销著称？",
+      "answer": ["Vanilla Extract"],
+      "explanation": "Vanilla Extract 在编译期生成 CSS，运行时没有额外开销。",
+      "tags": ["css", "css-in-js"],
+      "options": ["Styled Components", "Emotion", "Vanilla Extract", "JSS"]
+    },
+    {
+      "id": "F06-014",
+      "type": "true-false",
+      "level": "intermediate",
+      "question": "使用 !important 是解决 CSS 优先级问题的推荐做法。",
+      "answer": ["false"],
+      "explanation": "!important 会破坏优先级规则，导致维护困难，应尽量避免，优先重构选择器或使用 @layer。",
+      "tags": ["css", "best-practice"]
+    },
+    {
+      "id": "F06-015",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "CSS 中选择器 .nav ul li a 的主要问题是什么？",
+      "answer": ["选择器过长，耦合度高，性能和维护性差"],
+      "explanation": "过长的后代选择器增加了匹配成本和耦合度，降低可维护性，应使用更简洁的类选择器。",
+      "tags": ["css", "performance"],
+      "options": [
+        "优先级太低",
+        "选择器过长，耦合度高，性能和维护性差",
+        "不支持响应式",
+        "无法使用 CSS 变量"
+      ]
+    }
+  ]
+}

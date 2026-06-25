@@ -4,11 +4,11 @@
     <div v-else>
       <div class="dashboard-summary">
         <div class="summary-card">
-          <div class="summary-value">{{ completedCount }}/24</div>
+          <div class="summary-value">{{ completedCount }}/{{ totalDomains }}</div>
           <div class="summary-label">已完成领域</div>
         </div>
         <div class="summary-card">
-          <div class="summary-value">{{ ratedCount }}/24</div>
+          <div class="summary-value">{{ ratedCount }}/{{ totalDomains }}</div>
           <div class="summary-label">已自评领域</div>
         </div>
         <div class="summary-card">
@@ -79,10 +79,10 @@ import { useLearningData } from '../composables/useLearningData.js';
 import * as echarts from 'echarts';
 
 const domainGroups = [
-  { name: '基础层', ids: ['javascript','typescript','browser','network','security'] },
-  { name: '工程化层', ids: ['build-tools','monorepo','ci-cd','code-quality','design-system','react','vue','cross-platform','ai-engineering','node-bff'] },
-  { name: '架构层', ids: ['system-architecture','micro-frontend','performance','quality','data-state','observability'] },
-  { name: '领导力层', ids: ['business','team','strategy'] }
+  { name: '基础层', ids: ['javascript','typescript','browser','network','security','html-css','a11y'] },
+  { name: '工程化层', ids: ['build-tools','monorepo','ci-cd','code-quality','design-system','react','vue','cross-platform','ai-engineering','node-bff','git-workflow','developer-experience'] },
+  { name: '架构层', ids: ['system-architecture','micro-frontend','performance','quality','data-state','observability','security-architecture','real-time','internationalization'] },
+  { name: '领导力层', ids: ['business','team','strategy','communication','project-management','hiring'] }
 ];
 
 const domainMeta = domainGroups.flatMap(g => g.ids.map(id => ({ id, group: g.name })));
@@ -140,15 +140,21 @@ const ratingsComputed = computed(() => data.value?.ratings || {});
 const quizHistoryComputed = computed(() => data.value?.quizHistory || []);
 const studyTimeComputed = computed(() => data.value?.studyTime || {});
 
+const totalDomains = computed(() => domainMeta.length);
+
 function formatDomainName(id) {
   const map = {
     javascript: 'JavaScript', typescript: 'TypeScript', browser: 'Browser', network: 'Network', security: 'Security',
+    'html-css': 'HTML/CSS', a11y: 'Accessibility',
     'build-tools': 'Build Tools', monorepo: 'Monorepo', 'ci-cd': 'CI/CD', 'code-quality': 'Code Quality',
     'design-system': 'Design System', react: 'React', vue: 'Vue', 'cross-platform': 'Cross Platform',
     'ai-engineering': 'AI Engineering', 'node-bff': 'Node.js/BFF',
+    'git-workflow': 'Git Workflow', 'developer-experience': 'Developer Experience',
     'system-architecture': 'System Architecture', 'micro-frontend': 'Micro Frontend',
     performance: 'Performance', quality: 'Quality', 'data-state': 'Data & State', observability: 'Observability',
-    business: 'Business', team: 'Team', strategy: 'Strategy'
+    'security-architecture': 'Security Architecture', 'real-time': 'Real-time', internationalization: 'Internationalization',
+    business: 'Business', team: 'Team', strategy: 'Strategy',
+    communication: 'Communication', 'project-management': 'Project Management', hiring: 'Hiring'
   };
   return map[id] || id;
 }
@@ -156,12 +162,16 @@ function formatDomainName(id) {
 function getDomainLink(id) {
   const groupMap = {
     javascript: 'foundation', typescript: 'foundation', browser: 'foundation', network: 'foundation', security: 'foundation',
+    'html-css': 'foundation', a11y: 'foundation',
     'build-tools': 'engineering', monorepo: 'engineering', 'ci-cd': 'engineering', 'code-quality': 'engineering',
     'design-system': 'engineering', react: 'engineering', vue: 'engineering', 'cross-platform': 'engineering',
     'ai-engineering': 'engineering', 'node-bff': 'engineering',
+    'git-workflow': 'engineering', 'developer-experience': 'engineering',
     'system-architecture': 'architecture', 'micro-frontend': 'architecture',
     performance: 'architecture', quality: 'architecture', 'data-state': 'architecture', observability: 'architecture',
-    business: 'leadership', team: 'leadership', strategy: 'leadership'
+    'security-architecture': 'architecture', 'real-time': 'architecture', internationalization: 'architecture',
+    business: 'leadership', team: 'leadership', strategy: 'leadership',
+    communication: 'leadership', 'project-management': 'leadership', hiring: 'leadership'
   };
   return `/${groupMap[id]}/${id}`;
 }

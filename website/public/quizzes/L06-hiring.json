@@ -1,0 +1,136 @@
+{
+  "domainId": "L06-hiring",
+  "domainName": "招聘与组织发展",
+  "questions": [
+    {
+      "id": "L06-q01",
+      "type": "single",
+      "question": "结构化面试的主要目的是？",
+      "options": [
+        "让面试更快",
+        "减少主观偏见，提高公平性",
+        "只问技术问题",
+        "增加面试难度"
+      ],
+      "answer": 1,
+      "explanation": "结构化面试通过统一问题和评分标准，减少主观偏见。"
+    },
+    {
+      "id": "L06-q02",
+      "type": "single",
+      "question": "SBI 反馈模型中，B 代表？",
+      "options": [
+        "Background",
+        "Behavior",
+        "Benefit",
+        "Belief"
+      ],
+      "answer": 1,
+      "explanation": "SBI 是 Situation-Behavior-Impact，B 是 Behavior（行为）。"
+    },
+    {
+      "id": "L06-q03",
+      "type": "single",
+      "question": "代码作业设计的合理时长是？",
+      "options": [
+        "10 分钟",
+        "2-4 小时",
+        "2 周",
+        "1 个月"
+      ],
+      "answer": 1,
+      "explanation": "代码作业通常控制在 2-4 小时，既能考察能力，又不过度占用候选人时间。"
+    },
+    {
+      "id": "L06-q04",
+      "type": "single",
+      "question": "以下哪项最能降低关键岗位人员流失风险？",
+      "options": [
+        "高压管理",
+        "接班人计划",
+        "限制员工学习",
+        "减少沟通"
+      ],
+      "answer": 1,
+      "explanation": "接班人计划能降低关键岗位人员变动带来的风险。"
+    },
+    {
+      "id": "L06-q05",
+      "type": "single",
+      "question": "高绩效团队文化的核心特征之一是？",
+      "options": [
+        "避免冲突",
+        "心理安全",
+        "严格控制",
+        "只关注结果"
+      ],
+      "answer": 1,
+      "explanation": "心理安全是高绩效团队的核心特征，成员敢于表达和试错。"
+    },
+    {
+      "id": "L06-q06",
+      "type": "multi",
+      "question": "前端面试应考察的维度包括？",
+      "options": [
+        "技术基础",
+        "项目经验",
+        "软技能",
+        "只看学历"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "前端面试应综合考察技术基础、项目经验和软技能，不能只看学历。"
+    },
+    {
+      "id": "L06-q07",
+      "type": "multi",
+      "question": "有效的绩效反馈应具备哪些特点？",
+      "options": [
+        "及时",
+        "具体",
+        "可行动",
+        "只批评不表扬"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "有效反馈应及时、具体、可行动，且应兼顾表扬和改进建议。"
+    },
+    {
+      "id": "L06-q08",
+      "type": "multi",
+      "question": "人才保留策略包括？",
+      "options": [
+        "有竞争力的薪酬",
+        "清晰的成长路径",
+        "有挑战性的工作",
+        "压制员工发展"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "人才保留需要薪酬竞争力、成长路径和有挑战的工作，不能压制发展。"
+    },
+    {
+      "id": "L06-q09",
+      "type": "single",
+      "question": "IDP 的全称是？",
+      "options": [
+        "Individual Development Plan",
+        "Internal Design Process",
+        "Interview Development Program",
+        "Integrated Deployment Plan"
+      ],
+      "answer": 0,
+      "explanation": "IDP 是 Individual Development Plan，个人发展计划。"
+    },
+    {
+      "id": "L06-q10",
+      "type": "single",
+      "question": "离职面谈的主要目的是？",
+      "options": [
+        "挽留员工",
+        "了解真实原因并改进",
+        "批评离职员工",
+        "完成 HR 流程"
+      ],
+      "answer": 1,
+      "explanation": "离职面谈的核心目的是了解真实原因，发现管理问题并持续改进。"
+    }
+  ]
+}

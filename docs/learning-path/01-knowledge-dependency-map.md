@@ -1,6 +1,6 @@
 # 前端架构师知识依赖图
 
-> 本文件用 Mermaid 图表展示 24 个知识领域之间的前置依赖关系，帮助学习者规划学习顺序。
+> 本文件用 Mermaid 图表展示 34 个知识领域之间的前置依赖关系，帮助学习者规划学习顺序。
 
 ---
 
@@ -17,10 +17,10 @@
 
 ```mermaid
 graph TD
-    L1[Level 01 基础层<br/>F01-F05]
-    L2[Level 02 工程化层<br/>E01-E10]
-    L3[Level 03 架构层<br/>A01-A06]
-    L4[Level 04 领导力层<br/>L01-L03]
+    L1[Level 01 基础层<br/>F01-F07]
+    L2[Level 02 工程化层<br/>E01-E12]
+    L3[Level 03 架构层<br/>A01-A09]
+    L4[Level 04 领导力层<br/>L01-L06]
 
     L1 --> L2
     L2 --> L3
@@ -39,14 +39,19 @@ graph LR
     F01 --> F03[F03 Browser]
     F01 --> F04[F04 Network]
     F01 --> F05[F05 Security]
+    F01 --> F06[F06 HTML/CSS]
+    F06 --> F07[F07 a11y]
     F03 --> F05
     F04 --> F05
     F04 --> F03
+    F03 --> F06
 ```
 
 **学习建议**：
 - 先学 JavaScript，它是所有前端知识的根基。
 - TypeScript 在 JavaScript 之后学。
+- HTML/CSS 工程化与 Browser 相辅相成，可在 JavaScript 之后学习。
+- Web 无障碍建立在语义化 HTML/CSS 基础上。
 - Browser、Network、Security 可以并行学习，但 Security 需要 Network 和 Browser 的基础。
 
 ---
@@ -61,11 +66,16 @@ graph TD
     F02[F02 TypeScript] --> E01
     F02 --> E06
     F02 --> E07
+    F06[F06 HTML/CSS] --> E05[E05 Design System]
 
     E01 --> E02[E02 Monorepo]
     E01 --> E03[E03 CI/CD]
     E01 --> E04[E04 Code Quality]
     E01 --> E05[E05 Design System]
+    E01 --> E12[E12 DX]
+    E11[E11 Git] --> E02
+    E11 --> E03
+    E11 --> E04
 
     E06 --> E08[E08 Cross Platform]
     E07 --> E08
@@ -104,6 +114,8 @@ graph TD
     E04[E04 Code Quality] --> A04[A04 Quality]
     E03[E03 CI/CD] --> A04
     A06[A06 Observability] --> A04
+    F05[F05 Security] --> A07[A07 Security Architecture]
+    E10 --> A07
 
     E06 --> A05[A05 Data & State]
     E07 --> A05
@@ -112,6 +124,12 @@ graph TD
     A03 --> A06[A06 Observability]
     E03 --> A06
     E10 --> A06
+
+    F04 --> A08[A08 Real-time]
+    E10 --> A08
+
+    F06 --> A09[A09 Internationalization]
+    E05 --> A09
 ```
 
 **学习建议**：
@@ -120,6 +138,9 @@ graph TD
 - Quality 需要 Code Quality 和 CI/CD 基础。
 - Data & State 需要先理解框架状态和服务端交互。
 - Observability 需要 Performance 和 CI/CD 基础。
+- Security Architecture 需要 Web 安全与 Node.js/BFF 基础。
+- Real-time 需要网络协议与 BFF 基础。
+- Internationalization 需要 HTML/CSS 与设计体系基础。
 
 ---
 
@@ -137,12 +158,19 @@ graph TD
 
     L01 --> L03
     L02 --> L03
+    L04[L04 Communication] --> L01
+    L04 --> L02
+    L04 --> L05[L05 Project Management]
+    L05 --> L06[L06 Hiring]
+    L02 --> L06
 ```
 
 **学习建议**：
 - 领导力层需要扎实的架构基础。
-- Business 和 Team 可以并行学习。
-- Strategy 是最高层，需要综合 Business、Team 和架构能力。
+- Business、Team、Communication 可以并行学习。
+- Project Management 是团队协作和交付的通用能力。
+- Hiring 建立在团队管理和组织发展基础上。
+- Strategy 是最高层，需要综合 Business、Team、Communication 和架构能力。
 
 ---
 
@@ -155,6 +183,8 @@ graph TD
 | F04 Network → E10 Node.js/BFF | BFF 需要网络协议基础 |
 | E01 Build Tools → A03 Performance | 构建优化是性能的一部分 |
 | E04 Code Quality → A04 Quality | 质量保障建立在代码质量基础上 |
+| F05 Security → A07 Security Architecture | 安全架构需要基础安全知识 |
+| F06 HTML/CSS → A09 Internationalization | 国际化需要理解 CSS 逻辑属性 |
 | A01 System Architecture → L03 Strategy | 技术战略需要架构思维 |
 
 ---
@@ -164,10 +194,13 @@ graph TD
 ```
 第一阶段（1-2 个月）：
 F01 JavaScript → F02 TypeScript
-（并行）F03 Browser、F04 Network、F05 Security
+（并行）F03 Browser、F04 Network、F05 Security、F06 HTML/CSS
+F06 HTML/CSS → F07 a11y
 
 第二阶段（2-3 个月）：
 E01 Build Tools → E02 Monorepo、E03 CI/CD、E04 Code Quality
+E11 Git Workflow → E02/E03/E04
+E01 → E12 Developer Experience
 （并行）E06 React 或 E07 Vue（选择一个深入）
 E05 Design System
 
@@ -177,9 +210,12 @@ A05 Data & State
 
 第四阶段（2-3 个月）：
 A01 System Architecture → A02 Micro Frontend、A03 Performance、A04 Quality、A06 Observability
+F05 Security → A07 Security Architecture
+F04 Network → A08 Real-time
+F06 HTML/CSS → A09 Internationalization
 
 第五阶段（持续）：
-L01 Business、L02 Team、L03 Strategy
+L01 Business、L02 Team、L03 Strategy、L04 Communication、L05 Project Management、L06 Hiring
 ```
 
 ---
@@ -204,4 +240,4 @@ L01 Business、L02 Team、L03 Strategy
 
 ---
 
-> **最后更新**：2026-06-18
+> **最后更新**：2026-06-25

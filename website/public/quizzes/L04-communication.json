@@ -1,0 +1,136 @@
+{
+  "domainId": "L04-communication",
+  "domainName": "沟通表达与影响力",
+  "questions": [
+    {
+      "id": "L04-q01",
+      "type": "single",
+      "question": "向上汇报时，最合适的方式是？",
+      "options": [
+        "先讲详细过程",
+        "先讲结论",
+        "先讲技术细节",
+        "先讲困难"
+      ],
+      "answer": 1,
+      "explanation": "向上汇报应结论先行，高管时间宝贵，先讲核心结论再补充细节。"
+    },
+    {
+      "id": "L04-q02",
+      "type": "single",
+      "question": "RACI 模型中，A 代表什么？",
+      "options": [
+        "Accountable",
+        "Advisor",
+        "Analyst",
+        "Approver"
+      ],
+      "answer": 0,
+      "explanation": "RACI 中 A 是 Accountable（最终负责人）。"
+    },
+    {
+      "id": "L04-q03",
+      "type": "single",
+      "question": "跨部门沟通时，最关键的第一步是？",
+      "options": [
+        "说明技术方案",
+        "找到共同目标",
+        "指出对方问题",
+        "争取自己利益"
+      ],
+      "answer": 1,
+      "explanation": "找到共同目标是跨部门沟通的基础，能化解对立，促进协作。"
+    },
+    {
+      "id": "L04-q04",
+      "type": "single",
+      "question": "托马斯-基尔曼冲突模型中，双赢对应哪种策略？",
+      "options": [
+        "竞争",
+        "合作",
+        "迁就",
+        "回避"
+      ],
+      "answer": 1,
+      "explanation": "合作（Collaborating）是高关注自己、高关注他人的双赢策略。"
+    },
+    {
+      "id": "L04-q05",
+      "type": "single",
+      "question": "技术博客写作中，应优先采用哪种结构？",
+      "options": [
+        "按时间顺序",
+        "结论先行",
+        "按代码量排序",
+        "按个人喜好"
+      ],
+      "answer": 1,
+      "explanation": "技术写作应采用金字塔原理，结论先行，再用论据支撑。"
+    },
+    {
+      "id": "L04-q06",
+      "type": "multi",
+      "question": "提升个人技术影响力的途径包括？",
+      "options": [
+        "持续输出高质量内容",
+        "解决真实业务问题",
+        "参与开源社区",
+        "只关注自己代码"
+      ],
+      "answer": [0, 1, 2],
+      "explanation": "影响力来自内容输出、业务成果、社区参与和团队培养，不能只关注自己。"
+    },
+    {
+      "id": "L04-q07",
+      "type": "multi",
+      "question": "高效 RFC 评审会的特点包括？",
+      "options": [
+        "会前分发并预读",
+        "作者讲解核心内容",
+        "逐条讨论评论区问题",
+        "当场明确决策和 owner"
+      ],
+      "answer": [0, 1, 2, 3],
+      "explanation": "高效的 RFC 评审会需要会前准备、聚焦讨论、及时决策。"
+    },
+    {
+      "id": "L04-q08",
+      "type": "multi",
+      "question": "向上管理的核心原则包括？",
+      "options": [
+        "主动沟通",
+        "透明汇报",
+        "只报喜不报忧",
+        "带着方案说问题"
+      ],
+      "answer": [0, 1, 3],
+      "explanation": "向上管理需要主动、透明，遇到问题要带着方案汇报。"
+    },
+    {
+      "id": "L04-q09",
+      "type": "single",
+      "question": "跨部门项目中，如何减少沟通摩擦？",
+      "options": [
+        "尽量不与对方开会",
+        "明确接口人和沟通节奏",
+        "只通过邮件沟通",
+        "让对方适应自己流程"
+      ],
+      "answer": 1,
+      "explanation": "明确接口人和沟通节奏能减少信息混乱和摩擦。"
+    },
+    {
+      "id": "L04-q10",
+      "type": "single",
+      "question": "技术演讲中，最重要的开场方式是？",
+      "options": [
+        "介绍自己 10 分钟",
+        "用一个真实问题或故事吸引注意",
+        "直接贴代码",
+        "说明演讲目录"
+      ],
+      "answer": 1,
+      "explanation": "用真实问题或故事开场能快速抓住听众注意力。"
+    }
+  ]
+}

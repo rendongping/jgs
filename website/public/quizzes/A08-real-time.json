@@ -1,0 +1,198 @@
+{
+  "domainId": "A08-real-time",
+  "domainName": "实时与协同架构",
+  "version": 1,
+  "questions": [
+    {
+      "id": "A08-001",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "以下哪种方案最适合服务端向客户端单向推送股票行情？",
+      "answer": ["SSE"],
+      "explanation": "SSE 基于 HTTP，适合服务端向客户端单向推送，如股票行情。",
+      "tags": ["real-time", "sse"],
+      "options": ["WebSocket", "SSE", "长轮询", "WebRTC"]
+    },
+    {
+      "id": "A08-002",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "WebSocket 相比 HTTP 轮询的主要优势是？",
+      "answer": ["全双工、低延迟"],
+      "explanation": "WebSocket 建立后是全双工连接，延迟低，头部开销小。",
+      "tags": ["real-time", "websocket"],
+      "options": ["更安全", "全双工、低延迟", "更简单", "兼容性更好"]
+    },
+    {
+      "id": "A08-003",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "协同编辑中，CRDT 的主要优势是？",
+      "answer": ["天然支持离线编辑和最终一致性"],
+      "explanation": "CRDT 通过数据结构特性保证最终一致，天然支持离线编辑。",
+      "tags": ["real-time", "crdt"],
+      "options": [
+        "需要中央服务器协调",
+        "天然支持离线编辑和最终一致性",
+        "实现比 OT 更复杂",
+        "只支持文本编辑"
+      ]
+    },
+    {
+      "id": "A08-004",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "长连接重连策略中，指数退避的主要目的是？",
+      "answer": ["避免服务端被重连风暴压垮"],
+      "explanation": "指数退避避免大量客户端同时重连导致服务端过载。",
+      "tags": ["real-time", "reconnection"],
+      "options": [
+        "加快重连速度",
+        "避免服务端被重连风暴压垮",
+        "减少内存占用",
+        "提高消息实时性"
+      ]
+    },
+    {
+      "id": "A08-005",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "在 WebSocket 集群中，跨节点广播消息通常使用什么？",
+      "answer": ["Redis Pub/Sub"],
+      "explanation": "Redis Pub/Sub 是 WebSocket 集群跨节点广播的常用方案。",
+      "tags": ["real-time", "scaling"],
+      "options": ["本地内存", "Redis Pub/Sub", "HTTP 请求", "文件系统"]
+    },
+    {
+      "id": "A08-006",
+      "type": "multiple-choice",
+      "level": "intermediate",
+      "question": "设计可靠实时消息系统时，需要考虑哪些机制？",
+      "answer": ["心跳保活", "消息确认 ACK", "断线重连", "消息去重"],
+      "explanation": "可靠实时消息需要心跳、ACK、重连、去重、补发等机制。",
+      "tags": ["real-time", "reliability"],
+      "options": [
+        "心跳保活",
+        "消息确认 ACK",
+        "断线重连",
+        "消息去重",
+        "忽略网络波动"
+      ]
+    },
+    {
+      "id": "A08-007",
+      "type": "true-false",
+      "level": "basic",
+      "question": "WebSocket 基于 HTTP 协议。",
+      "answer": ["false"],
+      "explanation": "WebSocket 握手使用 HTTP，但之后使用独立的 WebSocket 协议通信。",
+      "tags": ["real-time", "websocket"]
+    },
+    {
+      "id": "A08-008",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "以下哪种方式最适合处理大规模直播弹幕的削峰？",
+      "answer": ["消息队列（Kafka/Pulsar）"],
+      "explanation": "消息队列可以削峰填谷，缓解瞬时高并发压力。",
+      "tags": ["real-time", "scaling"],
+      "options": [
+        "直接写入数据库",
+        "消息队列（Kafka/Pulsar）",
+        "单节点 WebSocket",
+        "禁用弹幕"
+      ]
+    },
+    {
+      "id": "A08-009",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "实时系统的可观测性应关注哪些指标？",
+      "answer": ["连接数", "消息延迟", "断线率", "消息丢失率"],
+      "explanation": "实时系统需要监控连接数、延迟、断线率、丢失率等关键指标。",
+      "tags": ["real-time", "observability"],
+      "options": [
+        "连接数",
+        "代码行数",
+        "消息延迟",
+        "断线率",
+        "消息丢失率"
+      ]
+    },
+    {
+      "id": "A08-010",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "SSE 相比 WebSocket 的主要优势是？",
+      "answer": ["基于 HTTP，自动重连，实现简单"],
+      "explanation": "SSE 基于 HTTP，浏览器原生支持自动重连，实现更简单。",
+      "tags": ["real-time", "sse"],
+      "options": [
+        "支持双向通信",
+        "基于 HTTP，自动重连，实现简单",
+        "延迟更低",
+        "适合音视频"
+      ]
+    },
+    {
+      "id": "A08-011",
+      "type": "true-false",
+      "level": "advanced",
+      "question": "CRDT 需要中央服务器来协调冲突。",
+      "answer": ["false"],
+      "explanation": "CRDT 通过数据结构本身的数学特性保证最终一致，不需要中央服务器协调。",
+      "tags": ["real-time", "crdt"]
+    },
+    {
+      "id": "A08-012",
+      "type": "single-choice",
+      "level": "intermediate",
+      "question": "在线聊天系统最适合使用哪种实时通信方案？",
+      "answer": ["WebSocket"],
+      "explanation": "在线聊天需要双向实时通信，WebSocket 是最合适的方案。",
+      "tags": ["real-time", "websocket"],
+      "options": ["SSE", "WebSocket", "短轮询", "长轮询"]
+    },
+    {
+      "id": "A08-013",
+      "type": "multiple-choice",
+      "level": "advanced",
+      "question": "设计高并发实时系统时，以下哪些措施有助于提升性能？",
+      "answer": ["连接复用", "按房间分片", "消息合并", "降级策略"],
+      "explanation": "连接复用、分片、合并、降级都是高并发实时系统的常用优化手段。",
+      "tags": ["real-time", "performance"],
+      "options": [
+        "每个功能一个连接",
+        "连接复用",
+        "按房间分片",
+        "消息合并",
+        "降级策略"
+      ]
+    },
+    {
+      "id": "A08-014",
+      "type": "single-choice",
+      "level": "advanced",
+      "question": "OT 相比 CRDT 的主要特点是？",
+      "answer": ["需要中央服务器对操作进行变换"],
+      "explanation": "OT 需要中央服务器协调操作变换，CRDT 则可以通过数据结构设计实现去中心化。",
+      "tags": ["real-time", "ot"],
+      "options": [
+        "天然支持离线编辑",
+        "实现更简单",
+        "需要中央服务器对操作进行变换",
+        "不需要考虑操作顺序"
+      ]
+    },
+    {
+      "id": "A08-015",
+      "type": "single-choice",
+      "level": "basic",
+      "question": "WebSocket 连接建立前，客户端和服务端首先进行什么？",
+      "answer": ["HTTP 握手"],
+      "explanation": "WebSocket 连接首先通过 HTTP 协议进行握手，成功后升级为 WebSocket 连接。",
+      "tags": ["real-time", "websocket"],
+      "options": ["TCP 握手", "HTTP 握手", "TLS 握手", "UDP 握手"]
+    }
+  ]
+}

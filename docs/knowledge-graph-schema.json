@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://rendongping.github.io/jgs/knowledge-graph-schema.json",
+  "title": "前端架构师知识图谱 Schema",
+  "description": "定义知识领域、能力等级、依赖关系、标签体系的机器可读格式，支持 JSON-LD 输出。",
+  "type": "object",
+  "required": ["@context", "@type", "version", "domains", "levels", "relations", "tags"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org"
+    },
+    "@type": {
+      "type": "string",
+      "const": "LearningResource"
+    },
+    "version": {
+      "type": "string",
+      "description": "知识图谱版本号"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "domains": {
+      "type": "array",
+      "description": "所有知识领域",
+      "items": {
+        "$ref": "#/definitions/domain"
+      }
+    },
+    "levels": {
+      "type": "array",
+      "description": "能力等级定义",
+      "items": {
+        "$ref": "#/definitions/level"
+      }
+    },
+    "relations": {
+      "type": "array",
+      "description": "领域间依赖关系",
+      "items": {
+        "$ref": "#/definitions/relation"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "标签词表",
+      "items": {
+        "$ref": "#/definitions/tag"
+      }
+    },
+    "learningRoutes": {
+      "type": "array",
+      "description": "学习路线定义",
+      "items": {
+        "$ref": "#/definitions/learningRoute"
+      }
+    }
+  },
+  "definitions": {
+    "domain": {
+      "type": "object",
+      "required": ["id", "name", "level", "order", "description", "keyTopics", "materials"],
+      "properties": {
+        "@type": {
+          "type": "string",
+          "const": "LearningResource"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[FEAL][0-9]{2}$",
+          "description": "领域唯一编号，如 F01、E11、A07、L04"
+        },
+        "name": {
+          "type": "string",
+          "description": "领域中文名称"
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL 友好的英文标识"
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "所属金字塔层级"
+        },
+        "order": {
+          "type": "integer",
+          "description": "同层级内的学习顺序"
+        },
+        "description": {
+          "type": "string"
+        },
+        "keyTopics": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "estimatedWeeks": {
+          "type": "string",
+          "description": "建议学习时长，如 '4-6 周'"
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "前置领域编号列表"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "materials": {
+          "type": "object",
+          "required": ["learningDoc", "exercises", "interview", "quiz"],
+          "properties": {
+            "learningDoc": { "type": "string", "format": "uri" },
+            "exercises": { "type": "string", "format": "uri" },
+            "interview": { "type": "string", "format": "uri" },
+            "quiz": { "type": "string", "format": "uri" }
+          }
+        },
+        "targetLevels": {
+          "type": "object",
+          "description": "不同职业方向的目标等级",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 6
+          }
+        }
+      }
+    },
+    "level": {
+      "type": "object",
+      "required": ["id", "name", "description", "behaviorEvidence"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "behaviorEvidence": {
+          "type": "string",
+          "description": "该等级的可观察行为证据"
+        }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "required": ["from", "to", "type", "description"],
+      "properties": {
+        "from": {
+          "type": "string",
+          "pattern": "^[FEAL][0-9]{2}$"
+        },
+        "to": {
+          "type": "string",
+          "pattern": "^[FEAL][0-9]{2}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["strong", "weak", "related"],
+          "description": "strong 强依赖，weak 弱依赖，related 相关"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "tag": {
+      "type": "object",
+      "required": ["id", "name", "category", "relatedDomains"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "description": "标签所属领域或通用分类"
+        },
+        "relatedDomains": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "learningRoute": {
+      "type": "object",
+      "required": ["id", "name", "description", "targetRoles", "domainLevels"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "targetRoles": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "domainLevels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 6
+          }
+        }
+      }
+    }
+  }
+}

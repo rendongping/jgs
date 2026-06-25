@@ -1,0 +1,350 @@
+# Git 工作流与版本控制：团队协作的基石
+
+> 目标：掌握 Git 高级操作、分支策略、Code Review 流程与大型仓库治理方法。
+
+---
+
+## 核心要点（TL;DR）
+
+- Git 不仅是代码备份工具，更是团队协作、代码质量和发布节奏的基础设施。
+- 分支策略没有银弹，应根据团队规模、发布频率和协作模式选择 Git Flow、GitHub Flow 或 Trunk-Based Development。
+- Code Review 是质量门禁和知识传播的核心环节，应建立可执行的流程和文化。
+- Commit Message 规范、CHANGELOG 自动化和版本号管理是可持续发布的基础。
+- 大型仓库需要关注性能（clone、checkout、log）、权限治理和 Monorepo 协同。
+
+---
+
+## 学习时长与前置知识
+
+- **建议学习时长**：2-3 周（每周投入 5-7 小时）
+- **前置知识**：Git 基础命令、团队协作经验、CI/CD 基础（E03）
+
+---
+
+## 一、Git 在工程化中的位置
+
+Git 是现代软件开发的事实标准，贯穿整个研发流程：
+
+```
+需求 → 开发分支 → Commit → Push → Pull Request → Code Review → Merge → 发布 → Tag
+```
+
+前端架构师需要关注的不仅是会用 Git，而是：
+- 设计适合团队的协作流程。
+- 通过 Git 保障代码质量和可追溯性。
+- 优化大型仓库的访问性能。
+- 将 Git 与 CI/CD、发布、回滚打通。
+
+---
+
+## 二、Git 高级操作
+
+### 2.1 Rebase vs Merge
+
+| 场景 | Merge | Rebase |
+|------|-------|--------|
+| 保留完整历史 | ✅ | ❌（改写历史） |
+| 历史线性清晰 | ❌ | ✅ |
+| 已推送的公共分支 | ✅ | ❌（危险） |
+| 本地整理提交 | 可选 | ✅ |
+
+**建议**：
+- 功能分支合并到主分支时，使用 `--no-ff` 保留功能边界。
+- 本地分支整理提交历史时，使用 interactive rebase。
+- 不要对已经推送到远程的公共分支做 rebase。
+
+### 2.2 Cherry-pick 与 Revert
+
+```bash
+# 将某个提交应用到当前分支
+git cherry-pick <commit-hash>
+
+# 撤销某个提交（生成反向提交）
+git revert <commit-hash>
+```
+
+Cherry-pick 适合 hotfix；Revert 适合安全回滚，不改写历史。
+
+### 2.3 Stash、Reset、Checkout
+
+```bash
+# 临时保存当前修改
+git stash push -m "临时保存登录逻辑"
+
+# 恢复最近一次 stash
+git stash pop
+
+# 软重置，保留改动到暂存区
+git reset --soft HEAD~1
+
+# 硬重置，丢弃改动（谨慎）
+git reset --hard HEAD~1
+
+# 切换并创建分支
+git checkout -b feature/login
+```
+
+### 2.4 Bisect：二分查找 Bug
+
+```bash
+git bisect start
+git bisect bad HEAD
+git bisect good v1.0.0
+# 然后不断标记 good/bad，Git 会自动定位引入 Bug 的提交
+```
+
+---
+
+## 三、分支策略选型
+
+### 3.1 Git Flow
+
+```
+main    ───────────────────────────────
+           \         /
+develop  ───●──●──●──●──●──●──────────
+              \    /
+feature/*       ●──●
+```
+
+特点：
+- 有 main、develop、feature、release、hotfix 五种分支。
+- 适合有固定发布周期的项目。
+- 分支较多，管理复杂。
+
+### 3.2 GitHub Flow
+
+```
+main  ───────────────────────────────
+        \
+feature  ●──●──●──●
+```
+
+特点：
+- 只有 main 和 feature 分支。
+- 通过 Pull Request 合并。
+- 适合持续部署、发布频繁的项目。
+
+### 3.3 Trunk-Based Development
+
+```
+main  ──●──●──●──●──●──●──────────────
+```
+
+特点：
+- 所有开发者直接在 main 或短生命周期分支上工作。
+- 要求高频集成、特性开关（Feature Toggle）。
+- 适合大型团队和快速迭代。
+
+### 3.4 选型建议
+
+| 团队规模 | 发布频率 | 推荐策略 |
+|---------|---------|---------|
+| 小团队 | 高频 | GitHub Flow |
+| 中团队 | 固定周期 | Git Flow 简化版 |
+| 大团队 | 持续交付 | Trunk-Based + Feature Toggle |
+
+---
+
+## 四、Commit Message 规范
+
+### 4.1 Conventional Commits
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+常见 type：
+- `feat`：新功能
+- `fix`：修复
+- `docs`：文档
+- `style`：格式（不影响代码逻辑）
+- `refactor`：重构
+- `test`：测试
+- `chore`：构建/工具
+
+示例：
+
+```
+feat(auth): 增加 OAuth 登录
+
+- 支持 GitHub 和 Google 登录
+- 增加登录状态持久化
+
+Closes #123
+```
+
+### 4.2 为什么需要规范？
+
+- 自动生成 CHANGELOG。
+- 通过提交历史快速定位问题。
+- 支撑语义化版本（Semantic Versioning）。
+- 便于 Code Review 和理解变更意图。
+
+---
+
+## 五、Code Review 流程
+
+### 5.1 Review 的目标
+
+不仅是找 Bug，还包括：
+- 代码是否符合团队规范。
+- 设计是否合理，是否引入技术债。
+- 是否有测试覆盖。
+- 是否影响性能或可访问性。
+- 知识共享和团队成长。
+
+### 5.2 Review 流程设计
+
+```
+开发者提交 PR
+    ↓
+CI 自动运行（lint/test/build）
+    ↓
+指定 Reviewer（1-2 人）
+    ↓
+Review 反馈 → 修改 → 再次 Review
+    ↓
+Approver 批准
+    ↓
+合并到主分支
+```
+
+### 5.3 Review 文化
+
+| ❌ 反模式 | ✅ 最佳实践 |
+|----------|-----------|
+| 只挑风格问题 | 关注设计、测试、安全 |
+| 人身攻击 | 对事不对人，给出改进建议 |
+| 长时间不 Review | 规定 SLA，如 24 小时内响应 |
+| 大 PR 一次性 review | 鼓励小步提交，控制 PR 规模 |
+
+### 5.4 Review Checklist
+
+- [ ] 代码是否满足需求？
+- [ ] 是否有单元测试或 E2E 测试？
+- [ ] 是否引入新的依赖？安全性如何？
+- [ ] 是否有性能隐患？
+- [ ] 是否有可访问性问题？
+- [ ] Commit Message 是否规范？
+
+---
+
+## 六、版本号管理与发布
+
+### 6.1 语义化版本（SemVer）
+
+```
+MAJOR.MINOR.PATCH
+```
+
+- MAJOR：不兼容的 API 修改。
+- MINOR：向下兼容的功能新增。
+- PATCH：向下兼容的问题修复。
+
+### 6.2 自动化版本管理
+
+| 工具 | 作用 |
+|------|------|
+| Changesets | Monorepo 版本管理和 CHANGELOG 生成 |
+| semantic-release | 基于 Conventional Commits 自动发布 |
+| standard-version | 自动生成版本和 CHANGELOG |
+
+---
+
+## 七、大型仓库治理
+
+### 7.1 性能优化
+
+```bash
+# 浅克隆，只拉取最近历史
+git clone --depth 1 <repo>
+
+# 稀疏检出，只拉取部分目录
+git sparse-checkout init --cone
+git sparse-checkout set packages/ui
+
+# 大文件管理
+git lfs track "*.psd"
+```
+
+### 7.2 权限与保护
+
+- 主分支保护：禁止直接推送，必须通过 PR。
+- Required Reviews：至少 1-2 人批准。
+- Status Checks：CI 通过才能合并。
+- CODEOWNERS：指定目录的负责人。
+
+```
+# CODEOWNERS 示例
+*                 @team/frontend
+/packages/ui      @team/design-system
+/docs             @team/docs
+```
+
+### 7.3 Monorepo 协作
+
+- 使用 Changesets 管理多包版本。
+- 通过 CI 的 affected 检测只构建变更的包。
+- 明确包边界和代码所有权。
+
+---
+
+## 八、常见误区与反模式
+
+| 误区 | 说明 | 正确做法 |
+|------|------|---------|
+| "所有团队都应该用 Git Flow" | 不同团队适合不同策略 | 根据发布频率和团队规模选型 |
+| "Code Review 太慢，影响效率" | 短期看慢，长期减少返工 | 控制 PR 大小，设定 Review SLA |
+| "Commit Message 随便写" | 影响 CHANGELOG 和问题追踪 | 使用 Conventional Commits |
+| "大文件直接提交 Git" | 仓库膨胀，clone 变慢 | 使用 Git LFS 或外部存储 |
+| "直接在 main 分支开发" | 破坏主分支稳定性 | 使用分支保护和 PR 流程 |
+
+---
+
+## 九、最佳实践
+
+1. **主干稳定**：main 分支应始终可发布。
+2. **小步提交**：每个 PR 聚焦一个变更点。
+3. **规范 Commit**：使用 Conventional Commits。
+4. **强制 Review**：关键代码必须经过人工 Review。
+5. **自动化检查**：CI 中跑 lint、test、build。
+6. **版本可追溯**：每个发布都有 Tag 和 CHANGELOG。
+7. **文档化流程**：团队 Git 工作流应写成文档并定期 review。
+
+---
+
+## 十、相关领域
+
+- [E01 Build Tools](./build-tools)：构建与发布流程
+- [E02 Monorepo](./monorepo)：多包版本管理与变更集
+- [E03 CI/CD](./ci-cd)：自动化流水线与分支保护
+- [E04 Code Quality](./code-quality)：lint、测试与质量门禁
+- [L02 Team Leadership](../leadership/team)：Code Review 文化与团队规范
+
+---
+
+## 十一、延伸阅读
+
+- 🟢 [Pro Git 中文文档](https://git-scm.com/book/zh/v2)
+- 🟡 [Conventional Commits](https://www.conventionalcommits.org/zh-hans/v1.0.0/)
+- 🟡 [Trunk-Based Development](https://trunkbaseddevelopment.com/)
+- 🔴 [Git Internals](https://git-scm.com/book/en/v2/Git-Internals-Plumbing-and-Porcelain)
+
+---
+
+**标签**：`#git` `#version-control` `#code-review` `#branching-strategy` `#monorepo`
+
+> **最后更新**：2026-06-25
+
+
+---
+
+## 本领域学习进度
+
+<MarkComplete domainId="git-workflow" />
+<ProgressTracker />

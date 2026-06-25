@@ -130,6 +130,8 @@ const domains = [
   { id: 'browser', name: 'Browser', link: '/foundation/browser', level: 1 },
   { id: 'network', name: 'Network', link: '/foundation/network', level: 1 },
   { id: 'security', name: 'Security', link: '/foundation/security', level: 1 },
+  { id: 'html-css', name: 'HTML/CSS', link: '/foundation/html-css', level: 1 },
+  { id: 'a11y', name: 'Accessibility', link: '/foundation/a11y', level: 1 },
   // Level 02
   { id: 'build-tools', name: 'Build Tools', link: '/engineering/build-tools', level: 2 },
   { id: 'monorepo', name: 'Monorepo', link: '/engineering/monorepo', level: 2 },
@@ -141,6 +143,8 @@ const domains = [
   { id: 'cross-platform', name: 'Cross Platform', link: '/engineering/cross-platform', level: 2 },
   { id: 'ai-engineering', name: 'AI Engineering', link: '/engineering/ai-engineering', level: 2 },
   { id: 'node-bff', name: 'Node.js/BFF', link: '/engineering/node-bff', level: 2 },
+  { id: 'git-workflow', name: 'Git Workflow', link: '/engineering/git-workflow', level: 2 },
+  { id: 'developer-experience', name: 'Developer Experience', link: '/engineering/developer-experience', level: 2 },
   // Level 03
   { id: 'system-architecture', name: 'System Architecture', link: '/architecture/system-architecture', level: 3 },
   { id: 'micro-frontend', name: 'Micro Frontend', link: '/architecture/micro-frontend', level: 3 },
@@ -148,10 +152,16 @@ const domains = [
   { id: 'quality', name: 'Quality', link: '/architecture/quality', level: 3 },
   { id: 'data-state', name: 'Data & State', link: '/architecture/data-state', level: 3 },
   { id: 'observability', name: 'Observability', link: '/architecture/observability', level: 3 },
+  { id: 'security-architecture', name: 'Security Architecture', link: '/architecture/security-architecture', level: 3 },
+  { id: 'real-time', name: 'Real-time', link: '/architecture/real-time', level: 3 },
+  { id: 'internationalization', name: 'Internationalization', link: '/architecture/internationalization', level: 3 },
   // Level 04
   { id: 'business', name: 'Business', link: '/leadership/business', level: 4 },
   { id: 'team', name: 'Team', link: '/leadership/team', level: 4 },
   { id: 'strategy', name: 'Strategy', link: '/leadership/strategy', level: 4 },
+  { id: 'communication', name: 'Communication', link: '/leadership/communication', level: 4 },
+  { id: 'project-management', name: 'Project Management', link: '/leadership/project-management', level: 4 },
+  { id: 'hiring', name: 'Hiring', link: '/leadership/hiring', level: 4 },
 ];
 
 const evidenceMap = {
@@ -346,6 +356,86 @@ const evidenceMap = {
     4: '能制定领域级技术演进路线',
     5: '能制定 1-3 年技术战略并推动落地',
     6: '能主导组织级技术战略，获得业务方高度认可'
+  },
+  'html-css': {
+    1: '能说出 HTML 标签和 CSS 选择器的基本作用',
+    2: '能解释语义化 HTML、盒模型、布局流等核心概念',
+    3: '能独立实现响应式页面和常见 UI 组件',
+    4: '能设计 CSS 架构（BEM/ITCSS/Atomic CSS）并优化渲染性能',
+    5: '能制定团队 HTML/CSS 规范，推动可维护性与一致性',
+    6: '能主导前端样式体系演进，构建跨项目设计基础设施'
+  },
+  a11y: {
+    1: '能说出无障碍对用户体验的重要性',
+    2: '能解释 WCAG、ARIA、键盘导航等基础概念',
+    3: '能在项目中实现基本的可访问性修复',
+    4: '能进行无障碍审计并制定改进计划',
+    5: '能建立团队无障碍规范与测试流程',
+    6: '能推动组织级无障碍文化，影响产品设计与开发标准'
+  },
+  'git-workflow': {
+    1: '能说出 Git 的基本命令',
+    2: '能解释分支、合并、冲突解决等基本概念',
+    3: '能在团队中遵循既定分支策略开展工作',
+    4: '能设计适合团队的 Git 工作流与 Code Review 流程',
+    5: '能建立变更管理、发布节奏与大仓库治理规范',
+    6: '能推动组织级研发协作标准，持续提升交付质量与效率'
+  },
+  'developer-experience': {
+    1: '能说出开发体验的重要性',
+    2: '能解释脚手架、IDE、文档等对效率的影响',
+    3: '能配置本地开发环境并参与工具链优化',
+    4: '能设计开发者工具链、文档体系与内循环优化方案',
+    5: '能建立 DX 度量体系并持续改进研发效率',
+    6: '能主导组织级开发者平台与文化，显著提升团队幸福感与产出'
+  },
+  'security-architecture': {
+    1: '能列举前端安全威胁类型',
+    2: '能解释威胁建模、SDL、供应链安全等基本概念',
+    3: '能在项目中应用安全扫描、依赖审计与基础防御',
+    4: '能设计前端安全架构并进行风险评估',
+    5: '能建立安全开发生命周期与合规治理体系',
+    6: '能主导企业级安全战略，推动零信任与隐私架构落地'
+  },
+  'real-time': {
+    1: '能说出实时通信的常见方式',
+    2: '能解释 WebSocket、SSE、长轮询的基本原理',
+    3: '能在项目中实现简单的实时功能',
+    4: '能设计长连接治理、消息可靠性与协同编辑方案',
+    5: '能建立实时系统架构与可观测体系',
+    6: '能主导大规模实时平台架构，支撑高并发与低延迟业务'
+  },
+  internationalization: {
+    1: '能说出国际化与本地化的区别',
+    2: '能解释 i18n、RTL、时区等基础概念',
+    3: '能在项目中实现多语言切换与基础本地化',
+    4: '能设计国际化架构、内容管理与本地化工作流',
+    5: '能建立跨地区合规与多语言治理规范',
+    6: '能主导全球化产品技术体系，支撑多市场快速扩张'
+  },
+  communication: {
+    1: '能清楚表达个人技术观点',
+    2: '能进行有效的技术文档写作与一对一沟通',
+    3: '能在团队中主持技术讨论并推动共识',
+    4: '能进行跨部门沟通、向上管理与冲突调解',
+    5: '能通过公开演讲与写作建立技术影响力',
+    6: '能成为组织技术布道者，推动文化与战略共识'
+  },
+  'project-management': {
+    1: '能说明项目管理的基本概念',
+    2: '能理解敏捷/Scrum、里程碑、风险管理等概念',
+    3: '能参与项目计划并跟踪个人任务进度',
+    4: '能主导中小型项目的排期、风险管控与交付',
+    5: '能管理多项目组合，平衡资源与优先级',
+    6: '能建立组织级项目治理体系，持续提升交付成功率'
+  },
+  hiring: {
+    1: '能说明招聘对团队的重要性',
+    2: '能参与面试并给出基础评价',
+    3: '能独立进行技术面试并识别人才画像',
+    4: '能设计招聘流程、面试评估与培养体系',
+    5: '能建设团队梯队、晋升通道与绩效管理机制',
+    6: '能制定组织人才战略，塑造高绩效技术文化与雇主品牌'
   }
 };
 

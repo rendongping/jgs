@@ -4,6 +4,24 @@
 
 ---
 
+## [3.0.0] - 2026-06-25
+
+### Added
+- 知识领域从 24 个扩展到 34 个，新增 10 个完整领域三件套（学习文档、练习册、面试题）与客观题题库：
+  - 基础层：F06 HTML/CSS 工程化、F07 Web 可访问性（a11y）
+  - 工程化层：E11 Git 工作流与变更管理、E12 开发者体验与工程效能
+  - 架构层：A07 安全架构与 SDL、A08 实时与协同架构、A09 国际化与本地化架构
+  - 领导力层：L04 沟通表达与影响力、L05 项目管理与交付、L06 招聘与组织发展
+- 客观题题库从 360 题扩展到 495 题，覆盖全部 34 个领域。
+- 新增统一标签体系 `docs/tags-taxonomy.md`，支持跨文档检索与 AI 推荐。
+- 新增知识图谱 JSON-LD 模式 `docs/knowledge-graph-schema.json`。
+- 升级 `docs/STYLE-GUIDE.md`、文档 lint 脚本 `scripts/lint-docs.sh`、内容同步脚本 `sync-content.mjs`、侧边栏生成脚本 `generate-sidebar.mjs` 以支持 34 领域。
+- 更新 `SelfAssessment.vue`、`LearningDashboard.vue`、`LearningPath.vue`、`ProgressTracker.vue` 以支持 34 领域和学习路径推荐。
+- 更新 `README.md` 与网站「快速开始」文档，反映 34 领域体系。
+
+### Changed
+- 学习路径中的「管理型负责人」路线补充 L04/L05/L06 领导力领域。
+
 ## [2.0.0] - 2026-06-24
 
 ### Added

@@ -31,6 +31,12 @@ const contentMapping = [
   { from: 'level-01-foundation/F05-security/01-学习文档.md', to: 'foundation/security.md' },
   { from: 'level-01-foundation/F05-security/02-练习册.md', to: 'foundation/security-exercises.md' },
   { from: 'level-01-foundation/F05-security/03-面试题.md', to: 'foundation/security-interview.md' },
+  { from: 'level-01-foundation/F06-html-css/01-学习文档.md', to: 'foundation/html-css.md' },
+  { from: 'level-01-foundation/F06-html-css/02-练习册.md', to: 'foundation/html-css-exercises.md' },
+  { from: 'level-01-foundation/F06-html-css/03-面试题.md', to: 'foundation/html-css-interview.md' },
+  { from: 'level-01-foundation/F07-a11y/01-学习文档.md', to: 'foundation/a11y.md' },
+  { from: 'level-01-foundation/F07-a11y/02-练习册.md', to: 'foundation/a11y-exercises.md' },
+  { from: 'level-01-foundation/F07-a11y/03-面试题.md', to: 'foundation/a11y-interview.md' },
 
   // Level 02 工程化层
   { from: 'level-02-engineering/E01-build-tools/01-学习文档.md', to: 'engineering/build-tools.md' },
@@ -63,6 +69,12 @@ const contentMapping = [
   { from: 'level-02-engineering/E10-node-bff/01-学习文档.md', to: 'engineering/node-bff.md' },
   { from: 'level-02-engineering/E10-node-bff/02-练习册.md', to: 'engineering/node-bff-exercises.md' },
   { from: 'level-02-engineering/E10-node-bff/03-面试题.md', to: 'engineering/node-bff-interview.md' },
+  { from: 'level-02-engineering/E11-git-workflow/01-学习文档.md', to: 'engineering/git-workflow.md' },
+  { from: 'level-02-engineering/E11-git-workflow/02-练习册.md', to: 'engineering/git-workflow-exercises.md' },
+  { from: 'level-02-engineering/E11-git-workflow/03-面试题.md', to: 'engineering/git-workflow-interview.md' },
+  { from: 'level-02-engineering/E12-developer-experience/01-学习文档.md', to: 'engineering/developer-experience.md' },
+  { from: 'level-02-engineering/E12-developer-experience/02-练习册.md', to: 'engineering/developer-experience-exercises.md' },
+  { from: 'level-02-engineering/E12-developer-experience/03-面试题.md', to: 'engineering/developer-experience-interview.md' },
 
   // Level 03 架构层
   { from: 'level-03-architecture/A01-system-architecture/01-学习文档.md', to: 'architecture/system-architecture.md' },
@@ -83,6 +95,15 @@ const contentMapping = [
   { from: 'level-03-architecture/A06-observability/01-学习文档.md', to: 'architecture/observability.md' },
   { from: 'level-03-architecture/A06-observability/02-练习册.md', to: 'architecture/observability-exercises.md' },
   { from: 'level-03-architecture/A06-observability/03-面试题.md', to: 'architecture/observability-interview.md' },
+  { from: 'level-03-architecture/A07-security-architecture/01-学习文档.md', to: 'architecture/security-architecture.md' },
+  { from: 'level-03-architecture/A07-security-architecture/02-练习册.md', to: 'architecture/security-architecture-exercises.md' },
+  { from: 'level-03-architecture/A07-security-architecture/03-面试题.md', to: 'architecture/security-architecture-interview.md' },
+  { from: 'level-03-architecture/A08-real-time/01-学习文档.md', to: 'architecture/real-time.md' },
+  { from: 'level-03-architecture/A08-real-time/02-练习册.md', to: 'architecture/real-time-exercises.md' },
+  { from: 'level-03-architecture/A08-real-time/03-面试题.md', to: 'architecture/real-time-interview.md' },
+  { from: 'level-03-architecture/A09-internationalization/01-学习文档.md', to: 'architecture/internationalization.md' },
+  { from: 'level-03-architecture/A09-internationalization/02-练习册.md', to: 'architecture/internationalization-exercises.md' },
+  { from: 'level-03-architecture/A09-internationalization/03-面试题.md', to: 'architecture/internationalization-interview.md' },
 
   // Level 04 领导力层
   { from: 'level-04-leadership/L01-business/01-学习文档.md', to: 'leadership/business.md' },
@@ -94,6 +115,15 @@ const contentMapping = [
   { from: 'level-04-leadership/L03-strategy/01-学习文档.md', to: 'leadership/strategy.md' },
   { from: 'level-04-leadership/L03-strategy/02-练习册.md', to: 'leadership/strategy-exercises.md' },
   { from: 'level-04-leadership/L03-strategy/03-面试题.md', to: 'leadership/strategy-interview.md' },
+  { from: 'level-04-leadership/L04-communication/01-学习文档.md', to: 'leadership/communication.md' },
+  { from: 'level-04-leadership/L04-communication/02-练习册.md', to: 'leadership/communication-exercises.md' },
+  { from: 'level-04-leadership/L04-communication/03-面试题.md', to: 'leadership/communication-interview.md' },
+  { from: 'level-04-leadership/L05-project-management/01-学习文档.md', to: 'leadership/project-management.md' },
+  { from: 'level-04-leadership/L05-project-management/02-练习册.md', to: 'leadership/project-management-exercises.md' },
+  { from: 'level-04-leadership/L05-project-management/03-面试题.md', to: 'leadership/project-management-interview.md' },
+  { from: 'level-04-leadership/L06-hiring/01-学习文档.md', to: 'leadership/hiring.md' },
+  { from: 'level-04-leadership/L06-hiring/02-练习册.md', to: 'leadership/hiring-exercises.md' },
+  { from: 'level-04-leadership/L06-hiring/03-面试题.md', to: 'leadership/hiring-interview.md' },
 
   // docs 资源文档
   { from: 'docs/glossary.md', to: 'resources/glossary.md' },

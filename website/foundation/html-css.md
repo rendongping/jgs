@@ -1,0 +1,417 @@
+# HTML/CSS 工程化：从写页面到建体系
+
+> 目标：把 HTML/CSS 从"能还原设计稿"升级为"可维护、可扩展、高性能的样式工程体系"。
+
+---
+
+## 核心要点（TL;DR）
+
+- HTML 不仅是结构容器，语义化直接影响可访问性、SEO 和团队协作效率。
+- CSS 工程化的核心矛盾是**全局命名空间**与**模块化维护**，解决方案包括 BEM、ITCSS、Atomic CSS、CSS Modules、CSS-in-JS 等。
+- 响应式布局已从"媒体查询断点"演进为"流体布局 + 容器查询 + 逻辑属性"的现代方案。
+- CSS 性能的关键不是少用属性，而是**减少重排、避免布局抖动、优化选择器匹配和渲染层**。
+- 现代 CSS（Grid、Subgrid、:has、容器查询、级联层 @layer）正在改变前端样式架构的设计方式。
+- 样式体系需要与组件库、设计系统、构建工具协同演进。
+
+---
+
+## 学习时长与前置知识
+
+- **建议学习时长**：3-4 周（每周投入 5-7 小时）
+- **前置知识**：HTML/CSS 基础、浏览器渲染原理（F03）、JavaScript 基础（F01）
+
+---
+
+## 一、为什么 HTML/CSS 需要工程化？
+
+很多前端工程师认为 HTML/CSS 是"简单的技术"，真正的难点在 JavaScript 和框架。这种认知在小型项目中或许成立，但在大型、长期维护的项目中，样式代码往往是技术债的重灾区。
+
+### 1.1 典型痛点
+
+| 痛点 | 表现 | 后果 |
+|------|------|------|
+| 全局命名冲突 | 两个模块都写了 `.title`，互相覆盖 | Bug 难以定位，修复容易引入回归 |
+| 选择器优先级战争 | 用 `!important` 层层加码 | 可维护性急剧下降 |
+| 样式冗余与膨胀 | 相同颜色、间距重复定义 | 包体积增大，主题切换困难 |
+| 响应式逻辑分散 | 媒体查询散落在各文件 | 难以保证多端一致性 |
+| 可访问性缺失 | 滥用 `<div>` 模拟按钮 | 屏幕阅读器无法识别，合规风险 |
+
+### 1.2 工程化要解决什么问题？
+
+CSS 工程化不是让 CSS 更像 JS，而是建立一套**可预测、可复用、可度量**的样式生产体系：
+
+1. **命名管理**：避免冲突，明确作用域。
+2. **结构分层**：区分基础、组件、页面、工具类。
+3. **主题与变量**：统一 Design Token，支持多品牌。
+4. **性能优化**：减少渲染阻塞和运行时开销。
+5. **可访问性**：语义化 HTML + 足够的颜色对比。
+
+---
+
+## 二、语义化 HTML：被低估的架构能力
+
+### 2.1 语义化不只是 SEO
+
+语义化 HTML 的收益远超 SEO：
+
+- **可访问性**：屏幕阅读器依赖 `<nav>`、`<main>`、`<button>` 等语义标签导航。
+- **可维护性**：阅读代码时，`<article>` 比 `<div class="article">` 更自解释。
+- **CSS 架构**：语义标签为样式提供稳定的锚点，减少无意义的 class。
+- **SEO 与社交分享**：结构化数据（Schema.org）需要语义基础。
+
+### 2.2 常见语义标签地图
+
+```html
+<body>
+  <header>
+    <nav aria-label="主导航">...</nav>
+  </header>
+  <main>
+    <article>
+      <header><h1>文章标题</h1></header>
+      <section><h2>章节一</h2>...</section>
+      <section><h2>章节二</h2>...</section>
+    </article>
+    <aside>
+      <section><h2>相关推荐</h2>...</section>
+    </aside>
+  </main>
+  <footer>...</footer>
+</body>
+```
+
+### 2.3 标题层级：文档的骨架
+
+标题（h1-h6）不仅是字体大小，而是**文档大纲**：
+
+- 一个页面应有且只有一个 `<h1>`。
+- 标题层级不应跳级（h1 后直接 h3）。
+- 组件内部也应保持标题层级的局部完整性。
+
+### 2.4 不要用 div 模拟一切
+
+```html
+<!-- ❌ 不推荐 -->
+<div class="button" onclick="submit()">提交</div>
+
+<!-- ✅ 推荐 -->
+<button type="submit">提交</button>
+```
+
+`<button>` 自带键盘可聚焦、回车触发、禁用状态、焦点环等行为。用 `<div>` 模拟需要额外写大量 JavaScript 和 ARIA 属性，且容易遗漏（参见 F07 Web 无障碍）。
+
+---
+
+## 三、CSS 架构模式：解决全局命名冲突
+
+### 3.1 BEM：简单有效的命名约定
+
+BEM（Block-Element-Modifier）通过命名约定实现模块化，无需工具支持。
+
+```css
+/* Block */
+.card { }
+
+/* Element */
+.card__title { }
+.card__image { }
+
+/* Modifier */
+.card--featured { }
+.card__title--small { }
+```
+
+**优点**：
+- 命名即作用域，降低冲突概率。
+- 易于团队理解和执行。
+
+**缺点**：
+- 类名较长。
+- 对深层嵌套组件表达力有限。
+
+### 3.2 ITCSS：倒三角分层架构
+
+ITCSS（Inverted Triangle CSS）按特殊性递增、范围递减的顺序组织 CSS：
+
+```
+Settings    — 变量、配置
+Tools       — mixin、函数
+Generic     — reset、normalize
+Base        — 元素默认样式
+Objects     — 布局类（OOCSS）
+Components  — 组件样式
+Trumps      — 工具类、覆盖类
+```
+
+这种分层让每个文件有明确的归属，避免优先级战争。
+
+### 3.3 Atomic CSS：效用优先
+
+Tailwind CSS 代表了 Atomic CSS 的流行：
+
+```html
+<button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+  提交
+</button>
+```
+
+**优点**：
+- 类名不可变，可预测。
+- 包体积可通过 PurgeCSS 控制。
+- 设计系统约束强。
+
+**缺点**：
+- HTML 类名冗长。
+- 需要团队熟悉设计 Token。
+- 动态样式（如用户自定义主题）处理较麻烦。
+
+### 3.4 CSS Modules 与 CSS-in-JS
+
+| 方案 | 核心思想 | 适用场景 |
+|------|---------|---------|
+| CSS Modules | 编译时局部化类名 | React/Vue 组件库、需要保留 CSS 文件的项目 |
+| Styled Components | 组件与样式一体化 | React 项目、动态主题 |
+| Emotion | 高性能 CSS-in-JS | 大型 React 应用 |
+| Vanilla Extract | 编译期 CSS-in-JS | 追求零运行时开销 |
+
+选择建议：
+- 中小型项目、设计系统成熟：Tailwind / UnoCSS。
+- 大型组件库：CSS Modules + CSS Variables。
+- 复杂动态主题：CSS-in-JS（注意运行时成本）。
+
+---
+
+## 四、现代响应式布局
+
+### 4.1 从断点到流体
+
+传统响应式依赖固定断点：
+
+```css
+.container { width: 100%; }
+@media (min-width: 768px) { .container { width: 750px; } }
+@media (min-width: 1024px) { .container { width: 960px; } }
+```
+
+现代响应式更推荐**流体布局 + 限制最大宽度**：
+
+```css
+.container {
+  width: min(100% - 2rem, 75rem);
+  margin-inline: auto;
+}
+```
+
+### 4.2 容器查询：组件级响应式
+
+媒体查询基于视口，容器查询基于组件自身容器：
+
+```css
+.card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .card {
+    display: flex;
+    gap: 1rem;
+  }
+}
+```
+
+这解决了"同一个组件在不同布局中表现不同"的问题。
+
+### 4.3 CSS Grid 与 Subgrid
+
+Grid 让二维布局变得简单：
+
+```css
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  gap: 1rem;
+}
+```
+
+Subgrid 允许子网格继承父网格的轨道定义：
+
+```css
+.card-grid {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+```
+
+### 4.4 逻辑属性：支持国际化
+
+逻辑属性用 `inline` 和 `block` 代替物理方向：
+
+```css
+/* 物理方向 */
+.margin-left: 1rem;
+
+/* 逻辑方向 */
+.margin-inline-start: 1rem;
+```
+
+这对 RTL（从右到左）语言布局至关重要（参见 A09 国际化与本地化架构）。
+
+---
+
+## 五、CSS 性能优化
+
+### 5.1 减少重排与重绘
+
+浏览器渲染流程：
+
+```
+样式计算 → 布局（重排） → 绘制（重绘） → 合成
+```
+
+会触发重排的属性示例：
+- `width`、`height`、`top`、`left`、`margin`、`padding`
+- `display`、`position`、`float`
+
+优化建议：
+- 动画优先使用 `transform` 和 `opacity`（可合成层）。
+- 批量读写布局属性，避免强制同步布局（Forced Synchronous Layout）。
+
+```js
+// ❌ 强制同步布局
+const width = element.offsetWidth;
+element.style.width = width + 10 + 'px';
+
+// ✅ 批量处理
+const width = element.offsetWidth;
+requestAnimationFrame(() => {
+  element.style.width = width + 10 + 'px';
+});
+```
+
+### 5.2 选择器性能
+
+现代浏览器对选择器匹配优化得很好，但仍需避免：
+
+```css
+/* ❌ 过度具体且低效 */
+body div.container ul li a span { }
+
+/* ✅ 简洁明确 */
+.card-link { }
+```
+
+### 5.3  will-change 与合成层
+
+```css
+.animated-element {
+  will-change: transform;
+}
+```
+
+注意：`will-change` 是性能优化的"最后手段"，滥用会消耗 GPU 内存。
+
+### 5.4 CSS 加载策略
+
+- 关键 CSS 内联到 `<head>`，减少首次渲染阻塞。
+- 非关键 CSS 使用 `media="print"` 或 `rel="preload"` 延迟加载。
+- 避免 `@import` 串行加载。
+
+---
+
+## 六、CSS 变量与 Design Token
+
+CSS 自定义属性（变量）是现代样式体系的核心：
+
+```css
+:root {
+  --color-primary: #3b82f6;
+  --spacing-md: 1rem;
+  --radius-sm: 0.25rem;
+}
+
+.button {
+  background: var(--color-primary);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+}
+```
+
+### 6.1 变量分层
+
+```css
+/* 原始 Token */
+--color-blue-500: #3b82f6;
+
+/* 语义 Token */
+--color-brand-primary: var(--color-blue-500);
+
+/* 组件 Token */
+--button-bg-primary: var(--color-brand-primary);
+```
+
+分层让主题切换和多品牌适配更容易。
+
+### 6.2 动态主题
+
+```js
+// 通过 JS 修改变量实现运行时主题切换
+document.documentElement.style.setProperty('--color-primary', '#ef4444');
+```
+
+---
+
+## 七、常见误区与反模式
+
+| 误区 | 说明 | 正确做法 |
+|------|------|---------|
+| 用 `!important` 解决优先级问题 | 短期有效，长期失控 | 重构选择器，使用更合理的层级 |
+| 过度依赖 ID 选择器 | ID 优先级高但不可复用 | 优先使用 class |
+| 把 HTML 当布局工具 | 滥用 `<div>` 嵌套 | 使用语义标签和 Grid/Flex |
+| 忽视移动端优先 | 先写桌面端再适配移动端 | 采用移动优先的媒体查询 |
+| 颜色硬编码 | 主题切换困难 | 使用 CSS 变量或 Design Token |
+| 忽视可访问性 | 颜色对比不足、键盘无法操作 | 遵循 WCAG 标准 |
+
+---
+
+## 八、最佳实践
+
+1. **语义化优先**：选择合适的 HTML 标签，而非全部用 `<div>`。
+2. **选择器克制**：避免过深嵌套，一般不超过 3 层。
+3. **变量驱动**：颜色、间距、字体、圆角等使用 Design Token。
+4. **组件化样式**：每个组件样式自包含，避免全局泄漏。
+5. **移动优先**：基础样式适配小屏，再用媒体查询增强大屏。
+6. **性能意识**：动画用 `transform`/`opacity`，避免频繁触发布局。
+7. **可访问性内建**：颜色对比、焦点样式、键盘操作是默认要求。
+
+---
+
+## 九、相关领域
+
+- [F01 JavaScript](./javascript)：动态样式修改、CSSOM 操作
+- [F03 Browser](./browser)：渲染流程、重排重绘、合成层
+- [F07 Web 无障碍](./a11y)：语义化、键盘导航、屏幕阅读器
+- [E05 Design System](../engineering/design-system)：Design Token、组件库、主题化
+- [A03 Performance](../architecture/performance)：性能预算、渲染优化
+
+---
+
+## 十、延伸阅读
+
+- 🟢 [MDN：HTML 元素参考](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)
+- 🟡 [Every Layout](https://every-layout.dev/) — 基于 CSS 内在尺寸的现代布局思想
+- 🟡 [Tailwind CSS 文档](https://tailwindcss.com/docs)
+- 🔴 [CSSWG 规范](https://www.w3.org/Style/CSS/specs.en.html)
+
+---
+
+**标签**：`#html` `#css` `#响应式设计` `#css架构` `#design-tokens` `#性能优化`
+
+> **最后更新**：2026-06-25
+
+
+---
+
+## 本领域学习进度
+
+<MarkComplete domainId="html-css" />
+<ProgressTracker />

@@ -30,7 +30,7 @@ docs/
     ├── 01-knowledge-dependency-map.md
     ├── 02-capability-self-assessment.md
     └── 03-learning-routes.md
-quizzes/                   # 客观题题库（24 领域，360 题）
+quizzes/                   # 客观题题库（34 领域，495 题）
 website/                   # VitePress 增强型静态网站
 └── .vitepress/
     ├── theme/             # 自定义 Vue 组件
@@ -52,7 +52,7 @@ scripts/                   # 自动化脚本
 └── TECH-DEBT-REGISTER.md
 CHANGELOG.md               # 变更日志
 
-level-01-foundation/       # 第一层：语言基础 / 浏览器 / 网络 / 安全
+level-01-foundation/       # 第一层：语言基础 / 浏览器 / 网络 / 安全 / HTML/CSS / 可访问性
 ├── F01-javascript/        # JavaScript 语言基础
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
@@ -69,12 +69,20 @@ level-01-foundation/       # 第一层：语言基础 / 浏览器 / 网络 / 安
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
 │   └── 03-面试题.md
-└── F05-security/          # Web 安全
+├── F05-security/          # Web 安全
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+├── F06-html-css/          # HTML/CSS 工程化
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+└── F07-a11y/              # Web 可访问性
     ├── 01-学习文档.md
     ├── 02-练习册.md
     └── 03-面试题.md
 
-level-02-engineering/      # 第二层：工程化 / 框架原理 / 跨端技术 / AI 工程化
+level-02-engineering/      # 第二层：工程化 / 框架原理 / 跨端技术 / AI 工程化 / Git / DX
 ├── E01-build-tools/       # 构建工具
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
@@ -111,7 +119,15 @@ level-02-engineering/      # 第二层：工程化 / 框架原理 / 跨端技术
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
 │   └── 03-面试题.md
-└── E10-node-bff/          # Node.js / BFF 服务端
+├── E10-node-bff/          # Node.js / BFF 服务端
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+├── E11-git-workflow/      # Git 工作流与变更管理
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+└── E12-developer-experience/  # 开发者体验与工程效能
     ├── 01-学习文档.md
     ├── 02-练习册.md
     └── 03-面试题.md
@@ -137,12 +153,24 @@ level-03-architecture/     # 第三层：系统架构 / 性能工程 / 质量保
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
 │   └── 03-面试题.md
-└── A06-observability/     # 可观测性与稳定性工程
+├── A06-observability/     # 可观测性与稳定性工程
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+├── A07-security-architecture/  # 安全架构与 SDL
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+├── A08-real-time/         # 实时与协同架构
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+└── A09-internationalization/  # 国际化与本地化架构
     ├── 01-学习文档.md
     ├── 02-练习册.md
     └── 03-面试题.md
 
-level-04-leadership/       # 第四层：业务洞察 / 团队领导力 / 技术战略
+level-04-leadership/       # 第四层：业务洞察 / 团队领导力 / 技术战略 / 沟通 / 项目管理 / 招聘
 ├── L01-business/          # 业务洞察
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
@@ -151,7 +179,19 @@ level-04-leadership/       # 第四层：业务洞察 / 团队领导力 / 技术
 │   ├── 01-学习文档.md
 │   ├── 02-练习册.md
 │   └── 03-面试题.md
-└── L03-strategy/          # 技术战略
+├── L03-strategy/          # 技术战略
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+├── L04-communication/     # 沟通表达与影响力
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+├── L05-project-management/  # 项目管理与交付
+│   ├── 01-学习文档.md
+│   ├── 02-练习册.md
+│   └── 03-面试题.md
+└── L06-hiring/            # 招聘与组织发展
     ├── 01-学习文档.md
     ├── 02-练习册.md
     └── 03-面试题.md
