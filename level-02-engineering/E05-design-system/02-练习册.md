@@ -14,9 +14,11 @@ B. 统一视觉规范、提升开发效率、改善协作体验
 C. 限制所有业务创新，确保页面一模一样  
 D. 只产出高保真设计稿
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析：** 文档指出设计体系把设计规范、组件、工具、文档整合起来，让产品视觉一致、开发效率更高、协作更顺畅。
+:::
 
 ---
 
@@ -28,9 +30,11 @@ B. Molecules
 C. Organisms  
 D. Templates
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析：** Molecules（分子）是由原子组合而成的简单组件，例如搜索框 = 输入框 + 按钮。
+:::
 
 ---
 
@@ -42,9 +46,11 @@ B. 支持主题化与换肤
 C. 替代组件的所有逻辑  
 D. 跨平台共享设计决策
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析：** Design Token 存储颜色、字号、间距等视觉决策，但不能替代组件逻辑。
+:::
 
 ---
 
@@ -56,9 +62,11 @@ B. CSS Modules
 C. BEM  
 D. 原子化 CSS（Tailwind）
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析：** 文档表格中明确 BEM 适合传统项目、需要严格命名规范的场景。
+:::
 
 ---
 
@@ -70,9 +78,11 @@ B. Minor
 C. Major  
 D. 不需要升级版本号
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析：** SemVer 规定 Major 版本用于不兼容变更，Minor 用于新增功能，Patch 用于修复问题。
+:::
 
 ---
 
@@ -81,90 +91,110 @@ D. 不需要升级版本号
 ### 第 6 题
 组件库设计的五大核心原则是：单一职责、可组合性、可预测性、可访问性和 ________。
 
+::: details 查看答案与解析
 **答案：可文档化**
 
 **解析：** 文档列出的五大原则为：单一职责、可组合性、可预测性、可访问性、可文档化。
+:::
 
 ---
 
 ### 第 7 题
 原子化设计的五个层级从低到高依次是：Atoms、Molecules、Organisms、Templates、________。
 
+::: details 查看答案与解析
 **答案：Pages**
 
 **解析：** 五个层级为 Atoms → Molecules → Organisms → Templates → Pages。
+:::
 
 ---
 
 ### 第 8 题
 Design Token 通常分为三个层级：Global Token、Alias Token 和 ________ Token。
 
+::: details 查看答案与解析
 **答案：Component**
 
 **解析：** 文档“Token 的层级结构”中说明三个层级为 Global、Alias、Component。
+:::
 
 ---
 
 ### 第 9 题
 Storybook 的 ________ 插件可以让用户在界面上动态调整组件 props。
 
+::: details 查看答案与解析
 **答案：Controls**
 
 **解析：** 文档“Storybook 的高级用法”中提到 Controls 插件支持动态调整 props。
+:::
 
 ---
 
 ### 第 10 题
 BEM 命名规范中，`.card__title--primary` 里的 `--primary` 属于 ________。
 
+::: details 查看答案与解析
 **答案：Modifier（修饰符）**
 
 **解析：** BEM = Block（块）、Element（元素）、Modifier（修饰符）。`--` 表示修饰符。
+:::
 
 ---
 
 ### 第 11 题
 CSS Modules 通过把类名 ________ 化来避免全局污染。
 
+::: details 查看答案与解析
 **答案：局部**
 
 **解析：** CSS Modules 把 CSS 类名局部化，编译后生成唯一类名，避免全局冲突。
+:::
 
 ---
 
 ### 第 12 题
 可访问性（Accessibility）通常简称为 ________。
 
+::: details 查看答案与解析
 **答案：a11y**
 
 **解析：** Accessibility 中间有 11 个字母，所以简写为 a11y。
+:::
 
 ---
 
 ### 第 13 题
 组件库通常需要输出多种模块格式，其中 ________ 格式适合现代浏览器和构建工具。
 
+::: details 查看答案与解析
 **答案：ESM**
 
 **解析：** 文档说明组件库通常输出 ESM、CJS、UMD，其中 ESM 适合现代浏览器和构建工具。
+:::
 
 ---
 
 ### 第 14 题
 当某个业务组件在多个业务中复用时，可以考虑将其 ________ 到设计体系中。
 
+::: details 查看答案与解析
 **答案：提升 / 沉淀**
 
 **解析：** 文档“业务组件的沉淀”中提到，当业务组件在多个业务中复用时，可提升到设计体系。
+:::
 
 ---
 
 ### 第 15 题
 使用 Tailwind CSS 时，通过 ________ 引擎按需生成样式，避免产物体积过大。
 
+::: details 查看答案与解析
 **答案：JIT（Just-In-Time）**
 
 **解析：** 文档“Tailwind CSS 的工程化”中说明 Tailwind 通过 JIT 引擎按需生成样式。
+:::
 
 ---
 
@@ -181,6 +211,7 @@ CSS Modules 通过把类名 ________ 化来避免全局污染。
 }
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 - 层级关系：
@@ -192,6 +223,7 @@ CSS Modules 通过把类名 ________ 化来避免全局污染。
   - 语义清晰，便于理解和搜索。
   - 支持主题化，例如暗黑模式替换 alias 即可。
   - 跨平台输出时，可统一从各层级生成目标代码。
+:::
 
 ---
 
@@ -212,6 +244,7 @@ function UserCard({ user, onDelete, onEdit, theme, size, showAvatar, bordered })
 }
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 1. **违反单一职责**：组件同时负责展示用户信息、编辑、删除、主题/尺寸控制，职责过重。
@@ -220,6 +253,7 @@ function UserCard({ user, onDelete, onEdit, theme, size, showAvatar, bordered })
 4. **可预测性不足**：`theme`、`size` 为字符串，传入非法值时样式不可控，应使用枚举或类型约束。
 5. **命名不清晰**：`bordered` 建议改为 `bordered` 已是布尔，但主题/尺寸建议拆分为独立子组件或 composition。
 6. 改进方向：拆分为 `Card`、`Avatar`、`CardTitle`、`CardActions` 等原子/分子组件，通过组合方式拼装。
+:::
 
 ---
 
@@ -237,6 +271,7 @@ export default {
 export const Primary = () => <Button type="primary">Primary</Button>;
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 - 该 Story 可以运行，但不够完整：
@@ -272,6 +307,7 @@ export const Large = {
   }
 };
 ```
+:::
 
 ---
 
@@ -285,6 +321,7 @@ export const Large = {
 .primary {}
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 - 问题：
@@ -306,6 +343,7 @@ export const Large = {
 ```
 
 - 优点：命名清晰、结构明确、避免冲突。
+:::
 
 ---
 
@@ -319,6 +357,7 @@ export const Large = {
 </div>
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 1. `<span>` 作为关闭按钮，无法通过键盘聚焦和操作。应改为 `<button>`。
@@ -335,6 +374,7 @@ export const Large = {
   <h2 id="modal-title">{title}</h2>
 </div>
 ```
+:::
 
 ---
 
@@ -352,6 +392,7 @@ export const Large = {
    - 点击事件正常触发；
    - `disabled` 状态下按钮不可点击且具备 `disabled` 属性。
 
+::: details 查看答案与解析
 **参考答案：**
 
 1. Design Token（JSON）：
@@ -434,6 +475,7 @@ describe('Button', () => {
   });
 });
 ```
+:::
 
 ---
 
@@ -446,6 +488,7 @@ describe('Button', () => {
 - 团队规模：10 人左右，前后端协作紧密。
 - 需求：需要支持多品牌换肤、组件复用率高、对首屏性能有一定要求。
 
+::: details 查看答案与解析
 **参考答案：**
 
 - **推荐方案：** CSS Modules + Tailwind CSS（原子化 CSS）+ Design Token 的组合。
@@ -461,6 +504,7 @@ describe('Button', () => {
   4. 业务页面使用 Tailwind 工具类快速布局，特殊样式仍通过 CSS Modules 管理。
   5. 配置 Tailwind `theme.extend` 与 Design Token 保持一致。
   6. 在 Storybook 中展示不同主题下的组件效果。
+:::
 
 ---
 

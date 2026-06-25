@@ -21,6 +21,7 @@
 **题目**：
 请解释 Node.js 为什么适合 I/O 密集型场景，但不适合 CPU 密集型场景。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. Node.js 的核心机制
@@ -113,6 +114,7 @@ if (isMainThread) {
   parentPort.postMessage(fibonacci(workerData));
 }
 ```
+:::
 
 ---
 
@@ -123,6 +125,7 @@ if (isMainThread) {
 **题目**：
 请对比 CommonJS 和 ES Module，并说明现代 Node.js 项目应该如何选择。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 核心区别
@@ -208,6 +211,7 @@ async function loadEsm() {
   }
 }
 ```
+:::
 
 ---
 
@@ -218,6 +222,7 @@ async function loadEsm() {
 **题目**：
 请用 Express 实现一个 GET 接口 `/api/hello`，返回 JSON `{ message: 'Hello, World!' }`。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 完整代码
@@ -295,6 +300,7 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
 
 app.listen(3000);
 ```
+:::
 
 ---
 
@@ -305,6 +311,7 @@ app.listen(3000);
 **题目**：
 什么是 BFF？它主要解决什么问题？请列举至少 4 个核心职责。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 什么是 BFF
@@ -365,6 +372,7 @@ BFF 是介于前端应用和后端微服务/数据库之间的一层服务，专
 - **不是前端框架**：BFF 是服务端层。
 - **不是简单的 API 代理**：BFF 包含业务逻辑、数据转换、聚合等。
 - **不能完全替代后端服务**：后端服务负责核心业务和数据持久化。
+:::
 
 ---
 
@@ -377,6 +385,7 @@ BFF 是介于前端应用和后端微服务/数据库之间的一层服务，专
 **题目**：
 后端有两个服务：用户服务 `/user/:id` 返回用户信息，订单服务 `/orders?userId=` 返回订单列表。请设计一个 H5 端 BFF 接口 `/api/user-summary`，返回用户头像、昵称、订单总数、最近一笔订单金额。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 接口设计
@@ -500,6 +509,7 @@ app.get('/api/user-summary', async (req, res, next) => {
 - **优雅降级**：订单服务失败时不影响用户信息的返回。
 - **字段裁剪**：只返回前端需要的字段，减少传输体积。
 - **错误处理**：统一错误处理，不暴露下游服务细节。
+:::
 
 ---
 
@@ -510,6 +520,7 @@ app.get('/api/user-summary', async (req, res, next) => {
 **题目**：
 请对比 CSR、SSR、SSG、ISR 四种渲染模式，并说明各自适用场景。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 四种模式对比
@@ -605,6 +616,7 @@ app.get('/api/user-summary', async (req, res, next) => {
 - 商品详情、文章页：ISR
 - 用户中心、购物车：CSR
 - 搜索页、SEO 关键页：SSR
+:::
 
 ---
 
@@ -615,6 +627,7 @@ app.get('/api/user-summary', async (req, res, next) => {
 **题目**：
 在 Express 中，如何处理异步函数抛出的错误？请给出代码示例。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 问题背景
@@ -731,6 +744,7 @@ app.listen(3000);
 - **不泄露敏感信息**：生产环境不返回堆栈信息。
 - **日志记录**：所有 500 错误必须记录，便于排查。
 - **监控告警**：核心接口错误率超过阈值时触发告警。
+:::
 
 ---
 
@@ -741,6 +755,7 @@ app.listen(3000);
 **题目**：
 Serverless 有哪些优点和缺点？前端在什么场景下适合使用 Serverless？
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. Serverless 的优点
@@ -800,6 +815,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   res.json({ message: 'Hello from Serverless!' });
 }
 ```
+:::
 
 ---
 
@@ -812,6 +828,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 **题目**：
 一个电商平台的 BFF 每天处理 1000 万请求，高峰 QPS 5000。请设计一个高可用 BFF 架构，包括负载均衡、缓存、限流、降级方案。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 整体架构
@@ -924,6 +941,7 @@ class TokenBucket {
 - **指标**：QPS、延迟 P99、错误率、CPU、内存、GC。
 - **日志**：结构化日志，支持链路追踪。
 - **告警**：错误率 > 1%、P99 > 500ms、CPU > 80% 时触发告警。
+:::
 
 ---
 
@@ -934,6 +952,7 @@ class TokenBucket {
 **题目**：
 一个 Node.js BFF 服务响应变慢，请列出至少 6 个排查和优化方向。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 资源使用排查
@@ -1003,6 +1022,7 @@ if (cluster.isPrimary) {
 
 - 使用 Artillery、k6 进行压力测试，找到瓶颈。
 - 建立性能基线，持续监控响应时间分位数（P50/P95/P99）。
+:::
 
 ---
 
@@ -1013,6 +1033,7 @@ if (cluster.isPrimary) {
 **题目**：
 如何在一个 Monorepo 中实现前后端共享 TypeScript 类型？请说明目录结构和实现方式。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 目录结构
@@ -1155,6 +1176,7 @@ app.get('/api/users/:id', (req, res) => {
 - **构建顺序**：Monorepo 中确保 `shared` 先构建。
 - **避免循环依赖**：shared 包只包含类型和纯函数，不依赖 web/server。
 - **版本管理**：使用 Changesets 管理 shared 包版本升级。
+:::
 
 ---
 
@@ -1171,6 +1193,7 @@ app.get('/api/users/:id', (req, res) => {
 3. 写操作（如下单、领券）不丢失，库存扣减最终一致。
 4. 具备完整的可观测性。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 整体架构
@@ -1257,6 +1280,7 @@ const limiter = new RateLimiterRedis({
 - **链路追踪**：OpenTelemetry + Jaeger，traceId 全链路透传。
 - **日志**：结构化 JSON 日志，ELK/Loki 集中收集。
 - **告警**：P99 > 200ms、错误率 > 0.5%、CPU > 80% 触发告警。
+:::
 
 ---
 
@@ -1267,6 +1291,7 @@ const limiter = new RateLimiterRedis({
 **题目**：
 请对比 tRPC 和 gRPC，说明它们各自适用的场景。如果你要为一个全 TypeScript 栈的 SaaS 项目设计 BFF，会如何选择？如果后端是多语言微服务（Java、Go、Python），又该如何选择？
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. tRPC 特点
@@ -1320,6 +1345,7 @@ message User { string id = 1; string name = 2; }
 - BFF 与前端之间用 tRPC 或 REST/GraphQL。
 - BFF 与后端微服务之间用 gRPC 或 HTTP。
 - 通过 API Gateway 统一接入，内部按团队技术栈选择。
+:::
 
 ---
 
@@ -1330,6 +1356,7 @@ message User { string id = 1; string name = 2; }
 **题目**：
 请为一套 Node.js BFF 服务设计完整的可观测性方案，要求覆盖日志、指标、链路追踪，并能在生产环境快速定位慢请求和错误根因。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 可观测性三大支柱
@@ -1419,6 +1446,7 @@ app.get('/metrics', (req, res) => {
 3. **查看日志**：通过 traceId 检索相关日志，发现下游超时。
 4. **查看指标**：确认下游服务错误率上升。
 5. **采取措施**：熔断、扩容、联系下游团队。
+:::
 
 ---
 

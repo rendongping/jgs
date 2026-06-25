@@ -107,33 +107,43 @@ const message = '你有 ' + count + ' 条消息';
 
 ### 第 1 题
 
+::: details 查看答案与解析
 **答案：A**
 
 i18n = Internationalization（国际化），l10n = Localization（本地化）。
+:::
 
 ### 第 2 题
 
+::: details 查看答案与解析
 **答案：B**
 
 `margin-inline-start` 是逻辑属性，会根据文本方向自动适配 LTR/RTL。
+:::
 
 ### 第 3 题
 
+::: details 查看答案与解析
 **答案：B**
 
 ICU MessageFormat 用于处理插值、复数、选择等复杂翻译场景。
+:::
 
 ### 第 4 题
 
+::: details 查看答案与解析
 **答案：B**
 
 `Intl.NumberFormat` 配合 `style: 'currency'` 可格式化货币。
+:::
 
 ### 第 5 题
 
+::: details 查看答案与解析
 **答案：B**
 
 GDPR 主要影响个人数据的处理、用户同意、知情权、删除权等。
+:::
 
 ### 第 6 题
 

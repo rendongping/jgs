@@ -146,39 +146,51 @@ D. 关闭对话框后将焦点返回到触发按钮
 
 ### 第 1 题
 
+::: details 查看答案与解析
 **答案：B**
 
 POUR 分别代表 Perceivable（可感知）、Operable（可操作）、Understandable（可理解）、Robust（健壮）。
+:::
 
 ### 第 2 题
 
+::: details 查看答案与解析
 **答案：B**
 
 `<main>` 是 HTML5 原生标签，用于标识页面的主要内容区域。虽然 `<div role="main">` 也能表达相同语义，但原生标签更推荐。
+:::
 
 ### 第 3 题
 
+::: details 查看答案与解析
 **答案：B**
 
 `aria-expanded` 用于表示控件是否展开或折叠，常用于折叠面板、下拉菜单等。
+:::
 
 ### 第 4 题
 
+::: details 查看答案与解析
 **答案：B**
 
 WCAG AA 级要求普通文本与背景对比度至少 4.5:1，大文本至少 3:1。
+:::
 
 ### 第 5 题
 
+::: details 查看答案与解析
 **答案：B**
 
 使用 `<label for="id">` 与输入框显式关联，是表单可访问性的基础要求。
+:::
 
 ### 第 6 题
 
+::: details 查看答案与解析
 **答案：B**
 
 关闭页面滚动是常见的用户体验优化，但不是 WCAG 的硬性要求。焦点管理（A、C、D）则是可访问性的核心要求。
+:::
 
 ### 第 7 题
 
@@ -302,6 +314,7 @@ WCAG AA 级要求普通文本与背景对比度至少 4.5:1，大文本至少 3:
 
 ### 第 11 题
 
+::: details 查看答案与解析
 **参考实现**：
 
 ```html
@@ -346,6 +359,7 @@ function toggleSwitch(btn) {
 - 使用 `role="switch"` 和 `aria-checked`。
 - 通过图标和文字共同表示状态，不依赖颜色。
 - 按钮本身可被键盘聚焦和激活。
+:::
 
 ### 第 12 题
 
@@ -374,6 +388,7 @@ function toggleSwitch(btn) {
 
 ### 第 13 题
 
+::: details 查看答案与解析
 **参考实现要点**：
 
 ```html
@@ -410,6 +425,7 @@ function toggleSwitch(btn) {
 **ARIA 状态**：
 - `aria-expanded` 随菜单状态更新。
 - `aria-activedescendant` 指向当前高亮菜单项。
+:::
 
 ---
 

@@ -21,6 +21,7 @@
 **题目**：
 请说出前端应用中常见的五类状态，并各举一个例子。
 
+::: details 查看答案与解析
 **参考答案**：
 
 前端应用中的状态通常可以分为以下五类：
@@ -93,6 +94,7 @@ const { register, handleSubmit, formState: { errors } } = useForm();
 | 服务端状态 | 服务端决定 | 缓存 | TanStack Query/SWR |
 | URL 状态 | 页面级 | URL | React Router |
 | 表单状态 | 表单级 | 可草稿保存 | React Hook Form |
+:::
 
 ---
 
@@ -103,6 +105,7 @@ const { register, handleSubmit, formState: { errors } } = useForm();
 **题目**：
 React Context API 适合管理什么状态？不适合管理什么状态？为什么？
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 适合的场景
@@ -171,6 +174,7 @@ const CountContext = createContext({ count: 0, setCount: () => {} });
 const CountStateContext = createContext(0);
 const CountDispatchContext = createContext(() => {});
 ```
+:::
 
 ---
 
@@ -181,6 +185,7 @@ const CountDispatchContext = createContext(() => {});
 **题目**：
 请解释 React Query 中的 queryKey、staleTime、cacheTime 和 invalidateQueries 的作用。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. queryKey
@@ -283,6 +288,7 @@ gcTime 后数据被清除
 invalidateQueries：
    立即将数据标记为过时，触发重新获取
 ```
+:::
 
 ---
 
@@ -293,6 +299,7 @@ invalidateQueries：
 **题目**：
 请解释 `Cache-Control: max-age=3600` 和 `ETag` 的区别。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. Cache-Control: max-age=3600
@@ -354,6 +361,7 @@ invalidateQueries：
 - 静态资源：`Cache-Control: public, max-age=31536000, immutable` + 文件名哈希。
 - HTML 文件：`Cache-Control: no-cache` 或短 max-age + ETag，确保更新及时生效。
 - API 数据：根据业务场景设置 `max-age` 或 `ETag`。
+:::
 
 ---
 
@@ -366,6 +374,7 @@ invalidateQueries：
 **题目**：
 一个电商商品列表页包含：分类筛选、价格排序、分页、商品列表数据、加载状态。请说明每部分应该用什么状态管理。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 状态分配
@@ -441,6 +450,7 @@ function ProductListPage() {
 - **服务端状态独立**：商品数据由 React Query 管理，自动处理缓存和刷新。
 - **避免状态同步问题**：不要同时用 useState 和 URL 保存同一份筛选条件。
 - **加载状态细分**：首次加载用 `isLoading`，后台刷新用 `isFetching`。
+:::
 
 ---
 
@@ -451,6 +461,7 @@ function ProductListPage() {
 **题目**：
 用 React Query 实现一个“点赞”功能的乐观更新，要求成功时保留，失败时回滚。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 完整实现
@@ -548,6 +559,7 @@ function LikeButton({ post }: { post: Post }) {
 - 乐观更新适合**可逆操作**（点赞、收藏、开关）。
 - 对于**不可逆操作**（删除、转账），应谨慎使用或不用。
 - 需要确保回滚逻辑完善，避免状态不一致。
+:::
 
 ---
 
@@ -562,6 +574,7 @@ function LikeButton({ post }: { post: Post }) {
 3. 实时通知
 4. 购物车数量
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 用户头像和昵称
@@ -657,6 +670,7 @@ const addToCartMutation = useMutation({
 | 商品列表 | 1-5 分钟 | invalidateQueries |
 | 实时通知 | 不缓存 | WebSocket/SSE |
 | 购物车数量 | 30 秒 | invalidateQueries + 聚焦刷新 |
+:::
 
 ---
 
@@ -667,6 +681,7 @@ const addToCartMutation = useMutation({
 **题目**：
 哪些状态适合放到全局 Store？哪些不适合？请举例说明。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 适合放到全局 Store 的状态
@@ -717,6 +732,7 @@ function LoginForm() {
   // ...
 }
 ```
+:::
 
 ---
 
@@ -729,6 +745,7 @@ function LoginForm() {
 **题目**：
 用户在浏览器标签页 A 修改了个人资料，标签页 B 如何感知并更新？请给出方案。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 方案一：Broadcast Channel API（推荐）
@@ -815,6 +832,7 @@ function useRefetchOnFocus(queryKey: string[]) {
 - 简单场景：Broadcast Channel + focus 刷新。
 - 实时场景：WebSocket/SSE + 本地状态更新。
 - 配合 TanStack Query：`invalidateQueries` 或 `setQueryData` 实现自动同步。
+:::
 
 ---
 
@@ -825,6 +843,7 @@ function useRefetchOnFocus(queryKey: string[]) {
 **题目**：
 设计一个支持离线编辑的笔记应用。用户离线时可以新增、修改、删除笔记，重新联网后如何同步？请说明数据结构和同步策略。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 数据结构设计
@@ -1008,6 +1027,7 @@ useEffect(() => {
 - **软删除**：避免误删，支持恢复。
 - **幂等性**：同步接口需要幂等，防止重复操作。
 - **最终一致性**：接受短暂不一致，最终与服务端同步。
+:::
 
 ---
 
@@ -1022,6 +1042,7 @@ useEffect(() => {
 3. 模块间数据共享方式。
 4. 实时数据同步方案。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 状态分类和管理工具选择
@@ -1182,6 +1203,7 @@ useEffect(() => {
 3. **缓存一致性**：明确每种数据的缓存策略和失效时机。
 4. **实时与缓存结合**：实时消息用于触发缓存刷新，而不是完全替代缓存。
 5. **离线友好**：关键操作支持本地队列和重试。
+:::
 
 ---
 

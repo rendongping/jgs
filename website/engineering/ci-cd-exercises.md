@@ -14,9 +14,11 @@ B. 减少分支冲突
 C. 自动部署到生产环境  
 D. 自动化验证每次提交
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析：** 自动部署到生产环境属于 CD（Continuous Deployment）的范畴，CI 的核心是频繁集成、自动构建和测试。
+:::
 
 ---
 
@@ -28,9 +30,11 @@ B. `.github/workflows/`
 C. `.ci/workflows/`  
 D. `workflows/.github/`
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析：** GitHub Actions 通过 `.github/workflows/` 目录下的 YAML 文件定义工作流。
+:::
 
 ---
 
@@ -42,9 +46,11 @@ B. 金丝雀发布
 C. 滚动部署  
 D. 全量发布
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析：** 金丝雀发布（Canary Release）先让少量用户访问新版本，逐步扩大流量。蓝绿部署是同时维护两套环境切换流量；滚动部署是逐个替换实例。
+:::
 
 ---
 
@@ -56,9 +62,11 @@ B. 减小最终镜像体积
 C. 增加构建步骤  
 D. 提高容器启动失败率
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析：** 多阶段构建将构建环境和运行环境分离，只把最终产物复制到运行镜像中，从而减小最终镜像体积。
+:::
 
 ---
 
@@ -70,9 +78,11 @@ B. 集成测试
 C. 单元测试  
 D. 性能测试
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析：** 测试金字塔底层是大量单元测试，快速、成本低；顶层是少量 E2E 测试，覆盖核心用户路径但成本高。
+:::
 
 ---
 
@@ -81,45 +91,55 @@ D. 性能测试
 ### 第 6 题
 GitLab CI 的配置文件名为 ________。
 
+::: details 查看答案与解析
 **答案：`.gitlab-ci.yml`**
 
 **解析：** GitLab CI 通过仓库根目录的 `.gitlab-ci.yml` 文件定义流水线。
+:::
 
 ---
 
 ### 第 7 题
 Jenkins Pipeline 使用 ________ 语言编写声明式流水线。
 
+::: details 查看答案与解析
 **答案：Groovy**
 
 **解析：** Jenkins Pipeline 通常使用 Groovy 语言编写，文件名为 `Jenkinsfile`。
+:::
 
 ---
 
 ### 第 8 题
 Docker 镜像构建命令为 `docker build -t myapp:1.0 ________`。
 
+::: details 查看答案与解析
 **答案：`.`**
 
 **解析：** `docker build -t myapp:1.0 .` 表示使用当前目录下的 Dockerfile 构建名为 `myapp:1.0` 的镜像。
+:::
 
 ---
 
 ### 第 9 题
 GitHub Actions 中，用于检出仓库代码的 Action 是 `actions/________`。
 
+::: details 查看答案与解析
 **答案：checkout**
 
 **解析：** `actions/checkout@v4` 用于将仓库代码检出到 Runner 工作目录。
+:::
 
 ---
 
 ### 第 10 题
 CI/CD 流水线中，________ 用于在不同 Job 之间传递构建产物。
 
+::: details 查看答案与解析
 **答案：Artifacts**
 
 **解析：** Artifacts 是 CI/CD 中 Job 之间传递产物的机制，如 GitLab CI 的 `artifacts`、GitHub Actions 的 `actions/upload-artifact`。
+:::
 
 ---
 
@@ -151,6 +171,7 @@ jobs:
       - run: npm run build
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 触发时机：
@@ -166,6 +187,7 @@ jobs:
 4. `npm run lint`：运行代码检查；
 5. `npm test`：运行测试；
 6. `npm run build`：构建项目。
+:::
 
 ---
 
@@ -202,6 +224,7 @@ deploy:
     - main
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 Stage 按定义顺序执行：install → test → build → deploy。
@@ -212,6 +235,7 @@ Stage 按定义顺序执行：install → test → build → deploy。
 - deploy 阶段仅在 `main` 分支触发部署。
 
 同一 Stage 中的多个 Job 并行执行，不同 Stage 顺序执行。
+:::
 
 ---
 
@@ -228,6 +252,7 @@ EXPOSE 3000
 CMD ["node", "server.js"]
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 问题：
@@ -255,6 +280,7 @@ COPY package*.json ./
 EXPOSE 3000
 CMD ["node", "dist/server.js"]
 ```
+:::
 
 ---
 
@@ -268,6 +294,7 @@ strategy:
     os: [ubuntu-latest, windows-latest]
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 会运行 2 × 2 = 4 个 Job，分别是：
@@ -278,6 +305,7 @@ strategy:
 - Node 20 + Windows
 
 矩阵构建用于同时测试多个 Node.js 版本和操作系统，提高兼容性测试覆盖率。
+:::
 
 ---
 
@@ -313,6 +341,7 @@ pipeline {
 }
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 该 Jenkins 流水线分为四个阶段，顺序执行：
@@ -323,6 +352,7 @@ pipeline {
 4. **Deploy**：通过 scp 将构建产物部署到服务器。
 
 `agent any` 表示任意可用的 Jenkins agent 都可以执行该流水线。
+:::
 
 ---
 
@@ -336,6 +366,7 @@ pipeline {
 3. 安装依赖、运行 lint、运行测试、构建项目；
 4. 缓存 `node_modules` 以加速构建。
 
+::: details 查看答案与解析
 **参考答案：**
 
 ```yaml
@@ -375,6 +406,7 @@ jobs:
 - 使用 `actions/cache` 缓存 npm 缓存目录，避免每次重复下载依赖；
 - `hashFiles('**/package-lock.json')` 作为缓存 key，确保依赖变化时刷新缓存；
 - 工作流覆盖代码检查、测试和构建，保证代码质量。
+:::
 
 ---
 
@@ -386,6 +418,7 @@ jobs:
 3. build 阶段生成 `dist/` 产物并传递给 deploy；
 4. deploy 阶段只在 main 分支执行。
 
+::: details 查看答案与解析
 **参考答案：**
 
 ```yaml
@@ -432,12 +465,14 @@ deploy:
 - `cache` 用于加速后续构建；
 - `artifacts` 用于将 `dist/` 产物从 build 阶段传递到 deploy 阶段；
 - `only: main` 限制 deploy 只在 main 分支执行。
+:::
 
 ---
 
 ### 第 18 题
 请为一个前端静态站点编写一个多阶段 Dockerfile，要求最终镜像基于 Nginx，且只包含构建产物。
 
+::: details 查看答案与解析
 **参考答案：**
 
 ```dockerfile
@@ -461,12 +496,14 @@ CMD ["nginx", "-g", "daemon off;"]
 - 第一阶段使用 Node.js 镜像安装依赖并构建；
 - 第二阶段使用 Nginx 镜像，只复制构建产物 `dist/`；
 - 最终镜像体积小、无构建工具依赖，适合部署静态站点。
+:::
 
 ---
 
 ### 第 19 题
 请描述 CI/CD 中的回滚策略有哪些，分别适用于什么场景。
 
+::: details 查看答案与解析
 **答案与解析：**
 
 回滚策略：
@@ -477,12 +514,14 @@ CMD ["nginx", "-g", "daemon off;"]
 4. **数据库回滚**：执行回滚脚本恢复数据库状态。适用于数据变更导致的问题，但通常最复杂、风险最高。
 
 选择回滚策略时应考虑问题类型、回滚速度和数据一致性。
+:::
 
 ---
 
 ### 第 20 题
 请列出至少 5 条 CI/CD 最佳实践。
 
+::: details 查看答案与解析
 **答案与解析：**
 
 1. 所有代码提交都触发 CI；
@@ -493,6 +532,7 @@ CMD ["nginx", "-g", "daemon off;"]
 6. 监控线上指标，建立告警机制；
 7. 使用小步快跑、金丝雀发布降低发布风险；
 8. 密钥通过环境变量或密钥管理服务管理，不硬编码。
+:::
 
 ---
 

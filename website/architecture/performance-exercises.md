@@ -9,9 +9,11 @@ B. LCP
 C. CLS
 D. TTFB
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析**：LCP（Largest Contentful Paint）衡量视口中最大可见元素渲染完成的时间。
+:::
 
 ---
 
@@ -22,9 +24,11 @@ B. LCP、INP、CLS
 C. FP、FCP、LCP
 D. TBT、TTFB、FID
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析**：Google Core Web Vitals 当前为 LCP、INP、CLS。INP 已取代 FID。
+:::
 
 ---
 
@@ -35,9 +39,11 @@ B. 修改 transform
 C. 修改 width
 D. 修改 opacity
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析**：修改 width、height、margin 等几何属性会触发重排。color 触发重绘，transform 和 opacity 主要触发合成。
+:::
 
 ---
 
@@ -48,9 +54,11 @@ B. Cache-Control: no-store
 C. Cache-Control: max-age=3600
 D. Cache-Control: must-revalidate
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析**：max-age=3600 表示资源在 3600 秒内有效，可直接使用缓存。
+:::
 
 ---
 
@@ -61,9 +69,11 @@ B. 滚动事件处理
 C. 搜索框实时输入
 D. 按钮点击
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析**：防抖适合事件停止触发后才执行的场景，如搜索框输入后触发搜索。resize 和滚动更适合节流。
+:::
 
 ---
 
@@ -71,41 +81,51 @@ D. 按钮点击
 
 ### 6. FCP 的全称是 ______，表示浏览器首次渲染出有意义内容的时间。
 
+::: details 查看答案与解析
 **答案**：First Contentful Paint
 
 **解析**：FCP 是 First Contentful Paint 的缩写。
+:::
 
 ---
 
 ### 7. 浏览器渲染流程中，修改元素的几何属性会触发 ______，代价较高。
 
+::: details 查看答案与解析
 **答案**：重排 / Reflow / Layout
 
 **解析**：几何属性变化会导致浏览器重新计算布局，即重排。
+:::
 
 ---
 
 ### 8. Service Worker 的 ______ 策略表示优先使用缓存，缓存没有时再去请求网络。
 
+::: details 查看答案与解析
 **答案**：Cache First
 
 **解析**：Cache First 策略优先命中缓存，适合不经常变化的静态资源。
+:::
 
 ---
 
 ### 9. 使用 CSS 的 ______ 属性可以提示浏览器哪些元素即将变化，从而提前优化渲染。
 
+::: details 查看答案与解析
 **答案**：will-change
 
 **解析**：will-change 告知浏览器元素将发生变化，浏览器可以提前做优化。但要谨慎使用。
+:::
 
 ---
 
 ### 10. 图片懒加载可以使用 HTML 原生的 ______ 属性。
 
+::: details 查看答案与解析
 **答案**：loading="lazy"
 
 **解析**：现代浏览器支持 `<img loading="lazy">` 原生懒加载。
+:::
 
 ---
 
@@ -125,6 +145,7 @@ function handleScroll() {
 window.addEventListener('scroll', handleScroll);
 ```
 
+::: details 查看答案与解析
 **答案与解析**：
 
 问题：
@@ -152,6 +173,7 @@ window.addEventListener('scroll', throttle(handleScroll, 16));
 ```
 
 进一步建议：如果动画效果允许，使用 `transform: scale()` 替代修改 width/height。
+:::
 
 ---
 
@@ -161,6 +183,7 @@ window.addEventListener('scroll', throttle(handleScroll, 16));
 <img src="large-photo.jpg" width="800" height="600" alt="photo">
 ```
 
+::: details 查看答案与解析
 **答案与解析**：
 
 问题：
@@ -189,6 +212,7 @@ window.addEventListener('scroll', throttle(handleScroll, 16));
   >
 </picture>
 ```
+:::
 
 ---
 
@@ -200,6 +224,7 @@ location /static/ {
 }
 ```
 
+::: details 查看答案与解析
 **答案与解析**：
 
 - **public**：允许 CDN 等中间节点缓存。
@@ -211,6 +236,7 @@ location /static/ {
 - 静态资源加载极快，充分利用缓存。
 - 风险：如果文件内容更新但文件名未变，用户可能长期不更新。
 - 最佳实践：配合文件名哈希（如 app.abc123.js）使用，更新时文件名变化。
+:::
 
 ---
 
@@ -218,6 +244,7 @@ location /static/ {
 
 ### 14. 设计一个电商首页的性能优化方案，列出关键优化点和指标目标。
 
+::: details 查看答案与解析
 **参考答案**：
 
 关键优化点：
@@ -253,11 +280,13 @@ location /static/ {
 - INP ≤ 200ms
 - CLS ≤ 0.1
 - 首屏 JS ≤ 200KB（gzip 后）
+:::
 
 ---
 
 ### 15. 你如何建立团队的前端性能监控体系？
 
+::: details 查看答案与解析
 **参考答案**：
 
 1. **采集指标**：使用 Web Vitals 库采集 LCP、INP、CLS、FCP、TTFB。
@@ -267,11 +296,13 @@ location /static/ {
 5. **性能预算**：在 CI 中限制 bundle 大小、请求数。
 6. **问题定位**：结合 Source Map 和 Trace 定位慢请求、长任务、布局偏移。
 7. **持续优化**：定期复盘，把性能指标纳入迭代目标。
+:::
 
 ---
 
 ### 16. 一个后台管理系统页面有大量表格数据，用户反馈卡顿。请给出优化方案。
 
+::: details 查看答案与解析
 **参考答案**：
 
 1. **虚拟列表**：只渲染视口内行，如 react-window 或 vue-virtual-scroller。
@@ -281,11 +312,13 @@ location /static/ {
 5. **大数据量处理**：排序/过滤放后端或使用 Web Worker。
 6. **表格骨架屏**：加载时减少白屏焦虑。
 7. **监控长任务**：用 Performance Observer 定位阻塞主线程的操作。
+:::
 
 ---
 
 ### 17. 对比 HTTP 缓存的强缓存和协商缓存。
 
+::: details 查看答案与解析
 **参考答案**：
 
 | 类型 | 触发条件 | 状态码 | 请求次数 |
@@ -294,6 +327,7 @@ location /static/ {
 | 协商缓存 | 强缓存过期，带 ETag/Last-Modified 验证 | 304 Not Modified / 200 | 1 |
 
 强缓存性能更好，但更新控制粒度粗；协商缓存能确保资源最新，但仍有请求开销。通常配合文件名哈希实现长期强缓存。
+:::
 
 ---
 

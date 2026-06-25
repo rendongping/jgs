@@ -9,9 +9,11 @@ B. 大型应用多团队独立开发、独立部署
 C. 减少前端代码的行数
 D. 替代后端微服务架构
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析**：微前端主要解决大型前端应用在组织和规模上的复杂度问题，支持多团队独立开发、独立部署、技术栈自治。
+:::
 
 ---
 
@@ -22,9 +24,11 @@ B. single-spa
 C. Module Federation
 D. iframe
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析**：Module Federation 是 Webpack 5 提供的模块共享能力，支持运行时跨应用共享模块和依赖。
+:::
 
 ---
 
@@ -35,9 +39,11 @@ B. bootstrap、mount、unmount
 C. start、load、stop
 D. create、update、remove
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析**：qiankun 基于 single-spa，子应用需要暴露 bootstrap、mount、unmount 三个生命周期函数。
+:::
 
 ---
 
@@ -48,9 +54,11 @@ B. Shadow DOM
 C. 全局样式表
 D. Scoped CSS
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析**：全局样式表会加剧样式冲突，不是隔离方案。CSS Modules、Shadow DOM、Scoped CSS 都是常见的样式隔离方案。
+:::
 
 ---
 
@@ -61,9 +69,11 @@ B. 通过主应用中转的全局状态或事件机制
 C. 直接操作彼此的 DOM
 D. 通过修改全局变量实时同步
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析**：子应用之间应保持松耦合，通过主应用中转或统一的事件总线/全局状态通信，避免直接依赖。
+:::
 
 ---
 
@@ -71,41 +81,51 @@ D. 通过修改全局变量实时同步
 
 ### 6. 微前端将一个大前端应用拆分为多个独立 ______、独立 ______、独立 ______ 的小型前端应用。
 
+::: details 查看答案与解析
 **答案**：开发、部署、运行
 
 **解析**：微前端的三大独立特征是独立开发、独立部署、独立运行。
+:::
 
 ---
 
 ### 7. qiankun 是基于 ______ 框架封装而来的微前端解决方案。
 
+::: details 查看答案与解析
 **答案**：single-spa
 
 **解析**：qiankun 在 single-spa 的基础上提供了 JS 沙箱、样式隔离、HTML Entry、预加载等增强能力。
+:::
 
 ---
 
 ### 8. Module Federation 中，通过 ______ 字段可以把模块暴露给其他应用使用。
 
+::: details 查看答案与解析
 **答案**：exposes
 
 **解析**：ModuleFederationPlugin 的 exposes 配置用于声明哪些模块可以远程暴露。
+:::
 
 ---
 
 ### 9. 微前端中，子应用修改 window 对象可能导致 ______ 问题。
 
+::: details 查看答案与解析
 **答案**：全局变量污染 / JS 隔离失效
 
 **解析**：多个子应用共享同一个 window 对象，随意修改全局变量会互相影响，需要通过沙箱或规范约束。
+:::
 
 ---
 
 ### 10. Web Components 利用 ______ 实现原生的 DOM 和样式隔离。
 
+::: details 查看答案与解析
 **答案**：Shadow DOM
 
 **解析**：Shadow DOM 可以创建封装的 DOM 子树，样式和结构不会与外部互相影响。
+:::
 
 ---
 
@@ -134,6 +154,7 @@ registerMicroApps([
 start();
 ```
 
+::: details 查看答案与解析
 **答案与解析**：
 
 问题：
@@ -160,6 +181,7 @@ registerMicroApps([
   }
 ]);
 ```
+:::
 
 ---
 
@@ -179,6 +201,7 @@ export function unmount() {
 }
 ```
 
+::: details 查看答案与解析
 **答案与解析**：
 
 问题：
@@ -204,6 +227,7 @@ export function unmount(props) {
   ReactDOM.unmountComponentAtNode(container);
 }
 ```
+:::
 
 ---
 
@@ -222,11 +246,13 @@ new ModuleFederationPlugin({
 });
 ```
 
+::: details 查看答案与解析
 **答案与解析**：
 
 - **singleton: true**：表示该依赖在多个应用之间只加载一个实例，避免 React Context、Hooks 等因多实例导致的问题。
 - **requiredVersion**：声明当前应用需要的版本范围，如果远程应用版本不兼容会给出警告。
 - 作用：保证共享依赖（如 React）全局唯一，避免子应用各自加载一份 React 导致的运行时异常。
+:::
 
 ---
 
@@ -234,6 +260,7 @@ new ModuleFederationPlugin({
 
 ### 14. 某公司有一个大型电商后台管理系统，包含商品管理、订单管理、用户管理、营销管理四大模块，由四个独立团队维护。请设计一套微前端架构方案，包括技术选型、子应用划分、通信方式和公共依赖管理。
 
+::: details 查看答案与解析
 **参考答案**：
 
 **技术选型**：qiankun
@@ -261,11 +288,13 @@ new ModuleFederationPlugin({
 - React、React DOM、Ant Design 通过主应用加载，子应用配置 externals。
 - 公共工具函数封装成 npm 包或 Module Federation 共享。
 - 统一 UI 组件库和设计规范。
+:::
 
 ---
 
 ### 15. 微前端项目中，子应用 A 需要调用子应用 B 的某个功能，你会如何设计？
 
+::: details 查看答案与解析
 **参考答案**：
 
 不推荐子应用 A 直接调用子应用 B 的内部方法，这会导致强耦合。推荐方案：
@@ -274,11 +303,13 @@ new ModuleFederationPlugin({
 2. **通过事件总线通信**：A 发布事件，B 订阅事件，双方不直接依赖。
 3. **URL 驱动**：通过主应用路由跳转到 B 的对应页面，带必要参数。
 4. **如果必须共享 UI**：把 B 的功能拆分为 Web Component 或 Module Federation 暴露的组件，A 按需加载。
+:::
 
 ---
 
 ### 16. 微前端上线后，用户反馈页面切换偶尔空白或报错。请列出排查思路和解决方案。
 
+::: details 查看答案与解析
 **参考答案**：
 
 排查思路：
@@ -297,11 +328,13 @@ new ModuleFederationPlugin({
 - 统一错误边界处理。
 - 建立子应用健康检查和监控告警。
 - 灰度发布，先小流量验证。
+:::
 
 ---
 
 ### 17. 对比 qiankun 和 Module Federation，说明各自的适用场景。
 
+::: details 查看答案与解析
 **参考答案**：
 
 | 维度 | qiankun | Module Federation |
@@ -315,6 +348,7 @@ new ModuleFederationPlugin({
 **适用场景**：
 - qiankun：多团队、异构技术栈、需要强隔离的大型系统。
 - Module Federation：技术栈统一、需要模块级复用、希望减少重复打包的场景。
+:::
 
 ---
 

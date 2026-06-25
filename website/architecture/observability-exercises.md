@@ -21,6 +21,7 @@
 **题目**：
 请说出可观测性的三大支柱，并解释它们各自解决什么问题。
 
+::: details 查看答案与解析
 **参考答案**：
 
 可观测性（Observability）三大支柱是：**日志（Logs）、指标（Metrics）、链路追踪（Traces）**。
@@ -131,6 +132,7 @@ Logs 解释问题
 - **Metrics** 用于监控大盘，发现异常趋势。
 - **Traces** 用于追踪单个请求的完整路径。
 - **Logs** 用于查看详细的上下文和错误信息。
+:::
 
 ---
 
@@ -141,6 +143,7 @@ Logs 解释问题
 **题目**：
 请解释 LCP、INP/FID、CLS 三个 Core Web Vitals 指标的含义和目标值。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. LCP（Largest Contentful Paint）
@@ -221,6 +224,7 @@ Logs 解释问题
 - 为广告位预留固定空间。
 - 使用 `font-display: optional` 或预加载字体。
 - 避免在已有内容上方插入动态内容。
+:::
 
 ---
 
@@ -231,6 +235,7 @@ Logs 解释问题
 **题目**：
 前端错误监控通常要覆盖哪些类型的错误？请至少列举 5 种。
 
+::: details 查看答案与解析
 **参考答案**：
 
 前端错误监控应覆盖以下类型：
@@ -342,6 +347,7 @@ class ErrorBoundary extends React.Component {
 #### 8. 业务逻辑错误
 
 如用户操作流程中的异常状态、支付失败等。
+:::
 
 ---
 
@@ -352,6 +358,7 @@ class ErrorBoundary extends React.Component {
 **题目**：
 请解释 SLO、SLI、SLA、Error Budget 的含义，并举例说明。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. SLI（Service Level Indicator）
@@ -421,6 +428,7 @@ SLI（指标） ──▶ SLO（目标） ──▶ SLA（对外承诺）
 
 - 当 Error Budget 充足时，可以承担更多发布风险。
 - 当 Error Budget 即将耗尽时，应暂停非必要发布，优先保障稳定性。
+:::
 
 ---
 
@@ -433,6 +441,7 @@ SLI（指标） ──▶ SLO（目标） ──▶ SLA（对外承诺）
 **题目**：
 请设计一个前端错误监控系统，包括：错误采集、上报、存储、展示和告警。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 系统架构
@@ -571,6 +580,7 @@ class ErrorReporter {
 - **P0 错误告警**：核心流程（登录、支付）错误立即告警。
 - **告警渠道**：短信、电话、钉钉、企业微信、PagerDuty。
 - **告警分级**：P0/P1/P2/P3，避免告警风暴。
+:::
 
 ---
 
@@ -581,6 +591,7 @@ class ErrorReporter {
 **题目**：
 如何收集一个页面的 LCP、INP、CLS？请用代码或伪代码说明。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 使用 web-vitals 库
@@ -665,6 +676,7 @@ new PerformanceObserver((list) => {
 3. **存储层**：时序数据库（如 InfluxDB、Prometheus）。
 4. **展示层**：按页面、设备、网络、地域维度展示。
 5. **告警层**：P75/P95 超过阈值时告警。
+:::
 
 ---
 
@@ -675,6 +687,7 @@ new PerformanceObserver((list) => {
 **题目**：
 一个电商 APP 需要追踪“商品详情页到支付成功”的转化漏斗。请设计需要埋点的事件和字段。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 转化漏斗事件设计
@@ -755,6 +768,7 @@ WHERE event_name IN ('product_view', 'add_to_cart', 'checkout_start', 'order_sub
 GROUP BY event_name
 ORDER BY FIELD(event_name, 'product_view', 'add_to_cart', 'checkout_start', 'order_submit', 'payment_success');
 ```
+:::
 
 ---
 
@@ -765,6 +779,7 @@ ORDER BY FIELD(event_name, 'product_view', 'add_to_cart', 'checkout_start', 'ord
 **题目**：
 为一个电商首页设计至少 3 个级别的告警规则。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 告警分级表
@@ -799,6 +814,7 @@ annotations:
 2. **避免告警风暴**：合并同类告警，设置静默期。
 3. **可执行**：每条告警都应指向明确的排查 SOP。
 4. **持续优化**：定期回顾告警有效性，减少误报。
+:::
 
 ---
 
@@ -811,6 +827,7 @@ annotations:
 **题目**：
 一个依赖 5 个下游微服务的前端 BFF，如何设计稳定性保障，防止下游故障拖垮整个系统？
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 稳定性保障体系
@@ -936,6 +953,7 @@ const [user, orders, products, coupons, notifications] = await Promise.all([
 - 实时统计每个下游的成功率、延迟、错误率。
 - 熔断状态可视化。
 - 异常时自动触发告警。
+:::
 
 ---
 
@@ -946,6 +964,7 @@ const [user, orders, products, coupons, notifications] = await Promise.all([
 **题目**：
 请设计一个前端灰度发布方案，包括：灰度策略、监控指标、回滚条件和回滚流程。
 
+::: details 查看答案与解析
 **参考答案**：
 
 #### 1. 灰度策略
@@ -1026,6 +1045,7 @@ function isInGrayRelease(userId, percent) {
 - 发布平台：一键回滚。
 - 监控看板：实时对比新旧版本指标。
 - 告警系统：异常自动通知。
+:::
 
 ---
 
@@ -1036,10 +1056,12 @@ function isInGrayRelease(userId, percent) {
 **题目**：
 某次上线后，低版本浏览器出现大面积白屏。请用事故复盘模板输出一份复盘报告。
 
+::: details 查看答案与解析
 **参考答案**：
 
 ```markdown
 # Incident Report: 低版本浏览器白屏事故
+:::
 
 ## 基本信息
 

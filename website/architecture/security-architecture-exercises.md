@@ -124,39 +124,51 @@ document.getElementById('content').innerHTML = userInput;
 
 ### 第 1 题
 
+::: details 查看答案与解析
 **答案：A**
 
 STRIDE 中 S 代表 Spoofing（伪装）。
+:::
 
 ### 第 2 题
 
+::: details 查看答案与解析
 **答案：B**
 
 `X-Content-Type-Options: nosniff` 用于防止浏览器 MIME 嗅探。
+:::
 
 ### 第 3 题
 
+::: details 查看答案与解析
 **答案：B**
 
 SRI 用于校验从 CDN 加载的资源是否被篡改。
+:::
 
 ### 第 4 题
 
+::: details 查看答案与解析
 **答案：C**
 
 隐私设计原则包括数据最小化、目的限制、默认隐私等，不包括数据最大化。
+:::
 
 ### 第 5 题
 
+::: details 查看答案与解析
 **答案：B**
 
 CSP（Content Security Policy）是防御 XSS 和数据注入的重要机制。
+:::
 
 ### 第 6 题
 
+::: details 查看答案与解析
 **答案：B**
 
 安全左移指将安全实践融入软件开发生命周期的早期阶段，而非上线前突击。
+:::
 
 ### 第 7 题
 

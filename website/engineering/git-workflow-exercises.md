@@ -138,39 +138,51 @@ fixed some bugs and changed styles
 
 ### 第 1 题
 
+::: details 查看答案与解析
 **答案：B**
 
 `git stash` 用于临时保存当前工作目录的修改，方便切换到其他分支处理紧急任务。
+:::
 
 ### 第 2 题
 
+::: details 查看答案与解析
 **答案：B**
 
 `feat` 表示新增功能（feature）。
+:::
 
 ### 第 3 题
 
+::: details 查看答案与解析
 **答案：C**
 
 `hotfix/*` 分支用于从 main 分出来修复线上紧急问题，修复后合并回 main 和 develop。
+:::
 
 ### 第 4 题
 
+::: details 查看答案与解析
 **答案：B**
 
 `git rebase` 适合在本地整理提交历史，使历史更线性。不应对已推送的公共分支执行 rebase。
+:::
 
 ### 第 5 题
 
+::: details 查看答案与解析
 **答案：B**
 
 语义化版本 `MAJOR.MINOR.PATCH` 中，`1` 是 MINOR（次版本号），表示向下兼容的功能新增。
+:::
 
 ### 第 6 题
 
+::: details 查看答案与解析
 **答案：B**
 
 Trunk-Based Development 通过特性开关（Feature Toggle）管理未完成的功能，实现高频集成。
+:::
 
 ### 第 7 题
 

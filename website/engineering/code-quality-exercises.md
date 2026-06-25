@@ -9,9 +9,11 @@ B. 静态代码检查
 C. 格式化代码
 D. 打包代码
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析：** ESLint 是静态代码检查工具，用于发现代码中的潜在问题和不规范写法。
+:::
 
 ---
 
@@ -22,9 +24,11 @@ B. 代码格式化
 C. 运行测试
 D. 管理 Git 提交
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析：** Prettier 是代码格式化工具，负责统一代码风格。
+:::
 
 ---
 
@@ -35,9 +39,11 @@ B. Prettier
 C. Husky
 D. Jest
 
+::: details 查看答案与解析
 **答案：C**
 
 **解析：** Husky 用于管理 Git 钩子，可以在提交前、提交后等时机执行脚本。
+:::
 
 ---
 
@@ -48,9 +54,11 @@ B. 只检查暂存区的代码
 C. 自动生成测试
 D. 修复所有 Bug
 
+::: details 查看答案与解析
 **答案：B**
 
 **解析：** lint-staged 只对 `git add` 的文件运行检查，提高效率。
+:::
 
 ---
 
@@ -61,9 +69,11 @@ B. 写代码-测试-部署
 C. 设计-开发-测试
 D. 红-黄-绿
 
+::: details 查看答案与解析
 **答案：A**
 
 **解析：** TDD 遵循红（写失败测试）、绿（写通过代码）、重构的循环。
+:::
 
 ---
 
@@ -71,41 +81,51 @@ D. 红-黄-绿
 
 ### 6. Jest 中用于判断两个值严格相等的断言是 ______。
 
+::: details 查看答案与解析
 **答案：toBe**
 
 **解析：** `expect(value).toBe(expected)` 进行严格相等判断。
+:::
 
 ---
 
 ### 7. E2E 测试中常用的两个框架是 Cypress 和 ______。
 
+::: details 查看答案与解析
 **答案：Playwright**
 
 **解析：** Cypress 和 Playwright 是当前最流行的 E2E 测试框架。
+:::
 
 ---
 
 ### 8. 规范的提交信息格式中，`feat` 表示 ______。
 
+::: details 查看答案与解析
 **答案：新功能**
 
 **解析：** Conventional Commits 中，`feat` 表示新增功能。
+:::
 
 ---
 
 ### 9. 测试覆盖率中，衡量分支是否都被执行的指标是 ______ 覆盖率。
 
+::: details 查看答案与解析
 **答案：分支**
 
 **解析：** 分支覆盖率（Branch Coverage）衡量代码中所有分支是否都被执行过。
+:::
 
 ---
 
 ### 10. BDD 的中文名称是 ______ 驱动开发。
 
+::: details 查看答案与解析
 **答案：行为**
 
 **解析：** BDD（Behavior-Driven Development）即行为驱动开发。
+:::
 
 ---
 
@@ -124,12 +144,14 @@ module.exports = {
 };
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 - `env` 声明运行环境为浏览器，支持 ES2021
 - `extends` 继承 ESLint 推荐规则
 - `no-console: 'warn'` 对 `console` 使用发出警告
 - `eqeqeq: 'error'` 强制使用 `===`，使用 `==` 时报错
+:::
 
 ---
 
@@ -146,11 +168,13 @@ test('should filter active users', () => {
 });
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 - 测试过滤出 active 为 true 的用户
 - `toEqual` 用于深度比较对象数组
 - 测试用例名称清晰描述了测试目的
+:::
 
 ---
 
@@ -162,11 +186,13 @@ test('should filter active users', () => {
 npx lint-staged
 ```
 
+::: details 查看答案与解析
 **答案与解析：**
 
 - 这是一个 `pre-commit` 钩子脚本
 - 提交前会执行 `npx lint-staged`
 - lint-staged 只对暂存区文件运行 lint
+:::
 
 ---
 
@@ -174,6 +200,7 @@ npx lint-staged
 
 ### 14. 编写一个 Jest 测试用例，测试数组求和函数。
 
+::: details 查看答案与解析
 **答案：**
 
 ```javascript
@@ -197,11 +224,13 @@ test('returns 0 for empty array', () => {
 - 测试正常数组求和
 - 测试边界情况（空数组）
 - 使用 `toBe` 进行严格相等判断
+:::
 
 ---
 
 ### 15. 配置 `.husky/pre-commit` 在提交前运行 lint 和测试。
 
+::: details 查看答案与解析
 **答案：**
 
 ```bash
@@ -217,11 +246,13 @@ npm run test
 - 提交前自动运行 lint 和 test
 - 任何失败都会阻止提交
 - 也可以改用 lint-staged 提高效率
+:::
 
 ---
 
 ### 16. 编写一个 Playwright 测试，验证登录流程。
 
+::: details 查看答案与解析
 **答案：**
 
 ```javascript
@@ -242,11 +273,13 @@ test('login successfully', async ({ page }) => {
 - 填写用户名密码
 - 点击提交
 - 验证跳转到 dashboard
+:::
 
 ---
 
 ### 17. 编写一个 Vitest 的 Mock 示例。
 
+::: details 查看答案与解析
 **答案：**
 
 ```javascript
@@ -268,11 +301,13 @@ test('fetchUser returns mocked data', async () => {
 - 使用 `vi.mock` 模拟模块
 - `fetchUser` 返回模拟数据
 - 测试中验证返回结果
+:::
 
 ---
 
 ### 18. 配置 Prettier 使用单引号、2 空格缩进、行尾逗号。
 
+::: details 查看答案与解析
 **答案：**
 
 ```json
@@ -289,11 +324,13 @@ test('fetchUser returns mocked data', async () => {
 - `singleQuote: true` 使用单引号
 - `tabWidth: 2` 两个空格缩进
 - `trailingComma: "es5"` 在 ES5 有效的地方添加尾逗号
+:::
 
 ---
 
 ### 19. 编写一个 Cypress 测试，验证搜索功能。
 
+::: details 查看答案与解析
 **答案：**
 
 ```javascript
@@ -313,11 +350,13 @@ describe('Search', () => {
 - 在搜索框输入关键词并回车
 - 验证 URL 包含搜索参数
 - 验证结果列表至少有一项
+:::
 
 ---
 
 ### 20. 如何在 CI 中设置测试覆盖率阈值？
 
+::: details 查看答案与解析
 **答案：**
 
 在 Jest 配置中：
@@ -357,11 +396,13 @@ module.exports = {
 - 设置覆盖率阈值后，低于阈值时测试会失败
 - 可以设置全局阈值，也可以针对特定目录设置
 - 覆盖率阈值应该根据项目实际情况设定
+:::
 
 ---
 
 ### 16. 使用 fast-check 为 `reverse` 函数写一个属性测试：数组反转两次应等于原数组。
 
+::: details 查看答案与解析
 **参考答案**：
 
 ```ts
@@ -379,11 +420,13 @@ fc.assert(
 - 属性测试不依赖具体例子，而是验证对所有输入都成立的属性。
 - `fc.array(fc.integer())` 自动生成随机整数数组。
 - 如果失败，fast-check 会尝试 shrink 出最小反例。
+:::
 
 ---
 
 ### 17. 写出一条 ts-arch 规则，要求 `src/ui` 目录下的文件不能依赖 `src/domain` 目录下的文件（假设 domain 是更底层）。
 
+::: details 查看答案与解析
 **参考答案**：
 
 ```ts
@@ -404,6 +447,7 @@ it("ui 层不应依赖 domain 层", async () => {
 - 架构测试把代码结构约束变成可执行的测试。
 - `shouldNot().dependOnFiles()` 表达“不应依赖”的约束。
 - 违反规则时测试失败，CI 可以拦截不合规的依赖。
+:::
 
 ---
 
