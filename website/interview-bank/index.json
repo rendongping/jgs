@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "name": "前端面试题总库",
+  "description": "面向前端工程师全层级的结构化面试题库",
+  "targetTotal": "3000-5000",
+  "currentTotal": 0,
+  "categories": {
+    "foundation": {
+      "name": "基础层",
+      "domains": ["01", "02", "03", "04", "05", "06", "07", "08", "09"],
+      "targetCount": "1200-1500"
+    },
+    "engineering": {
+      "name": "工程化层",
+      "domains": ["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
+      "targetCount": "1000-1200"
+    },
+    "architecture": {
+      "name": "架构层",
+      "domains": ["25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36"],
+      "targetCount": "800-1000"
+    },
+    "leadership": {
+      "name": "领导力层",
+      "domains": ["37", "38", "39", "40", "41", "42", "43", "44"],
+      "targetCount": "300-400"
+    },
+    "specialized": {
+      "name": "前端细分领域",
+      "domains": ["45", "46", "47", "48", "49", "50", "51", "52"],
+      "targetCount": "400-600"
+    },
+    "general": {
+      "name": "通用基础与职业",
+      "domains": ["53", "54", "55", "56"],
+      "targetCount": "200-300"
+    }
+  },
+  "views": {
+    "byType": {
+      "path": "by-type",
+      "files": [
+        "01-concept.md",
+        "02-code-analysis.md",
+        "03-coding.md",
+        "04-scenario.md",
+        "05-system-design.md",
+        "06-framework-source.md",
+        "07-performance.md",
+        "08-security.md",
+        "09-engineering.md",
+        "10-soft-skill.md",
+        "11-comprehensive.md"
+      ]
+    },
+    "byLevel": {
+      "path": "by-level",
+      "files": ["junior.md", "senior.md", "expert.md", "architect.md"]
+    },
+    "byCompany": {
+      "path": "by-company",
+      "files": [
+        "big-tech.md",
+        "foreign-company.md",
+        "startup.md",
+        "bank-ops.md",
+        "ecommerce.md",
+        "fintech.md",
+        "gaming.md"
+      ]
+    },
+    "byRound": {
+      "path": "by-round",
+      "files": [
+        "01-screening.md",
+        "02-technical-1.md",
+        "03-technical-2.md",
+        "04-system-design.md",
+        "05-manager.md",
+        "06-hr.md"
+      ]
+    },
+    "mockPapers": {
+      "path": "mock-papers",
+      "files": []
+    },
+    "flashcards": {
+      "path": "flashcards",
+      "files": []
+    }
+  },
+  "dataFiles": {
+    "domains": "data/domains.json",
+    "tags": "data/tags.json",
+    "questions": "data/questions.json"
+  }
+}

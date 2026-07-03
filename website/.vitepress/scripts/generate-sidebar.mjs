@@ -6,14 +6,55 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const websiteDir = path.resolve(__dirname, '../..');
 
+function getInterviewDomainMap() {
+  const domainsPath = path.join(websiteDir, 'interview-bank/data/domains.json');
+  if (!fs.existsSync(domainsPath)) return {};
+  try {
+    const data = JSON.parse(fs.readFileSync(domainsPath, 'utf-8'));
+    const map = {};
+    for (const d of data.domains) {
+      map[d.file.replace('.md', '')] = d.name;
+    }
+    return map;
+  } catch (e) {
+    return {};
+  }
+}
+
+const interviewDomainMap = getInterviewDomainMap();
+
+const interviewTypeMap = {
+  '01-concept': '概念题',
+  '02-code-analysis': '代码分析题',
+  '03-coding': '手写代码题',
+  '04-scenario': '场景设计题',
+  '05-system-design': '系统设计题',
+  '06-framework-source': '框架原理题',
+  '07-performance': '性能优化题',
+  '08-security': '安全题',
+  '09-engineering': '工程化题',
+  '10-soft-skill': '软技能题',
+  '11-comprehensive': '综合开放题',
+};
+
+const interviewLevelMap = {
+  'junior': '初级前端工程师',
+  'senior': '高级前端工程师',
+  'expert': '前端专家',
+  'architect': '前端架构师',
+};
+
 function getFiles(dir) {
   const fullDir = path.join(websiteDir, dir);
   if (!fs.existsSync(fullDir)) return [];
+
+  const isInterviewBank = dir.startsWith('interview-bank/');
+
   return fs.readdirSync(fullDir)
     .filter(f => f.endsWith('.md') && f !== 'index.md')
     .sort((a, b) => {
+      if (isInterviewBank) return a.localeCompare(b, undefined, { numeric: true });
       // 学习文档优先，然后是练习册，最后是面试题
-      const order = { '': 0, '-exercises': 1, '-interview': 2 };
       const getOrder = name => {
         const base = name.replace('.md', '');
         if (base.endsWith('-exercises')) return 1;
@@ -71,7 +112,9 @@ function getFiles(dir) {
       };
 
       let text = textMap[name] || name;
-      if (name.endsWith('-exercises')) {
+      if (isInterviewBank) {
+        text = interviewDomainMap[name] || interviewTypeMap[name] || interviewLevelMap[name] || name;
+      } else if (name.endsWith('-exercises')) {
         const base = name.replace('-exercises', '');
         text = `${textMap[base] || base} — 练习册`;
       } else if (name.endsWith('-interview')) {
@@ -194,6 +237,40 @@ const sidebar = {
       collapsed: false,
       items: [
         { text: 'AI 学习助手', link: '/learning-path/ai-assistant' },
+      ]
+    }
+  ],
+  '/interview-bank/': [
+    {
+      text: '前端面试题总库',
+      collapsed: false,
+      items: [
+        { text: '题库首页', link: '/interview-bank/' },
+        {
+          text: '按岗位层级',
+          collapsed: true,
+          items: getFiles('interview-bank/by-level')
+        },
+        {
+          text: '按题型',
+          collapsed: true,
+          items: getFiles('interview-bank/by-type')
+        },
+        {
+          text: '按面试知识域',
+          collapsed: true,
+          items: getFiles('interview-bank/by-domain')
+        },
+        {
+          text: '模拟试卷',
+          collapsed: true,
+          items: getFiles('interview-bank/mock-papers')
+        },
+        {
+          text: '快问快答',
+          collapsed: true,
+          items: getFiles('interview-bank/flashcards')
+        }
       ]
     }
   ],

@@ -49,6 +49,15 @@ export default defineConfig({
         ]
       },
       {
+        text: '面试题库',
+        items: [
+          { text: '前端面试题总库', link: '/interview-bank/' },
+          { text: '按岗位层级', link: '/interview-bank/by-level/junior' },
+          { text: '按题型', link: '/interview-bank/by-type/01-concept' },
+          { text: '按面试知识域', link: '/interview-bank/by-domain/01-javascript' },
+        ]
+      },
+      {
         text: '数据中心',
         items: [
           { text: '学习数据中心', link: '/learning-path/dashboard' },

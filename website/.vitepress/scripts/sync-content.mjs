@@ -212,6 +212,9 @@ function syncContent() {
     syncedCount++;
   }
 
+  // 同步前端面试题总库
+  syncInterviewBank();
+
   // 同步客观题题库到 public/quizzes
   syncQuizzes();
 
@@ -223,6 +226,39 @@ function syncContent() {
 
   console.log(`✅ 已同步 ${syncedCount} 个文件`);
   generateSitemap();
+}
+
+function syncInterviewBank() {
+  const sourceDir = path.join(rootDir, 'interview-bank');
+  const targetDir = path.join(websiteDir, 'interview-bank');
+
+  if (!fs.existsSync(sourceDir)) {
+    console.warn('⚠️  面试题库源目录不存在：interview-bank/');
+    return;
+  }
+
+  copyDir(sourceDir, targetDir, rootDir);
+  console.log('✅ 已同步 interview-bank/ 面试题总库');
+}
+
+function copyDir(sourceDir, targetDir, baseSourceDir) {
+  if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir, { recursive: true });
+  }
+
+  const entries = fs.readdirSync(sourceDir, { withFileTypes: true });
+  for (const entry of entries) {
+    const src = path.join(sourceDir, entry.name);
+    const dest = path.join(targetDir, entry.name);
+    if (entry.isDirectory()) {
+      copyDir(src, dest, baseSourceDir);
+    } else if (entry.name.endsWith('.md') || entry.name.endsWith('.json')) {
+      fs.copyFileSync(src, dest);
+      if (entry.name.endsWith('.md')) {
+        postProcess(dest, path.relative(baseSourceDir, src).replace(/\\/g, '/'));
+      }
+    }
+  }
 }
 
 function generateInterviewIndex() {
@@ -272,6 +308,7 @@ function generateSitemap() {
   addUrl('/learning-path/dashboard');
   addUrl('/learning-path/ai-assistant');
   addUrl('/learning-path/interview-practice');
+  addUrl('/interview-bank/');
   addUrl('/contribute');
 
   for (const { to } of contentMapping) {

@@ -709,5 +709,359 @@
         }
       ]
     }
+  ],
+  "/interview-bank/": [
+    {
+      "text": "前端面试题总库",
+      "collapsed": false,
+      "items": [
+        {
+          "text": "题库首页",
+          "link": "/interview-bank/"
+        },
+        {
+          "text": "按岗位层级",
+          "collapsed": true,
+          "items": [
+            {
+              "text": "前端架构师",
+              "link": "/interview-bank/by-level/architect"
+            },
+            {
+              "text": "前端专家",
+              "link": "/interview-bank/by-level/expert"
+            },
+            {
+              "text": "初级前端工程师",
+              "link": "/interview-bank/by-level/junior"
+            },
+            {
+              "text": "高级前端工程师",
+              "link": "/interview-bank/by-level/senior"
+            }
+          ]
+        },
+        {
+          "text": "按题型",
+          "collapsed": true,
+          "items": [
+            {
+              "text": "概念题",
+              "link": "/interview-bank/by-type/01-concept"
+            },
+            {
+              "text": "代码分析题",
+              "link": "/interview-bank/by-type/02-code-analysis"
+            },
+            {
+              "text": "手写代码题",
+              "link": "/interview-bank/by-type/03-coding"
+            },
+            {
+              "text": "场景设计题",
+              "link": "/interview-bank/by-type/04-scenario"
+            },
+            {
+              "text": "系统设计题",
+              "link": "/interview-bank/by-type/05-system-design"
+            },
+            {
+              "text": "框架原理题",
+              "link": "/interview-bank/by-type/06-framework-source"
+            },
+            {
+              "text": "性能优化题",
+              "link": "/interview-bank/by-type/07-performance"
+            },
+            {
+              "text": "安全题",
+              "link": "/interview-bank/by-type/08-security"
+            },
+            {
+              "text": "工程化题",
+              "link": "/interview-bank/by-type/09-engineering"
+            },
+            {
+              "text": "软技能题",
+              "link": "/interview-bank/by-type/10-soft-skill"
+            },
+            {
+              "text": "综合开放题",
+              "link": "/interview-bank/by-type/11-comprehensive"
+            }
+          ]
+        },
+        {
+          "text": "按面试知识域",
+          "collapsed": true,
+          "items": [
+            {
+              "text": "JavaScript",
+              "link": "/interview-bank/by-domain/01-javascript"
+            },
+            {
+              "text": "TypeScript",
+              "link": "/interview-bank/by-domain/02-typescript"
+            },
+            {
+              "text": "浏览器原理",
+              "link": "/interview-bank/by-domain/03-browser"
+            },
+            {
+              "text": "计算机网络",
+              "link": "/interview-bank/by-domain/04-network"
+            },
+            {
+              "text": "Web 安全",
+              "link": "/interview-bank/by-domain/05-security"
+            },
+            {
+              "text": "HTML / CSS",
+              "link": "/interview-bank/by-domain/06-html-css"
+            },
+            {
+              "text": "可访问性",
+              "link": "/interview-bank/by-domain/07-a11y"
+            },
+            {
+              "text": "数据结构与算法",
+              "link": "/interview-bank/by-domain/08-algorithms"
+            },
+            {
+              "text": "设计模式",
+              "link": "/interview-bank/by-domain/09-design-patterns"
+            },
+            {
+              "text": "构建工具",
+              "link": "/interview-bank/by-domain/10-build-tools"
+            },
+            {
+              "text": "Monorepo",
+              "link": "/interview-bank/by-domain/11-monorepo"
+            },
+            {
+              "text": "CI/CD",
+              "link": "/interview-bank/by-domain/12-ci-cd"
+            },
+            {
+              "text": "代码质量与测试",
+              "link": "/interview-bank/by-domain/13-code-quality"
+            },
+            {
+              "text": "设计体系与组件库",
+              "link": "/interview-bank/by-domain/14-design-system"
+            },
+            {
+              "text": "React",
+              "link": "/interview-bank/by-domain/15-react"
+            },
+            {
+              "text": "Vue",
+              "link": "/interview-bank/by-domain/16-vue"
+            },
+            {
+              "text": "跨端技术",
+              "link": "/interview-bank/by-domain/17-cross-platform"
+            },
+            {
+              "text": "AI 工程化",
+              "link": "/interview-bank/by-domain/18-ai-engineering"
+            },
+            {
+              "text": "Node.js / BFF",
+              "link": "/interview-bank/by-domain/19-node-bff"
+            },
+            {
+              "text": "Git 工作流",
+              "link": "/interview-bank/by-domain/20-git-workflow"
+            },
+            {
+              "text": "开发者体验",
+              "link": "/interview-bank/by-domain/21-dx"
+            },
+            {
+              "text": "部署与 SRE",
+              "link": "/interview-bank/by-domain/22-deployment-sre"
+            },
+            {
+              "text": "包管理与供应链安全",
+              "link": "/interview-bank/by-domain/23-package-supply-chain"
+            },
+            {
+              "text": "前端运维与监控",
+              "link": "/interview-bank/by-domain/24-frontend-operations"
+            },
+            {
+              "text": "系统架构设计",
+              "link": "/interview-bank/by-domain/25-system-architecture"
+            },
+            {
+              "text": "微前端",
+              "link": "/interview-bank/by-domain/26-micro-frontend"
+            },
+            {
+              "text": "性能工程",
+              "link": "/interview-bank/by-domain/27-performance"
+            },
+            {
+              "text": "质量保障",
+              "link": "/interview-bank/by-domain/28-quality"
+            },
+            {
+              "text": "数据与状态管理",
+              "link": "/interview-bank/by-domain/29-data-state"
+            },
+            {
+              "text": "可观测性",
+              "link": "/interview-bank/by-domain/30-observability"
+            },
+            {
+              "text": "安全架构",
+              "link": "/interview-bank/by-domain/31-security-architecture"
+            },
+            {
+              "text": "实时与协同",
+              "link": "/interview-bank/by-domain/32-real-time"
+            },
+            {
+              "text": "国际化",
+              "link": "/interview-bank/by-domain/33-internationalization"
+            },
+            {
+              "text": "可视化与图形",
+              "link": "/interview-bank/by-domain/34-visualization-graphics"
+            },
+            {
+              "text": "Serverless / Edge",
+              "link": "/interview-bank/by-domain/35-serverless-edge"
+            },
+            {
+              "text": "前端数据工程",
+              "link": "/interview-bank/by-domain/36-data-engineering"
+            },
+            {
+              "text": "业务洞察",
+              "link": "/interview-bank/by-domain/37-business"
+            },
+            {
+              "text": "团队领导力",
+              "link": "/interview-bank/by-domain/38-team"
+            },
+            {
+              "text": "技术战略",
+              "link": "/interview-bank/by-domain/39-strategy"
+            },
+            {
+              "text": "沟通表达",
+              "link": "/interview-bank/by-domain/40-communication"
+            },
+            {
+              "text": "项目管理",
+              "link": "/interview-bank/by-domain/41-project-management"
+            },
+            {
+              "text": "招聘与组织",
+              "link": "/interview-bank/by-domain/42-hiring"
+            },
+            {
+              "text": "技术品牌",
+              "link": "/interview-bank/by-domain/43-tech-branding"
+            },
+            {
+              "text": "技术治理",
+              "link": "/interview-bank/by-domain/44-tech-governance"
+            },
+            {
+              "text": "小程序",
+              "link": "/interview-bank/by-domain/45-mini-program"
+            },
+            {
+              "text": "鸿蒙 ArkTS / HarmonyOS",
+              "link": "/interview-bank/by-domain/46-harmonyos"
+            },
+            {
+              "text": "Flutter",
+              "link": "/interview-bank/by-domain/47-flutter"
+            },
+            {
+              "text": "Electron",
+              "link": "/interview-bank/by-domain/48-electron"
+            },
+            {
+              "text": "WebAssembly",
+              "link": "/interview-bank/by-domain/49-webassembly"
+            },
+            {
+              "text": "WebGPU / 图形学",
+              "link": "/interview-bank/by-domain/50-webgpu-graphics"
+            },
+            {
+              "text": "音视频前端",
+              "link": "/interview-bank/by-domain/51-multimedia"
+            },
+            {
+              "text": "低代码 / 搭建",
+              "link": "/interview-bank/by-domain/52-low-code"
+            },
+            {
+              "text": "计算机基础",
+              "link": "/interview-bank/by-domain/53-computer-science"
+            },
+            {
+              "text": "行为面试",
+              "link": "/interview-bank/by-domain/54-behavioral"
+            },
+            {
+              "text": "简历与面试技巧",
+              "link": "/interview-bank/by-domain/55-resume-interview"
+            },
+            {
+              "text": "行业特化",
+              "link": "/interview-bank/by-domain/56-industry"
+            }
+          ]
+        },
+        {
+          "text": "模拟试卷",
+          "collapsed": true,
+          "items": [
+            {
+              "text": "architect-system-design-120min",
+              "link": "/interview-bank/mock-papers/architect-system-design-120min"
+            },
+            {
+              "text": "junior-frontend-60min",
+              "link": "/interview-bank/mock-papers/junior-frontend-60min"
+            },
+            {
+              "text": "senior-frontend-90min",
+              "link": "/interview-bank/mock-papers/senior-frontend-90min"
+            }
+          ]
+        },
+        {
+          "text": "快问快答",
+          "collapsed": true,
+          "items": [
+            {
+              "text": "browser-core",
+              "link": "/interview-bank/flashcards/browser-core"
+            },
+            {
+              "text": "js-core",
+              "link": "/interview-bank/flashcards/js-core"
+            },
+            {
+              "text": "performance-core",
+              "link": "/interview-bank/flashcards/performance-core"
+            },
+            {
+              "text": "react-core",
+              "link": "/interview-bank/flashcards/react-core"
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

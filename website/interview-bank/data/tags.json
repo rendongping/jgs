@@ -1,0 +1,1383 @@
+{
+  "version": 1,
+  "description": "前端面试题总库 — 标签体系",
+  "tags": [
+    {
+      "id": "data-types",
+      "name": "数据类型",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "event-loop",
+      "name": "事件循环",
+      "domainIds": [
+        "01",
+        "03"
+      ]
+    },
+    {
+      "id": "closure",
+      "name": "闭包",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "prototype",
+      "name": "原型链",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "this",
+      "name": "this",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "async",
+      "name": "异步",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "promise",
+      "name": "Promise",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "es6",
+      "name": "ES6+",
+      "domainIds": [
+        "01",
+        "02"
+      ]
+    },
+    {
+      "id": "scope",
+      "name": "作用域",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "hoisting",
+      "name": "变量提升",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": " coercion",
+      "name": "类型转换",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "generic",
+      "name": "泛型",
+      "domainIds": [
+        "02"
+      ]
+    },
+    {
+      "id": "type-inference",
+      "name": "类型推断",
+      "domainIds": [
+        "02"
+      ]
+    },
+    {
+      "id": "rendering",
+      "name": "渲染流程",
+      "domainIds": [
+        "03"
+      ]
+    },
+    {
+      "id": "reflow-repaint",
+      "name": "重排重绘",
+      "domainIds": [
+        "03",
+        "27"
+      ]
+    },
+    {
+      "id": "event-delegation",
+      "name": "事件委托",
+      "domainIds": [
+        "01",
+        "03"
+      ]
+    },
+    {
+      "id": "http",
+      "name": "HTTP",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "https",
+      "name": "HTTPS",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "tcp",
+      "name": "TCP",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "dns",
+      "name": "DNS",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "cdn",
+      "name": "CDN",
+      "domainIds": [
+        "04",
+        "27"
+      ]
+    },
+    {
+      "id": "xss",
+      "name": "XSS",
+      "domainIds": [
+        "04",
+        "05",
+        "31"
+      ]
+    },
+    {
+      "id": "csrf",
+      "name": "CSRF",
+      "domainIds": [
+        "04",
+        "05",
+        "31"
+      ]
+    },
+    {
+      "id": "csp",
+      "name": "CSP",
+      "domainIds": [
+        "04",
+        "05",
+        "31"
+      ]
+    },
+    {
+      "id": "flexbox",
+      "name": "Flexbox",
+      "domainIds": [
+        "06"
+      ]
+    },
+    {
+      "id": "grid",
+      "name": "Grid",
+      "domainIds": [
+        "06"
+      ]
+    },
+    {
+      "id": "bfc",
+      "name": "BFC",
+      "domainIds": [
+        "06"
+      ]
+    },
+    {
+      "id": "a11y",
+      "name": "可访问性",
+      "domainIds": [
+        "07"
+      ]
+    },
+    {
+      "id": "big-o",
+      "name": "时间复杂度",
+      "domainIds": [
+        "08"
+      ]
+    },
+    {
+      "id": "tree",
+      "name": "树",
+      "domainIds": [
+        "08"
+      ]
+    },
+    {
+      "id": "dp",
+      "name": "动态规划",
+      "domainIds": [
+        "08"
+      ]
+    },
+    {
+      "id": "singleton",
+      "name": "单例模式",
+      "domainIds": [
+        "09"
+      ]
+    },
+    {
+      "id": "observer",
+      "name": "观察者模式",
+      "domainIds": [
+        "09"
+      ]
+    },
+    {
+      "id": "factory",
+      "name": "工厂模式",
+      "domainIds": [
+        "09"
+      ]
+    },
+    {
+      "id": "webpack",
+      "name": "Webpack",
+      "domainIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "vite",
+      "name": "Vite",
+      "domainIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "rollup",
+      "name": "Rollup",
+      "domainIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "babel",
+      "name": "Babel",
+      "domainIds": [
+        "10"
+      ]
+    },
+    {
+      "id": "pnpm",
+      "name": "pnpm",
+      "domainIds": [
+        "11",
+        "23"
+      ]
+    },
+    {
+      "id": "turborepo",
+      "name": "Turborepo",
+      "domainIds": [
+        "11"
+      ]
+    },
+    {
+      "id": "github-actions",
+      "name": "GitHub Actions",
+      "domainIds": [
+        "12"
+      ]
+    },
+    {
+      "id": "docker",
+      "name": "Docker",
+      "domainIds": [
+        "12",
+        "22"
+      ]
+    },
+    {
+      "id": "jest",
+      "name": "Jest",
+      "domainIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "cypress",
+      "name": "Cypress",
+      "domainIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "playwright",
+      "name": "Playwright",
+      "domainIds": [
+        "13"
+      ]
+    },
+    {
+      "id": "design-token",
+      "name": "Design Token",
+      "domainIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "storybook",
+      "name": "Storybook",
+      "domainIds": [
+        "14"
+      ]
+    },
+    {
+      "id": "react-hooks",
+      "name": "React Hooks",
+      "domainIds": [
+        "15"
+      ]
+    },
+    {
+      "id": "react-fiber",
+      "name": "React Fiber",
+      "domainIds": [
+        "15"
+      ]
+    },
+    {
+      "id": "redux",
+      "name": "Redux",
+      "domainIds": [
+        "15",
+        "29"
+      ]
+    },
+    {
+      "id": "vue-reactivity",
+      "name": "Vue 响应式",
+      "domainIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "vue-compiler",
+      "name": "Vue 编译器",
+      "domainIds": [
+        "16"
+      ]
+    },
+    {
+      "id": "react-native",
+      "name": "React Native",
+      "domainIds": [
+        "17"
+      ]
+    },
+    {
+      "id": "flutter",
+      "name": "Flutter",
+      "domainIds": [
+        "47"
+      ]
+    },
+    {
+      "id": "electron",
+      "name": "Electron",
+      "domainIds": [
+        "48"
+      ]
+    },
+    {
+      "id": "llm",
+      "name": "大语言模型",
+      "domainIds": [
+        "18"
+      ]
+    },
+    {
+      "id": "rag",
+      "name": "RAG",
+      "domainIds": [
+        "18"
+      ]
+    },
+    {
+      "id": "agent",
+      "name": "Agent",
+      "domainIds": [
+        "18"
+      ]
+    },
+    {
+      "id": "mcp",
+      "name": "MCP",
+      "domainIds": [
+        "18"
+      ]
+    },
+    {
+      "id": "nestjs",
+      "name": "NestJS",
+      "domainIds": [
+        "19"
+      ]
+    },
+    {
+      "id": "grpc",
+      "name": "gRPC",
+      "domainIds": [
+        "19"
+      ]
+    },
+    {
+      "id": "git-rebase",
+      "name": "Git Rebase",
+      "domainIds": [
+        "20"
+      ]
+    },
+    {
+      "id": "micro-frontend",
+      "name": "微前端",
+      "domainIds": [
+        "26"
+      ]
+    },
+    {
+      "id": "module-federation",
+      "name": "Module Federation",
+      "domainIds": [
+        "10",
+        "26"
+      ]
+    },
+    {
+      "id": "core-web-vitals",
+      "name": "Core Web Vitals",
+      "domainIds": [
+        "27"
+      ]
+    },
+    {
+      "id": "lazy-loading",
+      "name": "懒加载",
+      "domainIds": [
+        "27"
+      ]
+    },
+    {
+      "id": "ssr",
+      "name": "SSR",
+      "domainIds": [
+        "25",
+        "27"
+      ]
+    },
+    {
+      "id": "testing-strategy",
+      "name": "测试策略",
+      "domainIds": [
+        "28"
+      ]
+    },
+    {
+      "id": "tanstack-query",
+      "name": "TanStack Query",
+      "domainIds": [
+        "29"
+      ]
+    },
+    {
+      "id": "observability",
+      "name": "可观测性",
+      "domainIds": [
+        "30"
+      ]
+    },
+    {
+      "id": "sentry",
+      "name": "Sentry",
+      "domainIds": [
+        "30"
+      ]
+    },
+    {
+      "id": "websocket",
+      "name": "WebSocket",
+      "domainIds": [
+        "04",
+        "32"
+      ]
+    },
+    {
+      "id": "webgl",
+      "name": "WebGL",
+      "domainIds": [
+        "34",
+        "50"
+      ]
+    },
+    {
+      "id": "canvas",
+      "name": "Canvas",
+      "domainIds": [
+        "34"
+      ]
+    },
+    {
+      "id": "d3",
+      "name": "D3.js",
+      "domainIds": [
+        "34"
+      ]
+    },
+    {
+      "id": "serverless",
+      "name": "Serverless",
+      "domainIds": [
+        "35"
+      ]
+    },
+    {
+      "id": "edge",
+      "name": "Edge",
+      "domainIds": [
+        "35"
+      ]
+    },
+    {
+      "id": "webrtc",
+      "name": "WebRTC",
+      "domainIds": [
+        "32",
+        "51"
+      ]
+    },
+    {
+      "id": "wasm",
+      "name": "WebAssembly",
+      "domainIds": [
+        "49"
+      ]
+    },
+    {
+      "id": "webgpu",
+      "name": "WebGPU",
+      "domainIds": [
+        "50"
+      ]
+    },
+    {
+      "id": "low-code",
+      "name": "低代码",
+      "domainIds": [
+        "52"
+      ]
+    },
+    {
+      "id": "operating-system",
+      "name": "操作系统",
+      "domainIds": [
+        "53"
+      ]
+    },
+    {
+      "id": "database",
+      "name": "数据库",
+      "domainIds": [
+        "53"
+      ]
+    },
+    {
+      "id": "compilation",
+      "name": "编译原理",
+      "domainIds": [
+        "53"
+      ]
+    },
+    {
+      "id": "leadership",
+      "name": "领导力",
+      "domainIds": [
+        "38"
+      ]
+    },
+    {
+      "id": "tech-debt",
+      "name": "技术债",
+      "domainIds": [
+        "39",
+        "44"
+      ]
+    },
+    {
+      "id": "interview-skills",
+      "name": "面试技巧",
+      "domainIds": [
+        "55"
+      ]
+    },
+    {
+      "id": "destructuring",
+      "name": "解构赋值",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "template-literal",
+      "name": "模板字符串",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "string-interpolation",
+      "name": "字符串插值",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "tagged-template",
+      "name": "标签模板",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "default-params",
+      "name": "默认参数",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "rest-spread",
+      "name": "展开运算符",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "regex",
+      "name": "正则表达式",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "error-handling",
+      "name": "错误处理",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "strict-mode",
+      "name": "严格模式",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "map-set",
+      "name": "Map/Set",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "weakmap-weakset",
+      "name": "WeakMap/WeakSet",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "async-await",
+      "name": "async/await",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "microtask",
+      "name": "微任务",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "concurrency",
+      "name": "并发控制",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "queue",
+      "name": "队列",
+      "domainIds": [
+        "01",
+        "08"
+      ]
+    },
+    {
+      "id": "class",
+      "name": "class",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "inheritance",
+      "name": "继承",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "super",
+      "name": "super",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "new-operator",
+      "name": "new",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "constructor",
+      "name": "构造函数",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "functional-programming",
+      "name": "函数式编程",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "currying",
+      "name": "柯里化",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "compose",
+      "name": "compose",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "pure-function",
+      "name": "纯函数",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "modules",
+      "name": "模块化",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "circular-dependency",
+      "name": "循环依赖",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "commonjs",
+      "name": "CommonJS",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "esm",
+      "name": "ESM",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "memory-leak",
+      "name": "内存泄漏",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "garbage-collection",
+      "name": "垃圾回收",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "weakref",
+      "name": "WeakRef",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "performance",
+      "name": "Performance",
+      "domainIds": [
+        "01",
+        "27"
+      ]
+    },
+    {
+      "id": "generator",
+      "name": "Generator",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "runner",
+      "name": "自动执行器",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "proxy",
+      "name": "Proxy",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "reflect",
+      "name": "Reflect",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "metaprogramming",
+      "name": "元编程",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "interceptor",
+      "name": "拦截器",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "error-monitoring",
+      "name": "错误监控",
+      "domainIds": [
+        "01",
+        "30"
+      ]
+    },
+    {
+      "id": "sdk",
+      "name": "SDK",
+      "domainIds": [
+        "30"
+      ]
+    },
+    {
+      "id": "frontend-engineering",
+      "name": "前端工程化",
+      "domainIds": [
+        "01",
+        "10"
+      ]
+    },
+    {
+      "id": "array",
+      "name": "数组",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "object",
+      "name": "对象",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "function",
+      "name": "函数",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "string-validation",
+      "name": "字符串校验",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "execution-context",
+      "name": "执行上下文",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "es6-name",
+      "name": "es6",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "rest",
+      "name": "rest",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "spread",
+      "name": "spread",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "let",
+      "name": "let",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "var",
+      "name": "var",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "shallow-copy",
+      "name": "浅拷贝",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "object-merge",
+      "name": "对象合并",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "exception-handling",
+      "name": "异常处理",
+      "domainIds": [
+        "01"
+      ]
+    },
+    {
+      "id": "osi-seven-layer-model",
+      "name": "OSI 七层模型",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "tcp-ip-model",
+      "name": "TCP/IP 四层模型",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "network-model",
+      "name": "网络模型",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "tls-ssl",
+      "name": "TLS/SSL",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "udp",
+      "name": "UDP",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "transport-layer",
+      "name": "传输层",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "domain-resolution",
+      "name": "域名解析",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "cache-strategy",
+      "name": "缓存策略",
+      "domainIds": [
+        "04",
+        "03"
+      ]
+    },
+    {
+      "id": "strong-cache",
+      "name": "强缓存",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "negotiated-cache",
+      "name": "协商缓存",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "cookie",
+      "name": "Cookie",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "session",
+      "name": "Session",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "jwt",
+      "name": "JWT",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "authentication",
+      "name": "身份认证",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "cors",
+      "name": "CORS",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "preflight-request",
+      "name": "预检请求",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "http-status-code",
+      "name": "HTTP 状态码",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "restful",
+      "name": "RESTful",
+      "domainIds": [
+        "04",
+        "19"
+      ]
+    },
+    {
+      "id": "api-design",
+      "name": "API 设计",
+      "domainIds": [
+        "04",
+        "19",
+        "25"
+      ]
+    },
+    {
+      "id": "real-time-communication",
+      "name": "实时通信",
+      "domainIds": [
+        "04",
+        "32"
+      ]
+    },
+    {
+      "id": "http2",
+      "name": "HTTP/2",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "multiplexing",
+      "name": "多路复用",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "head-of-line-blocking",
+      "name": "队头阻塞",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "keep-alive",
+      "name": "Keep-Alive",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "etag",
+      "name": "ETag",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "web-security",
+      "name": "Web 安全",
+      "domainIds": [
+        "04",
+        "05",
+        "31"
+      ]
+    },
+    {
+      "id": "network-request",
+      "name": "网络请求",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "graphql",
+      "name": "GraphQL",
+      "domainIds": [
+        "04",
+        "19"
+      ]
+    },
+    {
+      "id": "congestion-control",
+      "name": "拥塞控制",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "dns-security",
+      "name": "DNS 安全",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "mitm",
+      "name": "MITM",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "hpack",
+      "name": "HPACK",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "tls-1-3",
+      "name": "TLS 1.3",
+      "domainIds": [
+        "04",
+        "05"
+      ]
+    },
+    {
+      "id": "high-concurrency",
+      "name": "高并发",
+      "domainIds": [
+        "04",
+        "32"
+      ]
+    },
+    {
+      "id": "http3",
+      "name": "HTTP/3",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "quic",
+      "name": "QUIC",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "idempotency",
+      "name": "幂等性",
+      "domainIds": [
+        "04",
+        "19"
+      ]
+    },
+    {
+      "id": "0-rtt",
+      "name": "0-RTT",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "performance-optimization",
+      "name": "性能优化",
+      "domainIds": [
+        "04",
+        "27"
+      ]
+    },
+    {
+      "id": "multi-active",
+      "name": "多活",
+      "domainIds": [
+        "04",
+        "25"
+      ]
+    },
+    {
+      "id": "global-delivery",
+      "name": "全球分发",
+      "domainIds": [
+        "04",
+        "27"
+      ]
+    },
+    {
+      "id": "api-gateway",
+      "name": "API 网关",
+      "domainIds": [
+        "04",
+        "25"
+      ]
+    },
+    {
+      "id": "bff",
+      "name": "BFF",
+      "domainIds": [
+        "04",
+        "19"
+      ]
+    },
+    {
+      "id": "zero-trust",
+      "name": "零信任",
+      "domainIds": [
+        "04",
+        "05",
+        "31"
+      ]
+    },
+    {
+      "id": "security-architecture",
+      "name": "安全架构",
+      "domainIds": [
+        "04",
+        "31"
+      ]
+    },
+    {
+      "id": "static-assets",
+      "name": "静态资源",
+      "domainIds": [
+        "04",
+        "27"
+      ]
+    },
+    {
+      "id": "protocol-conversion",
+      "name": "协议转换",
+      "domainIds": [
+        "04"
+      ]
+    },
+    {
+      "id": "rate-limiting",
+      "name": "限流",
+      "domainIds": [
+        "04",
+        "25"
+      ]
+    }
+  ]
+}
