@@ -1,7 +1,7 @@
 # 前端面试题总库（Interview Bank）
 
 > 本模块是面向前端工程师求职与面试官出题的**独立、全面、结构化**面试题库。
-> 它不局限于知识库的 43 个领域，而是按"面试真实考察域"重新组织，覆盖从应届生到前端架构师的全层级面试场景。
+> 它不局限于知识库的 56 个领域，而是按"面试真实考察域"重新组织，覆盖从应届生到前端架构师的全层级面试场景。
 > 目标题量：**3000-5000 题**；每道题均附带参考答案、评分维度、延伸追问与常见错误。
 
 ---
@@ -40,18 +40,19 @@ interview-bank/
 │   ├── 02-typescript.md
 │   ├── 03-browser.md
 │   ├── ...
-│   ├── 44-mini-program.md
-│   ├── 45-harmonyos.md
-│   ├── 46-flutter.md
-│   ├── 47-electron.md
-│   ├── 48-webassembly.md
-│   ├── 49-webgpu-graphics.md
-│   ├── 50-multimedia.md
-│   ├── 51-low-code.md
-│   ├── 52-computer-science.md
-│   ├── 53-behavioral.md
-│   ├── 54-resume-interview.md
-│   └── 55-industry.md
+│   ├── 44-tech-governance.md
+│   ├── 45-mini-program.md
+│   ├── 46-harmonyos.md
+│   ├── 47-flutter.md
+│   ├── 48-electron.md
+│   ├── 49-webassembly.md
+│   ├── 50-webgpu-graphics.md
+│   ├── 51-multimedia.md
+│   ├── 52-low-code.md
+│   ├── 53-computer-science.md
+│   ├── 54-behavioral.md
+│   ├── 55-resume-interview.md
+│   └── 56-industry.md
 ├── by-type/                     # 按题型聚合（视图，不重复存放题目）
 │   ├── 01-concept.md
 │   ├── 02-code-analysis.md
@@ -244,8 +245,9 @@ interview-bank/
 
 | 指标 | 当前数量 | 目标数量 |
 |------|---------|---------|
-| 面试知识域 | 0 | 56 |
-| 题目总数 | 0 | 3000-5000 |
+| 面试知识域 | 56 | 56 |
+| 题目总数 | 3785 | 3000-5000 |
+| 标签总数 | 3915 | — |
 | 模拟试卷 | 0 | 30+ |
 | 快问快答 | 0 | 12+ |
 | 覆盖岗位层级 | 0 | 4 |

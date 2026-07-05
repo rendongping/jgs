@@ -1,21 +1,6005 @@
-# 19 node bff
+# Node.js / BFF 面试题
 
-> 本文件正在建设中，题目将逐步补充。
-> 目标：按本分类组织前端面试题，提供完整参考答案与评分维度。
-> 规范参考：[SCHEMA.md](../SCHEMA.md)
+> 本题库共收录 **81** 道面试题（基础 20 / 进阶 21 / 深入 24 / 架构 16）。
+> 本文件收录 Node.js / BFF 相关面试题，目标题量 120 道。
+> 题型覆盖：概念题、代码分析题、手写代码题、场景设计题、系统设计题、框架原理题、性能优化题、安全题、工程化题。
+> 难度覆盖：基础、进阶、深入、架构。
+> 每道题除标准参考答案外，另附**口头回答版**，便于面试时快速组织语言。
 
-## 基础题
+## 目录
 
-> 待补充
+- [基础题](#basic)
+- [进阶题](#advanced)
+- [深入题](#proficient)
+- [架构题](#architect)
 
-## 进阶题
+---
 
-> 待补充
+## 基础题（8 道）{#basic}
 
-## 深入题
+### FB-19-CO-B-001：Node.js 的事件循环是什么？它和浏览器事件循环有什么区别？
 
-> 待补充
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、事件循环、Event Loop、libuv、异步 IO
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
 
-## 架构题
+**题目描述**：
+请解释 Node.js 的事件循环机制，并简要说明它与浏览器事件循环的主要区别。
 
-> 待补充
+**参考答案**：
+
+Node.js 的事件循环（Event Loop）是其实现非阻塞 I/O 的核心机制。Node.js 启动后，会初始化事件循环，进入 `libuv` 管理的循环阶段，不断从各个阶段取出回调执行。
+
+Node.js 事件循环的主要阶段（按顺序执行）：
+
+1. **timers**：执行 `setTimeout` / `setInterval` 的回调。
+2. **pending callbacks**：执行延迟到下一个循环的 I/O 回调。
+3. **idle / prepare**：内部使用，日常开发不关注。
+4. **poll**：等待新的 I/O 事件，执行 I/O 回调。
+5. **check**：执行 `setImmediate` 的回调。
+6. **close callbacks**：执行 `socket.on('close', ...)` 等关闭回调。
+
+除了这六个阶段，还有两个优先级更高的微任务队列：
+
+- `process.nextTick`：优先级最高，会在每个阶段之间尽快执行。
+- `Promise.then` / `queueMicrotask`：次高优先级，在当前操作完成后、下一阶段开始前执行。
+
+与浏览器事件循环的区别：
+
+| 维度 | Node.js | 浏览器 |
+|------|---------|--------|
+| 运行环境 | 基于 libuv，可跨平台 | 基于浏览器内核 |
+| 宏任务来源 | timers、I/O、setImmediate、close 等 | 任务队列（task queue） |
+| nextTick | 有 `process.nextTick` | 无 |
+| setImmediate | 有 | 无（IE 除外） |
+| 阶段划分 | 明确分 6 个阶段 | 主要是宏任务 + 微任务 |
+
+最佳实践：
+- 递归使用 `process.nextTick` 会饿死事件循环，应谨慎使用。
+- 大多数业务代码使用 `Promise` / `async await` 即可，不必深入手动调度。
+
+**评分维度**：
+- 能说出 Node.js 事件循环由 libuv 管理（20%）
+- 能列出主要阶段（timers、poll、check 等）（40%）
+- 能说明 process.nextTick 和 Promise 微任务的特殊性（20%）
+- 能对比浏览器事件循环的至少 2 个差异（20%）
+
+**常见错误**：
+- 把 Node.js 事件循环和浏览器事件循环完全混为一谈。
+- 认为 `setTimeout(fn, 0)` 一定比 `setImmediate` 先执行（实际上取决于当前是否在 I/O 周期内）。
+- 忘记 `process.nextTick` 会在每个阶段之间执行，优先级高于 Promise。
+
+**延伸追问**：
+- `setTimeout(fn, 0)` 和 `setImmediate(fn)` 哪个先执行？
+- 在什么情况下应该使用 `process.nextTick` 而不是 `queueMicrotask`？
+
+**相关题目**：
+- [FB-19-CA-A-009 事件循环代码分析](#FB-19-CA-A-009)
+- [FB-19-CD-P-018 手写 Koa 洋葱圈中间件](#FB-19-CD-P-018)
+
+**参考资源**：
+- [Node.js 官方文档 - Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
+- [libuv 设计文档](http://docs.libuv.org/en/v1.x/design.html)
+
+**口头回答版**：
+> Node.js 的事件循环是实现非阻塞 IO 的核心，由 libuv 管理。它分几个阶段：timers 阶段执行 setTimeout，poll 阶段执行 IO 回调，check 阶段执行 setImmediate，还有 close callbacks。每个阶段之间会先清空 nextTick 队列，再清空 Promise 微任务队列。和浏览器比，Node 有 process.nextTick 和 setImmediate，阶段划分也更明确。浏览器的事件循环更简化，主要是宏任务和微任务。
+
+---
+
+### FB-19-CO-B-002：CommonJS 和 ES Module 有什么区别？Node.js 中如何混用？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、CommonJS、ESM、模块系统、require、import
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请对比 CommonJS 和 ES Module 在 Node.js 中的差异，并说明混用时需要注意的问题。
+
+**参考答案**：
+
+| 维度 | CommonJS（CJS） | ES Module（ESM） |
+|------|----------------|------------------|
+| 语法 | `require` / `module.exports` | `import` / `export` |
+| 加载时机 | 运行时同步加载 | 解析阶段静态分析，运行时异步/同步加载 |
+| 是否支持静态分析 | 否，动态 require | 是，tree-shaking 友好 |
+| 顶层 this | `module.exports` | `undefined` |
+| 文件扩展名 | `.js` / `.cjs` | `.mjs` / package.json 中 `"type": "module"` |
+| 循环依赖处理 | 返回已执行部分的拷贝 | 返回实时绑定的引用 |
+| 默认值 | `module.exports = ...` | `export default ...` |
+
+Node.js 中混用方式：
+
+1. **ESM 中导入 CJS**：
+   ```js
+   import pkg from './commonjs-module.cjs';
+   // 或命名导入（CJS 的 module.exports 必须类似 { a, b }）
+   import { a } from './commonjs-module.cjs';
+   ```
+
+2. **CJS 中导入 ESM**：
+   - 不能直接用 `require` 同步导入 ESM。
+   - 必须使用动态 `import()`，它返回 Promise：
+     ```js
+     (async () => {
+       const { foo } = await import('./esm-module.mjs');
+     })();
+     ```
+
+注意事项：
+- 混用会增加心智负担，新项目建议统一使用 ESM。
+- 第三方库若为 CJS，在 ESM 项目里通常需要 `esModuleInterop` 或 `allowSyntheticDefaultImports` 配置。
+- 使用 `.mjs` / `.cjs` 明确区分模块类型，避免歧义。
+
+**评分维度**：
+- 能区分 require 和 import 的语法与加载时机（40%）
+- 能说明静态分析和 tree-shaking 的差异（20%）
+- 能说明 CJS 和 ESM 混用的正确方式（30%）
+- 能提到扩展名或 type 字段配置（10%）
+
+**常见错误**：
+- 在 CJS 文件中直接用 `import` 语法。
+- 在 ESM 中用 `require` 导入 ESM 模块。
+- 认为 CJS 的 `module.exports = { a, b }` 可以完美支持 ESM 的命名导入（实际上默认导入的是整个对象）。
+
+**延伸追问**：
+- 循环依赖在 CJS 和 ESM 中分别会有什么表现？
+- 如何把一个 CJS 库发布成同时支持 CJS 和 ESM 的双模式包？
+
+**相关题目**：
+- [FB-19-CO-A-011 Node.js 进程与线程](#FB-19-CO-A-011)
+- [FB-19-EN-R-030 容器化部署与 CI/CD](#FB-19-EN-R-030)
+
+**参考资源**：
+- [Node.js 官方文档 - ECMAScript Modules](https://nodejs.org/api/esm.html)
+- [Node.js 官方文档 - CommonJS Modules](https://nodejs.org/api/modules.html)
+
+**口头回答版**：
+> CommonJS 用 require 和 module.exports，是运行时同步加载，不支持静态分析；ES Module 用 import/export，在解析阶段做静态分析，利于 tree-shaking。Node 里 ESM 可以直接导入 CJS，但 CJS 要导入 ESM 只能用动态 import()。新项目我建议统一用 ESM，通过 package.json 的 type 字段或 .mjs/.cjs 扩展名来区分。
+
+---
+
+### FB-19-CO-B-003：Buffer 是什么？它有哪些典型使用场景？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Buffer、二进制、Stream、文件读写
+**出现频率**：中频
+**预计回答时长**：2-3 分钟
+
+**题目描述**：
+请解释 Node.js 中 Buffer 的作用，并说明常见的使用场景。
+
+**参考答案**：
+
+Buffer 是 Node.js 提供的用于处理二进制数据的类。JavaScript 字符串是 UTF-16 编码，不适合直接操作原始字节；Buffer 则提供了对原始内存（字节数组）的直接操作能力。
+
+核心特点：
+- Buffer 是 `Uint8Array` 的子类，每个元素占 1 字节。
+- 创建后长度固定，但内容可以修改。
+- 默认编码为 UTF-8，也支持 `ascii`、`base64`、`hex`、`latin1` 等。
+
+典型使用场景：
+
+1. **文件读写**：
+   ```js
+   const fs = require('fs');
+   const data = fs.readFileSync('./image.png'); // 返回 Buffer
+   ```
+
+2. **网络请求处理**：
+   ```js
+   req.on('data', chunk => {
+     // chunk 是 Buffer
+     chunks.push(chunk);
+   });
+   ```
+
+3. **编解码转换**：
+   ```js
+   const buf = Buffer.from('hello', 'utf8');
+   console.log(buf.toString('base64')); // aGVsbG8=
+   ```
+
+4. **与 Stream 配合处理大文件**：
+   ```js
+   fs.createReadStream('./big-file.zip').pipe(fs.createWriteStream('./copy.zip'));
+   ```
+
+注意事项：
+- 尽量避免使用 `new Buffer()`（已废弃），改用 `Buffer.from()`、`Buffer.alloc()`、`Buffer.allocUnsafe()`。
+- `Buffer.allocUnsafe()` 不初始化内存，性能更高但可能包含旧数据，仅在性能敏感且会立即覆写时使用。
+
+**评分维度**：
+- 能说明 Buffer 是二进制数据容器（30%）
+- 能说明 Buffer 是 Uint8Array 子类、长度固定（20%）
+- 能列举 3 个以上使用场景（30%）
+- 能提到 Buffer.from/alloc 等安全创建方式（20%）
+
+**常见错误**：
+- 混淆 Buffer 和普通数组。
+- 使用已废弃的 `new Buffer()` 构造函数。
+- 在不指定编码的情况下直接对 Buffer 进行字符串拼接，导致乱码。
+
+**延伸追问**：
+- 为什么在处理大文件时不建议一次性 readFile 到 Buffer？
+- Buffer 和 ArrayBuffer / TypedArray 有什么关系？
+
+**相关题目**：
+- [FB-19-CO-B-004 Node.js Stream 类型](#FB-19-CO-B-004)
+- [FB-19-PE-A-016 Node.js 性能优化](#FB-19-PE-A-016)
+
+**参考资源**：
+- [Node.js 官方文档 - Buffer](https://nodejs.org/api/buffer.html)
+- [Node.js 官方文档 - fs](https://nodejs.org/api/fs.html)
+
+**口头回答版**：
+> Buffer 是 Node.js 里处理二进制数据的类，可以理解成固定长度的字节数组。它常用于文件读写、网络请求接收数据、base64/hex 编解码，以及和 Stream 配合处理大文件。创建 Buffer 推荐用 Buffer.from 或 Buffer.alloc，不要用已废弃的 new Buffer。
+
+---
+
+### FB-19-CO-B-004：Node.js 的 Stream 有哪些类型？各适用于什么场景？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Stream、Readable、Writable、Duplex、Transform
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Node.js 中 Stream 的四种基本类型，并分别给出适用场景。
+
+**参考答案**：
+
+Stream 是 Node.js 中处理流式数据的核心抽象，可以在数据到达时逐步处理，而不必一次性加载到内存，适合大文件、网络传输等场景。
+
+四种基本类型：
+
+| 类型 | 说明 | 典型场景 |
+|------|------|---------|
+| Readable | 可读流，数据来源 | 文件读取、HTTP 请求体、数据库查询结果 |
+| Writable | 可写流，数据去向 | 文件写入、HTTP 响应、数据库写入 |
+| Duplex | 既可读又可写 | TCP Socket、TLS Socket |
+| Transform | 可读可写且会转换数据 | gzip 压缩/解压、加密解密、日志格式化 |
+
+基础用法示例：
+
+```js
+const fs = require('fs');
+const zlib = require('zlib');
+
+// Readable + Transform + Writable 组合
+fs.createReadStream('./input.txt')
+  .pipe(zlib.createGzip())
+  .pipe(fs.createWriteStream('./input.txt.gz'));
+```
+
+事件与背压：
+- `data` 事件：流式读取到数据块。
+- `end` 事件：数据读取完毕。
+- `error` 事件：发生错误。
+- `pipe` / `pipeline`：自动处理背压（backpressure），防止内存溢出。
+
+现代推荐写法：
+```js
+const { pipeline } = require('stream/promises');
+
+await pipeline(
+  fs.createReadStream('./input.txt'),
+  zlib.createGzip(),
+  fs.createWriteStream('./input.txt.gz')
+);
+```
+
+**评分维度**：
+- 能说出四种 Stream 类型（40%）
+- 能给出每种类型的典型场景（30%）
+- 能说明背压和 pipeline 的作用（20%）
+- 能写出基础 pipe/pipeline 示例（10%）
+
+**常见错误**：
+- 把所有流都当作普通 Buffer 一次性处理。
+- 不使用 pipeline，导致错误处理不完整或内存溢出。
+- 混淆 Duplex 和 Transform（Transform 继承自 Duplex，但会转换数据）。
+
+**延伸追问**：
+- 什么是背压（backpressure）？如果不处理会有什么后果？
+- `pipe` 和 `pipeline` 有什么区别？
+
+**相关题目**：
+- [FB-19-CO-B-003 Buffer 使用场景](#FB-19-CO-B-003)
+- [FB-19-PE-A-016 Node.js 性能优化](#FB-19-PE-A-016)
+
+**参考资源**：
+- [Node.js 官方文档 - Stream](https://nodejs.org/api/stream.html)
+- [Node.js 官方文档 - stream/promises](https://nodejs.org/api/stream.html#streampipelinesource-transforms-destination-options)
+
+**口头回答版**：
+> Node.js 的 Stream 分四种：Readable 可读流，比如读文件；Writable 可写流，比如写文件；Duplex 既可读又可写，比如 TCP Socket；Transform 会转换数据，比如 gzip 压缩。流的好处是不用一次性把数据加载到内存，可以边读边处理。处理多个流推荐用 pipeline，它会自动处理背压，避免内存爆了。
+
+---
+
+### FB-19-CO-B-005：Promise、async/await 和回调函数有什么区别？Node.js 中如何处理异步错误？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、异步、Promise、async、await、错误处理
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请对比 Promise、async/await 和回调函数在 Node.js 异步编程中的差异，并说明异步错误的处理方式。
+
+**参考答案**：
+
+| 维度 | 回调函数 | Promise | async/await |
+|------|---------|---------|-------------|
+| 可读性 | 差，容易形成回调地狱 | 较好，链式调用 | 最好，类似同步代码 |
+| 错误处理 | 通过 err 参数手动传递 | `.catch()` | `try/catch` |
+| 组合异步 | 困难 | `Promise.all` / `race` / `allSettled` | 配合 await 使用 |
+| 调试 | 困难 | 中等 | 容易 |
+
+回调函数示例（错误优先回调）：
+```js
+fs.readFile('./file.txt', (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(data);
+});
+```
+
+Promise 示例：
+```js
+fs.promises.readFile('./file.txt')
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+```
+
+async/await 示例：
+```js
+async function read() {
+  try {
+    const data = await fs.promises.readFile('./file.txt');
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+```
+
+异步错误处理最佳实践：
+- 统一使用 `try/catch` + `async/await`。
+- 对于多个并行请求，使用 `Promise.allSettled` 避免一个失败导致全部失败。
+- 在 Express/Koa/NestJS 中配置全局错误中间件，避免未捕获异常导致进程崩溃。
+- Node.js 中未捕获的 Promise 拒绝会触发 `unhandledRejection` 事件，应监听并处理。
+
+**评分维度**：
+- 能从可读性、错误处理、组合能力对比三者（40%）
+- 能写出 async/await + try/catch 示例（30%）
+- 能说明 Promise.all/allSettled 等组合用法（20%）
+- 能提到全局错误处理和 unhandledRejection（10%）
+
+**常见错误**：
+- async 函数里不使用 try/catch，导致错误被吞掉。
+- 在 forEach 里使用 await，导致并行且无法捕获错误。
+- 混用回调和 Promise，造成错误处理遗漏。
+
+**延伸追问**：
+- `Promise.all` 和 `Promise.allSettled` 有什么区别？
+- 在 Express 中如何集中处理 async 路由抛出的错误？
+
+**相关题目**：
+- [FB-19-CA-A-009 事件循环代码分析](#FB-19-CA-A-009)
+- [FB-19-CD-P-018 手写 Koa 洋葱圈中间件](#FB-19-CD-P-018)
+
+**参考资源**：
+- [MDN - async function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function)
+- [Node.js 官方文档 - Promise](https://nodejs.org/api/util.html#utilpromisifyoriginal)
+
+**口头回答版**：
+> 回调函数最原始，但容易形成回调地狱；Promise 用链式调用和 .catch 处理错误；async/await 写起来最像同步代码，配合 try/catch 最自然。Node 里我推荐统一用 async/await，并行用 Promise.all 或 allSettled，避免一个失败全挂。还要注意 unhandledRejection，不然 Promise 错误没处理进程可能出问题。
+
+---
+
+### FB-19-CO-B-006：NestJS 的核心概念有哪些？依赖注入（DI）有什么好处？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：NestJS、依赖注入、IOC、Provider、Module、Decorator
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请介绍 NestJS 的几个核心概念，并说明依赖注入（DI）/ 控制反转（IoC）带来的好处。
+
+**参考答案**：
+
+NestJS 是一个基于 TypeScript 的 Node.js 服务端框架，底层默认使用 Express（可切换为 Fastify），核心借鉴了 Angular 的模块化设计。
+
+核心概念：
+
+| 概念 | 说明 |
+|------|------|
+| Module | 组织应用的功能模块，使用 `@Module` 装饰器声明 providers、controllers、imports、exports |
+| Controller | 处理 HTTP 请求，使用 `@Controller` 装饰器定义路由 |
+| Provider | 可被注入的服务、工厂、值等，通常用 `@Injectable` 标记 |
+| Service | 业务逻辑层，通常作为 Provider 使用 |
+| Middleware / Guard / Interceptor / Pipe / ExceptionFilter | 面向切面编程（AOP）组件，分别处理请求前置、权限、拦截、校验、异常 |
+| Decorator | 装饰器语法，用于声明元数据 |
+
+依赖注入（DI）与控制反转（IoC）的好处：
+
+1. **解耦**：服务不需要自己创建依赖，由容器注入。
+2. **可测试性**：方便使用 mock/stub 替换依赖，便于单元测试。
+3. **可维护性**：依赖关系集中管理，代码更直观。
+4. **复用性**：同一个 Provider 可在多个模块中共享。
+
+简单示例：
+```ts
+@Injectable()
+export class CatsService {
+  findAll() {
+    return ['cat1', 'cat2'];
+  }
+}
+
+@Controller('cats')
+export class CatsController {
+  constructor(private readonly catsService: CatsService) {}
+
+  @Get()
+  findAll() {
+    return this.catsService.findAll();
+  }
+}
+```
+
+**评分维度**：
+- 能说出 NestJS 的 Module、Controller、Provider、Service 等核心概念（40%）
+- 能解释依赖注入和控制反转的含义（30%）
+- 能说明 DI 带来的至少 3 个好处（20%）
+- 能写出基础装饰器示例（10%）
+
+**常见错误**：
+- 把 NestJS 简单等同于 Express 的语法糖。
+- 认为 DI 只是为了少写几行代码，忽略了解耦和可测试性。
+- 在 Provider 中直接 new 依赖而不是通过构造函数注入。
+
+**延伸追问**：
+- NestJS 的 Provider 有哪些作用域？默认是什么？
+- 如何自定义一个 NestJS 装饰器？
+
+**相关题目**：
+- [FB-19-FS-P-017 NestJS 装饰器原理](#FB-19-FS-P-017)
+- [FB-19-SD-R-024 设计高并发 BFF 网关](#FB-19-SD-R-024)
+
+**参考资源**：
+- [NestJS 官方文档 - Overview](https://docs.nestjs.com/)
+- [NestJS 官方文档 - Dependency Injection](https://docs.nestjs.com/providers#dependency-injection)
+
+**口头回答版**：
+> NestJS 核心概念有 Module、Controller、Provider、Service，还有 Middleware、Guard、Interceptor 这些 AOP 组件。Module 用 @Module 组织，Controller 处理路由，Provider 用 @Injectable 标记，可以被注入。依赖注入就是对象不自己创建依赖，由框架容器来注入，这样解耦、好测试、好维护。写代码时一般通过构造函数注入服务。
+
+---
+
+### FB-19-CO-B-007：JWT 鉴权的原理是什么？它有什么优缺点？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：JWT、鉴权、OAuth、Session、Token、安全
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 JWT（JSON Web Token）的鉴权原理，并说明它与 Session 鉴权的区别及适用场景。
+
+**参考答案**：
+
+JWT 是一种开放标准（RFC 7519），用于在各方之间安全地传输信息。它由三部分组成，用点号分隔：
+
+```
+Header.Payload.Signature
+```
+
+- **Header**：声明类型和签名算法，如 `{ "alg": "HS256", "typ": "JWT" }`。
+- **Payload**：携带声明（claims），如用户 ID、角色、过期时间。
+- **Signature**：用密钥对前两部分签名，防止篡改。
+
+鉴权流程：
+1. 用户登录成功后，服务端生成 JWT 返回给客户端。
+2. 客户端后续请求在 Header 中携带 `Authorization: Bearer {token}`。
+3. 服务端验证签名和有效期，通过后解析 Payload 获取用户信息。
+
+JWT 与 Session 对比：
+
+| 维度 | JWT | Session |
+|------|-----|---------|
+| 状态 | 无状态，服务端不保存 | 有状态，服务端保存 session |
+| 扩展性 | 好，适合分布式 | 需要共享 session 存储 |
+| 安全性 | 一旦签发难撤销，需配合黑名单/短有效期 | 可随时销毁 session |
+| 体积 | 较大，每次请求都携带 | 小，只传 session id |
+| 适用场景 | 微服务、移动端、单页应用 | 传统 Web、需要强会话控制 |
+
+优缺点：
+- 优点：无状态、跨服务共享、便于水平扩展。
+- 缺点：Token 无法立即失效、Payload 可解码但不安全存储敏感信息、体积较大。
+
+最佳实践：
+- Access Token 设置短有效期（如 15 分钟），Refresh Token 设置较长有效期。
+- 不要往 Payload 里放敏感信息。
+- 使用 HTTPS 传输，防止中间人截获。
+
+**评分维度**：
+- 能说明 JWT 的三部分组成（30%）
+- 能描述 JWT 鉴权流程（30%）
+- 能对比 JWT 和 Session 的至少 3 个差异（25%）
+- 能提到最佳实践（15%）
+
+**常见错误**：
+- 认为 JWT 是加密的（其实只是签名，Payload 是 base64 编码可解码）。
+- 把敏感信息直接放到 JWT Payload 中。
+- 只用一个长期有效的 JWT，不做刷新和失效机制。
+
+**延伸追问**：
+- 如果 JWT 被盗，服务端如何让它失效？
+- Refresh Token 应该如何安全存储？
+
+**相关题目**：
+- [FB-19-SE-P-020 Node.js 安全漏洞与防御](#FB-19-SE-P-020)
+- [FB-19-SD-R-024 设计高并发 BFF 网关](#FB-19-SD-R-024)
+
+**参考资源**：
+- [JWT 官方介绍](https://jwt.io/introduction)
+- [RFC 7519 - JSON Web Token](https://tools.ietf.org/html/rfc7519)
+
+**口头回答版**：
+> JWT 由 Header、Payload、Signature 三部分组成，用点号连接。用户登录后服务端生成 JWT 返回，客户端后面每次请求带上 Authorization: Bearer token，服务端验签和过期时间就行。和 Session 比，JWT 是无状态的，适合分布式和微服务；但签发后不好立即撤销，一般要配黑名单或短有效期加 Refresh Token。Payload 不要放敏感信息，因为只是 base64 编码，能被解码。
+
+---
+
+### FB-19-CO-B-008：什么是 BFF（Backend for Frontend）？为什么需要它？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：BFF、Backend for Frontend、微服务、聚合、API 网关
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 BFF 的概念，并说明在什么场景下需要引入 BFF 层。
+
+**参考答案**：
+
+BFF（Backend for Frontend）是指为特定前端应用或客户端量身定制的后端服务层。它位于前端和底层微服务/后端系统之间，负责聚合、转换、裁剪数据，以适配前端的需求。
+
+为什么需要 BFF：
+
+1. **适配多端差异**：
+   - 移动端和 PC 端对数据结构、字段、接口粒度需求不同。
+   - BFF 可以为不同端提供不同的接口，避免底层服务被前端细节污染。
+
+2. **聚合多个后端服务**：
+   - 一个页面可能需要调用用户服务、订单服务、商品服务等多个接口。
+   - BFF 可以在服务端聚合，减少前端请求次数。
+
+3. **协议转换**：
+   - 底层服务可能是 gRPC、GraphQL、REST，BFF 可以统一暴露为前端友好的 REST/GraphQL。
+
+4. **安全与鉴权**：
+   - BFF 可以作为统一入口处理鉴权、限流、日志、脱敏等横切关注点。
+
+5. **前后端解耦**：
+   - 前端需求变化不直接影响底层微服务接口。
+
+典型架构：
+```
+Web App / Mobile App
+       |
+   BFF Layer (Node.js / NestJS)
+       |
+  API Gateway / Microservices
+```
+
+注意事项：
+- BFF 不应包含过多业务逻辑，主要职责是编排和适配。
+- 不要滥用 BFF，简单应用可以直接调用后端 API。
+- 多个前端可能需要多个 BFF，避免一个 BFF 变成“大泥球”。
+
+**评分维度**：
+- 能准确解释 BFF 含义（30%）
+- 能说明至少 3 个引入 BFF 的理由（40%）
+- 能描述 BFF 在架构中的位置（15%）
+- 能提到注意事项（15%）
+
+**常见错误**：
+- 把 BFF 和 API 网关完全等同（网关更偏流量治理，BFF 更偏业务适配）。
+- 在 BFF 里写大量核心业务逻辑。
+- 认为所有项目都必须加 BFF。
+
+**延伸追问**：
+- BFF 和 API 网关、普通聚合服务有什么区别？
+- 如果多端差异很大，应该共用 BFF 还是各自建 BFF？
+
+**相关题目**：
+- [FB-19-SD-R-024 设计高并发 BFF 网关](#FB-19-SD-R-024)
+- [FB-19-SD-R-028 BFF 分层与领域聚合](#FB-19-SD-R-028)
+
+**参考资源**：
+- [Sam Newman - Backends For Frontends](https://samnewman.io/patterns/architectural/bff/)
+- [Thoughtworks Technology Radar - BFF](https://www.thoughtworks.com/radar)
+
+**口头回答版**：
+> BFF 就是 Backend for Frontend，给前端量身定做的后端层。它坐在前端和真正的微服务之间，负责把多个后端接口聚合成前端需要的数据结构，还能做协议转换、鉴权、脱敏这些。比如移动端和 PC 端要的字段不一样，就可以各有一个 BFF。注意 BFF 主要是编排和适配，不要塞太多业务逻辑。
+
+---
+
+## 进阶题（8 道）{#advanced}
+
+### FB-19-CA-A-009：下面代码的输出顺序是什么？为什么？
+
+**题型**：代码分析题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、事件循环、setTimeout、setImmediate、Promise、nextTick
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+
+```js
+const fs = require('fs');
+
+setTimeout(() => console.log('setTimeout'), 0);
+setImmediate(() => console.log('setImmediate'));
+
+Promise.resolve().then(() => console.log('Promise'));
+process.nextTick(() => console.log('nextTick'));
+
+fs.readFile(__filename, () => {
+  console.log('I/O');
+  setTimeout(() => console.log('I/O setTimeout'), 0);
+  setImmediate(() => console.log('I/O setImmediate'));
+});
+
+console.log('sync');
+```
+
+请分析上述代码在 Node.js 中的输出顺序。
+
+**参考答案**：
+
+输出顺序：
+
+```
+sync
+nextTick
+Promise
+setTimeout
+setImmediate
+I/O
+I/O setImmediate
+I/O setTimeout
+```
+
+分析：
+
+1. 同步代码先执行，打印 `sync`。
+2. 当前操作完成后，先清空 `process.nextTick` 队列，打印 `nextTick`。
+3. 再清空 Promise 微任务队列，打印 `Promise`。
+4. 进入事件循环：
+   - timers 阶段：`setTimeout(fn, 0)` 到期，打印 `setTimeout`。
+   - poll 阶段：检查是否有 I/O 完成。此时文件读取完成，执行 I/O 回调，打印 `I/O`。
+   - 在 I/O 回调内部：
+     - `setTimeout` 进入 timers 队列。
+     - `setImmediate` 进入 check 队列。
+     - I/O 回调执行完毕后，由于当前处于 poll 阶段，会立即检查 check 阶段，执行 `setImmediate`，打印 `I/O setImmediate`。
+     - 下一轮循环到 timers 阶段，执行 `setTimeout`，打印 `I/O setTimeout`。
+5. 主线程的 `setImmediate` 在 check 阶段执行，打印 `setImmediate`。
+
+关键结论：
+- `setTimeout(fn, 0)` 和 `setImmediate` 的执行顺序不固定，取决于事件循环当前所处阶段。
+- 在 I/O 回调内部，`setImmediate` 通常优先于 `setTimeout(fn, 0)`。
+- `process.nextTick` 优先级高于 Promise 微任务。
+
+**评分维度**：
+- 正确给出前 4 行输出（sync、nextTick、Promise、setTimeout）（30%）
+- 正确解释 setTimeout 与 setImmediate 的不确定顺序（25%）
+- 正确解释 I/O 回调内 setImmediate 优先于 setTimeout（25%）
+- 能说明 nextTick 与 Promise 微任务的优先级（20%）
+
+**常见错误**：
+- 认为 `setTimeout(fn, 0)` 一定比 `setImmediate` 先执行。
+- 忘记 `process.nextTick` 优先级高于 Promise。
+- 把 I/O 回调内的 setTimeout/setImmediate 与主线程的混为一谈。
+
+**延伸追问**：
+- 如果去掉 `fs.readFile`，输出顺序会怎样？
+- `process.nextTick` 递归调用会有什么风险？
+
+**相关题目**：
+- [FB-19-CO-B-001 Node.js 事件循环](#FB-19-CO-B-001)
+- [FB-19-CD-P-018 手写 Koa 洋葱圈中间件](#FB-19-CD-P-018)
+
+**参考资源**：
+- [Node.js 官方文档 - Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
+- [Node.js 官方文档 - setImmediate vs setTimeout](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout)
+
+**口头回答版**：
+> 先打印 sync，然后 nextTick，再 Promise，因为微任务里 nextTick 优先级最高。然后进入事件循环，timers 阶段打印 setTimeout，poll 阶段处理 IO，打印 I/O。IO 回调里 setImmediate 进入 check 阶段，setTimeout 进入 timers，因为当前在 poll 阶段，所以会先去 check，打印 I/O setImmediate，下一轮 timers 打印 I/O setTimeout。最后主线程的 setImmediate 在 check 阶段打印。注意 setTimeout 和 setImmediate 谁先谁后要看当前事件循环阶段。
+
+---
+
+### FB-19-CD-A-010：请手写一个简版 EventEmitter
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、EventEmitter、发布订阅、手写代码、设计模式
+**出现频率**：中频
+**预计回答时长**：5-10 分钟
+
+**题目描述**：
+请用 JavaScript 实现一个简版 EventEmitter，支持 `on`、`emit`、`off`、`once` 方法。
+
+**参考答案**：
+
+```js
+class EventEmitter {
+  constructor() {
+    this.events = new Map();
+  }
+
+  on(event, listener) {
+    if (!this.events.has(event)) {
+      this.events.set(event, []);
+    }
+    this.events.get(event).push(listener);
+    return this;
+  }
+
+  once(event, listener) {
+    const wrapper = (...args) => {
+      this.off(event, wrapper);
+      listener.apply(this, args);
+    };
+    wrapper.original = listener;
+    this.on(event, wrapper);
+    return this;
+  }
+
+  off(event, listener) {
+    if (!this.events.has(event)) return this;
+    const listeners = this.events.get(event);
+    const filtered = listeners.filter(
+      fn => fn !== listener && fn.original !== listener
+    );
+    if (filtered.length === 0) {
+      this.events.delete(event);
+    } else {
+      this.events.set(event, filtered);
+    }
+    return this;
+  }
+
+  emit(event, ...args) {
+    if (!this.events.has(event)) return false;
+    const listeners = this.events.get(event).slice();
+    for (const listener of listeners) {
+      listener.apply(this, args);
+    }
+    return true;
+  }
+}
+
+// 使用示例
+const emitter = new EventEmitter();
+emitter.on('data', console.log);
+emitter.emit('data', 'hello'); // 输出 hello
+```
+
+关键点：
+- 使用 Map 存储事件到监听器数组的映射。
+- `once` 通过包装函数实现，执行后自动 off。
+- `off` 时需要同时匹配普通监听器和 once 包装函数。
+- `emit` 时复制监听器数组，避免在回调中修改数组导致遗漏。
+
+Node.js 原生 EventEmitter 还提供更多功能：
+- `prependListener`：在队列头部添加监听器。
+- `removeAllListeners`：移除某事件全部监听器。
+- `setMaxListeners`：设置最大监听器数量，防止内存泄漏。
+- `error` 事件特殊处理：未监听 error 事件时抛出异常。
+
+**评分维度**：
+- 正确实现 on / emit / off / once（60%）
+- 能处理 once 的包装与解绑（20%）
+- 能提到 emit 时复制数组避免遗漏（10%）
+- 能提到 Node.js 原生 EventEmitter 的额外能力（10%）
+
+**常见错误**：
+- once 解绑时只解绑包装函数，但 off 传入的是原函数导致无法移除。
+- emit 时直接遍历原数组，在回调中 off 会导致跳过下一个监听器。
+- 忽略 error 事件未监听时的默认行为。
+
+**延伸追问**：
+- 如何实现 `prependListener`？
+- 如何防止内存泄漏？Node.js 原生是怎么做的？
+
+**相关题目**：
+- [FB-19-CO-B-001 Node.js 事件循环](#FB-19-CO-B-001)
+- [FB-19-CO-A-011 Node.js 进程与线程](#FB-19-CO-A-011)
+
+**参考资源**：
+- [Node.js 官方文档 - Events](https://nodejs.org/api/events.html)
+- [Node.js Events 源码](https://github.com/nodejs/node/blob/main/lib/events.js)
+
+**口头回答版**：
+> 简版 EventEmitter 用一个 Map 存事件和监听器数组。on 是加监听，emit 是遍历调用，off 是移除指定监听，once 是包一层函数，执行完自动 off。要注意 off once 时传入原函数也要能解绑，emit 时最好复制数组，避免回调里修改数组导致漏掉监听。Node 原生还有 prependListener、removeAllListeners、setMaxListeners 这些。
+
+---
+
+### FB-19-CO-A-011：Node.js 中进程和线程有什么区别？cluster 模块的作用是什么？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、进程、线程、cluster、多核、PM2
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Node.js 中进程与线程的区别，并解释 cluster 模块的作用和使用场景。
+
+**参考答案**：
+
+Node.js 是单线程事件驱动的运行时，但底层 libuv 使用线程池处理部分阻塞 I/O（如文件系统、DNS）。
+
+| 维度 | 进程（Process） | 线程（Thread） |
+|------|----------------|---------------|
+| 内存空间 | 独立内存 | 共享进程内存 |
+| 通信方式 | IPC、消息队列、共享内存 | 直接读写共享内存 |
+| 崩溃影响 | 不影响其他进程 | 可能导致整个进程崩溃 |
+| 创建开销 | 大 | 小 |
+| 适合场景 | 利用多核 CPU、隔离服务 | Worker Threads 中执行 CPU 密集型任务 |
+
+Node.js 利用多核的方式：
+
+1. **cluster 模块**：
+   - 主进程（master）创建多个工作进程（worker）。
+   - 每个 worker 是独立的 Node.js 进程，运行相同的服务代码。
+   - 主进程通过负载均衡将 TCP 连接分发给 worker。
+
+```js
+const cluster = require('cluster');
+const http = require('http');
+const os = require('os');
+
+if (cluster.isMaster) {
+  for (let i = 0; i < os.cpus().length; i++) {
+    cluster.fork();
+  }
+} else {
+  http.createServer((req, res) => {
+    res.end('hello from worker ' + process.pid);
+  }).listen(3000);
+}
+```
+
+2. **worker_threads**：
+   - 在同一个进程内创建多个线程。
+   - 适合 CPU 密集型任务，如复杂计算、图像处理。
+
+cluster 的使用场景：
+- 生产环境部署 HTTP 服务，充分利用多核 CPU。
+- 提高服务可用性：单个 worker 崩溃可重新 fork。
+- 与 PM2、Docker 等配合，构建高可用 Node.js 服务。
+
+注意事项：
+- worker 之间不共享内存，通信需通过 IPC 或 Redis 等外部存储。
+- 主进程不应处理业务逻辑，只负责管理和负载均衡。
+
+**评分维度**：
+- 能区分进程和线程的内存、通信、开销差异（30%）
+- 能说明 Node.js 单线程事件驱动的特点及 libuv 线程池（20%）
+- 能解释 cluster 模块主从架构和负载均衡（30%）
+- 能说明 cluster 与 worker_threads 的适用场景差异（20%）
+
+**常见错误**：
+- 认为 Node.js 完全单线程，忽略 libuv 线程池和 worker_threads。
+- 在 cluster worker 之间直接共享变量。
+- 主进程也处理业务请求。
+
+**延伸追问**：
+- cluster 的负载均衡策略有哪些？默认是什么？
+- 如果一台机器有 32 核，是否一定 fork 32 个 worker？
+
+**相关题目**：
+- [FB-19-PE-A-016 Node.js 性能优化](#FB-19-PE-A-016)
+- [FB-19-EN-R-030 容器化部署与 CI/CD](#FB-19-EN-R-030)
+
+**参考资源**：
+- [Node.js 官方文档 - Cluster](https://nodejs.org/api/cluster.html)
+- [Node.js 官方文档 - Worker Threads](https://nodejs.org/api/worker_threads.html)
+
+**口头回答版**：
+> Node.js 本身是单线程事件驱动，但 libuv 会用线程池处理部分 IO。进程有独立内存，通信靠 IPC；线程共享内存，开销小。cluster 模块是主进程 fork 多个 worker 进程，每个 worker 跑一份服务，主进程做负载均衡，这样能利用多核 CPU。如果要做 CPU 密集型任务，可以用 worker_threads。注意 worker 之间内存不共享，主进程不要处理业务。
+
+---
+
+### FB-19-CO-A-012：RESTful、GraphQL 和 tRPC 各有什么优缺点？如何选择？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：RESTful、GraphQL、tRPC、API 设计、BFF、RPC
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请对比 RESTful、GraphQL 和 tRPC 三种 API 设计范式，并说明在 BFF 场景中如何选择。
+
+**参考答案**：
+
+| 维度 | RESTful | GraphQL | tRPC |
+|------|---------|---------|------|
+| 核心思想 | 资源 + HTTP 动词 | 单个端点，客户端声明所需字段 | TypeScript 端到端类型安全 RPC |
+| 请求方式 | 多个 URL + GET/POST/PUT/DELETE | POST /graphql + query/mutation | 函数调用，自动生成 HTTP 路由 |
+| 数据获取 | 后端决定返回结构 | 前端精确获取字段 | 由服务端 procedure 定义 |
+| 类型安全 | 弱，依赖文档/OpenAPI | 有 Schema 类型 | 强，端到端 TypeScript 推导 |
+| 学习成本 | 低 | 中 | 低（TS 团队） |
+| 生态工具 | OpenAPI、Swagger | Apollo、Relay | TanStack Query、Next.js |
+| 适用团队 | 通用 | 前端需求多变、多端差异大 | 全栈 TS、前后端同构 |
+
+RESTful 示例：
+```http
+GET /users/1
+GET /users/1/orders
+```
+
+GraphQL 示例：
+```graphql
+query {
+  user(id: 1) {
+    name
+    orders { id, total }
+  }
+}
+```
+
+tRPC 示例：
+```ts
+// 服务端
+const appRouter = router({
+  user: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .query(({ input }) => db.user.findById(input.id)),
+});
+
+// 客户端
+const user = await trpc.user.query({ id: 1 });
+```
+
+BFF 场景选型建议：
+- **RESTful**：团队技术栈多样、需要对外暴露公共 API、第三方接入多。
+- **GraphQL**：前端需求多变、字段聚合复杂、移动端需要精简数据。
+- **tRPC**：全栈 TypeScript、Next.js/Nuxt 全栈项目、追求端到端类型安全。
+
+注意事项：
+- GraphQL 需要关注 N+1 查询、缓存、权限粒度等问题。
+- tRPC 适合同构项目，不适合对外暴露公共 API。
+
+**评分维度**：
+- 能从数据获取、类型安全、学习成本等维度对比三者（40%）
+- 能给出每种范式的典型代码示例（20%）
+- 能根据 BFF 场景给出选型建议（30%）
+- 能提到 GraphQL N+1、tRPC 适用范围等注意事项（10%）
+
+**常见错误**：
+- 认为 GraphQL 一定优于 RESTful，忽略其复杂性和缓存难度。
+- 把 tRPC 当成通用 RPC 框架用于跨语言场景。
+- 在简单 CRUD 场景强行引入 GraphQL。
+
+**延伸追问**：
+- GraphQL 如何解决 N+1 查询问题？
+- tRPC 如何实现端到端类型安全？
+
+**相关题目**：
+- [FB-19-CO-B-008 什么是 BFF](#FB-19-CO-B-008)
+- [FB-19-CO-P-021 gRPC 与 HTTP/2 原理](#FB-19-CO-P-021)
+
+**参考资源**：
+- [GraphQL 官方文档](https://graphql.org/learn/)
+- [tRPC 官方文档](https://trpc.io/)
+- [RESTful API 设计指南](https://restfulapi.net/)
+
+**口头回答版**：
+> RESTful 是资源加 HTTP 动词，简单通用；GraphQL 是单个端点，前端要什么字段就查什么，适合需求多变和多端；tRPC 是 TS 端到端类型安全的 RPC，写起来像调函数，适合全栈 TS 项目。BFF 里如果团队技术栈多、要对外暴露 API，用 RESTful；前端字段变化大、要聚合多个服务，用 GraphQL；全栈 TS 追求类型安全，用 tRPC。
+
+---
+
+### FB-19-CO-A-013：Redis 缓存有哪些使用策略？如何应对缓存穿透、击穿、雪崩？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Redis、缓存、缓存穿透、缓存击穿、缓存雪崩、缓存策略
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Redis 在 BFF/后端中的常见使用策略，并解释如何应对缓存穿透、缓存击穿、缓存雪崩。
+
+**参考答案**：
+
+常见缓存策略：
+
+| 策略 | 说明 | 特点 |
+|------|------|------|
+| Cache Aside | 读时先查缓存，miss 后查 DB 并写入缓存；写时先更新 DB，再删缓存 | 最常用，简单可控 |
+| Read Through | 读由缓存层代理，miss 时缓存自己加载 DB | 对业务透明 |
+| Write Through | 写时同时更新缓存和 DB | 数据一致性好，延迟稍高 |
+| Write Behind | 先写缓存，异步批量写 DB | 性能高，但可能丢数据 |
+
+Cache Aside 示例：
+```js
+async function getUser(id) {
+  let user = await redis.get(`user:${id}`);
+  if (user) return JSON.parse(user);
+
+  user = await db.user.findById(id);
+  if (user) {
+    await redis.setex(`user:${id}`, 3600, JSON.stringify(user));
+  }
+  return user;
+}
+```
+
+缓存问题及应对：
+
+| 问题 | 现象 | 解决方案 |
+|------|------|---------|
+| 缓存穿透 | 查询不存在的数据，每次打到 DB | 布隆过滤器、缓存空值、参数校验 |
+| 缓存击穿 | 热点 key 过期瞬间大量请求打到 DB | 互斥锁、逻辑过期、热点 key 永不过期 |
+| 缓存雪崩 | 大量 key 同时过期，DB 压力激增 | 随机过期时间、多级缓存、熔断降级、限流 |
+
+最佳实践：
+- 设置合理的过期时间，避免同时失效。
+- 写操作优先更新 DB，再删除缓存，避免脏读。
+- 敏感数据谨慎缓存，注意数据脱敏和权限。
+- 使用 Redis Cluster 或 Sentinel 保证高可用。
+
+**评分维度**：
+- 能说明 Cache Aside、Read/Write Through 等策略（30%）
+- 能准确区分缓存穿透、击穿、雪崩（30%）
+- 能给出每种问题的应对方案（30%）
+- 能提到缓存与 DB 一致性问题（10%）
+
+**常见错误**：
+- 把缓存穿透、击穿、雪崩三个概念混淆。
+- 缓存空值时不设置短过期时间，导致大量无效 key。
+- 写操作先更新缓存再更新 DB，导致数据不一致。
+
+**延伸追问**：
+- 更新数据库后，是更新缓存还是删除缓存？为什么？
+- 如何保证缓存和数据库的最终一致性？
+
+**相关题目**：
+- [FB-19-CO-P-023 数据库连接池与慢查询](#FB-19-CO-P-023)
+- [FB-19-SD-R-024 设计高并发 BFF 网关](#FB-19-SD-R-024)
+
+**参考资源**：
+- [Redis 官方文档](https://redis.io/docs/)
+- [Martin Fowler - CacheAside](https://martinfowler.com/bliki/CacheAside.html)
+
+**口头回答版**：
+> 最常用的缓存策略是 Cache Aside，读的时候先查缓存，没有再去 DB 并写回缓存；写的时候先更新 DB 再删缓存。缓存穿透是查不存在的数据总打到 DB，可以用布隆过滤器或缓存空值；缓存击穿是热点 key 过期瞬间被打爆，可以加互斥锁或设热点 key 永不过期；缓存雪崩是大量 key 同时过期，可以给随机过期时间、加多级缓存、限流熔断。
+
+---
+
+### FB-19-CO-A-014：Kafka、RabbitMQ、RocketMQ 有什么区别？如何选型？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：消息队列、Kafka、RabbitMQ、RocketMQ、异步、削峰
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请对比 Kafka、RabbitMQ、RocketMQ 三种消息队列，并说明各自适用场景和选型依据。
+
+**参考答案**：
+
+| 维度 | Kafka | RabbitMQ | RocketMQ |
+|------|-------|----------|----------|
+| 设计定位 | 高吞吐分布式日志/流处理平台 | 通用消息队列，支持复杂路由 | 阿里开源，金融级高可靠消息队列 |
+| 吞吐量 | 极高（百万级 TPS） | 万级 ~ 十万级 TPS | 十万级 TPS |
+| 延迟 | 毫秒级 | 微秒 ~ 毫秒级 | 毫秒级 |
+| 消息模型 | 发布订阅，分区消费者组 | 队列 + 路由 | 发布订阅 + 集群消费 |
+| 可靠性 | 高，支持多副本 | 高，支持持久化和确认机制 | 非常高，金融级 |
+| 生态 | 大数据、实时计算、日志采集 | 企业集成、任务分发 | 电商、金融、分布式事务 |
+| 运维复杂度 | 较高 | 较低 | 中等 |
+
+核心概念：
+- **Kafka**：Topic + Partition + Offset + Consumer Group，适合日志、事件流、实时计算。
+- **RabbitMQ**：Exchange + Queue + Binding，支持 direct/topic/fanout/headers 路由。
+- **RocketMQ**：Topic + Queue + Tag + Consumer Group，支持顺序消息、事务消息、延迟消息。
+
+选型建议：
+- **Kafka**：大数据、日志收集、实时流处理、高吞吐场景。
+- **RabbitMQ**：任务队列、需要复杂路由、低延迟、中小规模。
+- **RocketMQ**：电商、金融、需要事务消息、顺序消息、高可靠场景。
+
+Node.js 中常用客户端：
+- Kafka：`kafka-node`、`kafkajs`。
+- RabbitMQ：`amqplib`。
+- RocketMQ：官方 Node.js SDK 或 HTTP 网关。
+
+**评分维度**：
+- 能从吞吐量、延迟、可靠性、生态等维度对比三者（40%）
+- 能说明各自的核心模型（Partition/Exchange/Queue 等）（30%）
+- 能根据场景给出选型建议（20%）
+- 能提到 Node.js 客户端（10%）
+
+**常见错误**：
+- 认为吞吐量越高越好，忽略延迟和运维成本。
+- 把 Kafka 当普通任务队列使用，忽略其流处理定位。
+- 在小型项目中强行引入 Kafka，增加不必要的复杂度。
+
+**延伸追问**：
+- 消息队列如何保证消息不丢失？
+- Kafka 的消费者组是如何实现负载均衡的？
+
+**相关题目**：
+- [FB-19-CO-P-022 微服务通信与分布式事务](#FB-19-CO-P-022)
+- [FB-19-SD-R-025 设计 Node.js 微服务架构](#FB-19-SD-R-025)
+
+**参考资源**：
+- [Kafka 官方文档](https://kafka.apache.org/documentation/)
+- [RabbitMQ 官方文档](https://www.rabbitmq.com/documentation.html)
+- [RocketMQ 官方文档](https://rocketmq.apache.org/docs/)
+
+**口头回答版**：
+> Kafka 是高吞吐的流处理平台，适合日志、大数据、实时计算；RabbitMQ 是通用消息队列，支持复杂路由，适合任务分发；RocketMQ 是阿里开源的，金融级可靠性，适合电商、分布式事务。选型看场景：要高吞吐用 Kafka，要低延迟复杂路由用 RabbitMQ，要事务消息和高可靠用 RocketMQ。
+
+---
+
+### FB-19-CO-A-015：Prisma 和 TypeORM 有什么区别？如何选择？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Prisma、TypeORM、ORM、数据库、TypeScript、Node.js
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请对比 Prisma 和 TypeORM 两个 Node.js ORM，并说明各自优缺点和选型依据。
+
+**参考答案**：
+
+| 维度 | Prisma | TypeORM |
+|------|--------|---------|
+| 架构 | 独立查询引擎（Rust 实现），生成类型安全客户端 | 装饰器驱动，基于 Active Record / Data Mapper |
+| 类型安全 | 极强，Schema 生成完整 TypeScript 类型 | 较好，依赖装饰器和泛型 |
+| Schema 定义 | 专用 DSL（Prisma Schema） | TypeScript 装饰器 |
+| 迁移工具 | Prisma Migrate，声明式 | TypeORM Migrations，命令式 |
+| 学习曲线 | 需学习 Prisma Schema | 对熟悉 TypeScript/装饰器者更自然 |
+| 生态成熟度 | 增长快，社区活跃 | 更成熟，但维护近年放缓 |
+| 复杂查询 | 功能强，但非常复杂的 SQL 需 raw query | 更灵活，QueryBuilder 接近 SQL |
+
+Prisma 示例：
+```prisma
+// schema.prisma
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  posts Post[]
+}
+```
+
+```ts
+const users = await prisma.user.findMany({
+  include: { posts: true },
+});
+```
+
+TypeORM 示例：
+```ts
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ unique: true })
+  email: string;
+}
+```
+
+选型建议：
+- **Prisma**：新项目、强类型安全优先、团队愿意接受 Schema-first 工作流。
+- **TypeORM**：已有大量 TypeScript 装饰器代码、需要高度灵活的 QueryBuilder、团队熟悉其生态。
+
+注意事项：
+- ORM 不是银弹，复杂聚合或性能敏感场景应使用原生 SQL 或 raw query。
+- 注意 N+1 查询问题，合理使用 include/join。
+
+**评分维度**：
+- 能从架构、类型安全、Schema 定义、迁移工具对比（40%）
+- 能写出基础 Prisma 或 TypeORM 代码示例（20%）
+- 能给出选型建议（25%）
+- 能提到 ORM 局限性和 N+1 问题（15%）
+
+**常见错误**：
+- 认为 ORM 完全替代 SQL，所有查询都用 ORM。
+- 忽略 Prisma 迁移时的数据库锁定问题。
+- TypeORM 中滥用 Active Record 模式导致测试困难。
+
+**延伸追问**：
+- Prisma 的查询引擎是怎么工作的？
+- 如何排查 ORM 产生的慢查询？
+
+**相关题目**：
+- [FB-19-CO-P-023 数据库连接池与慢查询](#FB-19-CO-P-023)
+- [FB-19-SD-R-025 设计 Node.js 微服务架构](#FB-19-SD-R-025)
+
+**参考资源**：
+- [Prisma 官方文档](https://www.prisma.io/docs)
+- [TypeORM 官方文档](https://typeorm.io/)
+
+**口头回答版**：
+> Prisma 是 Schema-first，用独立的 Prisma Schema 定义模型，生成类型非常安全，迁移工具也好用；TypeORM 是装饰器驱动，写起来更像 TS，查询更灵活。新项目、看重类型安全我推荐 Prisma；已有装饰器代码或需要复杂 SQL 可以用 TypeORM。但 ORM 不是万能的，复杂查询或性能敏感时该上 raw query 就上 raw query。
+
+---
+
+### FB-19-PE-A-016：Node.js 服务有哪些常见的性能优化手段？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、性能优化、缓存、集群、异步、内存、 profiling
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请列举 Node.js 服务常见的性能优化手段，并说明如何定位和排查性能瓶颈。
+
+**参考答案**：
+
+Node.js 服务性能优化可以从多个层面入手：
+
+1. **CPU 层面**：
+   - 使用 cluster / PM2 多进程利用多核。
+   - 将 CPU 密集型任务放到 worker_threads 或外部服务。
+   - 避免在主线程做复杂同步计算。
+
+2. **I/O 层面**：
+   - 使用 Stream 处理大文件，避免一次性加载到内存。
+   - 数据库查询加索引、使用连接池、避免 N+1 查询。
+   - 合理使用缓存（Redis）减少重复计算和数据库压力。
+
+3. **网络层面**：
+   - 启用 HTTP Keep-Alive 和连接池。
+   - 使用 gzip / brotli 压缩响应。
+   - 合并请求、接口聚合、减少 RTT。
+
+4. **内存层面**：
+   - 避免全局变量累积。
+   - 注意闭包和事件监听器导致的内存泄漏。
+   - 监控堆内存，及时触发 GC 分析。
+
+5. **应用框架层面**：
+   - NestJS 中可切换底层 HTTP 适配器为 Fastify，提升吞吐量。
+   - 中间件按使用频率排序，减少不必要处理。
+   - 使用响应缓存和 CDN 加速静态资源。
+
+性能定位方法：
+- `node --prof` 生成 CPU profile，用 `--prof-process` 分析。
+- `clinic.js`：一套 Node.js 性能诊断工具。
+- `0x`：火焰图生成工具。
+- Chrome DevTools Memory / Performance：分析内存泄漏和 CPU 热点。
+- APM 工具：Elastic APM、Datadog、SkyWalking。
+
+**评分维度**：
+- 能从 CPU、I/O、网络、内存、框架层面各给出至少 1 个优化手段（50%）
+- 能说明如何定位性能瓶颈（25%）
+- 能提到具体工具如 clinic.js、0x、APM（15%）
+- 能说明 NestJS 切 Fastify 等具体实践（10%）
+
+**常见错误**：
+- 只关注代码层面，忽略数据库和中间件优化。
+- 盲目加缓存，导致数据一致性问题。
+- 不做 profiling 就凭感觉优化。
+
+**延伸追问**：
+- 如何用 clinic.js 排查事件循环延迟问题？
+- Node.js 服务的 GC 卡顿通常由什么原因引起？
+
+**相关题目**：
+- [FB-19-CO-A-011 Node.js 进程与线程](#FB-19-CO-A-011)
+- [FB-19-CO-P-019 Node.js 内存管理与 V8 GC](#FB-19-CO-P-019)
+
+**参考资源**：
+- [Node.js 官方文档 - Performance](https://nodejs.org/api/perf_hooks.html)
+- [clinic.js 官方文档](https://clinicjs.org/)
+- [0x 火焰图工具](https://github.com/davidmarkclements/0x)
+
+**口头回答版**：
+> Node.js 性能优化分几层：CPU 层用 cluster 多进程或 worker_threads 处理重计算；IO 层用 Stream 处理大文件、数据库加索引和连接池、用 Redis 缓存；网络层开 Keep-Alive、压缩响应、合并请求；内存层防泄漏、监控堆内存；框架层 NestJS 可以切 Fastify。定位问题要做 profiling，用 node --prof、clinic.js、0x 生成火焰图，也可以用 APM 工具长期监控。
+
+---
+
+## 深入题（7 道）{#proficient}
+
+### FB-19-FS-P-017：NestJS 的装饰器（Decorator）原理是什么？如何手写一个装饰器？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：NestJS、装饰器、Decorator、Reflect Metadata、IOC、TypeScript
+**出现频率**：中频
+**预计回答时长**：8-15 分钟
+
+**题目描述**：
+请解释 NestJS 中装饰器的工作原理，包括 Reflect Metadata 的作用，并手写一个简单的依赖注入装饰器。
+
+**参考答案**：
+
+TypeScript 装饰器是一个实验性特性，本质上是在类、方法、属性、参数声明时执行的函数，用于附加元数据或修改行为。
+
+NestJS 装饰器工作原理：
+
+1. **元数据注册**：
+   - 装饰器通过 `Reflect.metadata` 把路由路径、HTTP 方法、参数类型等信息挂到类或方法上。
+   - NestJS 启动时扫描这些元数据，构建路由表和依赖图。
+
+2. **依赖类型收集**：
+   - `design:paramtypes` 是 TS 编译器自动注入的参数类型元数据。
+   - NestJS 通过 `Reflect.getMetadata('design:paramtypes', Target)` 获取构造函数参数类型，从而知道需要注入什么 Provider。
+
+3. **IoC 容器**：
+   - NestJS 维护一个 Provider 容器（ModuleRef）。
+   - 实例化类时，根据元数据解析依赖，递归创建或复用 Provider。
+
+手写简版装饰器示例：
+
+```ts
+import 'reflect-metadata';
+
+const INJECTABLE_KEY = Symbol('injectable');
+const PARAM_TYPES_KEY = 'design:paramtypes';
+
+function Injectable() {
+  return function (target: any) {
+    Reflect.defineMetadata(INJECTABLE_KEY, true, target);
+  };
+}
+
+class Container {
+  private providers = new Map();
+
+  register(token: any, provider: any) {
+    this.providers.set(token, provider);
+  }
+
+  resolve(target: any) {
+    const paramTypes = Reflect.getMetadata(PARAM_TYPES_KEY, target) || [];
+    const deps = paramTypes.map((dep: any) => this.resolve(dep));
+    return new target(...deps);
+  }
+}
+
+@Injectable()
+class Logger {
+  log(msg: string) {
+    console.log('[LOG]', msg);
+  }
+}
+
+@Injectable()
+class UserService {
+  constructor(private logger: Logger) {}
+  findUser() {
+    this.logger.log('find user');
+    return { id: 1 };
+  }
+}
+
+const container = new Container();
+container.register(Logger, Logger);
+container.register(UserService, UserService);
+
+const userService = container.resolve(UserService);
+userService.findUser();
+```
+
+关键点：
+- `reflect-metadata` 提供全局 Reflect API 用于元数据读写。
+- TS 编译器在启用 `emitDecoratorMetadata` 时会自动注入 `design:paramtypes`。
+- NestJS 在此基础上扩展了 `@Inject()`、`@Optional()` 等更精细的注入控制。
+
+**评分维度**：
+- 能说明装饰器是运行时附加元数据的函数（20%）
+- 能解释 Reflect Metadata 和 design:paramtypes 的作用（30%）
+- 能手写 Injectable / Container 实现依赖注入（35%）
+- 能说明 NestJS 如何通过元数据构建 IoC 容器（15%）
+
+**常见错误**：
+- 认为装饰器会修改函数本身的执行逻辑（装饰器主要是注册元数据）。
+- 忘记启用 `emitDecoratorMetadata` 导致 paramtypes 缺失。
+- 把装饰器和注解（Annotation）完全等同，忽略其运行时可执行性。
+
+**延伸追问**：
+- NestJS 的 `@Inject()` 装饰器是如何覆盖默认类型注入的？
+- 装饰器执行顺序是怎样的？
+
+**相关题目**：
+- [FB-19-CO-B-006 NestJS 核心概念与 DI](#FB-19-CO-B-006)
+- [FB-19-SD-R-024 设计高并发 BFF 网关](#FB-19-SD-R-024)
+
+**参考资源**：
+- [TypeScript 装饰器文档](https://www.typescriptlang.org/docs/handbook/decorators.html)
+- [reflect-metadata](https://github.com/rbuckton/reflect-metadata)
+- [NestJS 源码 - @Injectable](https://github.com/nestjs/nest)
+
+**口头回答版**：
+> NestJS 装饰器本质上是运行时执行的函数，用来往类或方法上挂元数据。TS 开了 emitDecoratorMetadata 后，编译器会自动注入 design:paramtypes，记录构造函数参数类型。NestJS 启动时读这些元数据，就知道一个类依赖哪些 Provider，然后 IOC 容器去创建或复用实例。手写的话，可以用 reflect-metadata 存一个 injectable 标记，Container 解析时递归创建依赖。
+
+---
+
+### FB-19-CD-P-018：请手写一个简版 Koa 洋葱圈中间件模型
+
+**题型**：手写代码题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Koa、中间件、洋葱圈模型、compose、手写代码
+**出现频率**：高频
+**预计回答时长**：8-15 分钟
+
+**题目描述**：
+请用 JavaScript 实现一个简版 Koa 的洋葱圈中间件模型，支持多个中间件按洋葱圈顺序执行。
+
+**参考答案**：
+
+洋葱圈模型的核心是每个中间件先执行 `next` 之前的逻辑，然后递归进入下一个中间件，等内部中间件执行完后再返回执行 `next` 之后的逻辑。
+
+```js
+function compose(middlewares) {
+  return function (context, next) {
+    let index = -1;
+
+    function dispatch(i) {
+      if (i <= index) {
+        return Promise.reject(new Error('next() called multiple times'));
+      }
+      index = i;
+
+      let fn = middlewares[i];
+      if (i === middlewares.length) fn = next;
+      if (!fn) return Promise.resolve();
+
+      try {
+        return Promise.resolve(fn(context, () => dispatch(i + 1)));
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
+
+    return dispatch(0);
+  };
+}
+
+// 使用示例
+const middlewares = [
+  async (ctx, next) => {
+    console.log('1 start');
+    await next();
+    console.log('1 end');
+  },
+  async (ctx, next) => {
+    console.log('2 start');
+    await next();
+    console.log('2 end');
+  },
+  async (ctx, next) => {
+    console.log('3');
+  },
+];
+
+const run = compose(middlewares);
+run({}).then(() => console.log('done'));
+
+// 输出：
+// 1 start
+// 2 start
+// 3
+// 2 end
+// 1 end
+// done
+```
+
+关键点：
+- `dispatch(i + 1)` 作为 `next` 传给当前中间件。
+- 当前中间件调用 `await next()` 时，会递归进入下一个中间件。
+- 通过 `index` 防止一个中间件中多次调用 `next()`。
+- 所有中间件返回 Promise，确保异步顺序。
+
+与 Express 中间件的区别：
+- Express 是线性执行，next 后继续执行后续中间件，但不会回到当前中间件 next 之后。
+- Koa 洋葱圈模型支持在中间件前后都做处理，适合日志、错误处理、权限等横切关注点。
+
+**评分维度**：
+- 正确实现 compose 函数（50%）
+- 能解释洋葱圈执行顺序（25%）
+- 能处理 next 多次调用和异步错误（15%）
+- 能对比 Express 和 Koa 中间件模型（10%）
+
+**常见错误**：
+- 没有用 Promise 包裹，导致中间件异步时顺序错乱。
+- 忘记处理 next 多次调用的情况。
+- 把 Koa 洋葱圈和 Express 线性模型混为一谈。
+
+**延伸追问**：
+- 如果中间件没有调用 next，后续中间件会怎样？
+- 如何在洋葱圈最外层统一捕获所有错误？
+
+**相关题目**：
+- [FB-19-CO-B-005 异步编程与错误处理](#FB-19-CO-B-005)
+- [FB-19-CO-B-001 Node.js 事件循环](#FB-19-CO-B-001)
+
+**参考资源**：
+- [Koa 官方文档 - Middleware](https://koajs.com/#middleware)
+- [Koa compose 源码](https://github.com/koajs/compose)
+
+**口头回答版**：
+> Koa 洋葱圈就是每个中间件先执行 next 前面的逻辑，然后调用 next 进入下一个中间件，等里面都执行完再回来执行 next 后面的逻辑。实现 compose 函数时，给每个中间件传一个 next，这个 next 其实是 dispatch(i+1)。要注意 Promise 化、异步顺序，还要防 next 被多次调用。和 Express 比，Express 是线性的，Koa 可以在 next 前后都做处理。
+
+---
+
+### FB-19-CO-P-019：Node.js 的内存管理是怎样的？如何排查内存泄漏？
+
+**题型**：概念题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、内存管理、V8、GC、内存泄漏、Heap Snapshot
+**出现频率**：高频
+**预计回答时长**：8-15 分钟
+
+**题目描述**：
+请介绍 Node.js 的内存管理机制，包括 V8 堆内存结构和垃圾回收策略，并说明如何排查内存泄漏。
+
+**参考答案**：
+
+Node.js 使用 V8 引擎管理内存。V8 的堆内存主要分为：
+
+| 区域 | 说明 |
+|------|------|
+| 新生代（New Space） | 存放存活时间短的对象，使用 Scavenge 算法快速回收 |
+| 老生代（Old Space） | 存放存活时间长或经过晋升的对象，使用 Mark-Sweep/Mark-Compact |
+| 大对象区（Large Object Space） | 存放超过一定阈值的大对象 |
+| 代码区、Map 区等 | 存放编译后的代码和隐藏类信息 |
+
+V8 垃圾回收算法：
+- **Scavenge**：复制存活对象，适用于新生代，速度快。
+- **Mark-Sweep**：标记可达对象，清除不可达对象，产生内存碎片。
+- **Mark-Compact**：在标记后整理内存，减少碎片，但停顿更长。
+
+Node.js 内存限制：
+- 64 位系统默认堆内存上限约 1.4GB，可通过 `--max-old-space-size` 调整。
+
+常见内存泄漏原因：
+
+1. **全局变量累积**：
+   ```js
+   const cache = {};
+   app.use((req, res, next) => {
+     cache[req.id] = req.body; // 只增不减
+     next();
+   });
+   ```
+
+2. **闭包引用**：
+   - 闭包持有外部变量，导致变量无法被回收。
+
+3. **事件监听器未移除**：
+   ```js
+   emitter.on('data', handler); // 未 off
+   ```
+
+4. **定时器未清理**：
+   ```js
+   setInterval(() => {}, 1000); // 未 clearInterval
+   ```
+
+5. **数据库连接、流未关闭**：
+   - 连接池泄漏、文件流未 end/destroy。
+
+排查方法：
+- `process.memoryUsage()` 监控堆内存变化。
+- Chrome DevTools Memory 面板：生成 Heap Snapshot，查看 retainers。
+- `node --inspect` + Chrome DevTools 远程调试。
+- `clinic.js doctor` 和 `clinic.js heapprofiler`。
+- APM 工具设置内存阈值告警。
+
+**评分维度**：
+- 能说明 V8 堆内存分区（新生代、老生代等）（25%）
+- 能说明 Scavenge、Mark-Sweep、Mark-Compact 等 GC 算法（25%）
+- 能列举 4 种以上内存泄漏原因（25%）
+- 能说明排查工具和方法（25%）
+
+**常见错误**：
+- 认为 V8 会自动回收所有内存，忽略循环引用和全局引用。
+- 把所有内存增长都当成泄漏，忽略正常业务缓存。
+- 不设置 `--max-old-space-size` 就在大内存机器上跑服务。
+
+**延伸追问**：
+- 闭包一定导致内存泄漏吗？
+- 如何区分内存泄漏和正常缓存增长？
+
+**相关题目**：
+- [FB-19-PE-A-016 Node.js 性能优化](#FB-19-PE-A-016)
+- [FB-19-SD-R-027 可观测性体系设计](#FB-19-SD-R-027)
+
+**参考资源**：
+- [V8 垃圾回收机制](https://v8.dev/blog/trash-talk)
+- [Node.js 内存调试指南](https://nodejs.org/en/docs/guides/debugging-getting-started/)
+
+**口头回答版**：
+> Node.js 用 V8 管理内存，堆分新生代和老生代，新生代用 Scavenge 快速回收，老生代用 Mark-Sweep 和 Mark-Compact。内存泄漏常见原因有：全局变量只增不减、闭包持有大对象、事件监听没移除、定时器没清、数据库连接和流没关。排查可以用 process.memoryUsage 监控，用 Chrome DevTools 拍 Heap Snapshot 看 retainers，也可以用 clinic.js 或 APM。
+
+---
+
+### FB-19-SE-P-020：Node.js 服务常见的安全漏洞有哪些？如何防御？
+
+**题型**：安全题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、安全、XSS、CSRF、SQL 注入、JWT、CORS、Rate Limit
+**出现频率**：高频
+**预计回答时长**：8-15 分钟
+
+**题目描述**：
+请列举 Node.js / BFF 服务中常见的安全漏洞，并说明对应的防御方案。
+
+**参考答案**：
+
+| 漏洞 | 风险 | 防御方案 |
+|------|------|---------|
+| SQL / NoSQL 注入 | 攻击者注入恶意查询 | 参数化查询、ORM、输入校验、最小权限 |
+| XSS（跨站脚本） | 注入恶意脚本到页面 | 输出转义、CSP、HttpOnly Cookie |
+| CSRF（跨站请求伪造） | 诱导用户执行非预期操作 | CSRF Token、SameSite Cookie、Referer 校验 |
+| JWT 安全 | Token 被盗用、伪造 | 强密钥、短有效期、HTTPS、Refresh Token 轮换 |
+| 敏感信息泄露 | 配置、日志泄露密钥 | 环境变量管理、日志脱敏、最小权限原则 |
+| 目录遍历 | 通过路径参数读取任意文件 | 路径白名单、path.normalize、沙箱 |
+| 依赖供应链攻击 | 恶意 npm 包 | lockfile、私有仓库、依赖审计、SBOM |
+| DoS / 暴力破解 | 大量请求耗尽资源 | 限流（Rate Limit）、熔断、WAF、验证码 |
+| 不安全的反序列化 | 远程代码执行 | 不反序列化不可信数据、使用安全库 |
+| CORS 配置错误 | 敏感接口被跨域调用 | 白名单域名、限制 methods/headers、不暴露 credentials |
+
+NestJS 安全实践：
+- 使用 `helmet` 设置安全响应头。
+- 使用 `@nestjs/throttler` 做限流。
+- 使用 `class-validator` + `ValidationPipe` 做输入校验。
+- 使用 `csrf-csrf` 或 SameSite Cookie 防 CSRF。
+
+示例：
+```ts
+app.use(helmet());
+app.enableCors({ origin: ['https://example.com'], credentials: true });
+app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+```
+
+**评分维度**：
+- 能列举 6 种以上常见漏洞（30%）
+- 能给出对应防御方案（40%）
+- 能结合 NestJS 等框架说明实践（20%）
+- 能提到依赖安全和供应链（10%）
+
+**常见错误**：
+- 认为前端做了校验后端就不需要校验。
+- JWT 使用弱密钥或长期有效 Token。
+- CORS 直接设置 `origin: '*'` 且允许 credentials。
+- 日志中直接打印密码、Token 等敏感信息。
+
+**延伸追问**：
+- 如果 JWT 被盗，除了缩短有效期还能做什么？
+- 如何防止 npm 依赖被篡改？
+
+**相关题目**：
+- [FB-19-CO-B-007 JWT 鉴权原理](#FB-19-CO-B-007)
+- [FB-19-SD-R-024 设计高并发 BFF 网关](#FB-19-SD-R-024)
+
+**参考资源**：
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [Node.js 安全最佳实践](https://nodejs.org/en/docs/guides/security/)
+- [helmet 文档](https://helmetjs.github.io/)
+
+**口头回答版**：
+> Node.js 服务常见安全问题有：SQL 注入要用参数化查询和 ORM；XSS 要转义输出和 CSP；CSRF 用 Token 或 SameSite Cookie；JWT 要用强密钥、短有效期、HTTPS；还要防敏感信息泄露、目录遍历、依赖供应链攻击、DoS 限流。NestJS 里可以用 helmet 加安全头、throttler 限流、ValidationPipe 校验输入。记住后端一定要做输入校验，不能信前端。
+
+---
+
+### FB-19-CO-P-021：gRPC 相比 REST 有什么优势？它基于 HTTP/2 的哪些特性？
+
+**题型**：概念题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：gRPC、HTTP/2、Protocol Buffers、RPC、微服务、流
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请解释 gRPC 的工作原理，说明它相比 REST 的优势，以及它基于 HTTP/2 的哪些特性。
+
+**参考答案**：
+
+gRPC 是 Google 开源的高性能 RPC 框架，基于 HTTP/2 和 Protocol Buffers（protobuf）。
+
+gRPC 相比 REST 的优势：
+
+| 维度 | gRPC | REST |
+|------|------|------|
+| 序列化 | protobuf（二进制，体积小、解析快） | JSON（文本，体积大） |
+| 传输协议 | HTTP/2（多路复用、流、头部压缩） | 通常 HTTP/1.1 |
+| 接口契约 | .proto 文件强类型定义 | OpenAPI/Swagger 辅助 |
+| 流支持 | 原生支持 Unary、Server Streaming、Client Streaming、Bidirectional Streaming | 需借助 SSE/WebSocket |
+| 性能 | 更高，延迟更低 | 较低 |
+| 浏览器支持 | 需 gRPC-Web 代理 | 原生支持 |
+
+HTTP/2 特性在 gRPC 中的应用：
+
+1. **多路复用（Multiplexing）**：
+   - 一个 TCP 连接上可同时传输多个请求和响应，避免 HTTP/1.1 的队头阻塞。
+
+2. **头部压缩（HPACK）**：
+   - 减少重复 Header 的传输开销。
+
+3. **二进制分帧**：
+   - 数据以二进制帧传输，gRPC 的 protobuf 消息封装在 DATA 帧中。
+
+4. **流（Stream）**：
+   - 每个 RPC 对应一个 HTTP/2 Stream。
+   - 支持服务器流、客户端流、双向流。
+
+5. **服务器推送**：
+   - HTTP/2 支持，但 gRPC 不直接使用此特性。
+
+protobuf 示例：
+```proto
+syntax = "proto3";
+
+service UserService {
+  rpc GetUser (GetUserRequest) returns (User);
+}
+
+message GetUserRequest {
+  int32 id = 1;
+}
+
+message User {
+  int32 id = 1;
+  string name = 2;
+}
+```
+
+适用场景：
+- 微服务内部通信。
+- 高频、低延迟、强类型契约的 RPC 调用。
+- 需要流式通信的场景。
+
+不适用场景：
+- 需要浏览器直接调用的 API（需 gRPC-Web）。
+- 对外公共 API，第三方接入成本高。
+
+**评分维度**：
+- 能说明 gRPC 基于 HTTP/2 和 protobuf（20%）
+- 能从序列化、协议、流、性能对比 REST（30%）
+- 能说明 HTTP/2 多路复用、头部压缩、流等特性（30%）
+- 能给出适用和不适用场景（20%）
+
+**常见错误**：
+- 认为 gRPC 只能在服务端使用，不能用于前端。
+- 把 gRPC 和 REST 完全对立，忽略 BFF 中可能共存。
+- 忽略 protobuf 需要编译生成代码的复杂度。
+
+**延伸追问**：
+- gRPC 的四种调用类型分别是什么？
+- gRPC 如何处理错误和超时？
+
+**相关题目**：
+- [FB-19-CO-A-012 RESTful vs GraphQL vs tRPC](#FB-19-CO-A-012)
+- [FB-19-SD-R-025 设计 Node.js 微服务架构](#FB-19-SD-R-025)
+
+**参考资源**：
+- [gRPC 官方文档](https://grpc.io/docs/)
+- [HTTP/2 官方介绍](https://http2.github.io/)
+- [Protocol Buffers 文档](https://protobuf.dev/)
+
+**口头回答版**：
+> gRPC 是 Google 的 RPC 框架，基于 HTTP/2 和 protobuf。相比 REST，它用二进制 protobuf 序列化，体积小解析快；HTTP/2 支持多路复用、头部压缩、流，所以性能更高。gRPC 原生支持四种调用：Unary、Server Streaming、Client Streaming、Bidirectional Streaming。适合微服务内部通信和高频低延迟场景。但浏览器原生不支持，对外 API 一般不用 gRPC。
+
+---
+
+### FB-19-CO-P-022：微服务之间有哪些通信模式？分布式事务如何解决？
+
+**题型**：概念题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：微服务、分布式事务、Saga、TCC、消息队列、最终一致性
+**出现频率**：高频
+**预计回答时长**：8-15 分钟
+
+**题目描述**：
+请说明微服务之间的常见通信模式，并介绍分布式事务的解决方案。
+
+**参考答案**：
+
+微服务通信模式：
+
+| 模式 | 说明 | 适用场景 |
+|------|------|---------|
+| 同步 RPC | HTTP/gRPC 直接调用 | 强一致性、实时响应 |
+| 异步消息 | 通过消息队列解耦 | 削峰填谷、最终一致性 |
+| Event Sourcing | 以事件为源头存储状态 | 审计、复杂业务追溯 |
+| CQRS | 读写分离 | 读多写少、查询复杂 |
+| 发布订阅 | 服务订阅事件主题 | 解耦、广播 |
+
+同步 vs 异步：
+- 同步：调用链清晰，但耦合度高，容易出现级联故障。
+- 异步：解耦、可削峰，但一致性和调试更复杂。
+
+分布式事务解决方案：
+
+| 方案 | 说明 | 特点 |
+|------|------|------|
+| 2PC / 3PC | 两阶段/三阶段提交 | 强一致性，但阻塞、性能差、单点问题 |
+| TCC | Try-Confirm-Cancel | 业务层面补偿，性能较好，但实现复杂 |
+| Saga | 长事务拆分为本地事务 + 补偿 | 最终一致性，适合长流程业务 |
+| 本地消息表 | 将消息写入本地表，异步发送 | 最终一致性，实现简单 |
+| 事务消息 | RocketMQ / Kafka 支持 | 消息系统保证投递与事务一致性 |
+
+Saga 示例（订单 + 库存）：
+```
+订单服务：创建订单
+库存服务：扣减库存
+如果库存扣减失败：
+  订单服务：取消订单（补偿操作）
+```
+
+Node.js / BFF 中的实践：
+- 尽量通过业务设计避免分布式事务。
+- 优先使用 Saga + 消息队列实现最终一致性。
+- 在 BFF 层聚合多个服务调用时，注意超时、重试、熔断。
+
+**评分维度**：
+- 能列举 4 种以上微服务通信模式（25%）
+- 能说明同步和异步通信的权衡（20%）
+- 能解释 2PC、TCC、Saga 等分布式事务方案（35%）
+- 能结合 Node.js / BFF 给出实践建议（20%）
+
+**常见错误**：
+- 所有场景都追求强一致性，忽略 CAP 定理。
+- 在微服务中滥用 2PC，导致性能和可用性下降。
+- 只做正向流程，不做补偿和回滚设计。
+
+**延伸追问**：
+- CAP 和 BASE 理论如何指导微服务事务设计？
+- Saga 的编排式（Choreography）和协调式（Orchestration）有什么区别？
+
+**相关题目**：
+- [FB-19-CO-A-014 消息队列选型](#FB-19-CO-A-014)
+- [FB-19-SD-R-025 设计 Node.js 微服务架构](#FB-19-SD-R-025)
+
+**参考资源**：
+- [Microservices Patterns - Chris Richardson](https://microservices.io/book)
+- [Saga Pattern](https://microservices.io/patterns/data/saga.html)
+- [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem)
+
+**口头回答版**：
+> 微服务通信有同步 RPC 比如 gRPC/HTTP，也有异步消息、发布订阅、Event Sourcing、CQRS。同步实时但容易级联故障，异步解耦但一致性难调。分布式事务常用方案有 2PC、TCC、Saga。2PC 强一致但性能差；Saga 是把长事务拆成本地事务加补偿，最终一致性，适合长流程。Node.js BFF 里我建议尽量用 Saga 加消息队列，避免强一致事务。
+
+---
+
+### FB-19-CO-P-023：数据库连接池、索引优化和慢查询排查有哪些实践经验？
+
+**题型**：概念题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：数据库、连接池、索引、慢查询、SQL 优化、ORM
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Node.js 服务中数据库连接池的作用和配置要点，以及如何优化索引和排查慢查询。
+
+**参考答案**：
+
+连接池作用：
+- 复用数据库连接，避免频繁创建/销毁连接的开销。
+- 限制并发连接数，防止数据库被压垮。
+- 管理连接生命周期，自动重连、超时释放。
+
+连接池配置要点：
+
+| 参数 | 说明 | 建议 |
+|------|------|------|
+| min | 最小连接数 | 根据日常负载设置，避免冷启动延迟 |
+| max | 最大连接数 | 结合 DB 最大连接数和服务器数量计算 |
+| acquire timeout | 获取连接超时 | 防止排队过久 |
+| idle timeout | 空闲连接释放 | 释放不活跃连接 |
+| retry / validation | 连接验证和重试 | 提高容错能力 |
+
+Node.js 中常用连接池：
+- `pg-pool`（PostgreSQL）
+- `mysql2`（MySQL）
+- Prisma/TypeORM 内部自带连接池管理
+
+索引优化：
+- 为 WHERE、JOIN、ORDER BY 常用字段加索引。
+- 联合索引注意最左前缀原则。
+- 避免过多索引，写操作会变慢。
+- 定期使用 `EXPLAIN` / `EXPLAIN ANALYZE` 分析执行计划。
+
+慢查询排查：
+1. 开启数据库慢查询日志（MySQL: `slow_query_log`，PostgreSQL: `log_min_duration_statement`）。
+2. 使用 APM 工具追踪 SQL 执行时间。
+3. ORM 开启查询日志，定位问题 SQL。
+4. 结合执行计划分析是否走索引、是否全表扫描。
+
+常见优化手段：
+- 减少 SELECT *，只取必要字段。
+- 避免在索引字段上使用函数或隐式类型转换。
+- 大表分页使用游标或覆盖索引，避免深分页。
+- 复杂查询拆分为多个简单查询或用缓存。
+
+**评分维度**：
+- 能说明连接池作用和核心参数（25%）
+- 能给出索引设计原则（25%）
+- 能说明慢查询排查步骤（25%）
+- 能结合 ORM 和 Node.js 实践（25%）
+
+**常见错误**：
+- 连接池 max 设置过大，导致数据库连接打满。
+- 滥用索引，导致写性能下降和存储增加。
+- 深分页直接用 LIMIT OFFSET 大偏移量。
+- 不在 ORM 中开启查询日志，问题 SQL 难以定位。
+
+**延伸追问**：
+- 联合索引的最左前缀原则是什么？
+- 什么是覆盖索引？如何利用覆盖索引优化查询？
+
+**相关题目**：
+- [FB-19-CO-A-015 Prisma 与 TypeORM](#FB-19-CO-A-015)
+- [FB-19-PE-A-016 Node.js 性能优化](#FB-19-PE-A-016)
+
+**参考资源**：
+- [PostgreSQL 连接池最佳实践](https://wiki.postgresql.org/wiki/Number_Of_Database_Connections)
+- [MySQL 慢查询日志](https://dev.mysql.com/doc/refman/8.0/en/slow-query-log.html)
+- [Use The Index, Luke](https://use-the-index-luke.com/)
+
+**口头回答版**：
+> 数据库连接池用来复用连接、控制并发、避免频繁创建销毁。配置要关注最小最大连接数、获取超时、空闲释放。索引优化要覆盖 WHERE、JOIN、ORDER BY 字段，注意最左前缀，别建太多索引。排查慢查询可以开数据库慢查询日志、用 EXPLAIN 看执行计划、APM 追踪、ORM 开查询日志。常见优化还有减少 SELECT *、避免深分页、避免在索引字段用函数。
+
+---
+
+## 架构题（7 道）{#architect}
+
+### FB-19-SD-R-024：如何设计一个高并发、高可用的 BFF 网关？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：BFF、网关、高并发、高可用、限流、熔断、Node.js
+**出现频率**：高频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一个高并发、高可用的 BFF 网关，用于支撑一个日活百万级的电商 App。需要考虑流量入口、服务聚合、鉴权、限流、熔断、降级、监控等方面。
+
+**参考答案**：
+
+整体架构分层：
+
+```
+客户端（App / Web / 小程序）
+    |
+CDN / WAF / DDoS 防护
+    |
+L4/L7 负载均衡（Nginx / ALB / CLB）
+    |
+API Gateway（Kong / Envoy / APISIX / 自研）
+    |
+BFF 集群（Node.js / NestJS，多实例）
+    |
+微服务层（用户、商品、订单、支付等）
+    |
+数据层（MySQL、Redis、ES、MQ）
+```
+
+BFF 网关核心职责：
+
+| 模块 | 职责 | 技术选型 |
+|------|------|---------|
+| 流量入口 | 负载均衡、SSL 终止、静态缓存 | Nginx / ALB / CDN |
+| 统一鉴权 | JWT 校验、OAuth、Session 管理 | Passport / 自研 Guard |
+| 协议转换 | REST / GraphQL / gRPC 互转 | Apollo / tRPC / grpc-node |
+| 服务聚合 | 一个接口聚合多个微服务 | BFF Controller / DataLoader |
+| 限流 | 保护下游服务 | Redis + 令牌桶 / 漏桶 |
+| 熔断降级 | 失败时返回兜底数据 | Resilience4j / opossum / 自研 |
+| 缓存 | 热点数据缓存 | Redis + 本地 LRU |
+| 日志监控 | 链路追踪、指标、日志 | OpenTelemetry + Prometheus + Grafana + ELK |
+
+高并发设计要点：
+
+1. **水平扩展**：
+   - BFF 无状态化，多实例部署，通过 K8s HPA 自动扩缩容。
+   - 使用 Redis 共享 Session / Token 黑名单。
+
+2. **异步化**：
+   - 非核心路径使用消息队列异步处理。
+   - 聚合请求使用 Promise.all / 并发控制。
+
+3. **缓存策略**：
+   - 本地缓存（Caffeine/Node LRU）+ Redis 二级缓存。
+   - 对商品详情、首页数据等热点做缓存预热。
+
+4. **连接管理**：
+   - HTTP Keep-Alive、连接池复用。
+   - 下游 gRPC / 数据库连接池合理配置。
+
+高可用设计要点：
+
+1. **多可用区部署**：避免单点故障。
+2. **健康检查与自动重启**：K8s liveness / readiness probe。
+3. **优雅关闭**：SIGTERM 时停止接收新请求，处理完存量后退出。
+4. **熔断降级**：依赖服务异常时返回缓存或默认值。
+5. **限流**：防止突发流量打垮系统。
+
+**评分维度**：
+- 能画出清晰的分层架构图（20%）
+- 能说明 BFF 网关的核心职责和模块（25%）
+- 能从水平扩展、缓存、异步化、连接管理等角度说明高并发设计（25%）
+- 能从多可用区、健康检查、优雅关闭、熔断降级说明高可用设计（20%）
+- 能提到监控和可观测性（10%）
+
+**常见错误**：
+- 在 BFF 中实现复杂业务逻辑，导致 BFF 成为瓶颈。
+- 忽略下游服务超时和熔断，导致级联故障。
+- 限流只在 BFF 做，不在更外层做。
+- 没有优雅关闭机制，发布时丢请求。
+
+**延伸追问**：
+- 如何设计一个支持多租户的 BFF 网关？
+- BFF 层缓存和微服务层缓存如何协同？
+
+**相关题目**：
+- [FB-19-CO-B-008 什么是 BFF](#FB-19-CO-B-008)
+- [FB-19-SD-R-028 BFF 分层与领域聚合](#FB-19-SD-R-028)
+- [FB-19-SD-R-027 可观测性体系设计](#FB-19-SD-R-027)
+
+**参考资源**：
+- [NGINX 反向代理与负载均衡](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/)
+- [Kong API Gateway](https://docs.konghq.com/gateway/)
+- [Kubernetes HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
+
+**口头回答版**：
+> 高并发 BFF 网关我会分几层：最外层 CDN 和 WAF，然后 L4/L7 负载均衡，再到 API Gateway，下面是 BFF 集群，最后连微服务和数据层。BFF 主要负责统一鉴权、协议转换、服务聚合、限流熔断、缓存和日志监控。高并发要做无状态水平扩展、异步化、多级缓存、连接池复用；高可用要多可用区部署、优雅关闭、健康检查、熔断降级。核心原则就是 BFF 不塞业务逻辑，保护下游。
+
+---
+
+### FB-19-SD-R-025：如何设计一个基于 Node.js 的微服务架构？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、微服务、NestJS、gRPC、Kafka、服务发现、容器化
+**出现频率**：高频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一个基于 Node.js 的微服务架构，包含服务拆分、通信、注册发现、配置管理、部署运维等方面。
+
+**参考答案**：
+
+整体架构：
+
+```
+                    客户端
+                      |
+        BFF / API Gateway (Node.js / NestJS)
+                      |
+    ------------------------------------------
+    |         |          |         |         |
+  用户服务   订单服务    商品服务   支付服务   消息服务
+ (Node.js) (Node.js)  (Go/Java) (Node.js) (Node.js)
+    |         |          |         |         |
+    ------------------------------------------
+              |
+      基础设施：注册中心、配置中心、消息队列、监控、日志
+```
+
+服务拆分原则：
+- 按业务领域（DDD）拆分，如用户域、订单域、商品域。
+- 避免过度拆分，初期可从单体 / 模块化单体起步。
+- 每个服务独立部署、独立数据库。
+
+通信方式：
+- 同步：gRPC / HTTP 用于实时性要求高的调用。
+- 异步：Kafka / RabbitMQ 用于事件驱动、削峰、最终一致性。
+- BFF 层做协议适配和聚合。
+
+服务注册与发现：
+- 方案一：K8s Service + DNS（云原生环境）。
+- 方案二：Consul / Eureka / Nacos + 客户端负载均衡。
+- 方案三：Service Mesh（Istio / Linkerd）做透明服务发现。
+
+配置管理：
+- 环境变量 + ConfigMap（K8s）。
+- 配置中心：Apollo / Nacos / Consul KV。
+- 敏感配置用 Vault / Sealed Secrets。
+
+部署运维：
+- 容器化：Docker + Kubernetes。
+- CI/CD：GitLab CI / GitHub Actions + ArgoCD。
+- 可观测性：OpenTelemetry + Prometheus + Grafana + ELK + Jaeger。
+- 灰度发布：K8s Ingress / Service Mesh 流量分割。
+
+Node.js 技术栈选型：
+- 框架：NestJS（推荐）、Fastify、Express。
+- RPC：gRPC（@grpc/grpc-js）、TRPC。
+- 消息：KafkaJS、amqplib。
+- 数据库：Prisma / TypeORM + PostgreSQL / MySQL。
+- 缓存：ioredis。
+
+**评分维度**：
+- 能按业务领域合理拆分服务（20%）
+- 能说明同步/异步通信选型（20%）
+- 能说明服务注册发现、配置管理方案（20%）
+- 能说明容器化、CI/CD、可观测性等部署运维方案（25%）
+- 能结合 Node.js 生态给出技术选型（15%）
+
+**常见错误**：
+- 为了微服务而微服务，忽略业务复杂度和团队规模。
+- 服务间过度同步调用，导致调用链过长。
+- 没有独立数据库，多个服务共享同一张表。
+- 忽略服务治理和可观测性。
+
+**延伸追问**：
+- 微服务拆分后，分布式事务如何处理？
+- 服务网格相比传统注册中心有什么优缺点？
+
+**相关题目**：
+- [FB-19-CO-P-022 微服务通信与分布式事务](#FB-19-CO-P-022)
+- [FB-19-CO-P-021 gRPC 与 HTTP/2](#FB-19-CO-P-021)
+- [FB-19-EN-R-030 容器化部署与 CI/CD](#FB-19-EN-R-030)
+
+**参考资源**：
+- [Building Microservices - Sam Newman](https://samnewman.io/books/building_microservices/)
+- [The Twelve-Factor App](https://12factor.net/)
+- [Kubernetes 官方文档](https://kubernetes.io/docs/)
+
+**口头回答版**：
+> 基于 Node.js 的微服务架构，我会按 DDD 拆分服务，比如用户、订单、商品、支付，每个服务独立部署和数据库。服务间同步用 gRPC 或 HTTP，异步用 Kafka 或 RabbitMQ。注册发现可以用 K8s Service DNS 或 Consul，配置用 Apollo 或 Nacos。部署上容器化加 K8s，CI/CD 用 GitHub Actions 加 ArgoCD，可观测性用 Prometheus、Grafana、ELK、Jaeger。Node 技术栈推荐 NestJS 做服务，Prisma 做 ORM，ioredis 做缓存。
+
+---
+
+### FB-19-SD-R-026：Serverless / Edge 场景下，BFF 应该如何设计？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Serverless、Edge、BFF、Vercel、Cloudflare Workers、FaaS、冷启动
+**出现频率**：中频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一个适用于 Serverless 或 Edge 环境的 BFF，需要考虑冷启动、执行时长、依赖体积、状态管理、成本等因素。
+
+**参考答案**：
+
+Serverless / Edge 特点：
+
+| 维度 | 传统 Server（Node.js） | Serverless Function | Edge Function |
+|------|----------------------|---------------------|---------------|
+| 运行位置 | 中心云服务器 | 中心云，按请求启动 | CDN 边缘节点，就近执行 |
+| 冷启动 | 无 | 有，毫秒到秒级 | 极低，通常 < 1ms |
+| 执行时长 | 无限制 | 受限（如 AWS Lambda 15 分钟） | 极短（如 Cloudflare Workers 50ms CPU） |
+| 状态 | 可保持 | 无状态 | 无状态 |
+| 依赖体积 | 大 | 需精简 | 极小 |
+| 成本模型 | 按资源租用 | 按调用次数和时长 | 按请求数和网络 |
+
+BFF 在 Serverless / Edge 中的设计原则：
+
+1. **轻量无状态**：
+   - 不在函数内存中保存会话状态。
+   - 使用 JWT / Edge Session 做鉴权。
+
+2. **减少冷启动**：
+   - 精简依赖，避免加载不必要的包。
+   - 使用 `provisioned concurrency` 或 `keep-alive` 减少冷启动。
+   - 避免在全局初始化中做重连接操作。
+
+3. **缩短执行路径**：
+   - Edge 函数适合：A/B 测试、地理位置路由、简单鉴权、边缘缓存。
+   - 复杂聚合和重 IO 放在中心 Serverless 或传统服务。
+
+4. **缓存前置**：
+   - 利用 Edge Cache / KV 存储（如 Cloudflare KV、Vercel KV）缓存热点数据。
+   - 减少回源请求。
+
+5. **成本意识**：
+   - 避免高频小请求堆积导致费用激增。
+   - 合理设置函数内存和超时。
+
+典型架构：
+
+```
+用户请求 -> Edge Function（鉴权、路由、边缘缓存）
+              |
+      命中缓存 -> 直接返回
+              |
+      未命中 -> 中心 Serverless / BFF / 微服务
+```
+
+技术选型：
+- Edge：Vercel Edge Functions、Cloudflare Workers、AWS Lambda@Edge。
+- Serverless：AWS Lambda、Azure Functions、Google Cloud Functions。
+- 框架：Next.js（Edge Runtime）、Hono、NestJS 也支持 Serverless 部署。
+
+注意事项：
+- Edge Runtime 不是完整 Node.js，部分 API 不可用。
+- 数据库连接在 Serverless 中需要特殊处理（如连接代理、serverless driver）。
+- 日志和调试分散，需要更强的可观测性。
+
+**评分维度**：
+- 能区分 Serverless Function 和 Edge Function 的特点（25%）
+- 能说明 BFF 在 Serverless / Edge 中的设计原则（30%）
+- 能给出典型架构和技术选型（25%）
+- 能提到冷启动、依赖体积、成本等注意事项（20%）
+
+**常见错误**：
+- 把重 IO、长耗时的逻辑放到 Edge Function。
+- 在 Serverless 函数中使用传统数据库长连接。
+- 忽略 Edge Runtime 的 API 限制。
+- 为了用新技术而把所有 BFF 搬到 Edge。
+
+**延伸追问**：
+- Serverless 中数据库连接池如何解决？
+- Edge Function 和普通 Node.js 运行时的 API 差异有哪些？
+
+**相关题目**：
+- [FB-19-CO-B-008 什么是 BFF](#FB-19-CO-B-008)
+- [FB-19-SD-R-024 设计高并发 BFF 网关](#FB-19-SD-R-024)
+- [FB-19-SD-R-029 Deno/Bun 与 Node.js 选型](#FB-19-SD-R-029)
+
+**参考资源**：
+- [Vercel Edge Runtime](https://edge-runtime.vercel.app/)
+- [Cloudflare Workers 文档](https://workers.cloudflare.com/)
+- [AWS Lambda Best Practices](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
+
+**口头回答版**：
+> Serverless 和 Edge 环境下，BFF 要尽量轻量无状态。Edge 函数在 CDN 节点跑，冷启动极低但执行时间和依赖体积受限，适合做鉴权、路由、简单缓存；复杂聚合和重 IO 放中心 Serverless 或传统服务。要减少冷启动就精简依赖、预置并发；状态用 JWT 或 Edge KV；数据库连接用 serverless driver 或连接代理。Edge Runtime 不是完整 Node，API 有限制。
+
+---
+
+### FB-19-SD-R-027：如何为 Node.js 服务设计一套完整的可观测性体系？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：可观测性、日志、指标、链路追踪、OpenTelemetry、Node.js
+**出现频率**：高频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请为 Node.js 服务设计一套完整的可观测性体系，覆盖日志、指标、链路追踪三个支柱，并说明落地实践。
+
+**参考答案**：
+
+可观测性三大支柱：
+
+| 支柱 | 关注问题 | 工具示例 |
+|------|---------|---------|
+| Metrics（指标） | 系统整体健康度、趋势、告警 | Prometheus + Grafana |
+| Logging（日志） | 具体事件、错误详情、审计 | ELK / Loki / Fluentd |
+| Tracing（链路追踪） | 请求在分布式系统中的完整路径 | Jaeger / Zipkin / SkyWalking |
+
+Node.js 可观测性体系设计：
+
+1. **指标（Metrics）**：
+   - 业务指标：QPS、延迟分位值（p50/p95/p99）、错误率。
+   - 资源指标：CPU、内存、事件循环延迟、GC 频率。
+   - 中间件指标：数据库连接池、Redis 连接数、消息队列堆积。
+   - 使用 `prom-client` 暴露 `/metrics` 端点，Prometheus 抓取。
+
+2. **日志（Logging）**：
+   - 结构化日志（JSON），包含 trace_id、span_id、user_id、request_id。
+   - 分级：ERROR、WARN、INFO、DEBUG。
+   - 敏感信息脱敏。
+   - 使用 Pino / Winston，异步写入避免阻塞事件循环。
+
+3. **链路追踪（Tracing）**：
+   - 使用 OpenTelemetry 自动或手动埋点。
+   - 传播 trace_id 到下游服务、数据库、消息队列。
+   - 追踪关键路径：HTTP 请求、DB 查询、Redis、RPC、MQ。
+
+架构图：
+
+```
+Node.js App
+  |---> OpenTelemetry SDK （自动埋点 + 手动埋点）
+  |       |---> Metrics -> Prometheus -> Grafana
+  |       |---> Logs -> Fluentd -> Loki / ELK
+  |       |---> Traces -> OpenTelemetry Collector -> Jaeger
+```
+
+落地实践：
+- 统一 request_id / trace_id，贯穿请求全生命周期。
+- 错误日志必须包含堆栈和上下文。
+- 告警基于 SLO/SLI，避免告警风暴。
+- 大盘和链路结合，定位问题从指标到日志到 trace。
+
+**评分维度**：
+- 能说明 Metrics / Logging / Tracing 三大支柱（25%）
+- 能为每个支柱给出 Node.js 实践方案（35%）
+- 能说明 trace_id/request_id 的传递和关联（20%）
+- 能提到告警、SLO、敏感信息脱敏等落地细节（20%）
+
+**常见错误**：
+- 只收集日志，没有指标和链路。
+- 日志非结构化，难以聚合查询。
+- trace_id 没有传递到下游，导致链路断裂。
+- 过度埋点影响性能。
+
+**延伸追问**：
+- 如何在不修改业务代码的情况下实现自动链路追踪？
+- 事件循环延迟指标如何采集？
+
+**相关题目**：
+- [FB-19-CO-P-019 Node.js 内存管理与 V8 GC](#FB-19-CO-P-019)
+- [FB-19-PE-A-016 Node.js 性能优化](#FB-19-PE-A-016)
+
+**参考资源**：
+- [OpenTelemetry 官方文档](https://opentelemetry.io/docs/)
+- [Prometheus 官方文档](https://prometheus.io/docs/)
+- [Jaeger 官方文档](https://www.jaegertracing.io/docs/)
+
+**口头回答版**：
+> 可观测性三大支柱是指标、日志、链路。指标看系统健康度，用 prom-client 暴露，Prometheus 抓，Grafana 展示；日志用 Pino 或 Winston 输出结构化 JSON，带 trace_id 和 request_id；链路用 OpenTelemetry 自动埋点，传 trace_id 到下游。落地时要统一 ID、错误日志带堆栈、告警基于 SLO、敏感信息脱敏。指标发现问题，日志和 trace 定位根因。
+
+---
+
+### FB-19-SD-R-028：BFF 如何进行分层与领域聚合设计？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：BFF、分层架构、领域聚合、DDD、防腐层、API 编排
+**出现频率**：中频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一个电商场景的 BFF 分层架构，说明如何进行领域聚合、防腐层设计，以及如何避免 BFF 变成“大泥球”。
+
+**参考答案**：
+
+BFF 分层架构：
+
+```
+Presentation Layer（表现层）
+  - Controller / Router
+  - DTO 校验与转换
+  - 统一响应格式
+
+Application Layer（应用层）
+  - Use Case / Service
+  - 业务编排、事务边界
+  - 权限校验、缓存策略
+
+Domain Layer（领域层，可选）
+  - 领域模型、值对象
+  - 聚合根（复杂 BFF 可引入）
+
+Infrastructure Layer（基础设施层）
+  - HTTP Client / gRPC Client
+  - Repository（调用下游微服务）
+  - Cache / MQ / Logger
+```
+
+领域聚合设计：
+
+1. **按业务领域划分 BFF**：
+   - 用户域 BFF：登录、注册、个人中心。
+   - 交易域 BFF：购物车、下单、订单列表。
+   - 商品域 BFF：商品详情、搜索、推荐。
+
+2. **防腐层（ACL）**：
+   - BFF 和下游微服务之间加 Repository / Adapter。
+   - 下游接口变化时不影响 BFF 上层业务。
+   - 下游返回的数据模型转换为 BFF 内部 DTO。
+
+3. **API 编排**：
+   - 一个页面一个 API，BFF 在内部聚合多个下游调用。
+   - 使用 DataLoader / Promise.all 并发获取。
+   - 对可缓存的下游结果加缓存。
+
+避免 BFF 成为“大泥球”：
+
+1. **控制 BFF 职责**：只做适配、聚合、横切关注点，不做核心业务逻辑。
+2. **按端拆分**：Web、App、小程序有各自 BFF 或路由适配层。
+3. **模块化**：按领域模块组织代码，避免交叉引用。
+4. **接口版本管理**：避免一个接口兼容所有历史逻辑。
+5. **代码审查与架构守护**：防止业务逻辑下沉到 BFF。
+
+**评分维度**：
+- 能给出清晰的分层架构（25%）
+- 能说明按领域划分 BFF 的原则（25%）
+- 能解释防腐层作用和实现方式（20%）
+- 能给出避免 BFF 膨胀的具体措施（20%）
+- 能结合电商场景举例（10%）
+
+**常见错误**：
+- BFF 直接调用下游数据库。
+- 一个 BFF 服务同时服务 Web、App、Admin、第三方。
+- 没有防腐层，下游接口变化导致大量改动。
+- 在 BFF 中实现库存扣减、价格计算等核心业务。
+
+**延伸追问**：
+- BFF 和 DDD 中的 Application Service 有什么关系？
+- 一个页面调用 10 个下游接口，如何在 BFF 中优雅聚合？
+
+**相关题目**：
+- [FB-19-CO-B-008 什么是 BFF](#FB-19-CO-B-008)
+- [FB-19-SD-R-024 设计高并发 BFF 网关](#FB-19-SD-R-024)
+- [FB-19-CO-A-012 RESTful vs GraphQL vs tRPC](#FB-19-CO-A-012)
+
+**参考资源**：
+- [Domain-Driven Design - Eric Evans](https://www.domainlanguage.com/ddd/)
+- [Clean Architecture - Robert C. Martin](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+
+**口头回答版**：
+> BFF 分层一般分表现层、应用层、领域层和基础设施层。表现层是 Controller 和 DTO，应用层做编排和缓存，基础设施层封装下游微服务调用。领域聚合就是按业务域划分 BFF，比如用户域、交易域、商品域。防腐层是在 BFF 和下游之间加 Repository/Adapter，下游变了只改适配层。避免 BFF 成大泥球，关键是职责清晰：只适配、聚合、做横切关注点，核心业务逻辑下沉到领域服务。
+
+---
+
+### FB-19-SD-R-029：Deno、Bun 与 Node.js 相比各有什么优劣？如何选型？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Deno、Bun、运行时、选型、性能、安全
+**出现频率**：低频
+**预计回答时长**：8-15 分钟
+
+**题目描述**：
+请对比 Deno、Bun 和 Node.js 三个 JavaScript/TypeScript 运行时，并说明在 BFF/后端场景中如何选型。
+
+**参考答案**：
+
+| 维度 | Node.js | Deno | Bun |
+|------|---------|------|-----|
+| 作者 / 公司 | OpenJS Foundation | Deno Land（Ryan Dahl） | Oven（Jarred Sumner） |
+| 运行时 | V8 | V8 | JavaScriptCore（JSC） |
+| 模块系统 | CommonJS + ESM | 原生 ESM | CommonJS + ESM |
+| TypeScript | 需 ts-node / swc 等 | 原生支持 | 原生支持 |
+| 包管理 | npm / yarn / pnpm | URL 导入 + Deno 标准库 + npm 兼容 | 内置包管理器，兼容 npm |
+| 性能 | 成熟稳定，性能持续提升 | 启动快，安全模型好 | 启动和运行速度极快 |
+| 安全模型 | 默认开放权限 | 默认沙箱，需显式授权 | 默认开放权限 |
+| 生态成熟度 | 极其成熟 | 快速增长，但不及 Node | 新兴，生态在建设中 |
+| 部署成熟度 | 云平台全面支持 | 部分平台支持 | 部分平台支持 |
+
+Deno 特点：
+- 原生 TypeScript 支持，无需构建步骤。
+- 默认安全，文件、网络、环境变量都需显式授权。
+- 内置标准库、格式化、测试、打包工具。
+- 兼容 npm 包（`npm:` 前缀）。
+
+Bun 特点：
+- 基于 JavaScriptCore，启动和运行速度非常快。
+- 内置包管理器、构建工具、测试运行器。
+- 目标是 Node.js 兼容的超集。
+- 新兴项目，生产环境需谨慎评估。
+
+选型建议：
+- **Node.js**：生产环境首选，生态最成熟，团队熟悉度最高。
+- **Deno**：适合边缘计算、安全敏感场景、希望减少工具链的项目。
+- **Bun**：适合性能敏感、内部工具、实验性项目，生产环境需充分测试。
+
+BFF/后端场景：
+- 当前绝大多数生产 BFF 仍应选择 Node.js。
+- 如果追求原生 TS 和安全，可以尝试 Deno。
+- 对性能有极致要求且愿意承担生态风险时，可评估 Bun。
+
+**评分维度**：
+- 能从运行时、模块系统、TS 支持、性能、生态对比三者（40%）
+- 能说明 Deno 的安全模型和 Bun 的性能优势（20%）
+- 能给出生产环境和实验场景的选型建议（25%）
+- 能提到生态成熟度和部署支持（15%）
+
+**常见错误**：
+- 因为 Bun 速度快就盲目用于生产。
+- 认为 Deno 完全不能兼容 npm（实际已支持 npm: 前缀）。
+- 忽略团队技术栈和运维成本。
+
+**延伸追问**：
+- Bun 为什么比 Node.js 启动更快？
+- Deno 的权限模型对 BFF 部署有什么影响？
+
+**相关题目**：
+- [FB-19-SD-R-026 Serverless / Edge BFF 设计](#FB-19-SD-R-026)
+- [FB-19-CO-B-002 CommonJS 与 ES Module](#FB-19-CO-B-002)
+
+**参考资源**：
+- [Node.js 官方文档](https://nodejs.org/)
+- [Deno 官方文档](https://deno.land/manual)
+- [Bun 官方文档](https://bun.sh/docs)
+
+**口头回答版**：
+> Node.js 最成熟，生态和部署支持最好，生产环境首选。Deno 原生支持 TS，默认沙箱权限更安全，适合边缘和安全的场景，也兼容 npm。Bun 基于 JavaScriptCore，启动和运行很快，内置包管理器和构建工具，但生态还比较新。BFF 后端我目前还是优先 Node.js，除非有特别强的理由才考虑 Deno 或 Bun。
+
+---
+
+### FB-19-EN-R-030：Node.js 服务如何做容器化部署与 CI/CD？
+
+**题型**：工程化题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Docker、Kubernetes、CI/CD、容器化、DevOps
+**出现频率**：高频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一套 Node.js 服务的容器化部署与 CI/CD 流程，包括镜像构建、多阶段构建、健康检查、灰度发布、回滚策略等。
+
+**参考答案**：
+
+容器化部署方案：
+
+1. **Dockerfile 多阶段构建**：
+   ```dockerfile
+   # 构建阶段
+   FROM node:20-alpine AS builder
+   WORKDIR /app
+   COPY package*.json ./
+   RUN npm ci --only=production=false
+   COPY . .
+   RUN npm run build
+
+   # 运行阶段
+   FROM node:20-alpine
+   WORKDIR /app
+   ENV NODE_ENV=production
+   COPY --from=builder /app/dist ./dist
+   COPY --from=builder /app/node_modules ./node_modules
+   COPY package*.json ./
+   EXPOSE 3000
+   USER node
+   CMD ["node", "dist/main.js"]
+   ```
+
+2. **镜像优化**：
+   - 使用 Alpine 或 Distroless 镜像减少体积。
+   - 使用 `npm ci` 替代 `npm install` 保证可复现。
+   - 单独复制 package.json 以利用 Docker 缓存层。
+   - 不将 `.git`、测试文件、构建产物复制到镜像。
+
+3. **健康检查**：
+   - 提供 `/health` 端点，返回应用状态和依赖检查。
+   - K8s 配置 livenessProbe 和 readinessProbe。
+
+4. **优雅关闭**：
+   - 监听 SIGTERM，停止接收新请求，关闭数据库连接，再退出。
+   - 使用 `server.close()` 配合超时强制退出。
+
+CI/CD 流程：
+
+```
+代码提交 -> 代码审查 -> 自动化测试 -> 构建镜像 -> 推送镜像仓库
+                                              |
+                                   部署到测试环境 -> 集成测试
+                                              |
+                                   灰度发布到生产（Canary/Blue-Green）
+                                              |
+                                   全量发布 / 自动回滚
+```
+
+工具选型：
+- CI/CD：GitHub Actions / GitLab CI / Jenkins / ArgoCD。
+- 镜像仓库：Docker Hub / Harbor / ECR / ACR。
+- 编排：Kubernetes + Helm。
+- 灰度发布：Argo Rollouts / Flagger / Service Mesh。
+
+回滚策略：
+- 保留最近 N 个镜像版本。
+- K8s Deployment 直接回滚到上一个版本。
+- 数据库变更需兼容回滚，避免 schema 回滚失败。
+
+**评分维度**：
+- 能写出多阶段 Dockerfile 并说明优化点（25%）
+- 能说明健康检查、优雅关闭、非 root 用户等生产实践（20%）
+- 能设计完整 CI/CD 流水线（25%）
+- 能说明灰度发布和回滚策略（20%）
+- 能提到数据库变更与回滚兼容性（10%）
+
+**常见错误**：
+- 使用 root 用户运行 Node.js 服务。
+- 把源码和构建工具带到生产镜像。
+- 没有健康检查，K8s 无法判断服务是否可用。
+- 没有优雅关闭，发布时丢请求。
+- 数据库变更和应用回滚不同步。
+
+**延伸追问**：
+- 如何在 CI 中保证 npm 依赖安全？
+- K8s 的 livenessProbe 和 readinessProbe 有什么区别？
+
+**相关题目**：
+- [FB-19-CO-A-011 Node.js 进程与线程](#FB-19-CO-A-011)
+- [FB-19-SD-R-025 设计 Node.js 微服务架构](#FB-19-SD-R-025)
+
+**参考资源**：
+- [Docker Node.js 最佳实践](https://docs.docker.com/language/nodejs/)
+- [Kubernetes 部署最佳实践](https://kubernetes.io/docs/concepts/configuration/overview/)
+- [ArgoCD 官方文档](https://argo-cd.readthedocs.io/)
+
+**口头回答版**：
+> Node.js 容器化推荐多阶段构建：第一阶段用完整镜像装依赖、编译 TS；第二阶段用 Alpine 或 Distroless，只复制产物和 node_modules，用非 root 用户运行。生产要有 health 检查、优雅关闭监听 SIGTERM。CI/CD 流水线包括代码审查、自动化测试、构建镜像、推仓库、部署测试环境、灰度发布、全量发布和回滚。灰度用 Argo Rollouts 或 Flagger，回滚要保留历史镜像，并且数据库变更要兼容。
+
+---
+
+## 基础题（8 道）{#basic-2}
+
+### FB-19-CO-B-031：package.json 中 dependencies、devDependencies、peerDependencies 有什么区别？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、package.json、dependencies、devDependencies、peerDependencies、npm
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 package.json 中 dependencies、devDependencies、peerDependencies 的区别及安装行为差异。
+
+**参考答案**：
+
+- dependencies：项目运行必需的依赖，`npm install --production` 会安装，发布到生产环境。
+- devDependencies：开发、测试、构建阶段使用，生产环境不安装。
+- peerDependencies：声明与宿主项目共享的依赖版本，常用于插件/库，避免重复安装不同版本。
+
+安装行为：
+- `npm install` 安装全部。
+- `npm install --production` / `NODE_ENV=production` 只安装 dependencies。
+- peerDependencies 不会自动安装，若缺失或版本不匹配会给出警告/错误。
+
+最佳实践：
+- 库作者应把运行时依赖放 dependencies，构建工具放 devDependencies，框架插件用 peerDependencies 声明兼容版本。
+- 使用 `engines` 字段声明 Node / npm 版本。
+
+**评分维度**：
+- 能区分三类依赖的使用场景（50%）
+- 能说明生产安装与开发安装的差异（25%）
+- 能提到 peerDependencies 的插件场景（25%）
+
+**常见错误**：
+- 把构建依赖错放到 dependencies，导致生产镜像体积变大。
+- 忽略 peerDependencies 版本冲突。
+- 认为 devDependencies 在运行时一定不可用（实际取决于安装方式）。
+
+**延伸追问**：
+- optionalDependencies 与 dependencies 的区别是什么？
+- 如何锁定依赖版本？package-lock.json 与 yarn.lock/pnpm-lock.yaml 的作用？
+
+**相关题目**：
+- [FB-19-CO-B-032 Express/Koa 中间件机制](#FB-19-CO-B-032)
+- [FB-19-EN-A-047 Node.js 代码质量工具链](#FB-19-EN-A-047)
+
+**参考资源**：
+- [npm package.json 文档](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)
+- [Node.js 模块最佳实践](https://nodejs.org/en/docs/guides/)
+
+**口头回答版**：
+> dependencies 是运行时需要的，devDependencies 是开发和测试用的，生产不会装；peerDependencies 是告诉宿主项目我需要哪个版本的库，常用于插件。npm install --production 只装 dependencies。库作者要注意别把构建依赖放错位置。
+
+---
+
+### FB-19-CO-B-032：Express / Koa 中间件的工作机制是什么？next() 起什么作用？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、中间件、Koa、洋葱圈模型、HTTP
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 Express 与 Koa 中间件的执行机制，并说明 next() 的作用。
+
+**参考答案**：
+
+Express 中间件是线性栈式模型：请求按注册顺序依次进入中间件，每个中间件通过调用 `next()` 将控制权交给下一个中间件；若不调用 `next()`，请求处理链会中断。
+
+Koa 中间件是洋葱圈模型：请求阶段按注册顺序进入，到达最内层后，响应阶段按反方向返回。`next()` 既是进入下一个中间件，也是等待后续中间件完成的 await 点。
+
+示例：
+```js
+// Koa 洋葱圈
+app.use(async (ctx, next) => {
+  console.log('1');
+  await next();
+  console.log('6');
+});
+app.use(async (ctx, next) => {
+  console.log('2');
+  await next();
+  console.log('5');
+});
+app.use(async (ctx, next) => {
+  console.log('3');
+  await next();
+  console.log('4');
+});
+// 输出：1 2 3 4 5 6
+```
+
+Express 适合快速开发，Koa 更适合需要精细控制响应阶段或异步流的场景。
+
+**评分维度**：
+- 能说明 Express 线性执行与 next() 传递（40%）
+- 能说明 Koa 洋葱圈双向执行（40%）
+- 能写出 Koa await next() 示例（20%）
+
+**常见错误**：
+- 在 Express 中忘记调用 next() 导致请求挂起。
+- 在 Koa 中忘记 await next()，导致响应阶段顺序错乱。
+- 把 Express 的 next('route') 与 Koa next() 混用。
+
+**延伸追问**：
+- Koa 中间件捕获下游异常应该怎么写？
+- Express 中如何统一处理 async 路由抛出的错误？
+
+**相关题目**：
+- [FB-19-CD-A-044 Promise 请求调度器](#FB-19-CD-A-044)
+- [FB-19-CD-P-018 手写 Koa 洋葱圈中间件](#FB-19-CD-P-018)
+
+**参考资源**：
+- [Express 中间件文档](https://expressjs.com/en/guide/using-middleware.html)
+- [Koa 中间件文档](https://koajs.com/#cascading)
+
+**口头回答版**：
+> Express 中间件是线性执行的，调用 next() 进入下一个，不调用就中断。Koa 是洋葱圈模型，请求进去按顺序，出来反顺序，所以 await next() 很关键，它把后续中间件包起来。Koa 输出顺序是 1 2 3 4 5 6 这种。
+
+---
+
+### FB-19-CO-B-033：Node.js 中如何处理未捕获的异常，避免进程崩溃？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、错误处理、稳定性
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Node.js 中常见的未捕获异常类型及对应的处理方式。
+
+**参考答案**：
+
+1. 同步未捕获异常：
+   - `process.on('uncaughtException', cb)` 可兜底，但推荐记录日志后优雅退出，因为进程状态已不可靠。
+
+2. Promise 未处理拒绝：
+   - `process.on('unhandledRejection', cb)` 捕获。
+   - 代码中始终给 Promise 加 `.catch` 或用 `try/catch` + `await`。
+
+3. 框架层统一捕获：
+   - Express：错误处理中间件 `(err, req, res, next) => {}` 放在最后。
+   - Koa：使用 `app.on('error', ...)` 与中间件 try/catch。
+   - NestJS：使用 ExceptionFilter。
+
+最佳实践：
+- 发生未捕获异常后，应停止接收新请求、关闭连接，再退出进程，由 PM2/K8s 重启。
+- 不要在 `uncaughtException` 中继续执行业务逻辑。
+
+**评分维度**：
+- 能区分 uncaughtException 与 unhandledRejection（40%）
+- 能说明框架级错误处理中间件（30%）
+- 能说明优雅退出与进程重启策略（30%）
+
+**常见错误**：
+- 在 uncaughtException 中继续运行，导致后续不可预期行为。
+- async 路由不使用 try/catch，错误被吞掉。
+- 忽略 unhandledRejection，导致 Promise 错误无感知。
+
+**延伸追问**：
+- 如何在 Express 中捕获 async 路由的错误？
+- 生产环境是否应该监听 uncaughtException 后让进程退出？
+
+**相关题目**：
+- [FB-19-CA-A-043 Express 异步错误处理分析](#FB-19-CA-A-043)
+- [FB-19-CO-A-039 接口超时与重试](#FB-19-CO-A-039)
+
+**参考资源**：
+- [Node.js uncaughtException](https://nodejs.org/api/process.html#event-uncaughtexception)
+- [Node.js unhandledRejection](https://nodejs.org/api/process.html#event-unhandledrejection)
+
+**口头回答版**：
+> 同步异常用 uncaughtException 兜底，Promise 异常用 unhandledRejection；但最好还是在框架层统一捕获。Express 有错误中间件，Koa 有 app.on('error')。发生未捕获异常后，一般要优雅关闭进程，让 PM2 或 K8s 重启，不要继续跑业务。
+
+---
+
+### FB-19-CO-B-034：Cookie 与 Session 的区别是什么？Node.js 中如何设置 Cookie？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Cookie、Session、鉴权、HTTP
+**出现频率**：中频
+**预计回答时长**：2-3 分钟
+
+**题目描述**：
+请对比 Cookie 和 Session，并给出 Node.js 中设置 Cookie 的示例。
+
+**参考答案**：
+
+| 维度 | Cookie | Session |
+|------|--------|---------|
+| 存储位置 | 客户端浏览器 | 服务端（内存/Redis/数据库） |
+| 安全性 | 较低，可被篡改/读取 | 较高，仅保存 Session ID 在 Cookie 中 |
+| 存储大小 | 约 4KB | 服务端可较大 |
+| 生命周期 | 由 Expires/Max-Age 控制 | 由服务端控制 |
+| 适用场景 | 无状态标识、追踪 | 需要保存用户状态的会话 |
+
+Node.js 设置 Cookie：
+```js
+res.setHeader('Set-Cookie', 'token=abc; HttpOnly; Secure; SameSite=Strict; Max-Age=3600');
+```
+或使用 cookie 库：
+```js
+res.cookie('token', 'abc', { httpOnly: true, secure: true, sameSite: 'strict', maxAge: 3600000 });
+```
+
+最佳实践：
+- 敏感 Cookie 加 `HttpOnly`、`Secure`、`SameSite`。
+- Session ID 要随机、不可预测，配合 Redis 共享。
+
+**评分维度**：
+- 能对比 Cookie 与 Session 的存储、安全性、生命周期（50%）
+- 能写出设置 Cookie 的代码（30%）
+- 能提到 HttpOnly/Secure/SameSite（20%）
+
+**常见错误**：
+- 把敏感信息直接存 Cookie。
+- 不设置 HttpOnly，导致 XSS 窃取 Cookie。
+- Session 存储在单机内存，无法横向扩展。
+
+**延伸追问**：
+- SameSite 的 Strict、Lax、None 有什么区别？
+- 分布式场景下 Session 如何共享？
+
+**相关题目**：
+- [FB-19-CO-B-007 JWT 鉴权原理](#FB-19-CO-B-007)
+- [FB-19-SE-P-049 Web 攻击防御](#FB-19-SE-P-049)
+
+**参考资源**：
+- [MDN - HTTP Cookies](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies)
+- [Node.js http setHeader](https://nodejs.org/api/http.html#responsesetheadername-value)
+
+**口头回答版**：
+> Cookie 存在客户端，Session 存在服务端，Cookie 里一般只存 Session ID。设置 Cookie 用 Set-Cookie 头，敏感 Cookie 要加 HttpOnly、Secure、SameSite，防止 XSS 和 CSRF。Session 存在 Redis 才能在多机共享。
+
+---
+
+### FB-19-CO-B-035：什么是 CORS？如何在 Node.js 服务端配置跨域？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、CORS、跨域、HTTP、安全
+**出现频率**：高频
+**预计回答时长**：2-3 分钟
+
+**题目描述**：
+请解释 CORS 的原理，并给出 Node.js 中允许跨域的常用方案。
+
+**参考答案**：
+
+CORS（Cross-Origin Resource Sharing）是浏览器同源策略的安全机制。当协议、域名或端口不同，前端请求会触发预检（Preflight）OPTIONS 请求，服务端通过响应头声明允许的源、方法、头信息。
+
+常用响应头：
+- `Access-Control-Allow-Origin: https://example.com` 或 `*`
+- `Access-Control-Allow-Methods: GET, POST, PUT, DELETE`
+- `Access-Control-Allow-Headers: Content-Type, Authorization`
+- `Access-Control-Allow-Credentials: true`（不能配 `*`）
+
+Node.js 配置示例：
+```js
+// Express + cors
+const cors = require('cors');
+app.use(cors({ origin: 'https://example.com', credentials: true }));
+
+// 原生
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://example.com');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
+```
+
+注意：CORS 是浏览器限制，服务端请求不受影响；生产环境不要滥用 `*`。
+
+**评分维度**：
+- 能说明 CORS 与同源策略的关系（30%）
+- 能列出关键响应头（30%）
+- 能用 Express/cors 或原生中间件配置（40%）
+
+**常见错误**：
+- 直接设置 `Access-Control-Allow-Origin: *` 且同时开启 credentials。
+- 忽略 OPTIONS 预检，导致非简单请求失败。
+- 认为关闭浏览器安全设置是解决方案。
+
+**延伸追问**：
+- 简单请求与预检请求的区别是什么？
+- 如果需要携带 Cookie，CORS 应如何配置？
+
+**相关题目**：
+- [FB-19-CO-B-034 Cookie 与 Session](#FB-19-CO-B-034)
+- [FB-19-SE-P-049 Web 攻击防御](#FB-19-SE-P-049)
+
+**参考资源**：
+- [MDN - CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS)
+- [cors npm](https://www.npmjs.com/package/cors)
+
+**口头回答版**：
+> CORS 是浏览器同源策略导致的跨域限制。服务端通过 Access-Control-Allow-Origin 这些头告诉浏览器允许跨域。Express 用 cors 中间件最方便，生产环境不要配 *，尤其要传 Cookie 的时候。
+
+---
+
+### FB-19-CO-B-036：常见的 HTTP 状态码有哪些？分别代表什么含义？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、HTTP、HTTP 状态码、RESTful
+**出现频率**：高频
+**预计回答时长**：2-3 分钟
+
+**题目描述**：
+请列举并解释常见的 HTTP 状态码，说明在 BFF 接口设计中应如何正确使用。
+
+**参考答案**：
+
+常见状态码分类：
+
+| 状态码 | 含义 | 使用场景 |
+|--------|------|----------|
+| 200 OK | 成功 | GET/PUT 成功 |
+| 201 Created | 已创建 | POST 创建资源成功 |
+| 204 No Content | 成功但无返回体 | DELETE 成功 |
+| 301 Moved Permanently | 永久重定向 | URL 变更 |
+| 302 Found | 临时重定向 | 临时跳转 |
+| 400 Bad Request | 请求参数错误 | 参数校验失败 |
+| 401 Unauthorized | 未认证 | 缺少/无效 Token |
+| 403 Forbidden | 无权限 | 权限不足 |
+| 404 Not Found | 资源不存在 | URL 或资源不存在 |
+| 500 Internal Server Error | 服务器内部错误 | 未预期异常 |
+| 502 Bad Gateway | 网关错误 | 上游服务无响应 |
+| 503 Service Unavailable | 服务不可用 | 限流/熔断/维护 |
+
+BFF 设计建议：
+- 不要所有错误都返回 200 或 500。
+- 4xx 代表客户端问题，5xx 代表服务端/下游问题。
+- 配合统一错误码体，如 `{ code: '1001', message: '...', data: null }`。
+
+**评分维度**：
+- 能列举至少 8 个常见状态码及含义（60%）
+- 能区分 4xx 与 5xx 的责任方（20%）
+- 能说明 BFF 中如何配合业务错误码（20%）
+
+**常见错误**：
+- 业务异常也返回 500。
+- 401 与 403 混用。
+- 全部接口统一返回 200，靠 body 判断状态。
+
+**延伸追问**：
+- 401 和 403 的本质区别是什么？
+- 幂等接口返回 200 还是 204 更合适？
+
+**相关题目**：
+- [FB-19-CO-A-012 RESTful、GraphQL、tRPC 对比](#FB-19-CO-A-012)
+- [FB-19-SC-P-054 统一错误码与响应结构](#FB-19-SC-P-054)
+
+**参考资源**：
+- [MDN - HTTP 状态码](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status)
+- [RFC 7231](https://tools.ietf.org/html/rfc7231)
+
+**口头回答版**：
+> 200 是成功，201 是创建成功，204 是无内容；301 永久重定向，302 临时；400 参数错，401 没认证，403 没权限，404 找不到；500 服务端错，502 网关错，503 服务不可用。BFF 不要全返回 200，4xx 是客户端问题，5xx 是服务端问题。
+
+---
+
+### FB-19-CO-B-037：Node.js 中如何管理不同环境的配置与敏感信息？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、环境变量、dotenv、配置管理、安全
+**出现频率**：中频
+**预计回答时长**：2-3 分钟
+
+**题目描述**：
+请说明 Node.js 项目如何按环境加载配置，并避免敏感信息泄露。
+
+**参考答案**：
+
+1. 使用环境变量：
+   - `process.env.PORT`、`process.env.DATABASE_URL`。
+   - 不同环境（dev/test/prod）通过启动时注入不同变量。
+
+2. 本地开发用 dotenv：
+   ```js
+   require('dotenv').config(); // 读取 .env
+   ```
+   - `.env` 文件不提交到 Git，加入 `.gitignore`。
+   - 提交 `.env.example` 作为模板。
+
+3. 敏感信息：
+   - 数据库密码、API Key 不写入代码仓库。
+   - 生产环境通过 K8s Secret、Vault、CI/CD 变量注入。
+
+4. 配置分层：
+   - 默认值 < 环境变量 < 启动参数。
+   - 可用 `convict`、`config` 等库做校验与类型转换。
+
+最佳实践：
+- 启动时校验必要环境变量，缺失则立即报错退出。
+- 不要把 `.env` 打到 Docker 镜像里。
+
+**评分维度**：
+- 能说明 process.env 与 dotenv 用法（40%）
+- 能说明敏感信息管理（30%）
+- 能提到配置分层与校验（30%）
+
+**常见错误**：
+- 把密码写死在代码或配置文件中提交 Git。
+- 生产镜像包含 .env 文件。
+- 环境变量未做类型转换和默认值处理。
+
+**延伸追问**：
+- 如何在 Docker / K8s 中注入环境变量？
+- 多环境配置太多时，如何组织配置文件？
+
+**相关题目**：
+- [FB-19-EN-R-030 容器化部署与 CI/CD](#FB-19-EN-R-030)
+- [FB-19-SD-R-058 可观测性体系](#FB-19-SD-R-058)
+
+**参考资源**：
+- [dotenv 文档](https://www.npmjs.com/package/dotenv)
+- [The Twelve-Factor App - Config](https://12factor.net/config)
+
+**口头回答版**：
+> Node.js 用 process.env 读环境变量，本地开发用 dotenv 读 .env 文件。.env 要忽略 Git，敏感信息通过 K8s Secret 或 CI 变量注入。启动时校验必要变量，缺失就退出。
+
+---
+
+### FB-19-CD-B-038：请手写一个极简的 Node.js HTTP 服务器，支持 GET /hello 返回 JSON
+
+**题型**：手写代码题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、HTTP、手写代码、JSON
+**出现频率**：中频
+**预计回答时长**：5-10 分钟
+
+**题目描述**：
+请使用 Node.js 原生 http 模块实现一个服务器，监听 3000 端口；当请求 `GET /hello?name=xxx` 时返回 JSON `{ "message": "Hello, xxx" }`，其他路径返回 404。
+
+**参考答案**：
+
+```js
+const http = require('http');
+const url = require('url');
+
+const server = http.createServer((req, res) => {
+  const parsed = url.parse(req.url, true);
+
+  if (req.method === 'GET' && parsed.pathname === '/hello') {
+    const name = parsed.query.name || 'World';
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ message: `Hello, ${name}` }));
+    return;
+  }
+
+  res.writeHead(404, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ error: 'Not Found' }));
+});
+
+server.listen(3000, () => console.log('Server running on port 3000'));
+```
+
+关键点：
+- 使用 `url.parse` 或 `new URL()` 解析 query。
+- 正确设置 Content-Type 与状态码。
+- 处理不匹配路径返回 404。
+
+进阶可用：
+```js
+const { URL } = require('url');
+const parsed = new URL(req.url, `http://${req.headers.host}`);
+```
+
+**评分维度**：
+- 能创建 http server 并监听端口（30%）
+- 能正确解析 path 与 query（30%）
+- 能返回 JSON 与 404（30%）
+- 能设置合适的响应头（10%）
+
+**常见错误**：
+- 不处理 favicon.ico 等浏览器默认请求。
+- 多次调用 res.end()。
+- 未对 query 参数做默认值或编码处理。
+
+**延伸追问**：
+- 如何处理 POST /hello 接收 JSON body？
+- 如果用 Express 实现，代码会更简洁在哪里？
+
+**相关题目**：
+- [FB-19-CO-B-032 Express/Koa 中间件机制](#FB-19-CO-B-032)
+- [FB-19-CD-A-044 Promise 请求调度器](#FB-19-CD-A-044)
+
+**参考资源**：
+- [Node.js http 模块](https://nodejs.org/api/http.html)
+- [Node.js url 模块](https://nodejs.org/api/url.html)
+
+**口头回答版**：
+> 用 http.createServer 创建服务器，解析 URL 的 pathname 和 query，GET /hello 返回 JSON，其他返回 404。注意设置 Content-Type 为 application/json，query 参数给默认值。
+
+---
+
+## 进阶题（9 道）{#advanced-2}
+
+### FB-19-CO-A-039：如何为 BFF 下游接口设计超时与重试机制？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、超时、重试、稳定性
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 BFF 调用下游服务时，超时与重试的设计要点，避免级联故障。
+
+**参考答案**：
+
+1. 超时设计：
+   - 连接超时（connect timeout）：建立连接最大等待时间，通常 2-5s。
+   - 读取超时（read timeout）：等待响应最大时间，通常 5-10s。
+   - BFF 总超时 > 下游最长链路 + 缓冲，且应小于客户端超时。
+
+2. 重试设计：
+   - 仅对幂等操作（GET/PUT/DELETE）重试，POST 需谨慎。
+   - 使用指数退避（exponential backoff）+ 抖动（jitter），如 100ms、200ms、400ms。
+   - 设置最大重试次数（如 3 次）和重试比例限制。
+
+3. 与熔断、限流结合：
+   - 重试会放大流量，需在熔断开启时停止重试。
+   - 对同一目标设置并发上限。
+
+4. 工具：
+   - `axios` 的 timeout、retry 配置。
+   - `p-retry`、`async-retry`。
+   - `undici`、`got` 等现代 HTTP 客户端。
+
+示例：
+```js
+const retry = require('async-retry');
+await retry(async bail => {
+  const res = await fetchUser(userId);
+  if (res.status >= 400 && res.status < 500) bail(new Error('client error'));
+  return res;
+}, { retries: 3, factor: 2, minTimeout: 100 });
+```
+
+**评分维度**：
+- 能区分连接超时与读取超时（25%）
+- 能说明重试的幂等性与退避策略（35%）
+- 能说明与熔断/限流的协同（25%）
+- 能给出代码或工具示例（15%）
+
+**常见错误**：
+- 对所有 HTTP 请求无差别重试，导致写操作重复。
+- 超时设置过短，正常请求被误杀。
+- 重试没有上限，引发重试风暴。
+
+**延伸追问**：
+- 如何处理部分成功（写操作重试后不确定是否已执行）？
+- 超时时间应如何根据客户端超时倒推？
+
+**相关题目**：
+- [FB-19-CO-A-040 熔断限流降级](#FB-19-CO-A-040)
+- [FB-19-SC-P-051 BFF 下游编排](#FB-19-SC-P-051)
+
+**参考资源**：
+- [Google SRE - Handling Overload](https://sre.google/sre-book/handling-overload/)
+- [async-retry npm](https://www.npmjs.com/package/async-retry)
+
+**口头回答版**：
+> BFF 调下游要设连接超时和读取超时，重试只对幂等请求做，用指数退避加抖动，最多三次。重试要和熔断、限流配合，避免放大流量。POST 要谨慎重试，防止重复写入。
+
+---
+
+### FB-19-CO-A-040：什么是熔断、限流、降级？在 BFF 中如何落地？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、熔断、限流、降级、稳定性
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请解释熔断、限流、降级的概念，并说明在 BFF 层如何实施。
+
+**参考答案**：
+
+| 机制 | 目的 | 典型实现 |
+|------|------|----------|
+| 熔断（Circuit Breaker） | 防止故障扩散，当下游异常率超过阈值时快速失败 | closed / open / half-open 状态机 |
+| 限流（Rate Limiting） | 保护自身和下游，控制单位时间请求量 | 令牌桶、漏桶、固定窗口 |
+| 降级（Degradation） | 非核心功能失败时提供兜底，保证核心可用 | 返回缓存/默认值/关闭非核心路径 |
+
+BFF 落地：
+- 熔断：使用 `opossum`、`hystrix-js` 包装下游调用；开启时直接返回兜底或错误。
+- 限流：按 IP / 用户 / 接口维度限流，Redis 分布式限流。
+- 降级：商品详情页评价服务挂了，可隐藏评价或返回缓存评价。
+
+状态流转：
+- Closed：正常调用。
+- Open：失败率 > 阈值，直接失败。
+- Half-Open：经过一段时间允许少量探测请求，成功后关闭。
+
+**评分维度**：
+- 能解释熔断、限流、降级的核心目标（45%）
+- 能描述熔断状态机（25%）
+- 能给出 BFF 落地示例或工具（30%）
+
+**常见错误**：
+- 把限流和熔断混为一谈。
+- 熔断开启后没有 half-open 探测机制。
+- 降级返回的错误信息暴露过多内部细节。
+
+**延伸追问**：
+- 限流算法中令牌桶与漏桶有什么区别？
+- 降级和熔断的触发条件有什么不同？
+
+**相关题目**：
+- [FB-19-CO-A-039 超时与重试](#FB-19-CO-A-039)
+- [FB-19-CD-P-052 Redis 分布式限流器](#FB-19-CD-P-052)
+
+**参考资源**：
+- [Release It! - Circuit Breaker](https://pragprog.com/titles/mnee2/release-it-second-edition/)
+- [opossum npm](https://www.npmjs.com/package/opossum)
+
+**口头回答版**：
+> 熔断是下游挂了快速失败，防止拖垮自己；限流是控制流量保护服务；降级是核心功能保住，非核心返回默认值或缓存。熔断有 closed、open、half-open 三个状态。BFF 里可以用 opossum 做熔断，Redis 做分布式限流。
+
+---
+
+### FB-19-CO-A-041：如何在 Node.js 接口中实现幂等性设计？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、幂等、分布式、BFF、API 设计
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明接口幂等性的含义，并给出在 BFF/下游服务中实现幂等的常见方案。
+
+**参考答案**：
+
+幂等性：同一操作执行多次与执行一次的结果相同，不会产生副作用。
+
+常见方案：
+
+1. 幂等 Token：
+   - 客户端生成唯一 `Idempotency-Key`，服务端用 Redis/数据库去重。
+   - 处理成功后保存 key 与结果，重复请求直接返回缓存结果。
+
+2. 数据库唯一约束：
+   - 订单号、流水号唯一索引，重复插入失败。
+   - 更新使用 `UPDATE ... WHERE status = pending`。
+
+3. 状态机：
+   - 业务状态只能从 pending -> success，重复请求发现已是 success 直接返回。
+
+4. BFF 层实践：
+   - 在网关/BFF 统一生成或透传幂等键。
+   - 对重试请求保留原 key，配合 TTL 清理。
+
+示例流程：
+```
+客户端生成 key -> 请求头 Idempotency-Key: uuid
+BFF 透传 -> 下游服务 Redis SET key result NX EX 3600
+重复请求：GET key 命中则直接返回
+```
+
+**评分维度**：
+- 能准确解释幂等性（25%）
+- 能列举幂等 Token、唯一约束、状态机方案（45%）
+- 能说明 BFF 层如何透传与去重（20%）
+- 能提到 TTL/清理（10%）
+
+**常见错误**：
+- 把幂等和防重放混为一谈。
+- 幂等键没有 TTL，导致存储无限增长。
+- 对非幂等操作（如 POST 创建）也盲目重试。
+
+**延伸追问**：
+- 幂等键由客户端生成还是服务端生成？各有什么优缺点？
+- 如何保证幂等键全局唯一？
+
+**相关题目**：
+- [FB-19-CO-A-040 熔断限流降级](#FB-19-CO-A-040)
+- [FB-19-SC-P-051 BFF 下游编排](#FB-19-SC-P-051)
+
+**参考资源**：
+- [Stripe Idempotency](https://stripe.com/docs/api/idempotent_requests)
+- [MDN - Idempotency](https://developer.mozilla.org/en-US/docs/Glossary/Idempotent)
+
+**口头回答版**：
+> 幂等就是同样的请求发多次结果一样。常用做法是客户端带一个 Idempotency-Key，服务端用 Redis 去重，处理完把结果缓存一段时间；或者数据库加唯一索引。BFF 负责透传这个 key，重试时保持 key 不变。
+
+---
+
+### FB-19-PE-A-042：Node.js 服务的日志规范应如何设计？如何接入 ELK/Loki？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、日志、Loki、可观测性、监控
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Node.js 服务日志应包含哪些字段、级别与输出规范，并简述 ELK/Loki 的接入方式。
+
+**参考答案**：
+
+日志规范：
+- 级别：DEBUG < INFO < WARN < ERROR < FATAL。
+- 必填字段：timestamp（ISO 8601）、level、message、service、traceId、spanId、host、env。
+- 结构化输出：JSON 格式，便于 Logstash/Promtail 解析。
+- 不记录敏感信息：密码、Token、身份证。
+
+最佳实践：
+- 使用 pino、winston 等结构化日志库，避免 console.log。
+- 一条请求一条 access log，包含 method、path、status、duration。
+- 错误日志包含 stack、context、requestId。
+- 本地开发可读，生产环境输出 JSON。
+
+接入 ELK：
+- Node.js -> Filebeat/Fluent Bit 收集日志文件 -> Logstash 解析 -> Elasticsearch 存储 -> Kibana 查询。
+- 或使用 Filebeat 直接送 Elasticsearch。
+
+接入 Loki：
+- Node.js 输出 JSON 到 stdout/文件。
+- Promtail/Grafana Agent 抓取并打标签 -> Loki -> Grafana 查询。
+- 相比 ELK 更轻量、与 Grafana 生态结合好。
+
+**评分维度**：
+- 能说明日志级别与必填字段（30%）
+- 能说明结构化 JSON 与不记录敏感信息（25%）
+- 能描述 ELK 接入链路（25%）
+- 能比较 ELK 与 Loki 的差异（20%）
+
+**常见错误**：
+- 全用 console.log，无法分级和集中收集。
+- 日志输出自由文本，难以解析。
+- 生产日志直接写本地文件不轮转，占满磁盘。
+
+**延伸追问**：
+- 如何为每个请求生成并透传 traceId？
+- 日志采样在什么场景下适用？
+
+**相关题目**：
+- [FB-19-SD-R-058 可观测性体系](#FB-19-SD-R-058)
+- [FB-19-CO-P-053 AsyncLocalStorage](#FB-19-CO-P-053)
+
+**参考资源**：
+- [pino 文档](https://getpino.io/)
+- [Grafana Loki 文档](https://grafana.com/docs/loki/latest/)
+
+**口头回答版**：
+> 日志要用 JSON 结构化输出，包含时间、级别、服务名、traceId、请求路径这些。用 pino 或 winston，不要 console.log。收集可以用 Filebeat + ELK，或者 Promtail + Loki，Loki 更轻量。
+
+---
+
+### FB-19-CA-A-043：分析以下 Express 异步路由的错误处理问题
+
+**题型**：代码分析题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、中间件、异步、错误处理、代码分析
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+
+```js
+const express = require('express');
+const app = express();
+
+app.get('/user/:id', async (req, res) => {
+  const user = await db.getUser(req.params.id);
+  res.json(user);
+});
+
+app.use((err, req, res, next) => {
+  res.status(500).json({ error: err.message });
+});
+
+app.listen(3000);
+```
+
+请指出上述代码的问题，并给出修复方案。
+
+**参考答案**：
+
+问题：
+- `async` 路由中 `await db.getUser()` 抛出异常时，由于 Express 默认不会捕获 async 函数返回的 Promise 异常，错误不会被中间件捕获，进程可能崩溃或请求挂起。
+
+修复方案 1：手动 try/catch 并调用 next(err)。
+```js
+app.get('/user/:id', async (req, res, next) => {
+  try {
+    const user = await db.getUser(req.params.id);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+```
+
+修复方案 2：使用包装函数统一捕获。
+```js
+const asyncHandler = fn => (req, res, next) => {
+  Promise.resolve(fn(req, res, next)).catch(next);
+};
+app.get('/user/:id', asyncHandler(async (req, res) => { /* ... */ }));
+```
+
+修复方案 3：Express 5 原生支持 async 错误捕获。
+
+**评分维度**：
+- 能指出 async 异常未被 Express 捕获（40%）
+- 能给出 try/catch + next(err) 修复（30%）
+- 能给出 asyncHandler 包装方案（30%）
+
+**常见错误**：
+- 认为 Express 错误中间件会自动捕获 async 异常。
+- 在 catch 中直接 res.json，没有调用 next。
+- 没有处理 db.getUser 返回 undefined 的情况。
+
+**延伸追问**：
+- 如果是多个 async 中间件串联，如何统一捕获？
+- Express 5 在这块有什么改进？
+
+**相关题目**：
+- [FB-19-CO-B-033 未捕获异常处理](#FB-19-CO-B-033)
+- [FB-19-CD-P-018 手写 Koa 洋葱圈中间件](#FB-19-CD-P-018)
+
+**参考资源**：
+- [Express 错误处理](https://expressjs.com/en/guide/error-handling.html)
+- [MDN async function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function)
+
+**口头回答版**：
+> Express 的 async 路由抛错不会被默认错误中间件捕获，因为 Promise 错误没被处理。要手动 try/catch 然后 next(err)，或者写一个 asyncHandler 包装，把 Promise reject 转成 next(err)。
+
+---
+
+### FB-19-CD-A-044：请手写一个基于 Promise 的请求调度器，支持最大并发数
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Promise、并发、手写代码、并发控制
+**出现频率**：中频
+**预计回答时长**：5-10 分钟
+
+**题目描述**：
+请实现一个 `promisePool` 函数，接收异步任务数组和最大并发数 `concurrency`，当任意任务完成时立即补充新任务，最终返回所有结果（保持原数组顺序）。
+
+**参考答案**：
+
+```js
+function promisePool(tasks, concurrency) {
+  return new Promise((resolve, reject) => {
+    const results = new Array(tasks.length);
+    let index = 0;
+    let running = 0;
+    let completed = 0;
+
+    function runNext() {
+      if (completed === tasks.length) return resolve(results);
+      while (running < concurrency && index < tasks.length) {
+        const current = index++;
+        running++;
+        Promise.resolve(tasks[current]())
+          .then(value => {
+            results[current] = value;
+          })
+          .catch(reject)
+          .finally(() => {
+            running--;
+            completed++;
+            runNext();
+          });
+      }
+    }
+
+    runNext();
+  });
+}
+
+// 使用
+const tasks = urls.map(url => () => fetch(url));
+promisePool(tasks, 3).then(console.log);
+```
+
+关键点：
+- tasks 是返回 Promise 的函数数组，避免立即执行。
+- 用 `index` 分配任务，保证结果按原顺序存放。
+- 一个任务完成后立即补充新任务，保持并发数。
+- 任一任务失败可立即 reject。
+
+**评分维度**：
+- 能实现最大并发控制（40%）
+- 能保持结果顺序（25%）
+- 能及时补充新任务（20%）
+- 能处理错误与边界情况（15%）
+
+**常见错误**：
+- 直接 `Promise.all(tasks.map(...))` 一次性并发。
+- 用 await 在循环里导致串行。
+- 结果顺序错乱。
+
+**延伸追问**：
+- 如何实现失败重试 N 次？
+- 如何支持 abort 取消未开始任务？
+
+**相关题目**：
+- [FB-19-CO-B-032 Express/Koa 中间件机制](#FB-19-CO-B-032)
+- [FB-19-CD-P-052 Redis 分布式限流器](#FB-19-CD-P-052)
+
+**参考资源**：
+- [p-limit 源码](https://github.com/sindresorhus/p-limit)
+- [JavaScript Promise 并发控制](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+
+**口头回答版**：
+> 写一个 promisePool，任务数组里是返回 Promise 的函数，不是直接 Promise。维护一个 index 和 running 计数，每完成一个就补充下一个，结果按原 index 放回去。这样能做到最大并发并保持顺序。
+
+---
+
+### FB-19-CO-A-045：TypeScript Node.js 项目有哪些编译运行方案？如何选择？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、TypeScript、SWC、esbuild、编译
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请对比 ts-node、swc、esbuild、webpack、tsc 在 Node.js 项目中的使用场景与优缺点。
+
+**参考答案**：
+
+| 方案 | 说明 | 适用场景 |
+|------|------|----------|
+| tsc | TypeScript 官方编译器，类型检查最准确 | 生产构建、生成 .d.ts |
+| ts-node | 直接运行 TS，开发便捷 | 本地开发、脚本 |
+| ts-node + swc | 用 swc 转译，保留 ts-node 便利，速度大幅提升 | 本地开发、测试 |
+| esbuild | 极快打包/转译，但类型检查需额外 tsc | 生产构建、monorepo |
+| tsup | 基于 esbuild 的零配置 TS 构建工具 | 库/BFF 打包 |
+| webpack | 复杂打包、代码分割 | 前端同构、特殊需求 |
+
+选择建议：
+- 生产构建：tsc（严格类型检查）或 esbuild/tsup（快）。
+- 本地开发：ts-node + swc 或 tsx。
+- 库发布：tsc 生成类型定义 + esbuild 生成多种格式。
+- 大项目可用 tsconfig 配置 composite/project references 加速。
+
+**评分维度**：
+- 能区分 tsc 类型检查与转译（25%）
+- 能说明 ts-node/swc/esbuild 的定位（35%）
+- 能根据开发/生产/库场景选型（25%）
+- 能提到类型定义生成（15%）
+
+**常见错误**：
+- 生产直接用 ts-node 运行，启动慢且内存占用高。
+- 用 esbuild 做唯一编译步骤，忽略类型检查。
+- 不使用 tsconfig 严格模式。
+
+**延伸追问**：
+- 如何在 monorepo 中加速 TS 编译？
+- swc 与 esbuild 的转译质量差异？
+
+**相关题目**：
+- [FB-19-CO-B-002 CommonJS 与 ES Module](#FB-19-CO-B-002)
+- [FB-19-EN-A-047 代码质量工具链](#FB-19-EN-A-047)
+
+**参考资源**：
+- [ts-node 文档](https://typestrong.org/ts-node/)
+- [swc 文档](https://swc.rs/)
+
+**口头回答版**：
+> tsc 是官方编译器，类型检查最准，适合生产；ts-node 方便开发；ts-node 加 swc 或 esbuild 启动很快。生产我一般用 tsc 编译或 esbuild/tsup 打包。ts-node 不建议直接跑生产。
+
+---
+
+### FB-19-CO-A-046：如何对 Node.js 服务做健康检查？liveness/readiness/startup probe 有什么区别？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Kubernetes、稳定性、SRE、监控
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Node.js 服务应暴露哪些健康检查端点，以及 K8s 三种探针的差异。
+
+**参考答案**：
+
+健康检查端点：
+- `/health`：轻量，返回 200 表示进程存活，用于 liveness。
+- `/ready`：检查依赖（DB、Redis、下游服务），返回 200 表示可接收流量，用于 readiness。
+- `/startup`：用于启动阶段，确认应用初始化完成，避免慢启动被误判。
+
+K8s 探针区别：
+
+| 探针 | 作用 | 失败时 |
+|------|------|--------|
+| livenessProbe | 检测容器是否存活 | 重启容器 |
+| readinessProbe | 检测是否可接收流量 | 从 Service 端点摘除 |
+| startupProbe | 检测启动是否完成 | 仅影响启动，失败后按 restartPolicy 处理 |
+
+Node.js 实现：
+```js
+app.get('/health', (req, res) => res.sendStatus(200));
+app.get('/ready', async (req, res) => {
+  const ok = await checkDbAndRedis();
+  res.status(ok ? 200 : 503).json({ ready: ok });
+});
+```
+
+**评分维度**：
+- 能区分 /health、/ready、/startup 职责（40%）
+- 能说明三种探针的失败行为（35%）
+- 能给出 Node.js 端点示例（25%）
+
+**常见错误**：
+- /health 里做重依赖检查，导致探针本身超时。
+- liveness 失败时不重启，或 readiness 失败后仍接收流量。
+- 没有 startupProbe，慢启动应用反复被重启。
+
+**延伸追问**：
+- 健康检查接口应如何防止被外部滥用？
+- 探针间隔、超时、失败阈值如何设置？
+
+**相关题目**：
+- [FB-19-EN-R-030 容器化部署与 CI/CD](#FB-19-EN-R-030)
+- [FB-19-SD-R-061 K8s 优雅关闭与弹性伸缩](#FB-19-SD-R-061)
+
+**参考资源**：
+- [Kubernetes 探针文档](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
+- [Node.js 健康检查最佳实践](https://expressjs.com/en/advanced/healthcheck.html)
+
+**口头回答版**：
+> Node.js 服务一般暴露 /health 给 liveness，/ready 检查数据库和 Redis 给 readiness，/startup 给启动探针。liveness 失败会重启容器，readiness 失败会把 Pod 从 Service 摘掉，startup 用于启动慢的场合。
+
+---
+
+### FB-19-EN-A-047：Node.js 项目中的代码质量工具链应如何配置？
+
+**题型**：工程化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、代码质量、ESLint、Prettier、Husky
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 ESLint、Prettier、Husky、lint-staged、Commitlint 在 Node.js 项目中的职责与配置方式。
+
+**参考答案**：
+
+工具职责：
+
+| 工具 | 职责 |
+|------|------|
+| ESLint | 代码静态分析，检查潜在错误与风格 |
+| Prettier | 代码格式化，统一风格 |
+| Husky | Git hooks 管理，在 commit/push 前触发检查 |
+| lint-staged | 仅对暂存区文件执行 lint/format |
+| Commitlint | 校验提交信息，规范如 Conventional Commits |
+
+配置要点：
+- ESLint 使用 flat config（eslint.config.js），推荐 `@eslint/js` + typescript-eslint。
+- Prettier 与 ESLint 不冲突：关闭 ESLint 格式规则，使用 `eslint-config-prettier`。
+- Husky v9：`husky init`，配置 `pre-commit` 执行 `npx lint-staged`。
+- lint-staged：`.lintstagedrc.json` 中 `{ "*.{js,ts}": ["eslint --fix", "prettier --write"] }`。
+- Commitlint：`@commitlint/config-conventional`，校验 `feat:`、`fix:` 等前缀。
+
+收益：
+- 拦截低级错误、统一代码风格、生成 CHANGELOG、便于 code review。
+
+**评分维度**：
+- 能区分 ESLint 与 Prettier 职责（25%）
+- 能说明 Husky + lint-staged 的工作流程（30%）
+- 能给出配置示例（25%）
+- 能提到 Conventional Commits 与 CHANGELOG（20%）
+
+**常见错误**：
+- ESLint 和 Prettier 规则冲突。
+- Husky 配置在 CI 上失效或开发者绕过。
+- commitlint 过于严格导致提交困难。
+
+**延伸追问**：
+- 如何保证新代码的测试覆盖率不下降？
+- 在 monorepo 中如何统一管理 lint 规则？
+
+**相关题目**：
+- [FB-19-EN-R-030 容器化部署与 CI/CD](#FB-19-EN-R-030)
+- [FB-19-SD-R-065 单体 BFF 演进](#FB-19-SD-R-065)
+
+**参考资源**：
+- [ESLint 配置文档](https://eslint.org/docs/latest/use/configure/configuration-files)
+- [Husky 文档](https://typicode.github.io/husky/)
+
+**口头回答版**：
+> ESLint 查代码问题，Prettier 做格式化，Husky 在提交前跑检查，lint-staged 只对改了的文件跑，Commitlint 校验提交信息格式。要注意 ESLint 和 Prettier 不要冲突，用 eslint-config-prettier 关掉格式规则。
+
+---
+
+## 深入题（9 道）{#proficient-2}
+
+### FB-19-FS-P-048：NestJS 中 Guard、Interceptor、Pipe、ExceptionFilter 的执行顺序是什么？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：NestJS、依赖注入、AOP、装饰器、控制反转
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 NestJS 请求生命周期中 Guard、Interceptor、Pipe、ExceptionFilter 的执行顺序，并解释各自作用。
+
+**参考答案**：
+
+执行顺序（请求进入 -> 响应返回）：
+
+```
+Middleware -> Guard -> Interceptor(before) -> Pipe -> Controller -> Interceptor(after) -> ExceptionFilter
+```
+
+详细说明：
+
+| 组件 | 作用 | 典型用途 |
+|------|------|----------|
+| Middleware | Express/Koa 风格中间件，最先执行 | 日志、CORS、body parser |
+| Guard | 权限控制，决定请求能否继续 | @UseGuards(AuthGuard) |
+| Interceptor | 在请求前后切入，可改入参/返回值 | 日志、缓存、超时、异常转换 |
+| Pipe | 数据转换与校验 | ValidationPipe、ParseIntPipe |
+| ExceptionFilter | 捕获未处理异常，统一响应 | 全局异常格式 |
+
+生命周期：
+1. 全局/控制器/方法 Middleware。
+2. 全局/控制器/方法 Guard。
+3. 全局/控制器/方法 Interceptor（next.handle() 之前）。
+4. 全局/控制器/方法 Pipe 处理参数。
+5. Controller 方法执行。
+6. Interceptor（next.handle() 之后）。
+7. 异常时 ExceptionFilter 捕获。
+
+**评分维度**：
+- 能正确说出执行顺序（40%）
+- 能区分四者职责（35%）
+- 能说明全局/控制器/方法级别的优先级（25%）
+
+**常见错误**：
+- 把 Guard 与 Interceptor 顺序记反。
+- 认为 Pipe 在 Interceptor 之后执行。
+- 在 ExceptionFilter 中做权限判断。
+
+**延伸追问**：
+- 如何自定义一个全局 ExceptionFilter？
+- Interceptor 的 next.handle() 返回的是什么？
+
+**相关题目**：
+- [FB-19-CO-B-006 NestJS 核心概念](#FB-19-CO-B-006)
+- [FB-19-FS-P-017 NestJS 装饰器原理](#FB-19-FS-P-017)
+
+**参考资源**：
+- [NestJS 生命周期文档](https://docs.nestjs.com/faq/request-lifecycle)
+- [NestJS Interceptors](https://docs.nestjs.com/interceptors)
+
+**口头回答版**：
+> NestJS 请求先过 Middleware，然后是 Guard 做权限，Interceptor 在前面切入，接着 Pipe 校验参数，进入 Controller，返回时再过 Interceptor 后面，最后有异常由 ExceptionFilter 捕获。顺序是 Middleware -> Guard -> Interceptor -> Pipe -> Controller -> Interceptor -> ExceptionFilter。
+
+---
+
+### FB-19-SE-P-049：Node.js 服务如何防御 CSRF、XSS、SQL 注入等常见 Web 攻击？
+
+**题型**：安全题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、CSRF、XSS、SQL 注入、安全头
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请分别说明 CSRF、XSS、SQL 注入的攻击原理，并给出 Node.js/BFF 中的防御措施。
+
+**参考答案**：
+
+| 攻击 | 原理 | 防御 |
+|------|------|------|
+| XSS | 注入恶意脚本，窃取 Cookie 或执行操作 | 转义输出、CSP、HttpOnly Cookie、输入校验 |
+| CSRF | 诱导用户在已登录站点发起非预期请求 | SameSite Cookie、CSRF Token、Referer 校验 |
+| SQL 注入 | 拼接用户输入到 SQL，改变语义 | 参数化查询/预编译语句、ORM |
+
+Node.js 实践：
+- 使用 helmet 设置安全响应头：
+  ```js
+  app.use(helmet());
+  ```
+- 使用 ORM/Query Builder（Prisma、TypeORM）避免拼接 SQL。
+- 对用户输入做白名单校验和转义。
+- 设置 Cookie：`httpOnly`、`secure`、`sameSite='strict'`。
+- 配置 CSP：`Content-Security-Policy`。
+
+额外：
+- Rate Limit 防止暴力破解。
+- 敏感接口加二次确认或验证码。
+- 安全日志记录异常请求。
+
+**评分维度**：
+- 能解释三种攻击原理（35%）
+- 能给出对应防御措施（40%）
+- 能提到 helmet、ORM、Cookie 安全属性（25%）
+
+**常见错误**：
+- 只依赖前端过滤。
+- 用模板字符串拼接 SQL。
+- Cookie 不设置 HttpOnly/SameSite。
+
+**延伸追问**：
+- 存储型 XSS 与反射型 XSS 有什么区别？
+- 如果前端是 SPA，CSRF Token 应如何设计？
+
+**相关题目**：
+- [FB-19-CO-B-035 CORS 配置](#FB-19-CO-B-035)
+- [FB-19-SE-P-020 Node.js 安全漏洞](#FB-19-SE-P-020)
+
+**参考资源**：
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [helmet 文档](https://helmetjs.github.io/)
+
+**口头回答版**：
+> XSS 是注入脚本，要转义输出、设 CSP、HttpOnly Cookie；CSRF 是利用用户已登录身份发请求，要 SameSite Cookie 或 CSRF Token；SQL 注入是拼接 SQL，要用参数化查询或 ORM。Node 里用 helmet 加安全头，敏感 Cookie 加 HttpOnly 和 SameSite。
+
+---
+
+### FB-19-PE-P-050：如何定位并优化 Node.js 服务的 CPU 高占用问题？
+
+**题型**：性能优化题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、CPU、性能优化、V8、监控
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请描述 Node.js 服务 CPU 占用高时的排查思路与优化手段。
+
+**参考答案**：
+
+排查思路：
+
+1. 确认进程与线程：
+   - `top` / `pidstat` 找到高 CPU 的 PID。
+   - 区分主进程与 worker_threads。
+
+2. 生成 CPU profile：
+   - `--prof` + `--prof-process` 得到 V8 tick 日志。
+   - 使用 Chrome DevTools / clinic.js / 0x 生成火焰图。
+   - Node.js 内置 inspector：`node --inspect` + Chrome `chrome://inspect`。
+
+3. 定位热点：
+   - 正则回溯、JSON 序列化大对象、深递归、密集计算、循环中的同步操作。
+
+优化手段：
+- 把 CPU 密集型任务移到 worker_threads。
+- 使用更高效的算法与数据结构。
+- 避免大对象深克隆，使用流式处理。
+- 缓存频繁计算结果。
+- 限制并发，避免事件循环阻塞。
+
+**评分维度**：
+- 能说明 CPU 排查工具与流程（35%）
+- 能解释如何生成和阅读火焰图（25%）
+- 能列举常见 CPU 热点原因（20%）
+- 能给出优化方案（20%）
+
+**常见错误**：
+- 一遇到高 CPU 就加机器，不分析根因。
+- 把 CPU 密集型任务放在主线程。
+- 误用正则导致灾难性回溯。
+
+**延伸追问**：
+- event loop lag 与 CPU 高占用有什么关系？
+- 如何在生产环境安全地采集 CPU profile？
+
+**相关题目**：
+- [FB-19-PE-A-016 Node.js 性能优化](#FB-19-PE-A-016)
+- [FB-19-PE-P-055 大文件流式传输](#FB-19-PE-P-055)
+
+**参考资源**：
+- [clinic.js 文档](https://clinicjs.org/)
+- [Node.js 性能分析](https://nodejs.org/en/docs/guides/simple-profiling/)
+
+**口头回答版**：
+> 先用 top 找到高 CPU 进程，然后用 --prof、clinic.js 或 Chrome DevTools 生成火焰图，看哪个函数占用多。常见热点是正则回溯、大对象 JSON、深递归。优化可以放到 worker_threads，或者缓存、流式处理。
+
+---
+
+### FB-19-SC-P-051：BFF 层如何对下游微服务进行统一超时、重试、降级与缓存？
+
+**题型**：场景设计题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、超时、重试、降级、缓存
+**出现频率**：高频
+**预计回答时长**：8-15 分钟
+
+**题目描述**：
+假设 BFF 需要聚合用户、订单、商品三个下游服务，请设计一套统一的超时、重试、降级与缓存策略。
+
+**参考答案**：
+
+设计原则：
+- 每个下游服务独立配置超时、重试、降级策略。
+- 聚合时优先返回核心数据，非核心数据可降级。
+- 使用装饰器/拦截器统一封装，避免业务代码侵入。
+
+实现方案：
+
+1. 统一客户端封装：
+   ```ts
+   class DownstreamClient {
+     async request(config) {
+       return withTimeout(
+         withRetry(
+           withCircuitBreaker(() => http.request(config)),
+           config.retry
+         ),
+         config.timeout
+       );
+     }
+   }
+   ```
+
+2. 超时：按接口设置 connect/read 超时，聚合接口设置总超时。
+
+3. 重试：仅对幂等接口重试，指数退避。
+
+4. 熔断：错误率 > 50% 且连续失败 N 次开启，half-open 探测。
+
+5. 降级：
+   - 商品服务失败：返回缓存基础信息或占位图。
+   - 评价服务失败：隐藏评价模块。
+   - 订单失败：提示用户稍后查看。
+
+6. 缓存：
+   - 用户基础信息 Redis TTL 5min。
+   - 商品详情 Caffeine/本地缓存 + Redis 二级缓存。
+
+**评分维度**：
+- 能说明统一封装与配置隔离（25%）
+- 能设计超时/重试/熔断策略（30%）
+- 能给出降级与缓存方案（30%）
+- 能考虑非核心路径降级（15%）
+
+**常见错误**：
+- 所有下游使用相同超时。
+- 对非幂等写操作重试。
+- 降级返回的数据与正常返回结构不一致，导致前端报错。
+
+**延伸追问**：
+- 如何透传用户上下文与 traceId 到下游？
+- 缓存与下游数据一致性如何保证？
+
+**相关题目**：
+- [FB-19-CO-A-039 超时与重试](#FB-19-CO-A-039)
+- [FB-19-CO-A-040 熔断限流降级](#FB-19-CO-A-040)
+
+**参考资源**：
+- [resilience4j 设计思想](https://resilience4j.readme.io/)
+- [Netflix Hystrix 文档](https://github.com/Netflix/Hystrix/wiki)
+
+**口头回答版**：
+> BFF 给每个下游服务封装统一客户端，分别配置超时、重试、熔断。聚合时核心数据必须拿到，非核心可以降级。重试只对幂等接口，失败率太高就熔断。缓存用户信息和商品详情，减少下游压力。降级返回的数据结构要和正常一致。
+
+---
+
+### FB-19-CD-P-052：请手写一个基于 Redis 的分布式限流器
+
+**题型**：手写代码题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Redis、限流、分布式、手写代码
+**出现频率**：中频
+**预计回答时长**：5-10 分钟
+
+**题目描述**：
+请使用 Redis + Lua 脚本实现一个滑动窗口或令牌桶限流器，支持按 key 限流并返回是否允许通过。
+
+**参考答案**：
+
+滑动窗口示例（Redis Sorted Set + Lua）：
+
+```js
+const redis = require('redis');
+const client = redis.createClient();
+
+const limitScript = `
+  local key = KEYS[1]
+  local window = tonumber(ARGV[1])
+  local limit = tonumber(ARGV[2])
+  local now = tonumber(ARGV[3])
+  local min = now - window
+
+  redis.call('ZREMRANGEBYSCORE', key, 0, min)
+  local current = redis.call('ZCARD', key)
+
+  if current < limit then
+    redis.call('ZADD', key, now, now .. ':' .. ARGV[4])
+    redis.call('EXPIRE', key, math.ceil(window / 1000))
+    return 1
+  else
+    return 0
+  end
+`;
+
+async function isAllowed(key, limit, windowMs) {
+  const now = Date.now();
+  const token = `${now}:${Math.random()}`;
+  const result = await client.eval(limitScript, {
+    keys: [key],
+    arguments: [String(windowMs), String(limit), String(now), token],
+  });
+  return result === 1;
+}
+```
+
+关键点：
+- Lua 脚本保证计数与写入原子性。
+- 使用 `ZREMRANGEBYSCORE` 清理过期窗口。
+- `EXPIRE` 防止冷 key 长期占用内存。
+- 可扩展为按用户、IP、接口维度限流。
+
+**评分维度**：
+- 能使用 Redis 数据结构实现窗口/令牌桶（35%）
+- 能用 Lua 保证原子性（25%）
+- 能处理过期清理与内存回收（20%）
+- 能说明按维度限流与降级策略（20%）
+
+**常见错误**：
+- 先读再写，导致并发超发。
+- 不使用 TTL，内存无限增长。
+- 窗口精度太粗，导致突发流量。
+
+**延伸追问**：
+- 令牌桶与滑动窗口在突发流量下表现有何不同？
+- 如果 Redis 不可用，限流器应如何降级？
+
+**相关题目**：
+- [FB-19-CO-A-040 熔断限流降级](#FB-19-CO-A-040)
+- [FB-19-SC-P-051 BFF 下游编排](#FB-19-SC-P-051)
+
+**参考资源**：
+- [Redis 官方 Lua 文档](https://redis.io/docs/interact/programmability/eval-intro/)
+- [Rate Limiting 模式](https://redis.io/redis-in-action/rate-limiting/)
+
+**口头回答版**：
+> 用 Redis 的 sorted set 做滑动窗口，Lua 脚本保证原子性：先清理过期时间窗口，再统计当前数量，小于限制就写入并返回 1，否则返回 0。要设过期时间回收内存。维度可以是用户 ID、IP 或接口。
+
+---
+
+### FB-19-CO-P-053：Node.js 中的 AsyncLocalStorage / Async Hooks 有什么作用？
+
+**题型**：概念题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、链路追踪、监控、日志、并发
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请解释 AsyncLocalStorage 的作用，并说明它在 BFF 中的典型应用场景。
+
+**参考答案**：
+
+AsyncLocalStorage 是 Node.js 提供的异步上下文存储 API。它可以在异步调用链中透传上下文，而不需要手动通过函数参数传递。
+
+核心 API：
+```js
+const { AsyncLocalStorage } = require('async_hooks');
+const als = new AsyncLocalStorage();
+
+als.run({ traceId: 'xxx' }, async () => {
+  await doSomething();
+  console.log(als.getStore().traceId); // 'xxx'
+});
+```
+
+典型场景：
+1. 请求级上下文透传：traceId、userId、request 信息。
+2. 日志自动注入 traceId，避免每个函数都传参。
+3. 链路追踪：在 BFF 入口设置 store，后续日志/下游请求自动携带。
+
+注意事项：
+- 不要在 store 中存大对象，避免内存泄漏。
+- `async_hooks` 有性能开销，高并发场景需压测。
+- 与 cluster/worker_threads 配合时，上下文不跨进程。
+
+**评分维度**：
+- 能说明 AsyncLocalStorage 解决异步上下文透传（35%）
+- 能写出 run/getStore 基本用法（25%）
+- 能列举 traceId、日志、链路追踪场景（30%）
+- 能提到性能与内存注意事项（10%）
+
+**常见错误**：
+- 与同步的 ThreadLocal 混为一谈。
+- 在 store 中存大量数据导致内存泄漏。
+- 跨进程期望上下文自动传递。
+
+**延伸追问**：
+- AsyncLocalStorage 与 domain 模块有什么区别？
+- 如何在 NestJS 中集成 AsyncLocalStorage 实现全链路 traceId？
+
+**相关题目**：
+- [FB-19-PE-A-042 日志规范](#FB-19-PE-A-042)
+- [FB-19-SD-R-058 可观测性体系](#FB-19-SD-R-058)
+
+**参考资源**：
+- [Node.js AsyncLocalStorage](https://nodejs.org/api/async_context.html#class-asynclocalstorage)
+- [async_hooks 文档](https://nodejs.org/api/async_hooks.html)
+
+**口头回答版**：
+> AsyncLocalStorage 可以在异步调用链里透传上下文，比如 traceId、userId。入口 run 一个 store，后面任何异步函数都能 getStore 拿到。常用于日志自动带 traceId、链路追踪。注意不要存大对象，性能也要测。
+
+---
+
+### FB-19-SC-P-054：如何设计 BFF 层的统一错误码与响应结构？
+
+**题型**：场景设计题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、错误处理、API 设计、JSON
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请设计 BFF 层统一的响应结构与错误码规范，并说明如何处理下游不同服务的错误。
+
+**参考答案**：
+
+统一响应结构：
+```json
+{
+  "success": true,
+  "code": "0",
+  "message": "ok",
+  "data": { },
+  "traceId": "abc-123",
+  "timestamp": "2026-07-03T12:00:00Z"
+}
+```
+
+错误码设计：
+- 采用 `领域 + 类型 + 序号`，如 `A001001`。
+- 全局通用：`100001` 参数错误，`100002` 未登录，`100003` 无权限。
+- 业务域：`200001` 订单不存在，`300001` 商品下架。
+- 保留 `500xxx` 给系统/下游未知错误。
+
+下游错误映射：
+- 下游 4xx -> BFF 转换为业务错误码，不直接暴露。
+- 下游 5xx/超时/熔断 -> 返回统一服务不可用提示，日志记录真实原因。
+- 错误响应中 `message` 给用户看，`detail` 给日志/监控看。
+
+实现：
+- NestJS 全局 ExceptionFilter 统一格式化。
+- Express 错误中间件统一处理。
+- 错误码集中管理，避免重复与随意编码。
+
+**评分维度**：
+- 能设计统一响应体（25%）
+- 能设计分层错误码体系（35%）
+- 能说明下游错误映射策略（25%）
+- 能给出框架实现方案（15%）
+
+**常见错误**：
+- 错误码随意定义，前端难以处理。
+- 直接把下游错误信息返回给前端，暴露内部细节。
+- 成功和失败返回的字段结构不一致。
+
+**延伸追问**：
+- 国际化场景下错误消息如何处理？
+- 错误码是否需要兼容旧版本前端？
+
+**相关题目**：
+- [FB-19-CO-B-036 HTTP 状态码](#FB-19-CO-B-036)
+- [FB-19-CA-A-043 Express 异步错误处理](#FB-19-CA-A-043)
+
+**参考资源**：
+- [JSON API Error 规范](https://jsonapi.org/format/#errors)
+- [Microsoft REST API Guidelines](https://github.com/microsoft/api-guidelines)
+
+**口头回答版**：
+> BFF 返回统一结构：success、code、message、data、traceId。错误码按领域分层，比如 100 开头全局、200 开头订单。下游错误不要直接抛给前端，要映射成业务错误码，500 类写日志。用 NestJS 的 ExceptionFilter 或 Express 错误中间件统一处理。
+
+---
+
+### FB-19-PE-P-055：Node.js 中如何对大文件进行流式上传、下载与断点续传？
+
+**题型**：性能优化题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Stream、大文件、断点、性能优化
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Node.js 处理大文件上传、下载的优化方案，并简述断点续传的实现思路。
+
+**参考答案**：
+
+1. 流式上传：
+   - 不一次性读取到内存，使用 `busboy`、`multer` 流式解析 multipart。
+   - 直接 pipe 到目标存储（本地/OSS/S3），配合 `pipeline` 处理错误。
+
+2. 流式下载：
+   - 从存储读取 Readable Stream，直接 pipe 到 res。
+   - 设置 `Content-Length` 或 `Transfer-Encoding: chunked`。
+
+3. 断点续传：
+   - 下载：客户端通过 `Range: bytes=0-1023` 请求分段；服务端返回 `206 Partial Content`。
+   - 上传：分片上传，每片带 index 与 checksum；服务端合并。
+   - 记录已传分片，失败后续传。
+
+示例（Range 下载）：
+```js
+const range = req.headers.range;
+const { size } = fs.statSync(filePath);
+const [start, end] = range.replace(/bytes=/, '').split('-').map(Number);
+const chunkEnd = end || Math.min(start + 1024 * 1024, size - 1);
+res.writeHead(206, {
+  'Content-Range': `bytes ${start}-${chunkEnd}/${size}`,
+  'Accept-Ranges': 'bytes',
+  'Content-Length': chunkEnd - start + 1,
+});
+fs.createReadStream(filePath, { start, end: chunkEnd }).pipe(res);
+```
+
+**评分维度**：
+- 能说明流式上传/下载避免内存爆（30%）
+- 能解释 Range/206 断点续传（30%）
+- 能给出代码示例（25%）
+- 能提到分片上传校验（15%）
+
+**常见错误**：
+- 使用 readFileSync/readFile 读取大文件。
+- 不处理 Range 错误，返回 200 而不是 206。
+- 分片上传不校验 checksum，导致文件损坏。
+
+**延伸追问**：
+- 如何限制上传文件大小与类型？
+- 流式处理中如何做好错误恢复？
+
+**相关题目**：
+- [FB-19-CO-B-004 Node.js Stream 类型](#FB-19-CO-B-004)
+- [FB-19-PE-P-050 CPU 高占用排查](#FB-19-PE-P-050)
+
+**参考资源**：
+- [Node.js Stream 文档](https://nodejs.org/api/stream.html)
+- [HTTP Range Requests](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Range_requests)
+
+**口头回答版**：
+> 大文件要用 Stream 边读边传，不要一次加载到内存。上传用 busboy 流式解析，下载直接 pipe。断点续传靠 HTTP Range 头，服务端返回 206 Partial Content。上传分片要记录已传分片并校验 checksum。
+
+---
+
+### FB-19-CO-P-056：GraphQL BFF 相比 REST BFF 有什么优劣？落地时要注意什么？
+
+**题型**：概念题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、GraphQL、RESTful、BFF、API 设计
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请对比 GraphQL BFF 与 REST BFF，并说明在大型企业级项目中落地的注意事项。
+
+**参考答案**：
+
+| 维度 | GraphQL BFF | REST BFF |
+|------|-------------|----------|
+| 数据获取 | 前端按需查询，减少冗余 | 后端定结构，可能 over-fetch |
+| 聚合能力 | 天然适合多下游聚合 | 需手动编排多个接口 |
+| 类型安全 | Schema 强类型 | 依赖 OpenAPI/文档 |
+| 缓存 | 需自定义按 query/field 缓存 | HTTP 缓存成熟 |
+| 学习成本 | 高，需理解 Schema/Resolver | 低 |
+| 调试 | Playground 方便 | Postman/curl |
+
+落地注意事项：
+- 设计统一 Schema，避免字段无限膨胀。
+- Resolver 层做好 N+1 防护（DataLoader）。
+- 权限控制到字段级，配合 @auth 指令或 Directive。
+- 监控查询复杂度，防止恶意大查询。
+- 错误处理统一，区分业务错误与系统错误。
+- 缓存策略：Persisted Queries + Redis/CDN。
+
+**评分维度**：
+- 能对比 GraphQL 与 REST 在 BFF 的差异（40%）
+- 能说明 Schema、Resolver、DataLoader 要点（30%）
+- 能提到安全、缓存、监控（30%）
+
+**常见错误**：
+- 所有接口都迁移为 GraphQL，忽略简单场景。
+- Resolver 直连数据库，不做聚合与权限控制。
+- 没有 DataLoader，导致 N+1 查询拖垮下游。
+
+**延伸追问**：
+- 如何防止 GraphQL 的嵌套查询攻击？
+- Federation 与 Schema Stitching 有什么区别？
+
+**相关题目**：
+- [FB-19-CO-A-012 RESTful、GraphQL、tRPC 对比](#FB-19-CO-A-012)
+- [FB-19-SC-P-051 BFF 下游编排](#FB-19-SC-P-051)
+
+**参考资源**：
+- [GraphQL 官方文档](https://graphql.org/learn/)
+- [Apollo Server 文档](https://www.apollographql.com/docs/apollo-server/)
+
+**口头回答版**：
+> GraphQL BFF 让前端按需取字段，天然适合做聚合，但缓存和权限更复杂。落地要注意 Schema 设计、Resolver 用 DataLoader 防 N+1、字段级权限、控制查询复杂度。简单接口不一定非要 GraphQL。
+
+---
+
+## 架构题（25 道）{#architect-2}
+
+### FB-19-SD-R-057：如何设计一个多租户、可水平扩展的 BFF 平台？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、多租户、SaaS、水平扩展、架构
+**出现频率**：中频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一个面向多租户的 BFF 平台，支持租户隔离、水平扩展、独立配置与灰度发布。
+
+**参考答案**：
+
+核心设计：
+
+1. 租户识别：
+   - 请求头 `X-Tenant-ID` 或子域名 `tenant.example.com`。
+   - 在网关层解析并注入到请求上下文。
+
+2. 租户隔离：
+   - 数据隔离：共享库 + 租户字段，或独立 Schema/数据库。
+   - 配置隔离：每租户独立配置（超时、降级、白名单）存储于配置中心。
+   - 资源隔离：按租户限流、配额，避免邻居效应。
+
+3. BFF 平台架构：
+   ```
+   客户端 -> API Gateway（租户解析、鉴权、限流） -> BFF 平台（共享服务池）
+                                      -> 配置中心
+                                      -> 下游微服务
+   ```
+
+4. 水平扩展：
+   - BFF 无状态，通过 K8s HPA 按 CPU/请求量扩容。
+   - 缓存 Redis 集群，消息队列共享。
+   - 租户配置懒加载 + 本地缓存。
+
+5. 灰度与发布：
+   - 按租户灰度：部分租户先使用新版本 BFF。
+   - 特性开关（Feature Flag）控制租户可见功能。
+
+**评分维度**：
+- 能说明租户识别与上下文注入（20%）
+- 能设计数据/配置/资源隔离方案（30%）
+- 能说明无状态水平扩展（25%）
+- 能提到灰度与特性开关（15%）
+- 能考虑安全与合规（10%）
+
+**常见错误**：
+- 租户 ID 依赖前端传入，未在网关校验。
+- 所有租户共用同一套超时/降级配置。
+- 在 BFF 中保存租户状态，导致有状态无法扩容。
+
+**延伸追问**：
+- 共享库模式下如何防止租户越权访问数据？
+- 租户配置热更新如何保证一致性？
+
+**相关题目**：
+- [FB-19-SD-R-060 多端聚合网关](#FB-19-SD-R-060)
+- [FB-19-SD-R-063 BFF 与网关/Service Mesh 协同](#FB-19-SD-R-063)
+
+**参考资源**：
+- [Multi-Tenant SaaS 模式](https://docs.aws.amazon.com/zh_cn/whitepapers/latest/saas-tenant-isolation/saas-tenant-isolation.html)
+- [Kubernetes HPA 文档](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)
+
+**口头回答版**：
+> 多租户 BFF 要在网关解析租户 ID，注入上下文。数据隔离可以共享库加租户字段，配置按租户独立存配置中心。BFF 本身无状态，靠 K8s HPA 扩容。按租户灰度和特性开关上线新功能，避免影响所有租户。
+
+---
+
+### FB-19-SD-R-058：如何为 Node.js BFF 设计完整的可观测性体系？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、可观测性、链路追踪、日志、Metrics、监控
+**出现频率**：高频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一套覆盖 Metrics、Logging、Tracing 的 BFF 可观测性体系，并说明关键指标与告警策略。
+
+**参考答案**：
+
+体系架构：
+```
+BFF -> OpenTelemetry SDK
+  -> Metrics -> Prometheus -> Grafana
+  -> Logs -> Loki / ELK
+  -> Traces -> Jaeger / Zipkin
+```
+
+1. Metrics：
+   - RED 指标：Request rate、Error rate、Duration（P50/P95/P99）。
+   - 业务指标：QPS、缓存命中率、下游调用延迟。
+   - 系统指标：CPU、内存、Event loop lag、GC。
+
+2. Logging：
+   - 结构化 JSON，包含 traceId、spanId、service、env。
+   - 分级：INFO、WARN、ERROR、FATAL。
+   - 日志不采样 ERROR，可采样 DEBUG。
+
+3. Tracing：
+   - 使用 OpenTelemetry 自动/手动埋点。
+   - BFF 入口生成 traceId，透传到下游。
+   - 标注关键 span：数据库、Redis、HTTP 调用。
+
+4. 告警：
+   - Error rate > 1% 持续 5min。
+   - P99 latency > 1s。
+   - 下游服务大面积失败。
+   - Event loop lag > 100ms。
+
+**评分维度**：
+- 能区分 Metrics/Logs/Traces 关注点（30%）
+- 能列出关键指标（25%）
+- 能说明 traceId 透传与 OpenTelemetry（25%）
+- 能设计告警阈值与响应（20%）
+
+**常见错误**：
+- 只有日志没有指标，无法快速定位。
+- traceId 未透传，链路断在 BFF。
+- 告警过多导致告警疲劳。
+
+**延伸追问**：
+- 如何处理高并发下的 tracing 采样与性能开销？
+- Metrics 标签过多会导致什么问题？
+
+**相关题目**：
+- [FB-19-PE-A-042 日志规范](#FB-19-PE-A-042)
+- [FB-19-CO-P-053 AsyncLocalStorage](#FB-19-CO-P-053)
+
+**参考资源**：
+- [OpenTelemetry 文档](https://opentelemetry.io/docs/)
+- [Google SRE - Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/)
+
+**口头回答版**：
+> 可观测性分三块：Metrics 看 RED 指标和系统指标，Logs 结构化并带 traceId，Tracing 用 OpenTelemetry 把 traceId 透传到下游。告警看错误率、P99 延迟、Event loop lag。不要只有日志没有指标。
+
+---
+
+### FB-19-SD-R-059：如何为 BFF 设计统一的 API 版本治理与兼容性策略？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、API 版本、兼容性、版本控制
+**出现频率**：中频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计 BFF 层的 API 版本治理方案，包括版本标识、路由、弃用、兼容性保障与文档管理。
+
+**参考答案**：
+
+版本标识方式：
+- URL Path：`/v1/users`，`/v2/users`。
+- Header：`Accept: application/vnd.example.v2+json`。
+- Query：`?version=2`。
+
+推荐：
+- URL Path 最直观，便于 CDN、网关路由与调试。
+- Header 适合内部服务，不污染 URL。
+
+版本治理策略：
+1. 版本目录化：`controllers/v1`、`controllers/v2`。
+2. 共享业务逻辑，版本层只做 DTO/协议转换。
+3. 字段兼容性：新增字段、保留旧字段，不删除/修改已有字段语义。
+4. 弃用流程：标记 deprecated，保留 N 个版本后下线，提前通知。
+5. 文档：OpenAPI/Swagger 按版本生成，变更记录（CHANGELOG）。
+
+兼容性保障：
+- 契约测试：消费者驱动契约（CDC）测试。
+- 自动化对比新旧版本响应 schema。
+- 灰度发布 + 回归测试。
+
+**评分维度**：
+- 能比较版本标识方式（25%）
+- 能设计版本目录与复用策略（25%）
+- 能说明兼容性原则与弃用流程（25%）
+- 能提到契约测试与文档（25%）
+
+**常见错误**：
+- 版本号随意，无统一规划。
+- 旧版本直接删除，导致前端崩溃。
+- 版本间大量复制代码，难以维护。
+
+**延伸追问**：
+- 如何处理跨版本的错误码不一致？
+- 移动端强更与 API 版本如何配合？
+
+**相关题目**：
+- [FB-19-CO-B-036 HTTP 状态码](#FB-19-CO-B-036)
+- [FB-19-SC-P-054 统一错误码与响应结构](#FB-19-SC-P-054)
+
+**参考资源**：
+- [Microsoft API Versioning](https://github.com/microsoft/api-guidelines/blob/master/Guidelines.md#12-versioning)
+- [OpenAPI 文档](https://swagger.io/specification/)
+
+**口头回答版**：
+> API 版本可以用 URL /v1/users 或 Header。BFF 里按版本分目录，业务逻辑复用，版本层做 DTO 转换。兼容性原则是只增不删不改语义，弃用要提前通知。用 OpenAPI 生成文档，做契约测试保证兼容。
+
+---
+
+### FB-19-SD-R-060：如何设计一个支持多端（Web/H5/小程序/App）的 BFF 数据聚合网关？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、数据聚合、多端适配、API 网关
+**出现频率**：高频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一个 BFF 聚合网关，能够根据客户端类型（Web/H5/小程序/App）返回适配的数据结构与字段。
+
+**参考答案**：
+
+核心设计：
+
+1. 客户端识别：
+   - 请求头 `X-Client-Type`：web/h5/miniapp/app。
+   - User-Agent 解析作为兜底。
+
+2. 路由与编排：
+   - 网关层解析 client type，路由到对应 BFF 版本或 adapter。
+   - 统一聚合服务编排下游（用户、订单、商品）。
+
+3. 字段裁剪与适配：
+   - 使用 GraphQL 或字段映射配置，按端返回所需字段。
+   - 示例：App 显示完整商品详情，小程序只返回缩略信息。
+   - 配置中心维护每端字段白名单/映射规则。
+
+4. 缓存：
+   - 共享 Redis 缓存基础数据。
+   - 按端维度设置不同 TTL。
+
+5. 灰度与 AB：
+   - 按端/用户/版本灰度新数据结构。
+   - 特性开关控制功能展示。
+
+架构：
+```
+客户端 -> Gateway -> BFF Adapter -> Aggregation Service -> 下游微服务
+                         -> 配置中心 / 缓存
+```
+
+**评分维度**：
+- 能说明客户端识别与路由（20%）
+- 能设计数据聚合与字段适配（30%）
+- 能说明缓存与性能策略（20%）
+- 能提到灰度/AB 与配置中心（20%）
+- 能考虑安全与鉴权（10%）
+
+**常见错误**：
+- 所有端共用同一接口，导致 over-fetch。
+- 在 BFF 中硬编码多端差异。
+- 忽略小程序对包大小和请求数的限制。
+
+**延伸追问**：
+- 如何防止某个端的字段变更影响其他端？
+- 多端共用缓存时如何处理不同字段需求？
+
+**相关题目**：
+- [FB-19-CO-B-008 BFF 概念](#FB-19-CO-B-008)
+- [FB-19-SD-R-063 BFF 与网关协同](#FB-19-SD-R-063)
+
+**参考资源**：
+- [Backends for Frontends](https://samnewman.io/patterns/architectural/bff/)
+- [API Gateway Pattern](https://microservices.io/patterns/apigateway.html)
+
+**口头回答版**：
+> 多端 BFF 通过请求头识别客户端类型，路由到对应 adapter。聚合下游数据后按端做字段裁剪，比如 App 返回全量，小程序返回精简字段。配置中心维护映射规则，Redis 做缓存。新功能按端灰度，避免影响所有端。
+
+---
+
+### FB-19-SD-R-061：Node.js 服务在 Kubernetes 中如何做到优雅关闭、弹性伸缩与成本优化？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Kubernetes、稳定性、水平扩展、成本优化、FinOps
+**出现频率**：中频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计 Node.js 服务在 K8s 中的生产部署方案，重点说明优雅关闭、HPA/VPA、资源请求与成本优化。
+
+**参考答案**：
+
+1. 优雅关闭：
+   - 监听 `SIGTERM`，调用 `server.close()` 停止接收新连接。
+   - 等待活跃请求完成（可设 maxWait）。
+   - 关闭 DB/Redis 连接，然后 `process.exit(0)`。
+   - K8s 设置 `terminationGracePeriodSeconds`。
+
+2. 弹性伸缩：
+   - HPA：基于 CPU/内存/QPS 水平扩容，设置 min/max replicas。
+   - VPA：推荐模式（Off/Initial/Auto）调整资源请求。
+   - KEDA：基于消息队列长度、定时任务等事件驱动扩缩容。
+
+3. 资源设置：
+   - requests 按实际基线设置，limits 避免 OOM。
+   - Node.js 内存需考虑 V8 堆限制与容器内存限制关系。
+
+4. 成本优化：
+   - Spot/Preemptible 实例运行无状态 BFF。
+   - 按业务峰谷定时伸缩。
+   - 使用 ARM 实例（如 Graviton）降低成本。
+   - FinOps：资源标签、成本分摊、闲置资源清理。
+
+**评分维度**：
+- 能说明优雅关闭流程（25%）
+- 能说明 HPA/VPA/KEDA 适用场景（30%）
+- 能设置合理的资源 requests/limits（20%）
+- 能给出成本优化措施（25%）
+
+**常见错误**：
+- SIGTERM 直接退出，导致正在处理的请求失败。
+- HPA 阈值过低，频繁扩缩容。
+- 不给内存 limits，导致容器被 OOM kill。
+
+**延伸追问**：
+- 如何验证优雅关闭是否生效？
+- Node.js 单线程特性对 HPA 指标选择有什么影响？
+
+**相关题目**：
+- [FB-19-EN-R-030 容器化部署与 CI/CD](#FB-19-EN-R-030)
+- [FB-19-CO-A-046 健康检查探针](#FB-19-CO-A-046)
+
+**参考资源**：
+- [Kubernetes 优雅终止](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
+- [KEDA 文档](https://keda.sh/docs/latest/)
+
+**口头回答版**：
+> Node.js 在 K8s 里要监听 SIGTERM，关闭 server 和连接后再退出。弹性伸缩用 HPA 按 CPU/QPS，KEDA 可按消息队列。资源 requests 和 limits 要合理，内存要小于容器限制。成本上可用 Spot 实例、ARM、定时伸缩和 FinOps。
+
+---
+
+### FB-19-SD-R-062：如何设计基于事件驱动与 CQRS 的 BFF 数据同步架构？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、事件驱动、CQRS、消息队列、最终一致性
+**出现频率**：中频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一个 BFF 数据同步架构，利用事件驱动与 CQRS 满足读模型与写模型分离，并保证最终一致性。
+
+**参考答案**：
+
+架构组成：
+
+1. 命令侧（Command Side）：
+   - 接收写请求，执行业务校验，写入主数据库。
+   - 发布领域事件到消息队列（Kafka/RabbitMQ/RocketMQ）。
+
+2. 查询侧（Query Side）：
+   - BFF 面向前端，读取预计算的读模型（Redis/ES/Mongo）。
+   - 通过消费领域事件更新读模型。
+
+3. 事件总线：
+   - 可靠消息队列，支持至少一次投递。
+   - 事件 Schema 版本化，便于演进。
+
+4. 一致性保障：
+   - 本地事务 + 事件表 / Outbox 模式，保证写库与发事件原子性。
+   - 消费者幂等，处理重复事件。
+   - 监控延迟与不一致率，提供对账/补偿机制。
+
+适用场景：
+- 读多写少、多下游聚合、需要为前端定制读模型。
+
+
+**补充说明**：
+
+在实际落地 设计基于事件驱动与 CQRS 的 BFF 数据同步架构 时，建议结合 Node.js、事件驱动、CQRS 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 能说明 CQRS 读写分离与适用场景（25%）
+- 能设计命令侧与查询侧职责（25%）
+- 能说明事件总线与 Outbox 模式（25%）
+- 能说明最终一致性与幂等/补偿（25%）
+
+**常见错误**：
+- 把所有查询都走 CQRS，增加不必要复杂度。
+- 忽略事件乱序与重复投递。
+- 没有监控读模型与主库不一致。
+
+**延伸追问**：
+- Outbox 模式如何解决写库与发消息的原子性？
+- 读模型更新延迟太大时如何兜底？
+
+**相关题目**：
+- [FB-19-CO-P-022 微服务通信与分布式事务](#FB-19-CO-P-022)
+- [FB-19-SD-R-060 多端聚合网关](#FB-19-SD-R-060)
+
+**参考资源**：
+- [Microsoft CQRS 模式](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
+- [Outbox Pattern](https://microservices.io/patterns/data/transactional-outbox.html)
+
+**口头回答版**：
+> CQRS 把读写分开：命令侧写主库并发事件，查询侧 BFF 读预计算的读模型。用消息队列同步，写库和发事件用 Outbox 保证原子。消费者要幂等，监控延迟和对账。适合读多写少、需要为前端定制读模型的场景。
+
+---
+
+### FB-19-SD-R-063：BFF 层如何与 API 网关、Service Mesh、鉴权中心协同工作？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、API 网关、鉴权、微服务
+**出现频率**：中频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请说明在大型企业架构中，BFF、API 网关、Service Mesh、鉴权中心各自的职责边界与协作方式。
+
+**参考答案**：
+
+职责边界：
+
+| 组件 | 职责 |
+|------|------|
+| API 网关 | 南北流量入口，负责限流、鉴权、SSL、路由、协议转换 |
+| BFF | 面向前端，负责数据聚合、字段裁剪、协议适配 |
+| Service Mesh | 东西流量治理，负责服务间负载均衡、mTLS、熔断、可观测 |
+| 鉴权中心（IAM/IDP） | 统一身份认证、Token 颁发、权限策略 |
+
+协作流程：
+1. 客户端 -> API 网关：网关校验 JWT/签名，做粗粒度限流。
+2. API 网关 -> BFF：透传用户信息、traceId、tenantId。
+3. BFF -> Service Mesh Sidecar：服务间调用经过 Envoy/Istio，自动 mTLS、熔断、负载均衡。
+4. BFF -> 鉴权中心：如需细粒度权限，调用权限服务或解析 JWT 中的角色。
+
+设计要点：
+- 网关不做业务聚合，BFF 不做南北向安全。
+- Service Mesh 不替代 BFF，两者关注点不同。
+- 鉴权信息通过 Header 安全透传，BFF 负责业务角色校验。
+
+**评分维度**：
+- 能区分四者职责边界（35%）
+- 能描述请求流转与数据透传（25%）
+- 能说明安全分层（20%）
+- 能提到 mTLS、熔断、可观测（20%）
+
+**常见错误**：
+- 在 BFF 中重复实现网关的限流/鉴权。
+- 把 Service Mesh 当成 BFF 使用。
+- 鉴权 Token 在各层明文透传，未校验。
+
+**延伸追问**：
+- 如果取消网关，由 BFF 直接面对公网，会有什么问题？
+- Service Mesh 的 Sidecar 模式与 Sidecarless 模式如何选择？
+
+**相关题目**：
+- [FB-19-SD-R-057 多租户 BFF](#FB-19-SD-R-057)
+- [FB-19-SD-R-060 多端聚合网关](#FB-19-SD-R-060)
+
+**参考资源**：
+- [API Gateway vs Service Mesh](https://www.nginx.com/blog/api-gateway-vs-service-mesh/)
+- [Istio 架构](https://istio.io/latest/docs/ops/deployment/architecture/)
+
+**口头回答版**：
+> API 网关管入口流量和安全，BFF 管面向前端的聚合和适配，Service Mesh 管服务间通信治理，鉴权中心统一身份。请求先进网关验 Token，再到 BFF，BFF 调下游经过 Service Mesh。不要把这些职责混在一起。
+
+---
+
+### FB-19-SD-R-064：设计一个支持 Serverless / Edge 部署的 BFF 框架需要考虑哪些因素？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、Serverless、Edge、FaaS、Cloudflare Workers、Vercel
+**出现频率**：中频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请设计一个可在 Serverless 函数或 Edge Runtime 上运行的 BFF 框架，重点说明冷启动、运行时限制、状态管理与可移植性。
+
+**参考答案**：
+
+关键考虑：
+
+1. 运行时适配：
+   - 抽象 HTTP 请求/响应，适配 Node.js、Deno、Cloudflare Workers、Vercel Edge。
+   - 避免使用 Node.js 特有 API（fs、cluster），使用 Web Standard API（Request/Response）。
+
+2. 冷启动优化：
+   - 减少依赖体积，使用 esbuild 打包为单文件。
+   - 延迟加载非必要模块，初始化时只加载核心。
+   - 使用连接池外置或 HTTP keep-alive 复用。
+
+3. 状态管理：
+   - 函数无状态，会话/缓存依赖外部 Redis/DynamoDB/KV。
+   - Edge 环境使用区域 KV（Cloudflare KV、Vercel KV）。
+
+4. 部署与可移植性：
+   - 通过适配层屏蔽平台差异，配置即代码。
+   - 提供 CLI 一键部署到 Vercel、Netlify、AWS Lambda、Cloudflare Workers。
+
+5. 安全：
+   - Edge 靠近用户，注意 SSRF、敏感信息泄露。
+   - 函数最小权限，密钥存平台 Secret。
+
+**评分维度**：
+- 能说明运行时抽象与 Web Standard API（25%）
+- 能设计冷启动优化方案（25%）
+- 能说明无状态与外部状态管理（20%）
+- 能提到多平台部署与可移植性（20%）
+- 能考虑安全与限制（10%）
+
+**常见错误**：
+- 直接使用 Node.js fs/cluster 等 Edge 不支持的 API。
+- 在函数内保存全局状态。
+- 忽视 Edge 环境的 CPU/内存限制。
+
+**延伸追问**：
+- Edge 函数与中心函数在数据一致性上如何取舍？
+- Serverless 函数如何处理长连接（WebSocket）？
+
+**相关题目**：
+- [FB-19-SD-R-026 Serverless / Edge BFF 设计](#FB-19-SD-R-026)
+- [FB-19-SD-R-061 K8s 优雅关闭与弹性伸缩](#FB-19-SD-R-061)
+
+**参考资源**：
+- [Cloudflare Workers 文档](https://developers.cloudflare.com/workers/)
+- [Vercel Edge Runtime](https://edge-runtime.vercel.app/)
+
+**口头回答版**：
+> Serverless/Edge BFF 要用 Web 标准 API，屏蔽平台差异。冷启动靠减少依赖和延迟加载。函数无状态，会话放 Redis 或 KV。打包成单文件，提供 CLI 一键部署。注意 Edge 的 CPU 内存限制，别用 Node 特有 API。
+
+---
+
+### FB-19-SD-R-065：单体 BFF 如何演进为领域驱动的微前端 + 微服务协同架构？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、DDD、微前端、微服务、架构演进
+**出现频率**：中频
+**预计回答时长**：15-30 分钟
+
+**题目描述**：
+请描述单体 BFF 随着业务增长，如何按领域拆分并与微前端、微服务协同演进。
+
+**参考答案**：
+
+演进路径：
+
+1. 识别领域边界：
+   - 使用事件风暴、领域建模划分限界上下文（用户、订单、商品、营销）。
+   - 每个领域对应一个 BFF 子域。
+
+2. 拆分策略：
+   - 先按前端页面/微前端应用拆分 BFF，降低影响面。
+   - 再按领域拆分底层服务，BFF 随之演进。
+   - 采用 Strangler Fig 模式，逐步替换旧接口。
+
+3. 微前端协同：
+   - 每个微前端对应一个 BFF 子域，提供独立部署能力。
+   - 通过统一门户聚合页面，BFF 提供对应数据。
+
+4. 微服务协同：
+   - BFF 作为各领域的编排层，不持有核心领域逻辑。
+   - 使用 API 网关统一入口，Service Mesh 治理服务间调用。
+
+5. 治理：
+   - 统一标准：错误码、日志、traceId、鉴权。
+   - 共享 SDK/组件库，避免重复。
+   - 持续监控拆分后的延迟与可用性。
+
+**评分维度**：
+- 能说明领域识别与限界上下文（25%）
+- 能给出渐进拆分策略（25%）
+- 能说明微前端与 BFF 的对应关系（20%）
+- 能提到统一治理与可观测（20%）
+- 能考虑团队组织与康威定律（10%）
+
+**常见错误**：
+- 一次性大拆，导致业务中断。
+- BFF 变成领域服务，混入核心业务逻辑。
+- 微前端与 BFF 边界不清，造成循环依赖。
+
+**延伸追问**：
+- 如何衡量 BFF 拆分的粒度是否合适？
+- 领域共享数据时，BFF 如何处理跨域聚合？
+
+**相关题目**：
+- [FB-19-SD-R-060 多端聚合网关](#FB-19-SD-R-060)
+- [FB-19-SD-R-062 事件驱动 CQRS](#FB-19-SD-R-062)
+
+**参考资源**：
+- [Domain-Driven Design 参考](https://domainlanguage.com/ddd/reference/)
+- [Strangler Fig Pattern](https://martinfowler.com/bliki/StranglerFigApplication.html)
+
+**口头回答版**：
+> 单体 BFF 演进要先做领域建模，划分用户、订单等限界上下文。按微前端和领域逐步拆分，用 Strangler Fig 模式替换旧接口。每个微前端对应一个 BFF 子域，BFF 只编排不持核心业务逻辑。统一错误码、日志、traceId 治理。
+### FB-19-CP-B-001：Node.js 的事件循环和浏览器有什么区别？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+Node.js 的事件循环和浏览器有什么区别。
+
+**参考答案**：
+
+Node.js 和浏览器的事件循环核心思想相同，都是单线程 + 异步非阻塞，但阶段划分和 API 有差异。
+
+浏览器事件循环：
+- 宏任务队列 + 微任务队列。
+- 宏任务包括 script、setTimeout、DOM 事件、I/O 等。
+- 微任务包括 Promise.then、MutationObserver、queueMicrotask。
+- 流程：执行当前宏任务 → 清空所有微任务 → 渲染 → 取下一个宏任务。
+
+Node.js 事件循环：
+- 分为 timers、pending callbacks、idle/prepare、poll、check、close callbacks 六个阶段。
+- `process.nextTick` 优先级高于 Promise 微任务，会在当前操作完成后立即执行。
+- I/O 回调主要在 poll 阶段执行，`setImmediate` 在 check 阶段执行。
+
+核心注意：Node.js 主线程阻塞会影响所有并发请求，因此要避免同步阻塞操作（如同步读取大文件、复杂计算）。
+
+```js
+console.log('1');
+setTimeout(() => console.log('2'), 0);
+Promise.resolve().then(() => console.log('3'));
+process.nextTick(() => console.log('4'));
+console.log('5');
+// 输出：1 5 4 3 2
+```
+
+**评分维度**：
+- 能说出 Node.js 主要阶段（30%）
+- 能区分 nextTick 和微任务（25%）
+- 理解阻塞的影响（20%）
+- 能举例说明执行顺序（15%）
+- 表达清晰（10%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> Node.js 和浏览器的事件循环核心思想相同，都是单线程 + 异步非阻塞，但阶段划分和 API 有差异。 浏览器事件循环： - 宏任务队列 + 微任务队列。 - 宏任务包括 script、setTimeout、DOM 事件、I/O 等。 - 微任务包括 Promise.then、MutationObserver、queueMicrotask。
+
+---
+
+### FB-19-CO-B-038：什么是 BFF？它解决了什么问题？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+什么是 BFF？它解决了什么问题。
+
+**参考答案**：
+
+BFF（Backend for Frontend）是面向前端的后端层，位于前端应用和通用后端服务之间，专门为前端接口需求服务。
+
+解决的问题：
+- **多端接口需求差异大**：App、H5、小程序、PC 对数据字段和结构要求不同，后端被迫为每端定制接口。
+- **多次请求聚合**：一个页面可能需要调用多个服务，前端直接调用会导致多次往返。
+- **数据格式不适配**：后端返回的通用 DTO 不完全符合前端展示需求。
+- **鉴权、限流、缓存**：需要在前后端之间统一处理的安全和性能逻辑。
+
+BFF 的核心职责：
+- 接口聚合与编排。
+- 数据适配和裁剪。
+- 统一鉴权、限流、降级。
+- 缓存策略（如 Redis、本地缓存）。
+- 协议转换（REST、GraphQL、gRPC）。
+
+**评分维度**：
+- 概念准确（25%）
+- 能清晰说明解决的问题（30%）
+- 能举例说明职责（25%）
+- 有实际落地经验（20%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> BFF（Backend for Frontend）是面向前端的后端层，位于前端应用和通用后端服务之间，专门为前端接口需求服务。 解决的问题： - 多端接口需求差异大：App、H5、小程序、PC 对数据字段和结构要求不同，后端被迫为每端定制接口。 - 多次请求聚合：一个页面可能需要调用多个服务，前端直接调用会导致多次往返。 - 数据格式不适配：后端返回的通用 DTO 不完全符合前端展示需求。
+
+---
+
+### FB-19-SC-B-001：生产环境为什么不建议前端直接调用后端通用服务？
+
+**题型**：场景设计题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+生产环境为什么不建议前端直接调用后端通用服务。
+
+**参考答案**：
+
+生产环境建议通过 BFF 或后端代理调用通用服务，原因包括：
+
+1. **接口聚合**：减少前端请求次数，降低网络开销和页面加载时间。
+2. **数据适配**：把通用数据转成前端需要的格式，前端只需关注展示。
+3. **安全**：不暴露内部服务地址、鉴权信息和敏感接口。
+4. **鉴权限流**：统一处理登录态、权限校验、流量控制和防刷。
+5. **缓存**：在服务端做缓存，减少通用服务压力和响应时间。
+6. **协议转换**：如 REST 转 GraphQL，或统一封装 gRPC/Thrift。
+7. **错误处理与降级**：BFF 可以统一处理超时、重试、熔断和兜底数据。
+
+直接调用通用服务会导致前端逻辑复杂、性能差、安全性低、难以维护。
+
+**评分维度**：
+- 能说出核心原因（35%）
+- 能结合具体场景（25%）
+- 有架构意识（25%）
+- 能说明安全和性能收益（15%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 生产环境建议通过 BFF 或后端代理调用通用服务，原因包括： 1. 接口聚合：减少前端请求次数，降低网络开销和页面加载时间。 2. 数据适配：把通用数据转成前端需要的格式，前端只需关注展示。 3. 安全：不暴露内部服务地址、鉴权信息和敏感接口。 4. 鉴权限流：统一处理登录态、权限校验、流量控制和防刷。
+
+---
+
+### FB-19-CP-B-002：SSR、SSG、ISR 应该怎么选择？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+SSR、SSG、ISR 应该怎么选择。
+
+**参考答案**：
+
+| 方案 | 特点 | 适用场景 |
+|------|------|---------|
+| CSR | 客户端渲染，首屏依赖 JS 执行 | 强交互后台系统、不需要 SEO 的应用 |
+| SSR | 服务端实时渲染 HTML | 需要首屏性能和 SEO 的动态内容站 |
+| SSG | 构建时预渲染为静态 HTML | 内容更新不频繁的博客、文档、营销页 |
+| ISR | 增量静态再生，兼顾静态和动态 | 需要兼顾性能和一定实时性的新闻、电商详情页 |
+
+选型依据：
+- 是否需要 SEO。
+- 内容实时性要求。
+- 首屏性能要求。
+- 团队运维能力。
+- 构建和部署成本。
+
+例如：电商商品详情页可用 ISR，构建时生成热门商品页面，用户访问冷门商品时按需渲染并缓存。
+
+**评分维度**：
+- 方案对比清晰（30%）
+- 选型依据合理（25%）
+- 能结合实际项目（20%）
+- 能举例说明 ISR 价值（15%）
+- 考虑权衡（10%）
+
+---
+
+## 二、进阶题
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> | 方案 | 特点 | 适用场景 | |------|------|---------| | CSR | 客户端渲染，首屏依赖 JS 执行 | 强交互后台系统、不需要 SEO 的应用 | | SSR | 服务端实时渲染 HTML | 需要首屏性能和 SEO 的动态内容站 | | SSG | 构建时预渲染为静态 HTML | 内容更新不频繁的博客、文档、营销页 | | ISR | 增量静态再生，兼顾静态和动态 | 需要兼顾性能和一定实时性的新闻、电商详情页 | 选型依据： - 是否需要 SEO。 - 内容实时性要求。 - 构建和部署成本。 例如：电商商品详情页可用 ISR，构建时生成热门商品页面，用户访问冷门商品时按需渲染并缓存。
+
+---
+
+### FB-19-CO-A-047：如何处理 Node.js 服务中的未捕获异常？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+如何处理 Node.js 服务中的未捕获异常。
+
+**参考答案**：
+
+未捕获异常可能导致整个 Node.js 进程崩溃，必须分层处理：
+
+1. **同步异常**：用 try/catch 捕获。
+2. **异步异常**：用 async/await + try/catch，或使用 `express-async-handler` 等包装器。
+3. **全局捕获**：
+   ```js
+   process.on('uncaughtException', (err) => {
+     console.error('Uncaught Exception:', err);
+     // 记录日志后优雅退出
+     gracefulShutdown();
+     process.exit(1);
+   });
+
+   process.on('unhandledRejection', (reason, promise) => {
+     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+   });
+   ```
+4. **优雅退出**：收到 SIGTERM 时，先关闭服务器和连接，再退出。
+5. **进程管理**：使用 PM2 或 Kubernetes，崩溃后自动重启。
+
+注意：`uncaughtException` 不应作为常规错误处理手段，仅用于兜底和止损。
+
+**评分维度**：
+- 分层处理异常（30%）
+- 全局捕获意识（20%）
+- 优雅退出和进程管理（20%）
+- 能写出代码示例（15%）
+- 有生产经验（15%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 未捕获异常可能导致整个 Node.js 进程崩溃，必须分层处理： 1. 同步异常：用 try/catch 捕获。 2. 异步异常：用 async/await + try/catch，或使用 express-async-handler 等包装器。 3. 全局捕获：    （代码示例） 4. 优雅退出：收到 SIGTERM 时，先关闭服务器和连接，再退出。 5. 进程管理：使用 PM2 或 Kubernetes，崩溃后自动重启。
+
+---
+
+### FB-19-CO-A-048：Serverless 的冷启动问题如何解决？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+Serverless 的冷启动问题如何解决。
+
+**参考答案**：
+
+冷启动是 Serverless 的主要缺点，指函数从闲置到首次执行时的初始化延迟。优化方向：
+
+1. **保持活跃**：用定时请求保持函数温暖（warm），如每 5 分钟 ping 一次。
+2. **减少依赖包体积**：只引入必要的依赖，tree-shaking，避免打包开发依赖。
+3. **选择轻量运行时**：如 Node.js 而非 Java，启动更快。
+4. **使用 Edge Function**：运行在边缘节点，冷启动通常更快。
+5. **预置并发**：云厂商提供的预留实例功能（如 AWS Provisioned Concurrency）。
+6. **拆分函数**：把重初始化逻辑抽到初始化阶段外，减少每次调用开销。
+7. **连接池外部化**：如 RDS Proxy，避免每次冷启动建立数据库连接。
+8. **延迟加载**：非关键依赖在首次请求时按需加载。
+
+**评分维度**：
+- 方案多样且具体（35%）
+- 理解冷启动原因（20%）
+- 结合实际云厂商（20%）
+- 能区分不同优化层次（15%）
+- 有优化经验（10%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 冷启动是 Serverless 的主要缺点，指函数从闲置到首次执行时的初始化延迟。 优化方向： 1. 保持活跃：用定时请求保持函数温暖（warm），如每 5 分钟 ping 一次。 2. 减少依赖包体积：只引入必要的依赖，tree-shaking，避免打包开发依赖。 3. 选择轻量运行时：如 Node.js 而非 Java，启动更快。
+
+---
+
+### FB-19-SD-A-001：如何设计一个支持高并发的 BFF 服务？
+
+**题型**：系统设计题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+如何设计一个支持高并发的 BFF 服务。
+
+**参考答案**：
+
+高并发 BFF 设计需要从架构、稳定性、可观测性、性能多个层面入手。
+
+**架构层面**：
+- 多实例 + 负载均衡（Nginx/K8s Ingress）。
+- 数据库/缓存连接池，避免连接耗尽。
+- Redis 缓存热点数据，减轻下游服务压力。
+- CDN 缓存静态资源。
+
+**稳定性层面**：
+- 限流（Rate Limiting）：防止突发流量打垮服务。
+- 熔断（Circuit Breaker）：下游故障时快速失败。
+- 降级（Fallback）：返回缓存数据或简化结果。
+- 超时控制：避免长时间等待拖垮连接池。
+
+**可观测性层面**：
+- 日志聚合（ELK/Loki）。
+- 指标监控（Prometheus + Grafana）。
+- 链路追踪（Jaeger/Zipkin）。
+- 告警与 on-call。
+
+**性能层面**：
+- 接口聚合减少请求。
+- 异步处理非关键路径。
+- 流式响应大文件。
+- 启用 Gzip/Brotli 压缩。
+
+```js
+// 限流示例（基于 Redis）
+const rateLimit = require('express-rate-limit');
+const RedisStore = require('rate-limit-redis');
+
+app.use(rateLimit({
+  store: new RedisStore({ client: redisClient }),
+  max: 100,
+  windowMs: 60 * 1000,
+}));
+```
+
+**评分维度**：
+- 架构完整（30%）
+- 稳定性措施到位（25%）
+- 考虑可观测性（20%）
+- 有代码示例（10%）
+- 有实际高并发经验（15%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 高并发 BFF 设计需要从架构、稳定性、可观测性、性能多个层面入手。 架构层面： - 多实例 + 负载均衡（Nginx/K8s Ingress）。 - 数据库/缓存连接池，避免连接耗尽。 - Redis 缓存热点数据，减轻下游服务压力。
+
+---
+
+### FB-19-SD-A-002：如何设计一个前后端共享类型的 Monorepo 方案？
+
+**题型**：系统设计题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+如何设计一个前后端共享类型的 Monorepo 方案。
+
+**参考答案**：
+
+前后端共享类型可以提升协作效率，减少接口联调成本。
+
+目录结构：
+```
+packages/
+├── shared/          # 类型 + schema + 常量 + API 契约
+├── web/             # 前端
+└── server/          # 后端
+```
+
+实现方式：
+1. `shared` 包定义 TypeScript 类型和 Zod/Yup schema。
+2. 前端和后端都依赖 `shared` 包（`workspace:*`）。
+3. 后端用 schema 做运行时校验。
+4. 前端用类型做开发时校验和 IDE 提示。
+5. CI 中确保 `shared` 变更后前后端同步构建。
+6. 版本管理：schema 变更需双方 review，破坏性变更需同步升级。
+
+```ts
+// packages/shared/src/user.ts
+import { z } from 'zod';
+
+export const UserSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  email: z.string().email(),
+});
+
+export type User = z.infer<typeof UserSchema>;
+```
+
+收益：
+- 减少接口联调成本。
+- 避免前后端类型不一致。
+- 一处修改，多处生效。
+
+**评分维度**：
+- 结构合理（25%）
+- 能说清类型共享机制（30%）
+- 考虑运行时校验（20%）
+- 能写出代码示例（15%）
+- 有 Monorepo 经验（10%）
+
+---
+
+## 三、高级题
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 前后端共享类型可以提升协作效率，减少接口联调成本。 目录结构： （代码示例） 实现方式： 1. shared 包定义 TypeScript 类型和 Zod/Yup schema。 2. 前端和后端都依赖 shared 包（workspace:*）。 3. 后端用 schema 做运行时校验。
+
+---
+
+### FB-19-SD-P-001：如何设计一个 Node.js 微服务或 BFF 的日志与链路追踪方案？
+
+**题型**：系统设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+如何设计一个 Node.js 微服务或 BFF 的日志与链路追踪方案。
+
+**参考答案**：
+
+日志与链路追踪是可观测性的核心，需要结构化、关联化和集中化。
+
+设计要点：
+
+1. **结构化日志**：使用 JSON 格式，包含 timestamp、level、traceId、spanId、service、message、metadata。
+2. **Trace ID 传递**：在请求入口生成 traceId，通过 HTTP Header 或 AsyncHooks 透传到下游服务和数据库。
+3. **日志分级**：ERROR、WARN、INFO、DEBUG，生产环境避免打印敏感信息。
+4. **日志采样**：高流量场景下对 DEBUG 日志采样，降低成本。
+5. **链路追踪**：集成 OpenTelemetry/Jaeger，记录请求全链路耗时。
+6. **错误聚合**：与 Sentry 等错误平台集成，自动聚合和告警。
+7. **上下文关联**：将用户 ID、请求路径、版本号加入日志，便于排查。
+
+```js
+const { AsyncLocalStorage } = require('async_hooks');
+const context = new AsyncLocalStorage();
+
+app.use((req, res, next) => {
+  const traceId = req.headers['x-trace-id'] || uuid();
+  context.run({ traceId, userId: req.userId }, next);
+});
+
+function log(level, message, meta) {
+  const ctx = context.getStore() || {};
+  console.log(JSON.stringify({ ...ctx, level, message, ...meta, time: new Date().toISOString() }));
+}
+```
+
+**评分维度**：
+- 结构化日志意识（25%）
+- Trace ID 传递机制（25%）
+- 链路追踪工具（20%）
+- 代码示例合理（15%）
+- 有实际搭建经验（15%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 日志与链路追踪是可观测性的核心，需要结构化、关联化和集中化。 设计要点： 1. 结构化日志：使用 JSON 格式，包含 timestamp、level、traceId、spanId、service、message、metadata。 2. Trace ID 传递：在请求入口生成 traceId，通过 HTTP Header 或 AsyncHooks 透传到下游服务和数据库。 3. 日志分级：ERROR、WARN、INFO、DEBUG，生产环境避免打印敏感信息。
+
+---
+
+### FB-19-PE-P-056：Node.js 服务如何做性能调优？
+
+**题型**：性能优化题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+Node.js 服务如何做性能调优。
+
+**参考答案**：
+
+Node.js 性能调优需要从代码、运行时、架构三个层面入手：
+
+**代码层面**：
+- 避免同步阻塞操作，如 `fs.readFileSync`。
+- 减少不必要的 JSON 序列化和对象创建。
+- 使用连接池（数据库、Redis、HTTP Agent）。
+- 避免内存泄漏（事件监听未清理、闭包持有大对象）。
+
+**运行层面**：
+- 使用 cluster 模块或 PM2 多进程利用多核 CPU。
+- 根据负载调整 `--max-old-space-size`。
+- 使用 0x、clinic.js 等工具做性能剖析。
+
+**架构层面**：
+- 缓存热点数据到 Redis。
+- 异步化非关键路径（消息队列）。
+- 拆分慢接口为多个独立服务。
+- 使用 CDN 和边缘计算减少回源。
+
+```js
+// HTTP Agent 连接池
+const http = require('http');
+const agent = new http.Agent({ keepAlive: true, maxSockets: 50 });
+```
+
+**评分维度**：
+- 覆盖代码、运行时、架构（35%）
+- 能说出具体优化点（30%）
+- 提及性能分析工具（15%）
+- 有代码示例（10%）
+- 有调优经验（10%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> Node.js 性能调优需要从代码、运行时、架构三个层面入手： 代码层面： - 避免同步阻塞操作，如 fs.readFileSync。 - 减少不必要的 JSON 序列化和对象创建。 - 使用连接池（数据库、Redis、HTTP Agent）。 - 避免内存泄漏（事件监听未清理、闭包持有大对象）。
+
+---
+
+### FB-19-SE-P-050：如何保障 Node.js/BFF 服务的安全性？
+
+**题型**：安全题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+如何保障 Node.js/BFF 服务的安全性。
+
+**参考答案**：
+
+BFF 安全需要从输入、输出、认证、部署多个层面保障：
+
+1. **输入校验**：对所有请求参数做 schema 校验，防止 SQL 注入、NoSQL 注入、命令注入。
+2. **认证授权**：统一校验 JWT/Session，做权限中间件。
+3. **限流防刷**：基于 IP、用户 ID 限流，防止 DDoS 和暴力破解。
+4. **HTTPS/TLS**：强制 HTTPS，使用安全 Cookie（HttpOnly、Secure、SameSite）。
+5. **CORS 白名单**：不滥用 `*`，严格限制允许的来源。
+6. **敏感信息保护**：不在日志中打印密码、Token，环境变量管理密钥。
+7. **依赖安全**：定期 `npm audit`，及时修复漏洞。
+8. **响应头安全**：配置 CSP、HSTS、X-Frame-Options、X-Content-Type-Options。
+
+**评分维度**：
+- 覆盖输入、认证、限流、传输（35%）
+- 能说明具体风险（25%）
+- 提及安全响应头（20%）
+- 有安全实践经验（20%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> BFF 安全需要从输入、输出、认证、部署多个层面保障： 1. 输入校验：对所有请求参数做 schema 校验，防止 SQL 注入、NoSQL 注入、命令注入。 2. 认证授权：统一校验 JWT/Session，做权限中间件。 3. 限流防刷：基于 IP、用户 ID 限流，防止 DDoS 和暴力破解。 4. HTTPS/TLS：强制 HTTPS，使用安全 Cookie（HttpOnly、Secure、SameSite）。
+
+---
+
+### FB-19-SC-P-055：Deno 和 Bun 与 Node.js 相比各有什么优缺点？什么场景下会选择它们？
+
+**题型**：场景设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+Deno 和 Bun 与 Node.js 相比各有什么优缺点？什么场景下会选择它们。
+
+**参考答案**：
+
+Node.js、Deno、Bun 都是 JavaScript 运行时，但设计理念不同。
+
+**Node.js**：
+- 优点：生态最成熟、企业级框架丰富、社区庞大。
+- 缺点：历史包袱重（CommonJS/ESM 混合）、安全模型默认开放、工具链分散。
+- 场景：通用 BFF、企业级后端、需要稳定性的生产环境。
+
+**Deno**：
+- 优点：默认安全（需显式授权）、原生 TypeScript、内置工具链、标准库统一。
+- 缺点：生态较小、与现有 Node 项目迁移成本高。
+- 场景：安全脚本、边缘计算（Deno Deploy）、快速原型、希望减少依赖的项目。
+
+**Bun**：
+- 优点：启动和运行速度极快、Node.js 高度兼容、工具链一体化（包管理、测试、打包）。
+- 缺点：相对年轻、生产稳定性待验证、部分边缘兼容性有坑。
+- 场景：高性能 API、Serverless/边缘函数、工具链统一、构建加速。
+
+**选型建议**：
+- 企业级 BFF 仍以 Node.js 为主。
+- 需要安全沙盒或边缘部署时考虑 Deno。
+- 对性能敏感、团队愿意尝试新技术时考虑 Bun。
+
+**评分维度**：
+- 能说清三者核心差异（30%）
+- 能结合场景选型（30%）
+- 能说明优缺点（25%）
+- 有实际关注或使用经验（15%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> Node.js、Deno、Bun 都是 JavaScript 运行时，但设计理念不同。 Node.js： - 优点：生态最成熟、企业级框架丰富、社区庞大。 - 缺点：历史包袱重（CommonJS/ESM 混合）、安全模型默认开放、工具链分散。 - 场景：通用 BFF、企业级后端、需要稳定性的生产环境。
+
+---
+
+### FB-19-CO-P-057：谈谈 NestJS 的 Guard、Interceptor、Pipe 分别解决什么问题？
+
+**题型**：概念题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+谈谈 NestJS 的 Guard、Interceptor、Pipe 分别解决什么问题。
+
+**参考答案**：
+
+NestJS 通过 AOP 切面编程将横切关注点从业务代码中抽离。
+
+**Guard（守卫）**：
+- 决定请求是否允许进入控制器。
+- 常用于鉴权、权限校验、IP 白名单。
+- 通过 `CanActivate` 接口实现。
+
+```typescript
+@Injectable()
+export class AuthGuard implements CanActivate {
+  canActivate(context: ExecutionContext): boolean {
+    const req = context.switchToHttp().getRequest();
+    return validateToken(req.headers.authorization);
+  }
+}
+```
+
+**Interceptor（拦截器）**：
+- 在请求前后插入逻辑。
+- 常用于日志、响应包装、缓存、异常转换、超时控制。
+- 通过 `NestInterceptor` 接口实现。
+
+```typescript
+@Injectable()
+export class TransformInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler) {
+    return next.handle().pipe(map(data => ({ code: 0, data })));
+  }
+}
+```
+
+**Pipe（管道）**：
+- 用于参数转换和校验。
+- 常与 class-validator 结合做 DTO 校验。
+- 通过 `PipeTransform` 接口实现。
+
+```typescript
+export class CreateUserDto {
+  @IsEmail() email: string;
+  @MinLength(2) name: string;
+}
+```
+
+**执行顺序**：
+```
+Middleware → Guard → Interceptor（入） → Pipe → Controller → Interceptor（出） → ExceptionFilter
+```
+
+**评分维度**：
+- 能说清三者职责（35%）
+- 能给出代码示例（25%）
+- 理解执行顺序（20%）
+- 有实际使用经验（20%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> NestJS 通过 AOP 切面编程将横切关注点从业务代码中抽离。 Guard（守卫）： - 决定请求是否允许进入控制器。 - 常用于鉴权、权限校验、IP 白名单。 - 通过 CanActivate 接口实现。
+
+---
+
+### FB-19-SC-P-056：tRPC 和 gRPC 各适用于什么场景？在 BFF 中如何选择？
+
+**题型**：场景设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+tRPC 和 gRPC 各适用于什么场景？在 BFF 中如何选择。
+
+**参考答案**：
+
+**tRPC**：
+- 面向 TypeScript 全栈项目。
+- 端到端类型安全，无需生成 OpenAPI/Swagger。
+- 适合 BFF 向前端暴露类型安全接口。
+- 不适合多语言异构后端。
+
+**gRPC**：
+- 基于 HTTP/2 + Protocol Buffers 的高性能 RPC。
+- 多语言支持，适合微服务间通信。
+- 浏览器支持差，通常用于 BFF → 后端服务。
+- 适合对延迟敏感、需要强类型的内部通信。
+
+**BFF 中的选择**：
+
+| 通信方向 | 推荐协议 | 理由 |
+|----------|---------|------|
+| 前端 → BFF | tRPC / REST / GraphQL | 浏览器友好、类型安全 |
+| BFF → 后端（TS 栈） | tRPC / HTTP | 统一技术栈 |
+| BFF → 后端（多语言） | gRPC / HTTP | 高性能、跨语言 |
+| 后端微服务间 | gRPC | 高性能、强类型 |
+
+**评分维度**：
+- 能说清 tRPC/gRPC 核心差异（30%）
+- 能结合 BFF 场景选型（30%）
+- 能说明各自优缺点（25%）
+- 有实际项目经验（15%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> tRPC： - 面向 TypeScript 全栈项目。 - 端到端类型安全，无需生成 OpenAPI/Swagger。 - 适合 BFF 向前端暴露类型安全接口。 - 不适合多语言异构后端。
+
+---
+
+### FB-19-SC-P-057：在 BFF 中使用消息队列有哪些典型场景？如何保证消息不丢失？
+
+**题型**：场景设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+在 BFF 中使用消息队列有哪些典型场景？如何保证消息不丢失。
+
+**参考答案**：
+
+**典型场景**：
+
+1. **异步化非关键路径**：发送邮件、短信、推送、埋点，避免阻塞主接口。
+2. **削峰填谷**：大促期间将下单请求写入队列，后台平滑处理。
+3. **事件驱动**：订单创建后广播事件，库存、物流、营销服务各自消费。
+4. **延迟任务**：订单超时自动取消、优惠券到期提醒。
+5. **日志收集**：将访问日志、审计日志异步写入存储或消息系统。
+
+**保证消息不丢失**：
+
+1. **生产者确认（Producer Ack）**：等待 Broker 确认后再认为发送成功。
+2. **消息持久化**：RabbitMQ 声明持久化队列和消息；Kafka 设置 `acks=all` 和复制因子。
+3. **消费者手动确认**：处理完成后再 ack，避免消息丢失或重复处理。
+4. **死信队列（DLQ）**：处理失败的消息进入 DLQ，人工或自动重试。
+5. **幂等性设计**：消费者幂等，防止重复消费导致数据错误。
+6. **监控告警**：堆积量、消费延迟、失败率监控。
+
+```typescript
+// BullMQ 消费者手动完成示例
+const worker = new Worker('order', async (job) => {
+  await processOrder(job.data);
+  // 处理成功后自动 ack
+}, { connection: redis, removeOnComplete: 100 });
+```
+
+**评分维度**：
+- 能列举典型场景（30%）
+- 能说清消息不丢失的手段（35%）
+- 提及幂等性（20%）
+- 有实际使用经验（15%）
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 典型场景： 1. 异步化非关键路径：发送邮件、短信、推送、埋点，避免阻塞主接口。 2. 削峰填谷：大促期间将下单请求写入队列，后台平滑处理。 3. 事件驱动：订单创建后广播事件，库存、物流、营销服务各自消费。 4. 延迟任务：订单超时自动取消、优惠券到期提醒。
+
+---
+
+### FB-19-CO-P-058：如何为 Node.js BFF 服务设计可观测性方案？
+
+**题型**：概念题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：19 Node.js / BFF
+**标签**：Node.js、BFF、微服务、安全、手写代码
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+如何为 Node.js BFF 服务设计可观测性方案。
+
+**参考答案**：
+
+可观测性三大支柱是日志、指标、链路追踪。
+
+**1. 日志（Logs）**：
+- 使用结构化 JSON 日志（Pino/Winston）。
+- 每个请求生成 traceId，贯穿全链路。
+- 使用 AsyncLocalStorage 传递上下文。
+- 避免打印敏感信息。
+
+**2. 指标（Metrics）**：
+- Prometheus 收集 QPS、P99 延迟、错误率、CPU、内存、GC。
+- Grafana 可视化，设置 SLO 告警。
+
+```typescript
+const httpDuration = new client.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'HTTP 请求耗时',
+  labelNames: ['route', 'method', 'status'],
+});
+```
+
+**3. 链路追踪（Traces）**：
+- OpenTelemetry 自动埋点 HTTP、数据库、Redis、gRPC 调用。
+- Jaeger 展示请求全链路，定位慢 span。
+- traceId 通过 Header 透传到下游服务。
+
+**4. APM 接入**：
+- 商业 APM（Datadog/New Relic/SkyWalking/ARMS）提供开箱即用监控。
+- 或通过 OpenTelemetry Collector 导出到自研平台。
+
+**5. 告警与 SLO**：
+- P99 < 200ms，错误率 < 0.1%。
+- 关键接口 QPS 突增、下游服务错误率上升时告警。
+
+**排查流程示例**：
+1. Grafana 发现 P99 升高 → 2. Jaeger 找到慢请求 span → 3. 用 traceId 查日志 → 4. 定位下游服务超时 → 5. 熔断或扩容。
+
+**评分维度**：
+- 覆盖日志、指标、链路追踪（35%）
+- 能给出具体工具（25%）
+- 能说明 traceId 透传（20%）
+- 有实际搭建经验（20%）
+
+---
+
+## 面试准备建议
+
+1. 深入理解 Node.js 事件循环、Stream、Buffer、Cluster 等核心机制。
+2. 能手写 BFF 聚合接口，说明超时、重试、缓存、熔断设计。
+3. 理解 SSR/SSG/ISR 差异，能结合业务选型。
+4. 准备至少一个 Node.js/BFF 项目的性能优化或架构改造案例。
+5. 了解 Serverless、容器化、可观测性等现代后端工程实践。
+6. 关注 Deno/Bun、NestJS、tRPC/gRPC、消息队列、APM 等前沿方向，能在面试中展现技术广度。
+
+---
+
+> **领域编号**：E10 Node.js / BFF 服务端  
+> **最后更新**：2026-06-24
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 可观测性三大支柱是日志、指标、链路追踪。 1. 日志（Logs）： - 使用结构化 JSON 日志（Pino/Winston）。 - 每个请求生成 traceId，贯穿全链路。 - 使用 AsyncLocalStorage 传递上下文。
+

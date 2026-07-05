@@ -1,19 +1,20 @@
 # TypeScript 面试题
 
+> 本题库共收录 **73** 道面试题（基础 22 / 进阶 22 / 深入 21 / 架构 8）。
 > 本文件收录 TypeScript 相关面试题，目标题量 200 道。
 > 题型覆盖：概念题、代码分析题、手写代码题、场景设计题。
 > 难度覆盖：基础、进阶、深入、架构。
 
 ## 目录
 
-- [基础题](#基础题)
-- [进阶题](#进阶题)
-- [深入题](#深入题)
-- [架构题](#架构题)
+- [基础题](#basic)
+- [进阶题](#advanced)
+- [深入题](#proficient)
+- [架构题](#architect)
 
 ---
 
-## 基础题
+## 基础题（15 道）{#basic}
 
 ### FB-02-CO-B-001：TypeScript 与 JavaScript 的关系是什么？为什么要使用 TypeScript？
 
@@ -21,7 +22,7 @@
 **难度**：🟢 基础
 **岗位层级**：初级
 **面试知识域**：02 TypeScript
-**标签**：typescript、javascript、静态类型、编译、类型安全
+**标签**：TypeScript、javascript、静态类型、编译、类型安全
 **出现频率**：高频
 **预计回答时长**：2-3 分钟
 
@@ -66,6 +67,9 @@ add(1, '2'); // Error: Argument of type 'string' is not assignable to parameter 
 
 **参考资源**：
 - [TypeScript 官方文档 - TypeScript in 5 minutes](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)
+
+**口头回答版**：
+> - TypeScript 是 JavaScript 的超集（superset），在 JS 基础上添加了静态类型系统、接口、泛型、装饰器等特性。 - TS 代码需编译为 JS 才能在浏览器或 Node.js 中运行，编译器为 tsc。 - 任何有效的 JS 代码都是合法的 TS 代码（默认情况下）。 静态类型检查：在编译期发现类型错误，减少运行时异常。
 
 ---
 
@@ -131,6 +135,9 @@ function throwError(): never {
 **参考资源**：
 - [TypeScript 官方文档 - Basic Types](https://www.typescriptlang.org/docs/handbook/basic-types.html)
 
+**口头回答版**：
+> TypeScript 基础类型包括： - 原始类型：string、number、boolean、bigint、symbol、null、undefined - 对象类型：object（包括 Object、Array、Function 等更具体的类型） - 特殊类型：any、unknown、never、void
+
 ---
 
 ### FB-02-CO-B-003：什么是类型注解（Type Annotation）和类型推断（Type Inference）？
@@ -186,6 +193,9 @@ let greeting = greet('Tom'); // 推断为 string
 **相关题目**：
 - [FB-02-CA-B-001 any、unknown、never 的区别](#FB-02-CA-B-001)
 
+**口头回答版**：
+> - 类型注解：显式地为变量、参数、返回值等声明类型。 - 类型推断：TypeScript 编译器根据赋值或上下文自动推导出类型。 - 优先使用类型推断，保持代码简洁。 - 在函数参数、返回值、复杂对象或需要明确语义时使用类型注解。
+
 ---
 
 ### FB-02-CO-B-004：Interface 的作用是什么？如何定义可选属性和只读属性？
@@ -194,7 +204,7 @@ let greeting = greet('Tom'); // 推断为 string
 **难度**：🟢 基础
 **岗位层级**：初级
 **面试知识域**：02 TypeScript
-**标签**：interface、可选属性、readonly、对象类型
+**标签**：interface、可选属性、Readonly、对象类型
 **出现频率**：高频
 **预计回答时长**：3-5 分钟
 
@@ -243,6 +253,9 @@ user.name = 'Jerry';      // OK
 
 **参考资源**：
 - [TypeScript 官方文档 - Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html)
+
+**口头回答版**：
+> interface 用于定义对象的结构契约，描述对象应该有哪些属性、类型和方法。 它支持继承、实现、合并声明等特性。 - 可选属性：属性名后加 ?，表示该属性可以不存在。 - 只读属性：属性前加 readonly，表示初始化后不能重新赋值（但对对象属性的深层修改不生效）。
 
 ---
 
@@ -303,6 +316,9 @@ const res: Response<User> = {
 
 **相关题目**：
 - [FB-02-CO-B-006 Interface 与 Type Alias 的区别](#FB-02-CO-B-006)
+
+**口头回答版**：
+> type 用于创建类型别名（Type Alias），为任意类型起一个名字，提高可读性和复用性。 - 原始类型别名：type UserID = string - 对象类型：type User = { name: string } - 联合类型：type Status = 'pending' | 'success' | 'error'
 
 ---
 
@@ -366,6 +382,9 @@ type Response = { data: unknown } & { status: Status };
 
 **参考资源**：
 - [TypeScript 官方文档 - Interfaces vs Type Aliases](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
+
+**口头回答版**：
+> | 特性 | Interface | Type Alias | |------|-----------|------------| | 定义对象类型 | ✅ 推荐 | ✅ 可以 | | 联合/交叉/元组/函数类型 | ❌ 不能直接定义联合类型 | ✅ 更灵活 |
 
 ---
 
@@ -435,6 +454,9 @@ type C = A & B; // { x: never }
 **参考资源**：
 - [TypeScript 官方文档 - Union and Intersection Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types)
 
+**口头回答版**：
+> - 联合类型 A | B：表示值可以是 A 或 B 中的任意一种类型。 - 交叉类型 A & B：表示值同时满足 A 和 B 两种类型的结构。 - 联合类型访问共有属性才安全，访问非共有属性需要类型收窄。 - 交叉类型如果存在同名但不同类型属性，会生成 never。
+
 ---
 
 ### FB-02-CO-B-008：Enum 枚举类型有什么特点？
@@ -502,6 +524,9 @@ const p = Permission.Read; // 编译为 const p = 1;
 **参考资源**：
 - [TypeScript 官方文档 - Enums](https://www.typescriptlang.org/docs/handbook/enums.html)
 
+**口头回答版**：
+> enum 用于定义一组有名字的常量集合。 - 数字枚举支持反向映射：Direction[0] === 'Up'。 - 字符串枚举不支持反向映射，调试信息更友好。 - const enum 在编译阶段完全内联，不会生成运行时对象，性能更好，但无法在运行时访问。
+
 ---
 
 ### FB-02-CA-B-001：分析以下代码的类型行为
@@ -568,6 +593,9 @@ if (typeof b === 'string') {
 **相关题目**：
 - [FB-02-CO-B-002 TypeScript 有哪些基础类型](#FB-02-CO-B-002)
 
+**口头回答版**：
+> - a.toUpperCase()：不报错。 any 关闭类型检查，任何操作都被允许，但运行可能出错。 - b.toUpperCase()：报错。 unknown 是类型安全的 any，使用前必须先做类型检查/收窄。
+
 ---
 
 ### FB-02-CA-B-002：分析可选属性与默认值的类型行为
@@ -628,6 +656,9 @@ createServer({ port: '8080' });
 - `config: Config = {}` 和 `config?: Config` 有什么区别？
 - 如何为 interface 中所有可选属性设置默认值？
 
+**口头回答版**：
+> - createServer()：合法，使用默认空对象 {}。 - createServer({ host: 'example.com' })：合法，port 保持可选。 - createServer({ port: '8080' })：报错。 port 类型为 number | undefined，不能传入字符串 '8080'。
+
 ---
 
 ### FB-02-CO-B-009：Tuple 元组类型是什么？与数组有什么区别？
@@ -680,6 +711,9 @@ const rest: [string, ...number[]] = ['Tom', 1, 2, 3];
 **延伸追问**：
 - React `useState` 的返回类型为什么是元组？
 - 如何用元组表示函数的多个返回值？
+
+**口头回答版**：
+> - 数组类型：元素类型相同，长度可变。 - 元组类型：元素类型和长度都固定。 [string, number] 元组常用于表示固定结构的数据，如坐标点、函数返回值、React 的 useState 返回结果等。
 
 ---
 
@@ -740,6 +774,9 @@ const names = mapArray(users, (u) => u.name); // string[]
 **相关题目**：
 - [FB-02-CO-A-001 泛型约束](#FB-02-CO-A-001)
 
+**口头回答版**：
+> - 使用泛型 T 表示输入数组元素类型。 - 使用泛型 U 表示映射函数返回值类型。 - 返回类型为 U[]，与映射函数返回值一致。 - 保持原数组不变，不修改输入。
+
 ---
 
 ### FB-02-CO-B-010：Type Assertion（类型断言）是什么？与类型转换有什么区别？
@@ -794,6 +831,9 @@ const num = Number('123'); // 运行时真的转换
 **延伸追问**：
 - `as const` 和 `as` 有什么区别？
 - 什么时候应该使用类型断言而不是类型守卫？
+
+**口头回答版**：
+> - 类型断言：告诉编译器"我知道这个值的具体类型"，只在编译时生效，不影响运行时行为。 - 类型转换：运行时改变值的实际类型，如 String(123)、Number('123')。 - 尖括号语法：`<string>`value（在 TSX 中不推荐，会与 JSX 冲突） - as 语法：value as string（推荐）
 
 ---
 
@@ -861,6 +901,9 @@ type Entity =
 **相关题目**：
 - [FB-02-CO-A-002 类型保护](#FB-02-CO-A-002)
 
+**口头回答版**：
+> - entity.name：合法。 name 是 Animal 和 Plant 的共有属性。 - if ('bark' in entity)：这是 in 操作符类型守卫。 如果为 true，TypeScript 将 entity 收窄为 Animal。
+
 ---
 
 ### FB-02-CD-B-002：手写一个类型安全的 identity 函数
@@ -916,7 +959,10 @@ const arr = identity([1, 2, 3]); // number[]
 
 ---
 
-## 进阶题
+## 进阶题（15 道）{#advanced}
+
+**口头回答版**：
+> - 使用泛型参数 T 捕获调用时传入的具体类型。 - 返回类型与参数类型相同，都是 T。 - 调用时通常可以省略类型参数，让编译器自动推断。
 
 ### FB-02-CO-A-001：什么是泛型约束（Generic Constraints）？
 
@@ -970,6 +1016,9 @@ logLength([1, 2, 3]); // OK，array 有 length
 
 **相关题目**：
 - [FB-02-CD-B-001 手写 mapArray](#FB-02-CD-B-001)
+
+**口头回答版**：
+> 泛型约束用于限制泛型参数必须满足某些条件，确保在泛型内部可以安全访问特定属性或方法。 - 属性约束：T extends { id: number } - 构造函数约束：T extends new (...args: any[]) => any - 联合类型约束：T extends string | number
 
 ---
 
@@ -1041,6 +1090,12 @@ const val = get(obj, 'a.b.c'); // number
 - 如何支持数组索引路径，如 `get(obj, 'users.0.name')`？
 - 如何处理可选属性路径，使返回类型包含 undefined？
 
+**口头回答版**：
+> 基础版（单层路径）：
+> （见代码示例）
+> 进阶版（嵌套路径）：
+> （见代码示例）
+
 ---
 
 ### FB-02-CO-A-002：TypeScript 中有哪些内置的类型保护（Type Guards）？
@@ -1100,6 +1155,9 @@ function area(shape: Shape) {
 
 **相关题目**：
 - [FB-02-CD-A-002 手写自定义类型保护](#FB-02-CD-A-002)
+
+**口头回答版**：
+> 类型保护是在运行时检查值，同时帮助 TypeScript 编译器收窄类型的机制。 typeof 守卫：用于基本类型（string、number、boolean、symbol、undefined、function、bigint）。 instanceof 守卫：用于判断对象是否是某个类的实例。 in 守卫：检查对象是否含有某个属性。
 
 ---
 
@@ -1178,6 +1236,9 @@ function greetUser(input: unknown) {
 **参考资源**：
 - [TypeScript 官方文档 - Type Guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html)
 
+**口头回答版**：
+> - 返回类型标注为 value is User。 - 运行时检查必须足够严格，避免误判。 - 对于可选属性需要特殊处理。
+
 ---
 
 ### FB-02-CO-A-003：什么是 Mapped Types（映射类型）？
@@ -1245,6 +1306,9 @@ type Required<T> = {
 **相关题目**：
 - [FB-02-CO-A-005 TypeScript 内置工具类型](#FB-02-CO-A-005)
 
+**口头回答版**：
+> 映射类型允许基于已有类型的键生成新类型，通过索引签名语法遍历 keyof 得到的键集合。 映射类型支持修饰符： - readonly / -readonly：添加或移除只读 - ? / -?：添加或移除可选
+
 ---
 
 ### FB-02-CO-A-004：什么是 Conditional Types（条件类型）？
@@ -1302,6 +1366,9 @@ type D = Extract<'a' | 'b' | 'c', 'a' | 'd'>; // 'a'
 
 **相关题目**：
 - [FB-02-CO-P-001 infer 关键字](#FB-02-CO-P-001)
+
+**口头回答版**：
+> 条件类型根据类型关系选择类型，语法类似三元运算符：T extends U ? X : Y。 - 根据类型是否 assignable 到另一类型做分支。 - 结合 infer 提取类型的一部分。 - 实现工具类型如 Exclude、Extract、NonNullable。
 
 ---
 
@@ -1364,6 +1431,9 @@ type UserMap = Record<number, User>;
 
 **相关题目**：
 - [FB-02-CD-A-003 手写 DeepReadonly](#FB-02-CD-A-003)
+
+**口头回答版**：
+> | 工具类型 | 作用 | |----------|------| | Partial`<T>` | 将 T 的所有属性变为可选 | | Required`<T>` | 将 T 的所有属性变为必填 |
 
 ---
 
@@ -1430,6 +1500,9 @@ interface Mixed {
 - 如何限制对象的键只能是特定的字符串联合？
 - 索引签名与 `Object.keys()` 的类型有什么关系？
 
+**口头回答版**：
+> 索引签名用于描述对象中动态键的类型结构。 - [key: string]: T：字符串键索引 - [key: number]: T：数字键索引（数组常用） - [key: symbol]: T：symbol 键索引
+
 ---
 
 ### FB-02-CO-A-007：Function Overloads（函数重载）是什么？
@@ -1484,6 +1557,9 @@ const s = add('a', 'b');   // string
 
 **参考资源**：
 - [TypeScript 官方文档 - Function Overloads](https://www.typescriptlang.org/docs/handbook/2/functions.html#function-overloads)
+
+**口头回答版**：
+> 函数重载允许一个函数根据传入参数的不同类型返回不同的类型，提供多个函数签名。 与联合类型参数的区别： - 函数重载：调用时返回类型更精确。 - 联合类型参数：返回类型通常是联合类型，调用后需要进一步收窄。
 
 ---
 
@@ -1548,6 +1624,9 @@ type FetchUserReturn = Return<typeof fetchUser>;
 
 **相关题目**：
 - [FB-02-CO-P-001 infer 关键字](#FB-02-CO-P-001)
+
+**口头回答版**：
+> - pair 的类型是 [string, number]。 - T 被推断为 'hello'，再拓宽（widening）为 string。 - U 被推断为 42，再拓宽为 number。 - 返回类型为 [string, number]。
 
 ---
 
@@ -1615,6 +1694,9 @@ function getValue<T, K extends keyof T>(obj: T, key: K): T[K] {
 **相关题目**：
 - [FB-02-CD-A-001 手写类型安全的 get 函数](#FB-02-CD-A-001)
 
+**口头回答版**：
+> - keyof T：获取类型 T 的所有公共属性键的联合类型。 - typeof v：在类型上下文中，获取变量 v 的类型。 - keyof typeof obj：获取对象字面量的键联合。 - T[K]：索引访问类型，获取 T 中 K 对应的属性类型。
+
 ---
 
 ### FB-02-CO-A-009：TypeScript 类的访问修饰符有哪些？
@@ -1623,7 +1705,7 @@ function getValue<T, K extends keyof T>(obj: T, key: K): T[K] {
 **难度**：🟡 进阶
 **岗位层级**：高级
 **面试知识域**：02 TypeScript
-**标签**：class、访问修饰符、public、private、protected、readonly
+**标签**：class、访问修饰符、public、private、protected、Readonly
 **出现频率**：中频
 **预计回答时长**：3-5 分钟
 
@@ -1680,6 +1762,9 @@ class Dog extends Animal {
 **延伸追问**：
 - `private` 和 `#private` 在 JS/TS 中有什么区别？
 - 抽象类中的 abstract 方法和 protected 有什么关系？
+
+**口头回答版**：
+> | 修饰符 | 作用 | |--------|------| | public | 默认修饰符，任何地方都可访问 | | private | 只能在类内部访问（编译期检查，运行时可通过如 # 以外的手段访问） |
 
 ---
 
@@ -1750,6 +1835,9 @@ function render<T>(state: AsyncState<T>) {
 **参考资源**：
 - [TypeScript 官方文档 - Discriminated Unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions)
 
+**口头回答版**：
+> 使用可辨识联合，通过共有字段 status 区分不同状态： 每个分支有唯一的字面量 tag（如 status）。 分支专属数据只在该分支中存在。 配合 switch 或 if 做类型收窄。
+
 ---
 
 ### FB-02-CD-A-003：手写一个 DeepReadonly 类型
@@ -1816,9 +1904,83 @@ const user: ReadonlyUser = {
 - 如何处理函数类型，使其也被 DeepReadonly 忽略？
 - 如果 T 是 Promise 或 Map，应该如何处理？
 
+**口头回答版**：
+> - 使用条件类型判断是否为数组，避免数组方法被递归为对象键。 - 使用映射类型递归处理对象属性。 - 基本类型保持不变。
+
 ---
 
-## 深入题
+### FB-02-CO-A-010：TypeScript 的模块解析策略有哪些？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：02 TypeScript
+**标签**：module resolution、模块解析、classic、node、tsconfig
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 TypeScript 中的模块解析策略，并说明 `classic` 和 `node` 两种策略的区别。
+
+**参考答案**：
+
+模块解析是指 TypeScript 编译器如何根据 `import` / `export` 语句找到对应的模块文件。TS 提供两种解析策略：
+
+1. **Classic**（经典策略）
+   - TS 1.6 之前的默认策略。
+   - 对于相对路径导入，只查找 `.ts`、`.d.ts`、`.tsx` 文件。
+   - 对于非相对路径导入，从当前目录向上查找。
+   - 不识别 `node_modules`。
+
+2. **Node**（Node.js 策略，现代默认）
+   - 模拟 Node.js 的模块解析算法。
+   - 相对路径导入会查找 `.tsx`、`.ts`、`.d.ts`、`.jsx`、`.js`（按配置顺序）。
+   - 非相对路径导入会从 `node_modules` 中查找。
+   - 支持 `package.json` 中的 `types`、`main`、`exports` 字段。
+
+```json
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
+```
+
+相关配置：
+
+- `baseUrl`：非相对模块解析的基地址。
+- `paths`：路径映射，用于别名解析。
+- `rootDirs`：将多个目录视为一个根目录。
+- `typeRoots` / `types`：控制 @types 包的加载。
+
+**评分维度**：
+- 解释两种解析策略（40%）
+- 说明 Node 策略的查找过程（30%）
+- 提到 paths / baseUrl 配置（20%）
+- 说明 modern bundler 与 tsc 解析的差异（10%）
+
+**常见错误**：
+- 不知道 classic 和 node 的区别
+- 配置了 paths 但忘记配置 baseUrl
+- 混淆运行时模块解析和编译期模块解析
+
+**延伸追问**：
+- Vite/Webpack 中的路径别名与 tsconfig paths 有什么关系？
+- `exports` 字段如何影响 TypeScript 的模块解析？
+
+**参考资源**：
+- [TypeScript 官方文档 - Module Resolution](https://www.typescriptlang.org/docs/handbook/module-resolution.html)
+
+---
+
+## 深入题（12 道）{#proficient}
+
+**口头回答版**：
+> 模块解析是指 TypeScript 编译器如何根据 import / export 语句找到对应的模块文件。 TS 提供两种解析策略： Classic（经典策略） - TS 1.6 之前的默认策略。
 
 ### FB-02-CO-P-001：`infer` 关键字的作用是什么？
 
@@ -1876,6 +2038,9 @@ type C = UnwrapPromise<Promise<string>>; // string
 
 **相关题目**：
 - [FB-02-CO-A-004 条件类型](#FB-02-CO-A-004)
+
+**口头回答版**：
+> infer 关键字用于在条件类型中声明一个类型变量，让 TypeScript 从待推断的类型中提取某一部分。 infer 只能在条件类型的 extends 子句中使用，不能在其他地方声明类型变量。
 
 ---
 
@@ -1943,6 +2108,9 @@ type HoverEvent = EventName<'hover'>; // 'onHover'
 **参考资源**：
 - [TypeScript 官方文档 - Template Literal Types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html)
 
+**口头回答版**：
+> 模板字面量类型允许使用字符串模板在类型层面构造新的字符串类型，语法与 JS 模板字符串类似。 模板字面量类型常与 as 重映射、条件类型、infer 结合使用。
+
 ---
 
 ### FB-02-CD-P-001：手写一个类型安全的 Promise.all
@@ -2002,6 +2170,9 @@ const names = await all(['a', 'b']); // string[]
 **延伸追问**：
 - 如果输入数组长度不固定，如何设计返回类型？
 - 如何处理输入中的非 Promise 值？
+
+**口头回答版**：
+> - 使用泛型 T extends readonly unknown[] 捕获输入元组类型。 - 使用 Awaited`<T[P]60>`（TS 4.5+）递归解开 Promise 嵌套。 - 输出保持元组结构。
 
 ---
 
@@ -2076,6 +2247,9 @@ const data: JSONValue = {
 **相关题目**：
 - [FB-02-CD-A-003 手写 DeepReadonly](#FB-02-CD-A-003)
 
+**口头回答版**：
+> 递归类型是指在类型定义中引用自身的类型，用于表达嵌套、树形或自相似结构。 - TS 4.1 之前对递归类型有较多限制，现在已大幅改善。 - 递归类型过深可能导致类型实例化过深错误（Type instantiation is excessively deep）。
+
 ---
 
 ### FB-02-CO-P-004：什么是 Branded Types（品牌类型）？
@@ -2137,6 +2311,9 @@ queryUser(userId); // OK
 
 **参考资源**：
 - [TypeScript 官方文档 - Type Compatibility](https://www.typescriptlang.org/docs/handbook/type-compatibility.html)
+
+**口头回答版**：
+> TypeScript 默认是结构类型系统（structural typing），只要结构相同就视为兼容。 Branded Types 通过在类型中添加一个不可见的标记属性，模拟名义类型（nominal typing），使相同结构但语义不同的类型不兼容。 - 区分不同业务含义的 ID（UserID、OrderID、ProductID）。 - 区分不同单位（米、厘米、像素）。
 
 ---
 
@@ -2214,6 +2391,9 @@ namespace Album {
 **相关题目**：
 - [FB-02-CO-P-006 模块增强](#FB-02-CO-P-006)
 
+**口头回答版**：
+> 声明合并是指 TypeScript 编译器将多个同名声明合并为一个声明的特性，主要用于扩展类型定义。 - 只有 interface、namespace、enum 支持声明合并。 - type 别名不支持声明合并。 - 合并的成员必须是唯一且不冲突的。
+
 ---
 
 ### FB-02-CO-P-006：什么是 Module Augmentation（模块增强）？
@@ -2275,6 +2455,9 @@ transport.get('/api', { customHeader: 'xxx', retryCount: 3 });
 
 **参考资源**：
 - [TypeScript 官方文档 - Module Augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
+
+**口头回答版**：
+> 模块增强用于在不修改第三方库源码的情况下，扩展其导出的类型或模块声明。 - 使用 declare module 'module-name' { ... }。 - 内部使用 interface 进行声明合并，扩展原有类型。 - 模块增强文件需要被 TS 编译器包含（在 tsconfig 的 include 中）。
 
 ---
 
@@ -2338,6 +2521,9 @@ const feedDog: FeedDog = feedAnimal; // OK，参数逆变
 
 **参考资源**：
 - [TypeScript 官方文档 - Type Compatibility](https://www.typescriptlang.org/docs/handbook/type-compatibility.html)
+
+**口头回答版**：
+> 型变描述的是复合类型（如函数参数、返回值、数组元素）与子类型关系之间的方向。 设 Dog extends Animal： | 型变 | 含义 | TypeScript 行为 | 示例 | |------|------|-----------------|------|
 
 ---
 
@@ -2409,6 +2595,9 @@ const p2d: Point2D = p3d; // OK，Point3D 结构满足 Point2D
 **相关题目**：
 - [FB-02-CO-P-004 Branded Types](#FB-02-CO-P-004)
 
+**口头回答版**：
+> TypeScript 主要基于结构类型（structural typing），即类型的兼容性由结构（属性和方法）决定，而不是由声明名称决定。 灵活性高，便于接口替换和 mocking。 更适合 JavaScript 的动态特性。 代码复用和测试更方便。
+
 ---
 
 ### FB-02-CO-P-009：`tsconfig.json` 中的 `strict` 模式包含哪些选项？
@@ -2468,6 +2657,9 @@ const p2d: Point2D = p3d; // OK，Point3D 结构满足 Point2D
 
 **参考资源**：
 - [TypeScript 官方文档 - strict](https://www.typescriptlang.org/tsconfig#strict)
+
+**口头回答版**：
+> strict: true 是严格模式的总开关，会开启以下选项： | 选项 | 作用 | |------|------| | noImplicitAny | 禁止隐式 any，未注解的变量/参数必须能推断出类型 |
 
 ---
 
@@ -2552,6 +2744,9 @@ bus.on('login', ({ userId, username }) => {
 - 如何支持通配符事件监听（如 `*`）？
 - 如何实现一次订阅（once）？
 
+**口头回答版**：
+> - 使用泛型 Events 描述事件名到负载类型的映射。 - on/off/emit 都通过 keyof Events 约束事件名。 - 监听器参数类型根据事件名自动推断。
+
 ---
 
 ### FB-02-CO-P-010：Declaration Files（.d.ts）的作用是什么？
@@ -2611,3 +2806,1706 @@ declare const PI: number;
 - [TypeScript 官方文档 - Declaration Files](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)
 
 ---
+
+## 架构题（31 道）{#architect}
+
+**口头回答版**：
+> .d.ts 文件只包含类型声明，不包含运行时逻辑。 为没有类型的 JavaScript 库提供类型定义。 声明全局变量、函数、模块。 通过 declaration: true 为 TS 库生成发布用的类型声明。
+
+### FB-02-PE-R-001：如何优化大型 TypeScript 项目的编译性能？
+
+**题型**：性能优化题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：02 TypeScript
+**标签**：TypeScript、编译性能、tsconfig、增量编译、project references
+**出现频率**：高频
+**预计回答时长**：8-15 分钟
+
+**题目描述**：
+在一个大型 TypeScript 项目（如 Monorepo 或数十万行代码）中，编译速度变慢、IDE 卡顿、类型检查耗时。请给出系统性的优化方案。
+
+**参考答案**：
+
+1. **项目引用（Project References）**
+   - 将大项目拆分为多个子项目，通过 `references` 配置。
+   - 每个子项目独立编译，支持增量构建。
+   - 配合 `composite: true` 和 `incremental: true`。
+
+2. **启用增量编译**
+   ```json
+   {
+     "compilerOptions": {
+       "incremental": true,
+       "tsBuildInfoFile": "./.tsbuildinfo"
+     }
+   }
+   ```
+
+3. **控制 include / exclude 范围**
+   - 避免包含 `node_modules`、测试文件、构建产物。
+   - 使用 `files` 或 `include` 精确指定源文件。
+
+4. **减少类型复杂度**
+   - 避免过深的递归类型。
+   - 避免生成巨大的联合类型（尤其是模板字面量类型）。
+   - 谨慎使用 `extends` 泛型约束中的复杂条件类型。
+
+5. **使用 `skipLibCheck: true`**
+   - 跳过声明文件（.d.ts）的类型检查，显著提速。
+
+6. **按需加载类型**
+   - 对第三方库使用 `@types` 时只安装需要的。
+   - 避免全局类型污染。
+
+7. **并行与缓存**
+   - 使用 `tsc --build` 利用项目引用。
+   - 结合构建工具（如 esbuild、swc、turborepo）做并行与缓存。
+
+8. **监控与度量**
+   - 使用 `tsc --extendedDiagnostics` 和 `--generateTrace` 分析耗时。
+   - 关注 `Check time`、`Instantiate time` 等指标。
+
+**评分维度**：
+- 提到 Project References 与增量编译（25%）
+- 提到 skipLibCheck 与 include 优化（20%）
+- 提到减少类型复杂度（20%）
+- 提到构建工具与缓存策略（20%）
+- 提到性能度量方法（15%）
+
+**常见错误**：
+- 只建议升级硬件
+- 完全关闭类型检查换取速度
+- 不理解 Project References 的适用场景
+
+**延伸追问**：
+- `--extendedDiagnostics` 输出的各项指标分别代表什么？
+- 模板字面量类型为什么会影响编译性能？
+
+**参考资源**：
+- [TypeScript 官方文档 - Project References](https://www.typescriptlang.org/docs/handbook/project-references.html)
+- [TypeScript 性能诊断](https://github.com/microsoft/TypeScript/wiki/Performance)
+
+**口头回答版**：
+> 项目引用（Project References） - 将大项目拆分为多个子项目，通过 references 配置。 - 每个子项目独立编译，支持增量构建。 - 配合 composite: true 和 incremental: true。
+
+---
+
+### FB-02-SD-R-001：如何为大型前端项目设计类型系统架构？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：02 TypeScript
+**标签**：类型系统、架构设计、domain model、类型共享、类型安全
+**出现频率**：高频
+**预计回答时长**：10-20 分钟
+
+**题目描述**：
+请设计一个大型前端项目（如电商后台管理系统）的类型系统架构，要求类型清晰、可维护、可扩展，并能在前后端之间共享部分类型契约。
+
+**参考答案**：
+
+1. **领域模型层（Domain Model）**
+   - 定义核心业务实体：`User`、`Order`、`Product`、`Payment` 等。
+   - 使用 Branded Types 区分不同业务 ID。
+   - 将领域模型与 DTO/API 类型分离。
+
+2. **API 契约层**
+   - 定义请求参数、响应数据、错误码类型。
+   - 通过 OpenAPI/Swagger 或 tRPC 自动生成前后端共享类型。
+   - 使用 `as const` 定义 API endpoint 常量。
+
+3. **应用层类型**
+   - ViewModel、FormModel、RouteParams、State 等。
+   - 通过工具类型从 Domain Model 推导，避免重复定义。
+
+4. **共享类型包**
+   - 在 Monorepo 中创建 `@project/types` 或 `@project/shared`。
+   - 前后端共同引用，避免重复和维护不一致。
+
+5. **类型目录组织**
+   ```
+   src/
+   ├── types/
+   │   ├── domain/        # 领域模型
+   │   ├── api/           # API 契约
+   │   ├── ui/            # 组件/视图类型
+   │   ├── utils/         # 工具类型
+   │   └── global.d.ts    # 全局声明
+   ```
+
+6. **类型安全边界**
+   - 使用 `unknown` 解析外部数据。
+   - 使用 zod/io-ts 做运行时校验。
+   - 使用 `satisfies` 表达式约束对象字面量。
+
+7. **命名与约定**
+   - DTO 后缀表示传输对象：`CreateOrderDTO`、`OrderResponseDTO`。
+   - 使用 `*Params`、`*Options`、`*Config` 等语义化命名。
+
+**评分维度**：
+- 分层设计清晰（30%）
+- 提到前后端类型共享（20%）
+- 提到 Branded Types / 运行时校验（20%）
+- 类型目录组织合理（15%）
+- 考虑可扩展性和维护性（15%）
+
+**常见错误**：
+- 所有类型堆在一个文件里
+- 直接用 API 响应类型作为视图模型
+- 忽略运行时校验，完全依赖编译期类型
+
+**延伸追问**：
+- 当后端接口返回字段变化时，如何保证前端类型同步？
+- 领域模型和 DTO 不一致时，应该在哪里做转换？
+
+**口头回答版**：
+> 领域模型层（Domain Model） - 定义核心业务实体：User、Order、Product、Payment 等。 - 使用 Branded Types 区分不同业务 ID。 - 将领域模型与 DTO/API 类型分离。
+
+---
+
+### FB-02-EN-R-001：Monorepo 中 TypeScript 配置应该如何设计？
+
+**题型**：工程化题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：02 TypeScript
+**标签**：Monorepo、tsconfig、project references、共享配置、workspace
+**出现频率**：高频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+在一个 Monorepo（如 pnpm workspace + Turborepo）中，多个前端应用和共享包共存。请设计一套 TypeScript 配置方案，保证类型一致性、构建效率和开发体验。
+
+**参考答案**：
+
+1. **共享基础配置**
+   - 在 `@project/tsconfig` 或根目录创建 `tsconfig.base.json`。
+   - 各包通过 `extends` 继承。
+   ```json
+   {
+     "extends": "@project/tsconfig/base.json",
+     "compilerOptions": {
+       "outDir": "./dist"
+     }
+   }
+   ```
+
+2. **按包类型分层配置**
+   - `tsconfig.app.json`：前端应用（DOM、JSX）。
+   - `tsconfig.lib.json`：共享库（`declaration: true`）。
+   - `tsconfig.node.json`：Node 脚本/工具。
+
+3. **项目引用（Project References）**
+   ```json
+   {
+     "references": [
+       { "path": "../shared-ui" },
+       { "path": "../utils" }
+     ]
+   }
+   ```
+   - 被引用包开启 `composite: true`。
+   - 使用 `tsc --build` 进行增量编译。
+
+4. **路径别名与解析**
+   - 包内使用相对路径或 TypeScript paths。
+   - 跨包使用包名导入（通过 workspace 协议）。
+   - 避免循环依赖。
+
+5. **构建与类型检查分离**
+   - 开发/生产打包使用 Vite/Webpack/esbuild/swc（不依赖 tsc 输出）。
+   - 类型检查单独运行 `tsc --noEmit`。
+
+6. **一致的工具链**
+   - 统一 TypeScript 版本。
+   - 使用 `typesync` 管理 @types。
+   - CI 中运行全量类型检查。
+
+**评分维度**：
+- 共享基础配置设计（20%）
+- Project References 使用（25%）
+- 分层 tsconfig 设计（20%）
+- 构建与类型检查分离（20%）
+- 跨包依赖管理（15%）
+
+**常见错误**：
+- 每个包完全独立的 tsconfig，无法统一升级
+- 不使用 Project References 导致全量编译
+- 用 tsc 输出作为打包输入，拖慢构建
+
+**延伸追问**：
+- 如何解决不同包之间 TypeScript 版本不一致的问题？
+- 循环依赖在 Project References 中会导致什么问题？
+
+**口头回答版**：
+> - 在 @project/tsconfig 或根目录创建 tsconfig.base.json。 - 各包通过 extends 继承。 - tsconfig.app.json：前端应用（DOM、JSX）。 - tsconfig.lib.json：共享库（declaration: true）。
+
+---
+
+### FB-02-SD-R-002：如何设计类型安全的 API Client？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：02 TypeScript
+**标签**：api client、类型安全、泛型、请求封装、错误处理
+**出现频率**：高频
+**预计回答时长**：10-20 分钟
+
+**题目描述**：
+请设计一个类型安全的 HTTP API Client，使得每个接口的路径、请求参数、响应数据和错误类型都能在编译期得到约束。
+
+**参考答案**：
+
+1. **定义 API 契约**
+   ```ts
+   interface APIDefinition {
+     '/users': {
+       GET: {
+         response: { id: number; name: string }[];
+       };
+     };
+     '/users/:id': {
+       GET: {
+         params: { id: string };
+         response: { id: number; name: string };
+       };
+       POST: {
+         params: { id: string };
+         body: { name: string };
+         response: { id: number; name: string };
+       };
+     };
+   }
+   ```
+
+2. **泛型客户端实现**
+   ```ts
+   class APIClient<T extends Record<string, Record<string, any>>> {
+     request<
+       Path extends keyof T,
+       Method extends keyof T[Path]
+     >(
+       path: Path,
+       method: Method,
+       options?: T[Path][Method] extends { params: infer P } ? { params: P } : {}
+     ): Promise<
+       T[Path][Method] extends { response: infer R } ? R : never
+     > {
+       // 实际请求实现
+       return fetch(path as string).then((r) => r.json()) as any;
+     }
+   }
+   ```
+
+3. **URL 参数替换**
+   - 使用模板字面量类型解析 `:id`。
+   - 确保所有路径参数都被提供。
+
+4. **错误类型**
+   - 为不同接口定义不同的错误响应。
+   - 使用结果类型 `Result<T, E>` 或异常处理。
+
+5. **运行时校验**
+   - 使用 zod 等库对响应数据做 schema 校验。
+   - 类型与运行时结构保持一致。
+
+**评分维度**：
+- API 契约设计清晰（25%）
+- 泛型约束路径/方法/参数/响应（30%）
+- 路径参数类型安全（20%）
+- 错误处理与运行时校验（15%）
+- 可扩展性（10%）
+
+**常见错误**：
+- 所有请求返回 `Promise<any>`
+- 路径参数用字符串拼接，不做类型约束
+- 忽略后端返回结构的运行时校验
+
+**延伸追问**：
+- 如何从 Swagger/OpenAPI 自动生成这种 API 契约？
+- 如果接口支持分页，类型应该如何设计？
+
+**口头回答版**：
+> - 使用模板字面量类型解析 :id。 - 确保所有路径参数都被提供。 - 为不同接口定义不同的错误响应。 - 使用结果类型 Result`<T, E70>` 或异常处理。
+
+---
+
+### FB-02-SD-R-003：如何在企业级应用中合理使用 Decorators？
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：02 TypeScript
+**标签**：decorators、装饰器、metadata、企业应用、AOP
+**出现频率**：中频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+TypeScript Decorators 可以用于类、方法、属性、参数等。请结合企业级应用场景，说明如何合理使用装饰器，以及需要注意哪些问题。
+
+**参考答案**：
+
+1. **常见应用场景**
+   - **依赖注入**：`@Injectable()`、`@Inject()`。
+   - **路由/控制器**：`@Controller()`、`@Get()`、`@Post()`。
+   - **日志与监控**：`@Log()`、`@Metrics()`。
+   - **权限校验**：`@RequireAuth()`、`@Permission()`。
+   - **缓存**：`@Cacheable()`。
+   - **ORM 映射**：`@Entity()`、`@Column()`。
+
+2. **实现示例**
+   ```ts
+   function Log(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+     const original = descriptor.value;
+     descriptor.value = function (...args: any[]) {
+       console.log(`Calling ${propertyKey} with`, args);
+       return original.apply(this, args);
+     };
+   }
+
+   class UserService {
+     @Log
+     getUser(id: number) {
+       return { id, name: 'Tom' };
+     }
+   }
+   ```
+
+3. **注意事项**
+   - TS 5.0 开始支持 ECMAScript Decorators 标准，与旧版 experimentalDecorators 不完全兼容。
+   - 装饰器执行顺序：参数 -> 方法 -> 属性 -> 类（由内而外、由下而上）。
+   - 过度使用装饰器会增加代码隐式性，降低可读性。
+   - 需要配合 `reflect-metadata` 使用元数据时，注意 polyfill 和打包体积。
+
+4. **设计建议**
+   - 优先用于横切关注点（AOP）。
+   - 保持装饰器语义单一、可测试。
+   - 文档化装饰器的运行时行为。
+
+**评分维度**：
+- 列举 3 个以上企业级场景（30%）
+- 解释装饰器执行顺序（20%）
+- 提到 TS 5.0 标准装饰器与旧版差异（15%）
+- 说明使用风险与边界（20%）
+- 给出设计建议（15%）
+
+**常见错误**：
+- 用装饰器处理所有逻辑，导致调试困难
+- 不理解装饰器在编译期和运行时的行为
+- 新旧装饰器 API 混用
+
+**延伸追问**：
+- 装饰器和高阶函数相比各有什么优劣？
+- 如何在不使用 reflect-metadata 的情况下实现依赖注入？
+
+**参考资源**：
+- [TypeScript 官方文档 - Decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)
+
+**口头回答版**：
+> - 依赖注入：@Injectable()、@Inject()。 - 路由/控制器：@Controller()、@Get()、@Post()。 - 日志与监控：@Log()、@Metrics()。 - 权限校验：@RequireAuth()、@Permission()。
+
+---
+
+### FB-02-SC-R-001：如何制定一个从 JavaScript 迁移到 TypeScript 的方案？
+
+**题型**：场景设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：02 TypeScript
+**标签**：迁移、javascript、TypeScript、渐进式、strict
+**出现频率**：高频
+**预计回答时长**：10-20 分钟
+
+**题目描述**：
+一个已有 50 万行 JavaScript 代码的大型前端项目希望迁移到 TypeScript。请制定一个可行的迁移方案，平衡风险、成本和质量。
+
+**参考答案**：
+
+1. **前期准备**
+   - 统一思想，明确迁移目标（类型安全、可维护性、DX）。
+   - 选定 TypeScript 版本和构建工具。
+   - 建立编码规范（ESLint + @typescript-eslint）。
+
+2. **渐进式迁移策略**
+   - **允许 JS**：`"allowJs": true`。
+   - **混合编译**：逐步将 `.js` 改为 `.ts`，未改的文件继续工作。
+   - **逐模块迁移**：从核心工具库、公共组件开始，再到业务模块。
+   - **类型补充**：先为 JS 模块写 `.d.ts` 声明文件，再逐步改写实现。
+
+3. **配置策略**
+   - 初始关闭 `strict`，开启 `noImplicitAny: false`。
+   - 随着迁移推进，逐步开启 `noImplicitAny`、`strictNullChecks` 等。
+   - 最终目标 `strict: true`。
+
+4. **自动化工具**
+   - 使用 `ts-migrate`、`dts-gen` 等工具批量生成初始类型。
+   - 使用 `any` 占位标记待改进代码，配合 ESLint 规则逐步清理。
+
+5. **流程与质量保障**
+   - CI 中运行 `tsc --noEmit`，但初期可允许警告。
+   - 建立 any 比例监控，逐步降低。
+   - 代码审查时重点关注新增 TS 文件的质量。
+
+6. **团队培训**
+   - 开展 TypeScript 培训。
+   - 建立常见模式的最佳实践文档。
+
+**评分维度**：
+- 渐进式策略清晰（30%）
+- tsconfig 分阶段配置合理（20%）
+- 提到自动化工具（15%）
+- 质量保障措施（20%）
+- 团队与流程考虑（15%）
+
+**常见错误**：
+- 一次性全量重写，风险极高
+- 一开始就开启 strict，导致大量错误无法推进
+- 迁移后不清理 any，类型质量差
+
+**延伸追问**：
+- 如何处理迁移过程中第三方库没有类型定义的问题？
+- 如何度量迁移进度和质量？
+
+**口头回答版**：
+> - 统一思想，明确迁移目标（类型安全、可维护性、DX）。 - 选定 TypeScript 版本和构建工具。 - 建立编码规范（ESLint + @typescript-eslint）。 - 允许 JS："allowJs": true。
+
+---
+
+### FB-02-CP-R-001：如何在类型安全与开发效率（DX）之间取得平衡？
+
+**题型**：综合开放题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：02 TypeScript
+**标签**：类型安全、DX、开发体验、平衡、工程实践
+**出现频率**：中频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+TypeScript 能提供更强的类型安全，但过度严格的类型系统可能导致开发效率下降、类型体操、编译变慢。请谈谈如何在类型安全与开发效率之间取得平衡。
+
+**参考答案**：
+
+1. **分场景设定严格程度**
+   - 核心领域模型、公共库、API 契约：严格类型。
+   - 临时脚本、测试文件、原型代码：可适当放宽。
+
+2. **避免过度类型体操**
+   - 能用简单类型表达时不要用复杂条件类型。
+   - 类型推导优于复杂标注。
+   - 类型应服务于可读性和可维护性，而非炫技。
+
+3. **合理使用 any 和 unknown**
+   - 外部边界（解析 JSON、第三方库未声明类型）使用 `unknown` + 校验。
+   - 遗留代码迁移期可用 `any` 占位，但必须标记 TODO。
+   - 禁止在核心业务逻辑中长期存在 any。
+
+4. **工具链与流程优化**
+   - 使用 `skipLibCheck`、`incremental` 等优化编译速度。
+   - 类型检查与构建分离，开发时不阻塞热更新。
+   - CI 中运行全量类型检查。
+
+5. **类型即文档**
+   - 为公共 API 写清晰类型，帮助开发者理解契约。
+   - 使用 JSDoc/注释补充类型的业务语义。
+
+6. **团队约定**
+   - 制定 TypeScript 代码规范。
+   - 定期进行类型质量复盘。
+   - 鼓励使用 `satisfies`、`as const` 等现代特性提升类型精度而不增加负担。
+
+**评分维度**：
+- 分场景讨论严格程度（25%）
+- 提到避免类型体操（20%）
+- any/unknown 使用策略（20%）
+- 工具链与流程优化（20%）
+- 团队与规范（15%）
+
+**常见错误**：
+- 认为类型安全永远优先于一切
+- 认为 any 完全不能用
+- 为简单场景写过度复杂的类型
+
+**延伸追问**：
+- 你如何看待 "TypeScript 类型体操" 这种现象？
+- 在一个新项目中，你会如何制定 TypeScript 使用规范？
+
+**口头回答版**：
+> - 核心领域模型、公共库、API 契约：严格类型。 - 临时脚本、测试文件、原型代码：可适当放宽。 - 能用简单类型表达时不要用复杂条件类型。 - 类型推导优于复杂标注。
+
+---
+
+### FB-02-SD-R-004：TypeScript Compiler API 可以做什么？请设计一个应用场景。
+
+**题型**：系统设计题
+**难度**：⚫ 架构
+**岗位层级**：架构师
+**面试知识域**：02 TypeScript
+**标签**：compiler api、typescript api、AST、代码生成、类型分析
+**出现频率**：低频
+**预计回答时长**：10-20 分钟
+
+**题目描述**：
+请介绍 TypeScript Compiler API 的能力，并设计一个实际应用场景（如自动生成类型、代码检查、自定义 transformer 等）。
+
+**参考答案**：
+
+TypeScript Compiler API 允许直接调用 TypeScript 编译器的内部能力，主要包括：
+
+1. **解析与生成 AST**
+   - `ts.createSourceFile()` 解析源码为 AST。
+   - 遍历节点进行代码分析或转换。
+
+2. **类型检查**
+   - `ts.createProgram()` 创建编译程序。
+   - 获取类型信息、符号、诊断信息。
+
+3. **代码生成与转换**
+   - 自定义 Transformer 修改 AST。
+   - 生成 `.d.ts`、代码文档、路由表等。
+
+4. **语言服务**
+   - 实现自定义 IDE 插件、自动补全、重构等。
+
+**应用场景：自动生成 API 类型**
+
+```ts
+import ts from 'typescript';
+
+function generateTypes(sourceFile: ts.SourceFile) {
+  ts.forEachChild(sourceFile, function visit(node) {
+    if (ts.isInterfaceDeclaration(node)) {
+      console.log('Interface:', node.name.text);
+    }
+    ts.forEachChild(node, visit);
+  });
+}
+
+const sourceFile = ts.createSourceFile(
+  'input.ts',
+  'interface User { name: string }',
+  ts.ScriptTarget.ESNext,
+  true
+);
+
+generateTypes(sourceFile);
+```
+
+其他应用：
+
+- 基于路由文件生成菜单类型。
+- 自定义 ESLint 规则。
+- 自动提取 i18n key 并生成类型。
+- 编译期宏 / 代码注入。
+
+**评分维度**：
+- 说明 Compiler API 主要能力（30%）
+- 设计一个具体应用场景（30%）
+- 能写出关键 API 调用（20%）
+- 说明应用场景的业务价值（20%）
+
+**常见错误**：
+- 混淆 Compiler API 与 tsc 命令行
+- 不了解 AST 遍历的基本方式
+- 设计过于简单或不可行的场景
+
+**延伸追问**：
+- Compiler API 和 Babel AST 操作有什么区别？
+- 自定义 Transformer 在构建流程中如何集成？
+
+**参考资源**：
+- [TypeScript Compiler API 文档](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API)
+
+**口头回答版**：
+> TypeScript Compiler API 允许直接调用 TypeScript 编译器的内部能力，主要包括： - ts.createSourceFile() 解析源码为 AST。 - 遍历节点进行代码分析或转换。 - ts.createProgram() 创建编译程序。
+
+---
+### FB-02-CO-B-011：TypeScript 和 JavaScript 有什么关系？它的核心优势是什么？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+TypeScript 和 JavaScript 有什么关系？它的核心优势是什么。
+
+**参考答案**：
+
+- TypeScript 是 JavaScript 的超集，任何合法的 JS 都是合法的 TS，TS 最终会被编译为 JS。
+- 核心优势：
+  - 静态类型检查，提前发现错误。
+  - 更好的 IDE 支持（智能提示、跳转、重构）。
+  - 增强代码可维护性，特别适合大型项目。
+  - 提供接口、泛型、枚举、装饰器等高级语言特性。
+
+**评分维度**：
+- 说明超集与编译关系（37%）。
+- 至少列出 3 个优势（38%）。
+- 结合实际项目说明价值（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - TypeScript 是 JavaScript 的超集，任何合法的 JS 都是合法的 TS，TS 最终会被编译为 JS。 - 核心优势：   - 静态类型检查，提前发现错误。 - 更好的 IDE 支持（智能提示、跳转、重构）。 - 增强代码可维护性，特别适合大型项目。
+
+---
+
+### FB-02-CP-B-001：`interface` 和 `type` 有什么区别？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+`interface` 和 `type` 有什么区别。
+
+**参考答案**：
+
+- `interface` 主要用于描述对象/类的形状，支持声明合并和 `extends` 继承。
+- `type` 可用于定义任意类型（联合、交叉、元组、映射、条件类型等），不支持声明合并，扩展用 `&`。
+- 实际开发中：对象结构优先用 `interface`，联合/工具类型用 `type`。
+
+
+**补充说明**：
+
+在实际落地 `interface` 和 `type` 有什么区别 时，建议结合 类型安全、泛型、类型推断 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 说出声明合并差异（37%）。
+- 说出扩展方式差异（25%）。
+- 说出使用场景差异（25%）。
+- 提到底层等价性（class 与 interface 配合）（13%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - interface 主要用于描述对象/类的形状，支持声明合并和 extends 继承。 - type 可用于定义任意类型（联合、交叉、元组、映射、条件类型等），不支持声明合并，扩展用 &。 - 实际开发中：对象结构优先用 interface，联合/工具类型用 type。
+
+---
+
+### FB-02-CP-B-002：`any`、`unknown`、`never` 的区别？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+`any`、`unknown`、`never` 的区别。
+
+**参考答案**：
+
+- `any`：关闭类型检查，任何操作都允许，容易引入运行时错误，应尽量避免。
+- `unknown`：类型安全的 any，任何值都可赋给 unknown，但 unknown 不能赋给具体类型，也不能调用方法，必须先做类型收窄。
+- `never`：表示永远不会发生的类型，常用于抛出错误的函数、穷尽性检查。
+
+
+**补充说明**：
+
+在实际落地 `any`、`unknown`、`never` 的区别 时，建议结合 类型安全、泛型、类型推断 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 三者定义准确（50%）。
+- 能写出 unknown 收窄示例（25%）。
+- 能写出 never 穷尽检查示例（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - any：关闭类型检查，任何操作都允许，容易引入运行时错误，应尽量避免。 - unknown：类型安全的 any，任何值都可赋给 unknown，但 unknown 不能赋给具体类型，也不能调用方法，必须先做类型收窄。 - never：表示永远不会发生的类型，常用于抛出错误的函数、穷尽性检查。
+
+---
+
+### FB-02-CD-B-003：什么是泛型？写一个实际应用的例子。
+
+**题型**：手写代码题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+什么是泛型？写一个实际应用的例子。。
+
+**参考答案**：
+
+泛型是在定义函数、接口、类时不预先指定具体类型，而在使用时再指定，从而提高代码复用性。
+
+```ts
+function identity<T>(arg: T): T { return arg; }
+
+interface ApiResponse<T> {
+  code: number;
+  data: T;
+  message: string;
+}
+
+const userRes: ApiResponse<{ name: string }> = {
+  code: 0,
+  data: { name: "Alice" },
+  message: "ok"
+};
+```
+
+**评分维度**：
+- 概念解释清楚（37%）。
+- 举例说明泛型函数或接口（38%）。
+- 提到类型推断（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 泛型是在定义函数、接口、类时不预先指定具体类型，而在使用时再指定，从而提高代码复用性。
+
+---
+
+### FB-02-CO-B-012：TypeScript 中的类型推断是什么？什么情况下需要显式注解？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+TypeScript 中的类型推断是什么？什么情况下需要显式注解。
+
+**参考答案**：
+
+- 类型推断是 TypeScript 根据上下文自动推导类型的能力。
+- 常见推断场景：变量初始化、函数返回值、数组元素、泛型参数。
+- 需要显式注解的场景：
+  - 函数参数没有足够上下文时。
+  - 需要更精确类型（如字面量类型）时。
+  - 复杂对象或 API 返回值。
+  - 需要对外暴露的公共类型。
+
+**评分维度**：
+- 解释类型推断（37%）。
+- 举例说明自动推断（25%）。
+- 说明显式注解场景（38%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 类型推断是 TypeScript 根据上下文自动推导类型的能力。 - 常见推断场景：变量初始化、函数返回值、数组元素、泛型参数。 - 需要显式注解的场景：   - 函数参数没有足够上下文时。 - 需要更精确类型（如字面量类型）时。
+
+---
+
+### FB-02-CP-B-003：`readonly` 和 `const` 有什么区别？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+`readonly` 和 `const` 有什么区别。
+
+**参考答案**：
+
+- `const` 用于变量声明，表示变量标识符不能重新赋值。
+- `readonly` 用于属性，表示对象的该属性不能被重新赋值。
+- `const` 是运行时/语法层面的约束；`readonly` 是类型层面的约束，编译为 JS 后消失。
+- `readonly` 只对属性引用生效，如果属性是对象，对象内部仍可修改。
+
+
+**补充说明**：
+
+在实际落地 `readonly` 和 `const` 有什么区别 时，建议结合 类型安全、泛型、类型推断 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 作用对象不同（25%）。
+- 约束层面不同（25%）。
+- 提到引用类型内部可变（25%）。
+- 能举例说明（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - const 用于变量声明，表示变量标识符不能重新赋值。 - readonly 用于属性，表示对象的该属性不能被重新赋值。 - const 是运行时/语法层面的约束；readonly 是类型层面的约束，编译为 JS 后消失。 - readonly 只对属性引用生效，如果属性是对象，对象内部仍可修改。
+
+---
+
+### FB-02-CP-B-004：如何实现可选属性？`?` 和 `undefined` 有什么区别？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+如何实现可选属性？`?` 和 `undefined` 有什么区别。
+
+**参考答案**：
+
+- 可选属性用 `?` 标记：`age?: number` 表示属性可以不存在，类型为 `number | undefined`（开启 strictNullChecks）。
+- `age: undefined` 表示属性必须存在，但值为 undefined。
+- 可选属性可以用 `?` 访问，TypeScript 会做 undefined 检查。
+
+
+**补充说明**：
+
+在实际落地 实现可选属性`` 和 `undefined` 有什么区别 时，建议结合 类型安全、泛型、类型推断 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 区分可选和显式 undefined（50%）。
+- 说明 strictNullChecks 影响（25%）。
+- 举例说明（25%）。
+
+---
+## 二、进阶题
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 可选属性用 ? 标记：age?: number 表示属性可以不存在，类型为 number | undefined（开启 strictNullChecks）。 - age: undefined 表示属性必须存在，但值为 undefined。 - 可选属性可以用 ? 访问，TypeScript 会做 undefined 检查。
+
+---
+
+### FB-02-CD-A-004：什么是泛型约束？写一个带约束的泛型函数。
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+什么是泛型约束？写一个带约束的泛型函数。。
+
+**参考答案**：
+
+泛型约束是对泛型参数的限定，确保泛型满足某些条件。
+
+```ts
+interface HasLength {
+  length: number;
+}
+function logLength<T extends HasLength>(arg: T): T {
+  console.log(arg.length);
+  return arg;
+}
+logLength("hello");
+logLength([1, 2, 3]);
+// logLength(123); // 报错
+```
+
+也可以用 `keyof` 约束键名：
+
+```ts
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+```
+
+**评分维度**：
+- 解释约束目的（25%）。
+- 写出带约束的泛型函数（37%）。
+- 写出 keyof 约束示例（38%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 泛型约束是对泛型参数的限定，确保泛型满足某些条件。 （代码示例） 也可以用 keyof 约束键名： （代码示例）
+
+---
+
+### FB-02-CO-A-011：解释 `keyof`、`typeof`、`in`、`as` 在类型系统中的作用。
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+解释 `keyof`、`typeof`、`in`、`as` 在类型系统中的作用。。
+
+**参考答案**：
+
+- `keyof T`：获取对象类型 T 的所有键的联合类型。
+- `typeof x`：获取变量 x 的类型。
+- `in`：在映射类型中遍历联合类型的每个成员。
+- `as`：类型断言或映射类型中的键重映射。
+
+```ts
+interface User { name: string; age: number; }
+type UserKeys = keyof User; // "name" | "age"
+
+const user = { name: "Alice" };
+type UserType = typeof user; // { name: string }
+
+type ReadonlyUser = {
+  [K in keyof User]: User[K];
+};
+
+type Getters<T> = {
+  [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K];
+};
+```
+
+**评分维度**：
+- 四个关键字解释正确（50%）。
+- 能给出代码示例（50%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - keyof T：获取对象类型 T 的所有键的联合类型。 - typeof x：获取变量 x 的类型。 - in：在映射类型中遍历联合类型的每个成员。 - as：类型断言或映射类型中的键重映射。
+
+---
+
+### FB-02-CD-A-005：什么是映射类型？手写 `Partial<T>`、`Readonly<T>`、`Pick<T, K>`。
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+什么是映射类型？手写 `Partial<T>`、`Readonly<T>`、`Pick<T, K>`。。
+
+**参考答案**：
+
+映射类型是基于已有类型生成新类型的工具。
+
+```ts
+type MyPartial<T> = {
+  [P in keyof T]?: T[P];
+};
+
+type MyReadonly<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+type MyPick<T, K extends keyof T> = {
+  [P in K]: T[P];
+};
+```
+
+
+**补充说明**：
+
+在实际落地 映射类型手写 `Partial<T>`、`Readonly<T>`、`Pick<T, K>`。 时，建议结合 类型安全、泛型、类型推断 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 解释映射类型（25%）。
+- 三个工具类型手写正确（75%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 映射类型是基于已有类型生成新类型的工具。 （代码示例）
+
+---
+
+### FB-02-CD-A-006：解释条件类型，并手写 `IsArray<T>`、`Extract<T, U>`。
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+解释条件类型，并手写 `IsArray<T>`、`Extract<T, U>`。。
+
+**参考答案**：
+
+条件类型形如 `T extends U ? X : Y`，根据类型是否满足条件选择分支。
+
+```ts
+type IsArray<T> = T extends any[] ? true : false;
+
+type MyExtract<T, U> = T extends U ? T : never;
+// 示例
+type R = MyExtract<"a" | "b" | "c", "a" | "c">; // "a" | "c"
+```
+
+
+**补充说明**：
+
+在实际落地 解释条件类型，并手写 `IsArray<T>`、`Extract<T, U>`。 时，建议结合 类型安全、泛型、类型推断 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 条件类型语法解释（37%）。
+- 手写 IsArray（25%）。
+- 手写 Extract 并解释 distributive conditional type（38%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 条件类型形如 T extends U ? X : Y，根据类型是否满足条件选择分支。
+
+---
+
+### FB-02-CD-A-007：什么是 `infer`？用它实现 `ReturnType<T>` 和 `Parameters<T>`。
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+什么是 `infer`？用它实现 `ReturnType<T>` 和 `Parameters<T>`。。
+
+**参考答案**：
+
+`infer` 用于在条件类型中声明一个待推断的类型变量。
+
+```ts
+type MyReturnType<T extends (...args: any[]) => any> =
+  T extends (...args: any[]) => infer R ? R : never;
+
+type MyParameters<T extends (...args: any[]) => any> =
+  T extends (...args: infer P) => any ? P : never;
+```
+
+**评分维度**：
+- 解释 infer 作用（37%）。
+- ReturnType 实现正确（38%）。
+- Parameters 实现正确（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> infer 用于在条件类型中声明一个待推断的类型变量。 （代码示例）
+
+---
+
+### FB-02-CO-A-012：解释 discriminated union（可辨识联合），并说明其优势。
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+解释 discriminated union（可辨识联合），并说明其优势。。
+
+**参考答案**：
+
+可辨识联合是指多个对象类型有一个共同的“可辨识字段”（tag），通过该字段可以缩小类型范围。
+
+```ts
+type Shape =
+  | { kind: "circle"; radius: number }
+  | { kind: "square"; side: number }
+  | { kind: "rectangle"; width: number; height: number };
+
+function area(s: Shape) {
+  switch (s.kind) {
+    case "circle": return Math.PI * s.radius ** 2;
+    case "square": return s.side ** 2;
+    case "rectangle": return s.width * s.height;
+    default: const _exhaustive: never = s;
+  }
+}
+```
+
+优势：
+- 类型安全：编译器能自动收窄类型。
+- 可维护性：新增类型时，穷尽检查会提醒补全分支。
+
+**评分维度**：
+- 解释可辨识联合概念（37%）。
+- 写出示例（38%）。
+- 提到 never 穷尽检查（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 可辨识联合是指多个对象类型有一个共同的“可辨识字段”（tag），通过该字段可以缩小类型范围。 （代码示例） 优势： - 类型安全：编译器能自动收窄类型。 - 可维护性：新增类型时，穷尽检查会提醒补全分支。
+
+---
+
+### FB-02-CO-A-013：如何处理第三方库没有类型声明的问题？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+如何处理第三方库没有类型声明的问题。
+
+**参考答案**：
+
+1. 先安装 `@types/xxx` 声明包。
+2. 如果没有，可以手写 `.d.ts` 声明文件。
+3. 使用 `declare module` 补充类型。
+4. 临时用 `// @ts-ignore` 或 `any`，但不推荐滥用。
+
+```ts
+// types/my-lib.d.ts
+declare module "my-lib" {
+  export function foo(): string;
+  export const version: string;
+}
+```
+
+**评分维度**：
+- 提到 @types（28%）。
+- 会写 .d.ts 声明文件（43%）。
+- 提到 ts-ignore 的临时性和风险（29%）。
+
+---
+## 三、高级题
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 1. 先安装 @types/xxx 声明包。 2. 如果没有，可以手写 .d.ts 声明文件。 3. 使用 declare module 补充类型。 4. 临时用 // @ts-ignore 或 any，但不推荐滥用。
+
+---
+
+### FB-02-CO-P-011：解释 TypeScript 的协变、逆变、双向协变和不变，并举例子。
+
+**题型**：概念题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+解释 TypeScript 的协变、逆变、双向协变和不变，并举例子。。
+
+**参考答案**：
+
+- 协变（Covariance）：子类型可以赋值给父类型位置。`Cat[]` 是 `Animal[]` 的子类型。
+- 逆变（Contravariance）：父类型可以赋值给子类型位置。函数参数是逆变的：`(animal: Animal) => void` 可以赋值给 `(cat: Cat) => void`。
+- 不变（Invariance）：只能完全相同类型赋值。如泛型参数默认。
+- 双向协变：TypeScript 早期允许函数参数双向协变，`--strictFunctionTypes` 关闭时会出现，可能导致类型不安全。
+
+**评分维度**：
+- 四个概念解释清楚（50%）。
+- 能举例说明协变/逆变（37%）。
+- 提到 strictFunctionTypes（13%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 协变（Covariance）：子类型可以赋值给父类型位置。 Cat[] 是 Animal[] 的子类型。 - 逆变（Contravariance）：父类型可以赋值给子类型位置。 函数参数是逆变的：(animal: Animal) => void 可以赋值给 (cat: Cat) => void。
+
+---
+
+### FB-02-CO-P-012：什么是类型体操？请实现 `TupleToUnion<T>`、`DeepReadonly<T>`。
+
+**题型**：概念题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+什么是类型体操？请实现 `TupleToUnion<T>`、`DeepReadonly<T>`。。
+
+**参考答案**：
+
+类型体操指利用 TS 类型系统解决复杂类型推导问题。
+
+```ts
+type TupleToUnion<T extends any[]> = T[number];
+
+type DeepReadonly<T> = {
+  readonly [P in keyof T]: T[P] extends object
+    ? T[P] extends Function
+      ? T[P]
+      : DeepReadonly<T[P]>
+    : T[P];
+};
+```
+
+**评分维度**：
+- 解释类型体操（20%）。
+- TupleToUnion 实现正确（30%）。
+- DeepReadonly 实现合理（30%）。
+- 提到可读性权衡（20%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 类型体操指利用 TS 类型系统解决复杂类型推导问题。 （代码示例）
+
+---
+
+### FB-02-SD-P-001：如何设计一个类型安全的前端 API 请求层？
+
+**题型**：系统设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+如何设计一个类型安全的前端 API 请求层。
+
+**参考答案**：
+
+```ts
+interface ApiResponse<T> {
+  code: number;
+  data: T;
+  message?: string;
+}
+
+async function request<T>(
+  url: string,
+  options?: RequestInit
+): Promise<T> {
+  const res = await fetch(url, options);
+  const json: ApiResponse<T> = await res.json();
+  if (json.code !== 0) throw new Error(json.message);
+  return json.data;
+}
+
+// 使用
+interface User { id: number; name: string; }
+const user = await request<User>("/api/user/1");
+```
+
+设计要点：
+- 泛型保留返回数据类型。
+- 统一错误处理。
+- 可扩展请求/响应拦截器。
+- 使用 Zod/Yup 做运行时校验，弥补 TS 只在编译期有效的不足。
+
+**评分维度**：
+- 泛型请求函数设计（30%）。
+- 统一响应结构（20%）。
+- 错误处理机制（20%）。
+- 提到运行时校验（30%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> （代码示例） 设计要点： - 泛型保留返回数据类型。 - 可扩展请求/响应拦截器。 - 使用 Zod/Yup 做运行时校验，弥补 TS 只在编译期有效的不足。
+
+---
+
+### FB-02-SC-P-001：解释 `declare`、`namespace`、`module` 的区别与使用场景。
+
+**题型**：场景设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+解释 `declare`、`namespace`、`module` 的区别与使用场景。。
+
+**参考答案**：
+
+- `declare`：告诉 TypeScript 某个变量/模块/类型在运行时已存在，不做实现。
+- `namespace`：用于组织代码，内部可包含类型、值、函数等。现代模块化开发中使用减少。
+- `module`：
+  - 在 `.d.ts` 中 `declare module "xxx"` 为无类型库补充类型。
+  - 早期 TS 中 `module` 与 `namespace` 类似，现在推荐使用 ES Module。
+
+
+**补充说明**：
+
+在实际落地 解释 `declare`、`namespace`、`module` 的区别与使用场景。 时，建议结合 类型安全、泛型、类型推断 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- declare 作用（25%）。
+- namespace 作用（25%）。
+- module 声明文件用法（37%）。
+- 现代项目使用建议（13%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - declare：告诉 TypeScript 某个变量/模块/类型在运行时已存在，不做实现。 - namespace：用于组织代码，内部可包含类型、值、函数等。 现代模块化开发中使用减少。 - module：   - 在 .d.ts 中 declare module "xxx" 为无类型库补充类型。
+
+---
+
+### FB-02-CO-P-013：Vue3 和 React 中是如何利用 TypeScript 类型系统的？
+
+**题型**：概念题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+Vue3 和 React 中是如何利用 TypeScript 类型系统的。
+
+**参考答案**：
+
+Vue3：
+- 使用 `defineProps` 的泛型或运行时声明推导 props 类型。
+- `ref`、`reactive`、`computed` 都有完整泛型支持。
+- 组合式函数通过泛型实现类型安全的复用。
+
+React：
+- 函数组件用 `React.FC` 或直接注解 props 类型。
+- `useState`、`useRef`、`useReducer` 都支持泛型。
+- 事件处理类型：`React.MouseEvent`、`React.ChangeEvent` 等。
+
+共同点：都利用泛型保留状态类型，避免隐式 any。
+
+**评分维度**：
+- Vue3 类型使用（37%）。
+- React 类型使用（38%）。
+- 提到泛型保留类型（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> Vue3： - 使用 defineProps 的泛型或运行时声明推导 props 类型。 - ref、reactive、computed 都有完整泛型支持。 - 组合式函数通过泛型实现类型安全的复用。 React： - 函数组件用 React.FC 或直接注解 props 类型。
+
+---
+
+### FB-02-SC-P-002：TypeScript 编译配置 `strict: true` 会开启哪些检查？实际项目中如何取舍？
+
+**题型**：场景设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+TypeScript 编译配置 `strict: true` 会开启哪些检查？实际项目中如何取舍。
+
+**参考答案**：
+
+`strict: true` 开启：
+- `noImplicitAny`
+- `strictNullChecks`
+- `strictFunctionTypes`
+- `strictBindCallApply`
+- `strictPropertyInitialization`
+- `noImplicitThis`
+- `alwaysStrict`
+
+取舍建议：
+- 新项目强烈推荐直接开启 `strict: true`。
+- 老项目迁移可逐步开启，先用 `noImplicitAny: false` 过渡。
+- 不要因噎废食全部关闭，核心项目应保证 `strictNullChecks` 和 `noImplicitAny` 开启。
+
+**评分维度**：
+- 列出主要 strict 子项（40%）。
+- 新项目建议（20%）。
+- 老项目迁移策略（20%）。
+- 提到具体关键项（20%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> strict: true 开启： - noImplicitAny - strictNullChecks - strictFunctionTypes - strictBindCallApply - strictPropertyInitialization - noImplicitThis - alwaysStrict 取舍建议： - 新项目强烈推荐直接开启 strict: true。 - 老项目迁移可逐步开启，先用 noImplicitAny: false 过渡。 - 不要因噎废食全部关闭，核心项目应保证 strictNullChecks 和 noImplicitAny 开启。
+
+---
+
+### FB-02-CP-P-001：`satisfies` 与类型注解 `:T`、类型断言 `as T` 有什么区别？
+
+**题型**：综合开放题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+`satisfies` 与类型注解 `:T`、类型断言 `as T` 有什么区别。
+
+**参考答案**：
+
+| 方式 | 约束结构 | 保留具体推断类型 | 安全性 |
+|------|---------|-----------------|--------|
+| 类型注解 `:T` | ✅ | ❌ 会被放宽到 T | 安全 |
+| `as T` | ❌ 可能断言错误类型 | ✅ | 不安全 |
+| `satisfies T` | ✅ | ✅ | 安全 |
+
+示例：
+
+```ts
+type Config = { host: string; port: number };
+
+const c1: Config = { host: "localhost", port: 3000 };
+// c1.host 类型为 string
+
+const c2 = { host: "localhost", port: 3000 } as Config;
+// c2.host 类型为 string，且可能绕过额外属性检查
+
+const c3 = { host: "localhost", port: 3000 } satisfies Config;
+// c3.host 类型为 "localhost"
+```
+
+`satisfies` 适合需要既约束结构又保留字面量类型的场景，如配置对象、palette、路由表。
+
+**评分维度**：
+- 能区分三者核心差异（40%）。
+- 能举例说明具体类型保留（30%）。
+- 能说明 `as` 的安全风险（30%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> | 方式 | 约束结构 | 保留具体推断类型 | 安全性 | |------|---------|-----------------|--------| | 类型注解 :T | ✅ | ❌ 会被放宽到 T | 安全 | | as T | ❌ 可能断言错误类型 | ✅ | 不安全 | | satisfies T | ✅ | ✅ | 安全 | 示例： （代码示例） satisfies 适合需要既约束结构又保留字面量类型的场景，如配置对象、palette、路由表。
+
+---
+
+### FB-02-CO-P-014：什么是 Branded Type？它解决了什么问题？
+
+**题型**：概念题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+什么是 Branded Type？它解决了什么问题。
+
+**参考答案**：
+
+Branded Type 通过交叉类型给原始类型加一个不可见的编译期标签，使其在类型系统中可区分。
+
+```ts
+type UserId = string & { __brand: "UserId" };
+type OrderId = string & { __brand: "OrderId" };
+
+function queryOrder(id: OrderId) {}
+const uid = "u123" as UserId;
+queryOrder(uid); // ❌ 编译报错
+```
+
+解决的问题：
+- 防止把语义不同的同类型值混用（如用户 ID 和订单 ID 都是 string）。
+- 零运行时开销，因为标签只在类型系统中存在。
+
+适用场景：各种 ID、Email、URL、金额、日期字符串等。
+
+**评分维度**：
+- 能解释实现原理（30%）。
+- 能说明解决的问题（35%）。
+- 能举例并提到零运行时开销（35%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> Branded Type 通过交叉类型给原始类型加一个不可见的编译期标签，使其在类型系统中可区分。 （代码示例） 解决的问题： - 防止把语义不同的同类型值混用（如用户 ID 和订单 ID 都是 string）。 - 零运行时开销，因为标签只在类型系统中存在。 适用场景：各种 ID、Email、URL、金额、日期字符串等。
+
+---
+
+### FB-02-PE-P-001：如何优化大型 TypeScript 项目的编译性能？
+
+**题型**：性能优化题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：02 TypeScript
+**标签**：类型安全、泛型、类型推断、类型收窄、tsconfig
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+如何优化大型 TypeScript 项目的编译性能。
+
+**参考答案**：
+
+配置层面：
+- 开启 `skipLibCheck: true` 跳过 `.d.ts` 类型检查。
+- 使用 `isolatedModules: true` 配合 swc/esbuild 转译。
+- 合理设置 `include` / `exclude`，避免扫描无关文件。
+- 使用 `moduleResolution: bundler`。
+
+工程层面：
+- Project References：把大项目拆分为多个子项目，独立编译。
+- 类型检查与转译分离：swc/esbuild 做转译，`tsc --noEmit` 做类型检查。
+- 用 `fork-ts-checker-webpack-plugin` 在 Webpack 中并行类型检查。
+
+代码层面：
+- 避免深层嵌套的条件类型和无限递归类型。
+- 控制联合类型大小，使用可辨识联合替代巨型联合。
+- 为复杂函数显式标注返回类型，减少推断负担。
+
+**评分维度**：
+- 能说出 3 个以上配置优化（30%）。
+- 能说明 Project References 或类型检查分离（30%）。
+- 能给出代码层面建议（40%）。
+
+---
+## 面试准备建议
+
+1. 手写工具类型：Partial、Readonly、Pick、Omit、ReturnType、Parameters、Exclude、Extract。
+2. 理解泛型约束、条件类型、infer、映射类型。
+3. 准备项目案例：说明 TS 如何帮助你发现 bug 或安全重构。
+4. 类型体操量力而行，面试中如果问到，先写简单版本，再逐步优化。
+
+---
+
+> **领域编号**：F02 TypeScript  
+> **最后更新**：2026-06-24
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 配置层面： - 开启 skipLibCheck: true 跳过 .d.ts 类型检查。 - 使用 isolatedModules: true 配合 swc/esbuild 转译。 - 合理设置 include / exclude，避免扫描无关文件。 - 使用 moduleResolution: bundler。
+
+
+
+
+
+
+
+

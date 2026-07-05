@@ -1,19 +1,20 @@
 # JavaScript 面试题
 
+> 本题库共收录 **79** 道面试题（基础 30 / 进阶 24 / 深入 20 / 架构 5）。
 > 本文件收录 JavaScript 相关面试题，目标题量 300 道。
 > 题型覆盖：概念题、代码分析题、手写代码题、场景设计题。
 > 难度覆盖：基础、进阶、深入、架构。
 
 ## 目录
 
-- [基础题](#基础题)
-- [进阶题](#进阶题)
-- [深入题](#深入题)
-- [架构题](#架构题)
+- [基础题](#basic)
+- [进阶题](#advanced)
+- [深入题](#proficient)
+- [架构题](#architect)
 
 ---
 
-## 基础题
+## 基础题（23 道）{#basic}
 
 ### FB-01-CO-B-001：JavaScript 有哪些数据类型？如何区分原始类型和引用类型？
 
@@ -71,6 +72,9 @@ console.log(obj1.x); // 2
 **参考资源**：
 - [MDN - Data types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures)
 
+**口头回答版**：
+> JavaScript 有 8 种数据类型： - 原始类型（Primitive）：string、number、boolean、null、undefined、symbol、bigint - 引用类型（Reference）：object（包括 Object、Array、Function、Date、RegExp 等） - 原始类型存储的是值本身，赋值时拷贝值。
+
 ---
 
 ### FB-01-CA-B-001：`==` 和 `===` 的区别？什么情况下推荐使用 `==`？
@@ -121,6 +125,9 @@ x == null // 等价于 x === null || x === undefined
 **参考资源**：
 - [MDN - Equality comparisons](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
 
+**口头回答版**：
+> - === 是严格相等，要求类型和值都相同，不会做类型转换。 - == 是抽象相等，会做类型转换后再比较。 推荐始终使用 === / !==，避免隐式转换带来的意外结果，例如： 极少数场景可用 ==，例如判断 null 或 undefined：
+
 ---
 
 ### FB-01-CO-B-002：什么是变量提升？`let`、`const`、`var` 的区别？
@@ -167,6 +174,9 @@ let b = 2;
 
 **参考资源**：
 - [MDN - let](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let)
+
+**口头回答版**：
+> 变量提升：变量和函数声明在编译阶段被移动到作用域顶部，但赋值留在原地。 - var：函数作用域，存在提升，可重复声明，可重新赋值。 - let：块级作用域，存在提升但处于 TDZ（暂时性死区），访问会报 ReferenceError；不可重复声明，可重新赋值。 - const：块级作用域，存在提升但处于 TDZ；不可重复声明，声明时必须初始化，且不能重新绑定（但对象属性可变）。
 
 ---
 
@@ -224,6 +234,9 @@ console.log(counter.get()); // 1
 **参考资源**：
 - [MDN - Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
 
+**口头回答版**：
+> 闭包：函数能够记住并访问它词法作用域中的变量，即使该函数在当前作用域外执行。 模块模式：隐藏内部变量，暴露接口。 防抖/节流：保存定时器状态。 计数器/缓存：保持私有状态。
+
 ---
 
 ### FB-01-CO-B-004：箭头函数和普通函数的区别？
@@ -272,6 +285,9 @@ obj.sayHello();   // Tom
 
 **参考资源**：
 - [MDN - Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+
+**口头回答版**：
+> this 绑定：箭头函数没有自己的 this，继承外层作用域的 this；普通函数的 this 由调用方式决定。 arguments 对象：箭头函数没有 arguments 对象，可用 rest 参数代替。 构造函数：箭头函数不能作为构造函数，不能用 new。 prototype：箭头函数没有 prototype 属性。
 
 ---
 
@@ -336,6 +352,9 @@ foo
 - 如果 `var foo = function() {...}` 提升到顶部，会发生什么？
 - 在严格模式下，变量提升行为有变化吗？
 
+**口头回答版**：
+> var a 被提升，初始化为 undefined，所以第一行输出 undefined。 let b 被提升但处于 TDZ，访问会报 ReferenceError，程序在此处抛出错误，后续代码不再执行。 如果程序继续执行，function foo 声明被提升，所以 foo() 输出 'foo'。 后续 var foo = function() {...} 会把 foo 重新赋值为函数表达式。
+
 ---
 
 ### FB-01-CO-B-005：解释 `this` 的指向规则。
@@ -388,6 +407,9 @@ new foo(); // foo 实例
 
 **相关题目**：
 - [FB-01-CD-A-001 手写 bind 函数](#FB-01-CD-A-001)
+
+**口头回答版**：
+> this 的指向由函数的调用方式决定： 默认绑定：独立函数调用，this 指向全局对象（严格模式为 undefined）。 隐式绑定：作为对象方法调用，this 指向调用它的对象。 显式绑定：通过 call、apply、bind 指定 this。
 
 ---
 
@@ -450,6 +472,9 @@ function unique(arr) {
 - 如果要对对象数组按某个字段去重，怎么做？
 - 如果数组很大（百万级），如何优化去重性能？
 
+**口头回答版**：
+> - Set 方式简洁，时间复杂度 O(n)，但不能去重对象（引用类型）。 - ES5 方式兼容性好，时间复杂度 O(n²)，同样不能处理对象去重。
+
 ---
 
 ### FB-01-CA-B-003：下面代码的输出是什么？
@@ -501,6 +526,9 @@ false
 - 认为 `{} == false` 也为 true
 - 混淆 `null == undefined` 和 `null === undefined`
 
+**口头回答版**：
+> - [] == false：[] 转数字为 0，false 转数字为 0，相等。 - {} == false：{} 转字符串为 '[object Object]'，再转数字为 NaN，不相等。 - '' == false：都转数字为 0，相等。 - null == undefined：ECMAScript 规定两者相等。
+
 ---
 
 ### FB-01-CO-B-006：`map`、`filter`、`reduce` 的区别是什么？
@@ -509,7 +537,7 @@ false
 **难度**：🟢 基础
 **岗位层级**：初级
 **面试知识域**：01 JavaScript
-**标签**：数组方法、map、filter、reduce
+**标签**：数组方法、Map、filter、reduce
 **出现频率**：高频
 **预计回答时长**：3-5 分钟
 
@@ -542,6 +570,9 @@ arr.reduce((sum, x) => sum + x, 0); // 10
 **延伸追问**：
 - `map` 和 `forEach` 的区别？
 - 如何用 `reduce` 实现 `map` 和 `filter`？
+
+**口头回答版**：
+> - map：对数组每个元素执行回调，返回新数组，长度与原数组相同。 - filter：按条件筛选元素，返回满足条件的新数组。 - reduce：对数组元素进行累积计算，返回一个最终值。
 
 ---
 
@@ -579,6 +610,9 @@ console.log(b); // null
 **常见错误**：
 - 认为两者完全相同
 - 不知道 `typeof null` 的返回值
+
+**口头回答版**：
+> - undefined：表示"未定义"，变量声明未赋值、对象不存在的属性、函数无返回值时默认返回 undefined。 - null：表示"空值"，需要显式赋值，表示此处应该有值但目前为空。
 
 ---
 
@@ -639,6 +673,9 @@ console.log('4');
 
 **参考资源**：
 - [MDN - Event Loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
+
+**口头回答版**：
+> console.log('1') 同步执行。 setTimeout 进入宏任务队列。 Promise.then 进入微任务队列。 console.log('4') 同步执行。
 
 ---
 
@@ -702,6 +739,9 @@ function deepClone(obj, map = new WeakMap()) {
 **相关题目**：
 - [FB-01-CD-A-002 手写深拷贝函数](#FB-01-CD-A-002)
 
+**口头回答版**：
+> - 浅拷贝：只拷贝对象的第一层属性，嵌套对象仍共享引用。 - 深拷贝：递归拷贝所有层级，完全独立。
+
 ---
 
 ### FB-01-CO-B-009：解释事件委托（Event Delegation）。
@@ -747,6 +787,9 @@ document.getElementById('list').addEventListener('click', function(e) {
 **延伸追问**：
 - `event.target` 和 `event.currentTarget` 有什么区别？
 - 事件委托有什么局限性？
+
+**口头回答版**：
+> 事件委托：利用事件冒泡机制，将子元素的事件监听器绑定到父元素上，通过 event.target 判断具体触发元素。 减少内存占用，避免为大量子元素绑定监听器。 动态新增的子元素也能响应事件，无需重新绑定。 代码更简洁，易于维护。
 
 ---
 
@@ -796,6 +839,9 @@ p.sayHi(); // 沿原型链找到 sayHi
 
 **参考资源**：
 - [MDN - Inheritance and the prototype chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+
+**口头回答版**：
+> - 原型对象：每个函数都有 prototype 属性，指向该函数作为构造函数时创建的实例的原型。 - __proto__：每个对象都有 __proto__ 属性，指向其构造函数的原型对象。 - 原型链：对象在查找属性或方法时，先在自身查找，找不到则沿 __proto__ 向上查找，直到 Object.prototype，最终到 null。
 
 ---
 
@@ -874,6 +920,9 @@ p.sayHi(); // 沿原型链找到 sayHi
 **参考资源**：
 - [MDN - 解构赋值](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 
+**口头回答版**：
+> 解构赋值（Destructuring Assignment）允许从数组或对象中按模式提取值并赋给变量，是 ES6 提供的语法糖。 数组解构（按位置取值）： 对象解构（按属性名取值，支持重命名）： > 注意：解构赋值对嵌套对象执行的是浅拷贝；默认值只在提取值为 undefined 时生效。
+
 ---
 
 ### FB-01-CO-B-012：模板字符串有什么特性？什么是标签模板？
@@ -939,6 +988,9 @@ p.sayHi(); // 沿原型链找到 sayHi
 
 **参考资源**：
 - [MDN - 模板字符串](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Template_literals)
+
+**口头回答版**：
+> 模板字符串使用反引号 `  ` 包裹，相比普通字符串有以下增强： 字符串插值：使用 ${expression}` 嵌入变量或表达式。 多行字符串：保留换行和缩进（包含空白字符）。 标签模板：在模板字符串前放置一个函数（tag），该函数接收字符串片段数组和插入值。
 
 ---
 
@@ -1015,6 +1067,9 @@ const obj2 = { ...obj1, b: 2 }; // { a: 1, b: 2 }
 - [MDN - 剩余参数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/rest_parameters)
 - [MDN - 展开语法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
 
+**口头回答版**：
+> 三者都是 ES6 为函数和表达式提供的语法增强，但用途不同： | 特性 | 语法 | 作用 | 位置 | |------|------|------|------| | 默认参数 | function f(x = 1) | 参数未传入或为 undefined 时使用默认值 | 形参声明 |
+
 ---
 
 ### FB-01-CO-B-014：正则表达式中常用元字符有哪些？如何写一个简单的手机号校验？
@@ -1084,6 +1139,9 @@ phoneRegex.test('1380013800');  // false
 
 **参考资源**：
 - [MDN - 正则表达式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions)
+
+**口头回答版**：
+> | 元字符 | 含义 | |--------|------| | . | 匹配除换行符外的任意单个字符 | | * | 前面的字符出现 0 次或多次 |
 
 ---
 
@@ -1172,6 +1230,9 @@ for (let i = 0; i < 3; i++) {
 **参考资源**：
 - [MDN - 闭包](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
 
+**口头回答版**：
+> 可以结合自己的项目经验，分点说明核心概念、关键流程和注意事项。
+
 ---
 
 ### FB-01-CD-B-002：用 ES6+ 实现对象/数组的浅拷贝与合并，并比较 `Object.assign` 与展开运算符的区别。
@@ -1246,6 +1307,9 @@ console.log(a.y.z); // 3，浅拷贝导致嵌套对象共享
 - [MDN - Object.assign](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
 - [MDN - 展开语法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
 
+**口头回答版**：
+> Object.assign(target, ...sources) 与 { ...obj } 的异同： | 特性 | Object.assign | { ...obj } | |------|-----------------|--------------| | 拷贝层级 | 浅拷贝 | 浅拷贝 |
+
 ---
 
 ### FB-01-CO-B-015：JavaScript 中如何捕获和处理异常？`finally` 在 `return` 前后会如何执行？
@@ -1317,6 +1381,9 @@ demo(); // 2
 **参考资源**：
 - [MDN - try...catch](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/try...catch)
 
+**口头回答版**：
+> JavaScript 使用 try/catch/finally 结构捕获同步异常： 常见内置错误类型：Error、TypeError、ReferenceError、RangeError、SyntaxError、URIError。 finally 的执行时机： - finally 块一定会在 try / catch 之后、函数真正返回之前执行。
+
 ---
 
 ### FB-01-CO-B-016：严格模式下 `this` 的指向有哪些不同？
@@ -1374,7 +1441,10 @@ demo(); // 2
 - [MDN - 严格模式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode)
 
 
-## 进阶题
+## 进阶题（17 道）{#advanced}
+
+**口头回答版**：
+> 在严格模式下，this 不再被“装箱”为全局对象或包装对象： 全局作用域中的 this 为 undefined（非严格模式下是全局对象 window / globalThis）。 普通函数独立调用时，this 为 undefined，不再指向全局对象。 通过 call / apply 传入原始值时，不会自动装箱为包装对象。
 
 ### FB-01-CD-A-001：手写 `call`、`apply`、`bind`。
 
@@ -1432,6 +1502,9 @@ Function.prototype.myBind = function(context, ...bindArgs) {
 **延伸追问**：
 - 如果用 `Symbol` 之前的 ES5 方式，如何防止覆盖属性？
 - `bind` 返回的函数作为构造函数调用时，`this` 应该指向什么？
+
+**口头回答版**：
+> （见代码示例）
 
 ---
 
@@ -1525,6 +1598,9 @@ function deepClone(obj, map = new WeakMap()) {
 - 如何处理函数和 undefined？是否应该选择忽略还是保留？
 - 浅拷贝有哪些原生方法？
 
+**口头回答版**：
+> JSON.parse(JSON.stringify) 的缺陷： 忽略 undefined、function、Symbol。 忽略 Map、Set、Date、RegExp 等类型（Date 会被转成字符串）。 不能处理循环引用，会报错。
+
 ---
 
 ### FB-01-CA-A-001：下面代码的输出是什么？
@@ -1589,6 +1665,9 @@ setTimeout2
 **延伸追问**：
 - 如果 `Promise.resolve().then` 里再嵌套 `Promise.then`，执行顺序如何？
 - `async/await` 在事件循环中如何表现？
+
+**口头回答版**：
+> 同步代码：start、end。 Promise.then 进入微任务队列，第一个宏任务 setTimeout1 进入宏任务队列。 同步代码结束，执行微任务：promise2，其中又注册一个宏任务 setTimeout2。 微任务清空，执行第一个宏任务 setTimeout1，输出 setTimeout1，并注册微任务 promise1。
 
 ---
 
@@ -1661,6 +1740,9 @@ function promiseAll(iterable) {
 - 如何实现 `Promise.allSettled`？
 - `Promise.all` 和 `Promise.race` 的区别？
 
+**口头回答版**：
+> - 参数为空数组：返回 resolve([])。 - 元素不是 Promise：用 Promise.resolve(p) 包装。 - 任一 reject：立即 reject，不等待其他 Promise。
+
 ---
 
 ### FB-01-CO-A-001：解释 `Promise` 的链式调用原理。
@@ -1701,6 +1783,9 @@ Promise.resolve(1)
 **常见错误**：
 - 认为 then 返回的是同一个 Promise
 - 忘记错误会传递
+
+**口头回答版**：
+> Promise.prototype.then 返回一个新的 Promise，因此可以链式调用。 如果 then 的回调返回一个值，新 Promise 会 resolve 该值。 如果 then 的回调抛出错误，新 Promise 会 reject 该错误。 如果 then 的回调返回一个 Promise，新 Promise 会跟随该 Promise 的状态。
 
 ---
 
@@ -1747,6 +1832,9 @@ while (Date.now() - start < 500) {}
 - 如果需要一个相对精确的定时器，有什么方案？
 - `requestAnimationFrame` 和 `setTimeout` 有什么区别？
 
+**口头回答版**：
+> setTimeout 的延迟时间是最小延迟，实际执行时间取决于事件循环： 如果主线程被长任务阻塞，即使时间到了，回调也要等主线程空闲才能执行。 在浏览器中，嵌套 setTimeout（5 层以上）最小延迟会被强制为 4ms。 页面不可见时，后台标签页的 setTimeout 可能被节流。
+
 ---
 
 ### FB-01-CO-A-002：`for...of` 和 `for...in` 的区别？
@@ -1789,6 +1877,9 @@ for (const v of arr) console.log(v); // a, b
 **延伸追问**：
 - 如何让普通对象支持 `for...of`？
 - `for...in` 如何过滤原型链属性？
+
+**口头回答版**：
+> | 特性 | for...in | for...of | |------|-----------|-----------| | 遍历目标 | 对象的可枚举属性键 | 可迭代对象的值 | | 返回内容 | 键名（字符串） | 值 |
 
 ---
 
@@ -1834,6 +1925,9 @@ Vue3 选择 Proxy 的原因：
 **延伸追问**：
 - `Proxy` 有哪些操作不能被拦截？
 - `Reflect` 和 `Object` 上的方法有什么区别？
+
+**口头回答版**：
+> | 特性 | Object.defineProperty | Proxy | |------|------------------------|---------| | 拦截能力 | 只能拦截已有属性的读写 | 可以拦截对象几乎所有操作 | | 新增属性 | 检测不到 | 可以检测 |
 
 ---
 
@@ -1900,6 +1994,9 @@ function debounce(fn, wait, immediate = false) {
 - 防抖和节流的区别？
 - 手写一个节流函数。
 
+**口头回答版**：
+> （见代码示例）
+
 ---
 
 ### FB-01-CO-A-004：解释 `Symbol` 的用途。
@@ -1940,6 +2037,9 @@ console.log(user[id]); // 123
 **常见错误**：
 - 认为 `Symbol('a') === Symbol('a')`
 - 用 `for...in` 遍历 Symbol 属性
+
+**口头回答版**：
+> 创建唯一属性键：避免属性名冲突。 定义迭代协议：Symbol.iterator、Symbol.asyncIterator。 内置 Symbol 方法：Symbol.toPrimitive、Symbol.toStringTag、Symbol.hasInstance。 模拟私有属性：虽然不完全私有，但难以被常规枚举访问。
 
 ---
 
@@ -2007,6 +2107,9 @@ console.log(user[id]); // 123
 **参考资源**：
 - [MDN - Map](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map)
 - [MDN - WeakMap](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
+
+**口头回答版**：
+> | 特性 | Map | Set | WeakMap | WeakSet | |------|-------|-------|-----------|-----------| | 存储内容 | 键值对 | 唯一值 | 键值对（键必须是对象） | 唯一对象 | | 键类型 | 任意类型 | 无键 | 对象 | 对象 |
 
 ---
 
@@ -2091,6 +2194,9 @@ setTimeout
 
 **参考资源**：
 - [MDN - async function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function)
+
+**口头回答版**：
+> console.log('script start') 同步执行。 调用 async1()，进入函数体，console.log('async1 start') 同步执行。 执行 await async2()：async2() 同步执行并返回一个 resolved Promise；await 会让 async1 函数体后续代码进入微任务队列。 继续执行外层的同步代码：new Promise 的 executor 同步执行，输出 promise1，并把 then 回调放入微任务队列。
 
 ---
 
@@ -2187,6 +2293,9 @@ parallelLimit(tasks, 2).then(console.log); // [10, 20, 30, 40]
 **参考资源**：
 - [MDN - Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
+**口头回答版**：
+> - 维护一个“运行中”计数器 running，不超过 limit。 - 每当一个任务完成，从队列中补充新任务。 - 用 currentIndex 记录任务原始下标，保证结果顺序。 - 一旦有任务 reject，立刻结束整个流程。
+
 ---
 
 ### FB-01-CO-A-006：ES6 `class` 继承的原理是什么？与 ES5 寄生组合式继承如何对应？
@@ -2269,6 +2378,9 @@ Object.setPrototypeOf(Dog, Animal);
 **参考资源**：
 - [MDN - class](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes)
 
+**口头回答版**：
+> class 本质上是原型继承的语法糖。 通过 Babel 或手写转换，一段 class 代码大致等价于 ES5 的寄生组合式继承。 对应 ES5 核心逻辑： extends 通过 Object.create(Super.prototype) 建立子类原型链。
+
 ---
 
 ### FB-01-CO-A-007：`new` 操作符在执行时具体做了哪些事？
@@ -2333,6 +2445,9 @@ function myNew(Constructor, ...args) {
 
 **参考资源**：
 - [MDN - new 运算符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/new)
+
+**口头回答版**：
+> new 操作符大致执行以下 4 步： 创建新对象：创建一个空对象 {}。 绑定原型：将新对象的 __proto__ 指向构造函数的 prototype 属性。 绑定 this 并执行构造函数：将构造函数中的 this 指向这个新对象，并执行构造函数体。
 
 ---
 
@@ -2413,6 +2528,9 @@ console.log(composed(3)); // 8
 **参考资源**：
 - [MDN - Function.prototype.length](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/length)
 
+**口头回答版**：
+> （见代码示例）
+
 ---
 
 ### FB-01-CO-A-008：`CommonJS` 和 `ES Module` 在循环依赖时的行为有什么不同？
@@ -2488,7 +2606,10 @@ export const foo = 'foo';
 - [MDN - ES Module](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Modules)
 
 
-## 深入题
+## 深入题（11 道）{#proficient}
+
+**口头回答版**：
+> CommonJS 在运行时同步加载模块： - require 第一次执行时会完整执行模块代码并缓存 module.exports 对象。 - 循环依赖时，后执行的模块拿到的可能是尚未完成赋值的 exports 对象。 - 因为导出的是值的拷贝，后续再修改 exports，已经拿到引用的模块不会感知。
 
 ### FB-01-CO-P-001：解释 V8 的垃圾回收机制。
 
@@ -2538,6 +2659,9 @@ V8 采用**分代垃圾回收**策略：
 
 **参考资源**：
 - [V8 Blog - Trash talk](https://v8.dev/blog/trash-talk)
+
+**口头回答版**：
+> V8 采用分代垃圾回收策略： 新生代（Young Generation）：存放生命周期短的对象，使用 Scavenge 算法（Cheney 算法）。 - 分为 From 和 To 两个半区。 - 存活对象从 From 复制到 To，然后交换。
 
 ---
 
@@ -2591,6 +2715,9 @@ Node.js 中的额外阶段：
 **参考资源**：
 - [MDN - Event Loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
 - [Node.js Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
+
+**口头回答版**：
+> JavaScript 是单线程语言，事件循环负责协调同步代码、异步任务、渲染等。 浏览器中的事件循环： 调用栈（Call Stack）：执行同步代码。 宏任务队列（Macrotask Queue）：setTimeout、setInterval、setImmediate（Node）、I/O、UI rendering。
 
 ---
 
@@ -2764,6 +2891,9 @@ function resolvePromise(promise2, x, resolve, reject) {
 - Promise/A+ 规范中，为什么 then 必须异步执行？
 - 如何实现 `Promise.all` / `Promise.race`？
 
+**口头回答版**：
+> （见代码示例）
+
 ---
 
 ### FB-01-CO-P-003：解释 JavaScript 的模块化发展历程。
@@ -2808,6 +2938,9 @@ function resolvePromise(promise2, x, resolve, reject) {
 **延伸追问**：
 - ESM 中的 `import()` 和 `import` 声明有什么区别？
 - Webpack 是如何处理 CommonJS 和 ESM 混用的？
+
+**口头回答版**：
+> IIFE：立即执行函数，避免全局污染。 AMD（Asynchronous Module Definition）：浏览器端异步加载，代表 RequireJS。 CMD（Common Module Definition）：sea.js，按需加载，依赖就近。 CommonJS：Node.js 使用，同步加载，require / module.exports。
 
 ---
 
@@ -2865,6 +2998,9 @@ foo end
 **延伸追问**：
 - `await 1` 和 `await Promise.resolve(1)` 有区别吗？
 - `async` 函数返回 rejected Promise 时，如何捕获？
+
+**口头回答版**：
+> foo() 被调用，console.log('foo start') 同步执行。 遇到 await Promise.resolve()，await 后面的代码被放入微任务队列。 继续执行外层同步代码 console.log('script end')。 同步代码执行完毕，执行微任务 console.log('foo end')。
 
 ---
 
@@ -2926,6 +3062,9 @@ class LRUCache {
 - 如何用双向链表 + HashMap 实现 LRU？
 - 如果支持 TTL（过期时间），如何扩展？
 
+**口头回答版**：
+> 思路：利用 Map 的键是有序的特性，最新访问的键会被移到末尾，最久未访问的键在开头。
+
 ---
 
 ### FB-01-CO-P-004：解释 `Generator` 和 `Iterator` 的关系。
@@ -2973,6 +3112,9 @@ console.log(gen.next().value); // 1
 **常见错误**：
 - 认为 Generator 和 async/await 完全无关
 - 混淆 `Symbol.iterator` 和 `Symbol.asyncIterator`
+
+**口头回答版**：
+> - Iterator（迭代器）：实现了 next() 方法，返回 { value, done } 的对象。 - Iterable（可迭代对象）：实现了 Symbol.iterator 方法，返回迭代器的对象。 - Generator：是 Iterator 的一种实现，通过 function* 定义，使用 yield 暂停执行。 Generator 的应用场景：
 
 ---
 
@@ -3068,6 +3210,9 @@ console.log(gen.next().value); // 1
 - [V8 Blog - Trash talk](https://v8.dev/blog/trash-talk)
 - [MDN - 内存管理](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_management)
 
+**口头回答版**：
+> 闭包持有不再需要的引用 未清理的定时器和回调 缓存/Map 无限制增长 - Chrome DevTools Memory 面板：
+
 ---
 
 ### FB-01-CA-P-002：下面代码的输出顺序是什么？`catch` 能否捕获到错误？
@@ -3151,6 +3296,9 @@ d
 
 **参考资源**：
 - [MDN - async function](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/async_function)
+
+**口头回答版**：
+> console.log('e') 同步执行。 调用 bar()，进入 try，调用 foo()。 foo() 同步执行 console.log('a')，然后遇到 await Promise.reject('err')。 - foo() 会立即返回一个 rejected Promise；
 
 ---
 
@@ -3246,6 +3394,9 @@ run(fetchUser).then(console.log); // { user: { id: 1, name: 'Tom' }, orders: [1,
 - [MDN - Generator](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Generator)
 - [tj/co](https://github.com/tj/co)
 
+**口头回答版**：
+> 调用 generatorFn() 得到迭代器 gen。 反复调用 gen.next(value)，把上一次 yield 的返回值传入。 对 yield 出的值用 Promise.resolve() 包装，支持 Promise、普通值、thenable。 如果 Promise reject，调用 gen.throw(err) 让生成器内部可以用 try/catch 捕获。
+
 ---
 
 ### FB-01-CO-P-006：为什么 `Proxy` 通常要和 `Reflect` 一起使用？它们的关系是什么？
@@ -3325,7 +3476,10 @@ console.log(child.value); // get value -> 100
 - [MDN - Reflect](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect)
 
 
-## 架构题
+## 架构题（28 道）{#architect}
+
+**口头回答版**：
+> Proxy 用于定义对象基本操作的自定义行为（拦截），Reflect 则提供了一组与 Proxy trap 一一对应的默认操作方法。 保持默认行为：在 trap 中通过 Reflect 调用默认实现，避免手动实现带来的遗漏。 正确传递 receiver：尤其是 get / set trap 中，Reflect.get(target, key, receiver) 会把 this 绑定正确传递，避免访问原型链或 getter/setter 时 this 错误。 如果写 target[key]，this 会指向 target 而不是 child，导致结果错误。
 
 ### FB-01-SD-R-001：如何设计一个前端代码执行沙箱？
 
@@ -3388,6 +3542,9 @@ console.log(child.value); // get value -> 100
 **延伸追问**：
 - 如何防止用户代码执行 `while(true)` 导致页面卡死？
 - 如果需要沙箱内操作 DOM，有哪些方案？
+
+**口头回答版**：
+> 核心目标：隔离用户代码，防止 XSS、数据窃取、恶意请求、资源耗尽。 | 方案 | 优点 | 缺点 | |------|------|------| | with + Proxy | 轻量 | 隔离不彻底，可逃逸 |
 
 ---
 
@@ -3494,6 +3651,9 @@ class ScriptLoader {
 - 如何实现 ES Module 的动态加载器？
 - SystemJS 的设计思路是什么？
 
+**口头回答版**：
+> 缓存：避免重复加载同一脚本。 依赖管理：维护 DAG，拓扑排序后按顺序加载。 错误处理：网络失败重试、加载超时。 性能：支持 preload / prefetch、按需加载、并发加载无依赖脚本。
+
 ---
 
 ### FB-01-SC-R-001：在低代码平台中，如何安全执行用户自定义的 JavaScript 逻辑？
@@ -3555,6 +3715,9 @@ class ScriptLoader {
 - 如果用户需要访问平台上下文（如当前表单数据），如何安全传递？
 - 如何设计一个可扩展的公式引擎？
 
+**口头回答版**：
+> 整体策略：限制能力 > 完全隔离，根据风险等级选择执行环境。 方案 1：受限 DSL（推荐低风险场景） - 不提供完整 JS，只提供表达式语言（如 JSON Schema 表达式、公式引擎）。 - 预定义函数白名单，禁止访问 DOM、网络、存储。
+
 ---
 
 ### FB-01-CP-R-001：从架构师角度，如何为大型前端团队制定 JavaScript 代码规范？
@@ -3603,6 +3766,9 @@ class ScriptLoader {
 **延伸追问**：
 - 如何处理遗留代码的规范迁移？
 - 当规范与业务交付冲突时，如何取舍？
+
+**口头回答版**：
+> Tooling（工具层）： - 使用 TypeScript 作为默认语言，减少运行时错误。 - 统一 ESLint + Prettier 配置，使用 @eslint/js + typescript-eslint。 - 引入 Husky + lint-staged，提交前自动格式化。
 
 ---
 
@@ -3700,3 +3866,1164 @@ class ScriptLoader {
 > 当前文件题目数量：56 道
 > 目标题目数量：300 道
 > 完成度：18.7%
+
+**口头回答版**：
+> 一个完整的前端错误监控 SDK 可分为五层： 采集层（Capture） - window.onerror：捕获 JavaScript 运行时异常。 - window.addEventListener('error', ...)：捕获资源加载错误（图片、脚本、CSS）。
+### FB-01-CO-B-017：JavaScript 有哪些数据类型？如何区分原始类型和引用类型？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+JavaScript 有哪些数据类型？如何区分原始类型和引用类型。
+
+**参考答案**：
+
+- 原始类型：`string`、`number`、`boolean`、`null`、`undefined`、`symbol`、`bigint`。
+- 引用类型：`object`（Object、Array、Function、Date、RegExp 等）。
+- 区别：原始类型存的是值本身，赋值时拷贝值；引用类型存的是指向堆内存的引用，赋值时拷贝引用，多个变量可能共享同一块内存。
+
+**评分维度**：
+- 完整列出 7 种原始类型（37%）。
+- 说出赋值/拷贝差异（38%）。
+- 能举例说明（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 原始类型：string、number、boolean、null、undefined、symbol、bigint。 - 引用类型：object（Object、Array、Function、Date、RegExp 等）。 - 区别：原始类型存的是值本身，赋值时拷贝值；引用类型存的是指向堆内存的引用，赋值时拷贝引用，多个变量可能共享同一块内存。
+
+---
+
+### FB-01-CP-B-001：`==` 和 `===` 的区别？什么情况下推荐使用 `==`？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+`==` 和 `===` 的区别？什么情况下推荐使用 `==`。
+
+**参考答案**：
+
+- `===` 是严格相等，要求类型和值都相同，不会做类型转换。
+- `==` 是抽象相等，会做类型转换后再比较。
+- 推荐始终使用 `===`/`!==`，避免隐式转换带来的意外结果（如 `[] == ![]` 为 true）。
+- 极少数场景可用 `==`，例如判断 `null` 或 `undefined`：`x == null` 等价于 `x === null || x === undefined`。
+
+
+**补充说明**：
+
+在实际落地 `==` 和 `===` 的区别什么情况下推荐使用 `==` 时，建议结合 es6、Promise、事件循环 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 说清类型转换差异（43%）。
+- 举例说明隐式转换坑点（28%）。
+- 提到 `== null` 的合理使用场景（29%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - === 是严格相等，要求类型和值都相同，不会做类型转换。 - == 是抽象相等，会做类型转换后再比较。 - 推荐始终使用 ===/!==，避免隐式转换带来的意外结果（如 [] == ![] 为 true）。 - 极少数场景可用 ==，例如判断 null 或 undefined：x == null 等价于 x === null || x === undefined。
+
+---
+
+### FB-01-CP-B-002：什么是变量提升？`let`、`const`、`var` 的区别？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+什么是变量提升？`let`、`const`、`var` 的区别。
+
+**参考答案**：
+
+- 变量提升：变量和函数声明在编译阶段被移动到作用域顶部。
+- `var`：函数作用域，存在提升，可重复声明。
+- `let`/`const`：块级作用域，存在提升但处于 TDZ（暂时性死区），访问会报 ReferenceError；`const` 声明时必须初始化，且不能重新赋值（但对象属性可变）。
+
+
+**补充说明**：
+
+在实际落地 变量提升`let`、`const`、`var` 的区别 时，建议结合 es6、Promise、事件循环 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 解释变量提升概念（25%）。
+- 区分作用域、TDZ、重复声明、可变性（50%）。
+- 能写出 TDZ 示例（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 变量提升：变量和函数声明在编译阶段被移动到作用域顶部。 - var：函数作用域，存在提升，可重复声明。 - let/const：块级作用域，存在提升但处于 TDZ（暂时性死区），访问会报 ReferenceError；const 声明时必须初始化，且不能重新赋值（但对象属性可变）。
+
+---
+
+### FB-01-SC-B-001：解释一下闭包，并举一个实际应用场景。
+
+**题型**：场景设计题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+解释一下闭包，并举一个实际应用场景。。
+
+**参考答案**：
+
+- 闭包：函数能够记住并访问它词法作用域中的变量，即使该函数在当前作用域外执行。
+- 应用：
+  - 模块模式：隐藏内部变量，暴露接口。
+  - 防抖/节流：保存定时器状态。
+  - 计数器/缓存：保持私有状态。
+
+```js
+function makeCounter() {
+  let count = 0;
+  return {
+    increment: () => ++count,
+    decrement: () => --count,
+    get: () => count
+  };
+}
+```
+
+
+**补充说明**：
+
+在实际落地 解释一下闭包，并举一个实际应用场景。 时，建议结合 es6、Promise、事件循环 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 定义准确（43%）。
+- 至少举出一个实际应用（28%）。
+- 提到内存泄漏风险（29%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 闭包：函数能够记住并访问它词法作用域中的变量，即使该函数在当前作用域外执行。 - 应用：   - 模块模式：隐藏内部变量，暴露接口。 - 防抖/节流：保存定时器状态。 - 计数器/缓存：保持私有状态。
+
+---
+
+### FB-01-CP-B-003：箭头函数和普通函数的区别？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+箭头函数和普通函数的区别。
+
+**参考答案**：
+
+- 箭头函数没有自己的 `this`、`arguments`、`super`、`new.target`。
+- 不能用作构造函数，不能使用 `new`。
+- 没有 `prototype` 属性。
+- 不能用 `call`/`apply`/`bind` 改变 this。
+- 更简洁，适合回调、函数式编程。
+
+
+**补充说明**：
+
+在实际落地 箭头函数和普通函数的区别 时，建议结合 es6、Promise、事件循环 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 说出 this 差异（37%）。
+- 说出 arguments、constructor、prototype 差异（38%）。
+- 能举例说明使用场景（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 箭头函数没有自己的 this、arguments、super、new.target。 - 不能用作构造函数，不能使用 new。 - 没有 prototype 属性。 - 不能用 call/apply/bind 改变 this。
+
+---
+
+### FB-01-CP-B-004：简述事件循环，宏任务和微任务有什么区别？
+
+**题型**：综合开放题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+简述事件循环，宏任务和微任务有什么区别。
+
+**参考答案**：
+
+- JavaScript 单线程，事件循环负责调度异步任务。
+- 宏任务：`script` 整体、`setTimeout`/`setInterval`、I/O、UI 渲染。
+- 微任务：`Promise.then`、`MutationObserver`、`queueMicrotask`。
+- 流程：执行当前宏任务 → 清空所有微任务 → 渲染（如果需要）→ 取下一个宏任务。
+- 微任务优先级高于宏任务，会在当前宏任务结束后、下一个宏任务开始前执行。
+
+**评分维度**：
+- 说明单线程与事件循环关系（25%）。
+- 正确区分宏任务/微任务（37%）。
+- 能解释执行顺序（38%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - JavaScript 单线程，事件循环负责调度异步任务。 - 宏任务：script 整体、setTimeout/setInterval、I/O、UI 渲染。 - 微任务：Promise.then、MutationObserver、queueMicrotask。 - 流程：执行当前宏任务 → 清空所有微任务 → 渲染（如果需要）→ 取下一个宏任务。
+
+---
+
+### FB-01-CO-B-018：`Promise` 的三种状态是什么？`.then` 和 `.catch` 如何链式调用？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+`Promise` 的三种状态是什么？`.then` 和 `.catch` 如何链式调用。
+
+**参考答案**：
+
+- 三种状态：pending、fulfilled、rejected。
+- 状态一旦改变就不可再次改变。
+- `.then` 接收两个参数：`onFulfilled` 和 `onRejected`。
+- `.catch` 等价于 `.then(null, onRejected)`。
+- 链式调用中，每个 `.then` 返回新的 Promise；如果返回普通值，会包装成 resolved Promise；如果抛出异常，会变为 rejected Promise。
+
+**评分维度**：
+- 状态说明正确（28%）。
+- 状态不可变（29%）。
+- 链式调用机制说明清楚（43%）。
+
+---
+## 二、进阶题
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 三种状态：pending、fulfilled、rejected。 - 状态一旦改变就不可再次改变。 - .then 接收两个参数：onFulfilled 和 onRejected。 - .catch 等价于 .then(null, onRejected)。
+
+---
+
+### FB-01-CD-A-007：手写一个 `Promise.all`，并说明其特点。
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+手写一个 `Promise.all`，并说明其特点。。
+
+**参考答案**：
+
+```js
+function promiseAll(iterable) {
+  return new Promise((resolve, reject) => {
+    const arr = Array.from(iterable);
+    const result = new Array(arr.length);
+    let count = 0;
+    if (arr.length === 0) return resolve([]);
+
+    arr.forEach((item, index) => {
+      Promise.resolve(item).then(
+        value => {
+          result[index] = value;
+          count++;
+          if (count === arr.length) resolve(result);
+        },
+        reason => reject(reason)
+      );
+    });
+  });
+}
+```
+
+特点：
+- 输入可以是可迭代对象。
+- 所有 Promise 都 resolve 才 resolve，结果顺序与输入一致。
+- 任一 reject 就 reject。
+- 非 Promise 值会包装为 resolved Promise。
+
+**评分维度**：
+- 代码正确（50%）。
+- 处理空数组（12%）。
+- 说明结果顺序和失败短路特性（38%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> （代码示例） 特点： - 输入可以是可迭代对象。 - 所有 Promise 都 resolve 才 resolve，结果顺序与输入一致。 - 任一 reject 就 reject。 - 非 Promise 值会包装为 resolved Promise。
+
+---
+
+### FB-01-CO-A-009：如何理解 `this` 的绑定规则？优先级是怎样的？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+如何理解 `this` 的绑定规则？优先级是怎样的。
+
+**参考答案**：
+
+四种绑定：
+1. 默认绑定：独立调用，非严格模式指向全局，严格模式 undefined。
+2. 隐式绑定：通过对象调用，指向该对象。
+3. 显式绑定：`call`/`apply`/`bind`。
+4. new 绑定：指向新创建的实例。
+
+优先级（从高到低）：new 绑定 > 显式绑定 > 隐式绑定 > 默认绑定。
+箭头函数没有自己的 this，不纳入此优先级。
+
+**评分维度**：
+- 四种规则说明清楚（50%）。
+- 优先级正确（37%）。
+- 提到箭头函数例外（13%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 四种绑定： 1. 默认绑定：独立调用，非严格模式指向全局，严格模式 undefined。 2. 隐式绑定：通过对象调用，指向该对象。 3. 显式绑定：call/apply/bind。 4. new 绑定：指向新创建的实例。
+
+---
+
+### FB-01-CO-A-010：原型链是什么？`__proto__`、`prototype`、`constructor` 的关系？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+原型链是什么？`__proto__`、`prototype`、`constructor` 的关系。
+
+**参考答案**：
+
+- 每个对象都有 `__proto__`（内部 `[[Prototype]]`），指向其原型对象。
+- 构造函数有 `prototype` 属性，指向原型对象；实例的 `__proto__` 指向构造函数的 `prototype`。
+- 原型对象有 `constructor` 属性，指回构造函数。
+- 查找属性时，先自身，再沿 `__proto__` 向上找，直到 `null`，形成原型链。
+
+```js
+function Foo() {}
+const f = new Foo();
+f.__proto__ === Foo.prototype;
+Foo.prototype.constructor === Foo;
+Foo.prototype.__proto__ === Object.prototype;
+Object.prototype.__proto__ === null;
+```
+
+**评分维度**：
+- 三个概念区分清楚（50%）。
+- 能画图或写关系式（25%）。
+- 解释属性查找机制（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 每个对象都有 __proto__（内部 [[Prototype]]），指向其原型对象。 - 构造函数有 prototype 属性，指向原型对象；实例的 __proto__ 指向构造函数的 prototype。 - 原型对象有 constructor 属性，指回构造函数。 - 查找属性时，先自身，再沿 __proto__ 向上找，直到 null，形成原型链。
+
+---
+
+### FB-01-CP-A-001：ES6 模块与 CommonJS 模块有什么区别？
+
+**题型**：综合开放题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+ES6 模块与 CommonJS 模块有什么区别。
+
+**参考答案**：
+
+- 语法：ESM 用 `import`/`export`；CommonJS 用 `require`/`module.exports`。
+- 加载时机：ESM 是静态的，编译时确定依赖，支持 Tree Shaking；CommonJS 是动态的，运行时确定。
+- 输出：CommonJS 输出的是值的拷贝，修改内部状态不会影响引用方；ESM 输出的是值的引用（只读）。
+- 顶层 this：ESM 模块顶层 `this` 是 `undefined`；CommonJS 是 `module.exports`。
+- 循环依赖：两者都能处理，但 ESM 的静态结构更易于分析和优化。
+
+**评分维度**：
+- 语法和加载时机差异（37%）。
+- 值引用 vs 拷贝（38%）。
+- Tree Shaking 相关（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 语法：ESM 用 import/export；CommonJS 用 require/module.exports。 - 加载时机：ESM 是静态的，编译时确定依赖，支持 Tree Shaking；CommonJS 是动态的，运行时确定。 - 输出：CommonJS 输出的是值的拷贝，修改内部状态不会影响引用方；ESM 输出的是值的引用（只读）。 - 顶层 this：ESM 模块顶层 this 是 undefined；CommonJS 是 module.exports。
+
+---
+
+### FB-01-CA-A-004：解释 `async/await` 的执行过程，下面代码输出什么？
+
+```js
+async function async1() {
+  console.log("async1 start");
+  await async2();
+  console.log("async1 end");
+}
+async function async2() { console.log("async2"); }
+console.log("script start");
+async1();
+console.log("script end");
+```
+
+**题型**：代码分析题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+解释 `async/await` 的执行过程，下面代码输出什么？
+
+```js
+async function async1() {
+  console.log("async1 start");
+  await async2();
+  console.log("async1 end");
+}
+async function async2() { console.log("async2"); }
+console.log("script start");
+async1();
+console.log("script end");
+```。
+
+**参考答案**：
+
+输出：
+
+```
+script start
+async1 start
+async2
+script end
+async1 end
+```
+
+解析：
+- `async1` 调用后立即执行同步部分，输出 `async1 start`。
+- `await async2()` 先执行 `async2()` 的同步部分，输出 `async2`。
+- `await` 后面的代码被放入微任务队列。
+- 同步代码继续输出 `script end`。
+- 清空微任务，输出 `async1 end`。
+
+**评分维度**：
+- 输出正确（37%）。
+- 解释 await 后代码入微任务（38%）。
+- 能区分同步与异步部分（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 输出： （代码示例） 解析： - async1 调用后立即执行同步部分，输出 async1 start。 - await async2() 先执行 async2() 的同步部分，输出 async2。 - await 后面的代码被放入微任务队列。 - 同步代码继续输出 script end。
+
+---
+
+### FB-01-CO-A-011：解释一下 JavaScript 的垃圾回收机制，常见内存泄漏有哪些？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+解释一下 JavaScript 的垃圾回收机制，常见内存泄漏有哪些。
+
+**参考答案**：
+
+- 主流引擎使用可达性分析（标记-清除）+ 分代回收。
+- 从根对象出发，能访问到的对象保留，访问不到的回收。
+- V8 分新生代（Scavenge 算法）和老生代（标记-清除/整理/增量标记）。
+
+常见内存泄漏：
+1. 意外创建全局变量。
+2. 闭包持有不再使用的大对象。
+3. 定时器/事件监听未清除。
+4. DOM 引用未释放。
+5. console.log 的对象被 DevTools 持有。
+
+**评分维度**：
+- 可达性分析说明（37%）。
+- 分代回收提及（25%）。
+- 至少列出 3 种内存泄漏（38%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - 主流引擎使用可达性分析（标记-清除）+ 分代回收。 - 从根对象出发，能访问到的对象保留，访问不到的回收。 - V8 分新生代（Scavenge 算法）和老生代（标记-清除/整理/增量标记）。 常见内存泄漏： 1. 意外创建全局变量。
+
+---
+
+### FB-01-CD-A-008：什么是函数柯里化（Currying）？手写实现。
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 资深
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+什么是函数柯里化（Currying）？手写实现。。
+
+**参考答案**：
+
+柯里化是把接受多个参数的函数转换成一系列接受单一参数的函数。
+
+```js
+function curry(fn) {
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      };
+    }
+  };
+}
+
+function sum(a, b, c) { return a + b + c; }
+const curriedSum = curry(sum);
+console.log(curriedSum(1)(2)(3)); // 6
+console.log(curriedSum(1, 2)(3)); // 6
+```
+
+**评分维度**：
+- 概念解释清楚（25%）。
+- 实现支持分步传参（37%）。
+- 实现支持一次性传多个参数（25%）。
+- 能说明应用场景（13%）。
+
+---
+## 三、高级题
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 柯里化是把接受多个参数的函数转换成一系列接受单一参数的函数。
+
+---
+
+### FB-01-PE-P-001：V8 引擎是如何执行 JavaScript 的？解释 Ignition、TurboFan、隐藏类、内联缓存。
+
+**题型**：性能优化题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+V8 引擎是如何执行 JavaScript 的？解释 Ignition、TurboFan、隐藏类、内联缓存。。
+
+**参考答案**：
+
+- V8 执行流程：源代码 → 词法/语法分析生成 AST → Ignition 解释器生成字节码并执行 → TurboFan 对热点代码编译为优化机器码。
+- Ignition：解释执行字节码，节省内存。
+- TurboFan：基于类型反馈做推测优化，生成高性能机器码；若假设被打破则反优化。
+- 隐藏类（Hidden Class）：V8 为结构相同的对象创建共享的隐藏类，属性按偏移访问，加速查找。
+- 内联缓存（Inline Caching）：缓存属性访问的位置，避免重复查找。
+
+优化建议：
+- 对象初始化时声明完整属性，避免动态增删。
+- 函数参数类型保持稳定，避免反优化。
+
+**评分维度**：
+- 执行流程完整（30%）。
+- Ignition/TurboFan 作用（20%）。
+- 隐藏类和内联缓存解释（30%）。
+- 能给出性能优化建议（20%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - V8 执行流程：源代码 → 词法/语法分析生成 AST → Ignition 解释器生成字节码并执行 → TurboFan 对热点代码编译为优化机器码。 - Ignition：解释执行字节码，节省内存。 - TurboFan：基于类型反馈做推测优化，生成高性能机器码；若假设被打破则反优化。 - 隐藏类（Hidden Class）：V8 为结构相同的对象创建共享的隐藏类，属性按偏移访问，加速查找。
+
+---
+
+### FB-01-SD-P-001：设计一个支持取消的 Promise，并解释实现原理。
+
+**题型**：系统设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+设计一个支持取消的 Promise，并解释实现原理。。
+
+**参考答案**：
+
+可以通过包装 Promise 并暴露 `abort` 方法实现。
+
+```js
+function makeCancelable(promise) {
+  let rejected = false;
+  const wrapped = new Promise((resolve, reject) => {
+    promise.then(
+      value => rejected ? reject({ canceled: true }) : resolve(value),
+      reason => rejected ? reject({ canceled: true }) : reject(reason)
+    );
+  });
+  return {
+    promise: wrapped,
+    cancel() { rejected = true; }
+  };
+}
+```
+
+更好的方式是使用 AbortController（现代浏览器/Node）。
+
+**评分维度**：
+- 提供可取消的封装思路（37%）。
+- 能处理异步结果到来后的取消（38%）。
+- 提到 AbortController 标准方案（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 可以通过包装 Promise 并暴露 abort 方法实现。 （代码示例） 更好的方式是使用 AbortController（现代浏览器/Node）。
+
+---
+
+### FB-01-CD-P-004：如何实现一个响应式系统（类似 Vue3 的 reactive）？
+
+**题型**：手写代码题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+如何实现一个响应式系统（类似 Vue3 的 reactive）。
+
+**参考答案**：
+
+核心：使用 Proxy 拦截对象的 get/set，在 get 时收集依赖，在 set 时触发依赖。
+
+```js
+let activeEffect = null;
+function effect(fn) {
+  activeEffect = fn;
+  fn();
+  activeEffect = null;
+}
+
+function reactive(obj) {
+  return new Proxy(obj, {
+    get(target, key) {
+      track(target, key);
+      return target[key];
+    },
+    set(target, key, value) {
+      target[key] = value;
+      trigger(target, key);
+      return true;
+    }
+  });
+}
+
+const depsMap = new WeakMap();
+function track(target, key) {
+  if (!activeEffect) return;
+  let dep = depsMap.get(target);
+  if (!dep) { dep = new Map(); depsMap.set(target, dep); }
+  let effects = dep.get(key);
+  if (!effects) { effects = new Set(); dep.set(key, effects); }
+  effects.add(activeEffect);
+}
+function trigger(target, key) {
+  const dep = depsMap.get(target);
+  if (!dep) return;
+  const effects = dep.get(key);
+  effects && effects.forEach(fn => fn());
+}
+
+const state = reactive({ count: 0 });
+effect(() => console.log(state.count));
+state.count++; // 触发重新执行
+```
+
+**评分维度**：
+- 使用 Proxy 拦截（20%）。
+- 收集依赖与触发依赖逻辑正确（40%）。
+- 使用 WeakMap/Map/Set 组织依赖（20%）。
+- 提到嵌套对象、数组、computed 等可扩展点（20%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 核心：使用 Proxy 拦截对象的 get/set，在 get 时收集依赖，在 set 时触发依赖。
+
+---
+
+### FB-01-CO-P-007：解释 JavaScript 的模块循环依赖问题，ESM 和 CommonJS 分别是如何处理的？
+
+**题型**：概念题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+解释 JavaScript 的模块循环依赖问题，ESM 和 CommonJS 分别是如何处理的。
+
+**参考答案**：
+
+循环依赖：A 依赖 B，B 又依赖 A。
+
+CommonJS：
+- 加载时先执行部分 A，遇到 `require(B)` 转去执行 B；B 中又 `require(A)`，此时 A 的 `module.exports` 可能是不完整对象，B 拿到的是半成品；B 执行完回到 A。
+- 由于输出的是拷贝，B 对 A 的修改不会反映到 A 的后续执行。
+
+ESM：
+- 编译阶段先构建依赖图，再执行模块。
+- 循环依赖时，模块的导出绑定是活的引用，后执行的模块修改会影响先执行模块的引用。
+- 但仍需避免在模块顶层就使用对方未初始化的导出。
+
+**评分维度**：
+- 解释循环依赖现象（20%）。
+- CommonJS 执行过程和拷贝问题（30%）。
+- ESM 静态分析与活绑定（30%）。
+- 能给出避免循环依赖的建议（20%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 循环依赖：A 依赖 B，B 又依赖 A。 CommonJS： - 加载时先执行部分 A，遇到 require(B) 转去执行 B；B 中又 require(A)，此时 A 的 module.exports 可能是不完整对象，B 拿到的是半成品；B 执行完回到 A。 - 由于输出的是拷贝，B 对 A 的修改不会反映到 A 的后续执行。 ESM： - 编译阶段先构建依赖图，再执行模块。
+
+---
+
+### FB-01-CP-P-001：解释一下 Proxy 和 Reflect，为什么 Vue3 选择 Proxy 而不是 Object.defineProperty？
+
+**题型**：综合开放题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+解释一下 Proxy 和 Reflect，为什么 Vue3 选择 Proxy 而不是 Object.defineProperty。
+
+**参考答案**：
+
+- Proxy：代理对象，可拦截 13 种基本操作（get、set、has、deleteProperty、ownKeys 等）。
+- Reflect：提供与 Proxy 处理器对应的方法，规范对象操作，返回值便于判断成功/失败。
+
+Vue3 选择 Proxy 的原因：
+- `Object.defineProperty` 只能监听已有属性的 get/set，无法监听新增/删除属性、数组索引、Map/Set 等。
+- Proxy 可以监听更多操作，性能更好，API 更自然。
+- Proxy 监听的是整个对象，不需要递归遍历初始化所有属性。
+
+**评分维度**：
+- Proxy/Reflect 基本概念（37%）。
+- 列出 defineProperty 的局限（38%）。
+- 说明 Proxy 的优势（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> - Proxy：代理对象，可拦截 13 种基本操作（get、set、has、deleteProperty、ownKeys 等）。 - Reflect：提供与 Proxy 处理器对应的方法，规范对象操作，返回值便于判断成功/失败。 Vue3 选择 Proxy 的原因： - Object.defineProperty 只能监听已有属性的 get/set，无法监听新增/删除属性、数组索引、Map/Set 等。 - Proxy 可以监听更多操作，性能更好，API 更自然。
+
+---
+
+### FB-01-SD-P-002：如何设计一个高可靠的前端埋点 SDK？从错误监控、性能采集、数据上报等角度分析。
+
+**题型**：系统设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+如何设计一个高可靠的前端埋点 SDK？从错误监控、性能采集、数据上报等角度分析。。
+
+**参考答案**：
+
+错误监控：
+- `window.onerror` 捕获同步/运行时错误。
+- `window.addEventListener('error')` 捕获资源加载错误。
+- `window.addEventListener('unhandledrejection')` 捕获未处理 Promise 拒绝。
+- 使用 Error Boundary（React）等框架能力。
+
+性能采集：
+- Performance API：`performance.timing`、`PerformanceObserver`。
+- 采集 FCP、LCP、CLS、TTFB、FID 等 Web Vitals。
+
+数据上报：
+- 使用 `navigator.sendBeacon` 或图片 `src` 进行可靠上报。
+- 合并批量上报，失败重试，本地队列持久化（localStorage/IndexedDB）。
+- 采样率控制、敏感信息脱敏。
+
+SDK 设计：
+- 插件化架构，按需加载。
+- 兼容旧浏览器，错误自愈。
+- 不阻塞业务主线程。
+
+**评分维度**：
+- 错误监控手段完整（30%）。
+- 性能指标与 API 正确（30%）。
+- 上报机制考虑可靠性（30%）。
+- SDK 架构设计合理（10%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 错误监控： - window.onerror 捕获同步/运行时错误。 - window.addEventListener('error') 捕获资源加载错误。 - window.addEventListener('unhandledrejection') 捕获未处理 Promise 拒绝。 - 使用 Error Boundary（React）等框架能力。
+
+---
+
+### FB-01-CD-P-005：手写一个符合 Promise/A+ 规范的 Promise，关键点有哪些？
+
+**题型**：手写代码题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+手写一个符合 Promise/A+ 规范的 Promise，关键点有哪些。
+
+**参考答案**：
+
+核心实现结构：
+
+```js
+class MyPromise {
+  constructor(executor) {
+    this.state = 'pending';
+    this.value = undefined;
+    this.reason = undefined;
+    this.onFulfilledCallbacks = [];
+    this.onRejectedCallbacks = [];
+
+    const resolve = (value) => {
+      if (this.state === 'pending') {
+        this.state = 'fulfilled';
+        this.value = value;
+        this.onFulfilledCallbacks.forEach((fn) => fn());
+      }
+    };
+
+    const reject = (reason) => {
+      if (this.state === 'pending') {
+        this.state = 'rejected';
+        this.reason = reason;
+        this.onRejectedCallbacks.forEach((fn) => fn());
+      }
+    };
+
+    try {
+      executor(resolve, reject);
+    } catch (err) {
+      reject(err);
+    }
+  }
+
+  then(onFulfilled, onRejected) {
+    // 返回新 Promise，用 queueMicrotask 异步执行回调
+    // 处理 thenable、循环引用、异常等情况
+  }
+}
+```
+
+关键点：
+1. 三种状态，状态只能从 pending 变为 fulfilled/rejected，且不可逆。
+2. `then` 必须返回新的 Promise，支持链式调用。
+3. `then` 回调必须异步执行（微任务）。
+4. 处理 thenable：如果回调返回值是对象/函数且有 `then` 方法，按 Promise 处理。
+5. 防止循环引用：`promise2 === x` 时抛出 TypeError。
+6. `catch` 是 `then(null, onRejected)` 的语法糖。
+
+**评分维度**：
+- 状态机设计正确（25%）。
+- then 返回新 Promise 并异步执行（25%）。
+- 处理 thenable 和循环引用（25%）。
+- 能说明微任务与链式调用原理（25%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> 核心实现结构： （代码示例） 关键点： 1. 三种状态，状态只能从 pending 变为 fulfilled/rejected，且不可逆。 2. then 必须返回新的 Promise，支持链式调用。 3. then 回调必须异步执行（微任务）。 4. 处理 thenable：如果回调返回值是对象/函数且有 then 方法，按 Promise 处理。
+
+---
+
+### FB-01-CO-P-008：什么是 Iterator / Iterable 协议？如何让一个对象支持 `for…of`？
+
+**题型**：概念题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+什么是 Iterator / Iterable 协议？如何让一个对象支持 `for…of`。
+
+**参考答案**：
+
+Iterable Protocol：对象必须实现 `Symbol.iterator` 方法，返回一个 Iterator。
+
+Iterator Protocol：Iterator 必须实现 `next()` 方法，返回 `{ value, done }`。
+
+让对象支持 `for…of`：
+
+```js
+const obj = {
+  data: [1, 2, 3],
+  [Symbol.iterator]() {
+    let index = 0;
+    return {
+      next: () => ({
+        value: this.data[index],
+        done: index++ >= this.data.length
+      })
+    };
+  }
+};
+
+for (const x of obj) console.log(x); // 1 2 3
+```
+
+内置可迭代对象：`Array`、`String`、`Map`、`Set`、`TypedArray`、`arguments`、`NodeList` 等。`Object` 默认不可迭代。
+
+**评分维度**：
+- 解释 Iterable 与 Iterator 区别（30%）。
+- 能手写 Symbol.iterator 实现（40%）。
+- 能列举内置可迭代对象并说明 Object 默认不可迭代（30%）。
+
+---
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> Iterable Protocol：对象必须实现 Symbol.iterator 方法，返回一个 Iterator。 Iterator Protocol：Iterator 必须实现 next() 方法，返回 { value, done }。 让对象支持 for…of： （代码示例） 内置可迭代对象：Array、String、Map、Set、TypedArray、arguments、NodeList 等。 Object 默认不可迭代。
+
+---
+
+### FB-01-SC-P-001：什么是 Error Cause？在实际项目中如何构建分层的错误处理体系？
+
+**题型**：场景设计题
+**难度**：🟣 深入
+**岗位层级**：资深 / 架构
+**面试知识域**：01 JavaScript
+**标签**：es6、Promise、事件循环、异步、this
+**出现频率**：中频
+**预计回答时长**：7-10 分钟
+
+**题目描述**：
+什么是 Error Cause？在实际项目中如何构建分层的错误处理体系。
+
+**参考答案**：
+
+Error Cause 是 ES2022 引入的能力，允许在创建 Error 时通过 `cause` 选项保留原始错误：
+
+```js
+throw new Error('订单查询失败', { cause: originalError });
+```
+
+上层捕获后可通过 `err.cause` 追溯根因，避免错误信息被吞掉。
+
+分层错误处理体系：
+
+1. **业务层**：对可预期错误做友好提示、降级、重试。如表单校验失败、网络超时提示。
+2. **框架层**：React Error Boundary / Vue errorHandler 捕获渲染期错误，防止白屏。
+3. **全局层**：`window.onerror` / `unhandledrejection` 捕获未处理错误并上报 Sentry。
+
+建议：
+- 自定义错误类，按业务域携带 code、level 等元信息。
+- 用户提示与开发日志分离。
+- 关键路径（支付、下单）提供兜底和回滚。
+
+**评分维度**：
+- 解释 Error Cause 用法（30%）。
+- 能描述三层错误处理体系（40%）。
+- 提到自定义错误类和监控上报（30%）。
+
+---
+## 面试准备建议
+
+1. 手写题：防抖、节流、深拷贝、Promise.all、new、bind/call/apply 必须能默写。
+2. 事件循环题：养成画队列的习惯。
+3. 原型链/this：准备关系图，能现场画出来。
+4. 工程化题：结合项目经验，准备具体案例。
+
+---
+
+> **领域编号**：F01 JavaScript  
+> **最后更新**：2026-06-24
+
+**常见错误**：
+- 回答停留在定义复述，缺少真实项目中的取舍与折中。
+- 只讲正常路径，不提超时、降级、兼容等边界情况。
+- 对关键指标和取舍缺乏量化意识。
+
+**口头回答版**：
+> Error Cause 是 ES2022 引入的能力，允许在创建 Error 时通过 cause 选项保留原始错误： （代码示例） 上层捕获后可通过 err.cause 追溯根因，避免错误信息被吞掉。 分层错误处理体系： 1. 业务层：对可预期错误做友好提示、降级、重试。 如表单校验失败、网络超时提示。 2. 框架层：React Error Boundary / Vue errorHandler 捕获渲染期错误，防止白屏。
+
+
+
+
+
