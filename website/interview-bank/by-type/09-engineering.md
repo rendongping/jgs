@@ -1,21 +1,22 @@
 # 工程化题
 
 > 本文件按题型收录 **工程化题** 相关前端面试题索引。
-> 共收录 **250** 道题（基础 48 / 进阶 99 / 深入 79 / 架构 24）。
+> 共收录 **315** 道题（基础 55 / 进阶 133 / 深入 93 / 架构 34）。
 > 每道题都附带完整参考答案与评分维度，点击链接可查看原文。
 
-## 基础题（48 道）{#basic}
+## 基础题（55 道）{#basic}
 
 ### 计算机网络（1 道）
 
 - [FB-04-EN-B-001 CDN 的原理是什么？有什么作用？](../by-domain/04-network.md#FB-04-EN-B-001)
 
-### 构建工具（2 道）
+### 构建工具（3 道）
 
 - [FB-10-EN-B-001 前端项目如何根据环境选择不同的构建配置？](../by-domain/10-build-tools.md#FB-10-EN-B-001)
 - [FB-10-EN-B-019 前端构建脚本中如何管理多环境（dev/test/prod）配置？](../by-domain/10-build-tools.md#FB-10-EN-B-019)
+- [FB-10-EN-B-020 如何配置 Webpack 的 devServer 实现代理和 HMR？](../by-domain/10-build-tools.md#FB-10-EN-B-020)
 
-### Monorepo（6 道）
+### Monorepo（8 道）
 
 - [FB-11-EN-B-001 如何初始化一个最小的 pnpm workspace Monorepo？](../by-domain/11-monorepo.md#FB-11-EN-B-001)
 - [FB-11-EN-B-002 如何在 Monorepo 中统一 TypeScript 配置？](../by-domain/11-monorepo.md#FB-11-EN-B-002)
@@ -23,8 +24,10 @@
 - [FB-11-EN-B-016 如何在 Monorepo 中统一 ESLint / Prettier 配置？](../by-domain/11-monorepo.md#FB-11-EN-B-016)
 - [FB-11-EN-B-018 如何给 Monorepo 中的 internal package 添加测试？](../by-domain/11-monorepo.md#FB-11-EN-B-018)
 - [FB-11-EN-B-021 changeset 文件的作用是什么？它的基本结构是怎样的？](../by-domain/11-monorepo.md#FB-11-EN-B-021)
+- [FB-11-EN-B-022 如何在 Monorepo 中配置统一的 lint 和 format？](../by-domain/11-monorepo.md#FB-11-EN-B-022)
+- [FB-11-EN-B-023 如何在 Monorepo 中统一版本发布？](../by-domain/11-monorepo.md#FB-11-EN-B-023)
 
-### CI/CD（14 道）
+### CI/CD（16 道）
 
 - [FB-12-EN-B-002 什么是 Pipeline as Code？它有什么好处？](../by-domain/12-ci-cd.md#FB-12-EN-B-002)
 - [FB-12-EN-B-003 GitHub Actions 的核心概念有哪些？](../by-domain/12-ci-cd.md#FB-12-EN-B-003)
@@ -40,12 +43,16 @@
 - [FB-12-EN-B-020 什么是 Self-Hosted Runner？什么时候应该使用？](../by-domain/12-ci-cd.md#FB-12-EN-B-020)
 - [FB-12-EN-B-022 CI/CD 中的并行（Parallelism）与并发（Concurrency）有什么区别？](../by-domain/12-ci-cd.md#FB-12-EN-B-022)
 - [FB-12-EN-B-024 CI/CD 中的通知机制应该如何设计？](../by-domain/12-ci-cd.md#FB-12-EN-B-024)
+- [FB-12-EN-B-025 GitHub Actions 中如何缓存依赖？](../by-domain/12-ci-cd.md#FB-12-EN-B-025)
+- [FB-12-EN-B-026 如何在 CI 中并行执行测试？](../by-domain/12-ci-cd.md#FB-12-EN-B-026)
 
-### 代码质量与测试（3 道）
+### 代码质量与测试（5 道）
 
 - [FB-13-EN-B-001 ESLint 的 extends、plugins、rules、presets 有什么区别？](../by-domain/13-code-quality.md#FB-13-EN-B-001)
 - [FB-13-EN-B-002 如何用 npm scripts 一键运行 lint、format 与测试？](../by-domain/13-code-quality.md#FB-13-EN-B-002)
 - [FB-13-EN-B-003 .editorconfig 与 Prettier 有什么区别？](../by-domain/13-code-quality.md#FB-13-EN-B-003)
+- [FB-13-EN-B-004 如何配置 ESLint 的共享规则？](../by-domain/13-code-quality.md#FB-13-EN-B-004)
+- [FB-13-EN-B-005 如何在 CI 中统一代码质量检查？](../by-domain/13-code-quality.md#FB-13-EN-B-005)
 
 ### Vue（1 道）
 
@@ -93,19 +100,21 @@
 - [FB-25-EN-B-003 Monorepo 是什么？与 Multirepo 相比有什么优劣？](../by-domain/25-system-architecture.md#FB-25-EN-B-003)
 - [FB-25-EN-B-015 如何分析前端构建产物并制定优化策略？](../by-domain/25-system-architecture.md#FB-25-EN-B-015)
 
-## 进阶题（99 道）{#advanced}
+## 进阶题（133 道）{#advanced}
 
-### HTML/CSS（1 道）
+### HTML/CSS（2 道）
 
 - [FB-06-EN-A-001 什么是 CSS 工程化？前端项目中为什么需要 CSS 工程化？](../by-domain/06-html-css.md#FB-06-EN-A-001)
+- [FB-06-EN-A-002 CSS 预处理器与 PostCSS 在现代工程中的角色](../by-domain/06-html-css.md#FB-06-EN-A-002)
 
-### 构建工具（3 道）
+### 构建工具（4 道）
 
 - [FB-10-EN-A-001 如何设计前端构建的缓存策略？](../by-domain/10-build-tools.md#FB-10-EN-A-001)
 - [FB-10-EN-A-002 Monorepo 中如何设计构建任务依赖和缓存？](../by-domain/10-build-tools.md#FB-10-EN-A-002)
 - [FB-10-EN-A-016 如何在前端构建流程中集成 Lint、Type Check 和 Test？](../by-domain/10-build-tools.md#FB-10-EN-A-016)
+- [FB-10-EN-A-017 如何通过 Vite 的 build.rollupOptions 控制高级打包行为？](../by-domain/10-build-tools.md#FB-10-EN-A-017)
 
-### Monorepo（19 道）
+### Monorepo（20 道）
 
 - [FB-11-EN-A-001 如何优化 Monorepo 的依赖安装速度？](../by-domain/11-monorepo.md#FB-11-EN-A-001)
 - [FB-11-EN-A-002 pnpm 的依赖管理机制与 npm / yarn 有何不同？](../by-domain/11-monorepo.md#FB-11-EN-A-002)
@@ -126,8 +135,9 @@
 - [FB-11-EN-A-018 如何在 Monorepo 中做包体积分析？](../by-domain/11-monorepo.md#FB-11-EN-A-018)
 - [FB-11-EN-A-019 如何配置 GitHub Actions 只跑 affected 的任务？](../by-domain/11-monorepo.md#FB-11-EN-A-019)
 - [FB-11-EN-A-021 如何在 Monorepo 中统一管理 secrets 和敏感配置？](../by-domain/11-monorepo.md#FB-11-EN-A-021)
+- [FB-11-EN-A-022 如何配置 Monorepo 中的依赖升级策略？](../by-domain/11-monorepo.md#FB-11-EN-A-022)
 
-### CI/CD（21 道）
+### CI/CD（22 道）
 
 - [FB-12-EN-A-001 如何在 GitHub Actions 中为前端 Monorepo 设计一条合理的 CI/CD 流水线？](../by-domain/12-ci-cd.md#FB-12-EN-A-001)
 - [FB-12-EN-A-002 如何为前端项目设计一条完整的 GitLab CI 流水线？](../by-domain/12-ci-cd.md#FB-12-EN-A-002)
@@ -150,13 +160,15 @@
 - [FB-12-EN-A-022 GitHub Actions 的 Reusable Workflow 与 Composite Action 有什么区别？](../by-domain/12-ci-cd.md#FB-12-EN-A-022)
 - [FB-12-EN-A-024 如何在 CI 中集成 Lighthouse CI？](../by-domain/12-ci-cd.md#FB-12-EN-A-024)
 - [FB-12-EN-A-026 如何在 CI 中实现前端依赖的安全审计？](../by-domain/12-ci-cd.md#FB-12-EN-A-026)
+- [FB-12-EN-A-027 如何设计 CI 中的 lint/typecheck/test 任务顺序？](../by-domain/12-ci-cd.md#FB-12-EN-A-027)
 
-### 代码质量与测试（4 道）
+### 代码质量与测试（5 道）
 
 - [FB-13-EN-A-001 如何配置 lint-staged + Husky 实现提交前只检查本次修改？](../by-domain/13-code-quality.md#FB-13-EN-A-001)
 - [FB-13-EN-A-002 如何在前端项目中引入 commitlint + Conventional Commits？](../by-domain/13-code-quality.md#FB-13-EN-A-002)
 - [FB-13-EN-A-003 如何在 CI 中并行运行测试以缩短反馈时间？](../by-domain/13-code-quality.md#FB-13-EN-A-003)
 - [FB-13-EN-A-010 Biome / Oxc 与传统 ESLint + Prettier 相比有什么优势和局限？](../by-domain/13-code-quality.md#FB-13-EN-A-010)
+- [FB-13-EN-A-011 如何设计前端代码 review 流程？](../by-domain/13-code-quality.md#FB-13-EN-A-011)
 
 ### Vue（1 道）
 
@@ -218,63 +230,92 @@
 - [FB-24-EN-A-003 如何设计前端日志采集方案？](../by-domain/24-frontend-operations.md#FB-24-EN-A-003)
 - [FB-24-EN-A-006 前端灰度发布与回滚的监控要点有哪些？](../by-domain/24-frontend-operations.md#FB-24-EN-A-006)
 
-### 系统架构设计（2 道）
+### 系统架构设计（4 道）
 
 - [FB-25-EN-A-004 Monorepo 中如何设计包依赖关系、版本策略和发布流程？](../by-domain/25-system-architecture.md#FB-25-EN-A-004)
 - [FB-25-EN-A-014 前端如何实现自动化回归与架构守护？](../by-domain/25-system-architecture.md#FB-25-EN-A-014)
+- [FB-25-EN-A-015 如何设计前端项目的 CI/CD 流水线](../by-domain/25-system-architecture.md#FB-25-EN-A-015)
+- [FB-25-EN-A-016 前端如何管理软件包的依赖升级与兼容性](../by-domain/25-system-architecture.md#FB-25-EN-A-016)
 
-### 微前端（1 道）
+### 微前端（2 道）
 
 - [FB-26-EN-A-014 微前端如何实现子应用独立部署？公共路径和资源加载要注意什么？](../by-domain/26-micro-frontend.md#FB-26-EN-A-014)
+- [FB-26-EN-A-015 微前端项目的 CI/CD 如何设计](../by-domain/26-micro-frontend.md#FB-26-EN-A-015)
 
 ### 性能工程（1 道）
 
 - [FB-27-EN-A-007 如何使用 Lighthouse 进行性能诊断和优化闭环？](../by-domain/27-performance.md#FB-27-EN-A-007)
 
-### 质量保障（1 道）
+### 质量保障（6 道）
 
 - [FB-28-EN-A-015 如何设计一条 CI 中的质量流水线？](../by-domain/28-quality.md#FB-28-EN-A-015)
+- [FB-28-EN-A-016 前端 CI 中的质量门禁设计](../by-domain/28-quality.md#FB-28-EN-A-016)
+- [FB-28-EN-A-017 前端代码覆盖率目标与实践](../by-domain/28-quality.md#FB-28-EN-A-017)
+- [FB-28-EN-A-018 前端代码规范如何落地](../by-domain/28-quality.md#FB-28-EN-A-018)
+- [FB-28-EN-A-019 前端 Monorepo 中的质量保障](../by-domain/28-quality.md#FB-28-EN-A-019)
+- [FB-28-EN-A-020 前端代码复杂度如何度量与治理](../by-domain/28-quality.md#FB-28-EN-A-020)
 
-### 可观测性（1 道）
+### 可观测性（6 道）
 
 - [FB-30-EN-A-012 如何设计一个前端日志采集 SDK？](../by-domain/30-observability.md#FB-30-EN-A-012)
+- [FB-30-EN-A-013 前端错误监控 SDK 设计](../by-domain/30-observability.md#FB-30-EN-A-013)
+- [FB-30-EN-A-014 前端埋点方案对比](../by-domain/30-observability.md#FB-30-EN-A-014)
+- [FB-30-EN-A-015 前端 SDK 版本管理与灰度](../by-domain/30-observability.md#FB-30-EN-A-015)
+- [FB-30-EN-A-016 前端监控 SDK 的加载方式](../by-domain/30-observability.md#FB-30-EN-A-016)
+- [FB-30-EN-A-017 监控数据存储与成本控制](../by-domain/30-observability.md#FB-30-EN-A-017)
 
 ### 国际化（1 道）
 
 - [FB-33-EN-A-001 全球化部署需要考虑哪些合规问题？](../by-domain/33-internationalization.md#FB-33-EN-A-001)
 
-### 可视化与图形（1 道）
+### 可视化与图形（2 道）
 
 - [FB-34-EN-A-016 可视化工程架构中，如何分离组件、数据、样式与渲染器？](../by-domain/34-visualization-graphics.md#FB-34-EN-A-016)
+- [FB-34-EN-A-017 可视化组件库的工程化实践](../by-domain/34-visualization-graphics.md#FB-34-EN-A-017)
 
-### 技术战略（1 道）
+### 技术战略（5 道）
 
 - [FB-39-EN-A-004 如何建立技术债的识别、评估与偿还机制？](../by-domain/39-strategy.md#FB-39-EN-A-004)
+- [FB-39-EN-A-005 如何设计前端工程化能力以支撑多业务线的快速迭代？](../by-domain/39-strategy.md#FB-39-EN-A-005)
+- [FB-39-EN-A-006 如何在前端技术战略中平衡“先进性”与“稳定性”？](../by-domain/39-strategy.md#FB-39-EN-A-006)
+- [FB-39-EN-A-007 什么是前端治理？它包含哪些方面？](../by-domain/39-strategy.md#FB-39-EN-A-007)
+- [FB-39-EN-A-008 如何设计前端的安全治理体系？](../by-domain/39-strategy.md#FB-39-EN-A-008)
 
-### 项目管理（1 道）
+### 项目管理（3 道）
 
 - [FB-41-EN-A-007 前端项目常用哪些度量指标评估进度与健康度？](../by-domain/41-project-management.md#FB-41-EN-A-007)
+- [FB-41-EN-A-008 如何用数据和指标驱动项目管理？](../by-domain/41-project-management.md#FB-41-EN-A-008)
+- [FB-41-EN-A-009 如何设计一个适合前端团队的轻量级项目管理流程？](../by-domain/41-project-management.md#FB-41-EN-A-009)
 
 ### 招聘（1 道）
 
 - [FB-42-EN-A-014 如何设计校招培养体系？](../by-domain/42-hiring.md#FB-42-EN-A-014)
 
-### 技术治理与合规（1 道）
+### 技术治理与合规（2 道）
 
 - [FB-44-EN-A-001 如何通过 CI/CD 流水线实现技术治理的自动化？](../by-domain/44-tech-governance.md#FB-44-EN-A-001)
+- [FB-44-EN-A-002 如何建立前端代码规范并保证执行？](../by-domain/44-tech-governance.md#FB-44-EN-A-002)
 
-### 鸿蒙 ArkTS / HarmonyOS（1 道）
+### 鸿蒙 ArkTS / HarmonyOS（3 道）
 
 - [FB-46-EN-A-016 鸿蒙工程化中有哪些模块化方案？如何选择 HAR、HSP、Feature HAP？](../by-domain/46-harmonyos.md#FB-46-EN-A-016)
+- [FB-46-EN-A-017 鸿蒙应用如何集成第三方库？](../by-domain/46-harmonyos.md#FB-46-EN-A-017)
+- [FB-46-EN-A-018 鸿蒙应用的模块化开发方式有哪些？](../by-domain/46-harmonyos.md#FB-46-EN-A-018)
 
-### Electron（2 道）
+### Electron（5 道）
 
 - [FB-48-EN-A-007 Electron 打包与代码签名的流程是什么？](../by-domain/48-electron.md#FB-48-EN-A-007)
 - [FB-48-EN-A-008 Electron 应用如何制定测试策略？](../by-domain/48-electron.md#FB-48-EN-A-008)
+- [FB-48-EN-A-009 Electron 应用的安全最佳实践有哪些？](../by-domain/48-electron.md#FB-48-EN-A-009)
+- [FB-48-EN-A-010 Electron 应用如何做崩溃收集和日志记录？](../by-domain/48-electron.md#FB-48-EN-A-010)
+- [FB-48-EN-A-011 Electron 应用启动白屏如何优化？](../by-domain/48-electron.md#FB-48-EN-A-011)
 
-### WebAssembly（1 道）
+### WebAssembly（4 道）
 
 - [FB-49-EN-A-006 Emscripten 是什么？它的胶水代码（glue code）做了什么？](../by-domain/49-webassembly.md#FB-49-EN-A-006)
+- [FB-49-EN-A-007 如何在 Web 项目中集成 Rust 编译的 WebAssembly？](../by-domain/49-webassembly.md#FB-49-EN-A-007)
+- [FB-49-EN-A-008 Emscripten 编译 WebAssembly 时常用哪些编译选项？](../by-domain/49-webassembly.md#FB-49-EN-A-008)
+- [FB-49-EN-A-009 WebAssembly 在前端工程化中如何加载和打包？](../by-domain/49-webassembly.md#FB-49-EN-A-009)
 
 ### 低代码（1 道）
 
@@ -284,13 +325,14 @@
 
 - [FB-56-EN-A-006 跨行业迁移时如何评估技术栈复用性？](../by-domain/56-industry.md#FB-56-EN-A-006)
 
-## 深入题（79 道）{#proficient}
+## 深入题（93 道）{#proficient}
 
-### 构建工具（1 道）
+### 构建工具（2 道）
 
 - [FB-10-EN-P-018 前端项目如何治理依赖版本、Lockfile 和 Changelog？](../by-domain/10-build-tools.md#FB-10-EN-P-018)
+- [FB-10-EN-P-019 如何编写一个支持 Tree Shaking 的 npm 库？](../by-domain/10-build-tools.md#FB-10-EN-P-019)
 
-### Monorepo（19 道）
+### Monorepo（20 道）
 
 - [FB-11-EN-P-001 Turborepo 和 Nx 的核心差异是什么？如何选择？](../by-domain/11-monorepo.md#FB-11-EN-P-001)
 - [FB-11-EN-P-002 Nx 的 affected 命令原理是什么？](../by-domain/11-monorepo.md#FB-11-EN-P-002)
@@ -311,8 +353,9 @@
 - [FB-11-EN-P-018 大型 Monorepo 如何优化 Git 性能？](../by-domain/11-monorepo.md#FB-11-EN-P-018)
 - [FB-11-EN-P-020 如何处理跨包类型导出导致的 tree-shaking 问题？](../by-domain/11-monorepo.md#FB-11-EN-P-020)
 - [FB-11-EN-P-021 如何保证 Monorepo 中 generated files 在 CI 中的幂等性？](../by-domain/11-monorepo.md#FB-11-EN-P-021)
+- [FB-11-EN-P-022 如何优化 Monorepo 的 install 和 build 性能？](../by-domain/11-monorepo.md#FB-11-EN-P-022)
 
-### CI/CD（20 道）
+### CI/CD（22 道）
 
 - [FB-12-EN-P-001 如何设计一套环境晋升（Environment Promotion）策略？](../by-domain/12-ci-cd.md#FB-12-EN-P-001)
 - [FB-12-EN-P-003 如何优化前端 CI/CD 构建流水线的性能？](../by-domain/12-ci-cd.md#FB-12-EN-P-003)
@@ -334,13 +377,16 @@
 - [FB-12-EN-P-022 如何设计基于 Changesets 的自动化版本发布？](../by-domain/12-ci-cd.md#FB-12-EN-P-022)
 - [FB-12-EN-P-024 如何在 CI 中实现前端视觉回归测试？](../by-domain/12-ci-cd.md#FB-12-EN-P-024)
 - [FB-12-EN-P-026 如何在 CI/CD 中实现精细化权限与审批？](../by-domain/12-ci-cd.md#FB-12-EN-P-026)
+- [FB-12-EN-P-027 如何优化 CI 的缓存命中率？](../by-domain/12-ci-cd.md#FB-12-EN-P-027)
+- [FB-12-EN-P-028 如何设计多环境（dev/staging/prod）部署策略？](../by-domain/12-ci-cd.md#FB-12-EN-P-028)
 
-### 代码质量与测试（4 道）
+### 代码质量与测试（5 道）
 
 - [FB-13-EN-P-001 如何在 CI/CD 流程中设计前端测试流水线？](../by-domain/13-code-quality.md#FB-13-EN-P-001)
 - [FB-13-EN-P-002 如何在 CI/CD 中实现前端测试失败自动分类与告警？](../by-domain/13-code-quality.md#FB-13-EN-P-002)
 - [FB-13-EN-P-003 如何在 Monorepo 中设计增量测试策略？](../by-domain/13-code-quality.md#FB-13-EN-P-003)
 - [FB-13-EN-P-004 如何在 CI/CD 中实现测试失败自动重试与 flaky 标记？](../by-domain/13-code-quality.md#FB-13-EN-P-004)
+- [FB-13-EN-P-017 如何设计可维护的测试用例？](../by-domain/13-code-quality.md#FB-13-EN-P-017)
 
 ### Vue（1 道）
 
@@ -352,13 +398,14 @@
 - [FB-18-EN-P-023 如何构建前端 AI 组件库与 Prompt 市场？](../by-domain/18-ai-engineering.md#FB-18-EN-P-023)
 - [FB-18-EN-P-055 如何为 LLM 应用设计语义缓存层？](../by-domain/18-ai-engineering.md#FB-18-EN-P-055)
 
-### Git 工作流与变更管理（5 道）
+### Git 工作流与变更管理（6 道）
 
 - [FB-20-EN-P-017 Monorepo 中如何使用 Changesets 管理版本和发布？](../by-domain/20-git-workflow.md#FB-20-EN-P-017)
 - [FB-20-EN-P-022 Git 如何与 CI/CD 流水线集成？](../by-domain/20-git-workflow.md#FB-20-EN-P-022)
 - [FB-20-EN-P-049 partial clone 和 sparse checkout 能解决什么问题？](../by-domain/20-git-workflow.md#FB-20-EN-P-049)
 - [FB-20-EN-P-053 Git 工作流如何与 npm/yarn/pnpm 变更联动？](../by-domain/20-git-workflow.md#FB-20-EN-P-053)
 - [FB-20-EN-P-057 如何设计 Git 操作的原子性和可回滚脚本？](../by-domain/20-git-workflow.md#FB-20-EN-P-057)
+- [FB-20-EN-P-058 Git 工作流如何与 npm/yarn/pnpm 变更联动？](../by-domain/20-git-workflow.md#FB-20-EN-P-058)
 
 ### 开发者体验与工程效能（8 道）
 
@@ -371,47 +418,55 @@
 - [FB-21-EN-P-084 如何设计前端资产的发现与复用机制？](../by-domain/21-dx.md#FB-21-EN-P-084)
 - [FB-21-EN-P-085 如何在组件库文档站点中落地 Design Token 以实现代码与设计同步](../by-domain/21-dx.md#FB-21-EN-P-085)
 
-### 部署与 SRE（4 道）
+### 部署与 SRE（5 道）
 
 - [FB-22-EN-P-017 如何用容器化方式部署前端应用？](../by-domain/22-deployment-sre.md#FB-22-EN-P-017)
 - [FB-22-EN-P-018 Kubernetes 基础与前端无状态服务部署](../by-domain/22-deployment-sre.md#FB-22-EN-P-018)
 - [FB-22-EN-P-024 前端 Monorepo 多包部署策略](../by-domain/22-deployment-sre.md#FB-22-EN-P-024)
 - [FB-22-EN-P-025 如何在 DevOps 流程中落地前端 HTTPS 全链路安全与证书自动化管理？](../by-domain/22-deployment-sre.md#FB-22-EN-P-025)
+- [FB-22-EN-P-026 前端容器化部署最佳实践](../by-domain/22-deployment-sre.md#FB-22-EN-P-026)
 
-### 包管理与供应链安全（2 道）
+### 包管理与供应链安全（3 道）
 
 - [FB-23-EN-P-020 私有 Registry / Verdaccio 如何企业级部署？](../by-domain/23-package-supply-chain.md#FB-23-EN-P-020)
 - [FB-23-EN-P-021 React/Vue 组件库作为宿主依赖项目，如何管理 package-lock.json 与 peerDependencies？](../by-domain/23-package-supply-chain.md#FB-23-EN-P-021)
+- [FB-23-EN-P-022 lockfile 与 Renovate 协同管理](../by-domain/23-package-supply-chain.md#FB-23-EN-P-022)
 
 ### 前端运维与监控（1 道）
 
 - [FB-24-EN-P-005 前端版本管理与缓存失效如何设计？](../by-domain/24-frontend-operations.md#FB-24-EN-P-005)
 
-### 系统架构设计（2 道）
+### 系统架构设计（3 道）
 
 - [FB-25-EN-P-007 描述一个前端架构从单体应用到微前端再到模块化架构的演进过程](../by-domain/25-system-architecture.md#FB-25-EN-P-007)
 - [FB-25-EN-P-015 Monorepo 中的构建性能优化与远程缓存架构](../by-domain/25-system-architecture.md#FB-25-EN-P-015)
+- [FB-25-EN-P-016 前端如何实现可重复可审计的构建与发布](../by-domain/25-system-architecture.md#FB-25-EN-P-016)
 
-### 微前端（1 道）
+### 微前端（2 道）
 
 - [FB-26-EN-P-021 微前端公共依赖版本冲突如何解决？](../by-domain/26-micro-frontend.md#FB-26-EN-P-021)
+- [FB-26-EN-P-022 微前端子应用的构建产物如何组织](../by-domain/26-micro-frontend.md#FB-26-EN-P-022)
 
 ### 性能工程（1 道）
 
 - [FB-27-EN-P-006 Service Worker 有哪些缓存策略？如何选择？](../by-domain/27-performance.md#FB-27-EN-P-006)
 
-### 质量保障（1 道）
+### 质量保障（4 道）
 
 - [FB-28-EN-P-024 如何设计质量门禁？](../by-domain/28-quality.md#FB-28-EN-P-024)
+- [FB-28-EN-P-025 前端单元测试如何设计有效的断言](../by-domain/28-quality.md#FB-28-EN-P-025)
+- [FB-28-EN-P-026 如何防止前端代码中的安全漏洞](../by-domain/28-quality.md#FB-28-EN-P-026)
+- [FB-28-EN-P-027 前端测试数据管理策略](../by-domain/28-quality.md#FB-28-EN-P-027)
 
 ### 可观测性（2 道）
 
 - [FB-30-EN-P-023 日志脱敏与合规（PII/敏感信息）在前端如何处理？](../by-domain/30-observability.md#FB-30-EN-P-023)
 - [FB-30-EN-P-024 如何构建前端稳定性保障体系？](../by-domain/30-observability.md#FB-30-EN-P-024)
 
-### 技术战略（1 道）
+### 技术战略（2 道）
 
 - [FB-39-EN-P-003 如何在高速迭代中管理技术债，避免系统崩溃？](../by-domain/39-strategy.md#FB-39-EN-P-003)
+- [FB-39-EN-P-004 如何设计前端团队的工程化指标体系？](../by-domain/39-strategy.md#FB-39-EN-P-004)
 
 ### 项目管理（1 道）
 
@@ -425,7 +480,7 @@
 
 - [FB-52-EN-P-007 低代码平台的多人协作与实时同步如何实现？](../by-domain/52-low-code.md#FB-52-EN-P-007)
 
-## 架构题（24 道）{#architect}
+## 架构题（34 道）{#architect}
 
 ### TypeScript（1 道）
 
@@ -436,18 +491,32 @@
 - [FB-06-EN-R-001 如何在大型前端项目中管理 CSS？](../by-domain/06-html-css.md#FB-06-EN-R-001)
 - [FB-06-EN-R-002 在 Monorepo 中如何组织样式代码和防止样式污染？](../by-domain/06-html-css.md#FB-06-EN-R-002)
 
-### 构建工具（3 道）
+### 构建工具（4 道）
 
 - [FB-10-EN-R-001 CI/CD 中的构建优化与并行化策略。](../by-domain/10-build-tools.md#FB-10-EN-R-001)
 - [FB-10-EN-R-002 如何设计前端构建的标准化流水线？](../by-domain/10-build-tools.md#FB-10-EN-R-002)
 - [FB-10-EN-R-009 如何构建前端产物安全与供应链安全体系？](../by-domain/10-build-tools.md#FB-10-EN-R-009)
+- [FB-10-EN-R-010 如何设计企业级前端构建平台的插件体系？](../by-domain/10-build-tools.md#FB-10-EN-R-010)
 
-### AI 工程化（6 道）
+### Monorepo（1 道）
+
+- [FB-11-EN-R-001 如何设计 Monorepo 的发布火车？](../by-domain/11-monorepo.md#FB-11-EN-R-001)
+
+### CI/CD（1 道）
+
+- [FB-12-EN-R-001 如何设计 CI/CD 的成本优化方案？](../by-domain/12-ci-cd.md#FB-12-EN-R-001)
+
+### 代码质量与测试（1 道）
+
+- [FB-13-EN-R-001 如何设计前端自动化回归测试体系？](../by-domain/13-code-quality.md#FB-13-EN-R-001)
+
+### AI 工程化（7 道）
 
 - [FB-18-EN-R-028 如何建设 LLM 应用的可观测性体系？](../by-domain/18-ai-engineering.md#FB-18-EN-R-028)
 - [FB-18-EN-R-032 AI 工程化如何做 CI/CD、模型版本管理与合规治理？](../by-domain/18-ai-engineering.md#FB-18-EN-R-032)
 - [FB-18-EN-R-033 如何设计支持百万人同时在线的 AI 流式服务？](../by-domain/18-ai-engineering.md#FB-18-EN-R-033)
 - [FB-18-EN-R-034 如何设计 LLM 应用的异地多活与灾备架构？](../by-domain/18-ai-engineering.md#FB-18-EN-R-034)
+- [FB-18-EN-R-035 AI 工程化的 CI/CD 最佳实践](../by-domain/18-ai-engineering.md#FB-18-EN-R-035)
 - [FB-18-EN-R-062 如何建设企业级 AI 工程化的标准前端组件与平台能力？](../by-domain/18-ai-engineering.md#FB-18-EN-R-062)
 - [FB-18-EN-R-067 如何从治理角度保障企业 AI 工程化可持续发展？](../by-domain/18-ai-engineering.md#FB-18-EN-R-067)
 
@@ -455,21 +524,32 @@
 
 - [FB-19-EN-R-030 Node.js 服务如何做容器化部署与 CI/CD？](../by-domain/19-node-bff.md#FB-19-EN-R-030)
 
-### Git 工作流与变更管理（5 道）
+### Git 工作流与变更管理（6 道）
 
 - [FB-20-EN-R-027 如何构建 Git 工作流中的自动化质量门禁？](../by-domain/20-git-workflow.md#FB-20-EN-R-027)
 - [FB-20-EN-R-030 Git 灾难恢复和备份策略应该如何设计？](../by-domain/20-git-workflow.md#FB-20-EN-R-030)
 - [FB-20-EN-R-059 Git 工作流如何与 DORA 指标联动？](../by-domain/20-git-workflow.md#FB-20-EN-R-059)
 - [FB-20-EN-R-062 GitOps 如何与 Git 工作流结合？](../by-domain/20-git-workflow.md#FB-20-EN-R-062)
 - [FB-20-EN-R-065 AI 辅助代码生成场景下，如何治理 Git 提交和审查？](../by-domain/20-git-workflow.md#FB-20-EN-R-065)
+- [FB-20-EN-R-066 GitOps 如何与 Git 工作流结合？](../by-domain/20-git-workflow.md#FB-20-EN-R-066)
 
-### 系统架构设计（1 道）
+### 系统架构设计（2 道）
 
 - [FB-25-EN-R-002 谈谈你对“前端工程化”的理解，它在前端架构中处于什么位置？](../by-domain/25-system-architecture.md#FB-25-EN-R-002)
+- [FB-25-EN-R-003 如何设计前端标准化工具链](../by-domain/25-system-architecture.md#FB-25-EN-R-003)
 
-### 微前端（1 道）
+### 微前端（2 道）
 
 - [FB-26-EN-R-028 微前端团队的 CI/CD 与仓库组织策略应该如何设计？](../by-domain/26-micro-frontend.md#FB-26-EN-R-028)
+- [FB-26-EN-R-029 微前端架构下的监控与可观测体系](../by-domain/26-micro-frontend.md#FB-26-EN-R-029)
+
+### 质量保障（1 道）
+
+- [FB-28-EN-R-001 设计前端工程化的质量门禁](../by-domain/28-quality.md#FB-28-EN-R-001)
+
+### 可观测性（1 道）
+
+- [FB-30-EN-R-001 前端可观测工程的落地路径](../by-domain/30-observability.md#FB-30-EN-R-001)
 
 ### 可视化与图形（1 道）
 

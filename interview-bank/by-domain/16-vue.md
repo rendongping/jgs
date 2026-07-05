@@ -1,6 +1,6 @@
 # Vue 面试题
 
-> 本题库共收录 **66** 道面试题（基础 16 / 进阶 18 / 深入 17 / 架构 15）。
+> 本题库共收录 **96** 道面试题（基础 23 / 进阶 25 / 深入 25 / 架构 23）。
 > 本文件收录 Vue 相关面试题，目标题量 200 道。
 > 题型覆盖：概念题、代码分析题、手写代码题、场景设计题、系统设计题、框架原理题、性能优化题。
 > 难度覆盖：基础、进阶、深入、架构。
@@ -4710,7 +4710,7 @@ export { default as Input } from './Input.vue';
 
 ---
 
-## 架构题（9 道）{#architect-2}
+## 架构题（39 道）{#architect-2}
 
 ### FB-16-SD-R-032：如何设计 Vue 中后台管理系统的模块架构？
 
@@ -5496,3 +5496,2207 @@ design-system/
 
 **口头回答版**：
 > 从 0 到 1 的 Vue 项目，MVP 阶段用 Vue 3 + Vite + TypeScript，状态简单用 Composable，复杂了上 Pinia。成长阶段加规范、拆分模块、E2E、监控。成熟阶段做 Monorepo、自研组件库、SSR/SSG、微前端。关键是按业务规模演进，别一开始就过度设计。
+
+### FB-16-CO-B-010：Vue 中 v-bind 和 v-on 的简写是什么？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：16 Vue
+**标签**：Vue、v-bind、v-on、指令、简写
+**出现频率**：高频
+**预计回答时长**：1-2 分钟
+
+**题目描述**：
+请说明 Vue 中 `v-bind` 和 `v-on` 的简写形式，并各举一个例子。
+
+**参考答案**：
+
+一、`v-bind` 简写为 `:`：
+
+```vue
+<!-- 完整写法 -->
+<img v-bind:src="imageUrl" />
+
+<!-- 简写 -->
+<img :src="imageUrl" />
+```
+
+二、`v-on` 简写为 `@`：
+
+```vue
+<!-- 完整写法 -->
+<button v-on:click="handleClick">Click</button>
+
+<!-- 简写 -->
+<button @click="handleClick">Click</button>
+```
+
+三、动态参数：
+
+```vue
+<a :[attributeName]="url">Link</a>
+<button @[eventName]="handler">Click</button>
+```
+
+四、修饰符：
+
+- `@click.stop` 阻止事件冒泡。
+- `@click.prevent` 阻止默认行为。
+- `@click.once` 只触发一次。
+
+**评分维度**：
+- v-bind 简写（35%）
+- v-on 简写（35%）
+- 动态参数或修饰符（30%）
+
+**常见错误**：
+- 在需要表达式的地方用简写时不加冒号
+- 动态参数写法不熟悉
+
+**口头回答版**：
+> Vue 里 v-bind 简写是冒号，比如 `:src="imageUrl"`；v-on 简写是 @，比如 `@click="handleClick"`。还可以写动态参数 `:[attrName]` 和修饰符如 `.stop`、`.prevent`。
+
+---
+
+### FB-16-CO-B-011：Vue 中的 computed setter 是什么？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：16 Vue
+**标签**：Vue、computed、setter、响应式
+**出现频率**：中频
+**预计回答时长**：2-3 分钟
+
+**题目描述**：
+请说明 Vue 中 computed 的 getter 和 setter 用法，以及使用场景。
+
+**参考答案**：
+
+computed 默认只有 getter，当需要写回数据时可以定义 setter。
+
+```vue
+<script setup>
+import { ref, computed } from 'vue';
+
+const firstName = ref('John');
+const lastName = ref('Doe');
+
+const fullName = computed({
+  get() {
+    return firstName.value + ' ' + lastName.value;
+  },
+  set(newValue) {
+    [firstName.value, lastName.value] = newValue.split(' ');
+  }
+});
+</script>
+```
+
+使用场景：
+
+1. **双向计算属性**：
+   - 例如 v-model 绑定到一个 computed 属性，同时影响多个源数据。
+
+2. **表单数据处理**：
+   - 一个输入框显示格式化后的值，输入时反向解析。
+
+注意事项：
+
+- setter 不应该有副作用。
+- setter 中的修改会触发依赖它的视图更新。
+- Options API 中写法相同，放在 `computed` 选项中。
+
+**评分维度**：
+- 说明 getter/setter 结构（40%）
+- 使用场景（35%）
+- 注意事项（25%）
+
+**常见错误**：
+- 在 computed setter 中做异步操作
+- 用 computed setter 替代方法
+
+**口头回答版**：
+> Vue 的 computed 可以只读，也可以有 getter 和 setter。setter 在需要双向绑定计算属性时用，比如 fullName 绑定 v-model，输入时自动拆成 firstName 和 lastName。setter 里不要有副作用。
+
+---
+
+### FB-16-CO-B-012：Vue 中的 watch 的 deep 和 immediate 选项作用？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：16 Vue
+**标签**：Vue、watch、deep、immediate、响应式
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Vue 中 `watch` 的 `deep` 和 `immediate` 选项分别有什么作用。
+
+**参考答案**：
+
+一、`immediate: true`：
+
+- 在 watch 创建时立即执行一次回调，而不是等被监听值变化后才执行。
+- 第一次执行时 `oldValue` 为 `undefined`。
+
+```js
+watch(count, (newVal, oldVal) => {
+  console.log(newVal, oldVal);
+}, { immediate: true });
+```
+
+二、`deep: true`：
+
+- 深度监听对象或数组内部的变化。
+- 默认情况下，watch 只监听引用变化，不监听对象属性变化。
+
+```js
+watch(user, (newVal) => {
+  console.log(newVal);
+}, { deep: true });
+```
+
+三、注意事项：
+
+1. deep 监听性能开销较大，对象越大越明显。
+2. 尽量只监听需要的具体属性，而不是整个对象。
+3. Vue 3 中可以直接 `watch(() => user.name, ...)` 监听嵌套属性。
+
+四、Vue 3 与 Vue 2 差异：
+
+- Vue 3 的 deep 默认是 false，需要显式开启。
+- Vue 3 支持直接监听 reactive 对象，不需要 deep 也能监听到属性变化。
+
+**评分维度**：
+- immediate 作用（35%）
+- deep 作用（35%）
+- 性能注意事项（20%）
+- Vue 3 差异（10%）
+
+**常见错误**：
+- 对所有对象都开 deep，导致性能问题
+- 需要 immediate 时忘记配置
+
+**口头回答版**：
+> watch 的 immediate 是创建时立即执行一次回调，deep 是深度监听对象内部变化。deep 开销大，尽量监听具体属性而不是整个对象。Vue 3 监听 reactive 对象的属性变化有时不需要 deep。
+
+---
+
+### FB-16-CO-B-013：Vue 中的组件 name 有什么用？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：16 Vue
+**标签**：Vue、component name、调试、递归组件
+**出现频率**：中频
+**预计回答时长**：2-3 分钟
+
+**题目描述**：
+请说明 Vue 组件中 `name` 选项的作用。
+
+**参考答案**：
+
+一、主要作用：
+
+1. **递归组件**：
+   - 组件要递归调用自己时必须声明 name。
+   ```vue
+   <template>
+     <div>
+       <TreeItem v-for="child in children" :key="child.id" :node="child" />
+     </div>
+   </template>
+   <script setup>
+   import TreeItem from './TreeItem.vue';
+   </script>
+   <script>
+   export default { name: 'TreeItem' };
+   </script>
+   ```
+
+2. **调试工具显示**：
+   - Vue DevTools 中显示的组件名。
+   - 错误堆栈和警告信息中的组件标识。
+
+3. **KeepAlive 的 include/exclude**：
+   - 通过组件 name 控制哪些组件缓存。
+
+4. **组件递归查找**：
+   - 父组件链查找、错误边界等场景。
+
+二、script setup 中定义 name：
+
+```vue
+<script setup>
+defineOptions({ name: 'MyComponent' });
+</script>
+```
+
+或再写一个普通 script：
+
+```vue
+<script>
+export default { name: 'MyComponent' };
+</script>
+```
+
+**评分维度**：
+- 递归组件（30%）
+- 调试显示（25%）
+- KeepAlive（25%）
+- script setup 定义方式（20%）
+
+**常见错误**：
+- 递归组件忘记声明 name
+- script setup 中不知道如何定义 name
+
+**口头回答版**：
+> Vue 组件 name 主要用来做递归组件、在 DevTools 里显示、配合 KeepAlive 的 include/exclude。script setup 里可以用 defineOptions 或再写一个普通 script 来定义 name。
+
+---
+
+### FB-16-CO-B-014：Vue 中 $emit 和 defineEmits 的区别？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：16 Vue
+**标签**：Vue、emit、defineEmits、事件、Composition API
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Vue 中 `$emit` 和 `defineEmits` 的区别和使用场景。
+
+**参考答案**：
+
+一、`$emit`：
+
+- Options API 中使用 `this.$emit('eventName', payload)` 触发自定义事件。
+- 在模板中也可以直接用 `$emit`：
+  ```vue
+  <button @click="$emit('click', $event)">Click</button>
+  ```
+
+二、`defineEmits`：
+
+- `<script setup>` 中声明和获取 emit 函数。
+- 提供更好的类型推断。
+
+```vue
+<script setup>
+const emit = defineEmits(['update:modelValue', 'submit']);
+// 或带类型
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+  (e: 'submit'): void;
+}>();
+
+function handleClick() {
+  emit('submit');
+}
+</script>
+```
+
+三、声明 emits 的好处：
+
+1. 明确组件对外暴露的事件接口。
+2. TypeScript 类型支持。
+3. 父组件传递的同名 props 不会被子组件当作原生事件处理。
+
+四、注意事项：
+
+- `defineEmits` 是编译器宏，不需要导入。
+- 声明的事件不会被子组件继承为原生事件。
+
+**评分维度**：
+- $emit 用法（25%）
+- defineEmits 用法（35%）
+- 类型声明（20%）
+- 声明的好处（20%）
+
+**常见错误**：
+- 在 script setup 中仍然用 this.$emit
+- 没有声明 emits 导致事件被当作原生属性
+
+**口头回答版**：
+> $emit 是 Options API 里触发事件的方法，模板里也能直接用。defineEmits 是 script setup 里的编译器宏，用来声明事件和获取 emit 函数，支持 TypeScript 类型。声明 emits 能明确接口，避免和原生事件冲突。
+
+---
+
+### FB-16-CO-B-015：Vue 3 中的 Suspense 是什么？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：16 Vue
+**标签**：Vue、Suspense、异步组件、加载状态
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 Vue 3 中的 Suspense 组件及其作用。
+
+**参考答案**：
+
+Suspense 是 Vue 3 提供的用于处理异步依赖的组件。当包裹的组件或异步内容正在加载时，显示 fallback 内容，加载完成后再显示实际内容。
+
+基本用法：
+
+```vue
+<template>
+  <Suspense>
+    <template #default>
+      <AsyncComponent />
+    </template>
+    <template #fallback>
+      <Loading />
+    </template>
+  </Suspense>
+</template>
+```
+
+使用场景：
+
+1. **异步组件加载**：
+   - 配合 `defineAsyncComponent` 使用。
+
+2. **异步 setup**：
+   - 组件的 `setup` 函数可以返回 Promise。
+
+```vue
+<script setup>
+const data = await fetchData();
+</script>
+```
+
+注意事项：
+
+- Suspense 目前仍是实验性特性，API 可能变化。
+- 需要处理错误时配合 Error Boundary 或 `onErrorCaptured`。
+- 可以嵌套使用，内部 Suspense 完成不会阻塞外部 fallback。
+
+**评分维度**：
+- 说明 Suspense 作用（35%）
+- 基本用法（30%）
+- 异步 setup 场景（20%）
+- 注意事项（15%）
+
+**常见错误**：
+- 把 Suspense 当成普通 loading 组件
+- 忽略异步 setup 的错误处理
+
+**口头回答版**：
+> Vue 3 的 Suspense 用来处理异步依赖，加载时显示 fallback，加载完显示真实内容。常用于异步组件和 async setup。用 #default 和 #fallback 插槽。目前还是实验性特性，错误处理要配合 onErrorCaptured。
+
+---
+
+### FB-16-CO-B-016：Vue 中的 mixin 有什么优缺点？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：16 Vue
+**标签**：Vue、mixin、Composition API、复用
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Vue 中 mixin 的优缺点，以及 Vue 3 中更推荐的替代方案。
+
+**参考答案**：
+
+一、mixin 优点：
+
+1. 可以复用组件选项（data、methods、生命周期等）。
+2. 在 Options API 中简单直观。
+
+二、mixin 缺点：
+
+1. **命名冲突**：
+   - 多个 mixin 可能定义同名 data 或 methods，导致覆盖或不可预期行为。
+
+2. **来源不透明**：
+   - 组件使用了哪些属性和方法来自哪个 mixin 难以追踪。
+
+3. **逻辑碎片化**：
+   - 同一功能的代码分散在多个 mixin 和组件中。
+
+4. **可维护性差**：
+   - 随着 mixin 增多，组件行为变得难以理解和测试。
+
+三、Vue 3 替代方案：
+
+1. **Composition API / Composable**：
+   - 按功能组织逻辑，而不是按选项类型。
+   - 命名空间清晰，避免冲突。
+   ```ts
+   const { count, increment } = useCounter();
+   ```
+
+2. **自定义 Hook/Composable**：
+   - 每个功能一个函数，组合使用。
+
+四、适用场景：
+
+- Vue 2 项目维护时可能仍用 mixin。
+- Vue 3 新项目优先使用 Composable。
+
+**评分维度**：
+- mixin 优点（15%）
+- mixin 缺点（40%）
+- 替代方案（35%）
+- 适用场景（10%）
+
+**常见错误**：
+- Vue 3 项目仍大量使用 mixin
+- 认为 Composable 完全等同于 mixin
+
+**口头回答版**：
+> mixin 能复用 Options API 的选项，但缺点是命名冲突、来源不透明、逻辑碎片化。Vue 3 推荐用 Composition API 的 Composable，按功能组织逻辑，更清晰可维护。Vue 2 维护可能还用 mixin，新项目优先 Composable。
+
+---
+
+### FB-16-CO-A-019：Vue 中如何正确使用 ref 和 reactive？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、ref、reactive、响应式
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Vue 3 中 `ref` 和 `reactive` 的正确使用方式、区别和常见陷阱。
+
+**参考答案**：
+
+一、基本区别：
+
+- `ref`：可以包装任何类型，返回一个响应式引用，通过 `.value` 访问和修改。
+- `reactive`：只能包装对象类型，返回响应式代理对象，直接访问属性。
+
+```js
+const count = ref(0);
+count.value++;
+
+const user = reactive({ name: 'Tom' });
+user.name = 'Jerry';
+```
+
+二、使用建议：
+
+1. **基础类型用 ref**：
+   - string、number、boolean 等只能用 ref。
+
+2. **对象类型两者皆可**：
+   - 推荐用 ref，因为 ref 可以整体替换对象而不丢失响应式。
+   - reactive 整体替换对象会丢失响应式连接。
+
+3. **解构和赋值**：
+   - reactive 对象解构会失去响应式。
+   - ref 赋值给 ref 需要 `.value`。
+
+三、常见陷阱：
+
+1. **reactive 解构**：
+   ```js
+   const { name } = user; // name 不再是响应式
+   ```
+
+2. **ref 在模板中自动解包**：
+   - 模板中可以直接用 `{{ count }}`，不需要 `{{ count.value }}`。
+   - 但在 setup 中必须 `.value`。
+
+3. **ref 赋值给 reactive 属性**：
+   ```js
+   const state = reactive({ count });
+   state.count++; // 自动解包，等价于 count.value++
+   ```
+
+四、选型建议：
+
+- 统一使用 ref 更简单一致。
+- reactive 适合需要深层响应式的复杂对象，且不会整体替换。
+
+**评分维度**：
+- 基本区别（30%）
+- 使用建议（30%）
+- 常见陷阱（30%）
+- 选型建议（10%）
+
+**常见错误**：
+- 用 reactive 包装基础类型
+- reactive 对象整体替换后丢失响应式
+
+**口头回答版**：
+> ref 包装任何类型，用 .value 访问；reactive 只包装对象，直接访问属性。基础类型用 ref，对象也推荐用 ref，因为可以整体替换。reactive 解构会失去响应式，整体替换也会断。模板里 ref 自动解包，setup 里要 .value。
+
+---
+
+### FB-16-CO-A-020：Vue 3 的 emits 选项有什么作用？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、emits、事件、props、组件接口
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Vue 3 中 `emits` 选项的作用，以及不声明会有什么问题。
+
+**参考答案**：
+
+一、作用：
+
+1. **明确组件事件接口**：
+   - 让父组件知道子组件会触发哪些事件。
+
+2. **避免事件被当作原生 DOM 事件**：
+   - 如果子组件没有声明 `emits`，父组件传递的 `@click` 等会被挂载到子组件根元素上。
+   - 声明后，事件由组件自己处理，不会冒泡到根元素。
+
+3. **更好的类型支持**：
+   - 配合 TypeScript 可以定义事件 payload 类型。
+
+二、Options API 写法：
+
+```js
+export default {
+  emits: ['click', 'submit'],
+  methods: {
+    handleClick() {
+      this.$emit('click', this.value);
+    }
+  }
+};
+```
+
+三、Composition API 写法：
+
+```vue
+<script setup>
+const emit = defineEmits(['click', 'submit']);
+</script>
+```
+
+四、验证功能：
+
+```js
+emits: {
+  submit: (payload) => {
+    return payload && typeof payload.email === 'string';
+  }
+}
+```
+
+五、不声明的问题：
+
+1. 事件可能被错误地绑定到根元素。
+2. 组件接口不清晰，难以维护。
+3. TypeScript 类型推断不完整。
+
+**评分维度**：
+- 说明作用（40%）
+- 两种写法（25%）
+- 验证功能（15%）
+- 不声明的问题（20%）
+
+**常见错误**：
+- 所有事件都不声明 emits
+- 把 emits 和 props 混淆
+
+**口头回答版**：
+> Vue 3 的 emits 选项用来声明组件会触发哪些事件。声明后事件不会错误绑定到根元素，接口更清晰，TypeScript 类型更好。还可以做事件参数校验。不声明可能导致事件被当原生事件处理。
+
+---
+
+### FB-16-CO-A-021：Vue 中的 template refs 如何使用？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、template refs、DOM、组件引用
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Vue 中 template refs 的使用方式，包括 DOM 元素和组件实例。
+
+**参考答案**：
+
+一、DOM 元素引用：
+
+```vue
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const inputRef = ref(null);
+
+onMounted(() => {
+  inputRef.value.focus();
+});
+</script>
+
+<template>
+  <input ref="inputRef" />
+</template>
+```
+
+二、组件实例引用：
+
+```vue
+<script setup>
+import { ref, onMounted } from 'vue';
+import Child from './Child.vue';
+
+const childRef = ref(null);
+
+onMounted(() => {
+  childRef.value.someMethod();
+});
+</script>
+
+<template>
+  <Child ref="childRef" />
+</template>
+```
+
+三、函数式 template ref：
+
+```vue
+<template>
+  <input :ref="(el) => { inputRef = el }" />
+</template>
+```
+
+四、组件 expose：
+
+- Vue 3 中组件默认不暴露内部属性和方法。
+- 子组件需要用 `defineExpose` 暴露：
+
+```vue
+<script setup>
+const someMethod = () => {};
+defineExpose({ someMethod });
+</script>
+```
+
+五、注意事项：
+
+1. ref 在组件挂载后才可用，应在 onMounted 中访问。
+2. 组件卸载后 ref 变为 null。
+3. 避免过度使用 ref 操作组件内部，优先用 props/events。
+
+**评分维度**：
+- DOM 引用（25%）
+- 组件实例引用（30%）
+- defineExpose（20%）
+- 注意事项（25%）
+
+**常见错误**：
+- 在 onMounted 之前访问 ref
+- 子组件没有 defineExpose 却想调用方法
+
+**口头回答版**：
+> Vue 里用 ref 获取 DOM 或组件实例。DOM 上直接 `ref="inputRef"`，组件实例也是类似，但子组件要用 defineExpose 暴露方法。ref 在 onMounted 后才可用，卸载后变 null。尽量少用 ref 操作组件内部，优先 props 和事件。
+
+---
+
+### FB-16-CO-A-022：Vue 中的 transition 和 transition-group 区别？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、transition、transition-group、动画、列表
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Vue 中 `<Transition>` 和 `<TransitionGroup>` 的区别和使用场景。
+
+**参考答案**：
+
+一、`<Transition>`：
+
+- 用于单个元素或组件的进入/离开过渡动画。
+- 只包裹一个根元素。
+
+```vue
+<Transition name="fade">
+  <div v-if="show">Hello</div>
+</Transition>
+```
+
+触发条件：
+
+- `v-if` / `v-show`
+- 动态组件切换
+- `<component :is="...">`
+
+二、`<TransitionGroup>`：
+
+- 用于列表中多个元素的过渡动画。
+- 支持列表项的进入、离开和移动动画。
+- 必须为每个子元素绑定唯一的 `key`。
+
+```vue
+<TransitionGroup name="list" tag="ul">
+  <li v-for="item in items" :key="item.id">{{ item.name }}</li>
+</TransitionGroup>
+```
+
+三、主要区别：
+
+| 特性 | Transition | TransitionGroup |
+|------|------------|-----------------|
+| 子元素数量 | 单个 | 多个 |
+| key 要求 | 不需要 | 必须 |
+| 渲染元素 | 不额外渲染 DOM | 默认渲染 wrapper，可用 tag 指定 |
+| 移动动画 | 不支持 | 支持（v-move） |
+
+四、CSS 类名：
+
+- 两者都支持 `*-enter-from`、`*-enter-active`、`*-enter-to`、`*-leave-from`、`*-leave-active`、`*-leave-to`。
+- TransitionGroup 额外支持 `*-move`。
+
+**评分维度**：
+- Transition 用法（30%）
+- TransitionGroup 用法（30%）
+- 区别对比（30%）
+- CSS 类名（10%）
+
+**常见错误**：
+- 列表动画用 Transition 而不是 TransitionGroup
+- TransitionGroup 子元素没有唯一 key
+
+**口头回答版**：
+> Transition 用于单个元素的进入离开动画，TransitionGroup 用于列表多个元素的动画。TransitionGroup 要求子元素有唯一 key，支持移动动画 v-move，默认会渲染一个 wrapper。列表动画一定要用 TransitionGroup。
+
+---
+
+### FB-16-CO-A-023：Vue 中的 props 校验怎么做？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、props、校验、TypeScript
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Vue 中 props 校验的方式，包括运行时校验和 TypeScript 类型校验。
+
+**参考答案**：
+
+一、运行时校验：
+
+```js
+export default {
+  props: {
+    title: {
+      type: String,
+      required: true,
+      validator(value) {
+        return value.length > 0;
+      }
+    },
+    count: {
+      type: Number,
+      default: 0
+    },
+    user: {
+      type: Object,
+      default: () => ({ name: '' })
+    }
+  }
+};
+```
+
+二、script setup 写法：
+
+```vue
+<script setup>
+const props = defineProps({
+  title: { type: String, required: true },
+  count: { type: Number, default: 0 }
+});
+</script>
+```
+
+三、TypeScript 类型校验：
+
+```vue
+<script setup lang="ts">
+interface Props {
+  title: string;
+  count?: number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  count: 0
+});
+</script>
+```
+
+四、注意事项：
+
+1. 对象/数组默认值必须用工厂函数返回。
+2. validator 只在开发环境执行。
+3. TypeScript 类型只在编译时检查，运行时仍需 prop 类型声明。
+4. 布尔类型有特殊的默认值处理规则。
+
+**评分维度**：
+- 运行时校验（35%）
+- script setup 写法（25%）
+- TypeScript 类型校验（25%）
+- 注意事项（15%）
+
+**常见错误**：
+- 对象 default 直接写 `{}` 而不是工厂函数
+- 认为 TypeScript 类型能替代运行时校验
+
+**口头回答版**：
+> Vue props 校验可以在运行时做，声明 type、required、default、validator。script setup 里用 defineProps。TypeScript 项目用 withDefaults 给 defineProps 设默认值。对象和数组的 default 要用工厂函数。TS 类型只在编译期，运行时还需要 prop 声明。
+
+---
+
+### FB-16-CO-A-024：Vue 中如何处理组件卸载时的副作用？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、副作用、onUnmounted、清理、生命周期
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Vue 中如何清理组件卸载时产生的副作用，避免内存泄漏。
+
+**参考答案**：
+
+一、常见副作用：
+
+1. 定时器（setInterval / setTimeout）。
+2. 事件监听（addEventListener）。
+3. 网络请求（需要取消）。
+4. 订阅（WebSocket、EventBus、RxJS）。
+5. 第三方库实例（图表、编辑器）。
+
+二、清理方式：
+
+1. **onUnmounted 钩子**：
+   ```vue
+   <script setup>
+   import { onMounted, onUnmounted } from 'vue';
+   
+   let timer;
+   onMounted(() => { timer = setInterval(() => {}, 1000); });
+   onUnmounted(() => { clearInterval(timer); });
+   </script>
+   ```
+
+2. **watch 的清理函数**：
+   ```js
+   watch(id, (newId, oldId, onCleanup) => {
+     const controller = new AbortController();
+     fetchUser(newId, { signal: controller.signal });
+     onCleanup(() => controller.abort());
+   });
+   ```
+
+3. **Composable 中统一清理**：
+   - 在 Composable 内部注册 onUnmounted。
+   - 调用方无需关心清理。
+
+三、最佳实践：
+
+- 成对出现：有注册就要有清理。
+- 使用 Composable 封装副作用逻辑。
+- 对异步请求使用 AbortController 或取消令牌。
+
+**评分维度**：
+- 副作用类型（20%）
+- onUnmounted 使用（30%）
+- watch 清理（20%）
+- Composable 封装（20%）
+- 最佳实践（10%）
+
+**常见错误**：
+- 只注册不清理，导致内存泄漏
+- 组件卸载后 still setState
+
+**口头回答版**：
+> Vue 组件卸载时要在 onUnmounted 里清理定时器、事件监听、订阅、网络请求。watch 可以用 onCleanup 清理副作用。推荐把副作用逻辑封装成 Composable，内部自动处理清理。异步请求用 AbortController 取消。
+
+---
+
+### FB-16-CO-A-025：Vue 中的 defineAsyncComponent 怎么用？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、defineAsyncComponent、异步组件、懒加载
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Vue 3 中 `defineAsyncComponent` 的用法和配置项。
+
+**参考答案**：
+
+一、基本用法：
+
+```vue
+<script setup>
+import { defineAsyncComponent } from 'vue';
+
+const AsyncComp = defineAsyncComponent(() => import('./HeavyComp.vue'));
+</script>
+
+<template>
+  <AsyncComp />
+</template>
+```
+
+二、带 loading 和 error 配置：
+
+```js
+const AsyncComp = defineAsyncComponent({
+  loader: () => import('./HeavyComp.vue'),
+  loadingComponent: Loading,
+  errorComponent: Error,
+  delay: 200,
+  timeout: 3000,
+  suspensible: false
+});
+```
+
+配置项说明：
+
+- `loader`：返回 Promise 的加载函数。
+- `loadingComponent`：加载中显示的组件。
+- `errorComponent`：加载失败显示的组件。
+- `delay`：延迟显示 loading 的时间，避免闪烁。
+- `timeout`：加载超时时间。
+- `suspensible`：是否可被 Suspense 控制。
+
+三、与 Suspense 配合：
+
+```vue
+<Suspense>
+  <AsyncComp />
+  <template #fallback>Loading...</template>
+</Suspense>
+```
+
+四、错误处理：
+
+- 加载失败时 `onError` 回调可以重试。
+- 建议配合 Error Boundary 或 `onErrorCaptured`。
+
+**评分维度**：
+- 基本用法（25%）
+- 配置项说明（35%）
+- Suspense 配合（20%）
+- 错误处理（20%）
+
+**常见错误**：
+- 异步组件没有在 Suspense 内或没有 loading 组件
+- 忽略加载超时处理
+
+**口头回答版**：
+> Vue 3 用 defineAsyncComponent 定义异步组件，配合 import() 做懒加载。可以配置 loading、error、delay、timeout。还能和 Suspense 一起用。加载失败要处理超时和错误，避免白屏。
+
+---
+
+### FB-16-FS-P-027：Vue 3 的 Compiler 优化细节有哪些？
+
+**题型**：原理题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue 3、编译器、PatchFlag、静态提升、优化
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请深入说明 Vue 3 编译器做了哪些性能优化。
+
+**参考答案**：
+
+一、静态提升（Static Hoisting）：
+
+将模板中不依赖响应式数据的静态节点提升到渲染函数外部，每次 render 直接复用，避免重复创建。
+
+```js
+const _hoisted_1 = /*#__PURE__*/createElementVNode("div", null, "static text", -1 /* HOISTED */);
+```
+
+二、PatchFlag：
+
+编译时为动态节点打上标记，告诉运行时只需要对比特定属性：
+
+- `1 /* TEXT */`：动态文本。
+- `2 /* CLASS */`：动态 class。
+- `8 /* PROPS */`：动态 props。
+- `16 /* FULL_PROPS */`：有动态 key 的 props。
+
+这样 diff 时只检查标记的部分，而不是全量对比。
+
+三、静态属性提升：
+
+- 节点的静态 class、style、attrs 等被提升到闭包外。
+
+四、Block Tree：
+
+- 使用 Block 收集所有动态子节点，形成稳定结构的树。
+- 配合 PatchFlag，diff 时跳过静态子树。
+
+五、事件缓存：
+
+- 内联事件处理函数会被缓存，避免每次 render 创建新函数导致子组件 re-render。
+
+```js
+const _ctx = this;
+return (_openBlock(), _createElementBlock("div", null, [
+  _createElementVNode("button", {
+    onClick: _cache[0] || (_cache[0] = (...args) => _ctx.handleClick(...args))
+  }, "Click")
+]));
+```
+
+六、SSR 优化：
+
+- 静态内容直接输出字符串，不需要创建 VNode。
+- 动态内容标记优化，减少 hydration 开销。
+
+**评分维度**：
+- 静态提升（20%）
+- PatchFlag（25%）
+- Block Tree（20%）
+- 事件缓存（15%）
+- SSR 优化（10%）
+- 整体理解深度（10%）
+
+**常见错误**：
+- 只了解 PatchFlag，忽略静态提升和 Block Tree
+- 认为编译器优化只在特定场景有效
+
+**口头回答版**：
+> Vue 3 编译器优化有静态提升，把静态节点提到渲染函数外复用；PatchFlag 给动态节点打标记，diff 只对比动态部分；Block Tree 收集动态子节点跳过静态子树；事件处理函数缓存避免子组件无谓重渲染；SSR 里静态内容直接输出字符串。
+
+---
+
+### FB-16-FS-P-028：Vue 的响应式系统如何处理数组和集合？
+
+**题型**：原理题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、响应式、数组、Set、Map、Proxy
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请说明 Vue 3 响应式系统如何处理数组、Set、Map 等集合类型。
+
+**参考答案**：
+
+一、数组处理：
+
+Vue 3 使用 Proxy 代理数组，拦截以下操作：
+
+1. **索引访问/修改**：`arr[0]`、`arr[0] = 1`。
+2. **长度变化**：`arr.length = 0`。
+3. **数组方法**：`push`、`pop`、`splice` 等。
+
+Proxy 能直接监听数组索引和长度变化，不需要像 Vue 2 那样重写数组方法。
+
+二、Set/Map 处理：
+
+Vue 3 为 Set 和 Map 提供了响应式包装 `reactive(new Set())`、`reactive(new Map())`。
+
+可追踪的操作：
+
+- `add`、`delete`、`has`、`clear`
+- `get`、`set`（Map）
+- `forEach`、`keys`、`values`、`entries`、`size`
+
+三、实现机制：
+
+1. **集合的 Proxy trap**：
+   - 针对 Set/Map 的原生方法做拦截，在调用前后触发依赖收集和通知。
+
+2. **迭代器包装**：
+   - 返回的迭代器也被包装成响应式，遍历时能追踪依赖。
+
+四、注意事项：
+
+1. 直接用 `new Set()` 不是响应式的，必须用 `reactive(new Set())`。
+2. `WeakMap`、`WeakSet` 不支持响应式。
+3. 数组的 `sort`、`reverse` 会触发多次依赖通知，Vue 内部已优化。
+
+**评分维度**：
+- 数组 Proxy 处理（30%）
+- Set/Map 处理（35%）
+- 实现机制（20%）
+- 注意事项（15%）
+
+**常见错误**：
+- 认为 Vue 3 还需要重写数组方法
+- 直接用 Set 而不是 reactive(new Set())
+
+**口头回答版**：
+> Vue 3 用 Proxy 代理数组，可以直接监听索引、长度和数组方法，不需要像 Vue 2 重写方法。Set 和 Map 用 reactive 包装后，add、delete、get、set 这些操作都是响应式的。迭代器也会被包装。注意 WeakMap/WeakSet 不支持响应式。
+
+---
+
+### FB-16-FS-P-029：Vue 3 的 scheduler 和 flush 模式是什么？
+
+**题型**：原理题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、scheduler、flush、watch、响应式
+**出现频率**：低频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Vue 3 中 scheduler 的作用，以及 `watch` 和 `watchEffect` 的 flush 模式。
+
+**参考答案**：
+
+一、scheduler 作用：
+
+Vue 3 使用调度器管理响应式副作用（effect）的执行时机。当响应式数据变化时，相关的 effect 不是立即执行，而是被放入一个队列中，在微任务阶段统一执行，实现批量更新。
+
+二、flush 模式：
+
+1. **`pre`**（默认）：
+   - 在组件更新之前执行。
+   - 适合在 DOM 更新前读取旧状态或做准备工作。
+
+2. **`post`**：
+   - 在组件更新之后执行。
+   - 适合访问更新后的 DOM。
+
+3. **`sync`**：
+   - 同步执行，立即响应数据变化。
+   - 性能开销大，少用。
+
+```js
+watch(source, callback, { flush: 'post' });
+watchEffect(callback, { flush: 'post' });
+```
+
+三、使用场景：
+
+- `pre`：默认值，大多数情况适用。
+- `post`：需要在 DOM 更新后测量元素尺寸、操作 DOM。
+- `sync`：调试或需要立即同步的场景。
+
+四、注意事项：
+
+- `flush: 'post'` 的回调会在组件挂载和更新后执行。
+- 在 `flush: 'post'` 中修改状态可能触发新一轮更新，需谨慎。
+
+**评分维度**：
+- scheduler 作用（25%）
+- flush 三种模式（45%）
+- 使用场景（20%）
+- 注意事项（10%）
+
+**常见错误**：
+- 不知道 flush 有 pre/post/sync 三种
+- 在 pre 阶段访问更新后的 DOM
+
+**口头回答版**：
+> Vue 3 的 scheduler 把响应式副作用排队到微任务里批量执行。watch 和 watchEffect 有 flush 模式：pre 在更新前执行（默认），post 在更新后执行适合访问 DOM，sync 同步执行性能开销大。一般用 pre，需要操作更新后 DOM 用 post。
+
+---
+
+### FB-16-PE-P-025：Vue 长列表虚拟滚动实现
+
+**题型**：性能题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、虚拟滚动、长列表、性能优化
+**出现频率**：高频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请说明在 Vue 中实现长列表虚拟滚动的原理和关键代码。
+
+**参考答案**：
+
+一、原理：
+
+只渲染可视区域内的列表项，根据 scrollTop 计算起始索引，配合一个高度占位元素模拟完整列表高度。
+
+二、核心计算：
+
+```js
+const startIndex = Math.floor(scrollTop / itemHeight);
+const visibleCount = Math.ceil(containerHeight / itemHeight) + buffer;
+const visibleItems = items.slice(startIndex, startIndex + visibleCount);
+const offsetY = startIndex * itemHeight;
+```
+
+三、Vue 实现：
+
+```vue
+<template>
+  <div ref="container" class="container" @scroll="onScroll">
+    <div class="phantom" :style="{ height: totalHeight + 'px' }"></div>
+    <div class="list" :style="{ transform: `translateY(${offsetY}px)` }">
+      <div
+        v-for="item in visibleItems"
+        :key="item.id"
+        class="item"
+        :style="{ height: itemHeight + 'px' }"
+      >
+        {{ item.name }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue';
+
+const props = defineProps({ items: Array, itemHeight: Number });
+const containerHeight = 400;
+const buffer = 2;
+
+const scrollTop = ref(0);
+const totalHeight = computed(() => props.items.length * props.itemHeight);
+const startIndex = computed(() => Math.floor(scrollTop.value / props.itemHeight));
+const visibleCount = computed(() => Math.ceil(containerHeight / props.itemHeight) + buffer);
+const visibleItems = computed(() => props.items.slice(startIndex.value, startIndex.value + visibleCount.value));
+const offsetY = computed(() => startIndex.value * props.itemHeight);
+
+function onScroll(e) {
+  scrollTop.value = e.target.scrollTop;
+}
+</script>
+```
+
+四、优化：
+
+1. 滚动事件节流或使用 `requestAnimationFrame`。
+2. 可变高度需要预先测量或动态计算。
+3. 使用已有库：`vue-virtual-scroller`、`vue3-virtual-scroll-list`。
+
+**评分维度**：
+- 原理清晰（25%）
+- 计算逻辑（25%）
+- Vue 代码实现（30%）
+- 优化和库选择（20%）
+
+**常见错误**：
+- 一次性渲染所有列表项
+- 滚动事件不做节流
+
+**口头回答版**：
+> Vue 虚拟滚动只渲染可视区内容，用 phantom 元素模拟总高度。根据 scrollTop 算 startIndex 和 offsetY，渲染可视项加 buffer。滚动监听可以节流。高度不固定要测量或用库，比如 vue-virtual-scroller。
+
+---
+
+### FB-16-CO-P-024：Vue 3 的 defineModel 是什么？
+
+**题型**：概念题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、defineModel、v-model、script setup
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 Vue 3.4 引入的 `defineModel` 宏，以及它如何简化 v-model 实现。
+
+**参考答案**：
+
+`defineModel` 是 Vue 3.4 新增的编译器宏，用于简化组件实现 `v-model` 的逻辑。
+
+传统写法：
+
+```vue
+<script setup>
+const props = defineProps(['modelValue']);
+const emit = defineEmits(['update:modelValue']);
+
+function update(value) {
+  emit('update:modelValue', value);
+}
+</script>
+```
+
+defineModel 写法：
+
+```vue
+<script setup>
+const model = defineModel();
+
+function update(value) {
+  model.value = value;
+}
+</script>
+```
+
+`defineModel` 本质上返回一个 ref：
+
+- `get` 时读取 `props.modelValue`。
+- `set` 时自动 `emit('update:modelValue', value)`。
+
+多 v-model：
+
+```vue
+<script setup>
+const title = defineModel('title');
+const content = defineModel('content');
+</script>
+```
+
+父组件：
+
+```vue
+<Child v-model:title="pageTitle" v-model:content="pageContent" />
+```
+
+选项：
+
+```js
+const model = defineModel({ default: 'hello', required: true });
+```
+
+**评分维度**：
+- 说明 defineModel 作用（35%）
+- 对比传统写法（25%）
+- 多 v-model（20%）
+- 选项配置（10%）
+- 版本要求（10%）
+
+**常见错误**：
+- 在低于 3.4 版本使用 defineModel
+- 把 defineModel 返回值当成普通 ref 随意解构
+
+**口头回答版**：
+> defineModel 是 Vue 3.4 的编译器宏，简化 v-model 实现。它返回一个 ref，get 读 props.modelValue，set 自动 emit update。多 v-model 用 defineModel('name')。还支持 default、required 这些选项。
+
+---
+
+### FB-16-CO-P-025：Vue 中的 h 函数和 render 函数
+
+**题型**：概念题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、h函数、render函数、VNode
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Vue 中 `h` 函数和 `render` 函数的作用和使用场景。
+
+**参考答案**：
+
+一、`h` 函数：
+
+`h` 是 hyperscript 的缩写，用于创建 VNode（虚拟节点）。
+
+```js
+import { h } from 'vue';
+
+h('div', { class: 'foo' }, 'Hello');
+// 等价于 <div class="foo">Hello</div>
+```
+
+参数：
+
+1. type：标签名、组件、Fragment、Text。
+2. props：属性、事件、class、style。
+3. children：子节点，可以是字符串、数组、插槽函数。
+
+二、`render` 函数：
+
+组件选项中用于替代 template，直接返回 VNode。
+
+```js
+export default {
+  data() {
+    return { msg: 'Hello' };
+  },
+  render() {
+    return h('div', null, this.msg);
+  }
+};
+```
+
+三、使用场景：
+
+1. **动态渲染**：
+   - 根据条件动态生成复杂 DOM 结构。
+
+2. **函数式组件**：
+   - 没有状态，只接收 props 返回 VNode。
+
+3. **JSX**：
+   - JSX 最终编译为 h 函数调用。
+
+4. **组件库封装**：
+   - 需要高度动态化的组件（如 Table、Form render）。
+
+四、与 template 对比：
+
+| 特性 | template | render + h |
+|------|----------|------------|
+| 可读性 | 好 | 差 |
+| 灵活性 | 有限 | 高 |
+| TypeScript | 支持 | 支持 |
+| 编译优化 | 有 | 有限 |
+
+**评分维度**：
+- h 函数作用（30%）
+- render 函数（25%）
+- 使用场景（25%）
+- 与 template 对比（20%）
+
+**常见错误**：
+- 所有组件都用 render 函数，降低可维护性
+- 不理解 h 函数返回值是 VNode
+
+**口头回答版**：
+> h 函数用来创建 VNode，render 函数直接返回 VNode 替代 template。适合动态渲染、函数式组件、组件库里高度动态的组件。template 可读性好，render 更灵活。JSX 最终也是编译成 h 函数。
+
+---
+
+### FB-16-PE-P-026：Vue 应用构建产物优化
+
+**题型**：性能题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、构建优化、Vite、Webpack、性能
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明如何优化 Vue 应用的构建产物，减少首屏加载时间。
+
+**参考答案**：
+
+一、代码分割：
+
+1. 路由级懒加载：`() => import('./views/Home.vue')`。
+2. 组件级懒加载：大型组件、弹窗、编辑器按需加载。
+3. Vite/Rollup 动态 import 自动分包。
+
+二、Tree Shaking：
+
+1. 组件库使用 ES modules 导出。
+2. 避免全局注册所有组件。
+3. 第三方库选择支持 Tree Shaking 的版本。
+
+三、压缩与混淆：
+
+1. 生产环境启用 gzip/brotli 压缩。
+2. 使用 terser/rollup-plugin-terser 压缩 JS。
+3. 图片、字体等资源压缩。
+
+四、资源优化：
+
+1. 使用 CDN 加载公共依赖（权衡缓存和 DNS）。
+2. 小图片转 base64 或 SVG。
+3. 字体按需加载，使用 font-display: swap。
+
+五、构建分析：
+
+1. 使用 `rollup-plugin-visualizer` 或 `webpack-bundle-analyzer`。
+2. 识别大依赖和重复依赖。
+
+六、SSR/SSG：
+
+- 使用 Nuxt 3 做 SSR 或 SSG，减少首屏 JS 执行。
+
+**评分维度**：
+- 代码分割（25%）
+- Tree Shaking（20%）
+- 压缩优化（15%）
+- 资源优化（15%）
+- 构建分析（15%）
+- SSR/SSG（10%）
+
+**常见错误**：
+- 所有组件全局注册导致无法 Tree Shaking
+- 过度分割产生过多小文件
+
+**口头回答版**：
+> Vue 构建产物优化可以按路由和组件懒加载，让组件库支持 Tree Shaking，生产环境压缩加 gzip。用 CDN 放公共依赖，小资源转 base64。用 bundle analyzer 分析大依赖。首屏要求高可以用 Nuxt 做 SSR/SSG。
+
+---
+
+### FB-16-CO-P-026：Vue 中的 Suspense 和 async setup
+
+**题型**：概念题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：16 Vue
+**标签**：Vue、Suspense、async setup、异步组件
+**出现频率**：低频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Vue 中 `async setup` 与 Suspense 的关系，以及使用时的注意事项。
+
+**参考答案**：
+
+一、async setup：
+
+Vue 3 允许 `setup` 函数返回 Promise，此时组件会处于异步加载状态。
+
+```vue
+<script setup>
+const data = await fetchData();
+</script>
+```
+
+二、配合 Suspense：
+
+包含 `async setup` 的组件必须被 `<Suspense>` 包裹，否则不会显示 fallback。
+
+```vue
+<template>
+  <Suspense>
+    <template #default>
+      <AsyncComponent />
+    </template>
+    <template #fallback>
+      <Loading />
+    </template>
+  </Suspense>
+</template>
+```
+
+三、注意事项：
+
+1. **错误处理**：
+   - async setup 中抛出的错误需要配合 `onErrorCaptured` 或 Error Boundary 处理。
+
+2. **生命周期**：
+   - 异步 setup 中，onMounted 等钩子要等 await 完成后才注册？不，onMounted 注册时机与同步 setup 相同，但回调执行在组件挂载后。
+
+3. **script setup 顶层 await**：
+   - `<script setup>` 支持顶层 await，编译后会自动包裹为 async setup。
+
+4. **实验性**：
+   - Suspense 在 Vue 3 中仍是实验性特性，生产环境使用需谨慎。
+
+四、替代方案：
+
+- 如果不使用 Suspense，可以在 setup 中返回 loading 状态，手动控制 UI。
+
+**评分维度**：
+- async setup 说明（30%）
+- Suspense 配合（25%）
+- 错误处理（15%）
+- 顶层 await（15%）
+- 实验性状态（15%）
+
+**常见错误**：
+- async setup 组件没有包 Suspense
+- 忽略异步 setup 中的错误处理
+
+**口头回答版**：
+> Vue 3 支持 async setup，可以在 setup 里 await 数据。script setup 里顶层 await 会自动编译成 async setup。这种组件要包在 Suspense 里才会显示 fallback。错误处理要用 onErrorCaptured。Suspense 目前还是实验性，生产环境要谨慎。
+
+---
+
+### FB-16-SD-R-041：Vue 设计系统与组件库架构
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：16 Vue
+**标签**：Vue、设计系统、组件库、架构、Design Token
+**出现频率**：中频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个基于 Vue 3 的企业级设计系统和组件库架构。
+
+**参考答案**：
+
+一、目录结构：
+
+```text
+packages/
+  theme/           # Design Token、CSS 变量
+  components/      # Vue 组件库
+  icons/           # 图标库
+  utils/           # 工具函数
+  docs/            # 文档站点
+playground/        # 示例和调试
+```
+
+二、Design Token：
+
+```css
+:root {
+  --v-color-primary: #1890ff;
+  --v-spacing-md: 16px;
+  --v-radius-base: 4px;
+}
+```
+
+使用 CSS 变量，支持运行时主题切换。
+
+三、组件设计：
+
+1. 使用 script setup + TypeScript。
+2. props 声明类型和默认值。
+3. 提供 unstyled/headless 选项，方便业务定制。
+4. 组件样式使用 CSS Modules 或 BEM，避免污染。
+
+四、Monorepo 与构建：
+
+1. pnpm workspace + Turborepo。
+2. Vite 构建库模式：`build.lib`。
+3. 输出 ES/CJS/UMD 和类型声明。
+4. 支持按需引入和 Tree Shaking。
+
+五、文档与示例：
+
+1. 使用 VitePress 或 Storybook。
+2. 每个组件有 Playground 和 API 文档。
+3. 视觉回归测试用 Chromatic。
+
+六、主题与定制：
+
+1. 通过 CSS 变量覆盖主题。
+2. 提供 ConfigProvider 注入配置。
+3. 支持暗色模式和业务品牌色。
+
+**评分维度**：
+- 目录结构（20%）
+- Design Token（20%）
+- 组件设计（20%）
+- Monorepo 构建（20%）
+- 文档与主题（20%）
+
+**常见错误**：
+- 组件样式没有隔离，容易全局污染
+- 组件库强依赖业务框架
+
+**口头回答版**：
+> Vue 设计系统可以分 theme、components、icons、utils 几个包。用 CSS 变量做 Design Token，组件用 script setup + TS，样式用 CSS Modules 或 BEM。Monorepo 用 pnpm + Turborepo，Vite 构建库模式输出 ES/CJS/UMD。文档用 VitePress 或 Storybook，主题通过 ConfigProvider 和 CSS 变量切换。
+
+---
+
+### FB-16-SD-R-042：Vue 应用性能监控体系
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：16 Vue
+**标签**：Vue、性能监控、Web Vitals、错误监控
+**出现频率**：中频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个 Vue 应用的性能监控体系，覆盖运行时性能、构建性能和用户体验。
+
+**参考答案**：
+
+一、运行时性能：
+
+1. **Web Vitals**：LCP、INP、CLS、FCP、TTFB。
+2. **Vue 特定指标**：
+   - 组件渲染耗时（使用 Vue DevTools Profiler 或自定义性能标记）。
+   - 路由切换耗时。
+   - Pinia/Vuex mutation 耗时。
+
+3. **长任务监控**：PerformanceObserver 监听 longtask。
+
+二、构建性能：
+
+1. Vite/Webpack 构建耗时趋势。
+2. 产物体积分析（rollup-plugin-visualizer）。
+3. 依赖大小和重复依赖。
+
+三、用户体验：
+
+1. 首屏加载时间。
+2. 白屏率、错误率。
+3. 用户交互响应延迟。
+
+四、数据采集：
+
+1. 采样上报，避免影响主线程。
+2. 与版本、路由、用户环境关联。
+3. 敏感信息脱敏。
+
+五、告警与优化：
+
+1. P75/P95 阈值告警。
+2. 性能回归测试。
+3. 定期生成性能报告。
+
+六、工具：
+
+- Sentry、Datadog、阿里云 ARMS。
+- Lighthouse CI、Web Vitals 库。
+
+**评分维度**：
+- 运行时性能（30%）
+- 构建性能（15%）
+- 用户体验（20%）
+- 采集与告警（20%）
+- 工具选择（15%）
+
+**常见错误**：
+- 只监控错误不监控性能
+- 全量上报影响应用性能
+
+**口头回答版**：
+> Vue 性能监控要采集 Web Vitals、组件渲染耗时、路由切换时长、长任务。构建看耗时和产物体积。用户体验看首屏、白屏、交互延迟。数据采样上报、脱敏，和版本环境关联。设 P75/P95 阈值告警，用 Sentry、Lighthouse 这些工具。
+
+---
+
+### FB-16-SD-R-043：Vue 微前端改造方案
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：16 Vue
+**标签**：Vue、微前端、qiankun、Module Federation
+**出现频率**：中频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请说明如何将一个大型 Vue 单体应用改造为微前端架构。
+
+**参考答案**：
+
+一、拆分策略：
+
+1. 按业务域拆分子应用：订单、商品、用户等。
+2. 先抽出公共组件库和工具函数。
+3. 基座应用负责路由、鉴权、全局状态。
+
+二、技术选型：
+
+1. **qiankun**：适合按路由加载独立 Vue 子应用。
+2. **Module Federation**：适合共享 Vue 组件和模块。
+3. **iframe**：简单隔离，体验差，临时方案。
+
+三、Vue 特有问题：
+
+1. **Vue 全局配置冲突**：
+   - 各子应用使用独立的 Vue 实例。
+   - 避免全局 mixin、全局 directive 冲突。
+
+2. **路由冲突**：
+   - 子应用使用 hash 模式或 base 路径。
+   - 基座统一 history 路由。
+
+3. **样式隔离**：
+   - CSS Modules、BEM、Scoped CSS。
+   - qiankun 提供 experimentalStyleIsolation。
+
+4. **公共依赖共享**：
+   - Vue、VueRouter、Pinia 通过 Module Federation shared 共享。
+
+四、改造步骤：
+
+1. 搭建基座，注册子应用。
+2. 改造子应用导出生命周期。
+3. 迁移公共逻辑到共享包。
+4. 逐步切换流量，支持回滚。
+
+**评分维度**：
+- 拆分策略（20%）
+- 技术选型（20%）
+- Vue 特有问题（35%）
+- 改造步骤（15%）
+- 回滚能力（10%）
+
+**常见错误**：
+- 多个子应用共享一个 Vue 实例
+- 样式没有隔离导致互相污染
+
+**口头回答版**：
+> Vue 微前端改造按业务域拆分子应用，先抽公共库。技术选 qiankun 或 Module Federation。要注意 Vue 全局配置冲突、路由冲突、样式隔离、公共依赖共享。子应用导出生命周期，基座统一路由和鉴权。逐步迁移并保留回滚能力。
+
+---
+
+### FB-16-SD-R-044：Vue SSR 缓存策略
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：16 Vue
+**标签**：Vue、SSR、缓存、Nuxt、性能
+**出现频率**：中频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个 Vue SSR 应用的缓存策略，降低服务端压力和提升首屏速度。
+
+**参考答案**：
+
+一、缓存分层：
+
+| 层级 | 策略 | 场景 |
+|------|------|------|
+| CDN | 整页缓存 | 公开页面、不依赖登录态 |
+| Edge | 边缘渲染 | 低延迟、多地域 |
+| 应用内存 | 页面片段缓存 | 热门页面、稳定内容 |
+| 数据缓存 | SWR/React Query | API 响应缓存 |
+| 浏览器 | HTTP Cache / SW | 静态资源、重复访问 |
+
+二、Nuxt 策略：
+
+1. **SSG**：`nuxt generate` 构建时生成静态页面。
+2. **ISR**：`routeRules` 中设置 `isr: 60` 实现增量静态再生。
+3. **SSR**：每次请求服务端渲染，适合个性化页面。
+4. **Hybrid Rendering**：不同路由用不同渲染模式。
+
+三、缓存失效：
+
+1. 按 TTL 失效。
+2. 通过 webhook 主动刷新。
+3. 版本发布时全量失效。
+
+四、个性化处理：
+
+- 登录态页面使用 ESI 或部分缓存。
+- 缓存 key 包含语言、设备类型、用户角色。
+
+五、监控：
+
+- 缓存命中率。
+- SSR 渲染耗时。
+- 缓存失效后的错误率。
+
+**评分维度**：
+- 缓存分层（30%）
+- Nuxt 策略（25%）
+- 失效策略（15%）
+- 个性化处理（15%）
+- 监控（15%）
+
+**常见错误**：
+- 登录态页面错误缓存
+- 缓存时间过长导致内容陈旧
+
+**口头回答版**：
+> Vue SSR 缓存分 CDN、Edge、应用内存、数据、浏览器多层。Nuxt 可以用 SSG、ISR、SSR 和混合渲染。缓存按 TTL 失效或主动刷新。登录态页面不能全缓存，用 ESI 或部分缓存，key 里加语言、设备、角色。监控命中率和渲染耗时。
+
+---
+
+### FB-16-SD-R-045：Vue 应用安全架构
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：16 Vue
+**标签**：Vue、安全、XSS、CSRF、CSP
+**出现频率**：中频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个 Vue 应用的安全架构，覆盖常见前端安全风险。
+
+**参考答案**：
+
+一、输入安全：
+
+1. 不信任任何用户输入。
+2. 表单校验前后端都做。
+3. URL 参数校验和过滤。
+
+二、输出安全：
+
+1. **XSS 防护**：
+   - Vue 模板默认转义变量。
+   - 谨慎使用 `v-html`，必须做 HTML 消毒（DOMPurify）。
+   - 配置 CSP。
+
+2. **URL 安全**：
+   - 避免 `javascript:` 链接。
+   - 使用 encodeURIComponent。
+
+三、认证与授权：
+
+1. Token 存 httpOnly cookie。
+2. 前端路由权限校验，后端最终鉴权。
+3. 敏感操作二次验证。
+
+四、依赖安全：
+
+1. 定期 `pnpm audit`，使用 Snyk。
+2. 锁定 lockfile。
+3. 第三方 CDN 资源加 SRI。
+
+五、安全头：
+
+- CSP、X-Frame-Options、HSTS、X-Content-Type-Options。
+
+六、监控与响应：
+
+1. 错误监控和异常上报。
+2. 安全事件应急预案。
+3. 定期渗透测试。
+
+**评分维度**：
+- 输入输出安全（30%）
+- XSS 防护（25%）
+- 认证授权（15%）
+- 依赖安全（15%）
+- 安全头和监控（15%）
+
+**常见错误**：
+- 依赖 Vue 默认转义，忽略 v-html 风险
+- Token 放 localStorage
+
+**口头回答版**：
+> Vue 安全架构要做好输入校验、输出转义，v-html 必须消毒。Token 放 httpOnly cookie，路由做权限校验但后端最终鉴权。依赖要定期 audit，第三方 CDN 加 SRI。配置 CSP 等安全头，错误监控和定期渗透测试。
+
+---
+
+### FB-16-SD-R-046：Vue 低代码平台设计
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：16 Vue
+**标签**：Vue、低代码、Schema、渲染器、设计器
+**出现频率**：低频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个基于 Vue 3 的低代码平台，支持拖拽搭建页面和发布。
+
+**参考答案**：
+
+一、核心架构：
+
+```
+设计器（画布 + 组件面板 + 属性面板）
+    ↓
+页面 Schema（JSON DSL）
+    ↓
+渲染器（解析 Schema 渲染 Vue 组件树）
+    ↓
+出码/发布
+```
+
+二、设计器：
+
+1. 组件面板展示内置组件和业务组件。
+2. 画布支持拖拽、选中、撤销重做。
+3. 属性面板根据组件 schema 动态生成表单。
+
+三、Schema 设计：
+
+```json
+{
+  "type": "Page",
+  "props": {},
+  "children": [
+    { "type": "Button", "props": { "text": "提交" } }
+  ]
+}
+```
+
+四、渲染器：
+
+1. 递归解析 schema，映射到 Vue 组件。
+2. 提供运行时上下文（数据、事件、路由）。
+3. 支持组件懒加载和错误边界。
+
+五、扩展性：
+
+1. 组件注册机制。
+2. 插件系统扩展属性面板和事件。
+3. 数据源绑定 REST/GraphQL。
+
+六、发布：
+
+1. 直接发布为可访问页面。
+2. 导出 Vue 源码。
+3. 版本管理和回滚。
+
+**评分维度**：
+- 架构完整（30%）
+- 设计器（20%）
+- Schema 和渲染器（25%）
+- 扩展性和发布（15%）
+- 版本管理（10%）
+
+**常见错误**：
+- Schema 过于灵活难以出码
+- 忽略组件版本管理
+
+**口头回答版**：
+> Vue 低代码平台分设计器、Schema DSL、渲染器三层。设计器拖拽生成 JSON Schema，渲染器递归解析成 Vue 组件。要支持组件注册、插件扩展、数据源绑定。发布可以直接部署或出码，还要做版本管理和回滚。
+
+---
+
+### FB-16-SD-R-047：Vue 组件库跨框架支持
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：16 Vue
+**标签**：Vue、跨框架、Web Components、Headless
+**出现频率**：低频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个同时支持 Vue 和 React 的组件库方案。
+
+**参考答案**：
+
+一、方案选型：
+
+1. **Headless UI + 框架适配层**（推荐）：
+   - 核心逻辑用 vanilla JS 实现。
+   - Vue 和 React 分别做适配层。
+
+2. **Web Components**：
+   - 用 Custom Elements 封装，框架无关。
+   - 但表单集成、事件、样式隔离复杂。
+
+3. **独立维护**：
+   - Vue 组件库和 React 组件库分开。
+   - 设计统一，API 贴近各自框架习惯。
+
+二、Headless + Adapter 架构：
+
+```text
+packages/
+  core/     # 框架无关逻辑
+  vue/      # Vue 适配
+  react/    # React 适配
+  theme/    # 共享样式
+```
+
+三、核心逻辑：
+
+1. 用状态机描述组件行为。
+2. 纯函数处理键盘导航、焦点管理。
+3. Vue/React 适配层负责绑定状态和事件。
+
+四、样式共享：
+
+- CSS 变量或原子类。
+- Design Token 跨框架共享。
+
+五、注意事项：
+
+1. API 命名贴近各框架习惯。
+2. 文档和示例分开。
+3. 版本协调，避免功能不同步。
+4. 测试覆盖全面。
+
+**评分维度**：
+- 方案选型（30%）
+- Headless 架构（30%）
+- 核心逻辑抽象（20%）
+- 样式和版本（15%）
+- 注意事项（5%）
+
+**常见错误**：
+- 强行用 Web Components 导致集成复杂
+- 两套代码完全独立，API 不一致
+
+**口头回答版**：
+> 跨框架组件库推荐 Headless 加适配层。核心逻辑用 vanilla JS 写，Vue 和 React 分别绑定。样式用 CSS 变量共享。也可以 Web Components，但集成复杂。注意 API 贴近框架习惯，文档分开，版本协调。
+
+---
+
+### FB-16-SD-R-048：Vue 项目国际化架构
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：16 Vue
+**标签**：Vue、i18n、国际化、SSR、架构
+**出现频率**：中频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个 Vue 应用的国际化架构，支持多语言、SSR 和组件库文案。
+
+**参考答案**：
+
+一、技术选型：
+
+1. **vue-i18n**：生态成熟，Vue 官方推荐。
+2. **@intlify/vue-i18n**：Vue 3 版本。
+3. Nuxt 项目可用 `@nuxtjs/i18n`。
+
+二、文案管理：
+
+1. 按页面/模块组织 namespace。
+2. key 命名：`module.component.action`。
+3. 公共文案放 common。
+4. 组件库文案通过插件或 ConfigProvider 注入。
+
+三、SSR 支持：
+
+1. 服务端根据请求 locale 加载语言包。
+2. 将语言包注入 HTML，避免客户端重新请求。
+3. Nuxt 使用 `@nuxtjs/i18n` 自动处理。
+
+四、语言切换：
+
+1. 用户选择持久化到 cookie/localStorage。
+2. 浏览器语言自动匹配，支持回退。
+3. 切换语言时刷新相关数据。
+
+五、RTL 和排版：
+
+1. 支持 RTL 语言。
+2. 使用 CSS logical properties。
+3. 日期、数字、货币用 Intl API。
+
+六、流程：
+
+1. 开发时写 key。
+2. CI 提取 key 给翻译平台。
+3. 翻译完成后同步回仓库。
+4. 部署时按语言分包或全量打包。
+
+**评分维度**：
+- 技术选型（15%）
+- 文案管理（25%）
+- SSR 支持（20%）
+- 语言切换（15%）
+- RTL 和流程（15%）
+- 组件库集成（10%）
+
+**常见错误**：
+- 文案散落代码各处
+- SSR 语言包加载不一致导致 hydration 问题
+
+**口头回答版**：
+> Vue 国际化常用 vue-i18n。文案按模块分 namespace，组件库文案通过 ConfigProvider 注入。SSR 要根据请求 locale 加载语言包并注入 HTML。语言切换持久化，支持浏览器匹配和 RTL。开发不写死文案，CI 提取给翻译平台。
+
+---

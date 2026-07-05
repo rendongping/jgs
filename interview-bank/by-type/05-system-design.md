@@ -1,7 +1,7 @@
 # 系统设计题
 
 > 本文件按题型收录 **系统设计题** 相关前端面试题索引。
-> 共收录 **399** 道题（基础 4 / 进阶 22 / 深入 55 / 架构 318）。
+> 共收录 **475** 道题（基础 4 / 进阶 26 / 深入 62 / 架构 383）。
 > 每道题都附带完整参考答案与评分维度，点击链接可查看原文。
 
 ## 基础题（4 道）{#basic}
@@ -22,7 +22,7 @@
 
 - [FB-32-SD-B-001 如何设计 WebSocket 重连机制？](../by-domain/32-real-time.md#FB-32-SD-B-001)
 
-## 进阶题（22 道）{#advanced}
+## 进阶题（26 道）{#advanced}
 
 ### 可访问性（a11y）（1 道）
 
@@ -58,10 +58,12 @@
 
 - [FB-24-SD-A-002 如何设计一个前端 RUM SDK？](../by-domain/24-frontend-operations.md#FB-24-SD-A-002)
 
-### 系统架构设计（2 道）
+### 系统架构设计（4 道）
 
 - [FB-25-SD-A-002 设计一个支持多终端接入的 BFF 层](../by-domain/25-system-architecture.md#FB-25-SD-A-002)
 - [FB-25-SD-A-012 设计一个前端实时协同编辑系统的架构](../by-domain/25-system-architecture.md#FB-25-SD-A-012)
+- [FB-25-SD-A-013 设计一个前端错误边界与降级渲染体系](../by-domain/25-system-architecture.md#FB-25-SD-A-013)
+- [FB-25-SD-A-014 设计一个前端日志与审计系统](../by-domain/25-system-architecture.md#FB-25-SD-A-014)
 
 ### 数据与状态管理（2 道）
 
@@ -94,7 +96,12 @@
 
 - [FB-42-SD-A-001 如何设计一份好的代码作业？](../by-domain/42-hiring.md#FB-42-SD-A-001)
 
-## 深入题（55 道）{#proficient}
+### 低代码（2 道）
+
+- [FB-52-SD-A-001 低代码平台的组件库如何设计才能兼顾灵活性和一致性？](../by-domain/52-low-code.md#FB-52-SD-A-001)
+- [FB-52-SD-A-002 低代码平台如何做版本管理和回滚？](../by-domain/52-low-code.md#FB-52-SD-A-002)
+
+## 深入题（62 道）{#proficient}
 
 ### JavaScript（2 道）
 
@@ -113,10 +120,11 @@
 
 - [FB-04-SD-P-001 如何设计一个高可用的前端网络请求层？](../by-domain/04-network.md#FB-04-SD-P-001)
 
-### Monorepo（2 道）
+### Monorepo（3 道）
 
 - [FB-11-SD-P-001 如何设计 Monorepo 的模块边界规则？](../by-domain/11-monorepo.md#FB-11-SD-P-001)
 - [FB-11-SD-P-019 如何设计 Monorepo 下的包级权限模型？](../by-domain/11-monorepo.md#FB-11-SD-P-019)
+- [FB-11-SD-P-020 如何设计 Monorepo 的变更影响分析？](../by-domain/11-monorepo.md#FB-11-SD-P-020)
 
 ### CI/CD（5 道）
 
@@ -134,7 +142,7 @@
 
 - [FB-17-SD-P-052 如何设计一个跨端组件库？](../by-domain/17-cross-platform.md#FB-17-SD-P-052)
 
-### AI 工程化（7 道）
+### AI 工程化（8 道）
 
 - [FB-18-SD-P-017 如何设计一个前端 RAG 客服系统？](../by-domain/18-ai-engineering.md#FB-18-SD-P-017)
 - [FB-18-SD-P-018 如何设计一个支持多模态输入的 AI 创作工作台？](../by-domain/18-ai-engineering.md#FB-18-SD-P-018)
@@ -143,6 +151,7 @@
 - [FB-18-SD-P-055 如何设计一个支持多模型切换的 AI 应用层？](../by-domain/18-ai-engineering.md#FB-18-SD-P-055)
 - [FB-18-SD-P-056 设计一个支持 Agent 工作流的前端交互框架。](../by-domain/18-ai-engineering.md#FB-18-SD-P-056)
 - [FB-18-SD-P-057 设计一个 LLM 可观测性方案，前端需要关注哪些指标？](../by-domain/18-ai-engineering.md#FB-18-SD-P-057)
+- [FB-18-SD-P-058 如何设计 AI Agent 的工作流？](../by-domain/18-ai-engineering.md#FB-18-SD-P-058)
 
 ### Node.js / BFF（1 道）
 
@@ -176,20 +185,22 @@
 - [FB-25-SD-P-009 设计一个电商系统的前端状态管理方案，说明如何组织状态。](../by-domain/25-system-architecture.md#FB-25-SD-P-009)
 - [FB-25-SD-P-010 如何设计一个可扩展的前端组件库？](../by-domain/25-system-architecture.md#FB-25-SD-P-010)
 
-### 微前端（3 道）
+### 微前端（4 道）
 
 - [FB-26-SD-P-018 微前端下全局状态应该如何设计？单一 Store 还是各自 Store + 事件同步？](../by-domain/26-micro-frontend.md#FB-26-SD-P-018)
 - [FB-26-SD-P-019 微前端路由协调的深入问题有哪些？如何解决？](../by-domain/26-micro-frontend.md#FB-26-SD-P-019)
 - [FB-26-SD-P-020 如果微前端子应用需要共享状态，你会如何设计？](../by-domain/26-micro-frontend.md#FB-26-SD-P-020)
+- [FB-26-SD-P-021 设计微前端下的路由与导航体系](../by-domain/26-micro-frontend.md#FB-26-SD-P-021)
 
 ### 质量保障（1 道）
 
 - [FB-28-SD-P-001 如何设计一个高效的 Code Review 流程？](../by-domain/28-quality.md#FB-28-SD-P-001)
 
-### 数据与状态管理（2 道）
+### 数据与状态管理（3 道）
 
 - [FB-29-SD-P-001 设计一个支持离线编辑的协同文档应用的数据层。](../by-domain/29-data-state.md#FB-29-SD-P-001)
 - [FB-29-SD-P-002 如何设计一个大型前端应用的状态管理架构？](../by-domain/29-data-state.md#FB-29-SD-P-002)
+- [FB-29-SD-P-003 设计一个前端配置化表单状态引擎](../by-domain/29-data-state.md#FB-29-SD-P-003)
 
 ### 可观测性（3 道）
 
@@ -201,14 +212,16 @@
 
 - [FB-33-SD-P-001 如何设计大规模多语言前端平台？](../by-domain/33-internationalization.md#FB-33-SD-P-001)
 
-### 技术战略（2 道）
+### 技术战略（3 道）
 
 - [FB-39-SD-P-001 请设计一套前端技术选型决策框架。](../by-domain/39-strategy.md#FB-39-SD-P-001)
 - [FB-39-SD-P-004 请设计一个前端中台的演进路线与治理机制。](../by-domain/39-strategy.md#FB-39-SD-P-004)
+- [FB-39-SD-P-005 如何为一个快速增长的公司设计可演进的前端架构蓝图？](../by-domain/39-strategy.md#FB-39-SD-P-005)
 
-### 项目管理（1 道）
+### 项目管理（2 道）
 
 - [FB-41-SD-P-002 设计一个前端技术项目的治理框架（Governance Framework）。](../by-domain/41-project-management.md#FB-41-SD-P-002)
+- [FB-41-SD-P-003 如何从 0 到 1 建立前端项目的风险管理体系？](../by-domain/41-project-management.md#FB-41-SD-P-003)
 
 ### 招聘（2 道）
 
@@ -224,15 +237,16 @@
 - [FB-44-SD-P-001 设计一个前端技术治理平台。](../by-domain/44-tech-governance.md#FB-44-SD-P-001)
 - [FB-44-SD-P-002 如何设计前端灾备与业务连续性方案？](../by-domain/44-tech-governance.md#FB-44-SD-P-002)
 
-### 低代码（1 道）
+### 低代码（2 道）
 
 - [FB-52-SD-P-002 如何设计一个低代码页面渲染引擎？](../by-domain/52-low-code.md#FB-52-SD-P-002)
+- [FB-52-SD-P-003 低代码平台的数据权限模型如何设计？](../by-domain/52-low-code.md#FB-52-SD-P-003)
 
 ### 行业特化（1 道）
 
 - [FB-56-SD-P-001 设计一个支持多行业的低代码平台前端架构](../by-domain/56-industry.md#FB-56-SD-P-001)
 
-## 架构题（318 道）{#architect}
+## 架构题（383 道）{#architect}
 
 ### JavaScript（3 道）
 
@@ -288,7 +302,7 @@
 - [FB-09-SD-R-001 设计一个前端跨页面/跨 iframe 的事件总线。](../by-domain/09-design-patterns.md#FB-09-SD-R-001)
 - [FB-09-SD-R-002 设计一个前端权限控制系统。](../by-domain/09-design-patterns.md#FB-09-SD-R-002)
 
-### 构建工具（6 道）
+### 构建工具（7 道）
 
 - [FB-10-SD-R-001 设计一个企业级前端构建体系。](../by-domain/10-build-tools.md#FB-10-SD-R-001)
 - [FB-10-SD-R-002 设计一个前端产物发布与回滚系统。](../by-domain/10-build-tools.md#FB-10-SD-R-002)
@@ -296,8 +310,9 @@
 - [FB-10-SD-R-004 设计一个企业级前端构建产物质量门禁体系](../by-domain/10-build-tools.md#FB-10-SD-R-004)
 - [FB-10-SD-R-005 设计一个支持多构建工具统一配置的前端工程平台](../by-domain/10-build-tools.md#FB-10-SD-R-005)
 - [FB-10-SD-R-007 设计一个企业级 Monorepo 构建平台。](../by-domain/10-build-tools.md#FB-10-SD-R-007)
+- [FB-10-SD-R-008 设计一个前端构建产物分析平台](../by-domain/10-build-tools.md#FB-10-SD-R-008)
 
-### Monorepo（17 道）
+### Monorepo（18 道）
 
 - [FB-11-SD-R-001 设计一个大型前端 Monorepo 的整体架构。](../by-domain/11-monorepo.md#FB-11-SD-R-001)
 - [FB-11-SD-R-002 如何从 Multirepo 迁移到 Monorepo？](../by-domain/11-monorepo.md#FB-11-SD-R-002)
@@ -316,8 +331,9 @@
 - [FB-11-SD-R-017 如何设计 Monorepo 的构建可观测性体系？](../by-domain/11-monorepo.md#FB-11-SD-R-017)
 - [FB-11-SD-R-019 如何设计 Monorepo 下的 AI Coding 辅助策略？](../by-domain/11-monorepo.md#FB-11-SD-R-019)
 - [FB-11-SD-R-020 如何制定 Monorepo 的长期演进路线图？](../by-domain/11-monorepo.md#FB-11-SD-R-020)
+- [FB-11-SD-R-021 设计一个企业级 Monorepo 治理方案](../by-domain/11-monorepo.md#FB-11-SD-R-021)
 
-### CI/CD（18 道）
+### CI/CD（19 道）
 
 - [FB-12-SD-R-001 如何设计基于 GitOps 的前端持续交付系统？](../by-domain/12-ci-cd.md#FB-12-SD-R-001)
 - [FB-12-SD-R-002 如何设计零停机全球前端部署方案？](../by-domain/12-ci-cd.md#FB-12-SD-R-002)
@@ -337,8 +353,9 @@
 - [FB-12-SD-R-021 如何设计 CI/CD 中的混沌工程实践？](../by-domain/12-ci-cd.md#FB-12-SD-R-021)
 - [FB-12-SD-R-022 如何设计前端全链路可观测与发布联动？](../by-domain/12-ci-cd.md#FB-12-SD-R-022)
 - [FB-12-SD-R-024 如何设计下一代云原生前端交付平台？](../by-domain/12-ci-cd.md#FB-12-SD-R-024)
+- [FB-12-SD-R-025 设计一个多环境、多地域的部署平台](../by-domain/12-ci-cd.md#FB-12-SD-R-025)
 
-### 代码质量与测试（19 道）
+### 代码质量与测试（20 道）
 
 - [FB-13-SD-R-001 如何为大型前端项目设计一套完整的测试策略？](../by-domain/13-code-quality.md#FB-13-SD-R-001)
 - [FB-13-SD-R-002 Monorepo 中的测试策略与单仓库有什么不同？](../by-domain/13-code-quality.md#FB-13-SD-R-002)
@@ -359,8 +376,9 @@
 - [FB-13-SD-R-017 如何设计前端灰度发布与线上质量验证机制？](../by-domain/13-code-quality.md#FB-13-SD-R-017)
 - [FB-13-SD-R-018 如何设计前端全链路可观测的质量保障体系？](../by-domain/13-code-quality.md#FB-13-SD-R-018)
 - [FB-13-SD-R-019 如何为前端低代码平台设计测试策略？](../by-domain/13-code-quality.md#FB-13-SD-R-019)
+- [FB-13-SD-R-032 设计一个前端质量保障平台](../by-domain/13-code-quality.md#FB-13-SD-R-032)
 
-### 设计系统与组件库（14 道）
+### 设计系统与组件库（17 道）
 
 - [FB-14-SD-R-001 如何设计一个跨框架（React/Vue/Svelte）的组件库？](../by-domain/14-design-system.md#FB-14-SD-R-001)
 - [FB-14-SD-R-002 如何设计一套 DesignOps 与设计系统平台？](../by-domain/14-design-system.md#FB-14-SD-R-002)
@@ -376,8 +394,11 @@
 - [FB-14-SD-R-012 如何设计组件库的长期演进与 Deprecation 战略？](../by-domain/14-design-system.md#FB-14-SD-R-012)
 - [FB-14-SD-R-013 如何保障组件库在微前端架构下的样式与行为隔离？](../by-domain/14-design-system.md#FB-14-SD-R-013)
 - [FB-14-SD-R-014 如何设计一套组件库的语义化版本自动化与变更管理？](../by-domain/14-design-system.md#FB-14-SD-R-014)
+- [FB-14-SD-R-015 如何设计组件库的 CI/CD 与发布流水线？](../by-domain/14-design-system.md#FB-14-SD-R-015)
+- [FB-14-SD-R-016 如何构建组件库的开发者体验（DX）？](../by-domain/14-design-system.md#FB-14-SD-R-016)
+- [FB-14-SD-R-017 如何设计组件库的暗色/浅色主题自动切换？](../by-domain/14-design-system.md#FB-14-SD-R-017)
 
-### React（13 道）
+### React（21 道）
 
 - [FB-15-SD-R-027 大型 React 项目中如何选择状态管理方案？](../by-domain/15-react.md#FB-15-SD-R-027)
 - [FB-15-SD-R-028 如何系统地对 React 应用做性能优化？](../by-domain/15-react.md#FB-15-SD-R-028)
@@ -392,8 +413,16 @@
 - [FB-15-SD-R-063 如何设计一个基于 React 的 AI 应用前端架构？](../by-domain/15-react.md#FB-15-SD-R-063)
 - [FB-15-SD-R-064 React 跨平台方案如何选型？](../by-domain/15-react.md#FB-15-SD-R-064)
 - [FB-15-SD-R-065 React 项目的可观测性体系如何设计？](../by-domain/15-react.md#FB-15-SD-R-065)
+- [FB-15-SD-R-066 设计一个 React 状态管理方案](../by-domain/15-react.md#FB-15-SD-R-066)
+- [FB-15-SD-R-067 如何设计 React 应用的性能监控体系？](../by-domain/15-react.md#FB-15-SD-R-067)
+- [FB-15-SD-R-068 设计一个 React 组件的低代码平台](../by-domain/15-react.md#FB-15-SD-R-068)
+- [FB-15-SD-R-069 React 项目如何进行微前端改造？](../by-domain/15-react.md#FB-15-SD-R-069)
+- [FB-15-SD-R-070 如何设计 React SSR 的缓存策略？](../by-domain/15-react.md#FB-15-SD-R-070)
+- [FB-15-SD-R-071 React 组件库如何支持多框架？](../by-domain/15-react.md#FB-15-SD-R-071)
+- [FB-15-SD-R-072 如何设计 React 应用的安全体系？](../by-domain/15-react.md#FB-15-SD-R-072)
+- [FB-15-SD-R-073 React 项目如何做国际化架构？](../by-domain/15-react.md#FB-15-SD-R-073)
 
-### Vue（15 道）
+### Vue（23 道）
 
 - [FB-16-SD-R-026 如何设计一个大型的 Vue 前端应用架构？](../by-domain/16-vue.md#FB-16-SD-R-026)
 - [FB-16-SD-R-027 如何设计一个高质量的 Vue 组件库？](../by-domain/16-vue.md#FB-16-SD-R-027)
@@ -410,8 +439,16 @@
 - [FB-16-SD-R-038 Vue 服务端渲染（SSR）架构如何设计？](../by-domain/16-vue.md#FB-16-SD-R-038)
 - [FB-16-SD-R-039 Vue 中实现设计系统与主题定制的架构方案是什么？](../by-domain/16-vue.md#FB-16-SD-R-039)
 - [FB-16-SD-R-040 Vue 应用从 0 到 1 的技术选型与演进路线如何规划？](../by-domain/16-vue.md#FB-16-SD-R-040)
+- [FB-16-SD-R-041 Vue 设计系统与组件库架构](../by-domain/16-vue.md#FB-16-SD-R-041)
+- [FB-16-SD-R-042 Vue 应用性能监控体系](../by-domain/16-vue.md#FB-16-SD-R-042)
+- [FB-16-SD-R-043 Vue 微前端改造方案](../by-domain/16-vue.md#FB-16-SD-R-043)
+- [FB-16-SD-R-044 Vue SSR 缓存策略](../by-domain/16-vue.md#FB-16-SD-R-044)
+- [FB-16-SD-R-045 Vue 应用安全架构](../by-domain/16-vue.md#FB-16-SD-R-045)
+- [FB-16-SD-R-046 Vue 低代码平台设计](../by-domain/16-vue.md#FB-16-SD-R-046)
+- [FB-16-SD-R-047 Vue 组件库跨框架支持](../by-domain/16-vue.md#FB-16-SD-R-047)
+- [FB-16-SD-R-048 Vue 项目国际化架构](../by-domain/16-vue.md#FB-16-SD-R-048)
 
-### 跨端技术（16 道）
+### 跨端技术（21 道）
 
 - [FB-17-SD-R-024 如何设计一个大型跨端应用的架构？](../by-domain/17-cross-platform.md#FB-17-SD-R-024)
 - [FB-17-SD-R-025 跨端应用的数据层和状态共享如何设计？](../by-domain/17-cross-platform.md#FB-17-SD-R-025)
@@ -429,8 +466,13 @@
 - [FB-17-SD-R-063 跨端应用如何与原生应用形成混合架构？](../by-domain/17-cross-platform.md#FB-17-SD-R-063)
 - [FB-17-SD-R-064 跨端应用如何建立性能度量体系和性能基线？](../by-domain/17-cross-platform.md#FB-17-SD-R-064)
 - [FB-17-SD-R-065 跨端应用的长期演进和技术债务如何治理？](../by-domain/17-cross-platform.md#FB-17-SD-R-065)
+- [FB-17-SD-R-066 跨端应用安全架构](../by-domain/17-cross-platform.md#FB-17-SD-R-066)
+- [FB-17-SD-R-067 跨端应用 CI/CD 与热更新](../by-domain/17-cross-platform.md#FB-17-SD-R-067)
+- [FB-17-SD-R-068 跨端应用性能度量体系](../by-domain/17-cross-platform.md#FB-17-SD-R-068)
+- [FB-17-SD-R-069 跨端应用与原生应用混合架构](../by-domain/17-cross-platform.md#FB-17-SD-R-069)
+- [FB-17-SD-R-070 跨端技术长期演进规划](../by-domain/17-cross-platform.md#FB-17-SD-R-070)
 
-### AI 工程化（8 道）
+### AI 工程化（9 道）
 
 - [FB-18-SD-R-025 如何设计一个前端 AI Copilot 的架构？](../by-domain/18-ai-engineering.md#FB-18-SD-R-025)
 - [FB-18-SD-R-026 如何设计一个企业级 AI 中台？](../by-domain/18-ai-engineering.md#FB-18-SD-R-026)
@@ -438,10 +480,11 @@
 - [FB-18-SD-R-032 如何设计一个前端智能体的插件化生态？](../by-domain/18-ai-engineering.md#FB-18-SD-R-032)
 - [FB-18-SD-R-033 如何设计一个多模态 AI 中台？](../by-domain/18-ai-engineering.md#FB-18-SD-R-033)
 - [FB-18-SD-R-034 如何设计一个面向金融行业的可信 AI 前端架构？](../by-domain/18-ai-engineering.md#FB-18-SD-R-034)
+- [FB-18-SD-R-035 设计一个企业级 AI Agent 平台](../by-domain/18-ai-engineering.md#FB-18-SD-R-035)
 - [FB-18-SD-R-060 设计一个低延迟实时 AI 协作编辑器前端](../by-domain/18-ai-engineering.md#FB-18-SD-R-060)
 - [FB-18-SD-R-066 设计一个可插拔的多模型适配层](../by-domain/18-ai-engineering.md#FB-18-SD-R-066)
 
-### Node.js / BFF（15 道）
+### Node.js / BFF（20 道）
 
 - [FB-19-SD-R-024 如何设计一个高并发、高可用的 BFF 网关？](../by-domain/19-node-bff.md#FB-19-SD-R-024)
 - [FB-19-SD-R-025 如何设计一个基于 Node.js 的微服务架构？](../by-domain/19-node-bff.md#FB-19-SD-R-025)
@@ -458,8 +501,13 @@
 - [FB-19-SD-R-063 BFF 层如何与 API 网关、Service Mesh、鉴权中心协同工作？](../by-domain/19-node-bff.md#FB-19-SD-R-063)
 - [FB-19-SD-R-064 设计一个支持 Serverless / Edge 部署的 BFF 框架需要考虑哪些因素？](../by-domain/19-node-bff.md#FB-19-SD-R-064)
 - [FB-19-SD-R-065 单体 BFF 如何演进为领域驱动的微前端 + 微服务协同架构？](../by-domain/19-node-bff.md#FB-19-SD-R-065)
+- [FB-19-SD-R-066 设计一个多租户 BFF 平台](../by-domain/19-node-bff.md#FB-19-SD-R-066)
+- [FB-19-SD-R-067 Node.js 服务可观测性体系](../by-domain/19-node-bff.md#FB-19-SD-R-067)
+- [FB-19-SD-R-068 BFF 与 Service Mesh 协同](../by-domain/19-node-bff.md#FB-19-SD-R-068)
+- [FB-19-SD-R-069 Node.js 服务容器化与 CI/CD](../by-domain/19-node-bff.md#FB-19-SD-R-069)
+- [FB-19-SD-R-070 BFF 领域驱动设计](../by-domain/19-node-bff.md#FB-19-SD-R-070)
 
-### Git 工作流与变更管理（6 道）
+### Git 工作流与变更管理（8 道）
 
 - [FB-20-SD-R-025 如何为千人规模的前端团队设计 Git 分支策略？](../by-domain/20-git-workflow.md#FB-20-SD-R-025)
 - [FB-20-SD-R-026 Monorepo 和 Polyrepo 如何选型？](../by-domain/20-git-workflow.md#FB-20-SD-R-026)
@@ -467,6 +515,8 @@
 - [FB-20-SD-R-058 如何为全球多地域团队设计 Git 工作流？](../by-domain/20-git-workflow.md#FB-20-SD-R-058)
 - [FB-20-SD-R-060 多产品线的统一代码仓应该如何治理？](../by-domain/20-git-workflow.md#FB-20-SD-R-060)
 - [FB-20-SD-R-063 微前端仓库应该如何拆分或统一管理？](../by-domain/20-git-workflow.md#FB-20-SD-R-063)
+- [FB-20-SD-R-067 如何为全球多地域团队设计 Git 工作流？](../by-domain/20-git-workflow.md#FB-20-SD-R-067)
+- [FB-20-SD-R-068 多产品线的统一代码仓应该如何治理？](../by-domain/20-git-workflow.md#FB-20-SD-R-068)
 
 ### 开发者体验与工程效能（13 道）
 
@@ -484,7 +534,7 @@
 - [FB-21-SD-R-089 设计一个前端工程化的“即服务”（DXaaS）平台。](../by-domain/21-dx.md#FB-21-SD-R-089)
 - [FB-21-SD-R-090 设计一个面向大型前端 Monorepo 的 Storybook 文档系统](../by-domain/21-dx.md#FB-21-SD-R-090)
 
-### 部署与 SRE（6 道）
+### 部署与 SRE（7 道）
 
 - [FB-22-SD-R-025 设计一个高可用的前端部署平台](../by-domain/22-deployment-sre.md#FB-22-SD-R-025)
 - [FB-22-SD-R-026 设计全球化多区域部署架构](../by-domain/22-deployment-sre.md#FB-22-SD-R-026)
@@ -492,14 +542,17 @@
 - [FB-22-SD-R-029 前端灾备与多活架构设计](../by-domain/22-deployment-sre.md#FB-22-SD-R-029)
 - [FB-22-SD-R-031 SSR/SSG/CDN 混合部署架构](../by-domain/22-deployment-sre.md#FB-22-SD-R-031)
 - [FB-22-SD-R-032 如何设计一个支持多区域部署的 SSG 前端系统，兼顾数据合规与访问延迟？](../by-domain/22-deployment-sre.md#FB-22-SD-R-032)
+- [FB-22-SD-R-033 如何设计支持多区域部署的 SSG 前端系统？](../by-domain/22-deployment-sre.md#FB-22-SD-R-033)
 
-### 包管理与供应链安全（5 道）
+### 包管理与供应链安全（7 道）
 
 - [FB-23-SD-R-024 如何设计企业级前端依赖治理体系？](../by-domain/23-package-supply-chain.md#FB-23-SD-R-024)
 - [FB-23-SD-R-025 如何设计前端供应链安全防御体系？](../by-domain/23-package-supply-chain.md#FB-23-SD-R-025)
 - [FB-23-SD-R-027 如何设计 lockfile 安全审计与自动化修复平台？](../by-domain/23-package-supply-chain.md#FB-23-SD-R-027)
 - [FB-23-SD-R-030 如何设计前端构建产物的 SBOM 与可追溯体系？](../by-domain/23-package-supply-chain.md#FB-23-SD-R-030)
 - [FB-23-SD-R-031 设计一个企业级前端依赖管理平台](../by-domain/23-package-supply-chain.md#FB-23-SD-R-031)
+- [FB-23-SD-R-032 设计一个企业级前端依赖管理平台](../by-domain/23-package-supply-chain.md#FB-23-SD-R-032)
+- [FB-23-SD-R-033 大型 Monorepo 中 install 性能优化](../by-domain/23-package-supply-chain.md#FB-23-SD-R-033)
 
 ### 前端运维与监控（4 道）
 
@@ -508,7 +561,7 @@
 - [FB-24-SD-R-004 如何设计多 CDN 监控与自动切换？](../by-domain/24-frontend-operations.md#FB-24-SD-R-004)
 - [FB-24-SD-R-006 如何设计从前端到后端的全链路 Trace？](../by-domain/24-frontend-operations.md#FB-24-SD-R-006)
 
-### 系统架构设计（7 道）
+### 系统架构设计（10 道）
 
 - [FB-25-SD-R-001 设计一个组织级前端架构治理体系](../by-domain/25-system-architecture.md#FB-25-SD-R-001)
 - [FB-25-SD-R-007 设计一个跨团队共享的前端能力平台](../by-domain/25-system-architecture.md#FB-25-SD-R-007)
@@ -517,12 +570,18 @@
 - [FB-25-SD-R-010 设计一个高可用的大促前端保障体系](../by-domain/25-system-architecture.md#FB-25-SD-R-010)
 - [FB-25-SD-R-011 假设你要从零设计一个日活千万级的内容社区前端架构，你会关注哪些关键点？](../by-domain/25-system-architecture.md#FB-25-SD-R-011)
 - [FB-25-SD-R-012 你如何评价一个前端架构设计的好坏？](../by-domain/25-system-architecture.md#FB-25-SD-R-012)
+- [FB-25-SD-R-013 设计一个支持多终端的 BFF 层](../by-domain/25-system-architecture.md#FB-25-SD-R-013)
+- [FB-25-SD-R-014 设计一个前端组件库/设计系统架构](../by-domain/25-system-architecture.md#FB-25-SD-R-014)
+- [FB-25-SD-R-015 设计一个前端性能监控与预警平台](../by-domain/25-system-architecture.md#FB-25-SD-R-015)
 
-### 微前端（3 道）
+### 微前端（6 道）
 
 - [FB-26-SD-R-024 从巨石应用迁移到微前端的策略和步骤是什么？](../by-domain/26-micro-frontend.md#FB-26-SD-R-024)
 - [FB-26-SD-R-025 设计一个企业级微前端平台，需要包含哪些核心模块？](../by-domain/26-micro-frontend.md#FB-26-SD-R-025)
 - [FB-26-SD-R-026 设计一个支持 10 个团队同时开发的微前端平台，你会做哪些关键决策？](../by-domain/26-micro-frontend.md#FB-26-SD-R-026)
+- [FB-26-SD-R-027 设计一个企业级微前端基座](../by-domain/26-micro-frontend.md#FB-26-SD-R-027)
+- [FB-26-SD-R-028 设计一个支持离线能力的微前端应用](../by-domain/26-micro-frontend.md#FB-26-SD-R-028)
+- [FB-26-SD-R-029 设计一个无基座的去中心化微前端方案](../by-domain/26-micro-frontend.md#FB-26-SD-R-029)
 
 ### 性能工程（5 道）
 
@@ -541,19 +600,23 @@
 - [FB-28-SD-R-032 如何构建韧性工程质量体系？](../by-domain/28-quality.md#FB-28-SD-R-032)
 - [FB-28-SD-R-033 设计一个前端质量保障平台，你会包含哪些模块？](../by-domain/28-quality.md#FB-28-SD-R-033)
 
-### 数据与状态管理（4 道）
+### 数据与状态管理（7 道）
 
 - [FB-29-SD-R-025 如何设计一个前端数据层抽象层，支持多数据源切换和缓存？](../by-domain/29-data-state.md#FB-29-SD-R-025)
 - [FB-29-SD-R-026 如何为大型 SPA 设计状态管理架构？](../by-domain/29-data-state.md#FB-29-SD-R-026)
 - [FB-29-SD-R-030 设计一个支持离线优先的协作编辑状态同步系统](../by-domain/29-data-state.md#FB-29-SD-R-030)
 - [FB-29-SD-R-031 如何设计前端 URL 状态管理方案？](../by-domain/29-data-state.md#FB-29-SD-R-031)
+- [FB-29-SD-R-032 设计一个前端数据同步与状态管理方案](../by-domain/29-data-state.md#FB-29-SD-R-032)
+- [FB-29-SD-R-033 设计一个支持 Undo/Redo 的前端状态系统](../by-domain/29-data-state.md#FB-29-SD-R-033)
+- [FB-29-SD-R-034 设计一个跨页面共享的状态层](../by-domain/29-data-state.md#FB-29-SD-R-034)
 
-### 可观测性（4 道）
+### 可观测性（5 道）
 
 - [FB-30-SD-R-025 设计一个前端 RUM 指标体系与 Dashboard](../by-domain/30-observability.md#FB-30-SD-R-025)
 - [FB-30-SD-R-026 如何从零构建前端 SRE 值班（on-call）与事故响应机制？](../by-domain/30-observability.md#FB-30-SD-R-026)
 - [FB-30-SD-R-028 设计一个支持多租户、多环境的前端埋点与可观测中台](../by-domain/30-observability.md#FB-30-SD-R-028)
 - [FB-30-SD-R-031 设计一个前端灰度发布/回滚的可观测性方案](../by-domain/30-observability.md#FB-30-SD-R-031)
+- [FB-30-SD-R-032 设计前端全链路可观测平台](../by-domain/30-observability.md#FB-30-SD-R-032)
 
 ### 安全架构（3 道）
 
@@ -561,7 +624,7 @@
 - [FB-31-SD-R-002 微前端场景下如何做好安全隔离？](../by-domain/31-security-architecture.md#FB-31-SD-R-002)
 - [FB-31-SD-R-003 前后端安全边界应该如何划分？](../by-domain/31-security-architecture.md#FB-31-SD-R-003)
 
-### 实时与协同（6 道）
+### 实时与协同（8 道）
 
 - [FB-32-SD-R-001 如何设计一个实时协同文档系统？](../by-domain/32-real-time.md#FB-32-SD-R-001)
 - [FB-32-SD-R-002 如何设计一个实时聊天系统？](../by-domain/32-real-time.md#FB-32-SD-R-002)
@@ -569,27 +632,32 @@
 - [FB-32-SD-R-004 实时系统与离线同步如何结合？](../by-domain/32-real-time.md#FB-32-SD-R-004)
 - [FB-32-SD-R-005 如何设计一个实时协同白板？](../by-domain/32-real-time.md#FB-32-SD-R-005)
 - [FB-32-SD-R-006 实时系统的监控与降级策略如何设计？](../by-domain/32-real-time.md#FB-32-SD-R-006)
+- [FB-32-SD-R-007 设计一个实时协作白板](../by-domain/32-real-time.md#FB-32-SD-R-007)
+- [FB-32-SD-R-008 设计一个实时数据可视化大屏](../by-domain/32-real-time.md#FB-32-SD-R-008)
 
-### 国际化（4 道）
+### 国际化（5 道）
 
 - [FB-33-SD-R-001 如何设计全球化前端架构？](../by-domain/33-internationalization.md#FB-33-SD-R-001)
 - [FB-33-SD-R-002 如何设计一条翻译流水线？](../by-domain/33-internationalization.md#FB-33-SD-R-002)
 - [FB-33-SD-R-003 如何设计国际化组件库？](../by-domain/33-internationalization.md#FB-33-SD-R-003)
 - [FB-33-SD-R-004 多语言内容管理系统（CMS）如何设计？](../by-domain/33-internationalization.md#FB-33-SD-R-004)
+- [FB-33-SD-R-005 设计一个可扩展的国际化架构](../by-domain/33-internationalization.md#FB-33-SD-R-005)
 
-### 可视化与图形（4 道）
+### 可视化与图形（5 道）
 
 - [FB-34-SD-R-024 设计一个 BI 可视化平台的前端架构](../by-domain/34-visualization-graphics.md#FB-34-SD-R-024)
 - [FB-34-SD-R-025 设计一个 3D 数字孪生大屏的渲染架构](../by-domain/34-visualization-graphics.md#FB-34-SD-R-025)
 - [FB-34-SD-R-026 如何设计一个可扩展的可视化组件库？](../by-domain/34-visualization-graphics.md#FB-34-SD-R-026)
 - [FB-34-SD-R-028 游戏图形中的场景图、ECS、渲染循环、LOD 对前端可视化架构有何启发？](../by-domain/34-visualization-graphics.md#FB-34-SD-R-028)
+- [FB-34-SD-R-029 设计一个可视化搭建平台](../by-domain/34-visualization-graphics.md#FB-34-SD-R-029)
 
-### Serverless/Edge（4 道）
+### Serverless/Edge（5 道）
 
 - [FB-35-SD-R-001 如何设计一个 Serverless 前端架构？](../by-domain/35-serverless-edge.md#FB-35-SD-R-001)
 - [FB-35-SD-R-002 如何设计一个 Edge 网关？](../by-domain/35-serverless-edge.md#FB-35-SD-R-002)
 - [FB-35-SD-R-003 Serverless 与容器/传统服务器如何取舍？](../by-domain/35-serverless-edge.md#FB-35-SD-R-003)
 - [FB-35-SD-R-004 如何设计边缘与中心协同架构？](../by-domain/35-serverless-edge.md#FB-35-SD-R-004)
+- [FB-35-SD-R-006 设计一个 Serverless 前端部署架构](../by-domain/35-serverless-edge.md#FB-35-SD-R-006)
 
 ### 前端数据工程（6 道）
 
@@ -607,21 +675,26 @@
 - [FB-37-SD-R-004 设计一个支持快速试错与灰度发布的增长实验工程平台。](../by-domain/37-business.md#FB-37-SD-R-004)
 - [FB-37-SD-R-006 设计一个面向 SaaS 产品的多租户、可配置、可定价的前端交付架构。](../by-domain/37-business.md#FB-37-SD-R-006)
 
-### 团队领导力（2 道）
+### 团队领导力（4 道）
 
 - [FB-38-SD-R-001 为一家 500 人前端组织设计分层技术治理与团队架构](../by-domain/38-team.md#FB-38-SD-R-001)
 - [FB-38-SD-R-005 设计一个面向全球远程团队的技术文化与协作基础设施蓝图](../by-domain/38-team.md#FB-38-SD-R-005)
+- [FB-38-SD-R-006 如何设计一个支撑多业务线、多地域的前端组织架构？](../by-domain/38-team.md#FB-38-SD-R-006)
+- [FB-38-SD-R-007 如何从 0 到 1 搭建一个高绩效前端团队？](../by-domain/38-team.md#FB-38-SD-R-007)
 
-### 技术战略（2 道）
+### 技术战略（3 道）
 
 - [FB-39-SD-R-001 请设计一个 3 年前端技术战略，支撑业务从 0 到 100 的规模化增长。](../by-domain/39-strategy.md#FB-39-SD-R-001)
 - [FB-39-SD-R-003 如何设计 AI 时代的前端技术战略？](../by-domain/39-strategy.md#FB-39-SD-R-003)
+- [FB-39-SD-R-004 如何在技术战略层面规划前端与 AI、WebAssembly、边缘计算等新兴技术的结合？](../by-domain/39-strategy.md#FB-39-SD-R-004)
 
-### 沟通表达（3 道）
+### 沟通表达（5 道）
 
 - [FB-40-SD-R-002 设计一个技术方案评审与决策流程](../by-domain/40-communication.md#FB-40-SD-R-002)
 - [FB-40-SD-R-004 设计一套危机沟通预案](../by-domain/40-communication.md#FB-40-SD-R-004)
 - [FB-40-SD-R-007 设计一个跨部门重大技术项目的治理与沟通框架](../by-domain/40-communication.md#FB-40-SD-R-007)
+- [FB-40-SD-R-008 作为技术负责人，你如何处理与公司其他高管的分歧？](../by-domain/40-communication.md#FB-40-SD-R-008)
+- [FB-40-SD-R-009 如何在组织内建立前端团队的“话语权”？](../by-domain/40-communication.md#FB-40-SD-R-009)
 
 ### 项目管理（2 道）
 
@@ -639,11 +712,13 @@
 - [FB-43-SD-R-001 设计一个公司级技术品牌中台：整合博客、公众号、开源、社区、内部分享。](../by-domain/43-tech-branding.md#FB-43-SD-R-001)
 - [FB-43-SD-R-003 设计一个“技术布道师团队”的编制、目标、考核与资源协作机制。](../by-domain/43-tech-branding.md#FB-43-SD-R-003)
 
-### 技术治理与合规（3 道）
+### 技术治理与合规（5 道）
 
 - [FB-44-SD-R-001 设计一个企业级前端合规体系。](../by-domain/44-tech-governance.md#FB-44-SD-R-001)
 - [FB-44-SD-R-002 如何设计跨团队技术治理组织与运作机制？](../by-domain/44-tech-governance.md#FB-44-SD-R-002)
 - [FB-44-SD-R-003 设计一个前端安全合规左移体系。](../by-domain/44-tech-governance.md#FB-44-SD-R-003)
+- [FB-44-SD-R-004 如何在一个大型组织中推行统一的前端工程化标准？](../by-domain/44-tech-governance.md#FB-44-SD-R-004)
+- [FB-44-SD-R-005 如何设计前端技术治理的度量指标体系？](../by-domain/44-tech-governance.md#FB-44-SD-R-005)
 
 ### 小程序（3 道）
 
@@ -659,12 +734,14 @@
 - [FB-46-SD-R-028 将现有跨平台应用迁移到鸿蒙，你会如何制定策略？](../by-domain/46-harmonyos.md#FB-46-SD-R-028)
 - [FB-46-SD-R-031 设计一个面向企业内部的鸿蒙办公协同平台架构。](../by-domain/46-harmonyos.md#FB-46-SD-R-031)
 
-### Flutter（4 道）
+### Flutter（6 道）
 
 - [FB-47-SD-R-001 如何设计一个可维护、可扩展的 Flutter 大型应用架构？](../by-domain/47-flutter.md#FB-47-SD-R-001)
 - [FB-47-SD-R-003 Flutter 国际化（i18n）和无障碍（a11y）应该如何架构？](../by-domain/47-flutter.md#FB-47-SD-R-003)
 - [FB-47-SD-R-006 Flutter 大规模应用中，状态管理应该如何分层与治理？](../by-domain/47-flutter.md#FB-47-SD-R-006)
 - [FB-47-SD-R-007 如何开发一个 Flutter 插件？Federated Plugin 和 PlatformView 分别解决什么问题？](../by-domain/47-flutter.md#FB-47-SD-R-007)
+- [FB-47-SD-R-008 Flutter 混合开发（与原生项目集成）有哪些方案？](../by-domain/47-flutter.md#FB-47-SD-R-008)
+- [FB-47-SD-R-009 Flutter Web 的性能优化和适配有哪些要点？](../by-domain/47-flutter.md#FB-47-SD-R-009)
 
 ### Electron（3 道）
 
@@ -697,13 +774,15 @@
 - [FB-52-SD-R-005 如何设计 AI 辅助搭建能力？](../by-domain/52-low-code.md#FB-52-SD-R-005)
 - [FB-52-SD-R-007 如何设计低代码平台的扩展性与插件化架构？](../by-domain/52-low-code.md#FB-52-SD-R-007)
 
-### 计算机基础（5 道）
+### 计算机基础（7 道）
 
 - [FB-53-SD-R-001 如何设计一个短链服务？](../by-domain/53-computer-science.md#FB-53-SD-R-001)
 - [FB-53-SD-R-002 从系统架构角度如何设计一个秒杀系统？](../by-domain/53-computer-science.md#FB-53-SD-R-002)
 - [FB-53-SD-R-003 如何设计一个实时排行榜？](../by-domain/53-computer-science.md#FB-53-SD-R-003)
 - [FB-53-SD-R-004 高并发下的限流与降级策略如何设计？](../by-domain/53-computer-science.md#FB-53-SD-R-004)
 - [FB-53-SD-R-005 分布式一致性基础有哪些？](../by-domain/53-computer-science.md#FB-53-SD-R-005)
+- [FB-53-SD-R-007 设计一个前端缓存策略系统。](../by-domain/53-computer-science.md#FB-53-SD-R-007)
+- [FB-53-SD-R-008 前端如何实现一个简单的前端框架（类 React/Vue）？](../by-domain/53-computer-science.md#FB-53-SD-R-008)
 
 ### 行业特化（3 道）
 

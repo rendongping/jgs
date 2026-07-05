@@ -1,6 +1,6 @@
 # JavaScript 面试题
 
-> 本题库共收录 **79** 道面试题（基础 30 / 进阶 24 / 深入 20 / 架构 5）。
+> 本题库共收录 **99** 道面试题（基础 33 / 进阶 37 / 深入 24 / 架构 5）。
 > 本文件收录 JavaScript 相关面试题，目标题量 300 道。
 > 题型覆盖：概念题、代码分析题、手写代码题、场景设计题。
 > 难度覆盖：基础、进阶、深入、架构。
@@ -14,7 +14,7 @@
 
 ---
 
-## 基础题（23 道）{#basic}
+## 基础题（26 道）{#basic}
 
 ### FB-01-CO-B-001：JavaScript 有哪些数据类型？如何区分原始类型和引用类型？
 
@@ -1440,8 +1440,130 @@ demo(); // 2
 **参考资源**：
 - [MDN - 严格模式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode)
 
+**口头回答版**：
+> 在严格模式下，this 不再被“装箱”为全局对象或包装对象： 全局作用域中的 this 为 undefined（非严格模式下是全局对象 window / globalThis）。 普通函数独立调用时，this 为 undefined，不再指向全局对象。 通过 call / apply 传入原始值时，不会自动装箱为包装对象。
 
-## 进阶题（17 道）{#advanced}
+
+
+---
+### FB-01-CD-B-003：手写 Array.prototype.flat 的实现
+
+**题型**：手写代码题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：01 JavaScript
+**标签**：数组、flat、递归、手写代码
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请实现一个 myFlat(arr, depth) 函数，效果与 Array.prototype.flat 一致。
+
+**参考答案**：
+
+递归处理数组元素，遇到元素仍为数组且 depth 大于 0 时继续展开。使用 reduce 累积结果。边界情况：depth 为 Infinity、非数组输入、数组为空。
+
+    function myFlat(arr, depth = 1) {
+      if (depth === 0) return arr.slice();
+      return arr.reduce((acc, cur) => {
+        return acc.concat(Array.isArray(cur) && depth > 0 ? myFlat(cur, depth - 1) : cur);
+      }, []);
+    }
+
+**评分维度**：
+- 递归展开逻辑（40%）：是否按 depth 控制递归深度
+- 边界处理（30%）：Infinity、非数组、空数组
+- 代码质量（30%）：是否避免副作用
+
+**常见错误**：
+- 直接用 arr.toString().split(",")，丢失对象和嵌套数组结构
+- depth 使用 arr 的 length 判断，逻辑错误
+- 没有处理类数组或稀疏数组的情况
+
+**口头回答版**：
+> myFlat 用递归按 depth 展开嵌套数组，reduce 累积结果。注意 Infinity、非数组和空数组的边界。
+
+### FB-01-CD-B-004：手写 JSON.stringify 的简化版
+
+**题型**：手写代码题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：01 JavaScript
+**标签**：JSON、序列化、手写代码
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+实现一个简化版 myStringify(value)，支持基本类型、对象、数组、字符串，忽略循环引用。
+
+**参考答案**：
+
+核心规则：undefined/function/symbol 在对象中忽略、在数组中转为 null；字符串加双引号；对象递归拼接 key:value；数组递归拼接元素。
+
+    function myStringify(value) {
+      if (value === null) return 'null';
+      const type = typeof value;
+      if (type === 'number' || type === 'boolean') return String(value);
+      if (type === 'string') return '"' + value.replace(/"/g, '\"') + '"';
+      if (Array.isArray(value)) {
+        return '[' + value.map(v => myStringify(v === undefined ? null : v)).join(',') + ']';
+      }
+      if (type === 'object') {
+        const pairs = Object.entries(value)
+          .filter(([, v]) => !['undefined','function','symbol'].includes(typeof v))
+          .map(([k, v]) => '"' + k + '":' + myStringify(v));
+        return '{' + pairs.join(',') + '}';
+      }
+      return undefined;
+    }
+
+**评分维度**：
+- 类型覆盖（40%）：基本类型、数组、对象处理
+- 特殊值（30%）：undefined/function/symbol 的处理
+- 代码健壮性（30%）：字符串转义、循环引用提示
+
+**常见错误**：
+- 字符串没有转义双引号，导致结果非法
+- 对象属性值是 undefined 时直接序列化为 undefined
+- 数组中的 undefined 没有转换为 null
+
+**口头回答版**：
+> 简化 JSON.stringify 需要正确处理字符串转义、undefined 在数组和对象中的差异，以及递归拼接。
+
+### FB-01-CO-B-019：Set、Map、WeakMap、WeakSet 在垃圾回收上有什么差异？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：01 JavaScript
+**标签**：Set、Map、WeakMap、垃圾回收
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请比较 Set/Map 与 WeakMap/WeakSet 的键类型、可迭代性和 GC 行为。
+
+**参考答案**：
+
+Set/Map 的键被强引用，即使对象在其他地方不再使用，也不会被 GC，且可遍历。WeakMap/WeakSet 的键必须是对象，持有弱引用，不阻止 GC，不可遍历，因此没有 size/forEach。
+
+适用场景：WeakMap 适合私有数据缓存或 DOM 元数据，避免内存泄漏。
+
+**评分维度**：
+- 引用类型（40%）：强引用 vs 弱引用
+- 可迭代性（30%）：Weak 集合不可遍历的原因
+- GC 影响（30%）：内存泄漏风险对比
+
+**常见错误**：
+- 认为 WeakMap 可以枚举所有键
+- 用原始值作为 WeakMap 的键
+- 在需要长期保持映射的场景误用 WeakMap 导致数据丢失
+
+**口头回答版**：
+> Set/Map 强引用、可遍历；WeakMap/WeakSet 弱引用、键必须是对象、不可遍历，适合不影响 GC 的元数据。
+---
+
+## 进阶题（30 道）{#advanced}
 
 **口头回答版**：
 > 在严格模式下，this 不再被“装箱”为全局对象或包装对象： 全局作用域中的 this 为 undefined（非严格模式下是全局对象 window / globalThis）。 普通函数独立调用时，this 为 undefined，不再指向全局对象。 通过 call / apply 传入原始值时，不会自动装箱为包装对象。
@@ -2605,8 +2727,515 @@ export const foo = 'foo';
 - [Node.js 文档 - 循环依赖](https://nodejs.org/api/modules.html#modules_cycles)
 - [MDN - ES Module](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Modules)
 
+**口头回答版**：
+> CommonJS 在运行时同步加载模块： - require 第一次执行时会完整执行模块代码并缓存 module.exports 对象。 - 循环依赖时，后执行的模块拿到的可能是尚未完成赋值的 exports 对象。 - 因为导出的是值的拷贝，后续再修改 exports，已经拿到引用的模块不会感知。
 
-## 深入题（11 道）{#proficient}
+
+
+---
+### FB-01-CO-A-012：Object.is 与 === 有什么区别？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：Object.is、严格相等、NaN、类型
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 Object.is 和 === 在 NaN、+0、-0 上的差异。
+
+**参考答案**：
+
+=== 使用 SameValueZero 语义：NaN !== NaN，+0 === -0。Object.is 使用 SameValue 语义：NaN 等于 NaN，+0 不等于 -0。其他情况下两者结果一致。
+
+    Object.is(NaN, NaN); // true
+    Object.is(+0, -0);   // false
+    NaN === NaN;         // false
+    +0 === -0;           // true
+
+**评分维度**：
+- NaN 行为（40%）：是否能说出 Object.is(NaN,NaN) 为 true
+- 零值差异（30%）：+0 与 -0 的处理
+- 一般场景（30%）：其余情况一致
+
+**常见错误**：
+- 认为 Object.is 在所有情况下都与 === 相同
+- 用 Object.is 判断对象引用相等，混淆值相等与引用相等
+- 认为 +0 和 -0 在数学运算中永远无区别
+
+**口头回答版**：
+> Object.is 与 === 主要区别在于 NaN 相等和 +0/-0 不等，其余情况一致。
+
+### FB-01-CD-A-009：手写 Promise.race
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：Promise、race、异步、手写代码
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+实现 Promise.race，返回第一个 settled 的 Promise 结果或原因。
+
+**参考答案**：
+
+遍历输入，给每个 Promise 注册 then/catch，第一个 settle 的调用 resolve/reject 后返回结果。输入为空数组时返回 pending 的 Promise，与规范一致。
+
+    function promiseRace(iterable) {
+      return new Promise((resolve, reject) => {
+        for (const p of iterable) {
+          Promise.resolve(p).then(resolve, reject);
+        }
+      });
+    }
+
+**评分维度**：
+- 竞速逻辑（50%）：第一个 settled 决定结果
+- 输入处理（30%）：非 Promise 值包装、空数组行为
+- 错误处理（20%）：reject 时是否停止
+
+**常见错误**：
+- 用 forEach 导致异步开始，空数组行为不符
+- 没有 Promise.resolve 包装非 Promise 值
+- 第一个 reject 后没有立即返回，继续监听后续
+
+**口头回答版**：
+> Promise.race 返回第一个 settled 的结果。实现时要将非 Promise 包装，空数组返回 pending Promise。
+
+### FB-01-CD-A-010：手写 Promise.any
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：Promise、any、AggregateError、手写代码
+**出现频率**：低频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+实现 Promise.any，返回第一个 fulfilled 的 Promise；全部 reject 时返回 AggregateError。
+
+**参考答案**：
+
+记录 reject 次数和错误数组。任一 Promise fulfill 立即 resolve；全部 reject 后 reject(new AggregateError(errors))。
+
+    function promiseAny(iterable) {
+      return new Promise((resolve, reject) => {
+        const arr = Array.from(iterable);
+        if (arr.length === 0) return reject(new AggregateError([], 'All promises were rejected'));
+        const errors = new Array(arr.length);
+        let count = 0;
+        arr.forEach((p, i) => {
+          Promise.resolve(p).then(resolve, err => {
+            errors[i] = err;
+            if (++count === arr.length) reject(new AggregateError(errors));
+          });
+        });
+      });
+    }
+
+**评分维度**：
+- 成功逻辑（40%）：任一 fulfill 立即 resolve
+- 全部失败（40%）：AggregateError 收集所有原因
+- 边界（20%）：空数组处理
+
+**常见错误**：
+- 全部 reject 时返回普通 Error 而非 AggregateError
+- 使用 let 计数但没有初始化导致 NaN
+- fulfill 后没有停止收集后续错误
+
+**口头回答版**：
+> Promise.any 返回首个成功，全部失败返回 AggregateError。实现时注意计数和错误收集。
+
+### FB-01-CO-A-013：ArrayBuffer、SharedArrayBuffer 和 Atomics 各是什么？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：ArrayBuffer、SharedArrayBuffer、Atomics、二进制
+**出现频率**：低频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请解释三者的作用、使用场景和安全限制。
+
+**参考答案**：
+
+ArrayBuffer 是固定长度的原始二进制数据缓冲区，需通过 TypedArray/DataView 读写。SharedArrayBuffer 允许多个 Worker 共享同一块内存。Atomics 提供原子操作和线程同步，避免竞态条件。
+
+由于 Spectre 漏洞，SharedArrayBuffer 需要跨域隔离（COOP/COEP）才能启用。
+
+**评分维度**：
+- ArrayBuffer（30%）：二进制缓冲区与视图关系
+- SharedArrayBuffer（30%）：多 Worker 共享内存
+- Atomics（30%）：原子操作与锁
+- 安全限制（10%）：COOP/COEP
+
+**常见错误**：
+- 直接用 ArrayBuffer 下标读写数据
+- 在单线程场景使用 SharedArrayBuffer 没有收益但增加复杂度
+- 多线程写入时不使用 Atomics，导致数据竞争
+
+**口头回答版**：
+> ArrayBuffer 是二进制缓冲区，SharedArrayBuffer 支持跨 Worker 共享，Atomics 提供原子操作和同步，启用需跨域隔离。
+
+### FB-01-CD-A-011：手写一个 sleep / delay 函数
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：Promise、sleep、定时器、手写代码
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请用 Promise 实现 sleep(ms)，并说明与 setTimeout 的区别。
+
+**参考答案**：
+
+sleep 返回一个 Promise，在 ms 后 resolve，便于在 async/await 中暂停执行。
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function demo() {
+      await sleep(1000);
+      console.log('after 1s');
+    }
+
+
+**补充说明**：
+
+在实际落地 手写一个 sleep / delay 函数 时，建议结合 Promise、sleep、定时器 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- Promise 包装（40%）：是否返回 Promise
+- this/参数（30%）：是否透传 resolve 值
+- 可取消（30%）：是否提供 AbortSignal 支持
+
+**常见错误**：
+- 返回 setTimeout 的 timer id 而非 Promise
+- 用 async 函数包裹 setTimeout 但 await 位置错误
+- 没有处理 ms 为负数或 0 的边界
+
+**口头回答版**：
+> sleep 用 Promise 包装 setTimeout，返回在指定时间后 resolve 的 Promise，方便在 async 函数中暂停。
+
+### FB-01-CO-A-014：什么是尾调用优化？JavaScript 中有什么限制？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：尾调用、递归、性能、ES6
+**出现频率**：低频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释尾调用优化的原理，以及为什么实际引擎支持有限。
+
+**参考答案**：
+
+尾调用优化（TCO）指在函数最后一步调用另一个函数时复用当前栈帧，避免栈增长。ES6 规定了 TCO，但浏览器引擎（除 Safari）大多未实现严格模式下的 TCO。
+
+实际中，递归深时建议改用循环或蹦床函数（trampoline）避免栈溢出。
+
+
+**补充说明**：
+
+在实际落地 尾调用优化JavaScript 中有什么限制 时，建议结合 尾调用、递归、性能 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 尾调用定义（40%）：调用位置与栈帧复用
+- ES6 规定（30%）：仅在严格模式
+- 实际限制（30%）：浏览器支持情况
+
+**常见错误**：
+- 认为所有 JavaScript 引擎都支持 TCO
+- 把尾调用优化和代码末尾 return 任意表达式混为一谈
+- 在非严格模式下期待 TCO 生效
+
+**口头回答版**：
+> 尾调用优化通过复用栈帧减少递归栈消耗，ES6 规定严格模式支持，但主流引擎大多未实现。
+
+### FB-01-CD-A-012：手写一个 JSONP 函数
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：JSONP、跨域、手写代码、脚本注入
+**出现频率**：低频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+实现一个 jsonp(url, params, callbackName) 函数，通过动态 script 标签请求跨域数据。
+
+**参考答案**：
+
+JSONP 利用 script 标签不受同源策略限制，服务端返回 callbackName(data)。前端动态创建 script，注册全局回调，加载后清理脚本和全局函数。
+
+    function jsonp(url, params = {}, callbackName = 'cb_' + Date.now()) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        window[callbackName] = data => {
+          resolve(data);
+          cleanup();
+        };
+        script.onerror = reject;
+        const query = new URLSearchParams({ ...params, callback: callbackName }).toString();
+        script.src = url + (url.includes('?') ? '&' : '?') + query;
+        document.head.appendChild(script);
+        function cleanup() {
+          delete window[callbackName];
+          script.remove();
+        }
+      });
+    }
+
+**评分维度**：
+- 全局回调（40%）：动态注册与清理
+- URL 拼接（30%）：参数编码与 callback 字段
+- 错误处理（30%）：onerror 与超时
+
+**常见错误**：
+- 没有清理全局回调和 script 标签，造成内存泄漏
+- callbackName 固定，多次调用互相覆盖
+- 没有处理服务端返回非 JSON 或异常格式
+
+**口头回答版**：
+> JSONP 通过动态 script 和全局回调实现跨域，注意唯一回调名、错误处理和清理脚本节点。
+
+### FB-01-CO-A-015：Symbol.iterator 与 Generator 的关系是什么？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：Symbol.iterator、Generator、Iterable、迭代器
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释可迭代协议、迭代器协议，以及生成器如何实现它们。
+
+**参考答案**：
+
+Iterable 协议要求对象具有 Symbol.iterator 方法，返回 Iterator。Iterator 协议要求 next 返回 { value, done }。Generator 函数返回的 generator 对象同时满足 Iterator 和 Iterable，因此 for…of 可遍历生成器。
+
+    function* gen() { yield 1; yield 2; }
+    const it = gen();
+    it[Symbol.iterator]() === it; // true
+
+**评分维度**：
+- Iterable（30%）：Symbol.iterator 方法
+- Iterator（30%）：next 返回值
+- Generator（40%）：既是迭代器也是可迭代对象
+
+**常见错误**：
+- 把 Generator 和 Promise 混为一谈
+- 认为普通函数 yield 也能暂停执行
+- 实现 Symbol.iterator 时返回对象没有 next 方法
+
+**口头回答版**：
+> Symbol.iterator 定义可迭代对象，Generator 返回的对象满足 Iterator 和 Iterable，可直接用于 for…of。
+
+### FB-01-CD-A-013：手写一个 JSON.parse 的简化版
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：JSON、解析、递归下降、手写代码
+**出现频率**：低频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+实现一个简化版 myParse(str)，支持对象、数组、字符串、数字、true/false/null。
+
+**参考答案**：
+
+使用递归下降解析器：跳过空白，根据当前字符分发到对象、数组、字符串、数字或字面量。字符串处理转义；对象用 key:value 对；数组用逗号分隔元素。
+
+实现时建议先写 tokenizer 将字符串切分为 token，再递归解析 AST。
+
+
+**补充说明**：
+
+在实际落地 手写一个 JSON.parse 的简化版 时，建议结合 JSON、解析、递归下降 的真实场景做验证。重点关注可观测性埋点、异常降级路径和性能基线回归；同时通过灰度发布、指标看板和复盘机制持续迭代，确保方案从“能跑”演进为“可维护、可扩展”。
+**评分维度**：
+- 分词（40%）：能否识别字符串、数字、字面量、符号
+- 递归解析（40%）：对象、数组的嵌套处理
+- 边界（20%）：空白、转义、非法输入
+
+**常见错误**：
+- 用 eval 直接解析，存在安全风险
+- 字符串没有处理转义字符导致越界
+- 逗号结尾的数组或对象没有容错
+
+**口头回答版**：
+> 手写 JSON.parse 通常使用 tokenizer + 递归下降，分别处理对象、数组、字符串、数字和字面量。
+
+### FB-01-CO-A-016：eval、Function 构造函数和 new Function 有什么安全风险？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：eval、Function、XSS、安全
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请比较三者的作用域差异和安全风险。
+
+**参考答案**：
+
+eval 在当前作用域执行字符串代码，可访问局部变量，风险最高。Function / new Function 在全局作用域执行，无法直接访问局部变量，但仍可执行任意代码。
+
+三者都会把字符串当代码执行，如果字符串来自用户输入，会导致 XSS 或代码注入。应尽量避免，改用 JSON.parse、模板引擎或沙箱方案。
+
+**评分维度**：
+- 作用域（40%）：eval 访问局部 vs Function 全局
+- 注入风险（40%）：用户输入导致代码执行
+- 替代方案（20%）：JSON.parse、沙箱
+
+**常见错误**：
+- 认为 new Function 完全安全
+- 用 eval 解析 JSON
+- 忽略 Function 仍可访问全局对象和 DOM
+
+**口头回答版**：
+> eval 在当前作用域执行且风险最高，Function 在全局作用域执行，三者都应避免用于不可信输入。
+
+### FB-01-CD-A-014：手写一个模板字符串解析器
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：模板字符串、解析、插值、手写代码
+**出现频率**：低频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+实现 parseTemplate(template, data)，将 "Hello, ${name}!" 替换为 data 对应值。
+
+**参考答案**：
+
+使用正则 /\$\{([^}]+)\}/g 匹配插值表达式，用 with 或 Function 计算，或仅支持属性路径。需要处理嵌套对象和默认值。
+
+    function parseTemplate(template, data) {
+      return template.replace(/\$\{([^}]+)\}/g, (_, expr) => {
+        const keys = expr.trim().split('.');
+        let val = data;
+        for (const k of keys) val = val?.[k];
+        return val ?? '';
+      });
+    }
+
+**评分维度**：
+- 正则匹配（40%）：正确识别 ${...}
+- 路径解析（30%）：支持嵌套属性
+- 安全（30%）：避免用 eval 执行任意表达式
+
+**常见错误**：
+- 用 eval 直接执行插值表达式
+- 没有处理表达式为空或包含嵌套括号的情况
+- undefined 值没有给出默认值导致显示 undefined
+
+**口头回答版**：
+> 模板字符串解析器用正则匹配 ${...}，按属性路径取值，避免 eval 执行任意代码。
+
+### FB-01-CO-A-017：import.meta 和动态 import 有什么作用？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：import.meta、动态导入、ES Module、代码分割
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 import.meta 提供的信息以及 import() 的使用场景。
+
+**参考答案**：
+
+import.meta 是当前模块的元数据对象，包含 url 等属性。import() 返回 Promise，可在运行时按条件加载模块，天然支持代码分割和懒加载。
+
+    const module = await import('./heavy.js');
+    module.doSomething();
+
+**评分维度**：
+- import.meta（30%）：模块元数据 url
+- 动态导入（40%）：运行时条件加载、代码分割
+- 返回值（30%）：Promise 与命名空间对象
+
+**常见错误**：
+- 在 CommonJS 中直接使用 import.meta
+- 把 import() 当成同步调用
+- 动态导入路径使用纯变量导致打包工具无法分析代码分割
+
+**口头回答版**：
+> import.meta 提供模块元数据，import() 支持运行时动态加载和代码分割，返回 Promise。
+
+### FB-01-CD-A-015：手写一个 EventEmitter（发布订阅）
+
+**题型**：手写代码题
+**难度**：🟡 进阶
+**岗位层级**：初级 / 高级
+**面试知识域**：01 JavaScript
+**标签**：EventEmitter、发布订阅、观察者模式、手写代码
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+实现 on、emit、off、once 方法。
+
+**参考答案**：
+
+使用 Map 存储事件名到监听器数组的映射。on 添加监听，once 包装为执行后自移除，emit 按注册顺序同步调用并传递参数，off 按引用移除。
+
+    class EventEmitter {
+      constructor() { this.events = new Map(); }
+      on(name, fn) {
+        if (!this.events.has(name)) this.events.set(name, []);
+        this.events.get(name).push(fn);
+      }
+      emit(name, ...args) {
+        (this.events.get(name) || []).forEach(fn => fn(...args));
+      }
+      off(name, fn) {
+        const list = this.events.get(name) || [];
+        this.events.set(name, list.filter(f => f !== fn));
+      }
+      once(name, fn) {
+        const wrapper = (...args) => { this.off(name, wrapper); fn(...args); };
+        this.on(name, wrapper);
+      }
+    }
+
+**评分维度**：
+- 数据结构（30%）：Map + 数组
+- once 实现（30%）：包装函数自移除
+- off 准确性（40%）：按引用移除
+
+**常见错误**：
+- emit 使用异步调用导致执行顺序不可预期
+- off 时直接清空该事件所有监听器
+- once 包装函数没有正确移除自身，导致重复执行
+
+**口头回答版**：
+> EventEmitter 用 Map 存事件与监听器数组，实现 on/emit/off/once，注意 once 的自移除。
+---
+
+## 深入题（15 道）{#proficient}
 
 **口头回答版**：
 > CommonJS 在运行时同步加载模块： - require 第一次执行时会完整执行模块代码并缓存 module.exports 对象。 - 循环依赖时，后执行的模块拿到的可能是尚未完成赋值的 exports 对象。 - 因为导出的是值的拷贝，后续再修改 exports，已经拿到引用的模块不会感知。
@@ -3475,6 +4104,158 @@ console.log(child.value); // get value -> 100
 - [MDN - Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 - [MDN - Reflect](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect)
 
+**口头回答版**：
+> Proxy 用于定义对象基本操作的自定义行为（拦截），Reflect 则提供了一组与 Proxy trap 一一对应的默认操作方法。 保持默认行为：在 trap 中通过 Reflect 调用默认实现，避免手动实现带来的遗漏。 正确传递 receiver：尤其是 get / set trap 中，Reflect.get(target, key, receiver) 会把 this 绑定正确传递，避免访问原型链或 getter/setter 时 this 错误。 如果写 target[key]，this 会指向 target 而不是 child，导致结果错误。
+
+
+
+---
+### FB-01-CO-P-009：Top-level await 是什么？有什么兼容和降级方案？
+
+**题型**：概念题
+**难度**：🔴 深入
+**岗位层级**：高级 / 专家
+**面试知识域**：01 JavaScript
+**标签**：Top-level await、ES Module、异步、兼容性
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 Top-level await 的语义、使用限制和降级方案。
+
+**参考答案**：
+
+Top-level await 允许在 ES Module 顶层直接使用 await，使模块本身变为异步。它会阻塞模块图中后续依赖的执行，直到 Promise settle。
+
+降级方案：在模块内导出一个 async 函数或 Promise，由消费方 await；构建工具如 Webpack/Vite 会自动转换部分用法。
+
+**评分维度**：
+- 语义（40%）：模块变为异步，阻塞依赖
+- 使用限制（30%）：仅在 ESM 顶层
+- 降级（30%）：导出 async 函数/Promise
+
+**常见错误**：
+- 在 CommonJS 或 IIFE 中直接使用顶层 await
+- 认为 Top-level await 不影响模块加载顺序
+- 未考虑循环依赖导致的死锁风险
+
+**口头回答版**：
+> Top-level await 让模块本身异步，阻塞后续依赖，适用于 ESM，旧环境可导出 Promise 或 async 函数降级。
+
+### FB-01-CD-P-006：手写一个带并发限制的异步任务调度器
+
+**题型**：手写代码题
+**难度**：🔴 深入
+**岗位层级**：高级 / 专家
+**面试知识域**：01 JavaScript
+**标签**：并发控制、调度器、Promise、手写代码
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+实现 Scheduler(max)，支持 add(promiseFactory) 按最大并发数执行异步任务。
+
+**参考答案**：
+
+维护运行中任务数和等待队列。add 时如果运行数小于 max 立即执行；否则入队。任务完成后从队列取出下一个执行，并 resolve 原始 Promise。
+
+    class Scheduler {
+      constructor(max) { this.max = max; this.running = 0; this.queue = []; }
+      add(promiseFactory) {
+        return new Promise((resolve, reject) => {
+          this.queue.push({ promiseFactory, resolve, reject });
+          this.run();
+        });
+      }
+      run() {
+        while (this.running < this.max && this.queue.length) {
+          const { promiseFactory, resolve, reject } = this.queue.shift();
+          this.running++;
+          promiseFactory().then(resolve, reject).finally(() => { this.running--; this.run(); });
+        }
+      }
+    }
+
+**评分维度**：
+- 并发控制（40%）：max/running 计数
+- 队列管理（30%）：等待队列与任务复用
+- Promise 透传（30%）：resolve/reject 结果返回
+
+**常见错误**：
+- 所有任务一次性启动，没有限制并发
+- 使用数组 splice 导致性能差且顺序错乱
+- 没有处理 promiseFactory 抛出的同步异常
+
+**口头回答版**：
+> 带并发限制的调度器用计数器和等待队列控制同时运行的任务数，并正确透传每个任务的结果。
+
+### FB-01-CO-P-010：Temporal API 是什么？它解决了 Date 的哪些问题？
+
+**题型**：概念题
+**难度**：🔴 深入
+**岗位层级**：高级 / 专家
+**面试知识域**：01 JavaScript
+**标签**：Temporal、Date、时间处理、提案
+**出现频率**：低频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请介绍 Temporal API 的设计目标和主要对象。
+
+**参考答案**：
+
+Temporal 是 ECMAScript 新的日期/时间提案，提供不可变对象、纳秒精度、显式时区处理，以及 Duration、Instant、ZonedDateTime 等类型。它解决了原生 Date 的可变性、时区混乱和 2038 年问题。
+
+目前可通过 polyfill 使用，生产环境需评估浏览器支持。
+
+**评分维度**：
+- 不可变（30%）：避免修改现有对象
+- 类型化（30%）：Instant/PlainDate/ZonedDateTime
+- 时区（40%）：显式时区与夏令时
+
+**常见错误**：
+- 认为 Temporal 已原生广泛支持
+- 把 Temporal 和 Moment.js 混为一谈
+- 忽略 Temporal 的 API 与 Date 不兼容需要迁移成本
+
+**口头回答版**：
+> Temporal API 提供不可变、类型化、纳秒精度的日期时间处理，解决原生 Date 的时区和可变性痛点。
+
+### FB-01-SC-P-002：设计一个前端路由拦截与权限校验系统
+
+**题型**：场景设计题
+**难度**：🔴 深入
+**岗位层级**：高级 / 专家
+**面试知识域**：01 JavaScript
+**标签**：路由拦截、权限校验、前端路由、设计
+**出现频率**：中频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个支持白名单、角色、异步权限拉取和降级处理的路由守卫系统。
+
+**参考答案**：
+
+核心模块：路由配置表附加 meta.roles/permissions；全局 beforeEach 守卫按顺序执行鉴权；权限服务支持同步校验和异步拉取；未通过时重定向到登录或 403。
+
+    router.beforeEach(async (to, from, next) => {
+      const permitted = await authService.check(to);
+      if (permitted) next(); else next('/403');
+    });
+
+**评分维度**：
+- 拦截点（30%）：全局/路由/组件守卫
+- 权限模型（30%）：角色、资源、动态拉取
+- 降级与缓存（40%）：无权限跳转、权限缓存
+
+**常见错误**：
+- 在组件内才做权限校验，导致路由已切换
+- 每次路由都同步请求权限接口造成阻塞
+- 没有处理权限校验异常导致页面卡死
+
+**口头回答版**：
+> 路由拦截与权限校验系统应在全局守卫中根据角色/权限判断，支持异步拉取并做降级和缓存。
+---
 
 ## 架构题（28 道）{#architect}
 
@@ -5022,6 +5803,10 @@ throw new Error('订单查询失败', { cause: originalError });
 
 **口头回答版**：
 > Error Cause 是 ES2022 引入的能力，允许在创建 Error 时通过 cause 选项保留原始错误： （代码示例） 上层捕获后可通过 err.cause 追溯根因，避免错误信息被吞掉。 分层错误处理体系： 1. 业务层：对可预期错误做友好提示、降级、重试。 如表单校验失败、网络超时提示。 2. 框架层：React Error Boundary / Vue errorHandler 捕获渲染期错误，防止白屏。
+
+
+
+
 
 
 

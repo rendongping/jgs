@@ -1,6 +1,6 @@
 # WebAssembly 面试题
 
-> 本题库共收录 **30** 道面试题（基础 8 / 进阶 8 / 深入 7 / 架构 7）。
+> 本题库共收录 **55** 道面试题（基础 12 / 进阶 19 / 深入 15 / 架构 9）。
 > 本文件收录 WebAssembly 相关面试题，目标题量 60 道。
 > 题型覆盖：概念题、代码分析题、手写代码题、场景设计题、系统设计题、框架原理题、性能优化题、安全题、工程化题、综合开放题。
 > 难度覆盖：基础、进阶、深入、架构。
@@ -1929,7 +1929,7 @@ wasi.start(instance);
 > WASI 是 WebAssembly 的系统接口标准，解决 WASM 怎么跨平台访问文件、网络、时钟这些系统能力的问题。它设计上是可移植、安全、模块化的，模块只能访问被授权的资源。WASI 不只是给浏览器用的，服务端、边缘计算、IoT 都能用。浏览器里 WASI 支持有限，Node.js 支持得更好。现在 WASI 正在向 Preview2 和 Component Model 演进，未来类型系统和组合能力会更强。
 
 ---
-## 架构题（7 道）{#architect}
+## 架构题（32 道）{#architect}
 
 ### FB-49-SC-R-001：如何设计一个前端图像处理系统，引入 WebAssembly 进行计算加速？
 
@@ -2577,3 +2577,1598 @@ interface plugin {
 > 引入 WASM 要看收益和成本的平衡。值得用的情况：有明确的性能瓶颈、需要复用 C/Rust 生态、执行时间要稳定、算法要跨平台、或者需要沙箱隔离第三方代码。不该用的情况：只是普通业务逻辑、主要操作 DOM、JS 和 WASM 频繁交换数据、团队没有相关经验、包体积敏感。我的决策流程是：先定指标，做基线测试，再做一个 WASM 原型验证，评估开发和维护成本，然后 A/B 上线，最后持续监控。不能为了技术热门而引入 WASM。
 
 
+
+### FB-49-CO-A-008：什么是 WebAssembly？它与 JavaScript 有什么关系？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、Wasm、JavaScript、浏览器
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请解释 WebAssembly 的概念，以及它与 JavaScript 的关系。
+
+**参考答案**：
+WebAssembly（Wasm）是一种低级的类汇编语言，具有紧凑的二进制格式，可在现代浏览器中以接近原生的速度运行。
+
+与 JavaScript 的关系：
+
+1. **互补而非替代**
+   - JavaScript 适合 DOM 操作、业务逻辑、快速开发。
+   - WebAssembly 适合计算密集型任务，如音视频处理、游戏、加密。
+
+2. **同一运行时**
+   - Wasm 与 JS 在同一个沙箱中运行。
+   - 共享内存、事件循环。
+
+3. **互操作**
+   - JS 可以实例化 Wasm 模块，调用其导出的函数。
+   - Wasm 可以导入 JS 函数，实现与浏览器 API 交互。
+
+4. **性能**
+   - Wasm 是静态类型、预编译的，执行效率更高。
+   - 启动和运行时性能优于解释执行的 JS。
+
+5. **语言无关**
+   - 可用 C/C++、Rust、Go、AssemblyScript 等编译为 Wasm。
+
+示例：
+```js
+const wasm = await WebAssembly.instantiateStreaming(fetch('app.wasm'));
+const result = wasm.instance.exports.add(1, 2);
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> WebAssembly 是二进制低级语言，在浏览器接近原生速度运行。它与 JS 互补，同运行时、可互操作，适合计算密集型任务，可用多种语言编译。
+
+---
+
+### FB-49-CO-A-009：WebAssembly 的核心模块结构是什么？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、模块、结构、Memory、Table
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly 模块的主要组成部分。
+
+**参考答案**：
+WebAssembly 模块主要组成：
+
+1. **函数（Functions）**
+   - 模块导出的可调用函数。
+   - 是 JS 与 Wasm 交互的主要方式。
+
+2. **线性内存（Linear Memory）**
+   - 连续的 byte 数组，可通过 JS 和 Wasm 读写。
+   - 类似 C 语言的堆内存。
+   - 用 `WebAssembly.Memory` 创建。
+
+3. **表（Table）**
+   - 存放函数引用的数组。
+   - 支持间接函数调用，如 C 语言函数指针。
+
+4. **全局变量（Globals）**
+   - 模块级别的可变或不可变变量。
+
+5. **导入/导出（Imports/Exports）**
+   - 导入：Wasm 从外部环境（通常是 JS）获取函数、内存、表、全局变量。
+   - 导出：Wasm 向外部环境暴露函数、内存、表、全局变量。
+
+6. **数据段/元素段（Data/Element Segments）**
+   - 初始化内存和表的数据。
+
+示例：
+```js
+const importObject = {
+  env: {
+    memory: new WebAssembly.Memory({ initial: 256 }),
+    abort: () => console.log('abort')
+  }
+};
+const wasm = await WebAssembly.instantiate(bytes, importObject);
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 模块由函数、线性内存、表、全局变量、导入导出、数据段组成。线性内存是连续字节数组，表存函数引用，导入导出实现与 JS 互操作。
+
+---
+
+### FB-49-CO-A-010：WebAssembly 的 Memory 是什么？如何与 JavaScript 共享数据？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、Memory、共享数据、JS
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly 线性内存的概念，以及 JS 和 Wasm 如何通过 Memory 交换数据。
+
+**参考答案**：
+WebAssembly Memory：
+
+- 是一个可增长的 ArrayBuffer，称为线性内存。
+- Wasm 模块可以通过 load/store 指令读写内存。
+- JS 可以通过 `memory.buffer` 访问同一份内存。
+
+共享数据方式：
+
+1. **JS 写数据到 Memory**
+   ```js
+   const memory = new WebAssembly.Memory({ initial: 1 });
+   const bytes = new Uint8Array(memory.buffer);
+   const encoder = new TextEncoder();
+   const data = encoder.encode('hello');
+   bytes.set(data, 0);
+   wasm.instance.exports.processString(0);
+   ```
+
+2. **Wasm 写数据到 Memory，JS 读取**
+   ```js
+   const ptr = wasm.instance.exports.getResult();
+   const result = new Uint8Array(memory.buffer, ptr, length);
+   const str = new TextDecoder().decode(result);
+   ```
+
+3. **Memory 增长**
+   - Wasm 可通过 `memory.grow(n)` 增加页数。
+   - 增长后 JS 端的 `memory.buffer` 引用会失效，需要重新获取。
+
+注意：
+- 数据交换需要约定编码格式（如 UTF-8）。
+- 注意内存对齐和边界。
+- 多线程场景需用 SharedArrayBuffer。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm Memory 是可增长的 ArrayBuffer，JS 和 Wasm 可读写同一份内存。JS 通过 TextEncoder/Decoder 转换字符串，要注意 memory.grow 后 buffer 引用失效。
+
+---
+
+### FB-49-CO-A-011：WebAssembly 支持哪些数据类型？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、数据类型、i32、f64
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly 支持的基本数据类型。
+
+**参考答案**：
+WebAssembly 基本数据类型：
+
+| 类型 | 说明 |
+|------|------|
+| i32 | 32 位整数 |
+| i64 | 64 位整数 |
+| f32 | 32 位浮点数 |
+| f64 | 64 位浮点数 |
+| v128 | 128 位 SIMD 向量（SIMD 提案） |
+| funcref | 函数引用 |
+| externref | 外部引用（引用任意 JS 对象） |
+
+注意：
+- Wasm 不直接支持字符串、对象、数组等高级类型。
+- 复杂数据需要通过线性内存传递，或使用 externref（Wasm GC/引用类型提案）。
+- 多返回值、异常处理等通过提案逐步支持。
+
+类型转换：
+- 编译器（如 Emscripten、Rust wasm-bindgen）会处理高级类型到 Wasm 类型的映射。
+- 手写 Wasm 时需要自己管理内存布局。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 基本类型有 i32、i64、f32、f64、v128、funcref、externref。不直接支持字符串对象数组，复杂数据通过内存传递或用 externref。
+
+---
+
+### FB-49-CO-A-012：WebAssembly 的 instantiate 和 instantiateStreaming 有什么区别？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、instantiate、加载、编译
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly.instantiate 和 WebAssembly.instantiateStreaming 的区别。
+
+**参考答案**：
+区别：
+
+| 特性 | instantiate | instantiateStreaming |
+|------|------------|----------------------|
+| 输入 | ArrayBuffer 或 TypedArray | Response 对象（fetch 返回） |
+| 编译时机 | 先下载完整 buffer 再编译 | 边下载边编译 |
+| 性能 | 需要等待完整下载 | 启动更快，可流式编译 |
+| 使用场景 | 已有 buffer | 从网络加载 Wasm 文件 |
+
+示例：
+```js
+// instantiate
+const response = await fetch('app.wasm');
+const bytes = await response.arrayBuffer();
+const wasm = await WebAssembly.instantiate(bytes, importObject);
+
+// instantiateStreaming
+const response = fetch('app.wasm');
+const wasm = await WebAssembly.instantiateStreaming(response, importObject);
+```
+
+建议：
+- 网络加载 Wasm 时优先使用 `instantiateStreaming`。
+- 需要缓存或处理 buffer 时用 `instantiate`。
+
+注意：
+- 服务端需正确设置 `application/wasm` MIME 类型，streaming 才能正常工作。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> instantiate 需要完整 ArrayBuffer 再编译，instantiateStreaming 可以边下载边编译，启动更快。网络加载优先用 streaming，服务端要设置正确 MIME 类型。
+
+---
+
+### FB-49-CO-B-007：WebAssembly 的编译工具链有哪些？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、工具链、Emscripten、Rust、AssemblyScript
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明常用的将高级语言编译为 WebAssembly 的工具链。
+
+**参考答案**：
+常用 Wasm 编译工具链：
+
+1. **Emscripten**
+   - 将 C/C++ 编译为 Wasm。
+   - 提供 POSIX 兼容层、SDL、OpenGL 支持。
+   - 适合移植大型 C/C++ 项目。
+
+2. **Rust + wasm-bindgen**
+   - Rust 编译为 Wasm。
+   - wasm-bindgen 自动生成 JS 绑定，方便类型传递。
+   - wasm-pack 提供打包工具。
+
+3. **AssemblyScript**
+   - TypeScript 语法编译为 Wasm。
+   - 适合前端开发者入门。
+
+4. **Go**
+   - Go 1.11+ 支持编译为 Wasm。
+   - 但产物体积较大，启动较慢。
+
+5. **TinyGo**
+   - Go 的轻量编译器，生成更小的 Wasm。
+   - 适合嵌入式和 Web。
+
+6. **Cheerp / CheerpX**
+   - 将 C++ 编译为 Wasm 或 JS。
+
+7. **Javy / QuickJS**
+   - 将 JS 编译为 Wasm，适合边缘计算。
+
+选择建议：
+- 高性能计算：Rust/C++。
+- 前端团队：AssemblyScript。
+- 已有 Go 项目：TinyGo。
+- 大型游戏/仿真：Emscripten。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> 常用工具链有 Emscripten（C/C++）、Rust+wasm-bindgen、AssemblyScript（TS 语法）、Go/TinyGo、Cheerp 等。高性能用 Rust/C++，前端团队用 AssemblyScript。
+
+---
+
+### FB-49-CO-B-008：WebAssembly 适合哪些场景？不适合哪些场景？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、场景、适用、不适用
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly 适合和不适合的应用场景。
+
+**参考答案**：
+适合场景：
+
+1. **计算密集型任务**
+   - 图像/视频处理、音频分析、3D 渲染、科学计算。
+
+2. **游戏引擎**
+   - Unity、Unreal 等可导出 Wasm。
+   - 浏览器中运行高性能游戏。
+
+3. **加密与安全**
+   - 密码学算法、哈希计算、密钥派生。
+
+4. **编译器/解释器**
+   - 在浏览器中运行其他语言，如 Pyodide（Python）、SQL 引擎。
+
+5. **代码移植**
+   - 将现有 C/C++/Rust 代码库移植到 Web。
+
+6. **边缘计算**
+   - Cloudflare Workers、Fastly Compute 支持 Wasm。
+
+不适合场景：
+
+1. **大量 DOM 操作**
+   - Wasm 访问 DOM 需通过 JS，成本高。
+   - 纯 UI 操作不如直接写 JS。
+
+2. **简单业务逻辑**
+   - 如果 JS 足够快且易维护，没必要引入 Wasm。
+
+3. **极小体积要求**
+   - Wasm 模块本身有体积，简单任务可能不如 JS 小。
+
+4. **强依赖浏览器 API**
+   - 频繁调用浏览器 API 时，Wasm 与 JS 互操作开销明显。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 适合计算密集、游戏、加密、编译器、代码移植、边缘计算。不适合大量 DOM 操作、简单业务、极小体积、频繁浏览器 API 调用。
+
+---
+
+### FB-49-CO-B-009：WebAssembly 的执行性能为什么比 JavaScript 高？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、性能、AOT、JIT、JavaScript
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly 性能优势的主要来源。
+
+**参考答案**：
+Wasm 性能优势来源：
+
+1. **二进制格式**
+   - 体积小，解析快。
+   - JS 需要词法分析、语法分析，Wasm 直接解码。
+
+2. **静态类型**
+   - 类型信息在编译期确定。
+   - 不需要运行时类型推断和优化反优化循环。
+
+3. **接近机器码**
+   - Wasm 指令是低级的、结构化的。
+   - 编译器可以更快生成高效机器码。
+
+4. **AOT 友好**
+   - 浏览器可以一次性编译为机器码。
+   - JS JIT 需要预热和反优化，有运行时开销。
+
+5. **可预测的性能**
+   - 没有 JS 中的隐藏类、垃圾回收停顿等问题。
+   - 适合实时性要求高的任务。
+
+6. **内存布局可控**
+   - 线性内存连续，利于缓存命中。
+   - 适合数值计算和数据处理。
+
+注意：
+- Wasm 不是处处比 JS 快。
+- 频繁 JS/Wasm 互操作、DOM 操作会抵消优势。
+- 实际性能需 benchmark 验证。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 性能高是因为二进制格式解析快、静态类型、接近机器码、AOT 编译、可预测性能、内存布局连续。但不是处处比 JS 快，频繁互操作会抵消优势。
+
+---
+
+### FB-49-CO-B-010：WebAssembly 如何调用 JavaScript 函数？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、JS、互操作、import
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Wasm 模块如何调用 JavaScript 函数。
+
+**参考答案**：
+Wasm 调用 JS 函数方式：
+
+1. **通过 importObject 导入**
+   - 实例化 Wasm 时传入 importObject。
+   - Wasm 中声明 import，编译后通过模块名和字段名匹配。
+
+示例：
+```js
+const importObject = {
+  env: {
+    consoleLog: (n) => console.log('from wasm:', n),
+    memory: new WebAssembly.Memory({ initial: 1 })
+  }
+};
+const wasm = await WebAssembly.instantiateStreaming(fetch('app.wasm'), importObject);
+```
+
+对应 C/Rust 代码中声明：
+```c
+extern void consoleLog(int n);
+```
+
+2. **通过 Table 间接调用**
+   - 函数表存放函数引用，支持动态函数指针调用。
+
+3. **通过 JS 导出函数后传入**
+   - JS 把函数作为参数传给 Wasm 导出的函数。
+
+4. **wasm-bindgen / Emscripten**
+   - 自动生成绑定代码，简化互操作。
+
+注意事项：
+- 导入函数的签名必须和 Wasm 中声明一致。
+- 调用频繁时要注意开销。
+- 异步操作需特别处理。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 通过 importObject 导入 JS 函数，实例化时传入，Wasm 中用 extern 声明。也可用函数表间接调用。实际开发用 wasm-bindgen 或 Emscripten 自动生成绑定。
+
+---
+
+### FB-49-CP-P-008：WebAssembly 如何实现多线程？
+
+**题型**：综合开放题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、多线程、SharedArrayBuffer、Worker
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly 在浏览器中实现多线程的方案。
+
+**参考答案**：
+Wasm 多线程方案：
+
+1. **Web Workers**
+   - 每个 Worker 中加载独立的 Wasm 实例。
+   - 通过 SharedArrayBuffer 共享内存。
+
+2. **SharedArrayBuffer**
+   - 创建 Wasm Memory 时使用 `shared: true`。
+   - 多个 Worker 中的 Wasm 实例共享同一份内存。
+   - 需要原子操作（Atomics）保证线程安全。
+
+3. **Wasm 线程提案**
+   - 支持在 Wasm 内部创建线程（pthread）。
+   - Emscripten 的 `-s USE_PTHREADS=1` 可启用。
+   - Rust 的 `wasm-bindgen-rayon` 支持 rayon 并行。
+
+4. **浏览器支持**
+   - 需要 COOP/COEP 响应头启用 SharedArrayBuffer。
+   - 部分浏览器和环境有安全限制。
+
+示例：
+```js
+const memory = new WebAssembly.Memory({
+  initial: 1,
+  maximum: 4,
+  shared: true
+});
+```
+
+注意事项：
+- 多线程编程复杂，需注意数据竞争、死锁。
+- 线程创建和销毁有开销，适合计算密集型任务。
+- 移动端 Web 对 SharedArrayBuffer 支持有限。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 多线程通过 Web Workers 加载独立实例，用 SharedArrayBuffer 共享内存，Wasm 线程提案支持 pthread。要启用 COOP/COEP 头，注意数据竞争和移动端支持。
+
+---
+
+### FB-49-CP-P-009：WebAssembly 如何实现异常处理？
+
+**题型**：综合开放题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、异常、Exception Handling、错误
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly 中的异常处理机制及其实现方式。
+
+**参考答案**：
+Wasm 异常处理：
+
+1. **早期方案：返回错误码**
+   - C 风格：函数返回错误码，通过内存传递错误信息。
+   - 简单但破坏代码结构。
+
+2. **Exception Handling 提案**
+   - Wasm 原生支持 try/catch/throw 指令。
+   - 浏览器逐步支持。
+   - 编译器可映射高级语言异常。
+
+3. **Emscripten 方案**
+   - 使用 `-s DISABLE_EXCEPTION_CATCHING=0` 启用 C++ 异常。
+   - 有性能开销，默认关闭。
+
+4. **Rust 方案**
+   - Rust panic 在 Wasm 中默认 abort。
+   - 可通过 `console_error_panic_hook` 输出错误信息。
+
+5. **JS 侧捕获**
+   - 调用 Wasm 导出函数时用 try/catch。
+   - 但 Wasm 内部异常不一定能正确抛出。
+
+6. **错误码 + Result 类型**
+   - Rust 推荐用 Result 返回错误。
+   - 避免异常跨边界传播。
+
+建议：
+- 跨语言边界尽量用错误码或 Result 传递错误。
+- 在 Wasm 内部可使用语言原生异常机制。
+- 注意异常处理提案的浏览器兼容性。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 异常处理早期用错误码，现在有 Exception Handling 提案。Emscripten 和 Rust 各有方案。跨语言边界建议用错误码或 Result，注意兼容性。
+
+---
+
+### FB-49-CP-P-010：WebAssembly 的 SIMD 是什么？有什么应用？
+
+**题型**：综合开放题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、SIMD、向量、性能
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly SIMD 的概念和应用场景。
+
+**参考答案**：
+WebAssembly SIMD：
+
+- SIMD（Single Instruction, Multiple Data）即单指令多数据。
+- Wasm SIMD 提案引入 128 位向量类型 v128 和相关指令。
+- 一条指令可同时处理多个数据，提升并行计算性能。
+
+应用场景：
+
+1. **图像处理**
+   - 像素级操作，如滤镜、缩放、颜色转换。
+
+2. **音视频编解码**
+   - 音频采样处理、视频帧处理。
+
+3. **机器学习**
+   - 矩阵运算、向量点积。
+
+4. **游戏物理**
+   - 向量运算、碰撞检测。
+
+5. **密码学**
+   - 某些加密算法可 SIMD 加速。
+
+使用方式：
+- 编译器自动向量化（如 Rust `-C target-feature=+simd128`）。
+- 手写 SIMD 指令（较少见）。
+
+浏览器支持：
+- 现代浏览器已支持 Wasm SIMD。
+- 使用前应做特性检测。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm SIMD 是单指令多数据，用 128 位向量提升并行计算。应用于图像处理、音视频、机器学习、游戏物理、密码学。现代浏览器已支持，使用前要检测。
+
+---
+
+### FB-49-CP-P-011：WebAssembly 与 WASI 有什么关系？
+
+**题型**：综合开放题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、WASI、系统接口、WebAssembly System Interface
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WASI 的概念及其与 WebAssembly 的关系。
+
+**参考答案**：
+WASI（WebAssembly System Interface）：
+
+- 是 WebAssembly 访问操作系统能力的标准接口。
+- 让 Wasm 不仅在浏览器运行，还能在服务器、边缘设备等环境运行。
+- 提供文件系统、网络、时钟、随机数等系统能力。
+
+关系：
+- Wasm 是执行格式。
+- WASI 是 Wasm 与宿主环境交互的接口规范。
+
+WASI 特点：
+
+1. **可移植性**
+   - 一次编译，到处运行（只要有 WASI runtime）。
+
+2. **安全性**
+   - 基于能力的安全模型（capability-based security）。
+   - 程序只能访问显式授予的资源。
+
+3. **模块化**
+   - 标准化系统调用接口。
+
+常见 WASI Runtime：
+- Wasmtime（Rust）
+- Wasmer
+- WasmEdge
+- Node.js（实验性）
+
+应用场景：
+- 边缘计算、微服务、插件系统、沙箱执行。
+
+示例：
+```sh
+wasmtime app.wasm
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> WASI 是 Wasm 访问操作系统能力的标准接口，让 Wasm 可在浏览器外运行。特点是可移植、安全、模块化。常见 runtime 有 Wasmtime、Wasmer、WasmEdge。
+
+---
+
+### FB-49-EN-A-007：如何在 Web 项目中集成 Rust 编译的 WebAssembly？
+
+**题型**：工程化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：Rust、WebAssembly、wasm-bindgen、集成
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明将 Rust 代码编译为 Wasm 并在前端项目中使用的流程。
+
+**参考答案**：
+Rust + Wasm 集成流程：
+
+1. **安装工具**
+   - Rust toolchain
+   - wasm-pack：`cargo install wasm-pack`
+
+2. **创建 Rust 项目**
+   ```sh
+   cargo new --lib my-wasm
+   ```
+
+3. **配置 Cargo.toml**
+   ```toml
+   [lib]
+   crate-type = ["cdylib"]
+
+   [dependencies]
+   wasm-bindgen = "0.2"
+   ```
+
+4. **编写 Rust 代码**
+   ```rust
+   use wasm_bindgen::prelude::*;
+
+   #[wasm_bindgen]
+   pub fn add(a: i32, b: i32) -> i32 {
+       a + b
+   }
+   ```
+
+5. **编译为 Wasm**
+   ```sh
+   wasm-pack build --target web
+   ```
+
+6. **在前端使用**
+   ```js
+   import init, { add } from './pkg/my_wasm.js';
+   await init();
+   console.log(add(1, 2));
+   ```
+
+7. **打包工具配置**
+   - Webpack/Vite/Rollup 配置 wasm 加载。
+   - wasm-pack 生成的 JS 包装器通常可直接使用。
+
+最佳实践：
+- 复杂类型用 wasm-bindgen 自动生成绑定。
+- 大数据通过 Memory 传递。
+- 初始化异步完成后再调用函数。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Rust 到 Wasm 用 wasm-pack，配置 crate-type 为 cdylib，写 wasm_bindgen 导出函数，编译后用 init 初始化再调用。大数据通过 Memory 传递。
+
+---
+
+### FB-49-EN-A-008：Emscripten 编译 WebAssembly 时常用哪些编译选项？
+
+**题型**：工程化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：Emscripten、编译选项、WebAssembly、C++
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明使用 Emscripten 将 C/C++ 编译为 Wasm 时的常用选项。
+
+**参考答案**：
+Emscripten 常用编译选项：
+
+1. **输出格式**
+   - `-o app.html`：生成 HTML + JS + Wasm。
+   - `-o app.js`：生成 JS + Wasm。
+   - `-o app.wasm`：仅 Wasm。
+
+2. **优化级别**
+   - `-O0`：无优化，调试。
+   - `-O2`：常规优化。
+   - `-O3`：激进优化。
+   - `-Os`：优化体积。
+   - `-Oz`：极致优化体积。
+
+3. **模块化输出**
+   - `-s MODULARIZE=1`：生成可实例化的模块。
+   - `-s EXPORT_NAME='MyModule'`：指定模块名。
+
+4. **导出函数**
+   - `-s EXPORTED_FUNCTIONS='["_add", "_sub"]'`：导出 C 函数。
+   - `-s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'`：导出 JS 运行时方法。
+
+5. **内存设置**
+   - `-s INITIAL_MEMORY=64MB`
+   - `-s MAXIMUM_MEMORY=256MB`
+   - `-s ALLOW_MEMORY_GROWTH=1`
+
+6. **其他常用**
+   - `-s USE_PTHREADS=1`：启用多线程。
+   - `-s DISABLE_EXCEPTION_CATCHING=0`：启用异常。
+   - `-s FILESYSTEM=0`：禁用虚拟文件系统，减小体积。
+
+示例：
+```sh
+emcc add.c -o add.js -O3 -s MODULARIZE=1 -s EXPORTED_FUNCTIONS='["_add"]' -s EXPORTED_RUNTIME_METHODS='["ccall"]' -s ALLOW_MEMORY_GROWTH=1
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Emscripten 常用选项包括输出格式、优化级别、MODULARIZE、EXPORTED_FUNCTIONS、内存设置、多线程、异常、文件系统等。根据需求组合使用。
+
+---
+
+### FB-49-EN-A-009：WebAssembly 在前端工程化中如何加载和打包？
+
+**题型**：工程化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、工程化、Webpack、Vite、加载
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明前端项目中如何加载和打包 Wasm 文件。
+
+**参考答案**：
+前端 Wasm 加载和打包：
+
+1. **直接 fetch 加载**
+   ```js
+   const response = fetch('app.wasm');
+   const wasm = await WebAssembly.instantiateStreaming(response, importObject);
+   ```
+
+2. **Webpack**
+   - Webpack 4+ 支持 `.wasm` 文件。
+   - 需配置 experiments.asyncWebAssembly 或 experiments.syncWebAssembly。
+
+3. **Vite**
+   - Vite 支持直接 import `.wasm` 文件。
+   - `import init from './app.wasm?init'`。
+
+4. **wasm-pack**
+   - 生成 JS 包装器，可直接 import。
+   - 适合 Rust 项目。
+
+5. **Emscripten 生成 JS**
+   - 直接引入生成的 JS 文件。
+   - JS 会负责加载对应 Wasm。
+
+6. **MIME 类型**
+   - 服务器需设置 `application/wasm`。
+   - 否则 streaming 加载会失败。
+
+7. **懒加载**
+   - 大 Wasm 模块可异步 import，减少首屏负担。
+
+8. **缓存**
+   - 利用浏览器缓存，配合版本号或 hash。
+
+示例（Vite）：
+```js
+import init from './calc.wasm?init';
+const wasm = await init();
+console.log(wasm.exports.add(1, 2));
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> 前端 Wasm 可直接 fetch、Webpack/Vite 打包、wasm-pack 生成 JS 包装器、Emscripten 生成 JS。注意服务器 MIME 类型，大模块懒加载，做好缓存。
+
+---
+
+### FB-49-FS-P-006：WebAssembly 的运行时生命周期是怎样的？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、生命周期、编译、实例化
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly 从源码到运行的完整生命周期。
+
+**参考答案**：
+Wasm 运行时生命周期：
+
+1. **源码编写**
+   - 用 C/C++/Rust/AssemblyScript 等高级语言编写。
+
+2. **编译为 Wasm 二进制**
+   - 使用工具链编译为 `.wasm` 文件。
+   - 可能同时生成 JS 胶水代码。
+
+3. **加载到浏览器**
+   - 通过 fetch 或 import 获取 Wasm 文件。
+
+4. **编译（Compile）**
+   - `WebAssembly.compile` 或 `instantiate` 内部编译。
+   - 将 Wasm 二进制转换为浏览器内部表示。
+
+5. **实例化（Instantiate）**
+   - 提供 importObject（内存、函数、全局变量等）。
+   - 创建 Wasm 模块实例，分配资源。
+
+6. **执行**
+   - 调用实例导出的函数。
+   - Wasm 读写线性内存，与 JS 互操作。
+
+7. **销毁**
+   - 实例不再被引用时由 GC 回收。
+   - 线性内存由 JS 控制释放。
+
+注意：
+- 编译后的 Module 可多次实例化。
+- 实例化是同步还是异步取决于 API。
+- Worker 中也可运行 Wasm。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 生命周期：源码 → 编译为 wasm → 加载 → 编译 → 实例化 → 执行 → 销毁。Module 可多次实例化，实例化需 importObject。
+
+---
+
+### FB-49-FS-P-007：WebAssembly 的 GC 提案是什么？有什么意义？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、GC、垃圾回收、提案
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly GC 提案的内容和意义。
+
+**参考答案**：
+Wasm GC 提案：
+
+- 为 WebAssembly 添加垃圾回收和托管对象支持。
+- 允许 Wasm 直接表示对象、数组、字符串等高级类型。
+- 不再需要完全依赖线性内存和手动内存管理。
+
+意义：
+
+1. **简化编译**
+   - 高级语言编译到 Wasm 更容易。
+   - 如 Java、Kotlin、Dart 等可更高效地 targeting Wasm。
+
+2. **互操作性**
+   - Wasm 对象可直接与 JS 对象交互。
+   - 减少序列化和内存拷贝。
+
+3. **性能**
+   - 托管内存由浏览器统一 GC，可能更高效。
+   - 减少线性内存管理开销。
+
+4. **安全性**
+   - 避免手动内存管理导致的漏洞。
+
+状态：
+- Wasm GC 提案已进入提案流程后期。
+- 部分浏览器开始支持。
+
+影响：
+- 未来更多高级语言可直接编译为 Wasm。
+- Wasm 与 JS 的边界会更模糊。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm GC 提案增加垃圾回收和托管对象，让 Wasm 直接表示对象数组字符串。意义是简化高级语言编译、提升互操作和性能、增强安全。部分浏览器已开始支持。
+
+---
+
+### FB-49-FS-P-008：WebAssembly 的 Component Model 是什么？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、Component Model、组件、互操作
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly Component Model 的概念和目标。
+
+**参考答案**：
+WebAssembly Component Model：
+
+- 是 WebAssembly 的组件化标准提案。
+- 目标是在 Wasm 模块之上定义可组合、可互操作的组件。
+- 类似软件组件的“USB 接口”。
+
+核心概念：
+
+1. **Interface Types**
+   - 定义组件间交互的高级类型（字符串、列表、记录等）。
+   - 自动处理跨语言类型转换。
+
+2. **组件（Component）**
+   - 一个或多个 Wasm 模块的封装。
+   - 明确定义 import 和 export 接口。
+
+3. **组合（Composition）**
+   - 不同语言编译的组件可以组合在一起。
+   - 例如 Rust 组件调用 Go 组件。
+
+目标：
+- 跨语言复用。
+- 简化插件系统。
+- 标准化 WASI 应用接口。
+- 促进云原生和边缘计算生态。
+
+相关工具：
+- Wasmtime、WasmEdge 在支持。
+- wit-bindgen 用于生成绑定。
+
+意义：
+- 未来可能出现跨语言组件市场。
+- 开发语言选择更灵活。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm Component Model 是组件化标准，用 Interface Types 定义高级类型，组件封装模块并明确接口，支持跨语言组合。目标是跨语言复用、标准化插件和云原生接口。
+
+---
+
+### FB-49-FS-P-009：WebAssembly 在边缘计算中的应用有哪些？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、边缘计算、Serverless、安全
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 WebAssembly 在边缘计算场景中的优势和应用。
+
+**参考答案**：
+Wasm 在边缘计算中的应用：
+
+1. **边缘 Serverless**
+   - Cloudflare Workers、Fastly Compute、AWS Lambda 支持 Wasm。
+   - 冷启动快，资源占用低。
+
+2. **插件系统**
+   - 在网关、代理中运行动态加载的 Wasm 插件。
+   - 如 Envoy Wasm 扩展。
+
+3. **安全沙箱**
+   - Wasm 运行时有强隔离能力。
+   - 适合执行不可信代码。
+
+4. **轻量函数**
+   - 函数体积小，启动毫秒级。
+   - 适合高并发、低延迟场景。
+
+5. **跨语言运行时**
+   - 不同语言编写的业务逻辑统一在 Wasm 运行时执行。
+
+6. **IoT 和嵌入式**
+   - 小体积、可移植，适合资源受限设备。
+
+优势：
+- 启动快、体积小。
+- 安全隔离。
+- 可移植。
+- 多语言支持。
+
+挑战：
+- 生态和工具链仍在完善。
+- 调试和可观测性相对复杂。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 在边缘计算用于 Serverless、插件系统、安全沙箱、轻量函数、IoT。优势是启动快、体积小、安全隔离、可移植、多语言。
+
+---
+
+### FB-49-PE-A-006：WebAssembly 模块体积如何优化？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、体积优化、wasm-opt、压缩
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明减小 WebAssembly 模块体积的方法。
+
+**参考答案**：
+Wasm 体积优化：
+
+1. **编译优化**
+   - 使用 `-Os`、`-Oz` 优化体积。
+   - Rust 使用 `opt-level = 'z'` 和 `lto = true`。
+
+2. **wasm-opt**
+   - Binaryen 提供的优化工具。
+   - `wasm-opt -Oz app.wasm -o app.opt.wasm`。
+
+3. **移除未使用代码**
+   - 只导出需要的函数。
+   - 使用 dead code elimination。
+
+4. **禁用不需要的运行时**
+   - Emscripten 中 `FILESYSTEM=0`。
+   - 减少胶水代码体积。
+
+5. **压缩传输**
+   - 服务器开启 gzip/brotli。
+   - Wasm 二进制可压缩率高。
+
+6. **按需加载**
+   - 大模块拆分为多个小模块。
+   - 使用时动态加载。
+
+7. **避免过度泛型**
+   - Rust 中过度泛型会生成大量代码。
+
+8. **使用 TinyGo**
+   - Go 项目用 TinyGo 生成更小体积。
+
+9. **分析工具**
+   - `wasm-strip`、`twiggy` 分析体积分布。
+
+示例：
+```sh
+wasm-opt -Oz input.wasm -o output.wasm
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 体积优化用编译优化、wasm-opt、移除未用代码、禁用不需要的运行时、gzip/brotli 压缩、按需加载、避免过度泛型、TinyGo。用 wasm-strip/twiggy 分析。
+
+---
+
+### FB-49-PE-A-007：WebAssembly 与 JavaScript 互操作的性能瓶颈是什么？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、JS、互操作、性能瓶颈
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Wasm 与 JS 频繁互操作时的性能瓶颈及优化方法。
+
+**参考答案**：
+互操作性能瓶颈：
+
+1. **调用开销**
+   - 每次跨边界调用都有一定开销。
+   - 高频小调用比批量调用慢。
+
+2. **数据序列化**
+   - 字符串、对象等复杂数据需要编码/解码。
+   - 通过 Memory 传递可减少拷贝，但需手动管理。
+
+3. **类型转换**
+   - JS 动态类型与 Wasm 静态类型转换有成本。
+
+4. **内存视图失效**
+   - Memory grow 后 JS 的 TypedArray 视图失效，需重新创建。
+
+优化方法：
+
+1. **批量处理**
+   - 一次调用处理大量数据，减少边界穿越次数。
+
+2. **共享内存**
+   - 大数据直接通过 Memory 传递指针。
+
+3. **减少字符串传递**
+   - 尽量传递数字、索引，字符串必要时编码。
+
+4. **合并函数**
+   - 把多个小函数合并为一个粗粒度函数。
+
+5. **使用 wasm-bindgen**
+   - 自动生成高效绑定，减少手动开销。
+
+6. **预分配内存**
+   - 避免运行中频繁 memory.grow。
+
+7. **避免 JS 回调循环**
+   - 不要在 Wasm 循环中频繁回调 JS。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 与 JS 互操作瓶颈是调用开销、数据序列化、类型转换、内存视图失效。优化要批量处理、共享内存、减少字符串传递、合并函数、用 wasm-bindgen、预分配内存、避免循环回调 JS。
+
+---
+
+### FB-49-PE-A-008：WebAssembly 启动性能如何优化？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、启动、性能、编译
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明优化 WebAssembly 首次加载和启动性能的方法。
+
+**参考答案**：
+Wasm 启动性能优化：
+
+1. **使用 instantiateStreaming**
+   - 边下载边编译，减少等待时间。
+
+2. **模块缓存**
+   - 使用 WebAssembly.Module 缓存编译结果。
+   - IndexedDB 可持久化缓存。
+
+3. **减小模块体积**
+   - 体积越小，下载和编译越快。
+
+4. **延迟加载**
+   - 非首屏功能模块延迟实例化。
+
+5. **预编译**
+   - 使用 WebAssembly.compile 提前编译。
+   - 需要时再 instantiate。
+
+6. **Worker 中编译**
+   - 大模块在 Worker 中编译，避免阻塞主线程。
+
+7. **分片加载**
+   - 大模块拆小，按需加载。
+
+8. **服务端优化**
+   - 启用 gzip/brotli、HTTP/2、CDN。
+
+9. **Baseline compiler**
+   - 浏览器先用 baseline 编译快速启动，再用 optimizing compiler 优化。
+   - 无法直接控制，但了解有助于设计。
+
+10. **预取/预加载**
+    - 用 `<link rel="preload">` 提前获取 wasm 文件。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 启动优化用 instantiateStreaming、Module 缓存、减小体积、延迟加载、预编译、Worker 编译、分片、服务端压缩、预取。
+
+---
+
+### FB-49-SC-R-006：设计一个基于 WebAssembly 的浏览器端图片编辑器架构。
+
+**题型**：场景设计题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、图片编辑、架构、浏览器
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请设计一个浏览器端图片编辑器，使用 WebAssembly 处理图像算法。
+
+**参考答案**：
+浏览器端 Wasm 图片编辑器架构：
+
+1. **UI 层（JS/React/Vue）**
+   - 画布展示、工具栏、图层面板、历史记录。
+   - 用户交互和状态管理。
+
+2. **Wasm 核心层（C++/Rust）**
+   - 图像解码、滤镜算法、变换、合成。
+   - 直接操作像素数据，性能高。
+
+3. **数据流**
+   - JS 读取图片文件 → 传入 Wasm Memory。
+   - Wasm 处理像素 → 返回处理后的像素或指针。
+   - JS 将结果渲染到 Canvas。
+
+4. **Canvas 渲染**
+   - 使用 OffscreenCanvas 或 WorkerCanvas 在 Worker 中渲染。
+   - 大图片避免阻塞主线程。
+
+5. **历史记录**
+   - 保存操作参数，支持撤销重做。
+   - 可保存像素快照或参数化命令。
+
+6. **滤镜系统**
+   - 滤镜参数由 UI 传递到 Wasm。
+   - Wasm 应用矩阵变换、卷积、色彩映射。
+
+7. **多线程**
+   - 图片分块处理，使用 Wasm 多线程或 Worker。
+
+8. **格式支持**
+   - 集成 libpng、libjpeg、libwebp 等解码库。
+   - 输出多种格式。
+
+9. **性能监控**
+   - 测量处理耗时，优化慢滤镜。
+
+10. **内存管理**
+    - 及时释放 Wasm 中分配的内存。
+    - 避免大图片导致 OOM。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> 架构分 UI 层、Wasm 核心层、Canvas 渲染。图片数据通过 Memory 传给 Wasm 处理，再回 Canvas。支持历史记录、滤镜参数化、多线程、多格式、性能监控和内存管理。
+
+---
+
+### FB-49-SC-R-007：WebAssembly 未来可能如何改变前端开发？
+
+**题型**：场景设计题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：WebAssembly
+**标签**：WebAssembly、未来、前端、趋势
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请谈谈 WebAssembly 对未来前端开发可能带来的影响。
+
+**参考答案**：
+Wasm 对前端开发的影响：
+
+1. **性能边界扩展**
+   - 浏览器能运行更复杂的应用，如视频编辑、CAD、游戏。
+
+2. **语言多样性**
+   - 前端不再只能用 JavaScript。
+   - Rust、C++、Go、Python（Pyodide）等可运行在浏览器。
+
+3. **代码复用**
+   - 现有 C/C++/Rust 代码库可直接用于 Web。
+   - 降低跨平台成本。
+
+4. **新应用形态**
+   - 云端 IDE、浏览器端数据库、复杂仿真工具。
+
+5. **边缘与前端融合**
+   - 同一份 Wasm 代码可运行在浏览器和边缘节点。
+
+6. **组件化生态**
+   - Component Model 成熟后，跨语言组件市场可能出现。
+
+7. **前端职责变化**
+   - 前端需要理解更多语言、编译、内存管理知识。
+   - 与底层开发界限模糊。
+
+8. **挑战**
+   - 调试、可观测性、安全、包体积仍需关注。
+   - 不是所有场景都适合 Wasm。
+
+总结：
+- Wasm 不会替代 JS，但会极大扩展 Web 平台能力。
+- 前端开发者应关注并适时掌握。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Wasm 会扩展浏览器性能边界，带来多语言、代码复用、新应用形态、边缘融合、组件化。前端需学习更多底层知识，但不会替代 JS。
+
+---

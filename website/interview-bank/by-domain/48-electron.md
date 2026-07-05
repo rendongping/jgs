@@ -1,6 +1,6 @@
 # Electron 面试题
 
-> 本题库共收录 **30** 道面试题（基础 8 / 进阶 8 / 深入 7 / 架构 7）。
+> 本题库共收录 **55** 道面试题（基础 11 / 进阶 23 / 深入 11 / 架构 10）。
 > 本文件收录 Electron 相关面试题，目标题量 30 道。
 > 题型覆盖：概念题、代码分析题、手写代码题、场景设计题、系统设计题、工程化题、性能优化题、安全题、综合开放题、软技能题。
 > 难度覆盖：基础、进阶、深入、架构。
@@ -2014,7 +2014,7 @@
 > 跨平台我会封装一个 platform 适配层，用 process.platform 判断。路径统一用 path.join 和 app.getPath；外部链接用 shell.openExternal。窗口行为 macOS 关闭最后一个窗口不退出，Windows/Linux 退出。通知、托盘图标尺寸和权限各平台也不一样，要分别测。CI 里用矩阵构建三个平台安装包，不要在一台机器上交叉打包。
 
 ---
-## 架构题（7 道）{#architect}
+## 架构题（32 道）{#architect}
 
 ### FB-48-SD-R-001：如何设计一个大型 Electron 桌面应用的整体架构？
 
@@ -2588,3 +2588,1663 @@
 **口头回答版**：
 > 推动 Electron 项目落地要从人、规范、安全、性能、协作五方面抓。团队上要培训 Electron 特性和安全要点，指定 Owner。规范上强制 contextIsolation true、nodeIntegration false，IPC 频道必须注册。安全上建立 checklist，做依赖扫描和渗透测试。性能上定义启动时间、包体积、内存的 SLO，CI 自动采集。还要和产品、运维、安全团队对齐签名、更新、崩溃上报这些职责。
 
+
+### FB-48-CO-A-007：Electron 是什么？它的基本架构是怎样的？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、架构、Chromium、Node.js、桌面应用
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 的基本概念和架构组成。
+
+**参考答案**：
+Electron 是使用 Web 技术（HTML、CSS、JS）构建跨平台桌面应用的框架。
+
+基本架构：
+
+1. **主进程（Main Process）**
+   - 运行 Node.js，管理应用生命周期、窗口、系统级 API。
+   - 一个 Electron 应用只有一个主进程。
+   - 负责创建 BrowserWindow。
+
+2. **渲染进程（Renderer Process）**
+   - 每个 BrowserWindow 对应一个独立的渲染进程。
+   - 运行 Chromium，负责页面渲染和用户交互。
+   - 默认无法直接访问 Node.js API（需配置 contextIsolation、nodeIntegration）。
+
+3. **预加载脚本（Preload Script）**
+   - 在渲染进程加载页面之前执行。
+   - 运行在具有 Node.js 和 DOM 访问权限的上下文中。
+   - 用于安全地桥接主进程和渲染进程。
+
+4. **IPC 通信**
+   - 主进程与渲染进程通过 `ipcMain` / `ipcRenderer` 通信。
+
+5. **Chromium + Node.js 集成**
+   - 前端用 Chromium 渲染。
+   - 后端能力用 Node.js 实现。
+
+示例：
+```js
+// 主进程
+const { app, BrowserWindow } = require('electron');
+app.whenReady().then(() => {
+  const win = new BrowserWindow({ width: 800, height: 600 });
+  win.loadURL('https://example.com');
+});
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 是用 Web 技术构建桌面应用的框架。有主进程管理应用和窗口，渲染进程负责页面，预加载脚本桥接两者，通过 IPC 通信。底层是 Chromium 加 Node.js。
+
+---
+
+### FB-48-CO-A-008：Electron 主进程和渲染进程有什么区别？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、主进程、渲染进程、区别
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 主进程和渲染进程的区别及各自职责。
+
+**参考答案**：
+主进程 vs 渲染进程：
+
+| 特性 | 主进程 | 渲染进程 |
+|------|--------|---------|
+| 数量 | 一个应用一个 | 每个窗口一个 |
+| 运行环境 | Node.js | Chromium |
+| 职责 | 应用生命周期、窗口管理、系统 API | 页面渲染、用户交互 |
+| 访问 DOM | 不能 | 能 |
+| 访问 Node.js | 能 | 默认不能，需配置 |
+| 崩溃影响 | 主进程崩溃应用退出 | 单个窗口崩溃不影响其他 |
+
+职责：
+- 主进程：创建窗口、菜单、托盘、系统通知、文件操作、网络请求等。
+- 渲染进程：展示 UI、处理用户输入、调用预加载脚本暴露的 API。
+
+通信：
+- 两者不能直接共享数据，需通过 IPC（ipcMain/ipcRenderer）异步通信。
+
+安全最佳实践：
+- 渲染进程不直接访问 Node.js。
+- 通过 preload 暴露有限的、白名单化的 API。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> 主进程一个应用一个，跑 Node.js，管生命周期和系统 API；渲染进程每个窗口一个，跑 Chromium，负责 UI。两者通过 IPC 通信，渲染进程默认不直接访问 Node.js。
+
+---
+
+### FB-48-CO-A-009：Electron 的预加载脚本（Preload Script）有什么作用？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、Preload、安全、IPC
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 中预加载脚本的作用和安全意义。
+
+**参考答案**：
+预加载脚本作用：
+
+1. **桥接主进程和渲染进程**
+   - 在页面加载前执行，可以访问 Node.js 和 DOM。
+   - 将主进程能力安全地暴露给渲染进程。
+
+2. **安全隔离**
+   - 通过 `contextBridge.exposeInMainWorld` 暴露有限 API。
+   - 渲染进程无法直接访问完整的 Node.js 和 Electron API。
+
+3. **API 封装**
+   - 把复杂的 IPC 调用封装成简单的方法供前端调用。
+
+安全意义：
+- 默认 `contextIsolation: true` 时，预加载脚本和渲染进程上下文隔离。
+- 防止渲染进程中的恶意代码直接访问系统能力。
+- 是 Electron 安全模型的核心。
+
+示例：
+```js
+// preload.js
+const { contextBridge, ipcRenderer } = require('electron');
+contextBridge.exposeInMainWorld('electronAPI', {
+  openFile: () => ipcRenderer.invoke('dialog:openFile'),
+  onUpdate: (callback) => ipcRenderer.on('update', callback)
+});
+```
+
+渲染进程使用：
+```js
+const path = await window.electronAPI.openFile();
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> 预加载脚本在页面加载前执行，桥接主进程和渲染进程，用 contextBridge 暴露有限 API。它让渲染进程在安全隔离环境中运行，是 Electron 安全模型的核心。
+
+---
+
+### FB-48-CO-A-010：Electron 中主进程和渲染进程如何通信？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、IPC、通信、主进程、渲染进程
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 中主进程与渲染进程之间通信的方式。
+
+**参考答案**：
+Electron IPC 通信方式：
+
+1. **渲染 → 主（请求-响应）**
+   - 渲染：`ipcRenderer.invoke('channel', args)`
+   - 主进程：`ipcMain.handle('channel', (event, args) => result)`
+   - 推荐方式，支持 Promise。
+
+2. **渲染 → 主（单向）**
+   - 渲染：`ipcRenderer.send('channel', args)`
+   - 主进程：`ipcMain.on('channel', (event, args) => { ... })`
+
+3. **主 → 渲染（单向）**
+   - 主进程：`win.webContents.send('channel', args)`
+   - 渲染：`ipcRenderer.on('channel', (event, args) => { ... })`
+
+4. **渲染 → 渲染**
+   - 通过主进程转发。
+   - 渲染 A 发给主进程，主进程再发给渲染 B。
+
+示例：
+```js
+// 渲染进程
+const result = await window.electronAPI.invoke('get-data');
+
+// 主进程
+ipcMain.handle('get-data', async () => {
+  return await fetchDataFromDB();
+});
+```
+
+安全注意：
+- 不要在主进程中执行渲染进程传入的任意代码。
+- 对 IPC 参数做校验。
+- 避免暴露过多能力。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron IPC 有渲染 invoke 主进程 handle 的请求响应，send/on 单向通信，主进程通过 webContents.send 发消息给渲染。渲染间通信经主进程转发。要注意参数校验，不执行任意代码。
+
+---
+
+### FB-48-CO-A-011：Electron 的 BrowserWindow 有哪些常用配置？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、BrowserWindow、窗口、配置
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 中创建窗口时常用的 BrowserWindow 配置项。
+
+**参考答案**：
+BrowserWindow 常用配置：
+
+```js
+const win = new BrowserWindow({
+  width: 1200,
+  height: 800,
+  x: 100,
+  y: 100,
+  show: false,              // 初始不显示，加载完成后再 show
+  frame: false,             // 无边框窗口
+  transparent: true,        // 透明窗口
+  resizable: true,
+  minimizable: true,
+  maximizable: true,
+  fullscreen: false,
+  alwaysOnTop: false,
+  webPreferences: {
+    nodeIntegration: false,       // 不建议开启
+    contextIsolation: true,       // 安全，建议开启
+    preload: path.join(__dirname, 'preload.js'),
+    sandbox: true,                // 进一步隔离
+    allowRunningInsecureContent: false,
+    webSecurity: true,            // 启用同源策略
+  }
+});
+```
+
+常用事件：
+- `ready-to-show`：页面加载完成可显示。
+- `closed`：窗口关闭。
+- `minimize`、`maximize`、`resize`：窗口状态变化。
+
+最佳实践：
+- 先 `show: false`，等 `ready-to-show` 再显示，避免白屏。
+- `contextIsolation: true` 和 `nodeIntegration: false` 保障安全。
+- 通过 preload 暴露必要 API。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> BrowserWindow 常用配置有尺寸、位置、show、frame、transparent、resizable、webPreferences 等。建议 show:false 等 ready-to-show 再显示，contextIsolation 开，nodeIntegration 关，用 preload 暴露 API。
+
+---
+
+### FB-48-CO-B-009：Electron 应用如何做自动更新？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：Electron
+**标签**：Electron、自动更新、autoUpdater、Squirrel
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用实现自动更新的常见方案。
+
+**参考答案**：
+Electron 自动更新方案：
+
+1. **electron-updater**
+   - 最常用的自动更新库。
+   - 支持 Windows、macOS、Linux。
+   - 可与 GitHub Releases、S3、私有服务器配合。
+
+2. **electron.autoUpdater**
+   - Electron 内置 API。
+   - Windows 需要 Squirrel.Windows，macOS 需要 Squirrel.Mac。
+
+3. **更新流程**
+   - 应用启动或定期检查更新。
+   - 下载更新包。
+   - 提示用户重启安装，或静默安装。
+
+4. **electron-updater 示例**
+   ```js
+   const { autoUpdater } = require('electron-updater');
+   autoUpdater.checkForUpdatesAndNotify();
+   ```
+
+5. **服务端配置**
+   - 需要部署更新服务器或静态文件服务。
+   - 提供 latest.yml / latest-mac.yml 等更新元数据。
+
+6. **签名要求**
+   - macOS 和 Windows 更新需要应用签名。
+   - 未签名应用可能无法自动更新。
+
+7. **灰度发布**
+   - 可通过更新服务器控制发布范围。
+   - 支持 staged rollout。
+
+注意事项：
+- 更新过程要做好错误处理和用户提示。
+- 大版本更新可能需要全量安装包。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 自动更新常用 electron-updater，支持多平台，流程是检查、下载、提示重启。需要更新服务器、签名，可灰度发布。
+
+---
+
+### FB-48-CO-B-010：Electron 如何打包和分发应用？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：Electron
+**标签**：Electron、打包、electron-builder、分发
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用的打包和分发方式。
+
+**参考答案**：
+Electron 打包分发方式：
+
+1. **electron-builder**
+   - 最流行的打包工具。
+   - 支持打包为 exe、dmg、pkg、deb、rpm、AppImage 等。
+   - 可配置自动签名、自动更新。
+
+2. **electron-forge**
+   - Electron 官方推荐的构建工具。
+   - 集成了打包、发布、开发等功能。
+
+3. **打包配置**
+   - 在 package.json 中配置 build 字段。
+   - 指定应用图标、名称、版本、输出目录等。
+
+4. **签名与公证**
+   - Windows 需要代码签名证书。
+   - macOS 需要 Apple Developer ID 签名和公证（notarization）。
+
+5. **分发渠道**
+   - 官网下载。
+   - GitHub Releases。
+   - 应用商店（Mac App Store、Microsoft Store）。
+   - 企业内部部署。
+
+6. **增量更新**
+   - electron-builder 支持 differential download。
+   - 减小更新包体积。
+
+示例配置：
+```json
+"build": {
+  "appId": "com.example.app",
+  "productName": "MyApp",
+  "directories": { "output": "dist" },
+  "mac": { "target": "dmg" },
+  "win": { "target": "nsis" }
+}
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 打包常用 electron-builder 或 electron-forge，支持多平台格式。要配置签名公证，通过官网、GitHub Releases、应用商店分发。
+
+---
+
+### FB-48-CO-B-011：Electron 应用如何调用系统原生能力？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：Electron
+**标签**：Electron、原生能力、系统API、dialog、shell
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 中如何调用文件选择、系统通知、打开浏览器等原生能力。
+
+**参考答案**：
+Electron 调用原生能力：
+
+1. **文件对话框**
+   ```js
+   const { dialog } = require('electron');
+   const result = await dialog.showOpenDialog({ properties: ['openFile'] });
+   ```
+
+2. **系统通知**
+   ```js
+   const { Notification } = require('electron');
+   new Notification({ title: '提示', body: '消息内容' }).show();
+   ```
+
+3. **打开浏览器**
+   ```js
+   const { shell } = require('electron');
+   await shell.openExternal('https://example.com');
+   ```
+
+4. **剪贴板**
+   ```js
+   const { clipboard } = require('electron');
+   clipboard.writeText('hello');
+   ```
+
+5. **系统托盘**
+   ```js
+   const { Tray } = require('electron');
+   const tray = new Tray('icon.png');
+   ```
+
+6. **文件/路径操作**
+   - Node.js fs、path 模块。
+
+7. **硬件信息**
+   - Node.js os 模块获取系统信息。
+
+安全注意：
+- 系统能力在主进程中调用。
+- 通过 IPC 暴露给渲染进程时要最小化权限。
+- 避免渲染进程直接触发危险操作。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 用 dialog、Notification、shell、clipboard、Tray 等模块调用原生能力，配合 Node.js 的 fs、os。系统能力在主进程调用，通过 IPC 安全暴露给渲染进程。
+
+---
+
+### FB-48-EN-A-009：Electron 应用的安全最佳实践有哪些？
+
+**题型**：工程化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、安全、最佳实践、CSP
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用开发中的安全注意事项。
+
+**参考答案**：
+Electron 安全最佳实践：
+
+1. **开启 contextIsolation**
+   - 默认应为 true，隔离预加载和渲染上下文。
+
+2. **关闭 nodeIntegration**
+   - 渲染进程默认不应访问 Node.js。
+
+3. **使用 preload 和 contextBridge**
+   - 只暴露必要的、白名单化的 API。
+
+4. **启用 CSP**
+   - 配置 Content-Security-Policy，限制脚本来源。
+
+5. **不信任远程内容**
+   - 不要直接加载不可信第三方 URL。
+   - 如果必须加载，使用 `<webview>` 并启用 sandbox。
+
+6. **校验 IPC 输入**
+   - 对渲染进程传入主进程的参数做校验。
+   - 不执行任意代码。
+
+7. **禁用 allowRunningInsecureContent**
+   - HTTPS 页面不加载 HTTP 资源。
+
+8. **保持 Electron 版本更新**
+   - 及时升级以修复 Chromium 和 Node.js 安全漏洞。
+
+9. **代码签名**
+   - 应用发布前做代码签名，防止篡改。
+
+10. **安全审计**
+    - 定期扫描依赖漏洞。
+    - 审查 preload 暴露的 API。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 安全要开 contextIsolation、关 nodeIntegration、用 preload 暴露有限 API、启用 CSP、不信任远程内容、校验 IPC 输入、禁用不安全内容、保持版本更新、代码签名、安全审计。
+
+---
+
+### FB-48-EN-A-010：Electron 应用如何做崩溃收集和日志记录？
+
+**题型**：工程化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、崩溃、日志、监控、Sentry
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用中崩溃收集和日志记录的方案。
+
+**参考答案**：
+Electron 崩溃收集和日志：
+
+1. **崩溃报告**
+   - 使用 Electron 内置 `crashReporter`。
+   - 收集崩溃堆栈、操作系统信息。
+   - 可上传到 Sentry、Backtrace 等服务。
+
+2. **Sentry**
+   - 成熟的错误监控服务，支持 Electron。
+   - 自动收集主进程和渲染进程错误。
+   - 支持 source map 还原堆栈。
+
+3. **日志记录**
+   - 使用 electron-log、winston 等日志库。
+   - 区分主进程和渲染进程日志。
+   - 日志写入本地文件，便于排查。
+
+4. **日志分级**
+   - info、warn、error、debug。
+   - 生产环境只记录 warn 和 error。
+
+5. **用户反馈**
+   - 崩溃时提示用户上报。
+   - 收集操作步骤和截图。
+
+6. **性能监控**
+   - 监控启动时间、内存占用、CPU 使用。
+   - 发现异常及时告警。
+
+7. **隐私保护**
+   - 日志中脱敏用户敏感信息。
+   - 遵守隐私政策。
+
+示例：
+```js
+const { crashReporter } = require('electron');
+crashReporter.start({
+  submitUrl: 'https://submit.backtrace.io/...',
+  uploadToServer: true
+});
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 崩溃收集用 crashReporter 或 Sentry，日志用 electron-log/winston，分主进程和渲染进程，日志分级，生产只记录 warn/error，注意脱敏和隐私。
+
+---
+
+### FB-48-EN-A-011：Electron 应用启动白屏如何优化？
+
+**题型**：工程化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、白屏、启动优化、性能
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用启动时出现白屏的原因及优化方法。
+
+**参考答案**：
+白屏原因：
+- 窗口创建后立即显示，但页面尚未加载完成。
+- 首屏资源大、JS 执行慢、同步初始化阻塞。
+
+优化方法：
+
+1. **延迟显示窗口**
+   - `show: false` 创建窗口。
+   - 监听 `ready-to-show` 后再 `win.show()`。
+
+2. **使用启动屏/ splash**
+   - 先显示一个轻量 splash 窗口。
+   - 主窗口准备好后关闭 splash。
+
+3. **优化首屏加载**
+   - 压缩 JS/CSS/HTML。
+   - 延迟加载非首屏资源。
+
+4. **避免主进程阻塞**
+   - 初始化逻辑异步化。
+   - 复杂计算放 worker 或延迟执行。
+
+5. **预加载关键资源**
+   - 本地缓存常用资源。
+   - 使用 service worker（如使用 PWA 方式）。
+
+6. **骨架屏**
+   - 页面内先展示骨架屏或 loading。
+
+7. **禁用 DevTools 自动打开**
+   - 生产环境不要自动打开开发者工具。
+
+8. **使用 v8CacheOptions**
+   - 配置代码缓存，加速启动。
+
+示例：
+```js
+const win = new BrowserWindow({ show: false });
+win.once('ready-to-show', () => win.show());
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> 白屏是因为窗口显示时页面未加载好。优化方法有 show:false 等 ready-to-show、启动屏 splash、优化首屏、异步初始化、预加载资源、骨架屏、代码缓存。
+
+---
+
+### FB-48-SC-A-005：Electron 中如何实现多窗口管理？
+
+**题型**：场景设计题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、多窗口、BrowserWindow、管理
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用中如何创建和管理多个窗口。
+
+**参考答案**：
+Electron 多窗口管理：
+
+1. **创建窗口**
+   - 主进程中通过 `new BrowserWindow()` 创建。
+   - 每个窗口对应独立渲染进程。
+
+2. **窗口引用管理**
+   - 用 Map 或数组保存窗口引用。
+   - 关闭时从集合中移除，防止内存泄漏。
+
+3. **窗口 ID**
+   - 为每个窗口分配唯一 ID。
+   - 方便后续通过 ID 查找和操作窗口。
+
+4. **单实例应用**
+   - 使用 `app.requestSingleInstanceLock()` 防止多开。
+   - 第二次启动时聚焦已有窗口。
+
+5. **窗口间通信**
+   - 通过主进程转发 IPC 消息。
+
+6. **窗口状态恢复**
+   - 保存窗口位置和大小，下次启动恢复。
+
+7. **父子窗口**
+   - 设置 `parent` 属性创建模态窗口。
+   - `modal: true` 时阻塞父窗口交互。
+
+示例：
+```js
+const windows = new Map();
+
+function createWindow(id, options) {
+  const win = new BrowserWindow(options);
+  windows.set(id, win);
+  win.on('closed', () => windows.delete(id));
+  return win;
+}
+
+function getWindow(id) {
+  return windows.get(id);
+}
+```
+
+注意：
+- 窗口关闭后引用要清理。
+- 避免窗口对象被意外回收导致的问题。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 多窗口在主进程创建，用 Map/数组管理引用，分配唯一 ID，单实例用 requestSingleInstanceLock，窗口间通信经主进程转发，保存状态，可创建父子模态窗口。
+
+---
+
+### FB-48-SC-A-006：Electron 应用如何实现自定义标题栏？
+
+**题型**：场景设计题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、自定义标题栏、无边框、UI
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 中实现自定义标题栏的方案。
+
+**参考答案**：
+自定义标题栏方案：
+
+1. **无边框窗口**
+   - 创建窗口时设置 `frame: false`。
+   - 隐藏系统默认标题栏。
+
+2. **HTML/CSS 实现标题栏**
+   - 在渲染进程中用 div 模拟标题栏。
+   - 包含标题、最小化、最大化、关闭按钮。
+
+3. **窗口控制按钮**
+   - 通过 IPC 调用主进程窗口控制方法。
+   ```js
+   // 渲染进程
+   window.electronAPI.minimizeWindow();
+   
+   // 主进程
+   ipcMain.on('minimize-window', () => win.minimize());
+   ```
+
+4. **拖拽区域**
+   - 用 `-webkit-app-region: drag` 设置可拖拽区域。
+   - 按钮区域设置 `-webkit-app-region: no-drag` 避免被拖拽。
+
+5. **系统按钮样式**
+   - Windows 和 macOS 按钮位置不同。
+   - 根据平台显示不同布局。
+
+6. **最大化/还原状态**
+   - 监听窗口最大化事件，切换按钮图标。
+
+7. **双击最大化**
+   - 在标题栏区域监听双击事件，调用 maximize/unmaximize。
+
+8. **注意**
+   - 自定义标题栏会损失部分系统原生行为。
+   - 需要处理右键菜单、窗口吸附等。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> 自定义标题栏用 frame:false 无边框，HTML/CSS 模拟，按钮通过 IPC 调主进程控制窗口，拖拽区用 -webkit-app-region:drag，注意平台差异和最大化状态。
+
+---
+
+### FB-48-SC-A-007：Electron 中如何实现托盘图标和菜单？
+
+**题型**：场景设计题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、托盘、Tray、菜单
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 中实现系统托盘图标和右键菜单的方法。
+
+**参考答案**：
+Electron 托盘实现：
+
+1. **创建 Tray**
+   ```js
+   const { Tray, Menu } = require('electron');
+   const tray = new Tray('path/to/icon.png');
+   ```
+
+2. **设置提示和菜单**
+   ```js
+   const contextMenu = Menu.buildFromTemplate([
+     { label: '打开', click: () => win.show() },
+     { label: '退出', click: () => app.quit() }
+   ]);
+   tray.setToolTip('My App');
+   tray.setContextMenu(contextMenu);
+   ```
+
+3. **点击托盘图标显示窗口**
+   ```js
+   tray.on('click', () => {
+     win.isVisible() ? win.hide() : win.show();
+   });
+   ```
+
+4. **最小化到托盘**
+   - 窗口最小化或关闭时隐藏到托盘。
+   - 点击托盘图标恢复。
+
+5. **平台差异**
+   - macOS 托盘图标建议用模板图。
+   - Windows/Linux 支持右键菜单和左键点击。
+
+6. **右键菜单动态更新**
+   - 根据应用状态动态生成菜单项。
+
+注意：
+- 退出应用前要销毁 tray，避免残留。
+- 图标尺寸和格式要适配各平台。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 用 Tray 创建托盘图标，Menu.buildFromTemplate 创建右键菜单，监听 click 显示/隐藏窗口。可实现最小化到托盘，注意平台差异和退出时销毁 tray。
+
+---
+
+### FB-48-SC-A-008：Electron 如何与本地数据库交互？
+
+**题型**：场景设计题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、数据库、SQLite、本地存储
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用中本地数据存储和数据库交互的方案。
+
+**参考答案**：
+Electron 本地数据库方案：
+
+1. **SQLite**
+   - 使用 better-sqlite3、sqlite3 等 Node.js 包。
+   - 在主进程中操作数据库。
+   - 轻量、无需单独服务。
+
+2. **IndexedDB / LocalStorage**
+   - 渲染进程中可用浏览器存储。
+   - 适合小量结构化数据。
+   - 容量受限。
+
+3. **文件存储**
+   - 使用 Node.js fs 读写 JSON 文件。
+   - 适合配置、缓存等小数据。
+
+4. **LevelDB / RocksDB**
+   - 键值对数据库，高性能。
+   - 适合大量键值数据。
+
+5. **ORM 封装**
+   - 使用 TypeORM、Sequelize 等 ORM。
+   - 但 Electron 中使用需注意兼容性和打包。
+
+最佳实践：
+- 数据库操作在主进程完成。
+- 通过 IPC 暴露增删改查接口给渲染进程。
+- 注意数据安全和备份。
+- 数据库文件放在用户数据目录（app.getPath('userData')）。
+
+示例：
+```js
+const Database = require('better-sqlite3');
+const db = new Database(path.join(app.getPath('userData'), 'app.db'));
+db.exec('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)');
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 本地数据库常用 SQLite，在主进程操作，通过 IPC 暴露接口。也可用 IndexedDB、文件存储、LevelDB。数据库文件放 userData 目录。
+
+---
+
+### FB-48-SC-P-008：Electron 应用的性能优化有哪些方向？
+
+**题型**：场景设计题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：Electron
+**标签**：Electron、性能优化、内存、启动、包体积
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 桌面应用的性能优化方向。
+
+**参考答案**：
+Electron 性能优化方向：
+
+1. **包体积优化**
+   - 移除无用依赖。
+   - 按需打包 native 模块。
+   - 压缩资源文件。
+
+2. **启动速度**
+   - 延迟显示窗口，使用 splash。
+   - 异步初始化，避免主进程阻塞。
+   - 减少首屏资源。
+
+3. **内存优化**
+   - 及时关闭不用的窗口。
+   - 避免内存泄漏（监听、定时器清理）。
+   - 限制渲染进程数量。
+
+4. **渲染性能**
+   - 前端页面按 Web 性能优化手段优化。
+   - 减少 DOM 操作，使用虚拟列表等。
+
+5. **IPC 优化**
+   - 减少 IPC 通信次数。
+   - 批量传输数据，避免大数据频繁传递。
+
+6. **多进程利用**
+   - 复杂计算使用 Node.js worker_threads。
+   - 避免阻塞主进程。
+
+7. **懒加载**
+   - 功能模块按需加载。
+   - 窗口按需创建。
+
+8. **更新策略**
+   - 增量更新，减少下载体积。
+
+9. **监控**
+   - 使用 DevTools、Sentry、自定义监控。
+   - 定位性能瓶颈。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 性能优化包括包体积、启动速度、内存、渲染性能、IPC、多进程、懒加载、增量更新、监控。要综合运用 Web 优化和桌面端特有优化。
+
+---
+
+### FB-48-SC-P-009：Electron 应用如何做进程间状态共享？
+
+**题型**：场景设计题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：Electron
+**标签**：Electron、状态共享、IPC、主进程
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 中多窗口或多进程间共享状态的方案。
+
+**参考答案**：
+Electron 状态共享方案：
+
+1. **主进程作为单一数据源**
+   - 状态保存在主进程。
+   - 各渲染进程通过 IPC 读写状态。
+   - 状态变更后广播给所有相关窗口。
+
+2. **本地存储共享**
+   - 使用 SQLite、文件、IndexedDB 等持久化存储。
+   - 各进程读取同一数据源。
+   - 需要处理并发写入和同步。
+
+3. **Redux + electron-redux**
+   - 在主进程维护 Redux store。
+   - 渲染进程通过 IPC 同步状态。
+
+4. **自定义事件总线**
+   - 主进程维护事件总线。
+   - 各窗口订阅和发布状态变更。
+
+5. **shared workers**
+   - 渲染进程间可通过 SharedWorker 共享内存（有限支持）。
+
+最佳实践：
+- 优先使用主进程作为状态中心。
+- 避免各渲染进程各自维护不一致的状态副本。
+- 状态变更要有明确的 owner 和广播机制。
+- 注意 IPC 性能，避免频繁同步大数据。
+
+示例：
+```js
+// 主进程
+const state = { user: null };
+ipcMain.handle('get-state', () => state);
+ipcMain.on('set-state', (event, newState) => {
+  state = { ...state, ...newState };
+  BrowserWindow.getAllWindows().forEach(win => {
+    win.webContents.send('state-changed', state);
+  });
+});
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 状态共享常用主进程作为单一数据源，IPC 读写并广播；或用本地存储、Redux、事件总线。要避免各窗口状态不一致，注意 IPC 性能。
+
+---
+
+### FB-48-SC-P-010：Electron 如何集成 WebRTC 或音视频能力？
+
+**题型**：场景设计题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：Electron
+**标签**：Electron、WebRTC、音视频、桌面捕获
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 中实现音视频通话或屏幕录制功能的方案。
+
+**参考答案**：
+Electron 音视频能力：
+
+1. **WebRTC**
+   - Electron 基于 Chromium，天然支持 WebRTC。
+   - 渲染进程中可直接使用 navigator.mediaDevices.getUserMedia。
+   - 需要处理麦克风和摄像头权限。
+
+2. **桌面捕获**
+   - 使用 `desktopCapturer` 模块获取屏幕/窗口源。
+   - 与 WebRTC 结合实现屏幕共享。
+   ```js
+   const sources = await desktopCapturer.getSources({ types: ['window', 'screen'] });
+   ```
+
+3. **原生音视频库**
+   - 通过 Node.js 调用 ffmpeg、GStreamer 等。
+   - 适合复杂处理，但集成成本高。
+
+4. **第三方 SDK**
+   - 集成声网、腾讯云、Twilio 等音视频 SDK。
+   - 有 Electron 版本或 Web SDK。
+
+5. **权限处理**
+   - macOS 需要 info.plist 配置摄像头、麦克风权限。
+   - Windows 需要处理系统权限弹窗。
+
+6. **性能优化**
+   - 视频渲染使用硬件加速。
+   - 控制码率和分辨率。
+   - 多窗口共享时减少重复编码。
+
+示例：
+```js
+// 获取摄像头
+const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+videoElement.srcObject = stream;
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 支持 WebRTC，可用 desktopCapturer 做屏幕共享，也可集成 ffmpeg 或第三方音视频 SDK。要处理权限，macOS 需配置 plist，注意性能优化。
+
+---
+
+### FB-48-SC-P-011：Electron 应用如何做国际化（i18n）？
+
+**题型**：场景设计题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：Electron
+**标签**：Electron、国际化、i18n、多语言
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用实现多语言国际化的方案。
+
+**参考答案**：
+Electron 国际化方案：
+
+1. **渲染进程 i18n**
+   - 使用 i18next、react-intl、vue-i18n 等前端国际化库。
+   - 根据用户选择或系统语言切换。
+
+2. **主进程 i18n**
+   - 菜单、托盘提示、系统对话框文案需要多语言。
+   - 使用 i18next-node 或自定义多语言模块。
+
+3. **语言检测**
+   - 使用 `app.getLocale()` 获取系统语言。
+   - 用户可手动覆盖。
+
+4. **资源管理**
+   - 语言文件放在本地 resources 目录。
+   - 按语言分文件管理。
+
+5. **动态切换**
+   - 切换语言后重新加载菜单和窗口内容。
+   - 部分文案需要重启生效。
+
+6. **日期数字格式化**
+   - 使用 Intl API 或 moment/dayjs 处理。
+
+7. **RTL 支持**
+   - 阿拉伯语、希伯来语等从右到左布局。
+   - 需要 CSS 和布局适配。
+
+最佳实践：
+- 主进程和渲染进程共享语言配置。
+- 所有用户可见文案都走 i18n。
+- 提供语言切换入口。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 国际化渲染进程用前端 i18n 库，主进程菜单等用 node i18n 库，通过 app.getLocale 检测系统语言，资源分文件管理，注意动态切换和 RTL 支持。
+
+---
+
+### FB-48-SE-A-004：Electron 应用如何防止 XSS 和 RCE 攻击？
+
+**题型**：安全题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、XSS、RCE、安全
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用中防止 XSS 和远程代码执行攻击的措施。
+
+**参考答案**：
+防护措施：
+
+1. **开启 contextIsolation**
+   - 隔离预加载脚本和页面上下文。
+   - 防止页面脚本访问 Electron API。
+
+2. **关闭 nodeIntegration**
+   - 渲染进程不能直接访问 Node.js，降低 RCE 风险。
+
+3. **使用 contextBridge 暴露有限 API**
+   - 只暴露必要功能，避免暴露危险 API。
+
+4. **启用 CSP**
+   - 限制脚本来源，防止内联脚本执行。
+
+5. **输入输出转义**
+   - 渲染用户输入时做转义，防止 XSS。
+
+6. **不加载不可信远程内容**
+   - 避免直接加载第三方网页。
+   - 使用 webview 并启用 sandbox。
+
+7. **禁用 eval 和 new Function**
+   - 配置 CSP 禁止不安全的脚本执行。
+
+8. **及时更新 Electron**
+   - 修复 Chromium 和 Node.js 漏洞。
+
+9. **代码签名和完整性校验**
+   - 防止应用被篡改。
+
+10. **安全审计**
+    - 定期审查 preload 暴露的 API。
+    - 扫描依赖漏洞。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 防 XSS 和 RCE 要开 contextIsolation、关 nodeIntegration、用 contextBridge 暴露有限 API、启用 CSP、输入转义、不加载不可信内容、禁用 eval、及时更新、代码签名、安全审计。
+
+---
+
+### FB-48-SE-A-005：Electron 应用的代码签名流程是怎样的？
+
+**题型**：安全题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、代码签名、证书、发布
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用在不同平台做代码签名的流程。
+
+**参考答案**：
+代码签名流程：
+
+**Windows**：
+1. 购买代码签名证书（OV/EV）。
+2. 安装证书到本地存储。
+3. 在 electron-builder 配置 `certificateFile` 和 `certificatePassword`。
+4. 打包时自动签名 exe 和 installer。
+5. EV 证书可消除 SmartScreen 警告。
+
+**macOS**：
+1. 加入 Apple Developer Program。
+2. 生成 Developer ID Application 证书。
+3. 配置 electron-builder 的 `identity` 和 `hardenedRuntime`。
+4. 打包时签名 .app。
+5. 提交 Apple 公证（notarization）。
+6. 用户下载后可正常运行，不被 Gatekeeper 拦截。
+
+**Linux**：
+- 通常不需要代码签名。
+- 部分发行版可用 GPG 签名包。
+
+electron-builder 配置示例：
+```json
+"build": {
+  "win": {
+    "certificateFile": "cert.p12",
+    "certificatePassword": "xxx"
+  },
+  "mac": {
+    "identity": "Developer ID Application: XXX",
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false,
+    "entitlements": "entitlements.mac.plist"
+  }
+}
+```
+
+注意：
+- 证书和密码要安全保管。
+- CI/CD 中可通过环境变量传入。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Windows 用代码签名证书配置 electron-builder 自动签名；macOS 用 Apple Developer ID 证书签名并公证；Linux 一般不需要。证书要安全保管，CI 中用环境变量。
+
+---
+
+### FB-48-SE-A-006：Electron 应用如何保护本地敏感数据？
+
+**题型**：安全题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Electron
+**标签**：Electron、敏感数据、加密、安全存储
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Electron 应用中如何安全存储用户敏感数据。
+
+**参考答案**：
+保护本地敏感数据：
+
+1. **使用系统密钥链**
+   - Windows：DPAPI / Credential Locker。
+   - macOS：Keychain。
+   - Linux：Secret Service API / libsecret。
+   - 使用 keytar、safe-storage 等库。
+
+2. **加密存储**
+   - 敏感数据加密后再写入文件或 storage。
+   - 密钥可派生自机器特征或用户密码。
+
+3. **不长期保存敏感信息**
+   - Token 设置过期时间。
+   - 敏感操作重新验证。
+
+4. **限制 preload API**
+   - 渲染进程无法直接读写敏感文件。
+   - 通过 IPC 暴露受控接口。
+
+5. **日志脱敏**
+   - 日志中不记录密码、token、身份证号等。
+
+6. **存储位置**
+   - 使用 `app.getPath('userData')`，不要放安装目录。
+
+7. **安全删除**
+   - 注销或卸载时清理敏感数据。
+
+示例（safeStorage）：
+```js
+const { safeStorage } = require('electron');
+const encrypted = safeStorage.encryptString('secret');
+const decrypted = safeStorage.decryptString(encrypted);
+```
+
+注意：
+- 安全存储依赖操作系统，换设备后可能无法解密。
+- 关键密钥不要硬编码在代码中。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 保护敏感数据用系统密钥链、加密存储、不长期保存、限制 preload API、日志脱敏、数据放 userData、安全删除。可用 safeStorage 模块。
+
+---
+
+### FB-48-SS-R-008：Electron 与 Tauri 相比各有什么优缺点？
+
+**题型**：软技能题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：Electron
+**标签**：Electron、Tauri、对比、桌面开发
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请对比 Electron 和 Tauri 两种桌面应用开发框架。
+
+**参考答案**：
+Electron vs Tauri：
+
+| 维度 | Electron | Tauri |
+|------|---------|-------|
+| 技术栈 | Chromium + Node.js | 系统 WebView + Rust |
+| 包体积 | 较大（约 100MB+） | 较小（通常 3-10MB） |
+| 内存占用 | 较高 | 较低 |
+| 性能 | 好 | 很好 |
+| 开发语言 | JS/TS | JS/TS + Rust |
+| 原生能力 | 丰富，Node.js 生态 | Rust 实现，需自己写或找插件 |
+| 安全性 | 成熟，需注意配置 | 默认更安全，Rust 内存安全 |
+| 社区生态 | 非常成熟 | 快速增长 |
+| 学习曲线 | 低 | 需要 Rust 基础 |
+
+选择建议：
+- 追求小包体积、低内存、高性能：Tauri。
+- 需要丰富原生能力、Node.js 生态、快速开发：Electron。
+- 团队有 Rust 经验可尝试 Tauri。
+- 复杂业务、成熟产品 Electron 更稳妥。
+
+趋势：
+- Tauri 是新兴框架，受到轻量应用青睐。
+- Electron 仍在大量生产环境使用，生态成熟。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 用 Chromium+Node.js，包大、生态成熟；Tauri 用系统 WebView+Rust，包小、内存低、更安全，但需要 Rust。复杂项目选 Electron，追求轻量选 Tauri。
+
+---
+
+### FB-48-SS-R-009：Electron 应用的未来演进方向有哪些？
+
+**题型**：软技能题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：Electron
+**标签**：Electron、未来、演进、趋势
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请谈谈 Electron 框架的未来发展趋势和可能的演进方向。
+
+**参考答案**：
+Electron 未来演进方向：
+
+1. **性能优化**
+   - 持续跟进 Chromium 性能改进。
+   - 减小包体积和内存占用。
+
+2. **安全性增强**
+   - 默认安全配置更严格。
+   - 加强与操作系统安全机制的集成。
+
+3. **更好的跨平台支持**
+   - Windows、macOS、Linux 体验更一致。
+   - 对新系统特性更快适配。
+
+4. **与 Web 标准对齐**
+   - 支持更多现代 Web API。
+   - PWA 能力融合。
+
+5. **替代方案竞争**
+   - Tauri、Flutter Desktop、WebView2 等竞争。
+   - Electron 需持续保持生态优势。
+
+6. **企业级能力**
+   - 更强的部署、更新、管理、监控能力。
+   - 适合大规模企业应用。
+
+7. **开发体验**
+   - 更好的调试工具、构建工具、模板。
+
+8. **AI 集成**
+   - 桌面端 AI 能力调用和本地模型集成。
+
+建议：
+- Electron 仍将是桌面 Web 技术栈的主流选择之一。
+- 同时关注 Tauri 等轻量方案，根据场景选择。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron 未来会聚焦性能优化、安全增强、跨平台一致性、Web 标准对齐，同时面临 Tauri 等竞争。企业级能力、开发体验、AI 集成也是方向。
+
+---
+
+### FB-48-SS-R-010：设计一个 Electron 跨平台 IDE 的核心架构。
+
+**题型**：软技能题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：Electron
+**标签**：Electron、IDE、架构、桌面应用
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请设计一个基于 Electron 的跨平台 IDE 的核心架构。
+
+**参考答案**：
+Electron IDE 核心架构：
+
+1. **主进程**
+   - 应用生命周期、窗口管理、菜单、托盘。
+   - 文件系统访问、进程管理、插件宿主。
+   - LSP/Language Server 通信。
+
+2. **渲染进程**
+   - 编辑器 UI：侧边栏、标签页、状态栏、终端面板。
+   - 使用 Monaco Editor / CodeMirror 实现代码编辑。
+   - 主题、布局、插件 UI。
+
+3. **预加载脚本**
+   - 暴露文件读写、执行命令、IPC 等有限 API。
+   - 隔离渲染进程与 Node.js。
+
+4. **工作区管理**
+   - 项目打开、文件树、搜索、Git 集成。
+   - 状态持久化到本地数据库或 JSON。
+
+5. **扩展系统**
+   - 插件 API 设计，支持 UI 扩展和后台任务。
+   - 插件运行在独立 worker 或子进程，避免阻塞主进程。
+
+6. **终端集成**
+   - 使用 node-pty 在渲染进程中嵌入终端。
+   - 注意安全和跨平台兼容。
+
+7. **构建与调试**
+   - 调用外部构建工具和调试器。
+   - 通过 IPC 传递任务输出和调试信息。
+
+8. **性能优化**
+   - 大文件分片加载，虚拟滚动文件树。
+   - 多进程并行处理任务。
+   - 内存监控和泄漏防护。
+
+9. **安全**
+   - 插件沙箱、代码签名、CSP、权限最小化。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Electron IDE 架构分主进程管生命周期和系统能力，渲染进程做编辑器 UI，preload 桥接，工作区管项目文件，插件系统独立运行，终端用 node-pty，注意性能和安全。
+
+---

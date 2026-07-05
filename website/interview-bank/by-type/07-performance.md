@@ -1,7 +1,7 @@
 # 性能优化题
 
 > 本文件按题型收录 **性能优化题** 相关前端面试题索引。
-> 共收录 **152** 道题（基础 13 / 进阶 55 / 深入 66 / 架构 18）。
+> 共收录 **240** 道题（基础 13 / 进阶 115 / 深入 89 / 架构 23）。
 > 每道题都附带完整参考答案与评分维度，点击链接可查看原文。
 
 ## 基础题（13 道）{#basic}
@@ -55,9 +55,9 @@
 
 - [FB-51-PE-B-006 video 标签的 preload 和 autoplay 属性有什么作用？](../by-domain/51-multimedia.md#FB-51-PE-B-006)
 
-## 进阶题（55 道）{#advanced}
+## 进阶题（115 道）{#advanced}
 
-### Browser（6 道）
+### Browser（9 道）
 
 - [FB-03-PE-A-001 如何识别并避免布局抖动（Layout Thrashing）？](../by-domain/03-browser.md#FB-03-PE-A-001)
 - [FB-03-PE-A-002 什么是关键渲染路径（CRP）？如何优化首屏加载？](../by-domain/03-browser.md#FB-03-PE-A-002)
@@ -65,22 +65,27 @@
 - [FB-03-PE-A-004 如何通过 PerformanceObserver 采集性能指标？](../by-domain/03-browser.md#FB-03-PE-A-004)
 - [FB-03-PE-A-005 浏览器渲染主流程是什么？DOM、CSSOM、Render Tree 的关系？](../by-domain/03-browser.md#FB-03-PE-A-005)
 - [FB-03-PE-A-006 什么是 CRP（Critical Rendering Path）？如何优化？](../by-domain/03-browser.md#FB-03-PE-A-006)
+- [FB-03-PE-A-007 什么是渲染阻塞资源？如何减少阻塞？](../by-domain/03-browser.md#FB-03-PE-A-007)
+- [FB-03-PE-A-008 DNS 预解析和预连接对首屏有什么帮助？](../by-domain/03-browser.md#FB-03-PE-A-008)
+- [FB-03-PE-A-009 如何用 PerformanceObserver 采集性能指标？](../by-domain/03-browser.md#FB-03-PE-A-009)
 
 ### 计算机网络（1 道）
 
 - [FB-04-PE-A-001 前端网络优化有哪些常用手段？](../by-domain/04-network.md#FB-04-PE-A-001)
 
-### HTML/CSS（1 道）
+### HTML/CSS（2 道）
 
 - [FB-06-PE-A-001 CSS 性能优化有哪些常见手段？](../by-domain/06-html-css.md#FB-06-PE-A-001)
+- [FB-06-PE-A-002 CSS 加载与渲染性能有哪些优化手段？](../by-domain/06-html-css.md#FB-06-PE-A-002)
 
-### 构建工具（5 道）
+### 构建工具（6 道）
 
 - [FB-10-PE-A-001 如何优化 Webpack 构建速度？请列举至少 5 种方法。](../by-domain/10-build-tools.md#FB-10-PE-A-001)
 - [FB-10-PE-A-002 如何分析并优化前端打包体积？](../by-domain/10-build-tools.md#FB-10-PE-A-002)
 - [FB-10-PE-A-003 如何针对大型依赖做按需加载和构建优化？](../by-domain/10-build-tools.md#FB-10-PE-A-003)
 - [FB-10-PE-A-004 如何分析 Webpack 构建耗时分布并定位瓶颈？](../by-domain/10-build-tools.md#FB-10-PE-A-004)
 - [FB-10-PE-A-015 如何分析并可视化前端打包体积？](../by-domain/10-build-tools.md#FB-10-PE-A-015)
+- [FB-10-PE-A-016 如何分析和优化 Webpack 构建性能？](../by-domain/10-build-tools.md#FB-10-PE-A-016)
 
 ### CI/CD（1 道）
 
@@ -138,71 +143,138 @@
 - [FB-25-PE-A-006 从架构视角看，性能优化应该如何系统化思考？](../by-domain/25-system-architecture.md#FB-25-PE-A-006)
 - [FB-25-PE-A-016 从架构角度设计一个首屏加载优化方案](../by-domain/25-system-architecture.md#FB-25-PE-A-016)
 
-### 微前端（1 道）
+### 微前端（3 道）
 
 - [FB-26-PE-A-015 微前端场景下有哪些性能优化手段？](../by-domain/26-micro-frontend.md#FB-26-PE-A-015)
+- [FB-26-PE-A-016 微前端如何优化首屏加载性能](../by-domain/26-micro-frontend.md#FB-26-PE-A-016)
+- [FB-26-PE-A-017 微前端下的资源预加载策略](../by-domain/26-micro-frontend.md#FB-26-PE-A-017)
 
-### 性能工程（4 道）
+### 性能工程（13 道）
 
 - [FB-27-PE-A-001 如何优化 LCP（Largest Contentful Paint）？](../by-domain/27-performance.md#FB-27-PE-A-001)
 - [FB-27-PE-A-002 如何优化 CLS（Cumulative Layout Shift）？](../by-domain/27-performance.md#FB-27-PE-A-002)
 - [FB-27-PE-A-003 如何优化 INP（Interaction to Next Paint）？](../by-domain/27-performance.md#FB-27-PE-A-003)
 - [FB-27-PE-A-004 HTTP 缓存中的强缓存和协商缓存有什么区别？](../by-domain/27-performance.md#FB-27-PE-A-004)
+- [FB-27-PE-A-005 首屏加载性能优化清单](../by-domain/27-performance.md#FB-27-PE-A-005)
+- [FB-27-PE-A-006 图片性能优化手段](../by-domain/27-performance.md#FB-27-PE-A-006)
+- [FB-27-PE-A-007 字体加载优化策略](../by-domain/27-performance.md#FB-27-PE-A-007)
+- [FB-27-PE-A-008 如何优化第三方脚本性能](../by-domain/27-performance.md#FB-27-PE-A-008)
+- [FB-27-PE-A-009 SPA 路由切换性能优化](../by-domain/27-performance.md#FB-27-PE-A-009)
+- [FB-27-PE-A-010 如何减少首屏 JavaScript 体积](../by-domain/27-performance.md#FB-27-PE-A-010)
+- [FB-27-PE-A-011 如何优化 Webpack/Vite 构建速度](../by-domain/27-performance.md#FB-27-PE-A-011)
+- [FB-27-PE-A-012 关键 CSS 提取与内联策略](../by-domain/27-performance.md#FB-27-PE-A-012)
+- [FB-27-PE-A-013 如何优化前端资源加载优先级](../by-domain/27-performance.md#FB-27-PE-A-013)
 
-### 可观测性（1 道）
+### 质量保障（1 道）
+
+- [FB-28-PE-A-001 性能测试如何纳入质量保障](../by-domain/28-quality.md#FB-28-PE-A-001)
+
+### 数据与状态管理（3 道）
+
+- [FB-29-PE-A-001 状态管理库的性能优化](../by-domain/29-data-state.md#FB-29-PE-A-001)
+- [FB-29-PE-A-002 前端大数据表格的状态与渲染优化](../by-domain/29-data-state.md#FB-29-PE-A-002)
+- [FB-29-PE-A-003 状态更新批处理与性能](../by-domain/29-data-state.md#FB-29-PE-A-003)
+
+### 可观测性（5 道）
 
 - [FB-30-PE-A-011 Synthetic 监控与 RUM 有什么区别？](../by-domain/30-observability.md#FB-30-PE-A-011)
+- [FB-30-PE-A-012 前端 RUM 指标体系设计](../by-domain/30-observability.md#FB-30-PE-A-012)
+- [FB-30-PE-A-013 前端性能监控如何影响性能](../by-domain/30-observability.md#FB-30-PE-A-013)
+- [FB-30-PE-A-014 如何监控和优化 LCP](../by-domain/30-observability.md#FB-30-PE-A-014)
+- [FB-30-PE-A-015 如何监控前端资源加载](../by-domain/30-observability.md#FB-30-PE-A-015)
 
-### 可视化与图形（1 道）
+### 实时与协同（2 道）
+
+- [FB-32-PE-A-001 实时系统前端性能优化](../by-domain/32-real-time.md#FB-32-PE-A-001)
+- [FB-32-PE-A-002 实时数据前端采样](../by-domain/32-real-time.md#FB-32-PE-A-002)
+
+### 国际化（4 道）
+
+- [FB-33-PE-A-001 国际化对前端性能的影响及优化](../by-domain/33-internationalization.md#FB-33-PE-A-001)
+- [FB-33-PE-A-002 多语言包的体积优化](../by-domain/33-internationalization.md#FB-33-PE-A-002)
+- [FB-33-PE-A-003 国际化对首屏性能的影响](../by-domain/33-internationalization.md#FB-33-PE-A-003)
+- [FB-33-PE-A-004 多语言资源分包策略](../by-domain/33-internationalization.md#FB-33-PE-A-004)
+
+### 可视化与图形（6 道）
 
 - [FB-34-PE-A-012 Canvas 大数据量渲染性能调优：离屏渲染、分层、脏矩形、requestAnimationFrame](../by-domain/34-visualization-graphics.md#FB-34-PE-A-012)
+- [FB-34-PE-A-013 大数据量图表如何优化](../by-domain/34-visualization-graphics.md#FB-34-PE-A-013)
+- [FB-34-PE-A-014 动画性能优化在可视化中的实践](../by-domain/34-visualization-graphics.md#FB-34-PE-A-014)
+- [FB-34-PE-A-015 WebGL 在可视化中的使用时机](../by-domain/34-visualization-graphics.md#FB-34-PE-A-015)
+- [FB-34-PE-A-016 3D 可视化性能优化](../by-domain/34-visualization-graphics.md#FB-34-PE-A-016)
+- [FB-34-PE-A-017 Canvas 离屏渲染优化](../by-domain/34-visualization-graphics.md#FB-34-PE-A-017)
 
-### Serverless/Edge（1 道）
+### Serverless/Edge（3 道）
 
 - [FB-35-PE-A-001 Serverless 冷启动如何优化？](../by-domain/35-serverless-edge.md#FB-35-PE-A-001)
+- [FB-35-PE-A-002 Serverless 成本优化策略](../by-domain/35-serverless-edge.md#FB-35-PE-A-002)
+- [FB-35-PE-A-003 边缘函数的缓存策略](../by-domain/35-serverless-edge.md#FB-35-PE-A-003)
 
-### 前端数据工程（1 道）
+### 前端数据工程（2 道）
 
 - [FB-36-PE-A-001 前端如何处理大数据量？](../by-domain/36-data-engineering.md#FB-36-PE-A-001)
+- [FB-36-PE-A-002 前端大数据可视化的性能策略](../by-domain/36-data-engineering.md#FB-36-PE-A-002)
 
-### 小程序（2 道）
+### 小程序（7 道）
 
 - [FB-45-PE-A-004 小程序分包加载的原理是什么？如何配置？](../by-domain/45-mini-program.md#FB-45-PE-A-004)
 - [FB-45-PE-A-005 小程序性能优化有哪些常用手段？](../by-domain/45-mini-program.md#FB-45-PE-A-005)
+- [FB-45-PE-A-006 微信小程序首屏加载慢，如何系统排查？](../by-domain/45-mini-program.md#FB-45-PE-A-006)
+- [FB-45-PE-A-007 微信小程序如何避免 setData 性能问题？](../by-domain/45-mini-program.md#FB-45-PE-A-007)
+- [FB-45-PE-A-008 微信小程序的渲染层和逻辑层通信优化有哪些？](../by-domain/45-mini-program.md#FB-45-PE-A-008)
+- [FB-45-PE-A-009 微信小程序如何做图片资源优化？](../by-domain/45-mini-program.md#FB-45-PE-A-009)
+- [FB-45-PE-A-010 微信小程序如何做网络请求优化？](../by-domain/45-mini-program.md#FB-45-PE-A-010)
 
-### 鸿蒙 ArkTS / HarmonyOS（1 道）
+### 鸿蒙 ArkTS / HarmonyOS（4 道）
 
 - [FB-46-PE-A-015 鸿蒙中如何进行列表渲染？有哪些性能优化手段？](../by-domain/46-harmonyos.md#FB-46-PE-A-015)
+- [FB-46-PE-A-016 鸿蒙应用启动慢如何排查？](../by-domain/46-harmonyos.md#FB-46-PE-A-016)
+- [FB-46-PE-A-017 鸿蒙 ArkUI 中如何实现列表性能优化？](../by-domain/46-harmonyos.md#FB-46-PE-A-017)
+- [FB-46-PE-A-018 鸿蒙应用如何做内存优化？](../by-domain/46-harmonyos.md#FB-46-PE-A-018)
 
-### Flutter（1 道）
+### Flutter（6 道）
 
 - [FB-47-PE-A-007 Flutter 性能优化有哪些常用手段？](../by-domain/47-flutter.md#FB-47-PE-A-007)
+- [FB-47-PE-A-008 Flutter 应用启动慢如何优化？](../by-domain/47-flutter.md#FB-47-PE-A-008)
+- [FB-47-PE-A-009 Flutter 列表性能优化有哪些手段？](../by-domain/47-flutter.md#FB-47-PE-A-009)
+- [FB-47-PE-A-010 Flutter 如何减少 Widget 重建？](../by-domain/47-flutter.md#FB-47-PE-A-010)
+- [FB-47-PE-A-011 Flutter 包体积如何优化？](../by-domain/47-flutter.md#FB-47-PE-A-011)
+- [FB-47-PE-A-012 Flutter 中如何优化图片加载和内存？](../by-domain/47-flutter.md#FB-47-PE-A-012)
 
 ### Electron（1 道）
 
 - [FB-48-PE-A-005 Electron 应用有哪些性能优化手段？](../by-domain/48-electron.md#FB-48-PE-A-005)
 
-### WebAssembly（1 道）
+### WebAssembly（4 道）
 
 - [FB-49-PE-A-005 如何优化 WebAssembly 的启动时间和运行时性能？](../by-domain/49-webassembly.md#FB-49-PE-A-005)
+- [FB-49-PE-A-006 WebAssembly 模块体积如何优化？](../by-domain/49-webassembly.md#FB-49-PE-A-006)
+- [FB-49-PE-A-007 WebAssembly 与 JavaScript 互操作的性能瓶颈是什么？](../by-domain/49-webassembly.md#FB-49-PE-A-007)
+- [FB-49-PE-A-008 WebAssembly 启动性能如何优化？](../by-domain/49-webassembly.md#FB-49-PE-A-008)
 
-### WebGPU / 图形学（1 道）
+### WebGPU / 图形学（4 道）
 
 - [FB-50-PE-A-015 WebGPU 应用有哪些常见性能优化手段？](../by-domain/50-webgpu-graphics.md#FB-50-PE-A-015)
+- [FB-50-PE-A-016 WebGPU 中如何减少 Draw Call 数量？](../by-domain/50-webgpu-graphics.md#FB-50-PE-A-016)
+- [FB-50-PE-A-017 WebGPU 应用如何调试性能问题？](../by-domain/50-webgpu-graphics.md#FB-50-PE-A-017)
+- [FB-50-PE-A-018 WebGPU 中如何高效管理 Uniform Buffer？](../by-domain/50-webgpu-graphics.md#FB-50-PE-A-018)
 
-### 多媒体（Multimedia）（1 道）
+### 多媒体（Multimedia）（3 道）
 
 - [FB-51-PE-A-010 视频播放卡顿如何排查和优化？](../by-domain/51-multimedia.md#FB-51-PE-A-010)
+- [FB-51-PE-A-011 多媒体前端开发中如何进行性能优化？](../by-domain/51-multimedia.md#FB-51-PE-A-011)
+- [FB-51-PE-A-012 前端如何实现视频预加载策略？](../by-domain/51-multimedia.md#FB-51-PE-A-012)
 
-### 低代码（1 道）
+### 低代码（2 道）
 
 - [FB-52-PE-A-006 低代码平台有哪些常见的性能优化手段？](../by-domain/52-low-code.md#FB-52-PE-A-006)
+- [FB-52-PE-A-007 低代码平台的性能瓶颈通常在哪里？如何优化？](../by-domain/52-low-code.md#FB-52-PE-A-007)
 
 ### 行业特化（1 道）
 
 - [FB-56-PE-A-005 游戏行业前端性能优化的关键维度有哪些？](../by-domain/56-industry.md#FB-56-PE-A-005)
 
-## 深入题（66 道）{#proficient}
+## 深入题（89 道）{#proficient}
 
 ### JavaScript（1 道）
 
@@ -219,10 +291,11 @@
 - [FB-03-PE-P-003 浏览器是如何保证渲染进程安全的？什么是站点隔离（Site Isolation）？](../by-domain/03-browser.md#FB-03-PE-P-003)
 - [FB-03-PE-P-004 如何分析并优化首屏加载时间（FCP/LCP）？](../by-domain/03-browser.md#FB-03-PE-P-004)
 
-### 计算机网络（2 道）
+### 计算机网络（3 道）
 
 - [FB-04-PE-P-001 将前端项目从 HTTP/2 迁移到 HTTP/3 需要考虑哪些性能与安全因素？](../by-domain/04-network.md#FB-04-PE-P-001)
 - [FB-04-PE-P-002 前端网络性能优化可以从哪些层面入手？](../by-domain/04-network.md#FB-04-PE-P-002)
+- [FB-04-PE-P-003 前端如何测量和优化 TTFB？](../by-domain/04-network.md#FB-04-PE-P-003)
 
 ### HTML/CSS（1 道）
 
@@ -232,32 +305,39 @@
 
 - [FB-07-PE-P-001 无障碍性对页面性能有什么影响？如何优化？](../by-domain/07-a11y.md#FB-07-PE-P-001)
 
-### 构建工具（3 道）
+### 构建工具（4 道）
 
 - [FB-10-PE-P-001 大型前端项目构建性能优化实战方案。](../by-domain/10-build-tools.md#FB-10-PE-P-001)
 - [FB-10-PE-P-002 如何设计一个大型前端项目的增量构建方案？](../by-domain/10-build-tools.md#FB-10-PE-P-002)
 - [FB-10-PE-P-017 大型 Monorepo 的构建性能优化有哪些关键手段？](../by-domain/10-build-tools.md#FB-10-PE-P-017)
+- [FB-10-PE-P-018 如何优化 Vite 生产构建速度？](../by-domain/10-build-tools.md#FB-10-PE-P-018)
 
 ### 代码质量与测试（2 道）
 
 - [FB-13-PE-P-001 前端如何做性能测试？请列举指标和工具。](../by-domain/13-code-quality.md#FB-13-PE-P-001)
 - [FB-13-PE-P-002 如何对前端构建产物进行体积回归测试？](../by-domain/13-code-quality.md#FB-13-PE-P-002)
 
-### React（2 道）
+### React（5 道）
 
 - [FB-15-PE-P-052 React 中如何实现虚拟列表优化长列表？](../by-domain/15-react.md#FB-15-PE-P-052)
 - [FB-15-PE-P-055 如何优化 React 应用的首屏加载性能？](../by-domain/15-react.md#FB-15-PE-P-055)
+- [FB-15-PE-P-056 React 中如何实现虚拟列表优化长列表？](../by-domain/15-react.md#FB-15-PE-P-056)
+- [FB-15-PE-P-057 React 中如何避免 context 导致的性能问题？](../by-domain/15-react.md#FB-15-PE-P-057)
+- [FB-15-PE-P-058 React 中的代码分割策略有哪些？](../by-domain/15-react.md#FB-15-PE-P-058)
 
-### Vue（2 道）
+### Vue（4 道）
 
 - [FB-16-PE-P-023 Vue 应用有哪些性能优化手段？](../by-domain/16-vue.md#FB-16-PE-P-023)
 - [FB-16-PE-P-024 Vue 应用首屏加载性能如何系统优化？](../by-domain/16-vue.md#FB-16-PE-P-024)
+- [FB-16-PE-P-025 Vue 长列表虚拟滚动实现](../by-domain/16-vue.md#FB-16-PE-P-025)
+- [FB-16-PE-P-026 Vue 应用构建产物优化](../by-domain/16-vue.md#FB-16-PE-P-026)
 
-### 跨端技术（3 道）
+### 跨端技术（4 道）
 
 - [FB-17-PE-P-020 跨端动画性能如何保证一致性？](../by-domain/17-cross-platform.md#FB-17-PE-P-020)
 - [FB-17-PE-P-051 跨端应用的内存优化和泄漏治理怎么做？](../by-domain/17-cross-platform.md#FB-17-PE-P-051)
 - [FB-17-PE-P-056 跨端应用的包体积优化有哪些深入手段？](../by-domain/17-cross-platform.md#FB-17-PE-P-056)
+- [FB-17-PE-P-057 跨端应用包体积优化有哪些深入手段？](../by-domain/17-cross-platform.md#FB-17-PE-P-057)
 
 ### AI 工程化（5 道）
 
@@ -267,36 +347,40 @@
 - [FB-18-PE-P-058 大模型应用的性能优化有哪些手段？](../by-domain/18-ai-engineering.md#FB-18-PE-P-058)
 - [FB-18-PE-P-059 如何保证 LLM 返回的结果可以被前端稳定渲染？](../by-domain/18-ai-engineering.md#FB-18-PE-P-059)
 
-### Node.js / BFF（3 道）
+### Node.js / BFF（4 道）
 
 - [FB-19-PE-P-050 如何定位并优化 Node.js 服务的 CPU 高占用问题？](../by-domain/19-node-bff.md#FB-19-PE-P-050)
 - [FB-19-PE-P-055 Node.js 中如何对大文件进行流式上传、下载与断点续传？](../by-domain/19-node-bff.md#FB-19-PE-P-055)
 - [FB-19-PE-P-056 Node.js 服务如何做性能调优？](../by-domain/19-node-bff.md#FB-19-PE-P-056)
+- [FB-19-PE-P-057 Node.js 高并发优化](../by-domain/19-node-bff.md#FB-19-PE-P-057)
 
-### Git 工作流与变更管理（3 道）
+### Git 工作流与变更管理（4 道）
 
 - [FB-20-PE-P-018 面对超大型仓库，Git 有哪些优化手段？](../by-domain/20-git-workflow.md#FB-20-PE-P-018)
 - [FB-20-PE-P-050 面对超大型仓库，有哪些 Git clone 加速策略？](../by-domain/20-git-workflow.md#FB-20-PE-P-050)
 - [FB-20-PE-P-055 shallow clone 和 git filter-repo 各适用于什么场景？](../by-domain/20-git-workflow.md#FB-20-PE-P-055)
+- [FB-20-PE-P-056 超大型仓库 clone 加速策略](../by-domain/20-git-workflow.md#FB-20-PE-P-056)
 
 ### 开发者体验与工程效能（2 道）
 
 - [FB-21-PE-P-051 大型项目构建缓存失效的常见原因有哪些？如何应对？](../by-domain/21-dx.md#FB-21-PE-P-051)
 - [FB-21-PE-P-082 如何系统性地优化前端测试的执行速度和稳定性？](../by-domain/21-dx.md#FB-21-PE-P-082)
 
-### 部署与 SRE（1 道）
+### 部署与 SRE（2 道）
 
+- [FB-22-PE-P-002 前端高可用灰度发布性能优化](../by-domain/22-deployment-sre.md#FB-22-PE-P-002)
 - [FB-22-PE-P-023 容量规划在前端场景如何应用？](../by-domain/22-deployment-sre.md#FB-22-PE-P-023)
 
 ### 前端运维与监控（1 道）
 
 - [FB-24-PE-P-004 如何通过监控优化资源加载与 LCP？](../by-domain/24-frontend-operations.md#FB-24-PE-P-004)
 
-### 微前端（1 道）
+### 微前端（2 道）
 
 - [FB-26-PE-P-001 请描述 qiankun 的加载和生命周期流程。](../by-domain/26-micro-frontend.md#FB-26-PE-P-001)
+- [FB-26-PE-P-002 微前端如何治理公共依赖版本](../by-domain/26-micro-frontend.md#FB-26-PE-P-002)
 
-### 性能工程（11 道）
+### 性能工程（18 道）
 
 - [FB-27-PE-P-001 浏览器渲染管线是怎样的？如何利用合成层（Compositor Layer）优化渲染性能？](../by-domain/27-performance.md#FB-27-PE-P-001)
 - [FB-27-PE-P-002 如何优化 JavaScript 执行性能？请从任务调度、长任务拆分、主线程释放等角度说明。](../by-domain/27-performance.md#FB-27-PE-P-002)
@@ -309,28 +393,39 @@
 - [FB-27-PE-P-012 如何优化首屏加载时间？](../by-domain/27-performance.md#FB-27-PE-P-012)
 - [FB-27-PE-P-013 什么是长任务（Long Task）？如何优化？](../by-domain/27-performance.md#FB-27-PE-P-013)
 - [FB-27-PE-P-014 你如何制定性能预算（Performance Budget）？](../by-domain/27-performance.md#FB-27-PE-P-014)
+- [FB-27-PE-P-015 如何优化大型列表渲染性能](../by-domain/27-performance.md#FB-27-PE-P-015)
+- [FB-27-PE-P-016 如何减少 JavaScript 执行时间](../by-domain/27-performance.md#FB-27-PE-P-016)
+- [FB-27-PE-P-017 CSS 性能优化与渲染层管理](../by-domain/27-performance.md#FB-27-PE-P-017)
+- [FB-27-PE-P-018 内存泄漏的常见原因与排查](../by-domain/27-performance.md#FB-27-PE-P-018)
+- [FB-27-PE-P-019 前端性能监控指标体系设计](../by-domain/27-performance.md#FB-27-PE-P-019)
+- [FB-27-PE-P-020 如何优化大量 marker 的地图性能](../by-domain/27-performance.md#FB-27-PE-P-020)
+- [FB-27-PE-P-021 Web Worker 在性能优化中的应用](../by-domain/27-performance.md#FB-27-PE-P-021)
 
 ### 质量保障（1 道）
 
 - [FB-28-PE-P-019 如何提升 E2E 测试的稳定性？](../by-domain/28-quality.md#FB-28-PE-P-019)
 
-### 可观测性（1 道）
+### 可观测性（2 道）
 
 - [FB-30-PE-P-019 如何基于 Web Vitals + Performance API 做首屏/交互性能监控？](../by-domain/30-observability.md#FB-30-PE-P-019)
+- [FB-30-PE-P-020 前端异常如何归因到具体发布](../by-domain/30-observability.md#FB-30-PE-P-020)
 
-### 实时与协同（2 道）
+### 实时与协同（3 道）
 
 - [FB-32-PE-P-001 实时系统如何实现水平扩展？](../by-domain/32-real-time.md#FB-32-PE-P-001)
 - [FB-32-PE-P-002 实时数据流中的背压（Backpressure）如何处理？](../by-domain/32-real-time.md#FB-32-PE-P-002)
+- [FB-32-PE-P-003 实时列表的渲染优化](../by-domain/32-real-time.md#FB-32-PE-P-003)
 
 ### 国际化（1 道）
 
 - [FB-33-PE-P-001 语言包体积如何优化？](../by-domain/33-internationalization.md#FB-33-PE-P-001)
 
-### 可视化与图形（2 道）
+### 可视化与图形（4 道）
 
 - [FB-34-PE-P-019 地理/地图可视化中，如何处理大规模 GeoJSON、投影变换与瓦片化？](../by-domain/34-visualization-graphics.md#FB-34-PE-P-019)
 - [FB-34-PE-P-022 可视化动画与性能：requestAnimationFrame、补间、时间轴与 Web Animations API 如何选型？](../by-domain/34-visualization-graphics.md#FB-34-PE-P-022)
+- [FB-34-PE-P-023 可视化大屏的渲染性能优化](../by-domain/34-visualization-graphics.md#FB-34-PE-P-023)
+- [FB-34-PE-P-024 Canvas 高清屏渲染优化](../by-domain/34-visualization-graphics.md#FB-34-PE-P-024)
 
 ### 小程序（3 道）
 
@@ -363,7 +458,7 @@
 
 - [FB-52-PE-P-006 如何优化低代码平台中大数据量表格的性能？](../by-domain/52-low-code.md#FB-52-PE-P-006)
 
-## 架构题（18 道）{#architect}
+## 架构题（23 道）{#architect}
 
 ### TypeScript（1 道）
 
@@ -385,26 +480,31 @@
 
 - [FB-21-PE-R-001 大型 TypeScript 仓库中 tsc 类型检查极慢，如何从架构层面系统排查与优化](../by-domain/21-dx.md#FB-21-PE-R-001)
 
-### 部署与 SRE（1 道）
+### 部署与 SRE（2 道）
 
 - [FB-22-PE-R-001 如何排查并优化前端高可用灰度发布过程中的性能瓶颈？](../by-domain/22-deployment-sre.md#FB-22-PE-R-001)
+- [FB-22-PE-R-002 如何排查并优化前端高可用灰度发布中的性能瓶颈？](../by-domain/22-deployment-sre.md#FB-22-PE-R-002)
 
 ### 包管理与供应链安全（1 道）
 
 - [FB-23-PE-R-001 大型 Monorepo 中 npm install 变慢，如何在保证安全校验的前提下优化性能？](../by-domain/23-package-supply-chain.md#FB-23-PE-R-001)
 
-### 微前端（2 道）
+### 微前端（3 道）
 
 - [FB-26-PE-R-029 如何度量微前端的性能与用户体验？](../by-domain/26-micro-frontend.md#FB-26-PE-R-029)
 - [FB-26-PE-R-030 微前端上线后，如何进行性能优化？](../by-domain/26-micro-frontend.md#FB-26-PE-R-030)
+- [FB-26-PE-R-031 微前端大规模下的性能预算与治理](../by-domain/26-micro-frontend.md#FB-26-PE-R-031)
 
-### 性能工程（5 道）
+### 性能工程（8 道）
 
 - [FB-27-PE-R-001 性能优化中，Lab 数据和 RUM 数据有什么区别？应该如何结合使用？](../by-domain/27-performance.md#FB-27-PE-R-001)
 - [FB-27-PE-R-002 你如何处理第三方脚本对性能的影响？](../by-domain/27-performance.md#FB-27-PE-R-002)
 - [FB-27-PE-R-003 在团队中如何推动性能优化落地？](../by-domain/27-performance.md#FB-27-PE-R-003)
 - [FB-27-PE-R-005 现代前端框架（如 React 18）提供了哪些性能优化特性？](../by-domain/27-performance.md#FB-27-PE-R-005)
 - [FB-27-PE-R-006 如何平衡性能优化和开发效率？](../by-domain/27-performance.md#FB-27-PE-R-006)
+- [FB-27-PE-R-007 设计一个前端性能治理体系](../by-domain/27-performance.md#FB-27-PE-R-007)
+- [FB-27-PE-R-008 如何优化前端包体积](../by-domain/27-performance.md#FB-27-PE-R-008)
+- [FB-27-PE-R-009 前端性能优化的顶层方法论](../by-domain/27-performance.md#FB-27-PE-R-009)
 
 ### 数据与状态管理（1 道）
 

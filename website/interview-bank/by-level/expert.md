@@ -1,13 +1,13 @@
 # Expert（专家）
 
 > 本文件按岗位层级 **Expert（专家）** 组织前端面试题索引，并按难度分组。
-> 共收录 **2941** 道题（基础 774 / 进阶 815 / 深入 733 / 架构 619）。
+> 共收录 **4294** 道题（基础 993 / 进阶 1406 / 深入 1123 / 架构 772）。
 > **Expert（专家）** 难度为推荐阅读重点，其他难度可作为基础回顾或进阶扩展。
 > 每道题都附带完整参考答案与评分维度，点击链接可查看原文。
 
-## 基础题（774 道）{#basic}
+## 基础题（993 道）{#basic}
 
-### JavaScript（30 道）
+### JavaScript（33 道）
 
 - [FB-01-CA-B-001 == 和 === 的区别？什么情况下推荐使用 ==？](../by-domain/01-javascript.md#FB-01-CA-B-001)
 - [FB-01-CA-B-002 下面代码的输出是什么？](../by-domain/01-javascript.md#FB-01-CA-B-002)
@@ -16,6 +16,8 @@
 - [FB-01-CA-B-005 下面代码的输出是什么？如何正确输出 0、1、2？](../by-domain/01-javascript.md#FB-01-CA-B-005)
 - [FB-01-CD-B-001 手写一个数组去重函数。](../by-domain/01-javascript.md#FB-01-CD-B-001)
 - [FB-01-CD-B-002 用 ES6+ 实现对象/数组的浅拷贝与合并，并比较 Object.assign 与展开运算符的区别。](../by-domain/01-javascript.md#FB-01-CD-B-002)
+- [FB-01-CD-B-003 手写 Array.prototype.flat 的实现](../by-domain/01-javascript.md#FB-01-CD-B-003)
+- [FB-01-CD-B-004 手写 JSON.stringify 的简化版](../by-domain/01-javascript.md#FB-01-CD-B-004)
 - [FB-01-CO-B-001 JavaScript 有哪些数据类型？如何区分原始类型和引用类型？](../by-domain/01-javascript.md#FB-01-CO-B-001)
 - [FB-01-CO-B-002 什么是变量提升？let、const、var 的区别？](../by-domain/01-javascript.md#FB-01-CO-B-002)
 - [FB-01-CO-B-003 解释一下闭包，并举一个实际应用场景。](../by-domain/01-javascript.md#FB-01-CO-B-003)
@@ -34,13 +36,14 @@
 - [FB-01-CO-B-016 严格模式下 this 的指向有哪些不同？](../by-domain/01-javascript.md#FB-01-CO-B-016)
 - [FB-01-CO-B-017 JavaScript 有哪些数据类型？如何区分原始类型和引用类型？](../by-domain/01-javascript.md#FB-01-CO-B-017)
 - [FB-01-CO-B-018 Promise 的三种状态是什么？.then 和 .catch 如何链式调用？](../by-domain/01-javascript.md#FB-01-CO-B-018)
+- [FB-01-CO-B-019 Set、Map、WeakMap、WeakSet 在垃圾回收上有什么差异？](../by-domain/01-javascript.md#FB-01-CO-B-019)
 - [FB-01-CP-B-001 == 和 === 的区别？什么情况下推荐使用 ==？](../by-domain/01-javascript.md#FB-01-CP-B-001)
 - [FB-01-CP-B-002 什么是变量提升？let、const、var 的区别？](../by-domain/01-javascript.md#FB-01-CP-B-002)
 - [FB-01-CP-B-003 箭头函数和普通函数的区别？](../by-domain/01-javascript.md#FB-01-CP-B-003)
 - [FB-01-CP-B-004 简述事件循环，宏任务和微任务有什么区别？](../by-domain/01-javascript.md#FB-01-CP-B-004)
 - [FB-01-SC-B-001 解释一下闭包，并举一个实际应用场景。](../by-domain/01-javascript.md#FB-01-SC-B-001)
 
-### TypeScript（22 道）
+### TypeScript（26 道）
 
 - [FB-02-CA-B-001 分析以下代码的类型行为](../by-domain/02-typescript.md#FB-02-CA-B-001)
 - [FB-02-CA-B-002 分析可选属性与默认值的类型行为](../by-domain/02-typescript.md#FB-02-CA-B-002)
@@ -60,12 +63,16 @@
 - [FB-02-CO-B-010 Type Assertion（类型断言）是什么？与类型转换有什么区别？](../by-domain/02-typescript.md#FB-02-CO-B-010)
 - [FB-02-CO-B-011 TypeScript 和 JavaScript 有什么关系？它的核心优势是什么？](../by-domain/02-typescript.md#FB-02-CO-B-011)
 - [FB-02-CO-B-012 TypeScript 中的类型推断是什么？什么情况下需要显式注解？](../by-domain/02-typescript.md#FB-02-CO-B-012)
+- [FB-02-CO-B-013 any、unknown、never 有什么区别？](../by-domain/02-typescript.md#FB-02-CO-B-013)
+- [FB-02-CO-B-014 interface 与 type 有什么异同？](../by-domain/02-typescript.md#FB-02-CO-B-014)
+- [FB-02-CO-B-015 可选属性 ? 与 undefined 在类型上有什么区别？](../by-domain/02-typescript.md#FB-02-CO-B-015)
+- [FB-02-CO-B-016 TypeScript 中 enum 与 const enum 有什么区别？](../by-domain/02-typescript.md#FB-02-CO-B-016)
 - [FB-02-CP-B-001 interface 和 type 有什么区别？](../by-domain/02-typescript.md#FB-02-CP-B-001)
 - [FB-02-CP-B-002 any、unknown、never 的区别？](../by-domain/02-typescript.md#FB-02-CP-B-002)
 - [FB-02-CP-B-003 readonly 和 const 有什么区别？](../by-domain/02-typescript.md#FB-02-CP-B-003)
 - [FB-02-CP-B-004 如何实现可选属性？? 和 undefined 有什么区别？](../by-domain/02-typescript.md#FB-02-CP-B-004)
 
-### Browser（21 道）
+### Browser（26 道）
 
 - [FB-03-CO-B-001 从输入 URL 到页面首次渲染，浏览器经历了哪些主要阶段？](../by-domain/03-browser.md#FB-03-CO-B-001)
 - [FB-03-CO-B-002 DOM 树和 CSSOM 树分别是什么？浏览器如何构建它们？](../by-domain/03-browser.md#FB-03-CO-B-002)
@@ -84,12 +91,17 @@
 - [FB-03-CO-B-015 浏览器有哪些主要进程？各自负责什么？](../by-domain/03-browser.md#FB-03-CO-B-015)
 - [FB-03-CO-B-016 什么是重排（Reflow）和重绘（Repaint）？如何减少？](../by-domain/03-browser.md#FB-03-CO-B-016)
 - [FB-03-CO-B-017 解释事件捕获、冒泡和事件委托。](../by-domain/03-browser.md#FB-03-CO-B-017)
+- [FB-03-CO-B-018 Intersection Observer 的原理与典型使用场景](../by-domain/03-browser.md#FB-03-CO-B-018)
+- [FB-03-CO-B-019 DOMContentLoaded 与 load 事件的区别](../by-domain/03-browser.md#FB-03-CO-B-019)
+- [FB-03-CO-B-020 事件捕获、冒泡和事件委托的区别](../by-domain/03-browser.md#FB-03-CO-B-020)
+- [FB-03-CO-B-021 同源策略是什么？跨域有哪些解决方案？](../by-domain/03-browser.md#FB-03-CO-B-021)
+- [FB-03-CO-B-022 什么是 Paint Holding 与 First Paint？](../by-domain/03-browser.md#FB-03-CO-B-022)
 - [FB-03-CP-B-001 cookie、localStorage、sessionStorage、IndexedDB 的区别？](../by-domain/03-browser.md#FB-03-CP-B-001)
 - [FB-03-CP-B-002 &lt;script&gt; 标签的 defer 和 async 有什么区别？](../by-domain/03-browser.md#FB-03-CP-B-002)
 - [FB-03-PE-B-001 什么是强缓存和协商缓存？分别由哪些 HTTP 头控制？](../by-domain/03-browser.md#FB-03-PE-B-001)
 - [FB-03-SS-B-001 从输入 URL 到页面显示，浏览器经历了哪些步骤？](../by-domain/03-browser.md#FB-03-SS-B-001)
 
-### 计算机网络（19 道）
+### 计算机网络（22 道）
 
 - [FB-04-CO-B-001 OSI 七层模型与 TCP/IP 四层模型分别是什么？它们之间如何对应？](../by-domain/04-network.md#FB-04-CO-B-001)
 - [FB-04-CO-B-002 HTTP 与 HTTPS 有什么区别？为什么现在主流网站都使用 HTTPS？](../by-domain/04-network.md#FB-04-CO-B-002)
@@ -106,12 +118,15 @@
 - [FB-04-CO-B-013 详细描述 TCP 三次握手和四次挥手的过程。](../by-domain/04-network.md#FB-04-CO-B-013)
 - [FB-04-CO-B-014 HTTP/1.1、HTTP/2、HTTP/3 各有什么特点？](../by-domain/04-network.md#FB-04-CO-B-014)
 - [FB-04-CO-B-015 什么是 DNS？DNS 解析过程是怎样的？](../by-domain/04-network.md#FB-04-CO-B-015)
+- [FB-04-CO-B-016 IP 地址、子网掩码和默认网关分别是什么？](../by-domain/04-network.md#FB-04-CO-B-016)
+- [FB-04-CO-B-017 常见 HTTP 方法的语义与幂等性](../by-domain/04-network.md#FB-04-CO-B-017)
+- [FB-04-CO-B-018 URL 的组成结构及各部分作用](../by-domain/04-network.md#FB-04-CO-B-018)
 - [FB-04-CP-B-001 OSI 七层模型和 TCP/IP 四层模型有什么区别？](../by-domain/04-network.md#FB-04-CP-B-001)
 - [FB-04-EN-B-001 CDN 的原理是什么？有什么作用？](../by-domain/04-network.md#FB-04-EN-B-001)
 - [FB-04-SC-B-001 TCP 和 UDP 有什么区别？各适用于什么场景？](../by-domain/04-network.md#FB-04-SC-B-001)
 - [FB-04-SE-B-001 HTTPS 为什么安全？TLS 握手做了什么？](../by-domain/04-network.md#FB-04-SE-B-001)
 
-### Web 安全（10 道）
+### Web 安全（13 道）
 
 - [FB-05-CO-B-001 什么是 XSS？它有哪些常见类型？](../by-domain/05-security.md#FB-05-CO-B-001)
 - [FB-05-CO-B-002 什么是 CSRF？如何防御？](../by-domain/05-security.md#FB-05-CO-B-002)
@@ -119,12 +134,15 @@
 - [FB-05-CO-B-004 HTTPS 为什么比 HTTP 更安全？TLS 握手过程是怎样的？](../by-domain/05-security.md#FB-05-CO-B-004)
 - [FB-05-CO-B-005 什么是 CORS？为什么会出现 CORS 错误？](../by-domain/05-security.md#FB-05-CO-B-005)
 - [FB-05-CO-B-006 什么是 CSP？它如何帮助防御 XSS？](../by-domain/05-security.md#FB-05-CO-B-006)
+- [FB-05-CO-B-007 输入验证在前端应遵循哪些原则？](../by-domain/05-security.md#FB-05-CO-B-007)
+- [FB-05-CO-B-008 HTTPS 证书过期或域名不匹配会发生什么？](../by-domain/05-security.md#FB-05-CO-B-008)
+- [FB-05-CO-B-009 Referrer-Policy 有哪些常见取值？对隐私有什么影响？](../by-domain/05-security.md#FB-05-CO-B-009)
 - [FB-05-SE-B-001 localStorage 和 sessionStorage 的安全风险有哪些？](../by-domain/05-security.md#FB-05-SE-B-001)
 - [FB-05-SE-B-002 前端视角下，SQL 注入是如何发生的？如何防御？](../by-domain/05-security.md#FB-05-SE-B-002)
 - [FB-05-SE-B-003 为什么说“永远不信任用户输入”？前端应如何处理不可信数据？](../by-domain/05-security.md#FB-05-SE-B-003)
 - [FB-05-SE-B-004 什么是点击劫持（Clickjacking）？如何防御？](../by-domain/05-security.md#FB-05-SE-B-004)
 
-### HTML/CSS（18 道）
+### HTML/CSS（21 道）
 
 - [FB-06-CD-B-001 如何实现一个三栏布局，中间自适应？](../by-domain/06-html-css.md#FB-06-CD-B-001)
 - [FB-06-CO-B-001 什么是语义化 HTML？为什么要使用语义化标签？](../by-domain/06-html-css.md#FB-06-CO-B-001)
@@ -143,9 +161,12 @@
 - [FB-06-CO-B-014 什么是语义化 HTML？为什么要语义化？](../by-domain/06-html-css.md#FB-06-CO-B-014)
 - [FB-06-CO-B-015 解释 BEM 命名规范，并说明其优缺点。](../by-domain/06-html-css.md#FB-06-CO-B-015)
 - [FB-06-CO-B-016 什么是 CSS 优先级？如何计算？](../by-domain/06-html-css.md#FB-06-CO-B-016)
+- [FB-06-CO-B-017 DOCTYPE 的作用是什么？省略它会发生什么？](../by-domain/06-html-css.md#FB-06-CO-B-017)
+- [FB-06-CO-B-018 HTML5 新增了哪些结构化标签？](../by-domain/06-html-css.md#FB-06-CO-B-018)
+- [FB-06-CO-B-019 meta viewport 有哪些常见属性及作用？](../by-domain/06-html-css.md#FB-06-CO-B-019)
 - [FB-06-CP-B-001 CSS 中 em、rem、px、vw 有什么区别？如何选择？](../by-domain/06-html-css.md#FB-06-CP-B-001)
 
-### 可访问性（a11y）（13 道）
+### 可访问性（a11y）（17 道）
 
 - [FB-07-CA-B-001 下面这段代码存在哪些可访问性问题？](../by-domain/07-a11y.md#FB-07-CA-B-001)
 - [FB-07-CO-B-001 什么是语义化 HTML？它对可访问性有什么价值？](../by-domain/07-a11y.md#FB-07-CO-B-001)
@@ -160,8 +181,12 @@
 - [FB-07-CO-B-010 语义化 HTML 对无障碍有什么作用？](../by-domain/07-a11y.md#FB-07-CO-B-010)
 - [FB-07-CO-B-011 图片的 alt 属性应该如何填写？](../by-domain/07-a11y.md#FB-07-CO-B-011)
 - [FB-07-CO-B-012 为什么不应该只用颜色传达信息？](../by-domain/07-a11y.md#FB-07-CO-B-012)
+- [FB-07-CO-B-013 WCAG 的 POUR 四项原则是什么？](../by-domain/07-a11y.md#FB-07-CO-B-013)
+- [FB-07-CO-B-014 如何正确使用 heading 层级？](../by-domain/07-a11y.md#FB-07-CO-B-014)
+- [FB-07-CO-B-015 什么是焦点顺序（focus order）？](../by-domain/07-a11y.md#FB-07-CO-B-015)
+- [FB-07-CO-B-016 可访问性对 SEO 和用户体验有什么双重价值？](../by-domain/07-a11y.md#FB-07-CO-B-016)
 
-### 数据结构与算法（15 道）
+### 数据结构与算法（21 道）
 
 - [FB-08-CD-B-001 用 JavaScript 实现数组求和、最大值、最小值函数。](../by-domain/08-algorithms.md#FB-08-CD-B-001)
 - [FB-08-CD-B-002 反转一个字符串或数组。](../by-domain/08-algorithms.md#FB-08-CD-B-002)
@@ -171,6 +196,9 @@
 - [FB-08-CD-B-006 两数之和。](../by-domain/08-algorithms.md#FB-08-CD-B-006)
 - [FB-08-CD-B-007 实现二叉树的前序、中序、后序遍历。](../by-domain/08-algorithms.md#FB-08-CD-B-007)
 - [FB-08-CD-B-008 斐波那契数列。](../by-domain/08-algorithms.md#FB-08-CD-B-008)
+- [FB-08-CD-B-009 手写快速排序并分析复杂度](../by-domain/08-algorithms.md#FB-08-CD-B-009)
+- [FB-08-CD-B-010 手写归并排序](../by-domain/08-algorithms.md#FB-08-CD-B-010)
+- [FB-08-CD-B-011 手写二分查找及其变体](../by-domain/08-algorithms.md#FB-08-CD-B-011)
 - [FB-08-CO-B-001 什么是时间复杂度和空间复杂度？请列出常见的 Big O 表示法。](../by-domain/08-algorithms.md#FB-08-CO-B-001)
 - [FB-08-CO-B-002 数组和链表有什么区别？各自适合什么场景？](../by-domain/08-algorithms.md#FB-08-CO-B-002)
 - [FB-08-CO-B-003 栈和队列有什么区别？JavaScript 中如何实现？](../by-domain/08-algorithms.md#FB-08-CO-B-003)
@@ -178,8 +206,11 @@
 - [FB-08-CO-B-005 二叉树的基本概念是什么？有哪些遍历方式？](../by-domain/08-algorithms.md#FB-08-CO-B-005)
 - [FB-08-CO-B-006 什么是递归？递归三要素是什么？](../by-domain/08-algorithms.md#FB-08-CO-B-006)
 - [FB-08-CO-B-007 常见排序算法有哪些？比较它们的时间复杂度和稳定性。](../by-domain/08-algorithms.md#FB-08-CO-B-007)
+- [FB-08-CO-B-008 什么是递归？如何防止栈溢出？](../by-domain/08-algorithms.md#FB-08-CO-B-008)
+- [FB-08-CO-B-009 分治法的基本思想与经典案例](../by-domain/08-algorithms.md#FB-08-CO-B-009)
+- [FB-08-CO-B-010 如何理解前缀和与差分数组？](../by-domain/08-algorithms.md#FB-08-CO-B-010)
 
-### 设计模式（11 道）
+### 设计模式（14 道）
 
 - [FB-09-CO-B-001 什么是单例模式？请举一个前端应用场景。](../by-domain/09-design-patterns.md#FB-09-CO-B-001)
 - [FB-09-CO-B-002 工厂模式的作用是什么？与直接使用 new 创建对象有何区别？](../by-domain/09-design-patterns.md#FB-09-CO-B-002)
@@ -191,14 +222,19 @@
 - [FB-09-CO-B-008 什么是装饰器模式？它有什么优势？](../by-domain/09-design-patterns.md#FB-09-CO-B-008)
 - [FB-09-CO-B-009 什么是 SOLID 原则？](../by-domain/09-design-patterns.md#FB-09-CO-B-009)
 - [FB-09-CO-B-010 单例模式有什么优缺点？](../by-domain/09-design-patterns.md#FB-09-CO-B-010)
+- [FB-09-CO-B-011 单例模式在前端有哪些应用场景？](../by-domain/09-design-patterns.md#FB-09-CO-B-011)
+- [FB-09-CO-B-012 工厂模式解决了什么问题？](../by-domain/09-design-patterns.md#FB-09-CO-B-012)
+- [FB-09-CO-B-013 工厂方法模式与简单工厂有什么区别？](../by-domain/09-design-patterns.md#FB-09-CO-B-013)
 - [FB-09-CP-B-001 观察者模式和发布订阅模式有什么区别？](../by-domain/09-design-patterns.md#FB-09-CP-B-001)
 
-### 构建工具（24 道）
+### 构建工具（29 道）
 
 - [FB-10-CA-B-001 分析下面 Webpack 配置中 noParse 和 alias 的作用](../by-domain/10-build-tools.md#FB-10-CA-B-001)
 - [FB-10-CA-B-018 分析下面 Webpack 配置中 chunkFilename 和 publicPath 的作用。](../by-domain/10-build-tools.md#FB-10-CA-B-018)
+- [FB-10-CA-B-019 分析下面 Webpack 配置中 output.library 的作用](../by-domain/10-build-tools.md#FB-10-CA-B-019)
 - [FB-10-CD-B-001 手写一个 Babel Plugin，将 console.log 替换为 console.info](../by-domain/10-build-tools.md#FB-10-CD-B-001)
 - [FB-10-CD-B-020 手写一个 Babel Plugin，删除代码中的所有 console.log。](../by-domain/10-build-tools.md#FB-10-CD-B-020)
+- [FB-10-CD-B-021 手写一个简单的 Webpack Loader](../by-domain/10-build-tools.md#FB-10-CD-B-021)
 - [FB-10-CO-B-001 常见前端构建工具 Webpack、Vite、Rollup 有什么区别？](../by-domain/10-build-tools.md#FB-10-CO-B-001)
 - [FB-10-CO-B-002 什么是 Loader 和 Plugin？它们有什么区别？](../by-domain/10-build-tools.md#FB-10-CO-B-002)
 - [FB-10-CO-B-003 什么是 Tree Shaking？什么条件下能生效？](../by-domain/10-build-tools.md#FB-10-CO-B-003)
@@ -216,11 +252,14 @@
 - [FB-10-CO-B-015 package.json 中的 main、module、exports、browser 字段有什么区别？](../by-domain/10-build-tools.md#FB-10-CO-B-015)
 - [FB-10-CO-B-016 PostCSS 在前端构建中的作用是什么？常见插件有哪些？](../by-domain/10-build-tools.md#FB-10-CO-B-016)
 - [FB-10-CO-B-017 构建产物文件名中的 hash 有什么作用？contenthash、chunkhash、hash 有什么区别？](../by-domain/10-build-tools.md#FB-10-CO-B-017)
+- [FB-10-CO-B-018 什么是构建工具的 dev server？Vite 和 Webpack dev server 有什么区别？](../by-domain/10-build-tools.md#FB-10-CO-B-018)
+- [FB-10-CO-B-019 什么是 Module Federation？它解决了什么问题？](../by-domain/10-build-tools.md#FB-10-CO-B-019)
 - [FB-10-EN-B-001 前端项目如何根据环境选择不同的构建配置？](../by-domain/10-build-tools.md#FB-10-EN-B-001)
 - [FB-10-EN-B-019 前端构建脚本中如何管理多环境（dev/test/prod）配置？](../by-domain/10-build-tools.md#FB-10-EN-B-019)
+- [FB-10-EN-B-020 如何配置 Webpack 的 devServer 实现代理和 HMR？](../by-domain/10-build-tools.md#FB-10-EN-B-020)
 - [FB-10-PE-B-001 构建产物体积过大时有哪些基础排查方法？](../by-domain/10-build-tools.md#FB-10-PE-B-001)
 
-### Monorepo（24 道）
+### Monorepo（29 道）
 
 - [FB-11-CO-B-001 什么是 Monorepo？它与 Multirepo 有什么区别？](../by-domain/11-monorepo.md#FB-11-CO-B-001)
 - [FB-11-CO-B-002 npm / yarn / pnpm 的 workspace 分别是什么？如何启用？](../by-domain/11-monorepo.md#FB-11-CO-B-002)
@@ -240,14 +279,19 @@
 - [FB-11-CO-B-017 package.json 中的 packageManager 字段有什么用？](../by-domain/11-monorepo.md#FB-11-CO-B-017)
 - [FB-11-CO-B-019 Monorepo 中 workspace 子包的 bin 命令是如何被使用的？](../by-domain/11-monorepo.md#FB-11-CO-B-019)
 - [FB-11-CO-B-020 什么是 pnpm 的 workspace-concurrency？如何配置？](../by-domain/11-monorepo.md#FB-11-CO-B-020)
+- [FB-11-CO-B-021 什么是 Monorepo 中的 changeset？有什么作用？](../by-domain/11-monorepo.md#FB-11-CO-B-021)
+- [FB-11-CO-B-022 什么是 pnpm 的 catalog 依赖版本管理？](../by-domain/11-monorepo.md#FB-11-CO-B-022)
+- [FB-11-CO-B-023 什么是 Monorepo 中 package 的 public API 边界？](../by-domain/11-monorepo.md#FB-11-CO-B-023)
 - [FB-11-EN-B-001 如何初始化一个最小的 pnpm workspace Monorepo？](../by-domain/11-monorepo.md#FB-11-EN-B-001)
 - [FB-11-EN-B-002 如何在 Monorepo 中统一 TypeScript 配置？](../by-domain/11-monorepo.md#FB-11-EN-B-002)
 - [FB-11-EN-B-003 如何给 Monorepo 添加一个新的 internal package？](../by-domain/11-monorepo.md#FB-11-EN-B-003)
 - [FB-11-EN-B-016 如何在 Monorepo 中统一 ESLint / Prettier 配置？](../by-domain/11-monorepo.md#FB-11-EN-B-016)
 - [FB-11-EN-B-018 如何给 Monorepo 中的 internal package 添加测试？](../by-domain/11-monorepo.md#FB-11-EN-B-018)
 - [FB-11-EN-B-021 changeset 文件的作用是什么？它的基本结构是怎样的？](../by-domain/11-monorepo.md#FB-11-EN-B-021)
+- [FB-11-EN-B-022 如何在 Monorepo 中配置统一的 lint 和 format？](../by-domain/11-monorepo.md#FB-11-EN-B-022)
+- [FB-11-EN-B-023 如何在 Monorepo 中统一版本发布？](../by-domain/11-monorepo.md#FB-11-EN-B-023)
 
-### CI/CD（24 道）
+### CI/CD（29 道）
 
 - [FB-12-CO-B-001 什么是 CI/CD？持续集成、持续交付和持续部署有什么区别？](../by-domain/12-ci-cd.md#FB-12-CO-B-001)
 - [FB-12-CO-B-006 自动化测试在 CI/CD 中的作用是什么？常见的测试分层有哪些？](../by-domain/12-ci-cd.md#FB-12-CO-B-006)
@@ -259,6 +303,9 @@
 - [FB-12-CO-B-019 什么是蓝绿部署？前端应用需要注意什么？](../by-domain/12-ci-cd.md#FB-12-CO-B-019)
 - [FB-12-CO-B-021 CI/CD 中的回滚（Rollback）有哪些常见方式？](../by-domain/12-ci-cd.md#FB-12-CO-B-021)
 - [FB-12-CO-B-023 什么是不可变基础设施（Immutable Infrastructure）？](../by-domain/12-ci-cd.md#FB-12-CO-B-023)
+- [FB-12-CO-B-024 什么是 CI/CD 中的 artifact？为什么需要它？](../by-domain/12-ci-cd.md#FB-12-CO-B-024)
+- [FB-12-CO-B-025 什么是 CI 中的 fail-fast 策略？](../by-domain/12-ci-cd.md#FB-12-CO-B-025)
+- [FB-12-CO-B-026 什么是 deployment preview？](../by-domain/12-ci-cd.md#FB-12-CO-B-026)
 - [FB-12-EN-B-002 什么是 Pipeline as Code？它有什么好处？](../by-domain/12-ci-cd.md#FB-12-EN-B-002)
 - [FB-12-EN-B-003 GitHub Actions 的核心概念有哪些？](../by-domain/12-ci-cd.md#FB-12-EN-B-003)
 - [FB-12-EN-B-004 GitLab CI 的核心概念有哪些？](../by-domain/12-ci-cd.md#FB-12-EN-B-004)
@@ -273,8 +320,10 @@
 - [FB-12-EN-B-020 什么是 Self-Hosted Runner？什么时候应该使用？](../by-domain/12-ci-cd.md#FB-12-EN-B-020)
 - [FB-12-EN-B-022 CI/CD 中的并行（Parallelism）与并发（Concurrency）有什么区别？](../by-domain/12-ci-cd.md#FB-12-EN-B-022)
 - [FB-12-EN-B-024 CI/CD 中的通知机制应该如何设计？](../by-domain/12-ci-cd.md#FB-12-EN-B-024)
+- [FB-12-EN-B-025 GitHub Actions 中如何缓存依赖？](../by-domain/12-ci-cd.md#FB-12-EN-B-025)
+- [FB-12-EN-B-026 如何在 CI 中并行执行测试？](../by-domain/12-ci-cd.md#FB-12-EN-B-026)
 
-### 代码质量与测试（26 道）
+### 代码质量与测试（31 道）
 
 - [FB-13-CA-B-001 下面 Jest 测试的输出和结果是什么？](../by-domain/13-code-quality.md#FB-13-CA-B-001)
 - [FB-13-CA-B-002 下面 Jest 测试的输出和结果是什么？](../by-domain/13-code-quality.md#FB-13-CA-B-002)
@@ -299,11 +348,16 @@
 - [FB-13-CO-B-018 为什么测试文件常用 __tests__ 或 *.test.ts 命名？](../by-domain/13-code-quality.md#FB-13-CO-B-018)
 - [FB-13-CO-B-019 什么是测试环境（test environment）？为什么需要配置它？](../by-domain/13-code-quality.md#FB-13-CO-B-019)
 - [FB-13-CO-B-020 什么是测试用例（test case）？一条好的测试用例有哪些特征？](../by-domain/13-code-quality.md#FB-13-CO-B-020)
+- [FB-13-CO-B-021 ESLint 和 Prettier 有什么区别？](../by-domain/13-code-quality.md#FB-13-CO-B-021)
+- [FB-13-CO-B-022 什么是 Husky 和 lint-staged？](../by-domain/13-code-quality.md#FB-13-CO-B-022)
+- [FB-13-CO-B-023 什么是测试金字塔？](../by-domain/13-code-quality.md#FB-13-CO-B-023)
 - [FB-13-EN-B-001 ESLint 的 extends、plugins、rules、presets 有什么区别？](../by-domain/13-code-quality.md#FB-13-EN-B-001)
 - [FB-13-EN-B-002 如何用 npm scripts 一键运行 lint、format 与测试？](../by-domain/13-code-quality.md#FB-13-EN-B-002)
 - [FB-13-EN-B-003 .editorconfig 与 Prettier 有什么区别？](../by-domain/13-code-quality.md#FB-13-EN-B-003)
+- [FB-13-EN-B-004 如何配置 ESLint 的共享规则？](../by-domain/13-code-quality.md#FB-13-EN-B-004)
+- [FB-13-EN-B-005 如何在 CI 中统一代码质量检查？](../by-domain/13-code-quality.md#FB-13-EN-B-005)
 
-### 设计系统与组件库（18 道）
+### 设计系统与组件库（23 道）
 
 - [FB-14-CO-B-001 什么是 Design Token？它解决了什么问题？](../by-domain/14-design-system.md#FB-14-CO-B-001)
 - [FB-14-CO-B-002 原子设计（Atomic Design）的五个层级是什么？](../by-domain/14-design-system.md#FB-14-CO-B-002)
@@ -323,8 +377,13 @@
 - [FB-14-CO-B-016 什么是 Polymorphic Component（多态组件）？](../by-domain/14-design-system.md#FB-14-CO-B-016)
 - [FB-14-CO-B-017 组件库中如何处理浏览器兼容性问题？](../by-domain/14-design-system.md#FB-14-CO-B-017)
 - [FB-14-CO-B-018 什么是 Tree Shaking？组件库如何支持它？](../by-domain/14-design-system.md#FB-14-CO-B-018)
+- [FB-14-CO-B-019 什么是组件库中的 spacing scale？](../by-domain/14-design-system.md#FB-14-CO-B-019)
+- [FB-14-CO-B-020 什么是 Container Queries？](../by-domain/14-design-system.md#FB-14-CO-B-020)
+- [FB-14-CO-B-021 组件库中为什么要避免 magic number？](../by-domain/14-design-system.md#FB-14-CO-B-021)
+- [FB-14-CO-B-022 什么是 CSS 的 layer (@layer) ？](../by-domain/14-design-system.md#FB-14-CO-B-022)
+- [FB-14-CO-B-023 组件库中如何处理 focus 状态？](../by-domain/14-design-system.md#FB-14-CO-B-023)
 
-### React（16 道）
+### React（23 道）
 
 - [FB-15-CA-B-005 下面代码点击按钮后 count 的值是多少？为什么？](../by-domain/15-react.md#FB-15-CA-B-005)
 - [FB-15-CA-B-036 下面 useEffect 的代码输出什么？为什么？](../by-domain/15-react.md#FB-15-CA-B-036)
@@ -342,8 +401,15 @@
 - [FB-15-CO-B-035 React 中有哪些条件渲染方式？](../by-domain/15-react.md#FB-15-CO-B-035)
 - [FB-15-CO-B-037 React Portal 的作用是什么？](../by-domain/15-react.md#FB-15-CO-B-037)
 - [FB-15-CO-B-038 React 中的 children prop 是什么？](../by-domain/15-react.md#FB-15-CO-B-038)
+- [FB-15-CO-B-039 React 中的 SyntheticEvent 和 NativeEvent 有什么区别？](../by-domain/15-react.md#FB-15-CO-B-039)
+- [FB-15-CO-B-040 什么是 React 的 Batch Update？](../by-domain/15-react.md#FB-15-CO-B-040)
+- [FB-15-CO-B-041 React 中 useLayoutEffect 和 useEffect 有什么区别？](../by-domain/15-react.md#FB-15-CO-B-041)
+- [FB-15-CO-B-042 什么是 React 的 controlled input 的注意事项？](../by-domain/15-react.md#FB-15-CO-B-042)
+- [FB-15-CO-B-043 React 中如何实现组件懒加载？](../by-domain/15-react.md#FB-15-CO-B-043)
+- [FB-15-CO-B-044 什么是 React 的 key prop 的最佳实践？](../by-domain/15-react.md#FB-15-CO-B-044)
+- [FB-15-CO-B-045 React 中 context 的 Provider 嵌套过多怎么办？](../by-domain/15-react.md#FB-15-CO-B-045)
 
-### Vue（16 道）
+### Vue（23 道）
 
 - [FB-16-CA-B-001 分析以下代码的输出](../by-domain/16-vue.md#FB-16-CA-B-001)
 - [FB-16-CD-B-001 手写一个支持删除的 TodoItem 组件](../by-domain/16-vue.md#FB-16-CD-B-001)
@@ -356,13 +422,20 @@
 - [FB-16-CO-B-007 Vue 组件间通信有哪些方式？](../by-domain/16-vue.md#FB-16-CO-B-007)
 - [FB-16-CO-B-008 Vue 中如何实现受控组件？](../by-domain/16-vue.md#FB-16-CO-B-008)
 - [FB-16-CO-B-009 Vue 3 中常用的内置指令有哪些？](../by-domain/16-vue.md#FB-16-CO-B-009)
+- [FB-16-CO-B-010 Vue 中 v-bind 和 v-on 的简写是什么？](../by-domain/16-vue.md#FB-16-CO-B-010)
+- [FB-16-CO-B-011 Vue 中的 computed setter 是什么？](../by-domain/16-vue.md#FB-16-CO-B-011)
+- [FB-16-CO-B-012 Vue 中的 watch 的 deep 和 immediate 选项作用？](../by-domain/16-vue.md#FB-16-CO-B-012)
+- [FB-16-CO-B-013 Vue 中的组件 name 有什么用？](../by-domain/16-vue.md#FB-16-CO-B-013)
+- [FB-16-CO-B-014 Vue 中 $emit 和 defineEmits 的区别？](../by-domain/16-vue.md#FB-16-CO-B-014)
+- [FB-16-CO-B-015 Vue 3 中的 Suspense 是什么？](../by-domain/16-vue.md#FB-16-CO-B-015)
+- [FB-16-CO-B-016 Vue 中的 mixin 有什么优缺点？](../by-domain/16-vue.md#FB-16-CO-B-016)
 - [FB-16-CP-B-001 Vue 开发与原生 HTML/JS 开发相比有哪些优缺点？](../by-domain/16-vue.md#FB-16-CP-B-001)
 - [FB-16-EN-B-001 Vue CLI 和 Vite 创建项目有什么区别？](../by-domain/16-vue.md#FB-16-EN-B-001)
 - [FB-16-PE-B-001 如何避免 Vue 组件不必要的重渲染？](../by-domain/16-vue.md#FB-16-PE-B-001)
 - [FB-16-SC-B-001 如何封装一个可复用的 Vue Button 组件？](../by-domain/16-vue.md#FB-16-SC-B-001)
 - [FB-16-SE-B-001 Vue 中常见的 XSS 风险有哪些？如何防范？](../by-domain/16-vue.md#FB-16-SE-B-001)
 
-### 跨端技术（15 道）
+### 跨端技术（20 道）
 
 - [FB-17-CO-B-001 什么是跨端开发？与原生开发相比有哪些优缺点？](../by-domain/17-cross-platform.md#FB-17-CO-B-001)
 - [FB-17-CO-B-002 常见的跨端方案可以分为哪几类？各有什么代表技术？](../by-domain/17-cross-platform.md#FB-17-CO-B-002)
@@ -379,8 +452,13 @@
 - [FB-17-CO-B-036 Electron 的 preload 脚本有什么作用？](../by-domain/17-cross-platform.md#FB-17-CO-B-036)
 - [FB-17-CO-B-037 微信小程序的分包加载和独立分包有什么区别？](../by-domain/17-cross-platform.md#FB-17-CO-B-037)
 - [FB-17-CO-B-038 跨端开发中处理平台差异有哪些常见思路？](../by-domain/17-cross-platform.md#FB-17-CO-B-038)
+- [FB-17-CO-B-039 小程序的 rpx 和 px 有什么区别？](../by-domain/17-cross-platform.md#FB-17-CO-B-039)
+- [FB-17-CO-B-040 React Native 的 Flexbox 布局和 Web 有什么不同？](../by-domain/17-cross-platform.md#FB-17-CO-B-040)
+- [FB-17-CO-B-041 Flutter 中的 Widget、Element、RenderObject 有什么关系？](../by-domain/17-cross-platform.md#FB-17-CO-B-041)
+- [FB-17-CO-B-042 Electron 中主进程和渲染进程如何通信？](../by-domain/17-cross-platform.md#FB-17-CO-B-042)
+- [FB-17-CO-B-043 什么是小程序的 setData？为什么要避免频繁调用？](../by-domain/17-cross-platform.md#FB-17-CO-B-043)
 
-### AI 工程化（29 道）
+### AI 工程化（33 道）
 
 - [FB-18-CA-B-001 分析以下调用 OpenAI API 的代码是否存在安全隐患](../by-domain/18-ai-engineering.md#FB-18-CA-B-001)
 - [FB-18-CA-B-035 下面这段前端调用大模型的代码存在什么问题？](../by-domain/18-ai-engineering.md#FB-18-CA-B-035)
@@ -405,6 +483,10 @@
 - [FB-18-CO-B-035 RAG 是什么？它的核心流程是怎样的？](../by-domain/18-ai-engineering.md#FB-18-CO-B-035)
 - [FB-18-CO-B-036 前端如何优雅地展示 LLM 的流式输出？](../by-domain/18-ai-engineering.md#FB-18-CO-B-036)
 - [FB-18-CO-B-037 Function Calling 是什么？前端在其中扮演什么角色？](../by-domain/18-ai-engineering.md#FB-18-CO-B-037)
+- [FB-18-CO-B-038 什么是 LLM 的 System Prompt？](../by-domain/18-ai-engineering.md#FB-18-CO-B-038)
+- [FB-18-CO-B-039 什么是 Few-shot Prompting？](../by-domain/18-ai-engineering.md#FB-18-CO-B-039)
+- [FB-18-CO-B-040 什么是 Embedding 和向量检索？](../by-domain/18-ai-engineering.md#FB-18-CO-B-040)
+- [FB-18-CO-B-041 什么是 AI Agent 的 ReAct 模式？](../by-domain/18-ai-engineering.md#FB-18-CO-B-041)
 - [FB-18-CP-B-040 如何向非技术人员解释 RAG？](../by-domain/18-ai-engineering.md#FB-18-CP-B-040)
 - [FB-18-EN-B-037 前端接入大模型 API 时有哪些常见工程化问题？](../by-domain/18-ai-engineering.md#FB-18-EN-B-037)
 - [FB-18-PE-B-039 如何降低前端 AI 功能的首屏加载时间？](../by-domain/18-ai-engineering.md#FB-18-PE-B-039)
@@ -412,7 +494,7 @@
 - [FB-18-SC-B-037 生产环境中，前端为什么不建议直接调用大模型 API？](../by-domain/18-ai-engineering.md#FB-18-SC-B-037)
 - [FB-18-SE-B-038 前端展示 AI 生成内容时应注意哪些安全风险？](../by-domain/18-ai-engineering.md#FB-18-SE-B-038)
 
-### Node.js / BFF（20 道）
+### Node.js / BFF（25 道）
 
 - [FB-19-CD-B-038 请手写一个极简的 Node.js HTTP 服务器，支持 GET /hello 返回 JSON](../by-domain/19-node-bff.md#FB-19-CD-B-038)
 - [FB-19-CO-B-001 Node.js 的事件循环是什么？它和浏览器事件循环有什么区别？](../by-domain/19-node-bff.md#FB-19-CO-B-001)
@@ -431,11 +513,16 @@
 - [FB-19-CO-B-036 常见的 HTTP 状态码有哪些？分别代表什么含义？](../by-domain/19-node-bff.md#FB-19-CO-B-036)
 - [FB-19-CO-B-037 Node.js 中如何管理不同环境的配置与敏感信息？](../by-domain/19-node-bff.md#FB-19-CO-B-037)
 - [FB-19-CO-B-038 什么是 BFF？它解决了什么问题？](../by-domain/19-node-bff.md#FB-19-CO-B-038)
+- [FB-19-CO-B-039 Node.js 中的 process.nextTick 和 setImmediate 有什么区别？](../by-domain/19-node-bff.md#FB-19-CO-B-039)
+- [FB-19-CO-B-040 什么是 Node.js 中的 EventEmitter？](../by-domain/19-node-bff.md#FB-19-CO-B-040)
+- [FB-19-CO-B-041 Node.js 中如何读取环境变量？](../by-domain/19-node-bff.md#FB-19-CO-B-041)
+- [FB-19-CO-B-042 Node.js 中的 path 模块常用方法有哪些？](../by-domain/19-node-bff.md#FB-19-CO-B-042)
+- [FB-19-CO-B-043 Node.js 中 fs 模块的 readFile 和 createReadStream 有什么区别？](../by-domain/19-node-bff.md#FB-19-CO-B-043)
 - [FB-19-CP-B-001 Node.js 的事件循环和浏览器有什么区别？](../by-domain/19-node-bff.md#FB-19-CP-B-001)
 - [FB-19-CP-B-002 SSR、SSG、ISR 应该怎么选择？](../by-domain/19-node-bff.md#FB-19-CP-B-002)
 - [FB-19-SC-B-001 生产环境为什么不建议前端直接调用后端通用服务？](../by-domain/19-node-bff.md#FB-19-SC-B-001)
 
-### Git 工作流与变更管理（21 道）
+### Git 工作流与变更管理（26 道）
 
 - [FB-20-CO-B-001 请简述 Git 中工作区、暂存区和本地仓库的关系](../by-domain/20-git-workflow.md#FB-20-CO-B-001)
 - [FB-20-CO-B-002 Git 中 branch 是什么？如何创建和切换分支？](../by-domain/20-git-workflow.md#FB-20-CO-B-002)
@@ -456,6 +543,11 @@
 - [FB-20-CO-B-040 什么是 Conventional Commits？为什么要用它？](../by-domain/20-git-workflow.md#FB-20-CO-B-040)
 - [FB-20-CO-B-041 Code Review 应该关注哪些方面？](../by-domain/20-git-workflow.md#FB-20-CO-B-041)
 - [FB-20-CO-B-042 语义化版本 SemVer 中 MAJOR、MINOR、PATCH 分别代表什么？](../by-domain/20-git-workflow.md#FB-20-CO-B-042)
+- [FB-20-CO-B-043 git tag 和 git branch 有什么区别？](../by-domain/20-git-workflow.md#FB-20-CO-B-043)
+- [FB-20-CO-B-044 git commit --amend 的注意事项？](../by-domain/20-git-workflow.md#FB-20-CO-B-044)
+- [FB-20-CO-B-045 git remote prune origin 是什么？](../by-domain/20-git-workflow.md#FB-20-CO-B-045)
+- [FB-20-CO-B-046 git clean 的作用？](../by-domain/20-git-workflow.md#FB-20-CO-B-046)
+- [FB-20-CO-B-047 git archive 是什么？](../by-domain/20-git-workflow.md#FB-20-CO-B-047)
 - [FB-20-EN-B-001 描述 Git Flow 的主要分支和流程。](../by-domain/20-git-workflow.md#FB-20-EN-B-001)
 - [FB-20-SC-B-001 解释 git merge 和 git rebase 的区别及适用场景。](../by-domain/20-git-workflow.md#FB-20-SC-B-001)
 
@@ -492,7 +584,7 @@
 - [FB-21-SD-B-001 如何设计团队级 Prettier 与编辑器配置一致性方案](../by-domain/21-dx.md#FB-21-SD-B-001)
 - [FB-21-SE-B-001 Jest 测试运行中的安全风险与敏感信息防护要点](../by-domain/21-dx.md#FB-21-SE-B-001)
 
-### 部署与 SRE（19 道）
+### 部署与 SRE（24 道）
 
 - [FB-22-CA-B-001 下面一段 Nginx 缓存配置存在什么风险？请分析原因。](../by-domain/22-deployment-sre.md#FB-22-CA-B-001)
 - [FB-22-CO-B-001 什么是 CI/CD？前端 CI/CD 流水线通常包含哪些阶段？](../by-domain/22-deployment-sre.md#FB-22-CO-B-001)
@@ -503,6 +595,11 @@
 - [FB-22-CO-B-007 DNS 解析流程是什么？它和前端部署有什么关系？](../by-domain/22-deployment-sre.md#FB-22-CO-B-007)
 - [FB-22-CO-B-008 灰度发布和 A/B 测试有什么区别？](../by-domain/22-deployment-sre.md#FB-22-CO-B-008)
 - [FB-22-CO-B-009 什么是 SLA/SLO/SLI？前端如何设定和保障服务等级？](../by-domain/22-deployment-sre.md#FB-22-CO-B-009)
+- [FB-22-CO-B-010 什么是负载均衡？前端如何利用？](../by-domain/22-deployment-sre.md#FB-22-CO-B-010)
+- [FB-22-CO-B-011 什么是反向代理？](../by-domain/22-deployment-sre.md#FB-22-CO-B-011)
+- [FB-22-CO-B-012 什么是容器化部署？](../by-domain/22-deployment-sre.md#FB-22-CO-B-012)
+- [FB-22-CO-B-013 什么是自动扩缩容？](../by-domain/22-deployment-sre.md#FB-22-CO-B-013)
+- [FB-22-CO-B-014 什么是服务发现？](../by-domain/22-deployment-sre.md#FB-22-CO-B-014)
 - [FB-22-CP-B-001 结合 RPO 与前端 HTTP 缓存机制，谈谈潜在风险与防御实践。](../by-domain/22-deployment-sre.md#FB-22-CP-B-001)
 - [FB-22-CP-B-002 灰度发布和 A/B 测试有什么区别？](../by-domain/22-deployment-sre.md#FB-22-CP-B-002)
 - [FB-22-EN-B-005 前端构建产物如何做版本化管理？](../by-domain/22-deployment-sre.md#FB-22-EN-B-005)
@@ -514,7 +611,7 @@
 - [FB-22-SD-B-001 如何设计前端应用的 CI/CD 镜像构建系统，兼顾构建速度与产物一致性？](../by-domain/22-deployment-sre.md#FB-22-SD-B-001)
 - [FB-22-SE-B-001 前端资源长期缓存可能带来哪些安全风险？如何防御缓存污染与 RPO 攻击？](../by-domain/22-deployment-sre.md#FB-22-SE-B-001)
 
-### 包管理与供应链安全（19 道）
+### 包管理与供应链安全（24 道）
 
 - [FB-23-CA-B-001 分析以下 workspace 引用代码的输出与原因](../by-domain/23-package-supply-chain.md#FB-23-CA-B-001)
 - [FB-23-CO-B-001 npm、yarn 与 pnpm 的核心区别是什么？](../by-domain/23-package-supply-chain.md#FB-23-CO-B-001)
@@ -529,6 +626,11 @@
 - [FB-23-CO-B-010 npm 的语义化版本规范是什么？](../by-domain/23-package-supply-chain.md#FB-23-CO-B-010)
 - [FB-23-CO-B-011 什么是幽灵依赖？如何避免？](../by-domain/23-package-supply-chain.md#FB-23-CO-B-011)
 - [FB-23-CO-B-012 lockfile 是否应该提交到版本控制？为什么？](../by-domain/23-package-supply-chain.md#FB-23-CO-B-012)
+- [FB-23-CO-B-013 什么是 npm registry？](../by-domain/23-package-supply-chain.md#FB-23-CO-B-013)
+- [FB-23-CO-B-014 什么是 scope 包？](../by-domain/23-package-supply-chain.md#FB-23-CO-B-014)
+- [FB-23-CO-B-015 npm 的 scripts 中 pre/post 钩子是什么？](../by-domain/23-package-supply-chain.md#FB-23-CO-B-015)
+- [FB-23-CO-B-016 什么是 bundledDependencies？](../by-domain/23-package-supply-chain.md#FB-23-CO-B-016)
+- [FB-23-CO-B-017 什么是 optionalDependencies？](../by-domain/23-package-supply-chain.md#FB-23-CO-B-017)
 - [FB-23-CP-B-001 结合 package.json 规范与 lockfile 管理，谈谈依赖标准化的实践经验](../by-domain/23-package-supply-chain.md#FB-23-CP-B-001)
 - [FB-23-EN-B-001 在 pnpm 项目中如何检测并清理幽灵依赖？](../by-domain/23-package-supply-chain.md#FB-23-EN-B-001)
 - [FB-23-PE-B-001 pnpm install 因版本冲突导致解析变慢，如何排查与优化？](../by-domain/23-package-supply-chain.md#FB-23-PE-B-001)
@@ -547,7 +649,7 @@
 - [FB-24-PE-B-006 页面性能监控通常需要采集哪些指标？](../by-domain/24-frontend-operations.md#FB-24-PE-B-006)
 - [FB-24-SS-B-008 什么是 on-call 机制？前端团队为什么也需要？](../by-domain/24-frontend-operations.md#FB-24-SS-B-008)
 
-### 系统架构设计（16 道）
+### 系统架构设计（17 道）
 
 - [FB-25-CO-B-001 MVC、MVVM、MVP、MVI 四种架构模式有什么区别？分别对应哪些前端框架？](../by-domain/25-system-architecture.md#FB-25-CO-B-001)
 - [FB-25-CO-B-002 什么是 BFF（Backend for Frontend）？它解决了什么问题？](../by-domain/25-system-architecture.md#FB-25-CO-B-002)
@@ -563,10 +665,11 @@
 - [FB-25-CO-B-013 API 版本管理有哪些常见策略？前端应如何配合？](../by-domain/25-system-architecture.md#FB-25-CO-B-013)
 - [FB-25-CO-B-014 集中式状态管理与局部状态管理各适用于什么场景？](../by-domain/25-system-architecture.md#FB-25-CO-B-014)
 - [FB-25-CO-B-016 什么是渐进式增强与优雅降级？前端如何实践？](../by-domain/25-system-architecture.md#FB-25-CO-B-016)
+- [FB-25-CO-B-017 什么是 BFF（Backend for Frontend）](../by-domain/25-system-architecture.md#FB-25-CO-B-017)
 - [FB-25-EN-B-003 Monorepo 是什么？与 Multirepo 相比有什么优劣？](../by-domain/25-system-architecture.md#FB-25-EN-B-003)
 - [FB-25-EN-B-015 如何分析前端构建产物并制定优化策略？](../by-domain/25-system-architecture.md#FB-25-EN-B-015)
 
-### 微前端（8 道）
+### 微前端（11 道）
 
 - [FB-26-CO-B-001 什么是微前端？它主要解决哪些问题？](../by-domain/26-micro-frontend.md#FB-26-CO-B-001)
 - [FB-26-CO-B-002 微前端和传统的巨石应用相比有哪些优劣？](../by-domain/26-micro-frontend.md#FB-26-CO-B-002)
@@ -576,8 +679,11 @@
 - [FB-26-CO-B-006 微前端场景下基座应用和子应用的路由如何协调？](../by-domain/26-micro-frontend.md#FB-26-CO-B-006)
 - [FB-26-CO-B-007 微前端中样式隔离有哪些常见方案？](../by-domain/26-micro-frontend.md#FB-26-CO-B-007)
 - [FB-26-CO-B-008 微前端中公共依赖共享有哪些思路？](../by-domain/26-micro-frontend.md#FB-26-CO-B-008)
+- [FB-26-CO-B-009 什么是微前端，它解决了什么问题](../by-domain/26-micro-frontend.md#FB-26-CO-B-009)
+- [FB-26-CO-B-010 single-spa 与 Qiankun 的关系](../by-domain/26-micro-frontend.md#FB-26-CO-B-010)
+- [FB-26-CO-B-011 微前端的四种基本集成方式](../by-domain/26-micro-frontend.md#FB-26-CO-B-011)
 
-### 性能工程（8 道）
+### 性能工程（11 道）
 
 - [FB-27-CO-B-001 什么是 RAIL 模型？它如何指导前端性能优化？](../by-domain/27-performance.md#FB-27-CO-B-001)
 - [FB-27-CO-B-002 什么是 Core Web Vitals？LCP、INP、CLS 分别衡量什么？](../by-domain/27-performance.md#FB-27-CO-B-002)
@@ -587,8 +693,11 @@
 - [FB-27-CO-B-006 什么是代码分割（Code Splitting）？前端有哪些实现方式？](../by-domain/27-performance.md#FB-27-CO-B-006)
 - [FB-27-CO-B-007 HTTP 缓存策略有哪些？强缓存和协商缓存的区别是什么？](../by-domain/27-performance.md#FB-27-CO-B-007)
 - [FB-27-CO-B-008 图片资源优化有哪些常用手段？](../by-domain/27-performance.md#FB-27-CO-B-008)
+- [FB-27-CO-B-009 浏览器渲染管线的关键阶段](../by-domain/27-performance.md#FB-27-CO-B-009)
+- [FB-27-CO-B-010 什么是重排与重绘](../by-domain/27-performance.md#FB-27-CO-B-010)
+- [FB-27-CO-B-011 懒加载与预加载的区别](../by-domain/27-performance.md#FB-27-CO-B-011)
 
-### 质量保障（8 道）
+### 质量保障（10 道）
 
 - [FB-28-CO-B-001 什么是测试金字塔？前端如何应用？](../by-domain/28-quality.md#FB-28-CO-B-001)
 - [FB-28-CO-B-002 单元测试、集成测试、E2E 测试有什么区别？](../by-domain/28-quality.md#FB-28-CO-B-002)
@@ -598,8 +707,10 @@
 - [FB-28-CO-B-006 ESLint 与 Prettier 的定位有什么不同？](../by-domain/28-quality.md#FB-28-CO-B-006)
 - [FB-28-CO-B-007 TypeScript 如何提升前端代码质量？](../by-domain/28-quality.md#FB-28-CO-B-007)
 - [FB-28-CO-B-008 测试覆盖率有哪些指标？如何正确看待覆盖率？](../by-domain/28-quality.md#FB-28-CO-B-008)
+- [FB-28-CO-B-009 前端质量保障的核心维度](../by-domain/28-quality.md#FB-28-CO-B-009)
+- [FB-28-CO-B-010 前端代码评审中应关注的安全点](../by-domain/28-quality.md#FB-28-CO-B-010)
 
-### 数据与状态管理（12 道）
+### 数据与状态管理（16 道）
 
 - [FB-29-CO-B-001 什么是客户端状态和服务端状态？它们有什么区别？](../by-domain/29-data-state.md#FB-29-CO-B-001)
 - [FB-29-CO-B-002 全局状态和局部状态有什么区别？如何选择作用域？](../by-domain/29-data-state.md#FB-29-CO-B-002)
@@ -611,10 +722,14 @@
 - [FB-29-CO-B-008 表单状态为什么要单独管理？受控与非受控表单如何选择？](../by-domain/29-data-state.md#FB-29-CO-B-008)
 - [FB-29-CO-B-009 Redux、Zustand、React Query 分别解决什么问题？可以互相替代吗？](../by-domain/29-data-state.md#FB-29-CO-B-009)
 - [FB-29-CO-B-010 什么是乐观更新？实现时需要注意什么？](../by-domain/29-data-state.md#FB-29-CO-B-010)
+- [FB-29-CO-B-011 前端状态管理要解决什么问题](../by-domain/29-data-state.md#FB-29-CO-B-011)
+- [FB-29-CO-B-012 useState 与 useReducer 如何选择](../by-domain/29-data-state.md#FB-29-CO-B-012)
+- [FB-29-CO-B-013 什么是单向数据流](../by-domain/29-data-state.md#FB-29-CO-B-013)
+- [FB-29-CO-B-014 什么是状态提升（Lifting State Up）](../by-domain/29-data-state.md#FB-29-CO-B-014)
 - [FB-29-CP-B-001 React Query 的 staleTime 和 cacheTime 有什么区别？](../by-domain/29-data-state.md#FB-29-CP-B-001)
 - [FB-29-SS-B-001 前端应用中有哪些类型的状态？分别应该怎么管理？](../by-domain/29-data-state.md#FB-29-SS-B-001)
 
-### 可观测性（12 道）
+### 可观测性（15 道）
 
 - [FB-30-CD-B-007 手写一个前端异常捕获与上报函数](../by-domain/30-observability.md#FB-30-CD-B-007)
 - [FB-30-CO-B-001 可观测性的三大支柱是什么？它们之间有什么关系？](../by-domain/30-observability.md#FB-30-CO-B-001)
@@ -625,11 +740,14 @@
 - [FB-30-CO-B-008 什么是健康检查（Health Check）？前端可以怎么做？](../by-domain/30-observability.md#FB-30-CO-B-008)
 - [FB-30-CO-B-009 前端错误监控应该怎么做？](../by-domain/30-observability.md#FB-30-CO-B-009)
 - [FB-30-CO-B-010 什么是 SLO、SLA、Error Budget？](../by-domain/30-observability.md#FB-30-CO-B-010)
+- [FB-30-CO-B-011 可观测性的三大支柱](../by-domain/30-observability.md#FB-30-CO-B-011)
+- [FB-30-CO-B-012 什么是 FID 与 INP](../by-domain/30-observability.md#FB-30-CO-B-012)
+- [FB-30-CO-B-013 什么是前端埋点](../by-domain/30-observability.md#FB-30-CO-B-013)
 - [FB-30-CP-B-001 什么是可观测性？它和监控有什么区别？](../by-domain/30-observability.md#FB-30-CP-B-001)
 - [FB-30-PE-B-005 什么是 RUM？它通常采集哪些性能指标？](../by-domain/30-observability.md#FB-30-PE-B-005)
 - [FB-30-PE-B-006 Core Web Vitals 包含哪些指标？如何优化？](../by-domain/30-observability.md#FB-30-PE-B-006)
 
-### 安全架构（13 道）
+### 安全架构（16 道）
 
 - [FB-31-CO-B-001 XSS 有哪几种类型？前端分别如何防御？](../by-domain/31-security-architecture.md#FB-31-CO-B-001)
 - [FB-31-CO-B-002 CSRF 的攻击原理是什么？前端如何配合防御？](../by-domain/31-security-architecture.md#FB-31-CO-B-002)
@@ -642,10 +760,13 @@
 - [FB-31-CO-B-009 什么是威胁建模？前端为什么需要威胁建模？](../by-domain/31-security-architecture.md#FB-31-CO-B-009)
 - [FB-31-CO-B-010 解释 STRIDE 模型。](../by-domain/31-security-architecture.md#FB-31-CO-B-010)
 - [FB-31-CO-B-011 CSP 能解决什么问题？给出一个基本配置示例。](../by-domain/31-security-architecture.md#FB-31-CO-B-011)
+- [FB-31-CO-B-012 前端常见安全威胁有哪些](../by-domain/31-security-architecture.md#FB-31-CO-B-012)
+- [FB-31-CO-B-013 Cookie 的 SameSite 属性](../by-domain/31-security-architecture.md#FB-31-CO-B-013)
+- [FB-31-CO-B-014 HTTPS 与混合内容安全](../by-domain/31-security-architecture.md#FB-31-CO-B-014)
 - [FB-31-SE-B-001 什么是供应链安全？前端如何防护？](../by-domain/31-security-architecture.md#FB-31-SE-B-001)
 - [FB-31-SE-B-002 前端如何处理用户身份认证安全？](../by-domain/31-security-architecture.md#FB-31-SE-B-002)
 
-### 实时与协同（11 道）
+### 实时与协同（14 道）
 
 - [FB-32-CO-B-001 WebSocket、SSE、长轮询分别适用于什么场景？](../by-domain/32-real-time.md#FB-32-CO-B-001)
 - [FB-32-CO-B-002 WebRTC 的核心概念是什么？](../by-domain/32-real-time.md#FB-32-CO-B-002)
@@ -655,11 +776,14 @@
 - [FB-32-CO-B-006 Presence（在线状态）在实时系统中如何实现？](../by-domain/32-real-time.md#FB-32-CO-B-006)
 - [FB-32-CO-B-007 实时应用有哪些常见的性能优化手段？](../by-domain/32-real-time.md#FB-32-CO-B-007)
 - [FB-32-CO-B-008 实时系统中如何处理用户离线？](../by-domain/32-real-time.md#FB-32-CO-B-008)
+- [FB-32-CO-B-009 WebSocket 与 HTTP 长轮询的区别](../by-domain/32-real-time.md#FB-32-CO-B-009)
+- [FB-32-CO-B-010 什么是 Socket.IO，它解决了什么问题](../by-domain/32-real-time.md#FB-32-CO-B-010)
+- [FB-32-CO-B-011 什么是长连接](../by-domain/32-real-time.md#FB-32-CO-B-011)
 - [FB-32-CP-B-001 什么是 CRDT？与 OT 有什么区别？](../by-domain/32-real-time.md#FB-32-CP-B-001)
 - [FB-32-SC-B-001 WebSocket 和 SSE 有什么区别？分别适用什么场景？](../by-domain/32-real-time.md#FB-32-SC-B-001)
 - [FB-32-SD-B-001 如何设计 WebSocket 重连机制？](../by-domain/32-real-time.md#FB-32-SD-B-001)
 
-### 国际化（11 道）
+### 国际化（15 道）
 
 - [FB-33-CO-B-001 i18n 与 l10n 有什么区别？](../by-domain/33-internationalization.md#FB-33-CO-B-001)
 - [FB-33-CO-B-002 locale 标识应该如何选择与管理？](../by-domain/33-internationalization.md#FB-33-CO-B-002)
@@ -671,9 +795,13 @@
 - [FB-33-CO-B-008 国际化测试应该覆盖哪些方面？](../by-domain/33-internationalization.md#FB-33-CO-B-008)
 - [FB-33-CO-B-009 前端 i18n 有哪些核心问题需要解决？](../by-domain/33-internationalization.md#FB-33-CO-B-009)
 - [FB-33-CO-B-010 如何处理 RTL 布局？](../by-domain/33-internationalization.md#FB-33-CO-B-010)
+- [FB-33-CO-B-011 前端国际化的核心问题有哪些](../by-domain/33-internationalization.md#FB-33-CO-B-011)
+- [FB-33-CO-B-012 什么是伪本地化（Pseudolocalization）](../by-domain/33-internationalization.md#FB-33-CO-B-012)
+- [FB-33-CO-B-013 Intl API 在前端的使用](../by-domain/33-internationalization.md#FB-33-CO-B-013)
+- [FB-33-CO-B-014 Locale 与 Language Tag 的区别](../by-domain/33-internationalization.md#FB-33-CO-B-014)
 - [FB-33-CP-B-001 什么是 i18n 和 l10n？有什么区别？](../by-domain/33-internationalization.md#FB-33-CP-B-001)
 
-### 可视化与图形（11 道）
+### 可视化与图形（14 道）
 
 - [FB-34-CA-B-005 下面两段代码分别用 Canvas 和 SVG 绘制一个矩形，二者在事件处理、缩放和样式修改上有何不同？](../by-domain/34-visualization-graphics.md#FB-34-CA-B-005)
 - [FB-34-CD-B-008 用 Canvas 手写一个简易柱状图，支持鼠标悬停显示当前柱数值。](../by-domain/34-visualization-graphics.md#FB-34-CD-B-008)
@@ -684,10 +812,13 @@
 - [FB-34-CO-B-006 响应式图表设计的基本原则有哪些？](../by-domain/34-visualization-graphics.md#FB-34-CO-B-006)
 - [FB-34-CO-B-007 图表可访问性需要关注哪些方面？](../by-domain/34-visualization-graphics.md#FB-34-CO-B-007)
 - [FB-34-CO-B-008 什么是 WebGL？前端什么时候需要它？](../by-domain/34-visualization-graphics.md#FB-34-CO-B-008)
+- [FB-34-CO-B-009 SVG、Canvas、WebGL 的适用场景](../by-domain/34-visualization-graphics.md#FB-34-CO-B-009)
+- [FB-34-CO-B-010 什么是图表的可访问性](../by-domain/34-visualization-graphics.md#FB-34-CO-B-010)
+- [FB-34-CO-B-011 可视化图表的基本元素](../by-domain/34-visualization-graphics.md#FB-34-CO-B-011)
 - [FB-34-CP-B-001 SVG 和 Canvas 的主要区别是什么？](../by-domain/34-visualization-graphics.md#FB-34-CP-B-001)
 - [FB-34-PE-B-001 如何解决大数据量可视化性能问题？](../by-domain/34-visualization-graphics.md#FB-34-PE-B-001)
 
-### Serverless/Edge（11 道）
+### Serverless/Edge（14 道）
 
 - [FB-35-CO-B-001 什么是 Serverless/FaaS？它解决了什么问题？](../by-domain/35-serverless-edge.md#FB-35-CO-B-001)
 - [FB-35-CO-B-002 Edge Computing 与传统 CDN 有什么区别？](../by-domain/35-serverless-edge.md#FB-35-CO-B-002)
@@ -699,9 +830,12 @@
 - [FB-35-CO-B-008 常见的 Serverless/Edge 平台有哪些？各有什么特点？](../by-domain/35-serverless-edge.md#FB-35-CO-B-008)
 - [FB-35-CO-B-009 什么是 Serverless？它的优缺点是什么？](../by-domain/35-serverless-edge.md#FB-35-CO-B-009)
 - [FB-35-CO-B-010 什么是冷启动？如何缓解？](../by-domain/35-serverless-edge.md#FB-35-CO-B-010)
+- [FB-35-CO-B-011 什么是 Serverless，它解决了什么问题](../by-domain/35-serverless-edge.md#FB-35-CO-B-011)
+- [FB-35-CO-B-012 什么是 Jamstack](../by-domain/35-serverless-edge.md#FB-35-CO-B-012)
+- [FB-35-CO-B-013 什么是 FaaS](../by-domain/35-serverless-edge.md#FB-35-CO-B-013)
 - [FB-35-SC-B-001 Edge 计算适合哪些前端场景？](../by-domain/35-serverless-edge.md#FB-35-SC-B-001)
 
-### 前端数据工程（11 道）
+### 前端数据工程（14 道）
 
 - [FB-36-CO-B-001 前端埋点与数据采集有哪些方式？](../by-domain/36-data-engineering.md#FB-36-CO-B-001)
 - [FB-36-CO-B-002 数据清洗与格式化在前端数据工程中的作用是什么？](../by-domain/36-data-engineering.md#FB-36-CO-B-002)
@@ -714,8 +848,11 @@
 - [FB-36-CO-B-009 埋点有哪些类型？各举一个前端例子。](../by-domain/36-data-engineering.md#FB-36-CO-B-009)
 - [FB-36-CO-B-010 AB 实验为什么要随机分流？](../by-domain/36-data-engineering.md#FB-36-CO-B-010)
 - [FB-36-CO-B-011 什么是北极星指标？](../by-domain/36-data-engineering.md#FB-36-CO-B-011)
+- [FB-36-CO-B-012 前端数据工程要解决什么问题](../by-domain/36-data-engineering.md#FB-36-CO-B-012)
+- [FB-36-CO-B-013 前端常见的数据格式与序列化](../by-domain/36-data-engineering.md#FB-36-CO-B-013)
+- [FB-36-CO-B-014 什么是数据管道](../by-domain/36-data-engineering.md#FB-36-CO-B-014)
 
-### 业务洞察（8 道）
+### 业务洞察（10 道）
 
 - [FB-37-CO-B-001 B2B、B2C、平台型与 SaaS 商业模式有何区别？前端关注点有何不同？](../by-domain/37-business.md#FB-37-CO-B-001)
 - [FB-37-CO-B-002 价值链分析对前端团队有什么意义？](../by-domain/37-business.md#FB-37-CO-B-002)
@@ -725,19 +862,31 @@
 - [FB-37-CO-B-006 AARRR 增长漏斗各阶段含义是什么？前端在哪些环节可以发挥作用？](../by-domain/37-business.md#FB-37-CO-B-006)
 - [FB-37-CO-B-007 什么是 ROI？如何用 ROI 思维评估一个前端需求？](../by-domain/37-business.md#FB-37-CO-B-007)
 - [FB-37-CO-B-008 技术与业务对齐有哪些常见方法？](../by-domain/37-business.md#FB-37-CO-B-008)
+- [FB-37-CO-B-009 什么是北极星指标？前端工作如何选择支撑指标？](../by-domain/37-business.md#FB-37-CO-B-009)
+- [FB-37-CO-B-010 什么是用户生命周期价值（LTV）？前端如何提升 LTV？](../by-domain/37-business.md#FB-37-CO-B-010)
 
-### 团队领导力（8 道）
+### 团队领导力（18 道）
 
 - [FB-38-CO-B-002 人才梯队建设中 T 型、π 型、伞型人才模型的区别](../by-domain/38-team.md#FB-38-CO-B-002)
 - [FB-38-CO-B-007 内在激励与外在激励的区别及适用场景](../by-domain/38-team.md#FB-38-CO-B-007)
+- [FB-38-CO-B-008 技术团队管理者的核心职责是什么？](../by-domain/38-team.md#FB-38-CO-B-008)
+- [FB-38-CO-B-009 如何设定前端团队的 OKR？](../by-domain/38-team.md#FB-38-CO-B-009)
+- [FB-38-CO-B-010 什么是“仆人式领导”（Servant Leadership）？前端负责人如何实践？](../by-domain/38-team.md#FB-38-CO-B-010)
 - [FB-38-SC-B-006 两位 senior 因技术方案争执不下，作为 TL 你怎么介入？](../by-domain/38-team.md#FB-38-SC-B-006)
+- [FB-38-SC-B-007 你如何为前端团队设计合理的绩效考核体系？](../by-domain/38-team.md#FB-38-SC-B-007)
+- [FB-38-SC-B-008 如何在团队中建立有效的 1:1 机制？](../by-domain/38-team.md#FB-38-SC-B-008)
+- [FB-38-SC-B-009 作为 Tech Lead，你如何平衡编码与管理工作？](../by-domain/38-team.md#FB-38-SC-B-009)
 - [FB-38-SS-B-001 团队组建时如何确定岗位画像与招聘优先级？](../by-domain/38-team.md#FB-38-SS-B-001)
 - [FB-38-SS-B-003 新员工入职前 90 天如何设计 onboarding 帮助其快速融入？](../by-domain/38-team.md#FB-38-SS-B-003)
 - [FB-38-SS-B-004 绩效管理的常见误区与目标设定原则](../by-domain/38-team.md#FB-38-SS-B-004)
 - [FB-38-SS-B-005 1on1 的核心目标与基本流程](../by-domain/38-team.md#FB-38-SS-B-005)
 - [FB-38-SS-B-008 技术文化主要包含哪些要素？如何在日常工作中落地？](../by-domain/38-team.md#FB-38-SS-B-008)
+- [FB-38-SS-B-009 你如何管理自己的情绪，避免在高压下做出错误决策？](../by-domain/38-team.md#FB-38-SS-B-009)
+- [FB-38-SS-B-010 如何在一次裁员后重建团队士气？](../by-domain/38-team.md#FB-38-SS-B-010)
+- [FB-38-SS-B-011 如何与一位你不喜欢但能力很强的下属合作？](../by-domain/38-team.md#FB-38-SS-B-011)
+- [FB-38-SS-B-012 跨团队项目中，其他团队不配合导致进度受阻，你怎么办？](../by-domain/38-team.md#FB-38-SS-B-012)
 
-### 技术战略（8 道）
+### 技术战略（9 道）
 
 - [FB-39-CO-B-001 什么是技术愿景与技术使命？它们对团队有什么作用？](../by-domain/39-strategy.md#FB-39-CO-B-001)
 - [FB-39-CO-B-002 技术路线图和产品路线图有什么区别与联系？](../by-domain/39-strategy.md#FB-39-CO-B-002)
@@ -747,8 +896,9 @@
 - [FB-39-CO-B-006 研发投入通常可以如何分类？](../by-domain/39-strategy.md#FB-39-CO-B-006)
 - [FB-39-CO-B-007 开源战略对企业有什么价值？](../by-domain/39-strategy.md#FB-39-CO-B-007)
 - [FB-39-CO-B-008 技术风险主要包括哪些类型？](../by-domain/39-strategy.md#FB-39-CO-B-008)
+- [FB-39-CO-B-009 平台化与中台化的区别是什么？前端何时应该做中台？](../by-domain/39-strategy.md#FB-39-CO-B-009)
 
-### 沟通表达（11 道）
+### 沟通表达（15 道）
 
 - [FB-40-CO-B-001 什么是结构化表达？请用金字塔原理说明](../by-domain/40-communication.md#FB-40-CO-B-001)
 - [FB-40-CO-B-002 如何向非技术人员解释技术方案？](../by-domain/40-communication.md#FB-40-CO-B-002)
@@ -761,6 +911,10 @@
 - [FB-40-SS-B-008 远程/视频会议中的沟通技巧有哪些？](../by-domain/40-communication.md#FB-40-SS-B-008)
 - [FB-40-SS-B-009 为什么沟通表达对架构师很重要？](../by-domain/40-communication.md#FB-40-SS-B-009)
 - [FB-40-SS-B-010 向上管理的核心是什么？](../by-domain/40-communication.md#FB-40-SS-B-010)
+- [FB-40-SS-B-011 如何在跨团队冲突中保持中立并推动共识？](../by-domain/40-communication.md#FB-40-SS-B-011)
+- [FB-40-SS-B-012 如何在邮件/文档中拒绝一个不合理的需求？](../by-domain/40-communication.md#FB-40-SS-B-012)
+- [FB-40-SS-B-013 如何做一次有效的技术方案评审会议主持？](../by-domain/40-communication.md#FB-40-SS-B-013)
+- [FB-40-SS-B-014 如何在公开场合给予团队成员建设性反馈？](../by-domain/40-communication.md#FB-40-SS-B-014)
 
 ### 项目管理（10 道）
 
@@ -789,7 +943,7 @@
 - [FB-42-SS-B-005 如何设计一道有效的前端行为面试题？](../by-domain/42-hiring.md#FB-42-SS-B-005)
 - [FB-42-SS-B-006 结构化面试有什么好处？](../by-domain/42-hiring.md#FB-42-SS-B-006)
 
-### 技术品牌与布道（11 道）
+### 技术品牌与布道（14 道）
 
 - [FB-43-CO-B-001 什么是技术品牌？它对企业或技术团队有什么价值？](../by-domain/43-tech-branding.md#FB-43-CO-B-001)
 - [FB-43-CO-B-002 技术影响力与技术品牌有什么区别和联系？](../by-domain/43-tech-branding.md#FB-43-CO-B-002)
@@ -800,10 +954,13 @@
 - [FB-43-CO-B-007 参与或运营技术社区对个人技术品牌有什么帮助？](../by-domain/43-tech-branding.md#FB-43-CO-B-007)
 - [FB-43-CO-B-008 什么是技术雇主品牌？前端团队如何影响它？](../by-domain/43-tech-branding.md#FB-43-CO-B-008)
 - [FB-43-CO-B-009 如何衡量技术品牌影响力？](../by-domain/43-tech-branding.md#FB-43-CO-B-009)
+- [FB-43-CO-B-010 如何制定前端团队的技术内容输出计划？](../by-domain/43-tech-branding.md#FB-43-CO-B-010)
+- [FB-43-CO-B-011 如何鼓励不擅长写作的工程师参与技术内容创作？](../by-domain/43-tech-branding.md#FB-43-CO-B-011)
+- [FB-43-CO-B-012 技术演讲前，你会做哪些准备？](../by-domain/43-tech-branding.md#FB-43-CO-B-012)
 - [FB-43-SS-B-001 技术品牌对团队有什么价值？](../by-domain/43-tech-branding.md#FB-43-SS-B-001)
 - [FB-43-SS-B-002 一个成功的开源项目需要哪些要素？](../by-domain/43-tech-branding.md#FB-43-SS-B-002)
 
-### 技术治理与合规（11 道）
+### 技术治理与合规（14 道）
 
 - [FB-44-CO-B-001 什么是技术治理？它和日常技术管理有什么区别？](../by-domain/44-tech-governance.md#FB-44-CO-B-001)
 - [FB-44-CO-B-002 前端技术规范与标准通常包含哪些类型？](../by-domain/44-tech-governance.md#FB-44-CO-B-002)
@@ -816,8 +973,11 @@
 - [FB-44-CO-B-009 什么是技术治理？](../by-domain/44-tech-governance.md#FB-44-CO-B-009)
 - [FB-44-CO-B-010 技术债是否可以完全消除？](../by-domain/44-tech-governance.md#FB-44-CO-B-010)
 - [FB-44-CO-B-011 技术标准制定应该由谁主导？](../by-domain/44-tech-governance.md#FB-44-CO-B-011)
+- [FB-44-CO-B-012 什么是技术治理？它与技术管理的区别是什么？](../by-domain/44-tech-governance.md#FB-44-CO-B-012)
+- [FB-44-CO-B-013 前端技术治理通常包括哪些方面？](../by-domain/44-tech-governance.md#FB-44-CO-B-013)
+- [FB-44-CO-B-014 什么是技术委员会？它在前端治理中起什么作用？](../by-domain/44-tech-governance.md#FB-44-CO-B-014)
 
-### 小程序（8 道）
+### 小程序（12 道）
 
 - [FB-45-CO-B-001 什么是小程序？它与 H5 / WebView 应用有什么区别？](../by-domain/45-mini-program.md#FB-45-CO-B-001)
 - [FB-45-CO-B-002 微信小程序的项目结构和主要文件类型有哪些？](../by-domain/45-mini-program.md#FB-45-CO-B-002)
@@ -827,8 +987,12 @@
 - [FB-45-CO-B-006 小程序自定义组件的基本结构和生命周期是什么？](../by-domain/45-mini-program.md#FB-45-CO-B-006)
 - [FB-45-CO-B-007 小程序中 rpx 是什么？与 px / rem 有什么区别？](../by-domain/45-mini-program.md#FB-45-CO-B-007)
 - [FB-45-CO-B-008 小程序用户登录和获取用户信息的流程是怎样的？](../by-domain/45-mini-program.md#FB-45-CO-B-008)
+- [FB-45-CO-B-009 微信小程序的登录流程是怎样的？前端如何配合后端完成登录？](../by-domain/45-mini-program.md#FB-45-CO-B-009)
+- [FB-45-CO-B-010 微信小程序的授权机制有哪些变化？如何做好用户授权？](../by-domain/45-mini-program.md#FB-45-CO-B-010)
+- [FB-45-CO-B-011 微信小程序分包加载的作用和实现方式是什么？](../by-domain/45-mini-program.md#FB-45-CO-B-011)
+- [FB-45-CO-B-012 微信小程序的 storage 和 Web Storage 有什么区别？](../by-domain/45-mini-program.md#FB-45-CO-B-012)
 
-### 鸿蒙 ArkTS / HarmonyOS（8 道）
+### 鸿蒙 ArkTS / HarmonyOS（9 道）
 
 - [FB-46-CO-B-001 HarmonyOS 的系统架构是怎样的？它相比传统移动操作系统有哪些核心特性？](../by-domain/46-harmonyos.md#FB-46-CO-B-001)
 - [FB-46-CO-B-002 ArkTS 是什么？它与 TypeScript 有什么关系和区别？](../by-domain/46-harmonyos.md#FB-46-CO-B-002)
@@ -838,8 +1002,9 @@
 - [FB-46-CO-B-006 请简述鸿蒙应用（UIAbility）的生命周期。](../by-domain/46-harmonyos.md#FB-46-CO-B-006)
 - [FB-46-CO-B-007 鸿蒙应用的包结构是怎样的？HAP、HSP、HAR 分别是什么？](../by-domain/46-harmonyos.md#FB-46-CO-B-007)
 - [FB-46-CO-B-008 鸿蒙的权限管理有哪些类型？如何声明和申请权限？](../by-domain/46-harmonyos.md#FB-46-CO-B-008)
+- [FB-46-CO-B-009 鸿蒙的原生能力如何调用？如何与前端 ArkTS 交互？](../by-domain/46-harmonyos.md#FB-46-CO-B-009)
 
-### Flutter（8 道）
+### Flutter（12 道）
 
 - [FB-47-CA-B-006 下面代码点击按钮后 count 的值是多少？为什么？](../by-domain/47-flutter.md#FB-47-CA-B-006)
 - [FB-47-CO-B-001 Dart 的 null safety 是什么？?、!、late 分别怎么用？](../by-domain/47-flutter.md#FB-47-CO-B-001)
@@ -849,8 +1014,12 @@
 - [FB-47-CO-B-005 StatefulWidget 中 setState 做了什么？使用时有何注意？](../by-domain/47-flutter.md#FB-47-CO-B-005)
 - [FB-47-CO-B-007 pubspec.yaml 在 Flutter 项目中的作用是什么？](../by-domain/47-flutter.md#FB-47-CO-B-007)
 - [FB-47-CO-B-008 请简述 Flutter 的 Widget Tree、Element Tree 和 Render Tree 之间的关系。](../by-domain/47-flutter.md#FB-47-CO-B-008)
+- [FB-47-CO-B-009 Flutter 中的路由管理有哪些方式？](../by-domain/47-flutter.md#FB-47-CO-B-009)
+- [FB-47-CO-B-010 Flutter 如何实现异步编程？Future 和 Stream 有什么区别？](../by-domain/47-flutter.md#FB-47-CO-B-010)
+- [FB-47-CO-B-011 Flutter 中如何处理网络请求？](../by-domain/47-flutter.md#FB-47-CO-B-011)
+- [FB-47-CO-B-012 Flutter 中如何加载本地资源图片？](../by-domain/47-flutter.md#FB-47-CO-B-012)
 
-### Electron（8 道）
+### Electron（11 道）
 
 - [FB-48-CD-B-006 请手写一个渲染进程调用主进程的完整 IPC 示例](../by-domain/48-electron.md#FB-48-CD-B-006)
 - [FB-48-CO-B-001 Electron 主进程与渲染进程有什么区别？](../by-domain/48-electron.md#FB-48-CO-B-001)
@@ -860,8 +1029,11 @@
 - [FB-48-CO-B-005 contextIsolation 和 nodeIntegration 各有什么作用？](../by-domain/48-electron.md#FB-48-CO-B-005)
 - [FB-48-CO-B-007 Electron 中如何调试主进程和渲染进程？](../by-domain/48-electron.md#FB-48-CO-B-007)
 - [FB-48-CO-B-008 Menu、Tray 和 Notification 的基本用法是什么？](../by-domain/48-electron.md#FB-48-CO-B-008)
+- [FB-48-CO-B-009 Electron 应用如何做自动更新？](../by-domain/48-electron.md#FB-48-CO-B-009)
+- [FB-48-CO-B-010 Electron 如何打包和分发应用？](../by-domain/48-electron.md#FB-48-CO-B-010)
+- [FB-48-CO-B-011 Electron 应用如何调用系统原生能力？](../by-domain/48-electron.md#FB-48-CO-B-011)
 
-### WebAssembly（8 道）
+### WebAssembly（12 道）
 
 - [FB-49-CA-B-007 下面代码的输出是什么？为什么？](../by-domain/49-webassembly.md#FB-49-CA-B-007)
 - [FB-49-CO-B-001 什么是 WebAssembly？它和 JavaScript 的关系是什么？](../by-domain/49-webassembly.md#FB-49-CO-B-001)
@@ -870,9 +1042,13 @@
 - [FB-49-CO-B-004 如何在浏览器中加载和实例化一个 WASM 模块？](../by-domain/49-webassembly.md#FB-49-CO-B-004)
 - [FB-49-CO-B-005 WASM 模块实例中的 exports 和 imports 是什么？](../by-domain/49-webassembly.md#FB-49-CO-B-005)
 - [FB-49-CO-B-006 WebAssembly 支持哪些基本数据类型？](../by-domain/49-webassembly.md#FB-49-CO-B-006)
+- [FB-49-CO-B-007 WebAssembly 的编译工具链有哪些？](../by-domain/49-webassembly.md#FB-49-CO-B-007)
+- [FB-49-CO-B-008 WebAssembly 适合哪些场景？不适合哪些场景？](../by-domain/49-webassembly.md#FB-49-CO-B-008)
+- [FB-49-CO-B-009 WebAssembly 的执行性能为什么比 JavaScript 高？](../by-domain/49-webassembly.md#FB-49-CO-B-009)
+- [FB-49-CO-B-010 WebAssembly 如何调用 JavaScript 函数？](../by-domain/49-webassembly.md#FB-49-CO-B-010)
 - [FB-49-PE-B-008 WebAssembly 在哪些场景有性能优势？哪些场景不适合？](../by-domain/49-webassembly.md#FB-49-PE-B-008)
 
-### WebGPU / 图形学（8 道）
+### WebGPU / 图形学（11 道）
 
 - [FB-50-CD-B-007 手写一个最简单的 WGSL 顶点着色器和片元着色器。](../by-domain/50-webgpu-graphics.md#FB-50-CD-B-007)
 - [FB-50-CO-B-001 WebGPU 与 WebGL 的核心区别是什么？](../by-domain/50-webgpu-graphics.md#FB-50-CO-B-001)
@@ -882,8 +1058,11 @@
 - [FB-50-CO-B-005 GPUTexture 与 GPUSampler 有什么区别？](../by-domain/50-webgpu-graphics.md#FB-50-CO-B-005)
 - [FB-50-CO-B-006 Bind Group 在 WebGPU 中起什么作用？](../by-domain/50-webgpu-graphics.md#FB-50-CO-B-006)
 - [FB-50-CO-B-008 Three.js / Babylon.js 与 WebGPU 是什么关系？](../by-domain/50-webgpu-graphics.md#FB-50-CO-B-008)
+- [FB-50-CO-B-009 WebGPU 中如何实现一个基本的三角形渲染？](../by-domain/50-webgpu-graphics.md#FB-50-CO-B-009)
+- [FB-50-CO-B-010 WebGPU 的 BindGroup 是什么？有什么作用？](../by-domain/50-webgpu-graphics.md#FB-50-CO-B-010)
+- [FB-50-CO-B-011 WebGPU 如何实现通用计算（GPGPU）？](../by-domain/50-webgpu-graphics.md#FB-50-CO-B-011)
 
-### 多媒体（Multimedia）（8 道）
+### 多媒体（Multimedia）（12 道）
 
 - [FB-51-CO-B-001 视频编码和封装有什么区别？](../by-domain/51-multimedia.md#FB-51-CO-B-001)
 - [FB-51-CO-B-002 HLS 和 DASH 流媒体协议的基本原理是什么？](../by-domain/51-multimedia.md#FB-51-CO-B-002)
@@ -892,9 +1071,13 @@
 - [FB-51-CO-B-005 Web Audio API 中的 AudioContext 是什么？](../by-domain/51-multimedia.md#FB-51-CO-B-005)
 - [FB-51-CO-B-007 字幕文件 WebVTT 和 SRT 有什么区别？](../by-domain/51-multimedia.md#FB-51-CO-B-007)
 - [FB-51-CO-B-008 多媒体内容的无障碍访问需要注意什么？](../by-domain/51-multimedia.md#FB-51-CO-B-008)
+- [FB-51-CO-B-009 浏览器如何捕获屏幕或摄像头？](../by-domain/51-multimedia.md#FB-51-CO-B-009)
+- [FB-51-CO-B-010 Canvas 如何实现视频帧处理？](../by-domain/51-multimedia.md#FB-51-CO-B-010)
+- [FB-51-CO-B-011 什么是 Web Audio API？它有哪些应用场景？](../by-domain/51-multimedia.md#FB-51-CO-B-011)
+- [FB-51-CO-B-012 HLS 和 DASH 两种流媒体协议有什么区别？](../by-domain/51-multimedia.md#FB-51-CO-B-012)
 - [FB-51-PE-B-006 video 标签的 preload 和 autoplay 属性有什么作用？](../by-domain/51-multimedia.md#FB-51-PE-B-006)
 
-### 低代码（8 道）
+### 低代码（11 道）
 
 - [FB-52-CA-B-006 下面 Schema 渲染后的结果是什么？](../by-domain/52-low-code.md#FB-52-CA-B-006)
 - [FB-52-CD-B-007 请手写一个简单的 Schema 渲染器](../by-domain/52-low-code.md#FB-52-CD-B-007)
@@ -903,9 +1086,12 @@
 - [FB-52-CO-B-003 低代码平台的组件物料一般由哪些部分组成？](../by-domain/52-low-code.md#FB-52-CO-B-003)
 - [FB-52-CO-B-004 属性面板（Setter）在低代码平台中的作用是什么？](../by-domain/52-low-code.md#FB-52-CO-B-004)
 - [FB-52-CO-B-005 低代码平台中的数据绑定有哪些常见方式？](../by-domain/52-low-code.md#FB-52-CO-B-005)
+- [FB-52-CO-B-006 低代码平台如何处理数据绑定和表达式？](../by-domain/52-low-code.md#FB-52-CO-B-006)
+- [FB-52-CO-B-007 低代码平台如何设计权限系统？](../by-domain/52-low-code.md#FB-52-CO-B-007)
+- [FB-52-CO-B-008 低代码平台如何导出代码或集成到现有项目？](../by-domain/52-low-code.md#FB-52-CO-B-008)
 - [FB-52-SC-B-008 如何设计一个低代码表单设计器？](../by-domain/52-low-code.md#FB-52-SC-B-008)
 
-### 计算机基础（8 道）
+### 计算机基础（18 道）
 
 - [FB-53-CO-B-001 什么是时间复杂度和空间复杂度？如何分析？](../by-domain/53-computer-science.md#FB-53-CO-B-001)
 - [FB-53-CO-B-002 数组和链表有什么区别？](../by-domain/53-computer-science.md#FB-53-CO-B-002)
@@ -915,8 +1101,18 @@
 - [FB-53-CO-B-006 常见排序算法有哪些？各自特点是什么？](../by-domain/53-computer-science.md#FB-53-CO-B-006)
 - [FB-53-CO-B-007 二分查找的适用条件和实现要点是什么？](../by-domain/53-computer-science.md#FB-53-CO-B-007)
 - [FB-53-CO-B-008 递归和迭代有什么区别？如何防止递归问题？](../by-domain/53-computer-science.md#FB-53-CO-B-008)
+- [FB-53-CO-B-009 排序算法有哪些？各自的时间复杂度是多少？](../by-domain/53-computer-science.md#FB-53-CO-B-009)
+- [FB-53-CO-B-010 深拷贝和浅拷贝有什么区别？前端如何实现？](../by-domain/53-computer-science.md#FB-53-CO-B-010)
+- [FB-53-CO-B-011 什么是闭包？有什么应用和注意事项？](../by-domain/53-computer-science.md#FB-53-CO-B-011)
+- [FB-53-CO-B-012 什么是事件循环（Event Loop）？宏任务和微任务有什么区别？](../by-domain/53-computer-science.md#FB-53-CO-B-012)
+- [FB-53-CO-B-013 什么是原型链？JavaScript 的继承如何实现？](../by-domain/53-computer-science.md#FB-53-CO-B-013)
+- [FB-53-CO-B-014 什么是防抖（debounce）和节流（throttle）？](../by-domain/53-computer-science.md#FB-53-CO-B-014)
+- [FB-53-CO-B-015 什么是递归？递归和迭代的区别是什么？](../by-domain/53-computer-science.md#FB-53-CO-B-015)
+- [FB-53-CO-B-016 什么是二分查找？时间复杂度是多少？](../by-domain/53-computer-science.md#FB-53-CO-B-016)
+- [FB-53-CO-B-017 什么是进程和线程？前端中如何理解？](../by-domain/53-computer-science.md#FB-53-CO-B-017)
+- [FB-53-CO-B-018 解释一下浏览器的事件委托（Event Delegation）。](../by-domain/53-computer-science.md#FB-53-CO-B-018)
 
-### 行为面试（8 道）
+### 行为面试（15 道）
 
 - [FB-54-SS-B-001 请做一个 1-2 分钟的自我介绍](../by-domain/54-behavioral.md#FB-54-SS-B-001)
 - [FB-54-SS-B-002 你为什么选择前端这个职业？](../by-domain/54-behavioral.md#FB-54-SS-B-002)
@@ -926,19 +1122,34 @@
 - [FB-54-SS-B-006 当你遇到一个不熟悉的技术难题时，会怎么解决？](../by-domain/54-behavioral.md#FB-54-SS-B-006)
 - [FB-54-SS-B-007 你如何管理多个并行的任务？](../by-domain/54-behavioral.md#FB-54-SS-B-007)
 - [FB-54-SS-B-008 你为什么离开上一家公司？](../by-domain/54-behavioral.md#FB-54-SS-B-008)
+- [FB-54-SS-B-009 请描述一次你主动推动改变的经历。](../by-domain/54-behavioral.md#FB-54-SS-B-009)
+- [FB-54-SS-B-010 请描述一次你学习新技术并应用的经历。](../by-domain/54-behavioral.md#FB-54-SS-B-010)
+- [FB-54-SS-B-011 请描述一次你与跨部门合作完成项目的经历。](../by-domain/54-behavioral.md#FB-54-SS-B-011)
+- [FB-54-SS-B-012 请描述一次你处理紧急线上事故的经历。](../by-domain/54-behavioral.md#FB-54-SS-B-012)
+- [FB-54-SS-B-013 请描述一次你与上级意见不一致的经历。](../by-domain/54-behavioral.md#FB-54-SS-B-013)
+- [FB-54-SS-B-014 请描述一次你牺牲个人利益成就团队目标的经历。](../by-domain/54-behavioral.md#FB-54-SS-B-014)
+- [FB-54-SS-B-015 请描述一次你从错误中快速恢复的经历。](../by-domain/54-behavioral.md#FB-54-SS-B-015)
 
-### 简历与面试技巧（8 道）
+### 简历与面试技巧（16 道）
 
 - [FB-55-CO-B-001 一份合格的前端简历应该包含哪些核心模块？](../by-domain/55-resume-interview.md#FB-55-CO-B-001)
 - [FB-55-CO-B-005 面试前应该做哪些准备？](../by-domain/55-resume-interview.md#FB-55-CO-B-005)
 - [FB-55-CO-B-007 面试中的基本礼仪有哪些？](../by-domain/55-resume-interview.md#FB-55-CO-B-007)
+- [FB-55-RI-B-001 请介绍一下你在项目中使用的前端框架和相关生态。](../by-domain/55-resume-interview.md#FB-55-RI-B-001)
+- [FB-55-RI-B-002 你在这个项目中担任过什么技术决策？为什么这样决策？](../by-domain/55-resume-interview.md#FB-55-RI-B-002)
+- [FB-55-RI-B-003 请描述一个你主导推动落地的技术改进。](../by-domain/55-resume-interview.md#FB-55-RI-B-003)
+- [FB-55-RI-B-004 你的项目中有哪些可量化的成果？](../by-domain/55-resume-interview.md#FB-55-RI-B-004)
+- [FB-55-RI-B-005 请解释你简历上某个技术关键词或项目中的某个技术点。](../by-domain/55-resume-interview.md#FB-55-RI-B-005)
+- [FB-55-RI-B-006 你在项目中的技术决策依据是什么？](../by-domain/55-resume-interview.md#FB-55-RI-B-006)
+- [FB-55-RI-B-007 你如何保证你负责项目的可维护性？](../by-domain/55-resume-interview.md#FB-55-RI-B-007)
+- [FB-55-RI-B-008 你在项目中最自豪的一点是什么？](../by-domain/55-resume-interview.md#FB-55-RI-B-008)
 - [FB-55-SS-B-002 如何用 STAR 法则描述一段项目经历？](../by-domain/55-resume-interview.md#FB-55-SS-B-002)
 - [FB-55-SS-B-003 如何描述项目中的技术难点？](../by-domain/55-resume-interview.md#FB-55-SS-B-003)
 - [FB-55-SS-B-004 如何在简历中体现技术亮点？](../by-domain/55-resume-interview.md#FB-55-SS-B-004)
 - [FB-55-SS-B-006 如何进行一场得体的自我介绍？](../by-domain/55-resume-interview.md#FB-55-SS-B-006)
 - [FB-55-SS-B-008 面试结束后应该做哪些跟进？](../by-domain/55-resume-interview.md#FB-55-SS-B-008)
 
-### 行业特化（8 道）
+### 行业特化（16 道）
 
 - [FB-56-CO-B-001 互联网行业与传统行业的技术差异是什么？](../by-domain/56-industry.md#FB-56-CO-B-001)
 - [FB-56-CO-B-002 toB 与 toC 产品在前端层面的核心差异是什么？](../by-domain/56-industry.md#FB-56-CO-B-002)
@@ -948,10 +1159,18 @@
 - [FB-56-CO-B-006 企业服务行业（SaaS）前端的核心价值是什么？](../by-domain/56-industry.md#FB-56-CO-B-006)
 - [FB-56-CO-B-007 低代码/无代码平台主要解决什么问题？](../by-domain/56-industry.md#FB-56-CO-B-007)
 - [FB-56-CO-B-008 AI 工程化浪潮对前端岗位带来了哪些影响？](../by-domain/56-industry.md#FB-56-CO-B-008)
+- [FB-56-IN-B-001 你认为未来 3-5 年前端最重要的技能是什么？](../by-domain/56-industry.md#FB-56-IN-B-001)
+- [FB-56-IN-B-002 你怎么看待前端框架的选型？Vue 和 React 你更倾向哪个？](../by-domain/56-industry.md#FB-56-IN-B-002)
+- [FB-56-IN-B-003 你如何看待前端性能优化与业务指标的关系？](../by-domain/56-industry.md#FB-56-IN-B-003)
+- [FB-56-IN-B-004 你认为前端工程师如何提升自己的业务影响力？](../by-domain/56-industry.md#FB-56-IN-B-004)
+- [FB-56-IN-B-005 你如何看待开源社区对前端行业的贡献？](../by-domain/56-industry.md#FB-56-IN-B-005)
+- [FB-56-IN-B-006 你认为前端在电商行业最重要的能力是什么？](../by-domain/56-industry.md#FB-56-IN-B-006)
+- [FB-56-IN-B-007 你如何看待金融科技行业对前端的要求？](../by-domain/56-industry.md#FB-56-IN-B-007)
+- [FB-56-IN-B-008 你怎么看待教育科技（EdTech）行业的前端趋势？](../by-domain/56-industry.md#FB-56-IN-B-008)
 
-## 进阶题（815 道）{#advanced}
+## 进阶题（1406 道）{#advanced}
 
-### JavaScript（24 道）
+### JavaScript（37 道）
 
 - [FB-01-CA-A-001 下面代码的输出是什么？](../by-domain/01-javascript.md#FB-01-CA-A-001)
 - [FB-01-CA-A-002 setTimeout 一定准时执行吗？](../by-domain/01-javascript.md#FB-01-CA-A-002)
@@ -965,6 +1184,13 @@
 - [FB-01-CD-A-006 实现函数柯里化（curry）和函数组合（compose）。](../by-domain/01-javascript.md#FB-01-CD-A-006)
 - [FB-01-CD-A-007 手写一个 Promise.all，并说明其特点。](../by-domain/01-javascript.md#FB-01-CD-A-007)
 - [FB-01-CD-A-008 什么是函数柯里化（Currying）？手写实现。](../by-domain/01-javascript.md#FB-01-CD-A-008)
+- [FB-01-CD-A-009 手写 Promise.race](../by-domain/01-javascript.md#FB-01-CD-A-009)
+- [FB-01-CD-A-010 手写 Promise.any](../by-domain/01-javascript.md#FB-01-CD-A-010)
+- [FB-01-CD-A-011 手写一个 sleep / delay 函数](../by-domain/01-javascript.md#FB-01-CD-A-011)
+- [FB-01-CD-A-012 手写一个 JSONP 函数](../by-domain/01-javascript.md#FB-01-CD-A-012)
+- [FB-01-CD-A-013 手写一个 JSON.parse 的简化版](../by-domain/01-javascript.md#FB-01-CD-A-013)
+- [FB-01-CD-A-014 手写一个模板字符串解析器](../by-domain/01-javascript.md#FB-01-CD-A-014)
+- [FB-01-CD-A-015 手写一个 EventEmitter（发布订阅）](../by-domain/01-javascript.md#FB-01-CD-A-015)
 - [FB-01-CO-A-001 解释 Promise 的链式调用原理。](../by-domain/01-javascript.md#FB-01-CO-A-001)
 - [FB-01-CO-A-002 for...of 和 for...in 的区别？](../by-domain/01-javascript.md#FB-01-CO-A-002)
 - [FB-01-CO-A-003 解释 Object.defineProperty 和 Proxy 的区别。](../by-domain/01-javascript.md#FB-01-CO-A-003)
@@ -976,9 +1202,15 @@
 - [FB-01-CO-A-009 如何理解 this 的绑定规则？优先级是怎样的？](../by-domain/01-javascript.md#FB-01-CO-A-009)
 - [FB-01-CO-A-010 原型链是什么？__proto__、prototype、constructor 的关系？](../by-domain/01-javascript.md#FB-01-CO-A-010)
 - [FB-01-CO-A-011 解释一下 JavaScript 的垃圾回收机制，常见内存泄漏有哪些？](../by-domain/01-javascript.md#FB-01-CO-A-011)
+- [FB-01-CO-A-012 Object.is 与 === 有什么区别？](../by-domain/01-javascript.md#FB-01-CO-A-012)
+- [FB-01-CO-A-013 ArrayBuffer、SharedArrayBuffer 和 Atomics 各是什么？](../by-domain/01-javascript.md#FB-01-CO-A-013)
+- [FB-01-CO-A-014 什么是尾调用优化？JavaScript 中有什么限制？](../by-domain/01-javascript.md#FB-01-CO-A-014)
+- [FB-01-CO-A-015 Symbol.iterator 与 Generator 的关系是什么？](../by-domain/01-javascript.md#FB-01-CO-A-015)
+- [FB-01-CO-A-016 eval、Function 构造函数和 new Function 有什么安全风险？](../by-domain/01-javascript.md#FB-01-CO-A-016)
+- [FB-01-CO-A-017 import.meta 和动态 import 有什么作用？](../by-domain/01-javascript.md#FB-01-CO-A-017)
 - [FB-01-CP-A-001 ES6 模块与 CommonJS 模块有什么区别？](../by-domain/01-javascript.md#FB-01-CP-A-001)
 
-### TypeScript（22 道）
+### TypeScript（31 道）
 
 - [FB-02-CA-A-001 分析以下泛型代码的推断结果](../by-domain/02-typescript.md#FB-02-CA-A-001)
 - [FB-02-CD-A-001 手写一个类型安全的 get 工具函数](../by-domain/02-typescript.md#FB-02-CD-A-001)
@@ -1001,9 +1233,18 @@
 - [FB-02-CO-A-011 解释 keyof、typeof、in、as 在类型系统中的作用。](../by-domain/02-typescript.md#FB-02-CO-A-011)
 - [FB-02-CO-A-012 解释 discriminated union（可辨识联合），并说明其优势。](../by-domain/02-typescript.md#FB-02-CO-A-012)
 - [FB-02-CO-A-013 如何处理第三方库没有类型声明的问题？](../by-domain/02-typescript.md#FB-02-CO-A-013)
+- [FB-02-CO-A-014 函数重载的使用场景和实现方式是什么？](../by-domain/02-typescript.md#FB-02-CO-A-014)
+- [FB-02-CO-A-015 索引签名与 Record 类型有什么区别？](../by-domain/02-typescript.md#FB-02-CO-A-015)
+- [FB-02-CO-A-016 什么是模板字面量类型？举一个实际例子。](../by-domain/02-typescript.md#FB-02-CO-A-016)
+- [FB-02-CO-A-017 什么是声明合并与模块增强？](../by-domain/02-typescript.md#FB-02-CO-A-017)
+- [FB-02-CO-A-018 枚举 Enum 有哪些缺陷？可以用什么替代？](../by-domain/02-typescript.md#FB-02-CO-A-018)
+- [FB-02-CO-A-019 字面量类型与联合类型如何结合使用？](../by-domain/02-typescript.md#FB-02-CO-A-019)
+- [FB-02-CO-A-020 TypeScript 中的类型保护（Type Guards）有哪些？](../by-domain/02-typescript.md#FB-02-CO-A-020)
+- [FB-02-CO-A-021 泛型默认值如何与条件类型结合使用？](../by-domain/02-typescript.md#FB-02-CO-A-021)
+- [FB-02-CO-A-022 TypeScript 中类型断言 as 与尖括号语法有什么区别？](../by-domain/02-typescript.md#FB-02-CO-A-022)
 - [FB-02-SC-A-001 如何用 TypeScript 设计一个可辨识联合（Discriminated Union）处理业务状态？](../by-domain/02-typescript.md#FB-02-SC-A-001)
 
-### Browser（21 道）
+### Browser（34 道）
 
 - [FB-03-CA-A-001 分析下面代码的打印顺序，并说明原因。](../by-domain/03-browser.md#FB-03-CA-A-001)
 - [FB-03-CD-A-001 手写一个防抖（debounce）函数，并说明在浏览器输入场景中的应用。](../by-domain/03-browser.md#FB-03-CD-A-001)
@@ -1017,6 +1258,15 @@
 - [FB-03-CO-A-008 解释合成层（Compositing Layer）和硬件加速。](../by-domain/03-browser.md#FB-03-CO-A-008)
 - [FB-03-CO-A-009 浏览器的同源策略是什么？跨域有哪些解决方案？](../by-domain/03-browser.md#FB-03-CO-A-009)
 - [FB-03-CO-A-010 什么是 Web Worker？它的作用和使用限制？](../by-domain/03-browser.md#FB-03-CO-A-010)
+- [FB-03-CO-A-011 什么是 Back-Forward Cache（bfcache）？](../by-domain/03-browser.md#FB-03-CO-A-011)
+- [FB-03-CO-A-012 CSS 的 content-visibility 属性有什么作用？](../by-domain/03-browser.md#FB-03-CO-A-012)
+- [FB-03-CO-A-013 requestIdleCallback 与 requestAnimationFrame 的区别](../by-domain/03-browser.md#FB-03-CO-A-013)
+- [FB-03-CO-A-014 浏览器标签页之间有哪些通信方式？](../by-domain/03-browser.md#FB-03-CO-A-014)
+- [FB-03-CO-A-015 浏览器存储方案对比：Cookie、localStorage、sessionStorage、IndexedDB](../by-domain/03-browser.md#FB-03-CO-A-015)
+- [FB-03-CO-A-016 什么是关键渲染路径（CRP）？如何优化？](../by-domain/03-browser.md#FB-03-CO-A-016)
+- [FB-03-CO-A-017 浏览器资源加载优先级是如何确定的？](../by-domain/03-browser.md#FB-03-CO-A-017)
+- [FB-03-CO-A-018 浏览器的主要进程与线程模型是什么？](../by-domain/03-browser.md#FB-03-CO-A-018)
+- [FB-03-CO-A-019 Chrome Lighthouse 性能评分机制是怎样的？](../by-domain/03-browser.md#FB-03-CO-A-019)
 - [FB-03-CP-A-001 解释 requestAnimationFrame 和 setTimeout/setInterval 做动画的区别。](../by-domain/03-browser.md#FB-03-CP-A-001)
 - [FB-03-PE-A-001 如何识别并避免布局抖动（Layout Thrashing）？](../by-domain/03-browser.md#FB-03-PE-A-001)
 - [FB-03-PE-A-002 什么是关键渲染路径（CRP）？如何优化首屏加载？](../by-domain/03-browser.md#FB-03-PE-A-002)
@@ -1024,10 +1274,14 @@
 - [FB-03-PE-A-004 如何通过 PerformanceObserver 采集性能指标？](../by-domain/03-browser.md#FB-03-PE-A-004)
 - [FB-03-PE-A-005 浏览器渲染主流程是什么？DOM、CSSOM、Render Tree 的关系？](../by-domain/03-browser.md#FB-03-PE-A-005)
 - [FB-03-PE-A-006 什么是 CRP（Critical Rendering Path）？如何优化？](../by-domain/03-browser.md#FB-03-PE-A-006)
+- [FB-03-PE-A-007 什么是渲染阻塞资源？如何减少阻塞？](../by-domain/03-browser.md#FB-03-PE-A-007)
+- [FB-03-PE-A-008 DNS 预解析和预连接对首屏有什么帮助？](../by-domain/03-browser.md#FB-03-PE-A-008)
+- [FB-03-PE-A-009 如何用 PerformanceObserver 采集性能指标？](../by-domain/03-browser.md#FB-03-PE-A-009)
 - [FB-03-SC-A-001 如何设计一个支持离线访问的 Web 应用缓存策略？](../by-domain/03-browser.md#FB-03-SC-A-001)
+- [FB-03-SC-A-002 如何在前端实现图片懒加载？](../by-domain/03-browser.md#FB-03-SC-A-002)
 - [FB-03-SE-A-001 SameSite Cookie 的三种取值对跨站请求有什么影响？](../by-domain/03-browser.md#FB-03-SE-A-001)
 
-### 计算机网络（22 道）
+### 计算机网络（30 道）
 
 - [FB-04-CA-A-001 分析以下跨域请求场景，哪些会成功，哪些会触发预检？](../by-domain/04-network.md#FB-04-CA-A-001)
 - [FB-04-CO-A-001 HTTP/1.1 与 HTTP/2 的核心区别是什么？HTTP/2 的多路复用如何解决队头阻塞？](../by-domain/04-network.md#FB-04-CO-A-001)
@@ -1045,16 +1299,34 @@
 - [FB-04-CO-A-015 什么是队头阻塞？HTTP/2 和 HTTP/3 分别是如何解决的？](../by-domain/04-network.md#FB-04-CO-A-015)
 - [FB-04-CO-A-016 RESTful API 设计有哪些原则？](../by-domain/04-network.md#FB-04-CO-A-016)
 - [FB-04-CO-A-017 什么是 GraphQL？它和 REST 各有什么优缺点？](../by-domain/04-network.md#FB-04-CO-A-017)
+- [FB-04-CO-A-018 TCP 粘包与拆包问题是如何产生的？如何解决？](../by-domain/04-network.md#FB-04-CO-A-018)
+- [FB-04-CO-A-019 长连接与短连接的区别及适用场景](../by-domain/04-network.md#FB-04-CO-A-019)
+- [FB-04-CO-A-020 正向代理、反向代理和透明代理有什么区别？](../by-domain/04-network.md#FB-04-CO-A-020)
+- [FB-04-CO-A-021 If-None-Match 与 If-Modified-Since 有什么区别？](../by-domain/04-network.md#FB-04-CO-A-021)
+- [FB-04-CO-A-022 WebSocket 握手过程及帧格式关键字段](../by-domain/04-network.md#FB-04-CO-A-022)
+- [FB-04-CO-A-023 同源策略具体限制了哪些资源的访问？](../by-domain/04-network.md#FB-04-CO-A-023)
+- [FB-04-CO-A-024 DNS 负载均衡与 GSLB 的基本思想](../by-domain/04-network.md#FB-04-CO-A-024)
 - [FB-04-CP-A-001 WebSocket 和 HTTP 长轮询有什么区别？](../by-domain/04-network.md#FB-04-CP-A-001)
 - [FB-04-PE-A-001 前端网络优化有哪些常用手段？](../by-domain/04-network.md#FB-04-PE-A-001)
 - [FB-04-SC-A-001 网络请求失败时，如何设计重试与降级策略？](../by-domain/04-network.md#FB-04-SC-A-001)
 - [FB-04-SE-A-001 XSS 与 CSRF 的区别是什么？前端有哪些防御手段？](../by-domain/04-network.md#FB-04-SE-A-001)
 - [FB-04-SE-A-002 什么是中间人攻击（MITM）和 DNS 劫持？HTTPS 能否完全防御？](../by-domain/04-network.md#FB-04-SE-A-002)
 - [FB-04-SE-A-003 什么是跨域？CORS 的原理是什么？](../by-domain/04-network.md#FB-04-SE-A-003)
+- [FB-04-SE-A-004 什么是 SSRF？前端如何配合防御？](../by-domain/04-network.md#FB-04-SE-A-004)
 
-### Web 安全（10 道）
+### Web 安全（24 道）
 
 - [FB-05-CA-A-001 下面代码存在什么安全问题？如何修复？](../by-domain/05-security.md#FB-05-CA-A-001)
+- [FB-05-CO-A-001 什么是会话固定攻击？如何防御？](../by-domain/05-security.md#FB-05-CO-A-001)
+- [FB-05-CO-A-002 X-Frame-Options 与 CSP frame-ancestors 如何防御点击劫持？](../by-domain/05-security.md#FB-05-CO-A-002)
+- [FB-05-CO-A-003 什么是 HSTS？它如何防御 SSL 剥离攻击？](../by-domain/05-security.md#FB-05-CO-A-003)
+- [FB-05-CO-A-004 Subresource Integrity（SRI）的原理和使用方式](../by-domain/05-security.md#FB-05-CO-A-004)
+- [FB-05-CO-A-005 如何安全地集成第三方脚本和 iframe？](../by-domain/05-security.md#FB-05-CO-A-005)
+- [FB-05-CO-A-006 什么是凭证填充攻击（Credential Stuffing）？前端能做什么？](../by-domain/05-security.md#FB-05-CO-A-006)
+- [FB-05-CO-A-007 JSONP 有哪些安全风险？](../by-domain/05-security.md#FB-05-CO-A-007)
+- [FB-05-CO-A-008 前端敏感日志如何脱敏？](../by-domain/05-security.md#FB-05-CO-A-008)
+- [FB-05-CO-A-009 什么是 DOM Invader？它如何帮助前端安全测试？](../by-domain/05-security.md#FB-05-CO-A-009)
+- [FB-05-CO-A-010 什么是 Web Inject 技术？](../by-domain/05-security.md#FB-05-CO-A-010)
 - [FB-05-SC-A-001 如何安全地实现一个富文本编辑器？](../by-domain/05-security.md#FB-05-SC-A-001)
 - [FB-05-SE-A-001 如何系统性地防御 XSS？](../by-domain/05-security.md#FB-05-SE-A-001)
 - [FB-05-SE-A-002 CSRF Token 应该如何生成、分发和校验？](../by-domain/05-security.md#FB-05-SE-A-002)
@@ -1064,8 +1336,12 @@
 - [FB-05-SE-A-006 使用 postMessage 跨窗口通信时有哪些安全注意事项？](../by-domain/05-security.md#FB-05-SE-A-006)
 - [FB-05-SE-A-007 什么是中间人攻击（MITM）？HTTPS 如何防御？前端还能做什么？](../by-domain/05-security.md#FB-05-SE-A-007)
 - [FB-05-SE-A-008 请简述 OAuth 2.0 授权码模式的基本流程及前端注意事项。](../by-domain/05-security.md#FB-05-SE-A-008)
+- [FB-05-SE-A-009 什么是 IDOR（不安全的直接对象引用）？前端如何参与防御？](../by-domain/05-security.md#FB-05-SE-A-009)
+- [FB-05-SE-A-010 什么是路径遍历攻击？前端如何参与防御？](../by-domain/05-security.md#FB-05-SE-A-010)
+- [FB-05-SE-A-011 CSP Report-Only 模式有什么用？](../by-domain/05-security.md#FB-05-SE-A-011)
+- [FB-05-SE-A-012 如何防止用户凭证被自动填充到钓鱼页面？](../by-domain/05-security.md#FB-05-SE-A-012)
 
-### HTML/CSS（16 道）
+### HTML/CSS（28 道）
 
 - [FB-06-CA-A-001 分析下面代码中 z-index 为什么不生效？](../by-domain/06-html-css.md#FB-06-CA-A-001)
 - [FB-06-CA-A-002 分析下面选择器的优先级。](../by-domain/06-html-css.md#FB-06-CA-A-002)
@@ -1079,12 +1355,24 @@
 - [FB-06-CO-A-006 什么是原子化 CSS（Atomic CSS）？Tailwind 的优缺点是什么？](../by-domain/06-html-css.md#FB-06-CO-A-006)
 - [FB-06-CO-A-007 如何减少 CSS 引起的重排和重绘？](../by-domain/06-html-css.md#FB-06-CO-A-007)
 - [FB-06-CO-A-008 Design Token 是什么？为什么现代设计系统需要它？](../by-domain/06-html-css.md#FB-06-CO-A-008)
+- [FB-06-CO-A-009 什么是重排（Reflow）、重绘（Repaint）和合成（Composite）？](../by-domain/06-html-css.md#FB-06-CO-A-009)
+- [FB-06-CO-A-010 如何减少重排和重绘？](../by-domain/06-html-css.md#FB-06-CO-A-010)
+- [FB-06-CO-A-011 CSS 层叠与继承如何工作？](../by-domain/06-html-css.md#FB-06-CO-A-011)
+- [FB-06-CO-A-012 CSS 的 :is()、:where()、:has() 伪类有什么作用？](../by-domain/06-html-css.md#FB-06-CO-A-012)
+- [FB-06-CO-A-013 CSS 隔离方案有哪些？如何选型？](../by-domain/06-html-css.md#FB-06-CO-A-013)
+- [FB-06-CO-A-014 CSS 的 contain 属性有什么作用？](../by-domain/06-html-css.md#FB-06-CO-A-014)
+- [FB-06-CO-A-015 如何实现单行文本溢出省略与多行溢出省略？](../by-domain/06-html-css.md#FB-06-CO-A-015)
+- [FB-06-CO-A-016 什么是渐进增强与优雅降级？](../by-domain/06-html-css.md#FB-06-CO-A-016)
 - [FB-06-EN-A-001 什么是 CSS 工程化？前端项目中为什么需要 CSS 工程化？](../by-domain/06-html-css.md#FB-06-EN-A-001)
+- [FB-06-EN-A-002 CSS 预处理器与 PostCSS 在现代工程中的角色](../by-domain/06-html-css.md#FB-06-EN-A-002)
 - [FB-06-PE-A-001 CSS 性能优化有哪些常见手段？](../by-domain/06-html-css.md#FB-06-PE-A-001)
+- [FB-06-PE-A-002 CSS 加载与渲染性能有哪些优化手段？](../by-domain/06-html-css.md#FB-06-PE-A-002)
 - [FB-06-SC-A-001 设计一个响应式导航栏。](../by-domain/06-html-css.md#FB-06-SC-A-001)
 - [FB-06-SC-A-002 解释一下容器查询（Container Query）及其使用场景。](../by-domain/06-html-css.md#FB-06-SC-A-002)
+- [FB-06-SC-A-003 如何设计一个响应式图片组件？](../by-domain/06-html-css.md#FB-06-SC-A-003)
+- [FB-06-SC-A-004 实现一个可拖拽排序列表的 HTML/CSS 思路](../by-domain/06-html-css.md#FB-06-SC-A-004)
 
-### 可访问性（a11y）（12 道）
+### 可访问性（a11y）（22 道）
 
 - [FB-07-CA-A-001 分析下面自定义弹窗代码的可访问性问题。](../by-domain/07-a11y.md#FB-07-CA-A-001)
 - [FB-07-CD-A-001 手写一个可访问的自定义下拉菜单（Button Menu）。](../by-domain/07-a11y.md#FB-07-CD-A-001)
@@ -1096,10 +1384,20 @@
 - [FB-07-CO-A-006 什么是 ARIA？应该在什么情况下使用？](../by-domain/07-a11y.md#FB-07-CO-A-006)
 - [FB-07-CO-A-007 表单可访问性有哪些关键点？](../by-domain/07-a11y.md#FB-07-CO-A-007)
 - [FB-07-CO-A-008 如何进行可访问性测试？](../by-domain/07-a11y.md#FB-07-CO-A-008)
+- [FB-07-CO-A-009 如何为数据表格提供无障碍支持？](../by-domain/07-a11y.md#FB-07-CO-A-009)
+- [FB-07-CO-A-010 aria-describedby 与 aria-labelledby 有什么区别？](../by-domain/07-a11y.md#FB-07-CO-A-010)
+- [FB-07-CO-A-011 如何为视频/音频内容提供无障碍替代方案？](../by-domain/07-a11y.md#FB-07-CO-A-011)
+- [FB-07-CO-A-012 什么是键盘陷阱（keyboard trap）？如何避免？](../by-domain/07-a11y.md#FB-07-CO-A-012)
+- [FB-07-CO-A-013 如何为动态加载内容使用 aria-live？](../by-domain/07-a11y.md#FB-07-CO-A-013)
+- [FB-07-CO-A-014 可见焦点指示器（focus indicator）的要求是什么？](../by-domain/07-a11y.md#FB-07-CO-A-014)
+- [FB-07-CO-A-015 如何为图标按钮提供可访问名称？](../by-domain/07-a11y.md#FB-07-CO-A-015)
 - [FB-07-SC-A-001 设计一个带错误提示的可访问表单。](../by-domain/07-a11y.md#FB-07-SC-A-001)
+- [FB-07-SC-A-002 设计一个无障碍文件上传组件](../by-domain/07-a11y.md#FB-07-SC-A-002)
+- [FB-07-SC-A-003 设计一个可访问的日期选择器](../by-domain/07-a11y.md#FB-07-SC-A-003)
 - [FB-07-SD-A-001 如何设计一个可访问的模态对话框？](../by-domain/07-a11y.md#FB-07-SD-A-001)
+- [FB-07-SS-A-001 如何在团队中推广无障碍测试？](../by-domain/07-a11y.md#FB-07-SS-A-001)
 
-### 数据结构与算法（15 道）
+### 数据结构与算法（24 道）
 
 - [FB-08-CD-A-001 实现二分查找。](../by-domain/08-algorithms.md#FB-08-CD-A-001)
 - [FB-08-CD-A-002 实现冒泡排序、选择排序和插入排序。](../by-domain/08-algorithms.md#FB-08-CD-A-002)
@@ -1115,9 +1413,18 @@
 - [FB-08-CD-A-012 验证二叉搜索树。](../by-domain/08-algorithms.md#FB-08-CD-A-012)
 - [FB-08-CD-A-013 买卖股票的最佳时机。](../by-domain/08-algorithms.md#FB-08-CD-A-013)
 - [FB-08-CD-A-014 爬楼梯：如何用动态规划求解最小代价？](../by-domain/08-algorithms.md#FB-08-CD-A-014)
+- [FB-08-CD-A-015 实现一个 LRU 缓存](../by-domain/08-algorithms.md#FB-08-CD-A-015)
+- [FB-08-CD-A-016 手写一个深拷贝函数](../by-domain/08-algorithms.md#FB-08-CD-A-016)
+- [FB-08-CD-A-017 手写函数 compose 和 pipe](../by-domain/08-algorithms.md#FB-08-CD-A-017)
+- [FB-08-CD-A-018 实现一个事件发布订阅（EventBus）](../by-domain/08-algorithms.md#FB-08-CD-A-018)
+- [FB-08-CD-A-019 手写 Promise.allSettled](../by-domain/08-algorithms.md#FB-08-CD-A-019)
+- [FB-08-CD-A-020 实现数组乱序（Fisher-Yates）](../by-domain/08-algorithms.md#FB-08-CD-A-020)
+- [FB-08-CD-A-021 大数相加的实现思路](../by-domain/08-algorithms.md#FB-08-CD-A-021)
 - [FB-08-CO-A-001 贪心算法的基本思想是什么？适合解决哪些问题？](../by-domain/08-algorithms.md#FB-08-CO-A-001)
+- [FB-08-SC-A-001 设计一个前端请求合并/去重系统](../by-domain/08-algorithms.md#FB-08-SC-A-001)
+- [FB-08-SC-A-002 设计一个前端任务调度器](../by-domain/08-algorithms.md#FB-08-SC-A-002)
 
-### 设计模式（10 道）
+### 设计模式（19 道）
 
 - [FB-09-CD-A-001 手写一个单例模式，并考虑延迟初始化与线程安全。](../by-domain/09-design-patterns.md#FB-09-CD-A-001)
 - [FB-09-CD-A-002 手写一个发布订阅事件总线（EventBus）。](../by-domain/09-design-patterns.md#FB-09-CD-A-002)
@@ -1129,12 +1436,22 @@
 - [FB-09-CO-A-004 为什么常说"组合优于继承"？](../by-domain/09-design-patterns.md#FB-09-CO-A-004)
 - [FB-09-CO-A-005 什么时候应该使用策略模式？](../by-domain/09-design-patterns.md#FB-09-CO-A-005)
 - [FB-09-CO-A-006 如何理解"组合优于继承"？](../by-domain/09-design-patterns.md#FB-09-CO-A-006)
+- [FB-09-CO-A-007 适配器模式在前端如何应用？](../by-domain/09-design-patterns.md#FB-09-CO-A-007)
+- [FB-09-CO-A-008 装饰器模式在前端有哪些应用？](../by-domain/09-design-patterns.md#FB-09-CO-A-008)
+- [FB-09-CO-A-009 代理模式在前端有哪些应用？](../by-domain/09-design-patterns.md#FB-09-CO-A-009)
+- [FB-09-CO-A-010 命令模式适合什么场景？](../by-domain/09-design-patterns.md#FB-09-CO-A-010)
+- [FB-09-CO-A-011 模板方法模式是什么？](../by-domain/09-design-patterns.md#FB-09-CO-A-011)
+- [FB-09-CO-A-012 访问者模式解决了什么问题？](../by-domain/09-design-patterns.md#FB-09-CO-A-012)
+- [FB-09-CO-A-013 什么是享元模式？在前端有哪些应用？](../by-domain/09-design-patterns.md#FB-09-CO-A-013)
+- [FB-09-SC-A-001 用策略模式实现一个表单校验器](../by-domain/09-design-patterns.md#FB-09-SC-A-001)
+- [FB-09-SC-A-002 用职责链模式实现一个审批流](../by-domain/09-design-patterns.md#FB-09-SC-A-002)
 
-### 构建工具（26 道）
+### 构建工具（31 道）
 
 - [FB-10-CA-A-001 分析下面 Webpack 配置的作用与产物结构。](../by-domain/10-build-tools.md#FB-10-CA-A-001)
 - [FB-10-CA-A-002 分析以下 splitChunks 配置可能产生的问题及优化方向](../by-domain/10-build-tools.md#FB-10-CA-A-002)
 - [FB-10-CA-A-013 分析下面代码中 Tree Shaking 为什么会失效。](../by-domain/10-build-tools.md#FB-10-CA-A-013)
+- [FB-10-CA-A-014 分析下面 Rollup 配置中 external 和 globals 的作用](../by-domain/10-build-tools.md#FB-10-CA-A-014)
 - [FB-10-CD-A-001 手写一个最简单的 Webpack Loader，将文件内容转为大写。](../by-domain/10-build-tools.md#FB-10-CD-A-001)
 - [FB-10-CD-A-002 手写一个 Vite 插件，在构建结束时输出所有产物文件大小](../by-domain/10-build-tools.md#FB-10-CD-A-002)
 - [FB-10-CD-A-014 手写一个 Webpack Plugin，在 emit 阶段生成 stats.json。](../by-domain/10-build-tools.md#FB-10-CD-A-014)
@@ -1150,19 +1467,26 @@
 - [FB-10-CO-A-011 Webpack 的 resolve 配置如何影响模块解析？](../by-domain/10-build-tools.md#FB-10-CO-A-011)
 - [FB-10-CO-A-012 @babel/preset-env 的 targets 与 useBuiltIns 该如何配置？](../by-domain/10-build-tools.md#FB-10-CO-A-012)
 - [FB-10-CO-A-017 从 Webpack 迁移到 Vite 需要考虑哪些因素和步骤？](../by-domain/10-build-tools.md#FB-10-CO-A-017)
+- [FB-10-CO-A-018 esbuild 为什么比传统构建工具快？](../by-domain/10-build-tools.md#FB-10-CO-A-018)
 - [FB-10-EN-A-001 如何设计前端构建的缓存策略？](../by-domain/10-build-tools.md#FB-10-EN-A-001)
 - [FB-10-EN-A-002 Monorepo 中如何设计构建任务依赖和缓存？](../by-domain/10-build-tools.md#FB-10-EN-A-002)
 - [FB-10-EN-A-016 如何在前端构建流程中集成 Lint、Type Check 和 Test？](../by-domain/10-build-tools.md#FB-10-EN-A-016)
+- [FB-10-EN-A-017 如何通过 Vite 的 build.rollupOptions 控制高级打包行为？](../by-domain/10-build-tools.md#FB-10-EN-A-017)
 - [FB-10-PE-A-001 如何优化 Webpack 构建速度？请列举至少 5 种方法。](../by-domain/10-build-tools.md#FB-10-PE-A-001)
 - [FB-10-PE-A-002 如何分析并优化前端打包体积？](../by-domain/10-build-tools.md#FB-10-PE-A-002)
 - [FB-10-PE-A-003 如何针对大型依赖做按需加载和构建优化？](../by-domain/10-build-tools.md#FB-10-PE-A-003)
 - [FB-10-PE-A-004 如何分析 Webpack 构建耗时分布并定位瓶颈？](../by-domain/10-build-tools.md#FB-10-PE-A-004)
 - [FB-10-PE-A-015 如何分析并可视化前端打包体积？](../by-domain/10-build-tools.md#FB-10-PE-A-015)
+- [FB-10-PE-A-016 如何分析和优化 Webpack 构建性能？](../by-domain/10-build-tools.md#FB-10-PE-A-016)
+- [FB-10-SC-A-018 如何设计一个多入口 Webpack 配置？](../by-domain/10-build-tools.md#FB-10-SC-A-018)
 
-### Monorepo（26 道）
+### Monorepo（31 道）
 
 - [FB-11-CO-A-001 什么是拓扑排序？在 Monorepo 构建中有什么用？](../by-domain/11-monorepo.md#FB-11-CO-A-001)
+- [FB-11-CO-A-002 Monorepo 中如何处理循环依赖？](../by-domain/11-monorepo.md#FB-11-CO-A-002)
+- [FB-11-CO-A-003 什么是 pnpm 的 peerDependencyRules？](../by-domain/11-monorepo.md#FB-11-CO-A-003)
 - [FB-11-CP-A-020 如何看待 Monorepo 中工具链日益碎片化的问题？](../by-domain/11-monorepo.md#FB-11-CP-A-020)
+- [FB-11-CP-A-021 比较 Turborepo、Nx、Rush 的适用场景](../by-domain/11-monorepo.md#FB-11-CP-A-021)
 - [FB-11-EN-A-001 如何优化 Monorepo 的依赖安装速度？](../by-domain/11-monorepo.md#FB-11-EN-A-001)
 - [FB-11-EN-A-002 pnpm 的依赖管理机制与 npm / yarn 有何不同？](../by-domain/11-monorepo.md#FB-11-EN-A-002)
 - [FB-11-EN-A-003 什么是幽灵依赖（phantom dependencies）？如何解决？](../by-domain/11-monorepo.md#FB-11-EN-A-003)
@@ -1182,14 +1506,19 @@
 - [FB-11-EN-A-018 如何在 Monorepo 中做包体积分析？](../by-domain/11-monorepo.md#FB-11-EN-A-018)
 - [FB-11-EN-A-019 如何配置 GitHub Actions 只跑 affected 的任务？](../by-domain/11-monorepo.md#FB-11-EN-A-019)
 - [FB-11-EN-A-021 如何在 Monorepo 中统一管理 secrets 和敏感配置？](../by-domain/11-monorepo.md#FB-11-EN-A-021)
+- [FB-11-EN-A-022 如何配置 Monorepo 中的依赖升级策略？](../by-domain/11-monorepo.md#FB-11-EN-A-022)
 - [FB-11-SC-A-001 设计一个 Monorepo 下组件库的发布流程。](../by-domain/11-monorepo.md#FB-11-SC-A-001)
 - [FB-11-SC-A-002 设计一个 Monorepo 下共享 hooks 包的管理方案。](../by-domain/11-monorepo.md#FB-11-SC-A-002)
 - [FB-11-SC-A-003 设计一个 Monorepo 中共享 types 包的演进方案。](../by-domain/11-monorepo.md#FB-11-SC-A-003)
 - [FB-11-SC-A-016 设计一个 Monorepo 下共享 icons / assets 资源包的管理方案。](../by-domain/11-monorepo.md#FB-11-SC-A-016)
 - [FB-11-SC-A-022 设计一个 Monorepo 下共享设计 tokens 和主题包的管理方案。](../by-domain/11-monorepo.md#FB-11-SC-A-022)
+- [FB-11-SC-A-023 如何为 Monorepo 设计 CI/CD 流水线？](../by-domain/11-monorepo.md#FB-11-SC-A-023)
 
-### CI/CD（26 道）
+### CI/CD（31 道）
 
+- [FB-12-CO-A-022 什么是 CI 中的 idempotency（幂等性）？](../by-domain/12-ci-cd.md#FB-12-CO-A-022)
+- [FB-12-CO-A-023 什么是 pipeline as code 的优势？](../by-domain/12-ci-cd.md#FB-12-CO-A-023)
+- [FB-12-CP-A-021 如何选择 self-hosted runner 和 cloud runner？](../by-domain/12-ci-cd.md#FB-12-CP-A-021)
 - [FB-12-EN-A-001 如何在 GitHub Actions 中为前端 Monorepo 设计一条合理的 CI/CD 流水线？](../by-domain/12-ci-cd.md#FB-12-EN-A-001)
 - [FB-12-EN-A-002 如何为前端项目设计一条完整的 GitLab CI 流水线？](../by-domain/12-ci-cd.md#FB-12-EN-A-002)
 - [FB-12-EN-A-003 如何为前端项目配置 Jenkins 多分支流水线（Multibranch Pipeline）？](../by-domain/12-ci-cd.md#FB-12-EN-A-003)
@@ -1211,13 +1540,15 @@
 - [FB-12-EN-A-022 GitHub Actions 的 Reusable Workflow 与 Composite Action 有什么区别？](../by-domain/12-ci-cd.md#FB-12-EN-A-022)
 - [FB-12-EN-A-024 如何在 CI 中集成 Lighthouse CI？](../by-domain/12-ci-cd.md#FB-12-EN-A-024)
 - [FB-12-EN-A-026 如何在 CI 中实现前端依赖的安全审计？](../by-domain/12-ci-cd.md#FB-12-EN-A-026)
+- [FB-12-EN-A-027 如何设计 CI 中的 lint/typecheck/test 任务顺序？](../by-domain/12-ci-cd.md#FB-12-EN-A-027)
 - [FB-12-PE-A-021 如何优化前端 CI 流水线的性能？](../by-domain/12-ci-cd.md#FB-12-PE-A-021)
 - [FB-12-SC-A-018 如何设计前端项目的多环境配置管理？](../by-domain/12-ci-cd.md#FB-12-SC-A-018)
 - [FB-12-SC-A-023 如何为前端组件库设计发布流水线？](../by-domain/12-ci-cd.md#FB-12-SC-A-023)
 - [FB-12-SE-A-020 如何防止 CI/CD 流水线泄露 Secrets？](../by-domain/12-ci-cd.md#FB-12-SE-A-020)
 - [FB-12-SE-A-025 SAST、SCA、DAST 分别是什么？在前端 CI 中如何应用？](../by-domain/12-ci-cd.md#FB-12-SE-A-025)
+- [FB-12-SE-A-026 CI 中如何处理 secrets 和 credentials？](../by-domain/12-ci-cd.md#FB-12-SE-A-026)
 
-### 代码质量与测试（34 道）
+### 代码质量与测试（39 道）
 
 - [FB-13-CA-A-001 Jest 中如何使用 fake timers 测试下面的代码？](../by-domain/13-code-quality.md#FB-13-CA-A-001)
 - [FB-13-CA-A-002 下面 React 测试为什么会报 “not wrapped in act(...)” 警告？如何修复？](../by-domain/13-code-quality.md#FB-13-CA-A-002)
@@ -1226,6 +1557,7 @@
 - [FB-13-CD-A-001 请手写一个 Jest 测试，验证一个 HTTP 请求工具函数的错误重试逻辑。](../by-domain/13-code-quality.md#FB-13-CD-A-001)
 - [FB-13-CD-A-002 请手写一个节流函数并为其编写单元测试。](../by-domain/13-code-quality.md#FB-13-CD-A-002)
 - [FB-13-CD-A-003 请手写一个数组去重函数并为其编写单元测试](../by-domain/13-code-quality.md#FB-13-CD-A-003)
+- [FB-13-CD-A-021 如何识别和清理技术债务？](../by-domain/13-code-quality.md#FB-13-CD-A-021)
 - [FB-13-CO-A-001 Vitest 和 Jest 有什么主要区别？](../by-domain/13-code-quality.md#FB-13-CO-A-001)
 - [FB-13-CO-A-002 Playwright 和 Cypress 各有什么优劣？如何选择？](../by-domain/13-code-quality.md#FB-13-CO-A-002)
 - [FB-13-CO-A-003 TDD 和 BDD 有什么区别？](../by-domain/13-code-quality.md#FB-13-CO-A-003)
@@ -1245,16 +1577,20 @@
 - [FB-13-CO-A-017 什么是 Codemod？什么时候应该使用？](../by-domain/13-code-quality.md#FB-13-CO-A-017)
 - [FB-13-CO-A-018 什么是属性测试（Property-Based Testing）？举一个 fast-check 的例子。](../by-domain/13-code-quality.md#FB-13-CO-A-018)
 - [FB-13-CO-A-019 什么是架构测试？如何用 ts-arch 约束模块依赖？](../by-domain/13-code-quality.md#FB-13-CO-A-019)
+- [FB-13-CO-A-020 如何定义代码质量度量指标？](../by-domain/13-code-quality.md#FB-13-CO-A-020)
+- [FB-13-CP-A-019 如何选择 Jest 还是 Vitest？](../by-domain/13-code-quality.md#FB-13-CP-A-019)
 - [FB-13-EN-A-001 如何配置 lint-staged + Husky 实现提交前只检查本次修改？](../by-domain/13-code-quality.md#FB-13-EN-A-001)
 - [FB-13-EN-A-002 如何在前端项目中引入 commitlint + Conventional Commits？](../by-domain/13-code-quality.md#FB-13-EN-A-002)
 - [FB-13-EN-A-003 如何在 CI 中并行运行测试以缩短反馈时间？](../by-domain/13-code-quality.md#FB-13-EN-A-003)
 - [FB-13-EN-A-010 Biome / Oxc 与传统 ESLint + Prettier 相比有什么优势和局限？](../by-domain/13-code-quality.md#FB-13-EN-A-010)
+- [FB-13-EN-A-011 如何设计前端代码 review 流程？](../by-domain/13-code-quality.md#FB-13-EN-A-011)
 - [FB-13-SC-A-001 如何为一个包含 API 调用的表单组件设计集成测试？](../by-domain/13-code-quality.md#FB-13-SC-A-001)
 - [FB-13-SC-A-002 如何测试一个上传文件组件？](../by-domain/13-code-quality.md#FB-13-SC-A-002)
 - [FB-13-SC-A-003 如何为一个带防抖的搜索输入框设计测试？](../by-domain/13-code-quality.md#FB-13-SC-A-003)
 - [FB-13-SC-A-004 如何为一个使用 localStorage 的自定义 Hook 设计测试？](../by-domain/13-code-quality.md#FB-13-SC-A-004)
+- [FB-13-SE-A-020 什么是 OWASP Top 10 在前端的体现？](../by-domain/13-code-quality.md#FB-13-SE-A-020)
 
-### 设计系统与组件库（19 道）
+### 设计系统与组件库（24 道）
 
 - [FB-14-CO-A-001 什么是 Headless UI？它解决了什么问题？](../by-domain/14-design-system.md#FB-14-CO-A-001)
 - [FB-14-CO-A-002 CSS-in-JS、CSS Modules、BEM 三种方案如何选型？](../by-domain/14-design-system.md#FB-14-CO-A-002)
@@ -1275,12 +1611,19 @@
 - [FB-14-SC-A-014 如何为组件库设计一致的间距与布局系统？](../by-domain/14-design-system.md#FB-14-SC-A-014)
 - [FB-14-SC-A-015 组件库如何与 TypeScript 类型系统深度结合？](../by-domain/14-design-system.md#FB-14-SC-A-015)
 - [FB-14-SC-A-016 如何设计组件库的按需加载（Tree Shaking + 按需引入）？](../by-domain/14-design-system.md#FB-14-SC-A-016)
+- [FB-14-SC-A-017 如何设计一个 DatePicker 组件？](../by-domain/14-design-system.md#FB-14-SC-A-017)
+- [FB-14-SC-A-018 如何设计一个支持虚拟滚动的 Select？](../by-domain/14-design-system.md#FB-14-SC-A-018)
+- [FB-14-SC-A-019 如何设计一个 Skeleton 加载组件？](../by-domain/14-design-system.md#FB-14-SC-A-019)
+- [FB-14-SC-A-020 如何设计一个 Steps 步骤条组件？](../by-domain/14-design-system.md#FB-14-SC-A-020)
+- [FB-14-SC-A-021 组件库中如何实现响应式断点？](../by-domain/14-design-system.md#FB-14-SC-A-021)
 
-### React（18 道）
+### React（25 道）
 
 - [FB-15-CA-A-042 下面代码在输入框快速输入时会出现什么问题？如何修复？](../by-domain/15-react.md#FB-15-CA-A-042)
+- [FB-15-CA-A-043 分析一个 useEffect 依赖问题](../by-domain/15-react.md#FB-15-CA-A-043)
 - [FB-15-CD-A-014 如何封装一个 Custom Hook？请写一个 useWindowSize 的示例。](../by-domain/15-react.md#FB-15-CD-A-014)
 - [FB-15-CD-A-045 请手写一个 useDebounce Hook](../by-domain/15-react.md#FB-15-CD-A-045)
+- [FB-15-CD-A-046 请手写一个 useThrottle Hook](../by-domain/15-react.md#FB-15-CD-A-046)
 - [FB-15-CO-A-009 useEffect 的依赖数组应该怎么写？清理函数什么时候执行？](../by-domain/15-react.md#FB-15-CO-A-009)
 - [FB-15-CO-A-010 useMemo 和 useCallback 有什么区别？什么时候应该使用？](../by-domain/15-react.md#FB-15-CO-A-010)
 - [FB-15-CO-A-011 React.memo 是什么？什么时候使用？](../by-domain/15-react.md#FB-15-CO-A-011)
@@ -1296,8 +1639,13 @@
 - [FB-15-CO-A-044 dangerouslySetInnerHTML 有什么风险？如何安全使用？](../by-domain/15-react.md#FB-15-CO-A-044)
 - [FB-15-CO-A-046 如何用 useRef 保存上一次的 state 或 props？](../by-domain/15-react.md#FB-15-CO-A-046)
 - [FB-15-CO-A-047 React.memo、useMemo、useCallback 如何配合使用？](../by-domain/15-react.md#FB-15-CO-A-047)
+- [FB-15-CO-A-048 如何优化 React 组件的 re-render？](../by-domain/15-react.md#FB-15-CO-A-048)
+- [FB-15-CO-A-049 React 中如何正确获取异步数据？](../by-domain/15-react.md#FB-15-CO-A-049)
+- [FB-15-CO-A-050 如何使用 useRef 操作 DOM？](../by-domain/15-react.md#FB-15-CO-A-050)
+- [FB-15-CO-A-051 React 中 useMemo 的依赖项注意事项？](../by-domain/15-react.md#FB-15-CO-A-051)
+- [FB-15-CO-A-052 什么是 React 的 lifting state up？](../by-domain/15-react.md#FB-15-CO-A-052)
 
-### Vue（18 道）
+### Vue（25 道）
 
 - [FB-16-CA-A-001 分析以下响应式代码的执行结果](../by-domain/16-vue.md#FB-16-CA-A-001)
 - [FB-16-CO-A-009 Vue 3 的响应式 API 有哪些？ref 和 reactive 有什么区别？](../by-domain/16-vue.md#FB-16-CO-A-009)
@@ -1310,6 +1658,13 @@
 - [FB-16-CO-A-016 Vuex 和 Pinia 有什么区别？新项目该选哪个？](../by-domain/16-vue.md#FB-16-CO-A-016)
 - [FB-16-CO-A-017 Vue 中的插槽（Slot）有哪些类型？如何使用作用域插槽？](../by-domain/16-vue.md#FB-16-CO-A-017)
 - [FB-16-CO-A-018 Vue 3 中如何编写自定义指令？](../by-domain/16-vue.md#FB-16-CO-A-018)
+- [FB-16-CO-A-019 Vue 中如何正确使用 ref 和 reactive？](../by-domain/16-vue.md#FB-16-CO-A-019)
+- [FB-16-CO-A-020 Vue 3 的 emits 选项有什么作用？](../by-domain/16-vue.md#FB-16-CO-A-020)
+- [FB-16-CO-A-021 Vue 中的 template refs 如何使用？](../by-domain/16-vue.md#FB-16-CO-A-021)
+- [FB-16-CO-A-022 Vue 中的 transition 和 transition-group 区别？](../by-domain/16-vue.md#FB-16-CO-A-022)
+- [FB-16-CO-A-023 Vue 中的 props 校验怎么做？](../by-domain/16-vue.md#FB-16-CO-A-023)
+- [FB-16-CO-A-024 Vue 中如何处理组件卸载时的副作用？](../by-domain/16-vue.md#FB-16-CO-A-024)
+- [FB-16-CO-A-025 Vue 中的 defineAsyncComponent 怎么用？](../by-domain/16-vue.md#FB-16-CO-A-025)
 - [FB-16-CP-A-001 Vue 单页应用的 SEO 优化有哪些思路？](../by-domain/16-vue.md#FB-16-CP-A-001)
 - [FB-16-EN-A-001 Vue 项目中 ESLint、Prettier 和 Vitest 如何集成？](../by-domain/16-vue.md#FB-16-EN-A-001)
 - [FB-16-FS-A-001 Vue 3 的 Scheduler 调度器是如何工作的？](../by-domain/16-vue.md#FB-16-FS-A-001)
@@ -1318,7 +1673,7 @@
 - [FB-16-SD-A-001 如何设计 Vue 项目的权限路由系统？](../by-domain/16-vue.md#FB-16-SD-A-001)
 - [FB-16-SE-A-001 Vue 中如何安全地使用 v-html？](../by-domain/16-vue.md#FB-16-SE-A-001)
 
-### 跨端技术（17 道）
+### 跨端技术（22 道）
 
 - [FB-17-CA-A-041 分析以下小程序 setData 代码的执行结果和性能影响](../by-domain/17-cross-platform.md#FB-17-CA-A-041)
 - [FB-17-CD-A-012 请手写一个简单的 JSBridge](../by-domain/17-cross-platform.md#FB-17-CD-A-012)
@@ -1329,6 +1684,11 @@
 - [FB-17-CO-A-014 鸿蒙 ArkTS / ArkUI 是什么？对跨端开发有什么影响？](../by-domain/17-cross-platform.md#FB-17-CO-A-014)
 - [FB-17-CO-A-040 React Native 的 Fabric 渲染器解决了什么问题？](../by-domain/17-cross-platform.md#FB-17-CO-A-040)
 - [FB-17-CO-A-044 Flutter 的热重载（Hot Reload）和热重启（Hot Restart）有什么区别？](../by-domain/17-cross-platform.md#FB-17-CO-A-044)
+- [FB-17-CO-A-045 Taro 和 UniApp 的运行时适配层是怎么工作的？](../by-domain/17-cross-platform.md#FB-17-CO-A-045)
+- [FB-17-CO-A-046 小程序的双线程模型有什么优势和限制？](../by-domain/17-cross-platform.md#FB-17-CO-A-046)
+- [FB-17-CO-A-047 React Native 的 Hermes 引擎有什么优势？](../by-domain/17-cross-platform.md#FB-17-CO-A-047)
+- [FB-17-CO-A-048 Flutter 的 Dart 语言有什么特点？](../by-domain/17-cross-platform.md#FB-17-CO-A-048)
+- [FB-17-CO-A-049 Electron 应用如何打包和自动更新？](../by-domain/17-cross-platform.md#FB-17-CO-A-049)
 - [FB-17-EN-A-043 跨端项目如何使用 Monorepo 组织代码？](../by-domain/17-cross-platform.md#FB-17-EN-A-043)
 - [FB-17-PE-A-009 小程序有哪些常见的性能优化手段？](../by-domain/17-cross-platform.md#FB-17-PE-A-009)
 - [FB-17-PE-A-039 跨端应用的首屏加载可以从哪些方面优化？](../by-domain/17-cross-platform.md#FB-17-PE-A-039)
@@ -1338,7 +1698,7 @@
 - [FB-17-SE-A-013 Electron 应用有哪些安全注意事项？](../by-domain/17-cross-platform.md#FB-17-SE-A-013)
 - [FB-17-SE-A-045 小程序有哪些常见安全风险？如何防御？](../by-domain/17-cross-platform.md#FB-17-SE-A-045)
 
-### AI 工程化（29 道）
+### AI 工程化（33 道）
 
 - [FB-18-CA-A-043 分析一段 SSE 流式处理代码的潜在 Bug](../by-domain/18-ai-engineering.md#FB-18-CA-A-043)
 - [FB-18-CD-A-010 手写一个前端流式对话组件](../by-domain/18-ai-engineering.md#FB-18-CD-A-010)
@@ -1356,6 +1716,10 @@
 - [FB-18-CO-A-048 什么是模型幻觉？前端产品层面有哪些兜底策略？](../by-domain/18-ai-engineering.md#FB-18-CO-A-048)
 - [FB-18-CO-A-049 如何评估一个 AI 功能的效果？](../by-domain/18-ai-engineering.md#FB-18-CO-A-049)
 - [FB-18-CO-A-050 AI Native 应用与传统 GUI 应用有什么不同？前端工程师需要哪些新能力？](../by-domain/18-ai-engineering.md#FB-18-CO-A-050)
+- [FB-18-CO-A-051 如何选择 Embedding 模型？](../by-domain/18-ai-engineering.md#FB-18-CO-A-051)
+- [FB-18-CO-A-052 什么是 RAG 中的 Chunking 策略？](../by-domain/18-ai-engineering.md#FB-18-CO-A-052)
+- [FB-18-CO-A-053 什么是 LLM 的上下文压缩？](../by-domain/18-ai-engineering.md#FB-18-CO-A-053)
+- [FB-18-CO-A-054 如何评估 RAG 的召回率？](../by-domain/18-ai-engineering.md#FB-18-CO-A-054)
 - [FB-18-CP-A-049 如何评估一个 AI 功能对产品指标的影响？](../by-domain/18-ai-engineering.md#FB-18-CP-A-049)
 - [FB-18-EN-A-016 什么是 Vibe Coding？前端如何落地 AI 辅助编码？](../by-domain/18-ai-engineering.md#FB-18-EN-A-016)
 - [FB-18-EN-A-017 如何管理前端项目中的 Prompt 版本与热更新？](../by-domain/18-ai-engineering.md#FB-18-EN-A-017)
@@ -1370,7 +1734,7 @@
 - [FB-18-SE-A-015 前端 AI 应用如何处理敏感数据脱敏与隐私保护？](../by-domain/18-ai-engineering.md#FB-18-SE-A-015)
 - [FB-18-SE-A-046 如何防范前端 AI 应用中的 Prompt 泄露？](../by-domain/18-ai-engineering.md#FB-18-SE-A-046)
 
-### Node.js / BFF（21 道）
+### Node.js / BFF（26 道）
 
 - [FB-19-CA-A-009 下面代码的输出顺序是什么？为什么？](../by-domain/19-node-bff.md#FB-19-CA-A-009)
 - [FB-19-CA-A-043 分析以下 Express 异步路由的错误处理问题](../by-domain/19-node-bff.md#FB-19-CA-A-043)
@@ -1388,13 +1752,18 @@
 - [FB-19-CO-A-046 如何对 Node.js 服务做健康检查？liveness/readiness/startup probe 有什么区别？](../by-domain/19-node-bff.md#FB-19-CO-A-046)
 - [FB-19-CO-A-047 如何处理 Node.js 服务中的未捕获异常？](../by-domain/19-node-bff.md#FB-19-CO-A-047)
 - [FB-19-CO-A-048 Serverless 的冷启动问题如何解决？](../by-domain/19-node-bff.md#FB-19-CO-A-048)
+- [FB-19-CO-A-049 Node.js 中如何设计 RESTful API 的错误处理？](../by-domain/19-node-bff.md#FB-19-CO-A-049)
+- [FB-19-CO-A-050 如何在 Node.js 中实现请求限流？](../by-domain/19-node-bff.md#FB-19-CO-A-050)
+- [FB-19-CO-A-051 Node.js 中如何处理跨服务事务？](../by-domain/19-node-bff.md#FB-19-CO-A-051)
+- [FB-19-CO-A-052 BFF 层如何做数据聚合？](../by-domain/19-node-bff.md#FB-19-CO-A-052)
+- [FB-19-CO-A-053 Node.js 中如何做健康检查？](../by-domain/19-node-bff.md#FB-19-CO-A-053)
 - [FB-19-EN-A-047 Node.js 项目中的代码质量工具链应如何配置？](../by-domain/19-node-bff.md#FB-19-EN-A-047)
 - [FB-19-PE-A-016 Node.js 服务有哪些常见的性能优化手段？](../by-domain/19-node-bff.md#FB-19-PE-A-016)
 - [FB-19-PE-A-042 Node.js 服务的日志规范应如何设计？如何接入 ELK/Loki？](../by-domain/19-node-bff.md#FB-19-PE-A-042)
 - [FB-19-SD-A-001 如何设计一个支持高并发的 BFF 服务？](../by-domain/19-node-bff.md#FB-19-SD-A-001)
 - [FB-19-SD-A-002 如何设计一个前后端共享类型的 Monorepo 方案？](../by-domain/19-node-bff.md#FB-19-SD-A-002)
 
-### Git 工作流与变更管理（21 道）
+### Git 工作流与变更管理（26 道）
 
 - [FB-20-CO-A-009 Git Flow、GitHub Flow 和 Trunk-Based Development 有什么区别？](../by-domain/20-git-workflow.md#FB-20-CO-A-009)
 - [FB-20-CO-A-013 git rebase -i（交互式变基）有哪些常见用法？](../by-domain/20-git-workflow.md#FB-20-CO-A-013)
@@ -1405,6 +1774,11 @@
 - [FB-20-CO-A-045 git reflog 和 git log 有什么区别？](../by-domain/20-git-workflow.md#FB-20-CO-A-045)
 - [FB-20-CO-A-047 git commit --amend 有什么用？需要注意什么？](../by-domain/20-git-workflow.md#FB-20-CO-A-047)
 - [FB-20-CO-A-048 什么是 Feature Toggle？什么时候使用？](../by-domain/20-git-workflow.md#FB-20-CO-A-048)
+- [FB-20-CO-A-049 如何为团队选择合适的 Git 工作流？](../by-domain/20-git-workflow.md#FB-20-CO-A-049)
+- [FB-20-CO-A-050 Feature Toggle 是什么？](../by-domain/20-git-workflow.md#FB-20-CO-A-050)
+- [FB-20-CO-A-051 git rebase --onto 的使用场景？](../by-domain/20-git-workflow.md#FB-20-CO-A-051)
+- [FB-20-CO-A-052 如何处理代码审查中的敏感信息？](../by-domain/20-git-workflow.md#FB-20-CO-A-052)
+- [FB-20-CO-A-053 git worktree 有什么用？](../by-domain/20-git-workflow.md#FB-20-CO-A-053)
 - [FB-20-EN-A-010 什么是 Conventional Commits？它能带来哪些自动化收益？](../by-domain/20-git-workflow.md#FB-20-EN-A-010)
 - [FB-20-EN-A-011 Git Hooks 是什么？常见钩子有哪些？](../by-domain/20-git-workflow.md#FB-20-EN-A-011)
 - [FB-20-EN-A-014 Pull Request / Merge Request 的代码审查流程如何设计？](../by-domain/20-git-workflow.md#FB-20-EN-A-014)
@@ -1454,13 +1828,18 @@
 - [FB-21-SE-A-001 使用 Playwright 进行端到端测试时，如何防范测试脚本中的安全与数据风险](../by-domain/21-dx.md#FB-21-SE-A-001)
 - [FB-21-SS-A-001 请分享一次你推动 ESLint 规则升级与 CI 门禁落地的经历](../by-domain/21-dx.md#FB-21-SS-A-001)
 
-### 部署与 SRE（19 道）
+### 部署与 SRE（24 道）
 
 - [FB-22-CA-A-001 下面一段金丝雀放量逻辑代码存在什么问题？从 Incident Response 角度分析。](../by-domain/22-deployment-sre.md#FB-22-CA-A-001)
 - [FB-22-CO-A-014 SLI、SLO、SLA 分别是什么？请结合前端场景举例](../by-domain/22-deployment-sre.md#FB-22-CO-A-014)
 - [FB-22-CO-A-015 可观测性三大支柱（日志/指标/链路）在前端如何落地？](../by-domain/22-deployment-sre.md#FB-22-CO-A-015)
 - [FB-22-CO-A-016 什么是前端服务的负载均衡？它与横向扩容有什么核心区别与联系？](../by-domain/22-deployment-sre.md#FB-22-CO-A-016)
 - [FB-22-CO-A-017 发布回滚有哪些策略？](../by-domain/22-deployment-sre.md#FB-22-CO-A-017)
+- [FB-22-CO-A-018 如何设计前端灰度放量策略？](../by-domain/22-deployment-sre.md#FB-22-CO-A-018)
+- [FB-22-CO-A-019 如何设计前端回滚策略？](../by-domain/22-deployment-sre.md#FB-22-CO-A-019)
+- [FB-22-CO-A-020 什么是 Error Budget？](../by-domain/22-deployment-sre.md#FB-22-CO-A-020)
+- [FB-22-CO-A-021 如何建立前端性能基线？](../by-domain/22-deployment-sre.md#FB-22-CO-A-021)
+- [FB-22-CO-A-022 什么是 Toil？SRE 如何减少 Toil？](../by-domain/22-deployment-sre.md#FB-22-CO-A-022)
 - [FB-22-CP-A-001 结合蓝绿部署与 CI/CD，谈谈前端零停机发布的实践经验与关键权衡。](../by-domain/22-deployment-sre.md#FB-22-CP-A-001)
 - [FB-22-EN-A-009 设计一个前端静态资源部署流程](../by-domain/22-deployment-sre.md#FB-22-EN-A-009)
 - [FB-22-EN-A-012 前端如何实现自动回滚？](../by-domain/22-deployment-sre.md#FB-22-EN-A-012)
@@ -1476,7 +1855,7 @@
 - [FB-22-SE-A-017 前端监控数据采集与上报过程中常见的安全风险有哪些？如何防御？](../by-domain/22-deployment-sre.md#FB-22-SE-A-017)
 - [FB-22-SS-A-001 请分享一次你推动前端流水线改造或流量切分方案落地的经历。](../by-domain/22-deployment-sre.md#FB-22-SS-A-001)
 
-### 包管理与供应链安全（19 道）
+### 包管理与供应链安全（24 道）
 
 - [FB-23-CA-A-001 分析以下 tree-shaking / sideEffects 相关代码的输出与原因](../by-domain/23-package-supply-chain.md#FB-23-CA-A-001)
 - [FB-23-CO-A-009 包管理器的依赖解析算法与 deduplication 机制是怎样的？](../by-domain/23-package-supply-chain.md#FB-23-CO-A-009)
@@ -1485,6 +1864,11 @@
 - [FB-23-CO-A-015 tree-shaking 是什么？sideEffects 字段如何影响它？](../by-domain/23-package-supply-chain.md#FB-23-CO-A-015)
 - [FB-23-CO-A-016 lockfile 中的 integrity 校验与 SBOM 清单有什么核心区别？](../by-domain/23-package-supply-chain.md#FB-23-CO-A-016)
 - [FB-23-CO-A-017 如何评估是否引入一个新的 npm 包？](../by-domain/23-package-supply-chain.md#FB-23-CO-A-017)
+- [FB-23-CO-A-018 如何评估 npm 包质量？](../by-domain/23-package-supply-chain.md#FB-23-CO-A-018)
+- [FB-23-CO-A-019 什么是 npm 的 resolutions / overrides？](../by-domain/23-package-supply-chain.md#FB-23-CO-A-019)
+- [FB-23-CO-A-020 如何处理依赖版本冲突？](../by-domain/23-package-supply-chain.md#FB-23-CO-A-020)
+- [FB-23-CO-A-021 什么是依赖地狱？](../by-domain/23-package-supply-chain.md#FB-23-CO-A-021)
+- [FB-23-CO-A-022 node_modules 体积膨胀如何治理？](../by-domain/23-package-supply-chain.md#FB-23-CO-A-022)
 - [FB-23-CP-A-001 前端多团队如何建立依赖治理体系？](../by-domain/23-package-supply-chain.md#FB-23-CP-A-001)
 - [FB-23-EN-A-011 Monorepo 中的 workspace 如何设计？包管理器 workspace 解决了什么问题？](../by-domain/23-package-supply-chain.md#FB-23-EN-A-011)
 - [FB-23-EN-A-016 CI 中的依赖缓存策略如何设计？lockfile 在其中起什么作用？](../by-domain/23-package-supply-chain.md#FB-23-EN-A-016)
@@ -1509,7 +1893,7 @@
 - [FB-24-SC-A-007 前端服务降级有哪些常见策略？](../by-domain/24-frontend-operations.md#FB-24-SC-A-007)
 - [FB-24-SD-A-002 如何设计一个前端 RUM SDK？](../by-domain/24-frontend-operations.md#FB-24-SD-A-002)
 
-### 系统架构设计（25 道）
+### 系统架构设计（38 道）
 
 - [FB-25-CO-A-003 DDD（领域驱动设计）中的核心概念如何映射到前端架构？](../by-domain/25-system-architecture.md#FB-25-CO-A-003)
 - [FB-25-CO-A-008 微前端有哪些实现方式？各自的优缺点是什么？](../by-domain/25-system-architecture.md#FB-25-CO-A-008)
@@ -1521,23 +1905,36 @@
 - [FB-25-CO-A-018 什么是依赖倒置原则？举一个前端代码示例。](../by-domain/25-system-architecture.md#FB-25-CO-A-018)
 - [FB-25-CO-A-019 你如何理解“康威定律”？它对前端架构有什么影响？](../by-domain/25-system-architecture.md#FB-25-CO-A-019)
 - [FB-25-CO-A-020 分层架构中，UI 层、业务逻辑层、数据访问层各自应该做什么？](../by-domain/25-system-architecture.md#FB-25-CO-A-020)
+- [FB-25-CO-A-021 MVC、MVVM、MVP、MVI 的取舍与前端映射](../by-domain/25-system-architecture.md#FB-25-CO-A-021)
+- [FB-25-CO-A-022 什么是防腐层（Anti-Corruption Layer）](../by-domain/25-system-architecture.md#FB-25-CO-A-022)
+- [FB-25-CO-A-023 什么是 Circuit Breaker，前端如何配合](../by-domain/25-system-architecture.md#FB-25-CO-A-023)
+- [FB-25-CO-A-024 前端架构中的 Idempotency 是什么意思](../by-domain/25-system-architecture.md#FB-25-CO-A-024)
+- [FB-25-CO-A-025 什么是 Service Mesh，前端需要关注吗](../by-domain/25-system-architecture.md#FB-25-CO-A-025)
+- [FB-25-CO-A-026 什么是金丝雀发布，前端如何实现](../by-domain/25-system-architecture.md#FB-25-CO-A-026)
 - [FB-25-CP-A-005 如何评估一个前端架构的可扩展性？](../by-domain/25-system-architecture.md#FB-25-CP-A-005)
 - [FB-25-CP-A-015 如何处理遗留系统的渐进式重构？](../by-domain/25-system-architecture.md#FB-25-CP-A-015)
 - [FB-25-CP-A-016 简述 MVC、MVVM、MVP 的区别，并举例前端中的应用。](../by-domain/25-system-architecture.md#FB-25-CP-A-016)
 - [FB-25-EN-A-004 Monorepo 中如何设计包依赖关系、版本策略和发布流程？](../by-domain/25-system-architecture.md#FB-25-EN-A-004)
 - [FB-25-EN-A-014 前端如何实现自动化回归与架构守护？](../by-domain/25-system-architecture.md#FB-25-EN-A-014)
+- [FB-25-EN-A-015 如何设计前端项目的 CI/CD 流水线](../by-domain/25-system-architecture.md#FB-25-EN-A-015)
+- [FB-25-EN-A-016 前端如何管理软件包的依赖升级与兼容性](../by-domain/25-system-architecture.md#FB-25-EN-A-016)
 - [FB-25-PE-A-006 从架构视角看，性能优化应该如何系统化思考？](../by-domain/25-system-architecture.md#FB-25-PE-A-006)
 - [FB-25-PE-A-016 从架构角度设计一个首屏加载优化方案](../by-domain/25-system-architecture.md#FB-25-PE-A-016)
 - [FB-25-SC-A-001 你负责一个大型中后台系统，如何进行模块拆分和分层？](../by-domain/25-system-architecture.md#FB-25-SC-A-001)
 - [FB-25-SC-A-009 设计一个前端配置中心（Feature Flag）系统](../by-domain/25-system-architecture.md#FB-25-SC-A-009)
 - [FB-25-SC-A-010 设计一个前端埋点与监控 SDK 架构](../by-domain/25-system-architecture.md#FB-25-SC-A-010)
 - [FB-25-SC-A-011 如何设计一个支持多租户的前端应用？](../by-domain/25-system-architecture.md#FB-25-SC-A-011)
+- [FB-25-SC-A-012 大型中后台系统如何进行模块拆分](../by-domain/25-system-architecture.md#FB-25-SC-A-012)
+- [FB-25-SC-A-013 前端应用灰度发布的技术方案](../by-domain/25-system-architecture.md#FB-25-SC-A-013)
+- [FB-25-SC-A-014 如何设计一个可扩展的权限前端架构](../by-domain/25-system-architecture.md#FB-25-SC-A-014)
 - [FB-25-SD-A-002 设计一个支持多终端接入的 BFF 层](../by-domain/25-system-architecture.md#FB-25-SD-A-002)
 - [FB-25-SD-A-012 设计一个前端实时协同编辑系统的架构](../by-domain/25-system-architecture.md#FB-25-SD-A-012)
+- [FB-25-SD-A-013 设计一个前端错误边界与降级渲染体系](../by-domain/25-system-architecture.md#FB-25-SD-A-013)
+- [FB-25-SD-A-014 设计一个前端日志与审计系统](../by-domain/25-system-architecture.md#FB-25-SD-A-014)
 - [FB-25-SE-A-007 从架构视角看，前端安全应该如何设计？](../by-domain/25-system-architecture.md#FB-25-SE-A-007)
 - [FB-25-SE-A-017 从架构角度看，前端供应链安全应该如何设计？](../by-domain/25-system-architecture.md#FB-25-SE-A-017)
 
-### 微前端（16 道）
+### 微前端（32 道）
 
 - [FB-26-CD-A-016 手写一段代码，给子应用样式添加前缀以实现样式隔离。](../by-domain/26-micro-frontend.md#FB-26-CD-A-016)
 - [FB-26-CO-A-011 Module Federation 的共享依赖机制是如何工作的？](../by-domain/26-micro-frontend.md#FB-26-CO-A-011)
@@ -1548,23 +1945,44 @@
 - [FB-26-CO-A-016 子应用之间如何通信？应该避免什么？](../by-domain/26-micro-frontend.md#FB-26-CO-A-016)
 - [FB-26-CO-A-017 微前端中如何处理公共依赖？](../by-domain/26-micro-frontend.md#FB-26-CO-A-017)
 - [FB-26-CO-A-018 微前端刷新页面 404 是什么原因？如何解决？](../by-domain/26-micro-frontend.md#FB-26-CO-A-018)
+- [FB-26-CO-A-019 微前端与 iframe 的区别与取舍](../by-domain/26-micro-frontend.md#FB-26-CO-A-019)
+- [FB-26-CO-A-020 微前端的样式隔离方案有哪些](../by-domain/26-micro-frontend.md#FB-26-CO-A-020)
+- [FB-26-CO-A-021 Qiankun 与 Module Federation 的主要区别](../by-domain/26-micro-frontend.md#FB-26-CO-A-021)
+- [FB-26-CO-A-022 微前端如何影响 SEO](../by-domain/26-micro-frontend.md#FB-26-CO-A-022)
 - [FB-26-CP-A-001 微前端和组件化有什么区别？](../by-domain/26-micro-frontend.md#FB-26-CP-A-001)
 - [FB-26-CP-A-002 请比较 qiankun、single-spa、Module Federation 三种方案。](../by-domain/26-micro-frontend.md#FB-26-CP-A-002)
+- [FB-26-CP-A-003 微前端落地中最大的风险是什么](../by-domain/26-micro-frontend.md#FB-26-CP-A-003)
+- [FB-26-CP-A-004 微前端落地后的持续治理措施](../by-domain/26-micro-frontend.md#FB-26-CP-A-004)
 - [FB-26-EN-A-014 微前端如何实现子应用独立部署？公共路径和资源加载要注意什么？](../by-domain/26-micro-frontend.md#FB-26-EN-A-014)
+- [FB-26-EN-A-015 微前端项目的 CI/CD 如何设计](../by-domain/26-micro-frontend.md#FB-26-EN-A-015)
 - [FB-26-FS-A-009 请解释 qiankun 的 JS 沙箱实现原理。](../by-domain/26-micro-frontend.md#FB-26-FS-A-009)
 - [FB-26-FS-A-010 single-spa 如何劫持路由并决定加载/卸载哪个子应用？](../by-domain/26-micro-frontend.md#FB-26-FS-A-010)
+- [FB-26-FS-A-011 微前端子应用加载失败如何排查](../by-domain/26-micro-frontend.md#FB-26-FS-A-011)
+- [FB-26-FS-A-012 微前端子应用样式突然错乱如何定位](../by-domain/26-micro-frontend.md#FB-26-FS-A-012)
 - [FB-26-PE-A-015 微前端场景下有哪些性能优化手段？](../by-domain/26-micro-frontend.md#FB-26-PE-A-015)
+- [FB-26-PE-A-016 微前端如何优化首屏加载性能](../by-domain/26-micro-frontend.md#FB-26-PE-A-016)
+- [FB-26-PE-A-017 微前端下的资源预加载策略](../by-domain/26-micro-frontend.md#FB-26-PE-A-017)
 - [FB-26-SC-A-013 设计一个子应用间通信方案，比较不同通信方式的适用场景。](../by-domain/26-micro-frontend.md#FB-26-SC-A-013)
+- [FB-26-SC-A-014 微前端子应用间如何通信](../by-domain/26-micro-frontend.md#FB-26-SC-A-014)
+- [FB-26-SC-A-015 微前端中如何共享登录态与权限](../by-domain/26-micro-frontend.md#FB-26-SC-A-015)
+- [FB-26-SC-A-016 微前端子应用如何独立开发与联调](../by-domain/26-micro-frontend.md#FB-26-SC-A-016)
+- [FB-26-SC-A-017 微前端与 Monorepo 如何结合](../by-domain/26-micro-frontend.md#FB-26-SC-A-017)
+- [FB-26-SC-A-018 微前端中的异常边界如何设计](../by-domain/26-micro-frontend.md#FB-26-SC-A-018)
 
-### 性能工程（16 道）
+### 性能工程（33 道）
 
 - [FB-27-CA-A-004 分析下面代码为什么会阻塞主线程，如何优化？](../by-domain/27-performance.md#FB-27-CA-A-004)
 - [FB-27-CD-A-005 实现一个固定高度的虚拟列表（Virtual List）](../by-domain/27-performance.md#FB-27-CD-A-005)
+- [FB-27-CD-A-006 React.memo/useMemo/useCallback 的使用边界](../by-domain/27-performance.md#FB-27-CD-A-006)
 - [FB-27-CO-A-008 SSR、SSG、ISR 有什么区别？各自适合什么场景？](../by-domain/27-performance.md#FB-27-CO-A-008)
 - [FB-27-CO-A-009 请解释 FCP、LCP、CLS、INP、TTFB 的含义。](../by-domain/27-performance.md#FB-27-CO-A-009)
 - [FB-27-CO-A-010 什么是 Core Web Vitals？Google 为什么重视它们？](../by-domain/27-performance.md#FB-27-CO-A-010)
 - [FB-27-CO-A-011 什么是虚拟列表？它的实现原理是什么？](../by-domain/27-performance.md#FB-27-CO-A-011)
 - [FB-27-CO-A-012 代码分割是什么？React 中如何实现？](../by-domain/27-performance.md#FB-27-CO-A-012)
+- [FB-27-CO-A-013 Core Web Vitals 指标含义与优化](../by-domain/27-performance.md#FB-27-CO-A-013)
+- [FB-27-CO-A-014 HTTP 缓存策略在前端的使用](../by-domain/27-performance.md#FB-27-CO-A-014)
+- [FB-27-CO-A-015 SSR 与 CSR 的性能权衡](../by-domain/27-performance.md#FB-27-CO-A-015)
+- [FB-27-CO-A-016 什么是 Time to Interactive](../by-domain/27-performance.md#FB-27-CO-A-016)
 - [FB-27-CP-A-001 重排和重绘有什么区别？如何减少重排？](../by-domain/27-performance.md#FB-27-CP-A-001)
 - [FB-27-CP-A-002 preload 和 prefetch 有什么区别？](../by-domain/27-performance.md#FB-27-CP-A-002)
 - [FB-27-EN-A-007 如何使用 Lighthouse 进行性能诊断和优化闭环？](../by-domain/27-performance.md#FB-27-EN-A-007)
@@ -1572,10 +1990,22 @@
 - [FB-27-PE-A-002 如何优化 CLS（Cumulative Layout Shift）？](../by-domain/27-performance.md#FB-27-PE-A-002)
 - [FB-27-PE-A-003 如何优化 INP（Interaction to Next Paint）？](../by-domain/27-performance.md#FB-27-PE-A-003)
 - [FB-27-PE-A-004 HTTP 缓存中的强缓存和协商缓存有什么区别？](../by-domain/27-performance.md#FB-27-PE-A-004)
+- [FB-27-PE-A-005 首屏加载性能优化清单](../by-domain/27-performance.md#FB-27-PE-A-005)
+- [FB-27-PE-A-006 图片性能优化手段](../by-domain/27-performance.md#FB-27-PE-A-006)
+- [FB-27-PE-A-007 字体加载优化策略](../by-domain/27-performance.md#FB-27-PE-A-007)
+- [FB-27-PE-A-008 如何优化第三方脚本性能](../by-domain/27-performance.md#FB-27-PE-A-008)
+- [FB-27-PE-A-009 SPA 路由切换性能优化](../by-domain/27-performance.md#FB-27-PE-A-009)
+- [FB-27-PE-A-010 如何减少首屏 JavaScript 体积](../by-domain/27-performance.md#FB-27-PE-A-010)
+- [FB-27-PE-A-011 如何优化 Webpack/Vite 构建速度](../by-domain/27-performance.md#FB-27-PE-A-011)
+- [FB-27-PE-A-012 关键 CSS 提取与内联策略](../by-domain/27-performance.md#FB-27-PE-A-012)
+- [FB-27-PE-A-013 如何优化前端资源加载优先级](../by-domain/27-performance.md#FB-27-PE-A-013)
 - [FB-27-SC-A-006 预加载（preload）、预取（prefetch）、预连接（preconnect）有什么区别？如何在一个电商详情页中使用它们？](../by-domain/27-performance.md#FB-27-SC-A-006)
 - [FB-27-SC-A-007 节流和防抖有什么区别？分别适用什么场景？](../by-domain/27-performance.md#FB-27-SC-A-007)
+- [FB-27-SC-A-008 如何排查页面卡顿](../by-domain/27-performance.md#FB-27-SC-A-008)
+- [FB-27-SC-A-009 如何优化首屏白屏时间](../by-domain/27-performance.md#FB-27-SC-A-009)
+- [FB-27-SC-A-010 如何优化电商大促活动页性能](../by-domain/27-performance.md#FB-27-SC-A-010)
 
-### 质量保障（16 道）
+### 质量保障（33 道）
 
 - [FB-28-CD-A-016 手写一个测试数据工厂与 API Mock 封装](../by-domain/28-quality.md#FB-28-CD-A-016)
 - [FB-28-CO-A-009 前端测试框架如何选型？](../by-domain/28-quality.md#FB-28-CO-A-009)
@@ -1591,10 +2021,27 @@
 - [FB-28-CO-A-019 什么是灰度发布？前端如何实现？](../by-domain/28-quality.md#FB-28-CO-A-019)
 - [FB-28-CO-A-020 前端错误监控应该覆盖哪些类型？](../by-domain/28-quality.md#FB-28-CO-A-020)
 - [FB-28-CO-A-021 可观测性是什么？前端如何实现？](../by-domain/28-quality.md#FB-28-CO-A-021)
+- [FB-28-CO-A-022 单元测试、集成测试、E2E 测试的边界](../by-domain/28-quality.md#FB-28-CO-A-022)
+- [FB-28-CO-A-023 什么是快照测试，何时使用](../by-domain/28-quality.md#FB-28-CO-A-023)
+- [FB-28-CO-A-024 什么是契约测试](../by-domain/28-quality.md#FB-28-CO-A-024)
+- [FB-28-CO-A-025 什么是混沌工程在前端中的应用](../by-domain/28-quality.md#FB-28-CO-A-025)
+- [FB-28-CO-A-026 什么是静态应用安全测试（SAST）](../by-domain/28-quality.md#FB-28-CO-A-026)
 - [FB-28-CP-A-001 E2E 测试有哪些优缺点？如何选择测试范围？](../by-domain/28-quality.md#FB-28-CP-A-001)
 - [FB-28-EN-A-015 如何设计一条 CI 中的质量流水线？](../by-domain/28-quality.md#FB-28-EN-A-015)
+- [FB-28-EN-A-016 前端 CI 中的质量门禁设计](../by-domain/28-quality.md#FB-28-EN-A-016)
+- [FB-28-EN-A-017 前端代码覆盖率目标与实践](../by-domain/28-quality.md#FB-28-EN-A-017)
+- [FB-28-EN-A-018 前端代码规范如何落地](../by-domain/28-quality.md#FB-28-EN-A-018)
+- [FB-28-EN-A-019 前端 Monorepo 中的质量保障](../by-domain/28-quality.md#FB-28-EN-A-019)
+- [FB-28-EN-A-020 前端代码复杂度如何度量与治理](../by-domain/28-quality.md#FB-28-EN-A-020)
+- [FB-28-PE-A-001 性能测试如何纳入质量保障](../by-domain/28-quality.md#FB-28-PE-A-001)
+- [FB-28-SC-A-001 如何保证前端代码评审质量](../by-domain/28-quality.md#FB-28-SC-A-001)
+- [FB-28-SC-A-002 如何设计前端组件的测试策略](../by-domain/28-quality.md#FB-28-SC-A-002)
+- [FB-28-SC-A-003 如何保障前端发布质量](../by-domain/28-quality.md#FB-28-SC-A-003)
+- [FB-28-SC-A-004 前端如何保障兼容性质量](../by-domain/28-quality.md#FB-28-SC-A-004)
+- [FB-28-SC-A-005 如何提升前端测试的可维护性](../by-domain/28-quality.md#FB-28-SC-A-005)
+- [FB-28-SC-A-006 前端如何做回归测试策略](../by-domain/28-quality.md#FB-28-SC-A-006)
 
-### 数据与状态管理（12 道）
+### 数据与状态管理（28 道）
 
 - [FB-29-CO-A-009 SWR 缓存策略是什么？stale-while-revalidate 如何在前端应用？](../by-domain/29-data-state.md#FB-29-CO-A-009)
 - [FB-29-CO-A-010 前端缓存失效策略有哪些？如何选择？](../by-domain/29-data-state.md#FB-29-CO-A-010)
@@ -1605,26 +2052,64 @@
 - [FB-29-CO-A-015 数据一致性在前端有哪些常见问题？如何处理？](../by-domain/29-data-state.md#FB-29-CO-A-015)
 - [FB-29-CO-A-016 状态提升（Lifting State Up）和状态下沉（State Colocation）各有什么适用场景？](../by-domain/29-data-state.md#FB-29-CO-A-016)
 - [FB-29-CO-A-017 如何处理数据一致性问题？](../by-domain/29-data-state.md#FB-29-CO-A-017)
+- [FB-29-CO-A-018 Redux 与 MobX 的设计哲学差异](../by-domain/29-data-state.md#FB-29-CO-A-018)
+- [FB-29-CO-A-019 什么是 CQRS 与 Event Sourcing](../by-domain/29-data-state.md#FB-29-CO-A-019)
+- [FB-29-CO-A-020 什么是规范化状态（Normalized State）](../by-domain/29-data-state.md#FB-29-CO-A-020)
+- [FB-29-CO-A-021 Zustand 与 Redux Toolkit 的取舍](../by-domain/29-data-state.md#FB-29-CO-A-021)
+- [FB-29-CO-A-022 什么是不可变数据，为什么重要](../by-domain/29-data-state.md#FB-29-CO-A-022)
+- [FB-29-CO-A-023 状态管理中的副作用隔离](../by-domain/29-data-state.md#FB-29-CO-A-023)
+- [FB-29-FS-A-001 状态更新后 UI 未更新如何排查](../by-domain/29-data-state.md#FB-29-FS-A-001)
+- [FB-29-PE-A-001 状态管理库的性能优化](../by-domain/29-data-state.md#FB-29-PE-A-001)
+- [FB-29-PE-A-002 前端大数据表格的状态与渲染优化](../by-domain/29-data-state.md#FB-29-PE-A-002)
+- [FB-29-PE-A-003 状态更新批处理与性能](../by-domain/29-data-state.md#FB-29-PE-A-003)
+- [FB-29-SC-A-001 如何设计前端数据缓存策略](../by-domain/29-data-state.md#FB-29-SC-A-001)
+- [FB-29-SC-A-002 如何设计跨组件共享的数据源](../by-domain/29-data-state.md#FB-29-SC-A-002)
+- [FB-29-SC-A-003 如何处理前端分页与无限滚动状态](../by-domain/29-data-state.md#FB-29-SC-A-003)
+- [FB-29-SC-A-004 如何设计前端搜索筛选状态](../by-domain/29-data-state.md#FB-29-SC-A-004)
+- [FB-29-SC-A-005 前端购物车状态如何设计](../by-domain/29-data-state.md#FB-29-SC-A-005)
+- [FB-29-SC-A-006 如何设计前端搜索状态与历史记录](../by-domain/29-data-state.md#FB-29-SC-A-006)
 - [FB-29-SD-A-001 如何设计一个大型列表页的状态管理？](../by-domain/29-data-state.md#FB-29-SD-A-001)
 - [FB-29-SD-A-002 如何设计一个支持乐观更新的全局状态方案？](../by-domain/29-data-state.md#FB-29-SD-A-002)
 - [FB-29-SS-A-001 服务端状态管理和客户端状态管理有什么区别？](../by-domain/29-data-state.md#FB-29-SS-A-001)
 
-### 可观测性（12 道）
+### 可观测性（34 道）
 
 - [FB-30-CD-A-016 实现一个前端错误边界并接入监控](../by-domain/30-observability.md#FB-30-CD-A-016)
 - [FB-30-CO-A-010 Sentry 的 issue、event、release、source map 之间是什么关系？](../by-domain/30-observability.md#FB-30-CO-A-010)
 - [FB-30-CO-A-013 什么是 OpenTelemetry？它在前端链路追踪中扮演什么角色？](../by-domain/30-observability.md#FB-30-CO-A-013)
 - [FB-30-CO-A-015 SLI、SLO、SLA 有什么区别？请给前端示例。](../by-domain/30-observability.md#FB-30-CO-A-015)
 - [FB-30-CO-A-016 什么是混沌工程？前端可以做吗？](../by-domain/30-observability.md#FB-30-CO-A-016)
+- [FB-30-CO-A-017 RUM 与 Synthetic 监控的区别](../by-domain/30-observability.md#FB-30-CO-A-017)
+- [FB-30-CO-A-018 前端日志采集的最佳实践](../by-domain/30-observability.md#FB-30-CO-A-018)
+- [FB-30-CO-A-019 Source Map 在安全与监控中的权衡](../by-domain/30-observability.md#FB-30-CO-A-019)
+- [FB-30-CO-A-020 前端性能预算如何制定](../by-domain/30-observability.md#FB-30-CO-A-020)
+- [FB-30-CO-A-021 前端监控采样策略](../by-domain/30-observability.md#FB-30-CO-A-021)
+- [FB-30-CO-A-022 日志级别与使用场景](../by-domain/30-observability.md#FB-30-CO-A-022)
 - [FB-30-EN-A-012 如何设计一个前端日志采集 SDK？](../by-domain/30-observability.md#FB-30-EN-A-012)
+- [FB-30-EN-A-013 前端错误监控 SDK 设计](../by-domain/30-observability.md#FB-30-EN-A-013)
+- [FB-30-EN-A-014 前端埋点方案对比](../by-domain/30-observability.md#FB-30-EN-A-014)
+- [FB-30-EN-A-015 前端 SDK 版本管理与灰度](../by-domain/30-observability.md#FB-30-EN-A-015)
+- [FB-30-EN-A-016 前端监控 SDK 的加载方式](../by-domain/30-observability.md#FB-30-EN-A-016)
+- [FB-30-EN-A-017 监控数据存储与成本控制](../by-domain/30-observability.md#FB-30-EN-A-017)
+- [FB-30-FS-A-001 线上 JS 错误率突增如何排查](../by-domain/30-observability.md#FB-30-FS-A-001)
+- [FB-30-FS-A-002 前端错误归因方法](../by-domain/30-observability.md#FB-30-FS-A-002)
 - [FB-30-PE-A-011 Synthetic 监控与 RUM 有什么区别？](../by-domain/30-observability.md#FB-30-PE-A-011)
+- [FB-30-PE-A-012 前端 RUM 指标体系设计](../by-domain/30-observability.md#FB-30-PE-A-012)
+- [FB-30-PE-A-013 前端性能监控如何影响性能](../by-domain/30-observability.md#FB-30-PE-A-013)
+- [FB-30-PE-A-014 如何监控和优化 LCP](../by-domain/30-observability.md#FB-30-PE-A-014)
+- [FB-30-PE-A-015 如何监控前端资源加载](../by-domain/30-observability.md#FB-30-PE-A-015)
 - [FB-30-SC-A-009 如果一个页面白屏，如何利用可观测性数据定位根因？](../by-domain/30-observability.md#FB-30-SC-A-009)
 - [FB-30-SC-A-014 如何处理前端高频埋点/性能数据上报不阻塞业务？](../by-domain/30-observability.md#FB-30-SC-A-014)
 - [FB-30-SC-A-015 遇到线上故障，你的处理流程是什么？](../by-domain/30-observability.md#FB-30-SC-A-015)
+- [FB-30-SC-A-016 页面白屏如何定位](../by-domain/30-observability.md#FB-30-SC-A-016)
+- [FB-30-SC-A-017 如何监控微前端子应用健康度](../by-domain/30-observability.md#FB-30-SC-A-017)
+- [FB-30-SC-A-018 如何利用监控数据驱动性能优化](../by-domain/30-observability.md#FB-30-SC-A-018)
+- [FB-30-SC-A-019 如何利用监控快速定位线上问题](../by-domain/30-observability.md#FB-30-SC-A-019)
+- [FB-30-SC-A-020 前端灰度发布监控](../by-domain/30-observability.md#FB-30-SC-A-020)
 - [FB-30-SD-A-001 设计一个前端监控体系。](../by-domain/30-observability.md#FB-30-SD-A-001)
 - [FB-30-SD-A-002 如何设计一个高可用的前端发布流程？](../by-domain/30-observability.md#FB-30-SD-A-002)
 
-### 安全架构（11 道）
+### 安全架构（29 道）
 
 - [FB-31-CO-A-001 OAuth 2.0 授权码流程中，前端扮演什么角色？](../by-domain/31-security-architecture.md#FB-31-CO-A-001)
 - [FB-31-CO-A-002 JWT 在前端有哪些安全使用方式与常见风险？](../by-domain/31-security-architecture.md#FB-31-CO-A-002)
@@ -1634,11 +2119,29 @@
 - [FB-31-CO-A-006 会话管理应该注意哪些安全点？](../by-domain/31-security-architecture.md#FB-31-CO-A-006)
 - [FB-31-CO-A-007 安全漏洞修复的标准流程是什么？](../by-domain/31-security-architecture.md#FB-31-CO-A-007)
 - [FB-31-CO-A-008 第三方脚本有哪些风险？如何治理？](../by-domain/31-security-architecture.md#FB-31-CO-A-008)
+- [FB-31-CO-A-009 XSS 的类型与防护措施](../by-domain/31-security-architecture.md#FB-31-CO-A-009)
+- [FB-31-CO-A-010 CSRF 的原理与防御](../by-domain/31-security-architecture.md#FB-31-CO-A-010)
+- [FB-31-CO-A-011 什么是点击劫持及防御](../by-domain/31-security-architecture.md#FB-31-CO-A-011)
+- [FB-31-CO-A-012 什么是 Subresource Integrity](../by-domain/31-security-architecture.md#FB-31-CO-A-012)
+- [FB-31-CO-A-013 什么是开放重定向漏洞](../by-domain/31-security-architecture.md#FB-31-CO-A-013)
+- [FB-31-CO-A-014 什么是内容嗅探与 MIME 嗅探防御](../by-domain/31-security-architecture.md#FB-31-CO-A-014)
+- [FB-31-CO-A-015 XSS 与 CSP 的关系](../by-domain/31-security-architecture.md#FB-31-CO-A-015)
+- [FB-31-SC-A-001 前端上传文件安全](../by-domain/31-security-architecture.md#FB-31-SC-A-001)
 - [FB-31-SD-A-001 如何设计一个隐私合规的前端应用？](../by-domain/31-security-architecture.md#FB-31-SD-A-001)
 - [FB-31-SE-A-001 前端加密与后端加密有什么区别？前端加密能否替代 HTTPS？](../by-domain/31-security-architecture.md#FB-31-SE-A-001)
 - [FB-31-SE-A-002 什么是安全左移？前端如何实践？](../by-domain/31-security-architecture.md#FB-31-SE-A-002)
+- [FB-31-SE-A-003 前端如何安全存储 Token](../by-domain/31-security-architecture.md#FB-31-SE-A-003)
+- [FB-31-SE-A-004 HTTPS 在前端安全中的作用](../by-domain/31-security-architecture.md#FB-31-SE-A-004)
+- [FB-31-SE-A-005 前端如何处理文件上传安全](../by-domain/31-security-architecture.md#FB-31-SE-A-005)
+- [FB-31-SE-A-006 如何安全使用第三方脚本](../by-domain/31-security-architecture.md#FB-31-SE-A-006)
+- [FB-31-SE-A-007 前端如何防止原型链污染](../by-domain/31-security-architecture.md#FB-31-SE-A-007)
+- [FB-31-SE-A-008 前端如何处理 URL 参数安全](../by-domain/31-security-architecture.md#FB-31-SE-A-008)
+- [FB-31-SE-A-009 前端如何应对供应链投毒事件](../by-domain/31-security-architecture.md#FB-31-SE-A-009)
+- [FB-31-SE-A-010 前端日志中的隐私合规](../by-domain/31-security-architecture.md#FB-31-SE-A-010)
+- [FB-31-SE-A-011 前端密钥管理](../by-domain/31-security-architecture.md#FB-31-SE-A-011)
+- [FB-31-SE-A-012 CSP report-only 模式的价值](../by-domain/31-security-architecture.md#FB-31-SE-A-012)
 
-### 实时与协同（10 道）
+### 实时与协同（27 道）
 
 - [FB-32-CD-A-001 如何设计一个实时数据看板？](../by-domain/32-real-time.md#FB-32-CD-A-001)
 - [FB-32-CO-A-001 WebSocket 心跳与重连机制如何设计？](../by-domain/32-real-time.md#FB-32-CO-A-001)
@@ -1650,8 +2153,25 @@
 - [FB-32-CO-A-007 网络分区对实时系统有什么影响？如何处理？](../by-domain/32-real-time.md#FB-32-CO-A-007)
 - [FB-32-CO-A-008 WebSocket 集群如何实现跨节点广播？](../by-domain/32-real-time.md#FB-32-CO-A-008)
 - [FB-32-CO-A-009 实时系统的可观测性应关注哪些指标？](../by-domain/32-real-time.md#FB-32-CO-A-009)
+- [FB-32-CO-A-010 WebSocket 连接管理要点](../by-domain/32-real-time.md#FB-32-CO-A-010)
+- [FB-32-CO-A-011 SSE 的优缺点与使用限制](../by-domain/32-real-time.md#FB-32-CO-A-011)
+- [FB-32-CO-A-012 实时系统中如何处理 Presence](../by-domain/32-real-time.md#FB-32-CO-A-012)
+- [FB-32-CO-A-013 长连接服务端的推送策略](../by-domain/32-real-time.md#FB-32-CO-A-013)
+- [FB-32-CO-A-014 WebSocket 心跳机制](../by-domain/32-real-time.md#FB-32-CO-A-014)
+- [FB-32-CO-A-015 SSE 与自动重连](../by-domain/32-real-time.md#FB-32-CO-A-015)
+- [FB-32-FS-A-001 实时消息延迟高如何排查](../by-domain/32-real-time.md#FB-32-FS-A-001)
+- [FB-32-PE-A-001 实时系统前端性能优化](../by-domain/32-real-time.md#FB-32-PE-A-001)
+- [FB-32-PE-A-002 实时数据前端采样](../by-domain/32-real-time.md#FB-32-PE-A-002)
+- [FB-32-SC-A-001 设计一个实时消息推送系统](../by-domain/32-real-time.md#FB-32-SC-A-001)
+- [FB-32-SC-A-002 实时系统中的心跳设计](../by-domain/32-real-time.md#FB-32-SC-A-002)
+- [FB-32-SC-A-003 实时聊天前端架构设计](../by-domain/32-real-time.md#FB-32-SC-A-003)
+- [FB-32-SC-A-004 实时系统中如何做限流与降级](../by-domain/32-real-time.md#FB-32-SC-A-004)
+- [FB-32-SC-A-005 实时系统中的多端一致性](../by-domain/32-real-time.md#FB-32-SC-A-005)
+- [FB-32-SC-A-006 实时消息队列前端处理](../by-domain/32-real-time.md#FB-32-SC-A-006)
+- [FB-32-SC-A-007 实时白板冲突处理](../by-domain/32-real-time.md#FB-32-SC-A-007)
+- [FB-32-SE-A-001 实时系统中的鉴权与安全](../by-domain/32-real-time.md#FB-32-SE-A-001)
 
-### 国际化（11 道）
+### 国际化（29 道）
 
 - [FB-33-CD-A-001 如何设计一个支持多语言的组件库？](../by-domain/33-internationalization.md#FB-33-CD-A-001)
 - [FB-33-CO-A-001 前端 i18n 框架如何选型？](../by-domain/33-internationalization.md#FB-33-CO-A-001)
@@ -1662,23 +2182,59 @@
 - [FB-33-CO-A-006 本地化的图片、文案和文化差异如何处理？](../by-domain/33-internationalization.md#FB-33-CO-A-006)
 - [FB-33-CO-A-007 时区处理有哪些最佳实践？](../by-domain/33-internationalization.md#FB-33-CO-A-007)
 - [FB-33-CO-A-008 ICU MessageFormat 有什么作用？](../by-domain/33-internationalization.md#FB-33-CO-A-008)
+- [FB-33-CO-A-009 i18n 与 l10n 的区别](../by-domain/33-internationalization.md#FB-33-CO-A-009)
+- [FB-33-CO-A-010 React/Vue 中常见的 i18n 方案](../by-domain/33-internationalization.md#FB-33-CO-A-010)
+- [FB-33-CO-A-011 时区与日期时间处理](../by-domain/33-internationalization.md#FB-33-CO-A-011)
+- [FB-33-CO-A-012 国际化中的语言回退策略](../by-domain/33-internationalization.md#FB-33-CO-A-012)
+- [FB-33-CO-A-013 文化本地化与简单翻译的区别](../by-domain/33-internationalization.md#FB-33-CO-A-013)
+- [FB-33-CO-A-014 翻译中的上下文问题](../by-domain/33-internationalization.md#FB-33-CO-A-014)
+- [FB-33-CO-A-015 ICU Message Format 简介](../by-domain/33-internationalization.md#FB-33-CO-A-015)
 - [FB-33-EN-A-001 全球化部署需要考虑哪些合规问题？](../by-domain/33-internationalization.md#FB-33-EN-A-001)
+- [FB-33-PE-A-001 国际化对前端性能的影响及优化](../by-domain/33-internationalization.md#FB-33-PE-A-001)
+- [FB-33-PE-A-002 多语言包的体积优化](../by-domain/33-internationalization.md#FB-33-PE-A-002)
+- [FB-33-PE-A-003 国际化对首屏性能的影响](../by-domain/33-internationalization.md#FB-33-PE-A-003)
+- [FB-33-PE-A-004 多语言资源分包策略](../by-domain/33-internationalization.md#FB-33-PE-A-004)
+- [FB-33-SC-A-001 如何设计前端多语言资源管理](../by-domain/33-internationalization.md#FB-33-SC-A-001)
+- [FB-33-SC-A-002 国际化与路由/SEO 的结合](../by-domain/33-internationalization.md#FB-33-SC-A-002)
+- [FB-33-SC-A-003 前端如何做语言切换体验](../by-domain/33-internationalization.md#FB-33-SC-A-003)
+- [FB-33-SC-A-004 如何处理翻译中的占位符和 HTML](../by-domain/33-internationalization.md#FB-33-SC-A-004)
+- [FB-33-SC-A-005 如何在前端做翻译质量检查](../by-domain/33-internationalization.md#FB-33-SC-A-005)
+- [FB-33-SC-A-006 多语言下的日期格式化](../by-domain/33-internationalization.md#FB-33-SC-A-006)
+- [FB-33-SC-A-007 RTL 测试要点](../by-domain/33-internationalization.md#FB-33-SC-A-007)
 - [FB-33-SD-A-001 如何设计一个可扩展的翻译工作流？](../by-domain/33-internationalization.md#FB-33-SD-A-001)
 
-### 可视化与图形（10 道）
+### 可视化与图形（28 道）
 
 - [FB-34-CD-A-014 用 D3.js 的 scale 和 selection 将一组数据绑定到一组矩形上，并实现 enter/update/exit 更新。](../by-domain/34-visualization-graphics.md#FB-34-CD-A-014)
 - [FB-34-CO-A-009 Canvas 2D 渲染管线、像素操作与离屏缓存分别是什么？](../by-domain/34-visualization-graphics.md#FB-34-CO-A-009)
 - [FB-34-CO-A-013 可视化中的缩放、平移、刷选、Tooltip 有哪些实现要点？](../by-domain/34-visualization-graphics.md#FB-34-CO-A-013)
 - [FB-34-CO-A-015 WebGL 与 Canvas 2D 的本质区别是什么？请简述顶点着色器、片元着色器和缓冲区的角色。](../by-domain/34-visualization-graphics.md#FB-34-CO-A-015)
+- [FB-34-CO-A-016 图表库选型要考虑哪些因素](../by-domain/34-visualization-graphics.md#FB-34-CO-A-016)
+- [FB-34-CO-A-017 什么是数据可视化中的视觉编码](../by-domain/34-visualization-graphics.md#FB-34-CO-A-017)
+- [FB-34-CO-A-018 可视化中的数据更新策略](../by-domain/34-visualization-graphics.md#FB-34-CO-A-018)
+- [FB-34-CO-A-019 什么是图表中的视觉欺骗](../by-domain/34-visualization-graphics.md#FB-34-CO-A-019)
+- [FB-34-CO-A-020 数据可视化颜色无障碍](../by-domain/34-visualization-graphics.md#FB-34-CO-A-020)
 - [FB-34-EN-A-016 可视化工程架构中，如何分离组件、数据、样式与渲染器？](../by-domain/34-visualization-graphics.md#FB-34-EN-A-016)
+- [FB-34-EN-A-017 可视化组件库的工程化实践](../by-domain/34-visualization-graphics.md#FB-34-EN-A-017)
 - [FB-34-FS-A-011 ECharts 的 series、data、option 更新机制是怎样的？如何避免“全量更新”？](../by-domain/34-visualization-graphics.md#FB-34-FS-A-011)
 - [FB-34-PE-A-012 Canvas 大数据量渲染性能调优：离屏渲染、分层、脏矩形、requestAnimationFrame](../by-domain/34-visualization-graphics.md#FB-34-PE-A-012)
+- [FB-34-PE-A-013 大数据量图表如何优化](../by-domain/34-visualization-graphics.md#FB-34-PE-A-013)
+- [FB-34-PE-A-014 动画性能优化在可视化中的实践](../by-domain/34-visualization-graphics.md#FB-34-PE-A-014)
+- [FB-34-PE-A-015 WebGL 在可视化中的使用时机](../by-domain/34-visualization-graphics.md#FB-34-PE-A-015)
+- [FB-34-PE-A-016 3D 可视化性能优化](../by-domain/34-visualization-graphics.md#FB-34-PE-A-016)
+- [FB-34-PE-A-017 Canvas 离屏渲染优化](../by-domain/34-visualization-graphics.md#FB-34-PE-A-017)
 - [FB-34-SC-A-010 一个 10 万数据点的散点图在 SVG/Canvas 中卡顿，你会从哪些层面优化？](../by-domain/34-visualization-graphics.md#FB-34-SC-A-010)
+- [FB-34-SC-A-011 如何设计一个可配置的图表组件](../by-domain/34-visualization-graphics.md#FB-34-SC-A-011)
+- [FB-34-SC-A-012 如何实现图表的响应式布局](../by-domain/34-visualization-graphics.md#FB-34-SC-A-012)
+- [FB-34-SC-A-013 如何导出图表为图片/PDF](../by-domain/34-visualization-graphics.md#FB-34-SC-A-013)
+- [FB-34-SC-A-014 可视化项目中的数据格式设计](../by-domain/34-visualization-graphics.md#FB-34-SC-A-014)
+- [FB-34-SC-A-015 如何设计实时数据可视化](../by-domain/34-visualization-graphics.md#FB-34-SC-A-015)
+- [FB-34-SC-A-016 图表响应式适配方案](../by-domain/34-visualization-graphics.md#FB-34-SC-A-016)
+- [FB-34-SC-A-017 图表导出图片方案](../by-domain/34-visualization-graphics.md#FB-34-SC-A-017)
 - [FB-34-SD-A-001 设计一个实时数据可视化大屏，需要关注哪些方面？](../by-domain/34-visualization-graphics.md#FB-34-SD-A-001)
 - [FB-34-SD-A-002 如何设计一个可扩展的图表库？](../by-domain/34-visualization-graphics.md#FB-34-SD-A-002)
 
-### Serverless/Edge（10 道）
+### Serverless/Edge（26 道）
 
 - [FB-35-CD-A-001 Edge 函数如何实现路由改写与 A/B 测试？](../by-domain/35-serverless-edge.md#FB-35-CD-A-001)
 - [FB-35-CO-A-001 什么是 SSR at Edge？它解决了什么问题？](../by-domain/35-serverless-edge.md#FB-35-CO-A-001)
@@ -1688,10 +2244,26 @@
 - [FB-35-CO-A-005 Serverless 可观测性如何建设？](../by-domain/35-serverless-edge.md#FB-35-CO-A-005)
 - [FB-35-CO-A-006 Serverless 架构下如何做好可观测性？](../by-domain/35-serverless-edge.md#FB-35-CO-A-006)
 - [FB-35-CO-A-007 如何避免 Serverless 供应商锁定？](../by-domain/35-serverless-edge.md#FB-35-CO-A-007)
+- [FB-35-CO-A-008 边缘计算与 Serverless 的关系](../by-domain/35-serverless-edge.md#FB-35-CO-A-008)
+- [FB-35-CO-A-009 边缘函数的限制与最佳实践](../by-domain/35-serverless-edge.md#FB-35-CO-A-009)
+- [FB-35-CO-A-010 什么是 Edge Side Includes](../by-domain/35-serverless-edge.md#FB-35-CO-A-010)
+- [FB-35-CO-A-011 ISR 与 SSG 的区别](../by-domain/35-serverless-edge.md#FB-35-CO-A-011)
+- [FB-35-CO-A-012 什么是 Function as a Service 的触发器](../by-domain/35-serverless-edge.md#FB-35-CO-A-012)
+- [FB-35-CO-A-013 Serverless 下的日志与可观测性](../by-domain/35-serverless-edge.md#FB-35-CO-A-013)
+- [FB-35-CO-A-014 边缘函数的限制](../by-domain/35-serverless-edge.md#FB-35-CO-A-014)
 - [FB-35-PE-A-001 Serverless 冷启动如何优化？](../by-domain/35-serverless-edge.md#FB-35-PE-A-001)
+- [FB-35-PE-A-002 Serverless 成本优化策略](../by-domain/35-serverless-edge.md#FB-35-PE-A-002)
+- [FB-35-PE-A-003 边缘函数的缓存策略](../by-domain/35-serverless-edge.md#FB-35-PE-A-003)
+- [FB-35-SC-A-001 前端如何使用边缘函数做 A/B 测试](../by-domain/35-serverless-edge.md#FB-35-SC-A-001)
+- [FB-35-SC-A-002 前端 BFF 放在 Serverless 的考量](../by-domain/35-serverless-edge.md#FB-35-SC-A-002)
+- [FB-35-SC-A-003 边缘函数如何做地理位置定向](../by-domain/35-serverless-edge.md#FB-35-SC-A-003)
+- [FB-35-SC-A-004 如何在 Serverless 中实现用户鉴权](../by-domain/35-serverless-edge.md#FB-35-SC-A-004)
+- [FB-35-SC-A-005 Serverless 应用如何做本地开发](../by-domain/35-serverless-edge.md#FB-35-SC-A-005)
+- [FB-35-SC-A-006 Serverless 下的 CI/CD 流程](../by-domain/35-serverless-edge.md#FB-35-SC-A-006)
+- [FB-35-SC-A-007 Serverless 下前端部署流程](../by-domain/35-serverless-edge.md#FB-35-SC-A-007)
 - [FB-35-SE-A-001 Serverless 安全与权限如何管理？](../by-domain/35-serverless-edge.md#FB-35-SE-A-001)
 
-### 前端数据工程（10 道）
+### 前端数据工程（25 道）
 
 - [FB-36-CD-A-001 如何设计一个前端 A/B 实验？](../by-domain/36-data-engineering.md#FB-36-CD-A-001)
 - [FB-36-CO-A-001 埋点方案如何选型？](../by-domain/36-data-engineering.md#FB-36-CO-A-001)
@@ -1701,43 +2273,100 @@
 - [FB-36-CO-A-005 数据湖/数仓概念如何与前端数据工程衔接？](../by-domain/36-data-engineering.md#FB-36-CO-A-005)
 - [FB-36-CO-A-006 数据治理与元数据管理在前端如何体现？](../by-domain/36-data-engineering.md#FB-36-CO-A-006)
 - [FB-36-CO-A-007 埋点口径不一致会带来什么问题？](../by-domain/36-data-engineering.md#FB-36-CO-A-007)
+- [FB-36-CO-A-008 ETL 与 ELT 的区别](../by-domain/36-data-engineering.md#FB-36-CO-A-008)
+- [FB-36-CO-A-009 什么是数据血缘，前端如何应用](../by-domain/36-data-engineering.md#FB-36-CO-A-009)
+- [FB-36-CO-A-010 什么是数据治理，前端如何参与](../by-domain/36-data-engineering.md#FB-36-CO-A-010)
+- [FB-36-CO-A-011 数据管道中的流处理与批处理](../by-domain/36-data-engineering.md#FB-36-CO-A-011)
+- [FB-36-CO-A-012 数据仓库的分层模型](../by-domain/36-data-engineering.md#FB-36-CO-A-012)
+- [FB-36-CO-A-013 什么是数据湖仓一体](../by-domain/36-data-engineering.md#FB-36-CO-A-013)
+- [FB-36-CO-A-014 什么是数据目录](../by-domain/36-data-engineering.md#FB-36-CO-A-014)
 - [FB-36-PE-A-001 前端如何处理大数据量？](../by-domain/36-data-engineering.md#FB-36-PE-A-001)
+- [FB-36-PE-A-002 前端大数据可视化的性能策略](../by-domain/36-data-engineering.md#FB-36-PE-A-002)
+- [FB-36-SC-A-001 如何设计前端埋点数据模型](../by-domain/36-data-engineering.md#FB-36-SC-A-001)
+- [FB-36-SC-A-002 如何设计前端实时数据看板](../by-domain/36-data-engineering.md#FB-36-SC-A-002)
+- [FB-36-SC-A-003 如何设计埋点数据的质量校验](../by-domain/36-data-engineering.md#FB-36-SC-A-003)
+- [FB-36-SC-A-004 如何设计前端数据采集 SDK](../by-domain/36-data-engineering.md#FB-36-SC-A-004)
+- [FB-36-SC-A-005 如何保障报表数据的实时性](../by-domain/36-data-engineering.md#FB-36-SC-A-005)
+- [FB-36-SC-A-006 如何做埋点事件的归因分析](../by-domain/36-data-engineering.md#FB-36-SC-A-006)
+- [FB-36-SC-A-007 前端埋点数据采集设计](../by-domain/36-data-engineering.md#FB-36-SC-A-007)
 - [FB-36-SD-A-001 如何设计一个科学的 AB 实验？](../by-domain/36-data-engineering.md#FB-36-SD-A-001)
 
-### 业务洞察（8 道）
+### 业务洞察（22 道）
 
 - [FB-37-CO-A-002 如何进行竞品分析？前端在竞品分析中应关注什么？](../by-domain/37-business.md#FB-37-CO-A-002)
 - [FB-37-CO-A-004 LTV/CAC 比值是什么？它对增长策略有什么影响？](../by-domain/37-business.md#FB-37-CO-A-004)
 - [FB-37-CO-A-007 什么是北极星指标？它如何帮助前端团队聚焦业务目标？](../by-domain/37-business.md#FB-37-CO-A-007)
+- [FB-37-CO-A-008 什么是单位经济模型（Unit Economics）？前端如何影响它？](../by-domain/37-business.md#FB-37-CO-A-008)
+- [FB-37-CO-A-009 如何评估一个新市场或新业务线的潜在价值？](../by-domain/37-business.md#FB-37-CO-A-009)
+- [FB-37-CO-A-010 什么是产品-市场契合（PMF）？前端如何判断和支撑 PMF 阶段？](../by-domain/37-business.md#FB-37-CO-A-010)
+- [FB-37-CO-A-011 网络效应、规模效应和品牌效应有什么区别？对前端架构有什么启示？](../by-domain/37-business.md#FB-37-CO-A-011)
+- [FB-37-CO-A-012 什么是定价策略？前端在定价页面设计中应注意什么？](../by-domain/37-business.md#FB-37-CO-A-012)
+- [FB-37-CO-A-013 如何设计一个可量化的前端增长实验？](../by-domain/37-business.md#FB-37-CO-A-013)
+- [FB-37-CO-A-014 当业务方提出一个明显损害长期用户体验的短期变现需求时，你如何沟通？](../by-domain/37-business.md#FB-37-CO-A-014)
+- [FB-37-CO-A-015 如何评估一个功能是否值得从“免费”改为“付费”？](../by-domain/37-business.md#FB-37-CO-A-015)
+- [FB-37-CO-A-016 如何利用 cohort 分析指导前端优化？](../by-domain/37-business.md#FB-37-CO-A-016)
 - [FB-37-CP-A-006 平台型业务中，如何平衡“用户体验”与“平台变现”？](../by-domain/37-business.md#FB-37-CP-A-006)
 - [FB-37-SC-A-001 如何为 B2B SaaS 产品的“试用转付费”设计前端数据埋点与指标看板？](../by-domain/37-business.md#FB-37-SC-A-001)
 - [FB-37-SC-A-003 需求优先级排序常见框架有哪些？如何应用于前端排期？](../by-domain/37-business.md#FB-37-SC-A-003)
 - [FB-37-SC-A-005 如果电商大促页面转化率低于预期，前端应从哪些维度排查？](../by-domain/37-business.md#FB-37-SC-A-005)
 - [FB-37-SC-A-008 成本效益分析中，如何量化前端性能优化带来的业务价值？](../by-domain/37-business.md#FB-37-SC-A-008)
+- [FB-37-SC-A-009 你负责的电商大促页面在流量高峰时转化率异常下跌，如何定位并解决？](../by-domain/37-business.md#FB-37-SC-A-009)
+- [FB-37-SC-A-010 新功能上线后核心指标没有变化，如何向业务方解释并建议下一步？](../by-domain/37-business.md#FB-37-SC-A-010)
+- [FB-37-SC-A-011 业务方要求上线一个未经充分验证的“爆款”活动页面，你如何把控风险？](../by-domain/37-business.md#FB-37-SC-A-011)
+- [FB-37-SC-A-012 如何帮助业务方识别“伪需求”并引导到正确方向？](../by-domain/37-business.md#FB-37-SC-A-012)
+- [FB-37-SC-A-013 产品要进入下沉市场，前端策略需要哪些调整？](../by-domain/37-business.md#FB-37-SC-A-013)
 
-### 团队领导力（8 道）
+### 团队领导力（17 道）
 
 - [FB-38-SC-A-001 如何从 0 到 1 组建一支高效的前端团队？](../by-domain/38-team.md#FB-38-SC-A-001)
 - [FB-38-SC-A-003 1on1 中下属只谈业务不谈个人，如何引导深入沟通？](../by-domain/38-team.md#FB-38-SC-A-003)
 - [FB-38-SC-A-004 跨职能协作中前端团队与产品、后端、测试经常冲突，如何建立协作机制？](../by-domain/38-team.md#FB-38-SC-A-004)
 - [FB-38-SC-A-006 团队士气低落时，有哪些可操作的提振动作？](../by-domain/38-team.md#FB-38-SC-A-006)
 - [FB-38-SC-A-007 远程 / hybrid 团队中如何保证信息透明与沟通效率？](../by-domain/38-team.md#FB-38-SC-A-007)
+- [FB-38-SC-A-008 两位 senior 工程师都想升职但名额有限，你如何沟通？](../by-domain/38-team.md#FB-38-SC-A-008)
+- [FB-38-SC-A-009 团队关键成员提出离职，你如何挽留和交接？](../by-domain/38-team.md#FB-38-SC-A-009)
+- [FB-38-SC-A-010 你如何让远程或混合办公的前端团队保持高效协作？](../by-domain/38-team.md#FB-38-SC-A-010)
+- [FB-38-SC-A-011 公司要求前端团队降本增效，你会从哪些方面入手？](../by-domain/38-team.md#FB-38-SC-A-011)
 - [FB-38-SS-A-002 绩效管理中的 OKR 与 KPI 应如何组合使用？](../by-domain/38-team.md#FB-38-SS-A-002)
 - [FB-38-SS-A-005 授权时如何把握“放手”与“兜底”的边界？](../by-domain/38-team.md#FB-38-SS-A-005)
 - [FB-38-SS-A-008 如何识别高潜人才并制定培养计划？](../by-domain/38-team.md#FB-38-SS-A-008)
+- [FB-38-SS-A-009 如何处理团队内两位核心工程师的技术路线争执？](../by-domain/38-team.md#FB-38-SS-A-009)
+- [FB-38-SS-A-010 团队新成员上手慢，影响迭代效率，你会怎么做？](../by-domain/38-team.md#FB-38-SS-A-010)
+- [FB-38-SS-A-011 如何给一个表现持续不达标的成员做绩效改进？](../by-domain/38-team.md#FB-38-SS-A-011)
+- [FB-38-SS-A-012 如何建立前端团队的技术分享文化？](../by-domain/38-team.md#FB-38-SS-A-012)
+- [FB-38-SS-A-013 如何在团队中推动一次有争议的工程规范落地？](../by-domain/38-team.md#FB-38-SS-A-013)
 
-### 技术战略（8 道）
+### 技术战略（27 道）
 
 - [FB-39-CO-A-002 技术选型中如何平衡“成熟稳定”与“技术创新”？](../by-domain/39-strategy.md#FB-39-CO-A-002)
 - [FB-39-CO-A-007 什么是云原生战略？前端团队如何参与？](../by-domain/39-strategy.md#FB-39-CO-A-007)
+- [FB-39-CO-A-008 什么是技术战略？它与业务战略的关系是什么？](../by-domain/39-strategy.md#FB-39-CO-A-008)
+- [FB-39-CO-A-009 技术选型的核心原则是什么？前端选型时应避免哪些常见误区？](../by-domain/39-strategy.md#FB-39-CO-A-009)
+- [FB-39-CO-A-010 什么是技术债？如何制定偿还技术债的战略？](../by-domain/39-strategy.md#FB-39-CO-A-010)
+- [FB-39-CO-A-011 如何评估“自研”还是“购买/使用开源”？](../by-domain/39-strategy.md#FB-39-CO-A-011)
+- [FB-39-CO-A-012 什么是技术雷达？它如何帮助团队做技术决策？](../by-domain/39-strategy.md#FB-39-CO-A-012)
 - [FB-39-CP-A-008 如何构建竞争技术壁垒？](../by-domain/39-strategy.md#FB-39-CP-A-008)
+- [FB-39-CP-A-009 如何制定前端团队的技术雷达更新机制？](../by-domain/39-strategy.md#FB-39-CP-A-009)
+- [FB-39-CP-A-010 如何评估一项新技术是否值得引入生产环境？](../by-domain/39-strategy.md#FB-39-CP-A-010)
+- [FB-39-CP-A-011 如何设计前端团队的长期技术能力建设路线图？](../by-domain/39-strategy.md#FB-39-CP-A-011)
+- [FB-39-CP-A-012 在技术战略中，如何平衡“标准化”与“业务灵活性”？](../by-domain/39-strategy.md#FB-39-CP-A-012)
 - [FB-39-EN-A-004 如何建立技术债的识别、评估与偿还机制？](../by-domain/39-strategy.md#FB-39-EN-A-004)
+- [FB-39-EN-A-005 如何设计前端工程化能力以支撑多业务线的快速迭代？](../by-domain/39-strategy.md#FB-39-EN-A-005)
+- [FB-39-EN-A-006 如何在前端技术战略中平衡“先进性”与“稳定性”？](../by-domain/39-strategy.md#FB-39-EN-A-006)
+- [FB-39-EN-A-007 什么是前端治理？它包含哪些方面？](../by-domain/39-strategy.md#FB-39-EN-A-007)
+- [FB-39-EN-A-008 如何设计前端的安全治理体系？](../by-domain/39-strategy.md#FB-39-EN-A-008)
 - [FB-39-SC-A-001 如何为前端团队制定一份可落地的年度技术规划？](../by-domain/39-strategy.md#FB-39-SC-A-001)
 - [FB-39-SC-A-003 面对一个创新型前端项目，如何设计孵化流程？](../by-domain/39-strategy.md#FB-39-SC-A-003)
 - [FB-39-SC-A-005 如何判断一个业务领域是否值得做中台/平台化？](../by-domain/39-strategy.md#FB-39-SC-A-005)
+- [FB-39-SC-A-006 技术战略与公司‘降本增效’目标冲突时，你如何取舍？](../by-domain/39-strategy.md#FB-39-SC-A-006)
+- [FB-39-SC-A-007 如何评估一个技术项目是否应该继续、扩大还是停止？](../by-domain/39-strategy.md#FB-39-SC-A-007)
+- [FB-39-SC-A-008 如何推动前端团队从“需求执行者”向“技术合伙人”转变？](../by-domain/39-strategy.md#FB-39-SC-A-008)
+- [FB-39-SC-A-009 技术战略中，如何为“创新”分配资源？](../by-domain/39-strategy.md#FB-39-SC-A-009)
+- [FB-39-SC-A-010 如何在技术战略中平衡“内部效率工具”与“面向用户产品”的投入？](../by-domain/39-strategy.md#FB-39-SC-A-010)
 - [FB-39-SS-A-006 研发预算有限时，如何分配资源到业务交付与技术基建？](../by-domain/39-strategy.md#FB-39-SS-A-006)
+- [FB-39-SS-A-007 作为技术负责人，你如何管理上级对前端团队的期望？](../by-domain/39-strategy.md#FB-39-SS-A-007)
 
-### 沟通表达（10 道）
+### 沟通表达（18 道）
 
 - [FB-40-CO-A-001 如何准备一次技术演讲？](../by-domain/40-communication.md#FB-40-CO-A-001)
 - [FB-40-SC-A-001 产品提出不可能完成的 deadline，你如何沟通？](../by-domain/40-communication.md#FB-40-SC-A-001)
@@ -1746,107 +2375,217 @@
 - [FB-40-SC-A-004 如何推动团队采纳一项有争议的技术决策？](../by-domain/40-communication.md#FB-40-SC-A-004)
 - [FB-40-SC-A-005 前后端接口责任边界不清，怎么处理？](../by-domain/40-communication.md#FB-40-SC-A-005)
 - [FB-40-SC-A-008 项目延期，如何同步业务和老板？](../by-domain/40-communication.md#FB-40-SC-A-008)
+- [FB-40-SC-A-009 业务方在会上当众质疑前端交付质量，你如何回应？](../by-domain/40-communication.md#FB-40-SC-A-009)
+- [FB-40-SC-A-010 如何让沉默寡言的团队成员在会议中发声？](../by-domain/40-communication.md#FB-40-SC-A-010)
+- [FB-40-SC-A-011 如何用“讲故事”的方式汇报技术项目成果？](../by-domain/40-communication.md#FB-40-SC-A-011)
+- [FB-40-SC-A-012 当团队成员在公开场合互相指责时，你如何介入？](../by-domain/40-communication.md#FB-40-SC-A-012)
 - [FB-40-SS-A-006 方案被上级否决后，如何回应？](../by-domain/40-communication.md#FB-40-SS-A-006)
 - [FB-40-SS-A-007 如何在日常工作中建立个人影响力？](../by-domain/40-communication.md#FB-40-SS-A-007)
 - [FB-40-SS-A-008 如何处理团队内部的技术选型冲突？](../by-domain/40-communication.md#FB-40-SS-A-008)
+- [FB-40-SS-A-009 如何向非技术背景的利益相关者解释一次前端重构的必要性？](../by-domain/40-communication.md#FB-40-SS-A-009)
+- [FB-40-SS-A-010 如何在会议中有效表达自己的技术观点？](../by-domain/40-communication.md#FB-40-SS-A-010)
+- [FB-40-SS-A-011 如何用一页纸向 CTO 汇报前端团队季度成果？](../by-domain/40-communication.md#FB-40-SS-A-011)
+- [FB-40-SS-A-012 当你的技术方案被否定时，你如何回应？](../by-domain/40-communication.md#FB-40-SS-A-012)
 
-### 项目管理（10 道）
+### 项目管理（21 道）
 
 - [FB-41-CO-A-005 敏捷估算中 Story Point 是什么？为什么不用绝对人天？](../by-domain/41-project-management.md#FB-41-CO-A-005)
 - [FB-41-CO-A-006 技术债在项目中的典型表现有哪些？如何与产品/项目经理沟通排期偿还？](../by-domain/41-project-management.md#FB-41-CO-A-006)
 - [FB-41-EN-A-007 前端项目常用哪些度量指标评估进度与健康度？](../by-domain/41-project-management.md#FB-41-EN-A-007)
+- [FB-41-EN-A-008 如何用数据和指标驱动项目管理？](../by-domain/41-project-management.md#FB-41-EN-A-008)
+- [FB-41-EN-A-009 如何设计一个适合前端团队的轻量级项目管理流程？](../by-domain/41-project-management.md#FB-41-EN-A-009)
 - [FB-41-SC-A-001 需求方频繁变更需求，作为前端负责人你如何应对？](../by-domain/41-project-management.md#FB-41-SC-A-001)
 - [FB-41-SC-A-002 项目进度落后两周，你将如何制定追赶计划？](../by-domain/41-project-management.md#FB-41-SC-A-002)
 - [FB-41-SC-A-003 前端项目上线后出现严重线上 Bug，如何进行应急响应与根因分析？](../by-domain/41-project-management.md#FB-41-SC-A-003)
 - [FB-41-SC-A-008 团队成员能力参差不齐，如何分配任务并保证交付质量？](../by-domain/41-project-management.md#FB-41-SC-A-008)
+- [FB-41-SC-A-009 项目进度严重落后，你如何向业务和团队同步并调整？](../by-domain/41-project-management.md#FB-41-SC-A-009)
+- [FB-41-SC-A-010 如何管理项目中的关键路径？](../by-domain/41-project-management.md#FB-41-SC-A-010)
+- [FB-41-SC-A-011 项目上线前，你会做哪些检查和准备？](../by-domain/41-project-management.md#FB-41-SC-A-011)
+- [FB-41-SC-A-012 项目上线后出现严重 Bug，你如何组织应急响应？](../by-domain/41-project-management.md#FB-41-SC-A-012)
 - [FB-41-SS-A-004 跨职能项目中，如何与后端、产品、设计有效协作？](../by-domain/41-project-management.md#FB-41-SS-A-004)
 - [FB-41-SS-A-005 项目进度落后时，你会怎么做？](../by-domain/41-project-management.md#FB-41-SS-A-005)
 - [FB-41-SS-A-006 如何管理需求变更？](../by-domain/41-project-management.md#FB-41-SS-A-006)
+- [FB-41-SS-A-007 如何管理项目中的多方利益相关者？](../by-domain/41-project-management.md#FB-41-SS-A-007)
+- [FB-41-SS-A-008 项目结束后，你会如何组织复盘？](../by-domain/41-project-management.md#FB-41-SS-A-008)
+- [FB-41-SS-A-009 如何判断一个项目是否应该正式立项？](../by-domain/41-project-management.md#FB-41-SS-A-009)
+- [FB-41-SS-A-010 项目过程中需求频繁变更，你如何管理团队情绪和节奏？](../by-domain/41-project-management.md#FB-41-SS-A-010)
+- [FB-41-SS-A-011 你如何设定和管理项目里程碑？](../by-domain/41-project-management.md#FB-41-SS-A-011)
 
-### 招聘（10 道）
+### 招聘（22 道）
 
 - [FB-42-CO-A-011 面试官培训应该覆盖哪些内容？](../by-domain/42-hiring.md#FB-42-CO-A-011)
 - [FB-42-CO-A-012 如何处理绩效不达标的员工？](../by-domain/42-hiring.md#FB-42-CO-A-012)
 - [FB-42-CP-A-015 如何平衡招聘速度与招聘质量？](../by-domain/42-hiring.md#FB-42-CP-A-015)
+- [FB-42-CP-A-016 如何设计一个有效的前端社招面试流程？](../by-domain/42-hiring.md#FB-42-CP-A-016)
+- [FB-42-CP-A-017 如何评估候选人的前端工程化能力？](../by-domain/42-hiring.md#FB-42-CP-A-017)
+- [FB-42-CP-A-018 如何识别候选人的真实项目贡献，而不是简历包装？](../by-domain/42-hiring.md#FB-42-CP-A-018)
+- [FB-42-CP-A-019 面试中如何评估候选人的学习能力和成长潜力？](../by-domain/42-hiring.md#FB-42-CP-A-019)
 - [FB-42-EN-A-014 如何设计校招培养体系？](../by-domain/42-hiring.md#FB-42-EN-A-014)
 - [FB-42-SC-A-009 如何为一个新业务设计完整的面试流程？](../by-domain/42-hiring.md#FB-42-SC-A-009)
 - [FB-42-SC-A-012 如何识别简历中的“水分”和过度包装？](../by-domain/42-hiring.md#FB-42-SC-A-012)
 - [FB-42-SC-A-016 如何设计多元包容的招聘策略？](../by-domain/42-hiring.md#FB-42-SC-A-016)
+- [FB-42-SC-A-017 如何设计前端工程师的职级标准和晋升体系？](../by-domain/42-hiring.md#FB-42-SC-A-017)
+- [FB-42-SC-A-018 如何在招聘中平衡“文化契合”与“多样性”？](../by-domain/42-hiring.md#FB-42-SC-A-018)
+- [FB-42-SC-A-019 如何通过技术博客/开源贡献吸引优秀前端人才？](../by-domain/42-hiring.md#FB-42-SC-A-019)
+- [FB-42-SC-A-020 面试中如何评估候选人的代码可维护性意识？](../by-domain/42-hiring.md#FB-42-SC-A-020)
 - [FB-42-SD-A-001 如何设计一份好的代码作业？](../by-domain/42-hiring.md#FB-42-SD-A-001)
 - [FB-42-SS-A-010 如何设计前端技术面的评分表？](../by-domain/42-hiring.md#FB-42-SS-A-010)
 - [FB-42-SS-A-013 行为面试中如何追问 STAR 故事？](../by-domain/42-hiring.md#FB-42-SS-A-013)
+- [FB-42-SS-A-017 招聘过程中，候选人拒绝了 offer，你会如何复盘？](../by-domain/42-hiring.md#FB-42-SS-A-017)
+- [FB-42-SS-A-018 如何提高前端团队的内推比例？](../by-domain/42-hiring.md#FB-42-SS-A-018)
+- [FB-42-SS-A-019 如何在有限预算下吸引高质量前端候选人？](../by-domain/42-hiring.md#FB-42-SS-A-019)
+- [FB-42-SS-A-020 面试官自身能力不足时，如何保证面试质量？](../by-domain/42-hiring.md#FB-42-SS-A-020)
 
-### 技术品牌与布道（10 道）
+### 技术品牌与布道（25 道）
 
 - [FB-43-CO-A-004 开源项目的技术品牌运营有哪些关键要素？](../by-domain/43-tech-branding.md#FB-43-CO-A-004)
 - [FB-43-CO-A-008 技术奖项、专利对技术品牌建设有什么作用？如何规划？](../by-domain/43-tech-branding.md#FB-43-CO-A-008)
+- [FB-43-CO-A-009 什么是技术品牌？它对招聘和业务有什么价值？](../by-domain/43-tech-branding.md#FB-43-CO-A-009)
+- [FB-43-CO-A-010 如何衡量技术品牌建设的 ROI？](../by-domain/43-tech-branding.md#FB-43-CO-A-010)
+- [FB-43-CO-A-011 如何衡量技术布道活动的 ROI？](../by-domain/43-tech-branding.md#FB-43-CO-A-011)
 - [FB-43-CP-A-006 技术博客/公众号的内容策略应该怎么做？请给出一个内容矩阵示例。](../by-domain/43-tech-branding.md#FB-43-CP-A-006)
+- [FB-43-CP-A-007 如何选择技术内容发布的平台和渠道？](../by-domain/43-tech-branding.md#FB-43-CP-A-007)
+- [FB-43-CP-A-008 如何设计一个吸引开发者的开源项目？](../by-domain/43-tech-branding.md#FB-43-CP-A-008)
+- [FB-43-CP-A-009 如何利用技术大会提升团队品牌？](../by-domain/43-tech-branding.md#FB-43-CP-A-009)
+- [FB-43-CP-A-010 如何通过技术品牌建设支撑业务增长？](../by-domain/43-tech-branding.md#FB-43-CP-A-010)
 - [FB-43-SC-A-001 如何从 0 到 1 运营一个团队技术公众号或博客？](../by-domain/43-tech-branding.md#FB-43-SC-A-001)
 - [FB-43-SC-A-002 如何在公司内部组织一场高质量的技术分享会？](../by-domain/43-tech-branding.md#FB-43-SC-A-002)
 - [FB-43-SC-A-005 如何设计一套内部技术分享激励机制，让大家愿意分享？](../by-domain/43-tech-branding.md#FB-43-SC-A-005)
 - [FB-43-SC-A-007 技术大会演讲的选题和提案（CFP）如何准备更容易被选中？](../by-domain/43-tech-branding.md#FB-43-SC-A-007)
+- [FB-43-SC-A-008 公司内部如何建立技术分享的氛围？](../by-domain/43-tech-branding.md#FB-43-SC-A-008)
+- [FB-43-SC-A-009 技术布道活动中，如何平衡“宣传公司”和“提供价值”？](../by-domain/43-tech-branding.md#FB-43-SC-A-009)
+- [FB-43-SC-A-010 如何衡量一篇技术文章是否成功？](../by-domain/43-tech-branding.md#FB-43-SC-A-010)
+- [FB-43-SC-A-011 如何帮助团队成员建立个人技术影响力？](../by-domain/43-tech-branding.md#FB-43-SC-A-011)
 - [FB-43-SS-A-003 作为技术专家，如何平衡业务交付和技术品牌建设的时间冲突？](../by-domain/43-tech-branding.md#FB-43-SS-A-003)
 - [FB-43-SS-A-004 如何激励团队成员参与技术品牌输出？](../by-domain/43-tech-branding.md#FB-43-SS-A-004)
 - [FB-43-SS-A-005 开源项目维护者 burnout 如何预防？](../by-domain/43-tech-branding.md#FB-43-SS-A-005)
+- [FB-43-SS-A-006 技术品牌建设中，如何处理负面反馈或批评？](../by-domain/43-tech-branding.md#FB-43-SS-A-006)
+- [FB-43-SS-A-007 如何在全球化背景下建设技术品牌？](../by-domain/43-tech-branding.md#FB-43-SS-A-007)
+- [FB-43-SS-A-008 如何评估技术布道活动对招聘的实际效果？](../by-domain/43-tech-branding.md#FB-43-SS-A-008)
+- [FB-43-SS-A-009 技术品牌建设过程中，如何避免团队变成“为了发声而发声”？](../by-domain/43-tech-branding.md#FB-43-SS-A-009)
 
-### 技术治理与合规（10 道）
+### 技术治理与合规（20 道）
 
 - [FB-44-CO-A-001 变革阻力通常来自哪里？](../by-domain/44-tech-governance.md#FB-44-CO-A-001)
 - [FB-44-CP-A-001 如何平衡业务交付与技术债偿还？](../by-domain/44-tech-governance.md#FB-44-CP-A-001)
 - [FB-44-EN-A-001 如何通过 CI/CD 流水线实现技术治理的自动化？](../by-domain/44-tech-governance.md#FB-44-EN-A-001)
+- [FB-44-EN-A-002 如何建立前端代码规范并保证执行？](../by-domain/44-tech-governance.md#FB-44-EN-A-002)
 - [FB-44-SC-A-001 如何在前端团队落地一套代码规范并保证执行？](../by-domain/44-tech-governance.md#FB-44-SC-A-001)
 - [FB-44-SC-A-002 如何识别和量化前端技术债？](../by-domain/44-tech-governance.md#FB-44-SC-A-002)
 - [FB-44-SC-A-003 设计一个前端架构评审 checklist。](../by-domain/44-tech-governance.md#FB-44-SC-A-003)
 - [FB-44-SC-A-004 前端如何应对安全合规审计？](../by-domain/44-tech-governance.md#FB-44-SC-A-004)
 - [FB-44-SC-A-005 如何建立前端数据分类分级与访问控制机制？](../by-domain/44-tech-governance.md#FB-44-SC-A-005)
+- [FB-44-SC-A-006 如何防止前端代码库出现“架构腐化”？](../by-domain/44-tech-governance.md#FB-44-SC-A-006)
+- [FB-44-SC-A-007 如何管理前端项目的第三方依赖风险？](../by-domain/44-tech-governance.md#FB-44-SC-A-007)
+- [FB-44-SC-A-008 如何建立前端的安全治理流程？](../by-domain/44-tech-governance.md#FB-44-SC-A-008)
+- [FB-44-SC-A-009 如何确保前端项目符合 GDPR、CCPA 等隐私法规？](../by-domain/44-tech-governance.md#FB-44-SC-A-009)
+- [FB-44-SC-A-010 如何治理前端项目中的“影子 IT”或未经审批的工具？](../by-domain/44-tech-governance.md#FB-44-SC-A-010)
 - [FB-44-SS-A-001 技术治理委员会通常由哪些角色组成？职责是什么？](../by-domain/44-tech-governance.md#FB-44-SS-A-001)
 - [FB-44-SS-A-002 如何推动团队采用新的技术标准？](../by-domain/44-tech-governance.md#FB-44-SS-A-002)
+- [FB-44-SS-A-003 如何在治理与效率之间找到平衡？](../by-domain/44-tech-governance.md#FB-44-SS-A-003)
+- [FB-44-SS-A-004 当治理规则与业务紧急情况冲突时，你如何处理？](../by-domain/44-tech-governance.md#FB-44-SS-A-004)
+- [FB-44-SS-A-005 如何推动团队接受并遵守新的治理规则？](../by-domain/44-tech-governance.md#FB-44-SS-A-005)
+- [FB-44-SS-A-006 技术治理中，如何处理不同业务线的差异化需求？](../by-domain/44-tech-governance.md#FB-44-SS-A-006)
 
-### 小程序（8 道）
+### 小程序（20 道）
 
 - [FB-45-CO-A-001 小程序的双线程模型是什么？为什么采用这种架构？](../by-domain/45-mini-program.md#FB-45-CO-A-001)
 - [FB-45-CO-A-002 JSBridge 在小程序中如何工作？有哪些通信方式？](../by-domain/45-mini-program.md#FB-45-CO-A-002)
 - [FB-45-CO-A-003 微信、支付宝、抖音、百度小程序的架构有什么异同？](../by-domain/45-mini-program.md#FB-45-CO-A-003)
 - [FB-45-CO-A-006 小程序自定义组件间的数据传递和事件通信方式有哪些？](../by-domain/45-mini-program.md#FB-45-CO-A-006)
 - [FB-45-CO-A-008 小程序的版本更新机制是怎样的？如何做到强制更新？](../by-domain/45-mini-program.md#FB-45-CO-A-008)
+- [FB-45-CO-A-009 微信小程序的页面生命周期有哪些？与 App 生命周期有什么关系？](../by-domain/45-mini-program.md#FB-45-CO-A-009)
+- [FB-45-CO-A-010 微信小程序的 setData 有什么特点和使用注意事项？](../by-domain/45-mini-program.md#FB-45-CO-A-010)
+- [FB-45-CO-A-011 微信小程序的组件化开发有哪些方式？](../by-domain/45-mini-program.md#FB-45-CO-A-011)
+- [FB-45-CO-A-012 微信小程序的导航方式有哪些？各自适用场景是什么？](../by-domain/45-mini-program.md#FB-45-CO-A-012)
+- [FB-45-CO-A-013 微信小程序的 rpx 是什么？与 px、rem 有什么区别？](../by-domain/45-mini-program.md#FB-45-CO-A-013)
 - [FB-45-PE-A-004 小程序分包加载的原理是什么？如何配置？](../by-domain/45-mini-program.md#FB-45-PE-A-004)
 - [FB-45-PE-A-005 小程序性能优化有哪些常用手段？](../by-domain/45-mini-program.md#FB-45-PE-A-005)
+- [FB-45-PE-A-006 微信小程序首屏加载慢，如何系统排查？](../by-domain/45-mini-program.md#FB-45-PE-A-006)
+- [FB-45-PE-A-007 微信小程序如何避免 setData 性能问题？](../by-domain/45-mini-program.md#FB-45-PE-A-007)
+- [FB-45-PE-A-008 微信小程序的渲染层和逻辑层通信优化有哪些？](../by-domain/45-mini-program.md#FB-45-PE-A-008)
+- [FB-45-PE-A-009 微信小程序如何做图片资源优化？](../by-domain/45-mini-program.md#FB-45-PE-A-009)
+- [FB-45-PE-A-010 微信小程序如何做网络请求优化？](../by-domain/45-mini-program.md#FB-45-PE-A-010)
 - [FB-45-SE-A-007 小程序的权限管理和用户授权如何处理？](../by-domain/45-mini-program.md#FB-45-SE-A-007)
+- [FB-45-SE-A-008 微信小程序有哪些常见安全漏洞及防护措施？](../by-domain/45-mini-program.md#FB-45-SE-A-008)
+- [FB-45-SE-A-009 微信小程序如何防止代码被反编译后泄露业务逻辑？](../by-domain/45-mini-program.md#FB-45-SE-A-009)
 
-### 鸿蒙 ArkTS / HarmonyOS（8 道）
+### 鸿蒙 ArkTS / HarmonyOS（25 道）
 
 - [FB-46-CA-A-013 下面代码中，点击按钮后父组件的 counter 会变化吗？为什么？](../by-domain/46-harmonyos.md#FB-46-CA-A-013)
 - [FB-46-CD-A-014 请手写一个可复用的 ArkTS 自定义按钮组件。](../by-domain/46-harmonyos.md#FB-46-CD-A-014)
+- [FB-46-CD-A-015 用 ArkTS 实现一个简单的计数器组件。](../by-domain/46-harmonyos.md#FB-46-CD-A-015)
+- [FB-46-CD-A-016 用 ArkTS 实现一个 TODO 列表，支持添加和删除。](../by-domain/46-harmonyos.md#FB-46-CD-A-016)
+- [FB-46-CD-A-017 用 ArkTS 实现一个简单的网络请求并展示列表。](../by-domain/46-harmonyos.md#FB-46-CD-A-017)
+- [FB-46-CD-A-018 用 ArkTS 实现一个自定义弹窗组件。](../by-domain/46-harmonyos.md#FB-46-CD-A-018)
 - [FB-46-CO-A-009 什么是 HarmonyOS 的分布式能力？分布式软总线如何工作？](../by-domain/46-harmonyos.md#FB-46-CO-A-009)
 - [FB-46-CO-A-010 什么是原子化服务（Atomic Service）？它与传统应用有什么区别？](../by-domain/46-harmonyos.md#FB-46-CO-A-010)
 - [FB-46-CO-A-011 什么是卡片服务（Form / Widget）？它的生命周期是怎样的？](../by-domain/46-harmonyos.md#FB-46-CO-A-011)
 - [FB-46-CO-A-012 ArkTS 中的状态装饰器有哪些？它们之间有什么区别？](../by-domain/46-harmonyos.md#FB-46-CO-A-012)
+- [FB-46-CO-A-013 鸿蒙 HarmonyOS 的 Ability 是什么？有哪些类型？](../by-domain/46-harmonyos.md#FB-46-CO-A-013)
+- [FB-46-CO-A-014 鸿蒙 ArkTS 与 TypeScript 有什么区别？](../by-domain/46-harmonyos.md#FB-46-CO-A-014)
+- [FB-46-CO-A-015 鸿蒙 ArkUI 中的 @State、@Prop、@Link 有什么区别？](../by-domain/46-harmonyos.md#FB-46-CO-A-015)
+- [FB-46-CO-A-016 鸿蒙的 Stage 模型和 FA 模型有什么区别？](../by-domain/46-harmonyos.md#FB-46-CO-A-016)
+- [FB-46-CO-A-017 鸿蒙应用如何实现页面路由跳转？](../by-domain/46-harmonyos.md#FB-46-CO-A-017)
 - [FB-46-EN-A-016 鸿蒙工程化中有哪些模块化方案？如何选择 HAR、HSP、Feature HAP？](../by-domain/46-harmonyos.md#FB-46-EN-A-016)
+- [FB-46-EN-A-017 鸿蒙应用如何集成第三方库？](../by-domain/46-harmonyos.md#FB-46-EN-A-017)
+- [FB-46-EN-A-018 鸿蒙应用的模块化开发方式有哪些？](../by-domain/46-harmonyos.md#FB-46-EN-A-018)
 - [FB-46-PE-A-015 鸿蒙中如何进行列表渲染？有哪些性能优化手段？](../by-domain/46-harmonyos.md#FB-46-PE-A-015)
+- [FB-46-PE-A-016 鸿蒙应用启动慢如何排查？](../by-domain/46-harmonyos.md#FB-46-PE-A-016)
+- [FB-46-PE-A-017 鸿蒙 ArkUI 中如何实现列表性能优化？](../by-domain/46-harmonyos.md#FB-46-PE-A-017)
+- [FB-46-PE-A-018 鸿蒙应用如何做内存优化？](../by-domain/46-harmonyos.md#FB-46-PE-A-018)
+- [FB-46-SE-A-001 鸿蒙应用的安全机制有哪些？](../by-domain/46-harmonyos.md#FB-46-SE-A-001)
+- [FB-46-SS-A-001 鸿蒙应用上架需要经过哪些流程？](../by-domain/46-harmonyos.md#FB-46-SS-A-001)
+- [FB-46-SS-A-002 鸿蒙生态目前的发展现状对前端开发者意味着什么？](../by-domain/46-harmonyos.md#FB-46-SS-A-002)
 
-### Flutter（8 道）
+### Flutter（18 道）
 
 - [FB-47-CD-A-006 请手写一个基于 BLoC 的计数器，并说明其核心设计。](../by-domain/47-flutter.md#FB-47-CD-A-006)
 - [FB-47-CO-A-003 Navigator 1.0 和 Navigator 2.0 有什么区别？](../by-domain/47-flutter.md#FB-47-CO-A-003)
 - [FB-47-CO-A-005 Riverpod 与 Provider 相比有哪些核心改进？](../by-domain/47-flutter.md#FB-47-CO-A-005)
 - [FB-47-CO-A-008 Flutter 平台通道（Platform Channel）有哪几种？它们分别适合什么场景？](../by-domain/47-flutter.md#FB-47-CO-A-008)
+- [FB-47-CO-A-009 Flutter 的 Widget、Element、RenderObject 三棵树是什么关系？](../by-domain/47-flutter.md#FB-47-CO-A-009)
+- [FB-47-CO-A-010 Flutter 中 StatefulWidget 和 StatelessWidget 有什么区别？](../by-domain/47-flutter.md#FB-47-CO-A-010)
+- [FB-47-CO-A-011 Flutter 的 setState 有什么作用和注意事项？](../by-domain/47-flutter.md#FB-47-CO-A-011)
+- [FB-47-CO-A-012 Flutter 中的 BuildContext 是什么？有什么作用？](../by-domain/47-flutter.md#FB-47-CO-A-012)
+- [FB-47-CO-A-013 Flutter 的 pubspec.yaml 文件主要配置哪些内容？](../by-domain/47-flutter.md#FB-47-CO-A-013)
 - [FB-47-FS-A-001 请详细描述 Flutter 的渲染流程：从 Widget 到屏幕像素经历了哪些阶段？](../by-domain/47-flutter.md#FB-47-FS-A-001)
 - [FB-47-FS-A-002 Skia 和 Impeller 有什么区别？Impeller 解决了什么问题？](../by-domain/47-flutter.md#FB-47-FS-A-002)
 - [FB-47-FS-A-004 Provider 是如何基于 InheritedWidget 工作的？](../by-domain/47-flutter.md#FB-47-FS-A-004)
 - [FB-47-PE-A-007 Flutter 性能优化有哪些常用手段？](../by-domain/47-flutter.md#FB-47-PE-A-007)
+- [FB-47-PE-A-008 Flutter 应用启动慢如何优化？](../by-domain/47-flutter.md#FB-47-PE-A-008)
+- [FB-47-PE-A-009 Flutter 列表性能优化有哪些手段？](../by-domain/47-flutter.md#FB-47-PE-A-009)
+- [FB-47-PE-A-010 Flutter 如何减少 Widget 重建？](../by-domain/47-flutter.md#FB-47-PE-A-010)
+- [FB-47-PE-A-011 Flutter 包体积如何优化？](../by-domain/47-flutter.md#FB-47-PE-A-011)
+- [FB-47-PE-A-012 Flutter 中如何优化图片加载和内存？](../by-domain/47-flutter.md#FB-47-PE-A-012)
 
-### Electron（8 道）
+### Electron（23 道）
 
 - [FB-48-CD-A-002 如何在 preload 中通过 contextBridge 安全地暴露 API？](../by-domain/48-electron.md#FB-48-CD-A-002)
 - [FB-48-CO-A-001 Electron IPC 有哪些通信方式？如何选择？](../by-domain/48-electron.md#FB-48-CO-A-001)
 - [FB-48-CO-A-006 Electron 自动更新是如何工作的？](../by-domain/48-electron.md#FB-48-CO-A-006)
+- [FB-48-CO-A-007 Electron 是什么？它的基本架构是怎样的？](../by-domain/48-electron.md#FB-48-CO-A-007)
+- [FB-48-CO-A-008 Electron 主进程和渲染进程有什么区别？](../by-domain/48-electron.md#FB-48-CO-A-008)
+- [FB-48-CO-A-009 Electron 的预加载脚本（Preload Script）有什么作用？](../by-domain/48-electron.md#FB-48-CO-A-009)
+- [FB-48-CO-A-010 Electron 中主进程和渲染进程如何通信？](../by-domain/48-electron.md#FB-48-CO-A-010)
+- [FB-48-CO-A-011 Electron 的 BrowserWindow 有哪些常用配置？](../by-domain/48-electron.md#FB-48-CO-A-011)
 - [FB-48-EN-A-007 Electron 打包与代码签名的流程是什么？](../by-domain/48-electron.md#FB-48-EN-A-007)
 - [FB-48-EN-A-008 Electron 应用如何制定测试策略？](../by-domain/48-electron.md#FB-48-EN-A-008)
+- [FB-48-EN-A-009 Electron 应用的安全最佳实践有哪些？](../by-domain/48-electron.md#FB-48-EN-A-009)
+- [FB-48-EN-A-010 Electron 应用如何做崩溃收集和日志记录？](../by-domain/48-electron.md#FB-48-EN-A-010)
+- [FB-48-EN-A-011 Electron 应用启动白屏如何优化？](../by-domain/48-electron.md#FB-48-EN-A-011)
 - [FB-48-PE-A-005 Electron 应用有哪些性能优化手段？](../by-domain/48-electron.md#FB-48-PE-A-005)
 - [FB-48-SC-A-004 如何实现 Electron 多窗口管理与状态同步？](../by-domain/48-electron.md#FB-48-SC-A-004)
+- [FB-48-SC-A-005 Electron 中如何实现多窗口管理？](../by-domain/48-electron.md#FB-48-SC-A-005)
+- [FB-48-SC-A-006 Electron 应用如何实现自定义标题栏？](../by-domain/48-electron.md#FB-48-SC-A-006)
+- [FB-48-SC-A-007 Electron 中如何实现托盘图标和菜单？](../by-domain/48-electron.md#FB-48-SC-A-007)
+- [FB-48-SC-A-008 Electron 如何与本地数据库交互？](../by-domain/48-electron.md#FB-48-SC-A-008)
 - [FB-48-SE-A-003 Electron 应用应该遵循哪些安全最佳实践？](../by-domain/48-electron.md#FB-48-SE-A-003)
+- [FB-48-SE-A-004 Electron 应用如何防止 XSS 和 RCE 攻击？](../by-domain/48-electron.md#FB-48-SE-A-004)
+- [FB-48-SE-A-005 Electron 应用的代码签名流程是怎样的？](../by-domain/48-electron.md#FB-48-SE-A-005)
+- [FB-48-SE-A-006 Electron 应用如何保护本地敏感数据？](../by-domain/48-electron.md#FB-48-SE-A-006)
 
-### WebAssembly（8 道）
+### WebAssembly（19 道）
 
 - [FB-49-CA-A-008 下面 WASM 内存操作代码会发生什么？如何排查？](../by-domain/49-webassembly.md#FB-49-CA-A-008)
 - [FB-49-CD-A-003 手写 JS 调用 WASM 导出函数并传递字符串的示例](../by-domain/49-webassembly.md#FB-49-CD-A-003)
@@ -1854,10 +2593,21 @@
 - [FB-49-CO-A-002 WebAssembly 的 Table 是什么？有什么作用？](../by-domain/49-webassembly.md#FB-49-CO-A-002)
 - [FB-49-CO-A-004 WASM 中的全局变量（Global）是什么？如何与 JS 共享？](../by-domain/49-webassembly.md#FB-49-CO-A-004)
 - [FB-49-CO-A-007 AssemblyScript 和 Rust 在 WASM 开发中的定位与差异](../by-domain/49-webassembly.md#FB-49-CO-A-007)
+- [FB-49-CO-A-008 什么是 WebAssembly？它与 JavaScript 有什么关系？](../by-domain/49-webassembly.md#FB-49-CO-A-008)
+- [FB-49-CO-A-009 WebAssembly 的核心模块结构是什么？](../by-domain/49-webassembly.md#FB-49-CO-A-009)
+- [FB-49-CO-A-010 WebAssembly 的 Memory 是什么？如何与 JavaScript 共享数据？](../by-domain/49-webassembly.md#FB-49-CO-A-010)
+- [FB-49-CO-A-011 WebAssembly 支持哪些数据类型？](../by-domain/49-webassembly.md#FB-49-CO-A-011)
+- [FB-49-CO-A-012 WebAssembly 的 instantiate 和 instantiateStreaming 有什么区别？](../by-domain/49-webassembly.md#FB-49-CO-A-012)
 - [FB-49-EN-A-006 Emscripten 是什么？它的胶水代码（glue code）做了什么？](../by-domain/49-webassembly.md#FB-49-EN-A-006)
+- [FB-49-EN-A-007 如何在 Web 项目中集成 Rust 编译的 WebAssembly？](../by-domain/49-webassembly.md#FB-49-EN-A-007)
+- [FB-49-EN-A-008 Emscripten 编译 WebAssembly 时常用哪些编译选项？](../by-domain/49-webassembly.md#FB-49-EN-A-008)
+- [FB-49-EN-A-009 WebAssembly 在前端工程化中如何加载和打包？](../by-domain/49-webassembly.md#FB-49-EN-A-009)
 - [FB-49-PE-A-005 如何优化 WebAssembly 的启动时间和运行时性能？](../by-domain/49-webassembly.md#FB-49-PE-A-005)
+- [FB-49-PE-A-006 WebAssembly 模块体积如何优化？](../by-domain/49-webassembly.md#FB-49-PE-A-006)
+- [FB-49-PE-A-007 WebAssembly 与 JavaScript 互操作的性能瓶颈是什么？](../by-domain/49-webassembly.md#FB-49-PE-A-007)
+- [FB-49-PE-A-008 WebAssembly 启动性能如何优化？](../by-domain/49-webassembly.md#FB-49-PE-A-008)
 
-### WebGPU / 图形学（8 道）
+### WebGPU / 图形学（19 道）
 
 - [FB-50-CA-A-013 分析下面 WGSL 代码的输出与潜在问题。](../by-domain/50-webgpu-graphics.md#FB-50-CA-A-013)
 - [FB-50-CD-A-010 请写出用 WebGPU 绘制一个三角形的完整流程。](../by-domain/50-webgpu-graphics.md#FB-50-CD-A-010)
@@ -1866,31 +2616,62 @@
 - [FB-50-CO-A-012 配置 GPURenderPipeline 时需要指定哪些关键状态？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-012)
 - [FB-50-CO-A-014 3D 渲染中常用的坐标系和 MVP 变换是什么？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-014)
 - [FB-50-CO-A-016 WebGPU 目前的浏览器支持情况如何？如何降级？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-016)
+- [FB-50-CO-A-017 WebGPU 是什么？与 WebGL 有什么区别？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-017)
+- [FB-50-CO-A-018 WebGPU 的核心对象有哪些？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-018)
+- [FB-50-CO-A-019 WebGPU 的渲染管线（Render Pipeline）包含哪些阶段？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-019)
+- [FB-50-CO-A-020 WebGPU 中的 Buffer 和 Texture 有什么区别？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-020)
+- [FB-50-CO-A-021 WebGPU 的着色器语言是什么？与 GLSL 有什么区别？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-021)
+- [FB-50-CO-A-022 WebGPU 中如何管理纹理内存和避免泄漏？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-022)
+- [FB-50-CO-A-023 WebGL 与 WebGPU 在 shader 编写上有什么主要区别？](../by-domain/50-webgpu-graphics.md#FB-50-CO-A-023)
+- [FB-50-CP-A-001 如何处理 3D 场景中的大量相同对象（Instancing）？](../by-domain/50-webgpu-graphics.md#FB-50-CP-A-001)
 - [FB-50-PE-A-015 WebGPU 应用有哪些常见性能优化手段？](../by-domain/50-webgpu-graphics.md#FB-50-PE-A-015)
+- [FB-50-PE-A-016 WebGPU 中如何减少 Draw Call 数量？](../by-domain/50-webgpu-graphics.md#FB-50-PE-A-016)
+- [FB-50-PE-A-017 WebGPU 应用如何调试性能问题？](../by-domain/50-webgpu-graphics.md#FB-50-PE-A-017)
+- [FB-50-PE-A-018 WebGPU 中如何高效管理 Uniform Buffer？](../by-domain/50-webgpu-graphics.md#FB-50-PE-A-018)
 
-### 多媒体（Multimedia）（8 道）
+### 多媒体（Multimedia）（17 道）
 
 - [FB-51-CD-A-012 用 Canvas 实现视频截图功能](../by-domain/51-multimedia.md#FB-51-CD-A-012)
+- [FB-51-CD-A-013 前端如何生成视频缩略图（thumbnail）？](../by-domain/51-multimedia.md#FB-51-CD-A-013)
 - [FB-51-CO-A-009 HLS 的 m3u8 文件结构是怎样的？TS 分片的优势是什么？](../by-domain/51-multimedia.md#FB-51-CO-A-009)
 - [FB-51-CO-A-011 WebRTC 建立连接的基本流程是什么？](../by-domain/51-multimedia.md#FB-51-CO-A-011)
 - [FB-51-CO-A-013 MediaRecorder API 如何录制音视频？](../by-domain/51-multimedia.md#FB-51-CO-A-013)
 - [FB-51-CO-A-014 Web Audio API 如何处理音频可视化？](../by-domain/51-multimedia.md#FB-51-CO-A-014)
 - [FB-51-CO-A-015 内容保护 DRM 在前端有哪些常见方案？](../by-domain/51-multimedia.md#FB-51-CO-A-015)
 - [FB-51-CO-A-016 Web Codecs API 解决了什么问题？](../by-domain/51-multimedia.md#FB-51-CO-A-016)
+- [FB-51-CO-A-017 HTML5 音频和视频标签有哪些常用属性？](../by-domain/51-multimedia.md#FB-51-CO-A-017)
+- [FB-51-CO-A-018 如何实现自定义视频播放器控件？](../by-domain/51-multimedia.md#FB-51-CO-A-018)
+- [FB-51-CO-A-019 浏览器中的 Media Source Extensions（MSE）是什么？有什么作用？](../by-domain/51-multimedia.md#FB-51-CO-A-019)
+- [FB-51-CO-A-020 HLS 和 DASH 有什么区别？](../by-domain/51-multimedia.md#FB-51-CO-A-020)
+- [FB-51-CO-A-021 WebRTC 的核心组件有哪些？](../by-domain/51-multimedia.md#FB-51-CO-A-021)
 - [FB-51-PE-A-010 视频播放卡顿如何排查和优化？](../by-domain/51-multimedia.md#FB-51-PE-A-010)
+- [FB-51-PE-A-011 多媒体前端开发中如何进行性能优化？](../by-domain/51-multimedia.md#FB-51-PE-A-011)
+- [FB-51-PE-A-012 前端如何实现视频预加载策略？](../by-domain/51-multimedia.md#FB-51-PE-A-012)
+- [FB-51-SC-A-001 如何处理直播中的网络抖动和卡顿？](../by-domain/51-multimedia.md#FB-51-SC-A-001)
 
-### 低代码（8 道）
+### 低代码（19 道）
 
 - [FB-52-CD-A-004 请实现一个属性面板配置解析器](../by-domain/52-low-code.md#FB-52-CD-A-004)
 - [FB-52-CO-A-001 低代码平台中的事件与动作编排机制是如何工作的？](../by-domain/52-low-code.md#FB-52-CO-A-001)
 - [FB-52-CO-A-002 低代码表单设计器中的关键技术点有哪些？](../by-domain/52-low-code.md#FB-52-CO-A-002)
 - [FB-52-CO-A-003 低代码表格设计器需要解决哪些核心问题？](../by-domain/52-low-code.md#FB-52-CO-A-003)
+- [FB-52-CO-A-004 什么是低代码/无代码平台？它们的主要价值是什么？](../by-domain/52-low-code.md#FB-52-CO-A-004)
+- [FB-52-CO-A-005 低代码平台的核心架构通常包含哪些部分？](../by-domain/52-low-code.md#FB-52-CO-A-005)
+- [FB-52-CO-A-006 低代码平台的 Schema 协议应该包含哪些信息？](../by-domain/52-low-code.md#FB-52-CO-A-006)
+- [FB-52-CO-A-007 低代码平台的运行时如何渲染 Schema？](../by-domain/52-low-code.md#FB-52-CO-A-007)
+- [FB-52-CO-A-008 低代码平台如何支持自定义组件？](../by-domain/52-low-code.md#FB-52-CO-A-008)
+- [FB-52-CP-A-001 低代码平台的 undo/redo 如何实现？](../by-domain/52-low-code.md#FB-52-CP-A-001)
 - [FB-52-EN-A-007 低代码平台的组件物料如何做版本管理？](../by-domain/52-low-code.md#FB-52-EN-A-007)
 - [FB-52-PE-A-006 低代码平台有哪些常见的性能优化手段？](../by-domain/52-low-code.md#FB-52-PE-A-006)
+- [FB-52-PE-A-007 低代码平台的性能瓶颈通常在哪里？如何优化？](../by-domain/52-low-code.md#FB-52-PE-A-007)
 - [FB-52-SC-A-005 如何实现低代码表单中的字段联动？](../by-domain/52-low-code.md#FB-52-SC-A-005)
+- [FB-52-SC-A-006 低代码平台如何与现有代码仓库集成？](../by-domain/52-low-code.md#FB-52-SC-A-006)
+- [FB-52-SC-A-007 低代码平台如何应对复杂业务逻辑？](../by-domain/52-low-code.md#FB-52-SC-A-007)
+- [FB-52-SD-A-001 低代码平台的组件库如何设计才能兼顾灵活性和一致性？](../by-domain/52-low-code.md#FB-52-SD-A-001)
+- [FB-52-SD-A-002 低代码平台如何做版本管理和回滚？](../by-domain/52-low-code.md#FB-52-SD-A-002)
 - [FB-52-SE-A-008 低代码平台需要考虑哪些安全问题？](../by-domain/52-low-code.md#FB-52-SE-A-008)
 
-### 计算机基础（8 道）
+### 计算机基础（16 道）
 
 - [FB-53-CO-A-001 快速排序、归并排序、堆排序各有什么特点和适用场景？](../by-domain/53-computer-science.md#FB-53-CO-A-001)
 - [FB-53-CO-A-002 图的基础遍历 BFS 与 DFS 有什么区别？](../by-domain/53-computer-science.md#FB-53-CO-A-002)
@@ -1900,8 +2681,16 @@
 - [FB-53-CO-A-006 数据库索引和事务是什么？](../by-domain/53-computer-science.md#FB-53-CO-A-006)
 - [FB-53-CO-A-007 位运算有哪些常见技巧？](../by-domain/53-computer-science.md#FB-53-CO-A-007)
 - [FB-53-CO-A-008 进程和线程有什么区别？](../by-domain/53-computer-science.md#FB-53-CO-A-008)
+- [FB-53-CO-A-009 数组和链表有什么区别？各自适用什么场景？](../by-domain/53-computer-science.md#FB-53-CO-A-009)
+- [FB-53-CO-A-010 栈和队列有什么区别？有哪些应用？](../by-domain/53-computer-science.md#FB-53-CO-A-010)
+- [FB-53-CO-A-011 哈希表（Hash Table）的原理是什么？如何解决冲突？](../by-domain/53-computer-science.md#FB-53-CO-A-011)
+- [FB-53-CO-A-012 什么是二叉树、BST、AVL 树、红黑树？](../by-domain/53-computer-science.md#FB-53-CO-A-012)
+- [FB-53-CO-A-013 什么是动态规划（DP）？请举一个前端中的例子。](../by-domain/53-computer-science.md#FB-53-CO-A-013)
+- [FB-53-CO-A-014 什么是 BFS 和 DFS？](../by-domain/53-computer-science.md#FB-53-CO-A-014)
+- [FB-53-CO-A-015 解释一下 HTTP 缓存机制。](../by-domain/53-computer-science.md#FB-53-CO-A-015)
+- [FB-53-CP-A-001 前端如何实现一个 Trie 树（前缀树）？](../by-domain/53-computer-science.md#FB-53-CP-A-001)
 
-### 行为面试（8 道）
+### 行为面试（15 道）
 
 - [FB-54-SS-A-001 请用 STAR 法则讲一个你最有代表性的项目](../by-domain/54-behavioral.md#FB-54-SS-A-001)
 - [FB-54-SS-A-002 描述一次你经历过的失败，以及你是如何复盘的](../by-domain/54-behavioral.md#FB-54-SS-A-002)
@@ -1911,10 +2700,24 @@
 - [FB-54-SS-A-006 你如何学习一项新技术？](../by-domain/54-behavioral.md#FB-54-SS-A-006)
 - [FB-54-SS-A-007 你如何看待公司价值观或文化匹配？](../by-domain/54-behavioral.md#FB-54-SS-A-007)
 - [FB-54-SS-A-008 你的职业规划是什么？](../by-domain/54-behavioral.md#FB-54-SS-A-008)
+- [FB-54-SS-A-009 请介绍一个你最有成就感的项目。](../by-domain/54-behavioral.md#FB-54-SS-A-009)
+- [FB-54-SS-A-010 请描述一次你与同事产生冲突的经历，以及你是如何处理的。](../by-domain/54-behavioral.md#FB-54-SS-A-010)
+- [FB-54-SS-A-011 请介绍一次你失败的经历，以及你从中学到了什么。](../by-domain/54-behavioral.md#FB-54-SS-A-011)
+- [FB-54-SS-A-012 请描述一次你在压力下完成任务的经历。](../by-domain/54-behavioral.md#FB-54-SS-A-012)
+- [FB-54-SS-A-013 请描述一次你带领团队完成目标的经历。](../by-domain/54-behavioral.md#FB-54-SS-A-013)
+- [FB-54-SS-A-014 请描述一次你提出创新想法并被采纳的经历。](../by-domain/54-behavioral.md#FB-54-SS-A-014)
+- [FB-54-SS-A-015 请描述一次你不得不适应快速变化的需求的经历。](../by-domain/54-behavioral.md#FB-54-SS-A-015)
 
-### 简历与面试技巧（8 道）
+### 简历与面试技巧（15 道）
 
 - [FB-55-CP-A-012 如何准备作品集与技术博客？](../by-domain/55-resume-interview.md#FB-55-CP-A-012)
+- [FB-55-RI-A-001 请介绍一下你简历上这个项目的背景和你的职责。](../by-domain/55-resume-interview.md#FB-55-RI-A-001)
+- [FB-55-RI-A-002 这个项目的技术难点是什么？你是如何解决的？](../by-domain/55-resume-interview.md#FB-55-RI-A-002)
+- [FB-55-RI-A-003 你在项目中做了哪些性能优化？效果怎么样？](../by-domain/55-resume-interview.md#FB-55-RI-A-003)
+- [FB-55-RI-A-004 你在项目中是如何做代码质量保障的？](../by-domain/55-resume-interview.md#FB-55-RI-A-004)
+- [FB-55-RI-A-005 你在这个项目中与后端/产品的协作方式是怎样的？](../by-domain/55-resume-interview.md#FB-55-RI-A-005)
+- [FB-55-RI-A-006 请介绍一下你参与过的最有技术挑战的项目。](../by-domain/55-resume-interview.md#FB-55-RI-A-006)
+- [FB-55-RI-A-007 你在这个项目中遇到的最大技术难点是什么？](../by-domain/55-resume-interview.md#FB-55-RI-A-007)
 - [FB-55-SC-A-013 不同面试轮次（HR 面、技术面、交叉面、总监面）分别应如何准备？](../by-domain/55-resume-interview.md#FB-55-SC-A-013)
 - [FB-55-SS-A-009 面试中如何向面试官提问？](../by-domain/55-resume-interview.md#FB-55-SS-A-009)
 - [FB-55-SS-A-010 如何准备常见行为面试题？](../by-domain/55-resume-interview.md#FB-55-SS-A-010)
@@ -1923,20 +2726,27 @@
 - [FB-55-SS-A-015 跳槽时如何评估时机与风险？](../by-domain/55-resume-interview.md#FB-55-SS-A-015)
 - [FB-55-SS-A-016 面试中常见的认知误区有哪些？](../by-domain/55-resume-interview.md#FB-55-SS-A-016)
 
-### 行业特化（8 道）
+### 行业特化（15 道）
 
 - [FB-56-CO-A-001 云原生趋势如何影响前端部署与工程化？](../by-domain/56-industry.md#FB-56-CO-A-001)
 - [FB-56-CO-A-008 如何判断一个行业技术趋势的成熟度？](../by-domain/56-industry.md#FB-56-CO-A-008)
 - [FB-56-CP-A-007 行业特点如何影响前端技术选型？](../by-domain/56-industry.md#FB-56-CP-A-007)
 - [FB-56-EN-A-006 跨行业迁移时如何评估技术栈复用性？](../by-domain/56-industry.md#FB-56-EN-A-006)
+- [FB-56-IN-A-001 你如何看待当前前端行业的发展趋势？](../by-domain/56-industry.md#FB-56-IN-A-001)
+- [FB-56-IN-A-002 你对我们公司所在的行业有什么了解？](../by-domain/56-industry.md#FB-56-IN-A-002)
+- [FB-56-IN-A-003 你认为前端工程师在数字化转型中扮演什么角色？](../by-domain/56-industry.md#FB-56-IN-A-003)
+- [FB-56-IN-A-004 你怎么看待低代码/无代码对前端岗位的影响？](../by-domain/56-industry.md#FB-56-IN-A-004)
+- [FB-56-IN-A-005 你如何看待前端工程化的重要性？](../by-domain/56-industry.md#FB-56-IN-A-005)
+- [FB-56-IN-A-006 你如何看待前端在企业级 SaaS 中的价值？](../by-domain/56-industry.md#FB-56-IN-A-006)
+- [FB-56-IN-A-007 你怎么看待 Web 应用和原生应用的竞争关系？](../by-domain/56-industry.md#FB-56-IN-A-007)
 - [FB-56-PE-A-005 游戏行业前端性能优化的关键维度有哪些？](../by-domain/56-industry.md#FB-56-PE-A-005)
 - [FB-56-SC-A-002 电商大促场景下前端稳定性保障要点有哪些？](../by-domain/56-industry.md#FB-56-SC-A-002)
 - [FB-56-SC-A-003 金融行业前端如何应对监管与合规要求？](../by-domain/56-industry.md#FB-56-SC-A-003)
 - [FB-56-SC-A-004 toB 产品如何做好权限设计与数据隔离？](../by-domain/56-industry.md#FB-56-SC-A-004)
 
-## 深入题（733 道）{#proficient}
+## 深入题（1123 道）{#proficient}
 
-### JavaScript（20 道）
+### JavaScript（24 道）
 
 - [FB-01-CA-P-001 下面代码的输出是什么？](../by-domain/01-javascript.md#FB-01-CA-P-001)
 - [FB-01-CA-P-002 下面代码的输出顺序是什么？catch 能否捕获到错误？](../by-domain/01-javascript.md#FB-01-CA-P-002)
@@ -1945,6 +2755,7 @@
 - [FB-01-CD-P-003 手写一个 Generator 自动执行器，支持 yield Promise。](../by-domain/01-javascript.md#FB-01-CD-P-003)
 - [FB-01-CD-P-004 如何实现一个响应式系统（类似 Vue3 的 reactive）？](../by-domain/01-javascript.md#FB-01-CD-P-004)
 - [FB-01-CD-P-005 手写一个符合 Promise/A+ 规范的 Promise，关键点有哪些？](../by-domain/01-javascript.md#FB-01-CD-P-005)
+- [FB-01-CD-P-006 手写一个带并发限制的异步任务调度器](../by-domain/01-javascript.md#FB-01-CD-P-006)
 - [FB-01-CO-P-001 解释 V8 的垃圾回收机制。](../by-domain/01-javascript.md#FB-01-CO-P-001)
 - [FB-01-CO-P-002 解释 JavaScript 的事件循环（Event Loop）完整机制。](../by-domain/01-javascript.md#FB-01-CO-P-002)
 - [FB-01-CO-P-003 解释 JavaScript 的模块化发展历程。](../by-domain/01-javascript.md#FB-01-CO-P-003)
@@ -1953,13 +2764,16 @@
 - [FB-01-CO-P-006 为什么 Proxy 通常要和 Reflect 一起使用？它们的关系是什么？](../by-domain/01-javascript.md#FB-01-CO-P-006)
 - [FB-01-CO-P-007 解释 JavaScript 的模块循环依赖问题，ESM 和 CommonJS 分别是如何处理的？](../by-domain/01-javascript.md#FB-01-CO-P-007)
 - [FB-01-CO-P-008 什么是 Iterator / Iterable 协议？如何让一个对象支持 for…of？](../by-domain/01-javascript.md#FB-01-CO-P-008)
+- [FB-01-CO-P-009 Top-level await 是什么？有什么兼容和降级方案？](../by-domain/01-javascript.md#FB-01-CO-P-009)
+- [FB-01-CO-P-010 Temporal API 是什么？它解决了 Date 的哪些问题？](../by-domain/01-javascript.md#FB-01-CO-P-010)
 - [FB-01-CP-P-001 解释一下 Proxy 和 Reflect，为什么 Vue3 选择 Proxy 而不是 Object.defineProperty？](../by-domain/01-javascript.md#FB-01-CP-P-001)
 - [FB-01-PE-P-001 V8 引擎是如何执行 JavaScript 的？解释 Ignition、TurboFan、隐藏类、内联缓存。](../by-domain/01-javascript.md#FB-01-PE-P-001)
 - [FB-01-SC-P-001 什么是 Error Cause？在实际项目中如何构建分层的错误处理体系？](../by-domain/01-javascript.md#FB-01-SC-P-001)
+- [FB-01-SC-P-002 设计一个前端路由拦截与权限校验系统](../by-domain/01-javascript.md#FB-01-SC-P-002)
 - [FB-01-SD-P-001 设计一个支持取消的 Promise，并解释实现原理。](../by-domain/01-javascript.md#FB-01-SD-P-001)
 - [FB-01-SD-P-002 如何设计一个高可靠的前端埋点 SDK？从错误监控、性能采集、数据上报等角度分析。](../by-domain/01-javascript.md#FB-01-SD-P-002)
 
-### TypeScript（21 道）
+### TypeScript（28 道）
 
 - [FB-02-CD-P-001 手写一个类型安全的 Promise.all](../by-domain/02-typescript.md#FB-02-CD-P-001)
 - [FB-02-CD-P-002 手写一个类型安全的事件总线（Event Bus）](../by-domain/02-typescript.md#FB-02-CD-P-002)
@@ -1977,13 +2791,20 @@
 - [FB-02-CO-P-012 什么是类型体操？请实现 TupleToUnion&lt;T&gt;、DeepReadonly&lt;T&gt;。](../by-domain/02-typescript.md#FB-02-CO-P-012)
 - [FB-02-CO-P-013 Vue3 和 React 中是如何利用 TypeScript 类型系统的？](../by-domain/02-typescript.md#FB-02-CO-P-013)
 - [FB-02-CO-P-014 什么是 Branded Type？它解决了什么问题？](../by-domain/02-typescript.md#FB-02-CO-P-014)
+- [FB-02-CO-P-015 TypeScript 的类型兼容性是基于结构类型还是名义类型？](../by-domain/02-typescript.md#FB-02-CO-P-015)
+- [FB-02-CO-P-016 TypeScript Compiler API 可以做什么？请举一个应用场景。](../by-domain/02-typescript.md#FB-02-CO-P-016)
+- [FB-02-CO-P-017 什么是递归类型？使用递归类型要注意什么？](../by-domain/02-typescript.md#FB-02-CO-P-017)
+- [FB-02-CO-P-018 制定一个从 JavaScript 迁移到 TypeScript 的方案](../by-domain/02-typescript.md#FB-02-CO-P-018)
+- [FB-02-CO-P-019 如何在类型安全与开发效率之间取得平衡？](../by-domain/02-typescript.md#FB-02-CO-P-019)
+- [FB-02-CO-P-020 TypeScript 装饰器有哪些类型？其原理是什么？](../by-domain/02-typescript.md#FB-02-CO-P-020)
+- [FB-02-CO-P-021 类型体操的度在哪里？如何保持可维护性？](../by-domain/02-typescript.md#FB-02-CO-P-021)
 - [FB-02-CP-P-001 satisfies 与类型注解 :T、类型断言 as T 有什么区别？](../by-domain/02-typescript.md#FB-02-CP-P-001)
 - [FB-02-PE-P-001 如何优化大型 TypeScript 项目的编译性能？](../by-domain/02-typescript.md#FB-02-PE-P-001)
 - [FB-02-SC-P-001 解释 declare、namespace、module 的区别与使用场景。](../by-domain/02-typescript.md#FB-02-SC-P-001)
 - [FB-02-SC-P-002 TypeScript 编译配置 strict: true 会开启哪些检查？实际项目中如何取舍？](../by-domain/02-typescript.md#FB-02-SC-P-002)
 - [FB-02-SD-P-001 如何设计一个类型安全的前端 API 请求层？](../by-domain/02-typescript.md#FB-02-SD-P-001)
 
-### Browser（21 道）
+### Browser（22 道）
 
 - [FB-03-CO-P-001 详细描述浏览器渲染流水线中的分层（Layer）和光栅化（Raster）阶段。](../by-domain/03-browser.md#FB-03-CO-P-001)
 - [FB-03-CO-P-002 合成器线程（Compositor Thread）如何接收并处理输入事件？](../by-domain/03-browser.md#FB-03-CO-P-002)
@@ -2004,10 +2825,11 @@
 - [FB-03-PE-P-004 如何分析并优化首屏加载时间（FCP/LCP）？](../by-domain/03-browser.md#FB-03-PE-P-004)
 - [FB-03-SC-P-001 设计一个浏览器端图片懒加载与占位方案。](../by-domain/03-browser.md#FB-03-SC-P-001)
 - [FB-03-SC-P-002 浏览器的内存泄漏常见场景有哪些？如何排查？](../by-domain/03-browser.md#FB-03-SC-P-002)
+- [FB-03-SC-P-003 如何设计浏览器端的安全架构防御 XSS、CSRF、点击劫持？](../by-domain/03-browser.md#FB-03-SC-P-003)
 - [FB-03-SD-P-001 如何设计一个高性能的虚拟列表（Virtual List）？](../by-domain/03-browser.md#FB-03-SD-P-001)
 - [FB-03-SE-P-001 Content Security Policy（CSP）如何限制 XSS 攻击？有哪些常用指令？](../by-domain/03-browser.md#FB-03-SE-P-001)
 
-### 计算机网络（19 道）
+### 计算机网络（28 道）
 
 - [FB-04-CO-P-001 HTTP/2 的 HPACK、Server Push 以及实际使用中有哪些关键问题？](../by-domain/04-network.md#FB-04-CO-P-001)
 - [FB-04-CO-P-002 TCP 拥塞控制算法 CUBIC 与 BBR 的区别是什么？](../by-domain/04-network.md#FB-04-CO-P-002)
@@ -2018,18 +2840,27 @@
 - [FB-04-CO-P-007 解释 QUIC 协议的设计目标，以及它相比 TCP 的优势。](../by-domain/04-network.md#FB-04-CO-P-007)
 - [FB-04-CO-P-008 什么是 DoH / DoT？它们解决了什么问题？](../by-domain/04-network.md#FB-04-CO-P-008)
 - [FB-04-CO-P-009 WebRTC 的核心组件和基本流程是什么？](../by-domain/04-network.md#FB-04-CO-P-009)
+- [FB-04-CO-P-010 TCP 的 TIME_WAIT 状态为什么存在？过多如何优化？](../by-domain/04-network.md#FB-04-CO-P-010)
+- [FB-04-CO-P-011 HTTP 范围请求（Range Requests）如何实现断点续传？](../by-domain/04-network.md#FB-04-CO-P-011)
+- [FB-04-CO-P-012 QUIC 的连接迁移是如何实现的？](../by-domain/04-network.md#FB-04-CO-P-012)
+- [FB-04-CO-P-013 HTTPS 证书链验证过程及潜在风险](../by-domain/04-network.md#FB-04-CO-P-013)
+- [FB-04-CO-P-014 WebTransport 与 WebSocket 的设计差异](../by-domain/04-network.md#FB-04-CO-P-014)
 - [FB-04-CP-P-001 TCP 的滑动窗口、流量控制和拥塞控制有什么区别？](../by-domain/04-network.md#FB-04-CP-P-001)
 - [FB-04-CP-P-002 TLS 1.2 和 TLS 1.3 握手过程有什么区别？为什么 TLS 1.3 更快？](../by-domain/04-network.md#FB-04-CP-P-002)
 - [FB-04-CP-P-003 DNS 劫持和 HTTP 劫持有什么区别？如何防御？](../by-domain/04-network.md#FB-04-CP-P-003)
 - [FB-04-PE-P-001 将前端项目从 HTTP/2 迁移到 HTTP/3 需要考虑哪些性能与安全因素？](../by-domain/04-network.md#FB-04-PE-P-001)
 - [FB-04-PE-P-002 前端网络性能优化可以从哪些层面入手？](../by-domain/04-network.md#FB-04-PE-P-002)
+- [FB-04-PE-P-003 前端如何测量和优化 TTFB？](../by-domain/04-network.md#FB-04-PE-P-003)
 - [FB-04-SC-P-001 如何设计一个支持高并发的 WebSocket 聊天室？](../by-domain/04-network.md#FB-04-SC-P-001)
 - [FB-04-SC-P-002 如何设计 RESTful API 的幂等性、版本控制与分页？](../by-domain/04-network.md#FB-04-SC-P-002)
 - [FB-04-SC-P-003 区分以下 HTTP 状态码的使用场景：200、201、204、301、302、400、401、403、404、429、500、502、503、504。](../by-domain/04-network.md#FB-04-SC-P-003)
+- [FB-04-SC-P-004 设计一个高并发短链服务的前后端接口](../by-domain/04-network.md#FB-04-SC-P-004)
+- [FB-04-SC-P-005 设计一个断点续传上传组件](../by-domain/04-network.md#FB-04-SC-P-005)
 - [FB-04-SD-P-001 如何设计一个高可用的前端网络请求层？](../by-domain/04-network.md#FB-04-SD-P-001)
 - [FB-04-SE-P-001 CSP、SameSite Cookie 与安全响应头如何协同防御前端攻击？](../by-domain/04-network.md#FB-04-SE-P-001)
+- [FB-04-SE-P-002 网络层 DDoS 攻击的原理与防御思路](../by-domain/04-network.md#FB-04-SE-P-002)
 
-### Web 安全（13 道）
+### Web 安全（23 道）
 
 - [FB-05-CA-P-001 分析下面代码是否存在原型污染漏洞，并修复。](../by-domain/05-security.md#FB-05-CA-P-001)
 - [FB-05-CO-P-001 什么是 Prototype Pollution？如何防御？](../by-domain/05-security.md#FB-05-CO-P-001)
@@ -2044,29 +2875,50 @@
 - [FB-05-SE-P-007 什么是供应链攻击？前端项目中有哪些典型风险点？](../by-domain/05-security.md#FB-05-SE-P-007)
 - [FB-05-SE-P-008 除了 X-Frame-Options，点击劫持还有哪些高级防御手段？](../by-domain/05-security.md#FB-05-SE-P-008)
 - [FB-05-SE-P-011 什么是供应链安全？前端项目如何做好依赖安全？](../by-domain/05-security.md#FB-05-SE-P-011)
+- [FB-05-SE-P-012 OAuth 2.0 隐式授权模式有什么问题？PKCE 如何解决？](../by-domain/05-security.md#FB-05-SE-P-012)
+- [FB-05-SE-P-013 什么是刷新令牌轮换（Refresh Token Rotation）？](../by-domain/05-security.md#FB-05-SE-P-013)
+- [FB-05-SE-P-014 CSP 的 script-src、style-src、img-src 等指令如何配置？](../by-domain/05-security.md#FB-05-SE-P-014)
+- [FB-05-SE-P-015 如何防御 DOM Clobbering 攻击？](../by-domain/05-security.md#FB-05-SE-P-015)
+- [FB-05-SE-P-016 前端密钥管理有哪些原则和最佳实践？](../by-domain/05-security.md#FB-05-SE-P-016)
+- [FB-05-SE-P-017 Secure Cookie 与 SameSite=None 的兼容处理](../by-domain/05-security.md#FB-05-SE-P-017)
+- [FB-05-SE-P-018 什么是 Trusted Types？如何缓解 DOM XSS？](../by-domain/05-security.md#FB-05-SE-P-018)
+- [FB-05-SE-P-019 如何对富文本进行安全过滤？](../by-domain/05-security.md#FB-05-SE-P-019)
+- [FB-05-SE-P-020 npm 恶意包有哪些典型攻击手法与防御？](../by-domain/05-security.md#FB-05-SE-P-020)
+- [FB-05-SE-P-021 如何安全地实现前端端到端加密（E2EE）？](../by-domain/05-security.md#FB-05-SE-P-021)
 
-### HTML/CSS（8 道）
+### HTML/CSS（13 道）
 
 - [FB-06-CA-P-001 分析下面复杂选择器的性能问题。](../by-domain/06-html-css.md#FB-06-CA-P-001)
 - [FB-06-CD-P-001 使用 CSS Grid 实现一个圣杯布局（Holy Grail Layout）。](../by-domain/06-html-css.md#FB-06-CD-P-001)
 - [FB-06-CO-P-001 深入解析 CSS 视觉格式化模型。](../by-domain/06-html-css.md#FB-06-CO-P-001)
 - [FB-06-CO-P-002 will-change 的原理是什么？滥用有什么风险？](../by-domain/06-html-css.md#FB-06-CO-P-002)
 - [FB-06-CO-P-003 比较 OOCSS、SMACSS、BEM、ITCSS 等 CSS 架构方法论。](../by-domain/06-html-css.md#FB-06-CO-P-003)
+- [FB-06-CO-P-004 CSS Houdini 是什么？Paint API 能做什么？](../by-domain/06-html-css.md#FB-06-CO-P-004)
+- [FB-06-CO-P-005 CSS 的 @layer 层叠层有什么作用？](../by-domain/06-html-css.md#FB-06-CO-P-005)
+- [FB-06-CO-P-006 什么是 CSS Subgrid？它解决了什么问题？](../by-domain/06-html-css.md#FB-06-CO-P-006)
+- [FB-06-CO-P-007 什么是 CSS 逻辑属性（Logical Properties）？](../by-domain/06-html-css.md#FB-06-CO-P-007)
+- [FB-06-CO-P-008 渲染合成层（Compositing Layer）与 will-change 的关系？](../by-domain/06-html-css.md#FB-06-CO-P-008)
 - [FB-06-CP-P-001 CSS 作用域和模块化的演进路线是怎样的？](../by-domain/06-html-css.md#FB-06-CP-P-001)
 - [FB-06-PE-P-001 什么是关键 CSS（Critical CSS）？如何提取和优化？](../by-domain/06-html-css.md#FB-06-PE-P-001)
 - [FB-06-SC-P-001 设计一个企业级多主题切换系统。](../by-domain/06-html-css.md#FB-06-SC-P-001)
 
-### 可访问性（a11y）（7 道）
+### 可访问性（a11y）（13 道）
 
 - [FB-07-CD-P-001 实现一个可访问的模态对话框（Modal Dialog）。](../by-domain/07-a11y.md#FB-07-CD-P-001)
 - [FB-07-CO-P-001 浏览器如何构建可访问性树（accessibility tree）？它与 DOM 树的关系是什么？](../by-domain/07-a11y.md#FB-07-CO-P-001)
 - [FB-07-CO-P-002 屏幕阅读器是如何浏览网页的？虚拟光标与焦点模式有什么区别？](../by-domain/07-a11y.md#FB-07-CO-P-002)
 - [FB-07-CO-P-003 什么是 ARIA 实时区域（live region）？如何使用 aria-live、aria-atomic、aria-relevant？](../by-domain/07-a11y.md#FB-07-CO-P-003)
 - [FB-07-CO-P-004 常用的无障碍测试工具有哪些？如何建立测试流程？](../by-domain/07-a11y.md#FB-07-CO-P-004)
+- [FB-07-CO-P-005 如何实现一个可访问的 Tabs 组件？](../by-domain/07-a11y.md#FB-07-CO-P-005)
+- [FB-07-CO-P-006 如何实现一个可访问的 Accordion 组件？](../by-domain/07-a11y.md#FB-07-CO-P-006)
+- [FB-07-CO-P-007 复杂表单验证的无障碍反馈如何设计？](../by-domain/07-a11y.md#FB-07-CO-P-007)
+- [FB-07-CO-P-008 屏幕阅读器中的地标（landmark）与跳转有什么关系？](../by-domain/07-a11y.md#FB-07-CO-P-008)
+- [FB-07-CO-P-009 如何为图表（Chart）添加无障碍文本？](../by-domain/07-a11y.md#FB-07-CO-P-009)
 - [FB-07-PE-P-001 无障碍性对页面性能有什么影响？如何优化？](../by-domain/07-a11y.md#FB-07-PE-P-001)
 - [FB-07-SC-P-001 如何为一个复杂的自定义组件（如 Autocomplete）设计无障碍方案？](../by-domain/07-a11y.md#FB-07-SC-P-001)
+- [FB-07-SS-P-001 无障碍合规审计流程与整改闭环如何建立？](../by-domain/07-a11y.md#FB-07-SS-P-001)
 
-### 数据结构与算法（12 道）
+### 数据结构与算法（17 道）
 
 - [FB-08-CD-P-001 最长递增子序列。](../by-domain/08-algorithms.md#FB-08-CD-P-001)
 - [FB-08-CD-P-002 0-1 背包问题。](../by-domain/08-algorithms.md#FB-08-CD-P-002)
@@ -2079,9 +2931,14 @@
 - [FB-08-CD-P-009 图的 BFS 和 DFS 遍历。](../by-domain/08-algorithms.md#FB-08-CD-P-009)
 - [FB-08-CD-P-010 岛屿数量。](../by-domain/08-algorithms.md#FB-08-CD-P-010)
 - [FB-08-CD-P-011 合并区间。](../by-domain/08-algorithms.md#FB-08-CD-P-011)
+- [FB-08-CD-P-012 手写一个最小堆 / 优先队列](../by-domain/08-algorithms.md#FB-08-CD-P-012)
+- [FB-08-CD-P-013 手写 Trie（前缀树）](../by-domain/08-algorithms.md#FB-08-CD-P-013)
+- [FB-08-CD-P-014 手写并查集](../by-domain/08-algorithms.md#FB-08-CD-P-014)
 - [FB-08-CO-P-001 位运算有哪些常见技巧？在前端中有哪些应用？](../by-domain/08-algorithms.md#FB-08-CO-P-001)
+- [FB-08-SC-P-001 设计一个支持撤销重做的编辑器状态系统](../by-domain/08-algorithms.md#FB-08-SC-P-001)
+- [FB-08-SC-P-002 实时协作编辑的 OT 或 CRDT 简版思路](../by-domain/08-algorithms.md#FB-08-SC-P-002)
 
-### 设计模式（7 道）
+### 设计模式（14 道）
 
 - [FB-09-CD-P-001 用装饰器模式实现日志记录和权限校验。](../by-domain/09-design-patterns.md#FB-09-CD-P-001)
 - [FB-09-CD-P-002 用 Proxy 实现一个简易的响应式系统。](../by-domain/09-design-patterns.md#FB-09-CD-P-002)
@@ -2089,13 +2946,21 @@
 - [FB-09-CO-P-002 如何理解 DRY、KISS、YAGNI 原则？](../by-domain/09-design-patterns.md#FB-09-CO-P-002)
 - [FB-09-CO-P-003 前端开发中有哪些常见的设计反模式？](../by-domain/09-design-patterns.md#FB-09-CO-P-003)
 - [FB-09-CO-P-004 设计模式通常分为哪几类？每类列举 2-3 个常用模式。](../by-domain/09-design-patterns.md#FB-09-CO-P-004)
+- [FB-09-CO-P-005 前端框架中体现了哪些设计模式？](../by-domain/09-design-patterns.md#FB-09-CO-P-005)
+- [FB-09-CO-P-006 什么是依赖注入与 IoC 容器？](../by-domain/09-design-patterns.md#FB-09-CO-P-006)
+- [FB-09-CO-P-007 状态模式与状态机有什么区别？](../by-domain/09-design-patterns.md#FB-09-CO-P-007)
+- [FB-09-CO-P-008 组合模式在前端组件树中如何应用？](../by-domain/09-design-patterns.md#FB-09-CO-P-008)
+- [FB-09-CO-P-009 责任链模式适合什么场景？](../by-domain/09-design-patterns.md#FB-09-CO-P-009)
+- [FB-09-CO-P-010 备忘录模式在前端有哪些应用？](../by-domain/09-design-patterns.md#FB-09-CO-P-010)
+- [FB-09-CO-P-011 桥接模式解决了什么问题？](../by-domain/09-design-patterns.md#FB-09-CO-P-011)
 - [FB-09-SC-P-001 如何设计一个可扩展的电商促销计算引擎？](../by-domain/09-design-patterns.md#FB-09-SC-P-001)
 
-### 构建工具（26 道）
+### 构建工具（31 道）
 
 - [FB-10-CD-P-001 手写一个 Webpack Plugin，在构建完成后输出所有 chunk 文件名。](../by-domain/10-build-tools.md#FB-10-CD-P-001)
 - [FB-10-CD-P-002 手写一个 Rollup 插件，将多个 JSON 文件合并为虚拟模块导出](../by-domain/10-build-tools.md#FB-10-CD-P-002)
 - [FB-10-CD-P-016 手写一个 Vite/Rollup 插件，支持直接导入 Markdown 文件为 HTML 字符串。](../by-domain/10-build-tools.md#FB-10-CD-P-016)
+- [FB-10-CD-P-017 手写一个 Webpack Plugin，输出构建产物体积报告](../by-domain/10-build-tools.md#FB-10-CD-P-017)
 - [FB-10-CO-P-001 Webpack Module Federation 的原理是什么？解决了什么问题？](../by-domain/10-build-tools.md#FB-10-CO-P-001)
 - [FB-10-CO-P-002 Tree Shaking 的底层原理是什么？为什么有时会失效？](../by-domain/10-build-tools.md#FB-10-CO-P-002)
 - [FB-10-CO-P-003 HMR 的底层实现原理是什么？](../by-domain/10-build-tools.md#FB-10-CO-P-003)
@@ -2111,18 +2976,24 @@
 - [FB-10-CO-P-013 Webpack 的持久化缓存（Persistent Cache）是如何工作的？](../by-domain/10-build-tools.md#FB-10-CO-P-013)
 - [FB-10-CO-P-014 Vite/Rollup 插件钩子与 Unplugin 的统一插件模型是怎样的？](../by-domain/10-build-tools.md#FB-10-CO-P-014)
 - [FB-10-CO-P-015 SWC 与 esbuild 的异同和适用场景分别是什么？](../by-domain/10-build-tools.md#FB-10-CO-P-015)
+- [FB-10-CO-P-016 Webpack 的 Module Graph 和 Chunk Graph 有什么区别？](../by-domain/10-build-tools.md#FB-10-CO-P-016)
 - [FB-10-EN-P-018 前端项目如何治理依赖版本、Lockfile 和 Changelog？](../by-domain/10-build-tools.md#FB-10-EN-P-018)
+- [FB-10-EN-P-019 如何编写一个支持 Tree Shaking 的 npm 库？](../by-domain/10-build-tools.md#FB-10-EN-P-019)
 - [FB-10-PE-P-001 大型前端项目构建性能优化实战方案。](../by-domain/10-build-tools.md#FB-10-PE-P-001)
 - [FB-10-PE-P-002 如何设计一个大型前端项目的增量构建方案？](../by-domain/10-build-tools.md#FB-10-PE-P-002)
 - [FB-10-PE-P-017 大型 Monorepo 的构建性能优化有哪些关键手段？](../by-domain/10-build-tools.md#FB-10-PE-P-017)
+- [FB-10-PE-P-018 如何优化 Vite 生产构建速度？](../by-domain/10-build-tools.md#FB-10-PE-P-018)
 - [FB-10-SC-P-001 在微前端项目中，构建工具应该如何配合设计？](../by-domain/10-build-tools.md#FB-10-SC-P-001)
 - [FB-10-SC-P-002 构建工具如何配合微前端实现独立部署与共享依赖？](../by-domain/10-build-tools.md#FB-10-SC-P-002)
 - [FB-10-SC-P-003 如何在构建阶段实现国际化资源的分包和按需加载？](../by-domain/10-build-tools.md#FB-10-SC-P-003)
 - [FB-10-SC-P-019 微前端多技术栈项目的构建隔离与共享依赖如何设计？](../by-domain/10-build-tools.md#FB-10-SC-P-019)
+- [FB-10-SC-P-020 如何为大型项目设计渐进式构建迁移方案？](../by-domain/10-build-tools.md#FB-10-SC-P-020)
 
-### Monorepo（26 道）
+### Monorepo（31 道）
 
+- [FB-11-CO-P-001 Monorepo 中的版本一致性策略有哪些？](../by-domain/11-monorepo.md#FB-11-CO-P-001)
 - [FB-11-CP-P-022 如何评估和降低 Monorepo 中的“单点失败”风险？](../by-domain/11-monorepo.md#FB-11-CP-P-022)
+- [FB-11-CP-P-023 Monorepo 中如何处理 Breaking Change？](../by-domain/11-monorepo.md#FB-11-CP-P-023)
 - [FB-11-EN-P-001 Turborepo 和 Nx 的核心差异是什么？如何选择？](../by-domain/11-monorepo.md#FB-11-EN-P-001)
 - [FB-11-EN-P-002 Nx 的 affected 命令原理是什么？](../by-domain/11-monorepo.md#FB-11-EN-P-002)
 - [FB-11-EN-P-003 如何设计 Monorepo 的 build caching 策略？](../by-domain/11-monorepo.md#FB-11-EN-P-003)
@@ -2142,15 +3013,20 @@
 - [FB-11-EN-P-018 大型 Monorepo 如何优化 Git 性能？](../by-domain/11-monorepo.md#FB-11-EN-P-018)
 - [FB-11-EN-P-020 如何处理跨包类型导出导致的 tree-shaking 问题？](../by-domain/11-monorepo.md#FB-11-EN-P-020)
 - [FB-11-EN-P-021 如何保证 Monorepo 中 generated files 在 CI 中的幂等性？](../by-domain/11-monorepo.md#FB-11-EN-P-021)
+- [FB-11-EN-P-022 如何优化 Monorepo 的 install 和 build 性能？](../by-domain/11-monorepo.md#FB-11-EN-P-022)
 - [FB-11-SC-P-001 多包版本策略：fixed mode vs independent mode](../by-domain/11-monorepo.md#FB-11-SC-P-001)
 - [FB-11-SC-P-002 多团队 Monorepo 中如何防止包依赖失控？](../by-domain/11-monorepo.md#FB-11-SC-P-002)
 - [FB-11-SC-P-003 设计 Monorepo 下多包联合调试方案。](../by-domain/11-monorepo.md#FB-11-SC-P-003)
 - [FB-11-SC-P-016 如何设计和执行 Monorepo 的包拆分或重构？](../by-domain/11-monorepo.md#FB-11-SC-P-016)
+- [FB-11-SC-P-017 Monorepo 中如何设计子包的测试策略？](../by-domain/11-monorepo.md#FB-11-SC-P-017)
 - [FB-11-SD-P-001 如何设计 Monorepo 的模块边界规则？](../by-domain/11-monorepo.md#FB-11-SD-P-001)
 - [FB-11-SD-P-019 如何设计 Monorepo 下的包级权限模型？](../by-domain/11-monorepo.md#FB-11-SD-P-019)
+- [FB-11-SD-P-020 如何设计 Monorepo 的变更影响分析？](../by-domain/11-monorepo.md#FB-11-SD-P-020)
 
-### CI/CD（26 道）
+### CI/CD（31 道）
 
+- [FB-12-CO-P-025 什么是 CI/CD 中的 observability？](../by-domain/12-ci-cd.md#FB-12-CO-P-025)
+- [FB-12-CP-P-024 如何设计蓝绿部署的 CI/CD 流水线？](../by-domain/12-ci-cd.md#FB-12-CP-P-024)
 - [FB-12-EN-P-001 如何设计一套环境晋升（Environment Promotion）策略？](../by-domain/12-ci-cd.md#FB-12-EN-P-001)
 - [FB-12-EN-P-003 如何优化前端 CI/CD 构建流水线的性能？](../by-domain/12-ci-cd.md#FB-12-EN-P-003)
 - [FB-12-EN-P-004 如何优化前端 Docker 构建与镜像体积？](../by-domain/12-ci-cd.md#FB-12-EN-P-004)
@@ -2171,14 +3047,17 @@
 - [FB-12-EN-P-022 如何设计基于 Changesets 的自动化版本发布？](../by-domain/12-ci-cd.md#FB-12-EN-P-022)
 - [FB-12-EN-P-024 如何在 CI 中实现前端视觉回归测试？](../by-domain/12-ci-cd.md#FB-12-EN-P-024)
 - [FB-12-EN-P-026 如何在 CI/CD 中实现精细化权限与审批？](../by-domain/12-ci-cd.md#FB-12-EN-P-026)
+- [FB-12-EN-P-027 如何优化 CI 的缓存命中率？](../by-domain/12-ci-cd.md#FB-12-EN-P-027)
+- [FB-12-EN-P-028 如何设计多环境（dev/staging/prod）部署策略？](../by-domain/12-ci-cd.md#FB-12-EN-P-028)
 - [FB-12-SD-P-002 如何设计一个完整的前端 CI/CD 平台？](../by-domain/12-ci-cd.md#FB-12-SD-P-002)
 - [FB-12-SD-P-018 如何优化大型前端 Monorepo 的 CI/CD 效率？](../by-domain/12-ci-cd.md#FB-12-SD-P-018)
 - [FB-12-SD-P-020 如何设计前端私有 npm Registry 与 CI 集成方案？](../by-domain/12-ci-cd.md#FB-12-SD-P-020)
 - [FB-12-SD-P-023 如何为大型前端团队设计 CI/CD 自助平台？](../by-domain/12-ci-cd.md#FB-12-SD-P-023)
 - [FB-12-SD-P-025 如何设计跨云 CI/CD 架构？](../by-domain/12-ci-cd.md#FB-12-SD-P-025)
 - [FB-12-SE-P-021 如何保障 CI/CD 软件供应链安全？](../by-domain/12-ci-cd.md#FB-12-SE-P-021)
+- [FB-12-SE-P-022 CI 中如何实现灰度发布？](../by-domain/12-ci-cd.md#FB-12-SE-P-022)
 
-### 代码质量与测试（30 道）
+### 代码质量与测试（35 道）
 
 - [FB-13-CA-P-001 下面异步测试代码存在什么问题？如何修复？](../by-domain/13-code-quality.md#FB-13-CA-P-001)
 - [FB-13-CA-P-002 下面的测试代码存在什么时序问题？如何修复？](../by-domain/13-code-quality.md#FB-13-CA-P-002)
@@ -2199,10 +3078,13 @@
 - [FB-13-CO-P-014 什么是 Hermetic Test（密封测试）？前端如何实现？](../by-domain/13-code-quality.md#FB-13-CO-P-014)
 - [FB-13-CO-P-015 如何评估一套测试套件是否“有效”？](../by-domain/13-code-quality.md#FB-13-CO-P-015)
 - [FB-13-CO-P-016 什么是 Smoke Test 与 Canary Test？前端如何设计？](../by-domain/13-code-quality.md#FB-13-CO-P-016)
+- [FB-13-CO-P-017 什么是 mutation testing？](../by-domain/13-code-quality.md#FB-13-CO-P-017)
+- [FB-13-CP-P-021 如何制定代码规范落地策略？](../by-domain/13-code-quality.md#FB-13-CP-P-021)
 - [FB-13-EN-P-001 如何在 CI/CD 流程中设计前端测试流水线？](../by-domain/13-code-quality.md#FB-13-EN-P-001)
 - [FB-13-EN-P-002 如何在 CI/CD 中实现前端测试失败自动分类与告警？](../by-domain/13-code-quality.md#FB-13-EN-P-002)
 - [FB-13-EN-P-003 如何在 Monorepo 中设计增量测试策略？](../by-domain/13-code-quality.md#FB-13-EN-P-003)
 - [FB-13-EN-P-004 如何在 CI/CD 中实现测试失败自动重试与 flaky 标记？](../by-domain/13-code-quality.md#FB-13-EN-P-004)
+- [FB-13-EN-P-017 如何设计可维护的测试用例？](../by-domain/13-code-quality.md#FB-13-EN-P-017)
 - [FB-13-PE-P-001 前端如何做性能测试？请列举指标和工具。](../by-domain/13-code-quality.md#FB-13-PE-P-001)
 - [FB-13-PE-P-002 如何对前端构建产物进行体积回归测试？](../by-domain/13-code-quality.md#FB-13-PE-P-002)
 - [FB-13-SC-P-001 测试不稳定（Flaky Test）有哪些常见原因？如何解决？](../by-domain/13-code-quality.md#FB-13-SC-P-001)
@@ -2210,8 +3092,10 @@
 - [FB-13-SC-P-003 如何设计一个前端 Mock 平台供多个团队使用？](../by-domain/13-code-quality.md#FB-13-SC-P-003)
 - [FB-13-SC-P-004 如何为一个多步骤表单 Wizard 设计 E2E 测试？](../by-domain/13-code-quality.md#FB-13-SC-P-004)
 - [FB-13-SC-P-005 如何为一个基于 WebSocket 的实时消息列表设计测试？](../by-domain/13-code-quality.md#FB-13-SC-P-005)
+- [FB-13-SC-P-006 如何设计质量门禁（Quality Gate）？](../by-domain/13-code-quality.md#FB-13-SC-P-006)
+- [FB-13-SE-P-018 如何做前端安全测试？](../by-domain/13-code-quality.md#FB-13-SE-P-018)
 
-### 设计系统与组件库（19 道）
+### 设计系统与组件库（24 道）
 
 - [FB-14-CO-P-001 什么是复合组件（Compound Components）模式？](../by-domain/14-design-system.md#FB-14-CO-P-001)
 - [FB-14-CO-P-002 受控组件与非受控组件同时支持时，内部状态如何设计？](../by-domain/14-design-system.md#FB-14-CO-P-002)
@@ -2231,11 +3115,18 @@
 - [FB-14-SC-P-008 组件库与低代码平台如何结合？](../by-domain/14-design-system.md#FB-14-SC-P-008)
 - [FB-14-SC-P-009 如何设计组件库的插件与扩展机制？](../by-domain/14-design-system.md#FB-14-SC-P-009)
 - [FB-14-SC-P-010 大型组件库如何做版本灰度与 AB 实验？](../by-domain/14-design-system.md#FB-14-SC-P-010)
+- [FB-14-SC-P-011 如何设计一个可拖拽的组件？](../by-domain/14-design-system.md#FB-14-SC-P-011)
+- [FB-14-SC-P-012 如何设计组件库的国际化文案管理？](../by-domain/14-design-system.md#FB-14-SC-P-012)
+- [FB-14-SC-P-013 如何设计组件库的错误边界和降级策略？](../by-domain/14-design-system.md#FB-14-SC-P-013)
+- [FB-14-SC-P-014 组件库如何支持微前端下的样式隔离？](../by-domain/14-design-system.md#FB-14-SC-P-014)
+- [FB-14-SC-P-015 如何设计组件库的埋点与可观测性？](../by-domain/14-design-system.md#FB-14-SC-P-015)
 - [FB-14-SD-P-001 如何从 0 到 1 设计一个企业级组件库？](../by-domain/14-design-system.md#FB-14-SD-P-001)
 
-### React（18 道）
+### React（26 道）
 
 - [FB-15-CO-P-022 React 18 新增了哪些 Hooks？useId、useSyncExternalStore、useInsertionEffect 分别解决什么问题？](../by-domain/15-react.md#FB-15-CO-P-022)
+- [FB-15-CO-P-023 什么是 React Server Actions？](../by-domain/15-react.md#FB-15-CO-P-023)
+- [FB-15-CO-P-024 React 19 的 use hook 有什么作用？](../by-domain/15-react.md#FB-15-CO-P-024)
 - [FB-15-FS-P-018 React Fiber 架构解决了什么问题？请简述它的两个阶段。](../by-domain/15-react.md#FB-15-FS-P-018)
 - [FB-15-FS-P-019 setState 是异步还是同步的？React 18 的自动批量更新有什么变化？](../by-domain/15-react.md#FB-15-FS-P-019)
 - [FB-15-FS-P-020 React 的 Diff 算法是如何工作的？key 在其中起什么作用？](../by-domain/15-react.md#FB-15-FS-P-020)
@@ -2251,15 +3142,24 @@
 - [FB-15-FS-P-053 React Compiler 是什么？它能解决什么问题？](../by-domain/15-react.md#FB-15-FS-P-053)
 - [FB-15-FS-P-054 React 19 的 use 特性有什么作用？](../by-domain/15-react.md#FB-15-FS-P-054)
 - [FB-15-FS-P-056 React 19 还有哪些值得关注的新特性？](../by-domain/15-react.md#FB-15-FS-P-056)
+- [FB-15-FS-P-057 React 18 的 automatic batching 原理是什么？](../by-domain/15-react.md#FB-15-FS-P-057)
+- [FB-15-FS-P-058 React 的 useDeferredValue 使用场景是什么？](../by-domain/15-react.md#FB-15-FS-P-058)
+- [FB-15-FS-P-059 React 的 SuspenseList 是什么？](../by-domain/15-react.md#FB-15-FS-P-059)
 - [FB-15-PE-P-052 React 中如何实现虚拟列表优化长列表？](../by-domain/15-react.md#FB-15-PE-P-052)
 - [FB-15-PE-P-055 如何优化 React 应用的首屏加载性能？](../by-domain/15-react.md#FB-15-PE-P-055)
+- [FB-15-PE-P-056 React 中如何实现虚拟列表优化长列表？](../by-domain/15-react.md#FB-15-PE-P-056)
+- [FB-15-PE-P-057 React 中如何避免 context 导致的性能问题？](../by-domain/15-react.md#FB-15-PE-P-057)
+- [FB-15-PE-P-058 React 中的代码分割策略有哪些？](../by-domain/15-react.md#FB-15-PE-P-058)
 
-### Vue（17 道）
+### Vue（25 道）
 
 - [FB-16-CA-P-001 分析异步组件与 Suspense 的错误处理行为](../by-domain/16-vue.md#FB-16-CA-P-001)
 - [FB-16-CD-P-001 手写一个 useEventListener Composable](../by-domain/16-vue.md#FB-16-CD-P-001)
 - [FB-16-CO-P-022 script setup 解决了什么问题？defineProps、defineEmits、defineExpose 怎么用？](../by-domain/16-vue.md#FB-16-CO-P-022)
 - [FB-16-CO-P-023 Vue 3 中 toRef、toRefs、isRef、unref 有什么区别？](../by-domain/16-vue.md#FB-16-CO-P-023)
+- [FB-16-CO-P-024 Vue 3 的 defineModel 是什么？](../by-domain/16-vue.md#FB-16-CO-P-024)
+- [FB-16-CO-P-025 Vue 中的 h 函数和 render 函数](../by-domain/16-vue.md#FB-16-CO-P-025)
+- [FB-16-CO-P-026 Vue 中的 Suspense 和 async setup](../by-domain/16-vue.md#FB-16-CO-P-026)
 - [FB-16-CP-P-001 Vue 与 React 生态选型时应考虑哪些因素？](../by-domain/16-vue.md#FB-16-CP-P-001)
 - [FB-16-EN-P-001 如何使用 Vite 构建一个支持 Tree Shaking 的 Vue 组件库？](../by-domain/16-vue.md#FB-16-EN-P-001)
 - [FB-16-FS-P-018 Vue 3 的响应式原理是什么？为什么用 Proxy 替代 Object.defineProperty？](../by-domain/16-vue.md#FB-16-FS-P-018)
@@ -2269,12 +3169,17 @@
 - [FB-16-FS-P-024 Vue 3 的 Teleport、Suspense、Fragment 分别是什么？](../by-domain/16-vue.md#FB-16-FS-P-024)
 - [FB-16-FS-P-025 Vue SSR / Nuxt 3 中有哪些需要注意的问题？](../by-domain/16-vue.md#FB-16-FS-P-025)
 - [FB-16-FS-P-026 Vue 3 的 effectScope 是什么？有什么作用？](../by-domain/16-vue.md#FB-16-FS-P-026)
+- [FB-16-FS-P-027 Vue 3 的 Compiler 优化细节有哪些？](../by-domain/16-vue.md#FB-16-FS-P-027)
+- [FB-16-FS-P-028 Vue 的响应式系统如何处理数组和集合？](../by-domain/16-vue.md#FB-16-FS-P-028)
+- [FB-16-FS-P-029 Vue 3 的 scheduler 和 flush 模式是什么？](../by-domain/16-vue.md#FB-16-FS-P-029)
 - [FB-16-PE-P-023 Vue 应用有哪些性能优化手段？](../by-domain/16-vue.md#FB-16-PE-P-023)
 - [FB-16-PE-P-024 Vue 应用首屏加载性能如何系统优化？](../by-domain/16-vue.md#FB-16-PE-P-024)
+- [FB-16-PE-P-025 Vue 长列表虚拟滚动实现](../by-domain/16-vue.md#FB-16-PE-P-025)
+- [FB-16-PE-P-026 Vue 应用构建产物优化](../by-domain/16-vue.md#FB-16-PE-P-026)
 - [FB-16-SC-P-001 如何设计一个可拖拽排序的 Vue 列表组件？](../by-domain/16-vue.md#FB-16-SC-P-001)
 - [FB-16-SE-P-001 Vue 应用中如何防御 CSRF 攻击？](../by-domain/16-vue.md#FB-16-SE-P-001)
 
-### 跨端技术（17 道）
+### 跨端技术（22 道）
 
 - [FB-17-CD-P-053 手写一个跨端网络请求库封装](../by-domain/17-cross-platform.md#FB-17-CD-P-053)
 - [FB-17-CO-P-019 Flutter 中常见的状态管理方案有哪些？如何选择？](../by-domain/17-cross-platform.md#FB-17-CO-P-019)
@@ -2285,16 +3190,21 @@
 - [FB-17-FS-P-049 React Native 的 JSI 和 TurboModules 解决了什么问题？](../by-domain/17-cross-platform.md#FB-17-FS-P-049)
 - [FB-17-FS-P-050 Flutter 的渲染管线是怎样的？Impeller 替代 Skia 有什么意义？](../by-domain/17-cross-platform.md#FB-17-FS-P-050)
 - [FB-17-FS-P-054 Electron 的进程模型和上下文隔离机制是怎样的？](../by-domain/17-cross-platform.md#FB-17-FS-P-054)
+- [FB-17-FS-P-055 小程序 Skyline 的架构演进是怎样的？](../by-domain/17-cross-platform.md#FB-17-FS-P-055)
+- [FB-17-FS-P-056 React Native 的 Fabric 和 TurboModules 解决了什么问题？](../by-domain/17-cross-platform.md#FB-17-FS-P-056)
+- [FB-17-FS-P-057 Flutter Impeller 渲染引擎是什么？](../by-domain/17-cross-platform.md#FB-17-FS-P-057)
 - [FB-17-PE-P-020 跨端动画性能如何保证一致性？](../by-domain/17-cross-platform.md#FB-17-PE-P-020)
 - [FB-17-PE-P-051 跨端应用的内存优化和泄漏治理怎么做？](../by-domain/17-cross-platform.md#FB-17-PE-P-051)
 - [FB-17-PE-P-056 跨端应用的包体积优化有哪些深入手段？](../by-domain/17-cross-platform.md#FB-17-PE-P-056)
+- [FB-17-PE-P-057 跨端应用包体积优化有哪些深入手段？](../by-domain/17-cross-platform.md#FB-17-PE-P-057)
 - [FB-17-SC-P-021 跨端应用如何做好路由管理和深层链接（Deep Link）？](../by-domain/17-cross-platform.md#FB-17-SC-P-021)
 - [FB-17-SC-P-022 如何为 React Native / Flutter / Electron 开发原生模块？](../by-domain/17-cross-platform.md#FB-17-SC-P-022)
 - [FB-17-SC-P-023 跨端应用如何适配不同屏幕尺寸、安全区和暗黑模式？](../by-domain/17-cross-platform.md#FB-17-SC-P-023)
 - [FB-17-SC-P-055 跨端应用中的音视频播放方案如何设计？](../by-domain/17-cross-platform.md#FB-17-SC-P-055)
+- [FB-17-SC-P-056 跨端应用中的 JSBridge 设计](../by-domain/17-cross-platform.md#FB-17-SC-P-056)
 - [FB-17-SD-P-052 如何设计一个跨端组件库？](../by-domain/17-cross-platform.md#FB-17-SD-P-052)
 
-### AI 工程化（38 道）
+### AI 工程化（42 道）
 
 - [FB-18-CA-P-052 分析以下 RAG 索引代码的召回率问题](../by-domain/18-ai-engineering.md#FB-18-CA-P-052)
 - [FB-18-CD-P-051 实现一个 RAG 检索结果的引用渲染组件](../by-domain/18-ai-engineering.md#FB-18-CD-P-051)
@@ -2305,12 +3215,14 @@
 - [FB-18-CO-P-052 如何评估一个 RAG 系统的效果？](../by-domain/18-ai-engineering.md#FB-18-CO-P-052)
 - [FB-18-CO-P-053 什么是 Vibe Coding？前端工程师应如何适应？](../by-domain/18-ai-engineering.md#FB-18-CO-P-053)
 - [FB-18-CO-P-054 如何在前端实现多模态输入（如图片、语音）的 AI 应用？](../by-domain/18-ai-engineering.md#FB-18-CO-P-054)
+- [FB-18-CO-P-055 如何设计 LLM 的 Fallback 策略？](../by-domain/18-ai-engineering.md#FB-18-CO-P-055)
 - [FB-18-CP-P-021 如何评估 LLM 应用的效果？](../by-domain/18-ai-engineering.md#FB-18-CP-P-021)
 - [FB-18-CP-P-024 LLM 应用如何做 A/B 测试？](../by-domain/18-ai-engineering.md#FB-18-CP-P-024)
 - [FB-18-CP-P-025 如何为大厂前端文档系统设计 RAG 搜索？](../by-domain/18-ai-engineering.md#FB-18-CP-P-025)
 - [FB-18-CP-P-026 如何设计 LLM 应用的离线评估与在线监控闭环？](../by-domain/18-ai-engineering.md#FB-18-CP-P-026)
 - [FB-18-CP-P-058 如何看待 LLM 幻觉问题在产品设计中的兜底方案？](../by-domain/18-ai-engineering.md#FB-18-CP-P-058)
 - [FB-18-CP-P-059 什么是 MCP？它与 Function Calling 有什么区别？](../by-domain/18-ai-engineering.md#FB-18-CP-P-059)
+- [FB-18-CP-P-060 AI 应用如何做用户反馈闭环？](../by-domain/18-ai-engineering.md#FB-18-CP-P-060)
 - [FB-18-EN-P-022 LLM 应用有哪些缓存策略？](../by-domain/18-ai-engineering.md#FB-18-EN-P-022)
 - [FB-18-EN-P-023 如何构建前端 AI 组件库与 Prompt 市场？](../by-domain/18-ai-engineering.md#FB-18-EN-P-023)
 - [FB-18-EN-P-055 如何为 LLM 应用设计语义缓存层？](../by-domain/18-ai-engineering.md#FB-18-EN-P-055)
@@ -2329,13 +3241,15 @@
 - [FB-18-SD-P-055 如何设计一个支持多模型切换的 AI 应用层？](../by-domain/18-ai-engineering.md#FB-18-SD-P-055)
 - [FB-18-SD-P-056 设计一个支持 Agent 工作流的前端交互框架。](../by-domain/18-ai-engineering.md#FB-18-SD-P-056)
 - [FB-18-SD-P-057 设计一个 LLM 可观测性方案，前端需要关注哪些指标？](../by-domain/18-ai-engineering.md#FB-18-SD-P-057)
+- [FB-18-SD-P-058 如何设计 AI Agent 的工作流？](../by-domain/18-ai-engineering.md#FB-18-SD-P-058)
 - [FB-18-SE-P-023 什么是 Prompt Injection？如何防御？](../by-domain/18-ai-engineering.md#FB-18-SE-P-023)
 - [FB-18-SE-P-024 如何设计 AI 应用的内容安全审核与越狱防御体系？](../by-domain/18-ai-engineering.md#FB-18-SE-P-024)
 - [FB-18-SE-P-056 如何构建企业级 AI 应用的权限与审计体系？](../by-domain/18-ai-engineering.md#FB-18-SE-P-056)
 - [FB-18-SE-P-057 如何保障 AI 应用的内容安全与合规？](../by-domain/18-ai-engineering.md#FB-18-SE-P-057)
 - [FB-18-SE-P-058 如何防止 AI 应用中的 Prompt 注入和数据泄露？](../by-domain/18-ai-engineering.md#FB-18-SE-P-058)
+- [FB-18-SE-P-059 AI 应用中的内容审核怎么做？](../by-domain/18-ai-engineering.md#FB-18-SE-P-059)
 
-### Node.js / BFF（24 道）
+### Node.js / BFF（29 道）
 
 - [FB-19-CD-P-018 请手写一个简版 Koa 洋葱圈中间件模型](../by-domain/19-node-bff.md#FB-19-CD-P-018)
 - [FB-19-CD-P-052 请手写一个基于 Redis 的分布式限流器](../by-domain/19-node-bff.md#FB-19-CD-P-052)
@@ -2347,40 +3261,50 @@
 - [FB-19-CO-P-056 GraphQL BFF 相比 REST BFF 有什么优劣？落地时要注意什么？](../by-domain/19-node-bff.md#FB-19-CO-P-056)
 - [FB-19-CO-P-057 谈谈 NestJS 的 Guard、Interceptor、Pipe 分别解决什么问题？](../by-domain/19-node-bff.md#FB-19-CO-P-057)
 - [FB-19-CO-P-058 如何为 Node.js BFF 服务设计可观测性方案？](../by-domain/19-node-bff.md#FB-19-CO-P-058)
+- [FB-19-CO-P-059 Node.js 中的 Worker Threads 使用场景](../by-domain/19-node-bff.md#FB-19-CO-P-059)
 - [FB-19-FS-P-017 NestJS 的装饰器（Decorator）原理是什么？如何手写一个装饰器？](../by-domain/19-node-bff.md#FB-19-FS-P-017)
 - [FB-19-FS-P-048 NestJS 中 Guard、Interceptor、Pipe、ExceptionFilter 的执行顺序是什么？](../by-domain/19-node-bff.md#FB-19-FS-P-048)
+- [FB-19-FS-P-049 NestJS 依赖注入原理是什么？](../by-domain/19-node-bff.md#FB-19-FS-P-049)
 - [FB-19-PE-P-050 如何定位并优化 Node.js 服务的 CPU 高占用问题？](../by-domain/19-node-bff.md#FB-19-PE-P-050)
 - [FB-19-PE-P-055 Node.js 中如何对大文件进行流式上传、下载与断点续传？](../by-domain/19-node-bff.md#FB-19-PE-P-055)
 - [FB-19-PE-P-056 Node.js 服务如何做性能调优？](../by-domain/19-node-bff.md#FB-19-PE-P-056)
+- [FB-19-PE-P-057 Node.js 高并发优化](../by-domain/19-node-bff.md#FB-19-PE-P-057)
 - [FB-19-SC-P-051 BFF 层如何对下游微服务进行统一超时、重试、降级与缓存？](../by-domain/19-node-bff.md#FB-19-SC-P-051)
 - [FB-19-SC-P-054 如何设计 BFF 层的统一错误码与响应结构？](../by-domain/19-node-bff.md#FB-19-SC-P-054)
 - [FB-19-SC-P-055 Deno 和 Bun 与 Node.js 相比各有什么优缺点？什么场景下会选择它们？](../by-domain/19-node-bff.md#FB-19-SC-P-055)
 - [FB-19-SC-P-056 tRPC 和 gRPC 各适用于什么场景？在 BFF 中如何选择？](../by-domain/19-node-bff.md#FB-19-SC-P-056)
 - [FB-19-SC-P-057 在 BFF 中使用消息队列有哪些典型场景？如何保证消息不丢失？](../by-domain/19-node-bff.md#FB-19-SC-P-057)
+- [FB-19-SC-P-058 BFF 层统一响应结构设计](../by-domain/19-node-bff.md#FB-19-SC-P-058)
 - [FB-19-SD-P-001 如何设计一个 Node.js 微服务或 BFF 的日志与链路追踪方案？](../by-domain/19-node-bff.md#FB-19-SD-P-001)
 - [FB-19-SE-P-020 Node.js 服务常见的安全漏洞有哪些？如何防御？](../by-domain/19-node-bff.md#FB-19-SE-P-020)
 - [FB-19-SE-P-049 Node.js 服务如何防御 CSRF、XSS、SQL 注入等常见 Web 攻击？](../by-domain/19-node-bff.md#FB-19-SE-P-049)
 - [FB-19-SE-P-050 如何保障 Node.js/BFF 服务的安全性？](../by-domain/19-node-bff.md#FB-19-SE-P-050)
+- [FB-19-SE-P-051 Node.js 服务安全加固](../by-domain/19-node-bff.md#FB-19-SE-P-051)
 
-### Git 工作流与变更管理（17 道）
+### Git 工作流与变更管理（22 道）
 
 - [FB-20-CO-P-019 Git LFS 是什么？什么时候应该使用？](../by-domain/20-git-workflow.md#FB-20-CO-P-019)
 - [FB-20-CO-P-020 Git submodule 和 subtree 有什么区别？如何选择？](../by-domain/20-git-workflow.md#FB-20-CO-P-020)
 - [FB-20-CO-P-023 git reflog 能帮你恢复哪些误操作？](../by-domain/20-git-workflow.md#FB-20-CO-P-023)
 - [FB-20-CO-P-054 git rerere 是什么？如何减少重复冲突？](../by-domain/20-git-workflow.md#FB-20-CO-P-054)
+- [FB-20-CO-P-055 shallow clone 和 git filter-repo 各适用于什么场景？](../by-domain/20-git-workflow.md#FB-20-CO-P-055)
 - [FB-20-CP-P-024 在团队协作中，如何约定 rebase 和 merge 的使用策略？](../by-domain/20-git-workflow.md#FB-20-CP-P-024)
 - [FB-20-CP-P-052 跨团队协作时，如何约定分支命名、权限和合并策略？](../by-domain/20-git-workflow.md#FB-20-CP-P-052)
+- [FB-20-CP-P-053 跨团队协作时如何约定分支命名、权限和合并策略？](../by-domain/20-git-workflow.md#FB-20-CP-P-053)
 - [FB-20-EN-P-017 Monorepo 中如何使用 Changesets 管理版本和发布？](../by-domain/20-git-workflow.md#FB-20-EN-P-017)
 - [FB-20-EN-P-022 Git 如何与 CI/CD 流水线集成？](../by-domain/20-git-workflow.md#FB-20-EN-P-022)
 - [FB-20-EN-P-049 partial clone 和 sparse checkout 能解决什么问题？](../by-domain/20-git-workflow.md#FB-20-EN-P-049)
 - [FB-20-EN-P-053 Git 工作流如何与 npm/yarn/pnpm 变更联动？](../by-domain/20-git-workflow.md#FB-20-EN-P-053)
 - [FB-20-EN-P-057 如何设计 Git 操作的原子性和可回滚脚本？](../by-domain/20-git-workflow.md#FB-20-EN-P-057)
+- [FB-20-EN-P-058 Git 工作流如何与 npm/yarn/pnpm 变更联动？](../by-domain/20-git-workflow.md#FB-20-EN-P-058)
 - [FB-20-PE-P-018 面对超大型仓库，Git 有哪些优化手段？](../by-domain/20-git-workflow.md#FB-20-PE-P-018)
 - [FB-20-PE-P-050 面对超大型仓库，有哪些 Git clone 加速策略？](../by-domain/20-git-workflow.md#FB-20-PE-P-050)
 - [FB-20-PE-P-055 shallow clone 和 git filter-repo 各适用于什么场景？](../by-domain/20-git-workflow.md#FB-20-PE-P-055)
+- [FB-20-PE-P-056 超大型仓库 clone 加速策略](../by-domain/20-git-workflow.md#FB-20-PE-P-056)
 - [FB-20-SE-P-021 Git 中如何保障提交安全和防止敏感信息泄露？](../by-domain/20-git-workflow.md#FB-20-SE-P-021)
 - [FB-20-SE-P-051 客户端 Git Hooks 能被绕过，如何保证规范落地？](../by-domain/20-git-workflow.md#FB-20-SE-P-051)
 - [FB-20-SE-P-056 Git 仓库中发生密钥泄露后，完整的应急处理流程是什么？](../by-domain/20-git-workflow.md#FB-20-SE-P-056)
+- [FB-20-SE-P-057 Git 仓库密钥泄露后的完整应急流程](../by-domain/20-git-workflow.md#FB-20-SE-P-057)
 
 ### 开发者体验与工程效能（31 道）
 
@@ -2416,43 +3340,53 @@
 - [FB-21-SS-P-083 如何在业务高压下推动工程师文化和 DX 建设？](../by-domain/21-dx.md#FB-21-SS-P-083)
 - [FB-21-SS-P-084 请分享一次你主导的前端工程化或 CI/CD 改进项目](../by-domain/21-dx.md#FB-21-SS-P-084)
 
-### 部署与 SRE（17 道）
+### 部署与 SRE（22 道）
 
 - [FB-22-CA-P-001 下面一段 SSG/边缘渲染配置与缓存策略代码输出什么？请分析其对性能的影响。](../by-domain/22-deployment-sre.md#FB-22-CA-P-001)
 - [FB-22-CD-P-001 请手写一个用于前端 Incident Response 的健康检查与熔断决策函数。](../by-domain/22-deployment-sre.md#FB-22-CD-P-001)
 - [FB-22-CO-P-022 如何设计前端监控告警体系？](../by-domain/22-deployment-sre.md#FB-22-CO-P-022)
 - [FB-22-CO-P-023 请解释 Kubernetes Ingress/Service 流量切分的工作原理，及其在前端容器化部署中的应用。](../by-domain/22-deployment-sre.md#FB-22-CO-P-023)
+- [FB-22-CO-P-024 Kubernetes Ingress 流量切分](../by-domain/22-deployment-sre.md#FB-22-CO-P-024)
 - [FB-22-CP-P-021 Incident Response 流程与 Runbook 如何落地？](../by-domain/22-deployment-sre.md#FB-22-CP-P-021)
 - [FB-22-CP-P-022 结合高可用架构与告警体系，谈谈前端服务的故障发现与止损实践。](../by-domain/22-deployment-sre.md#FB-22-CP-P-022)
+- [FB-22-CP-P-023 前端故障发现与止损](../by-domain/22-deployment-sre.md#FB-22-CP-P-023)
 - [FB-22-EN-P-017 如何用容器化方式部署前端应用？](../by-domain/22-deployment-sre.md#FB-22-EN-P-017)
 - [FB-22-EN-P-018 Kubernetes 基础与前端无状态服务部署](../by-domain/22-deployment-sre.md#FB-22-EN-P-018)
 - [FB-22-EN-P-024 前端 Monorepo 多包部署策略](../by-domain/22-deployment-sre.md#FB-22-EN-P-024)
 - [FB-22-EN-P-025 如何在 DevOps 流程中落地前端 HTTPS 全链路安全与证书自动化管理？](../by-domain/22-deployment-sre.md#FB-22-EN-P-025)
+- [FB-22-EN-P-026 前端容器化部署最佳实践](../by-domain/22-deployment-sre.md#FB-22-EN-P-026)
 - [FB-22-FS-P-001 Lighthouse CI 如何集成到部署流水线中实现性能门禁与零停机发布？](../by-domain/22-deployment-sre.md#FB-22-FS-P-001)
+- [FB-22-PE-P-002 前端高可用灰度发布性能优化](../by-domain/22-deployment-sre.md#FB-22-PE-P-002)
 - [FB-22-PE-P-023 容量规划在前端场景如何应用？](../by-domain/22-deployment-sre.md#FB-22-PE-P-023)
+- [FB-22-SC-P-002 SSR 前端部署策略](../by-domain/22-deployment-sre.md#FB-22-SC-P-002)
 - [FB-22-SC-P-019 Serverless 与边缘部署如何落地前端 SSR/SSG？](../by-domain/22-deployment-sre.md#FB-22-SC-P-019)
 - [FB-22-SC-P-020 大规模前端缓存失效策略有哪些？](../by-domain/22-deployment-sre.md#FB-22-SC-P-020)
 - [FB-22-SD-P-001 如何设计一个 SSR 前端应用的部署策略系统，支持灰度、回滚与降级？](../by-domain/22-deployment-sre.md#FB-22-SD-P-001)
 - [FB-22-SE-P-001 使用 Vercel/边缘平台托管前端时，监控与可观测性方面有哪些安全风险？如何防御？](../by-domain/22-deployment-sre.md#FB-22-SE-P-001)
 - [FB-22-SS-P-001 请分享一次你主导前端容灾演练或 Feature Flag 紧急关闭故障的经历。](../by-domain/22-deployment-sre.md#FB-22-SS-P-001)
 
-### 包管理与供应链安全（16 道）
+### 包管理与供应链安全（21 道）
 
 - [FB-23-CA-P-022 分析一个依赖版本冲突场景](../by-domain/23-package-supply-chain.md#FB-23-CA-P-022)
 - [FB-23-CA-P-023 分析以下插件依赖声明代码的输出与原因](../by-domain/23-package-supply-chain.md#FB-23-CA-P-023)
 - [FB-23-CD-P-001 手写一个解析依赖图中某包所有引入路径的工具函数](../by-domain/23-package-supply-chain.md#FB-23-CD-P-001)
 - [FB-23-CO-P-019 什么是依赖地狱？如何解决版本冲突、循环依赖与依赖分身？](../by-domain/23-package-supply-chain.md#FB-23-CO-P-019)
 - [FB-23-CO-P-020 node_modules 体积膨胀的原因及包管理器层面的优化原理](../by-domain/23-package-supply-chain.md#FB-23-CO-P-020)
+- [FB-23-CO-P-021 node_modules 体积优化原理](../by-domain/23-package-supply-chain.md#FB-23-CO-P-021)
 - [FB-23-CP-P-023 如何为一个团队选择包管理器？请给出决策矩阵。](../by-domain/23-package-supply-chain.md#FB-23-CP-P-023)
 - [FB-23-CP-P-024 lockfile 如何与前端工具链（CI、Docker、Renovate）协同管理？](../by-domain/23-package-supply-chain.md#FB-23-CP-P-024)
+- [FB-23-CP-P-025 包管理器标准化实践经验](../by-domain/23-package-supply-chain.md#FB-23-CP-P-025)
 - [FB-23-EN-P-020 私有 Registry / Verdaccio 如何企业级部署？](../by-domain/23-package-supply-chain.md#FB-23-EN-P-020)
 - [FB-23-EN-P-021 React/Vue 组件库作为宿主依赖项目，如何管理 package-lock.json 与 peerDependencies？](../by-domain/23-package-supply-chain.md#FB-23-EN-P-021)
+- [FB-23-EN-P-022 lockfile 与 Renovate 协同管理](../by-domain/23-package-supply-chain.md#FB-23-EN-P-022)
 - [FB-23-FS-P-017 pnpm 的 content-addressable store 与 hard link 机制是如何工作的？](../by-domain/23-package-supply-chain.md#FB-23-FS-P-017)
 - [FB-23-FS-P-018 license-checker 等工具如何扫描 node_modules 并识别许可证冲突？](../by-domain/23-package-supply-chain.md#FB-23-FS-P-018)
+- [FB-23-FS-P-019 pnpm 的 workspace 协议是什么？](../by-domain/23-package-supply-chain.md#FB-23-FS-P-019)
 - [FB-23-SD-P-001 如何为 yarn 项目设计 SBOM（软件物料清单）生成与合规审计系统？](../by-domain/23-package-supply-chain.md#FB-23-SD-P-001)
 - [FB-23-SE-P-018 Sigstore、Provenance 与 NPM 发布签名是什么？它们如何提升供应链安全？](../by-domain/23-package-supply-chain.md#FB-23-SE-P-018)
 - [FB-23-SE-P-021 SBOM 是什么？如何做许可证合规？](../by-domain/23-package-supply-chain.md#FB-23-SE-P-021)
 - [FB-23-SE-P-022 如何建立第三方依赖的漏洞修复 SLA 与版本维护策略？](../by-domain/23-package-supply-chain.md#FB-23-SE-P-022)
+- [FB-23-SE-P-023 私有 registry 有哪些安全风险与加固？](../by-domain/23-package-supply-chain.md#FB-23-SE-P-023)
 - [FB-23-SS-P-001 如何优化大型 Monorepo 的 npm install / pnpm install 流程？](../by-domain/23-package-supply-chain.md#FB-23-SS-P-001)
 
 ### 前端运维与监控（7 道）
@@ -2465,7 +3399,7 @@
 - [FB-24-SE-P-006 前端限流与客户端防护如何设计？](../by-domain/24-frontend-operations.md#FB-24-SE-P-006)
 - [FB-24-SS-P-003 线上故障的 Incident Response 流程和 Runbook 应该怎么设计？](../by-domain/24-frontend-operations.md#FB-24-SS-P-003)
 
-### 系统架构设计（23 道）
+### 系统架构设计（31 道）
 
 - [FB-25-CO-P-003 整洁架构（Clean Architecture）和六边形架构（Hexagonal Architecture）如何在前端落地？](../by-domain/25-system-architecture.md#FB-25-CO-P-003)
 - [FB-25-CO-P-006 CQRS 和事件溯源（Event Sourcing）在前端有哪些应用场景？](../by-domain/25-system-architecture.md#FB-25-CO-P-006)
@@ -2473,15 +3407,23 @@
 - [FB-25-CO-P-013 什么是无服务器/边缘渲染架构？前端如何落地？](../by-domain/25-system-architecture.md#FB-25-CO-P-013)
 - [FB-25-CO-P-014 什么是防腐层？为什么前端也需要它？](../by-domain/25-system-architecture.md#FB-25-CO-P-014)
 - [FB-25-CO-P-015 什么是“开闭原则”？前端中如何实现？](../by-domain/25-system-architecture.md#FB-25-CO-P-015)
+- [FB-25-CO-P-016 整洁架构与六边形架构如何在前端落地](../by-domain/25-system-architecture.md#FB-25-CO-P-016)
+- [FB-25-CO-P-017 Bounded Context 如何映射到前端架构](../by-domain/25-system-architecture.md#FB-25-CO-P-017)
+- [FB-25-CO-P-018 API Composition 与 GraphQL BFF 的取舍](../by-domain/25-system-architecture.md#FB-25-CO-P-018)
 - [FB-25-CP-P-004 你所在团队要引入一个新的前端框架或工具链，请描述完整的决策过程](../by-domain/25-system-architecture.md#FB-25-CP-P-004)
 - [FB-25-CP-P-014 如何做技术债管理与架构演进路线图？](../by-domain/25-system-architecture.md#FB-25-CP-P-014)
+- [FB-25-CP-P-015 前端架构中的延迟决策原则如何实践](../by-domain/25-system-architecture.md#FB-25-CP-P-015)
 - [FB-25-EN-P-007 描述一个前端架构从单体应用到微前端再到模块化架构的演进过程](../by-domain/25-system-architecture.md#FB-25-EN-P-007)
 - [FB-25-EN-P-015 Monorepo 中的构建性能优化与远程缓存架构](../by-domain/25-system-architecture.md#FB-25-EN-P-015)
+- [FB-25-EN-P-016 前端如何实现可重复可审计的构建与发布](../by-domain/25-system-architecture.md#FB-25-EN-P-016)
 - [FB-25-SC-P-002 设计一个 SDUI（Server-Driven UI）系统](../by-domain/25-system-architecture.md#FB-25-SC-P-002)
 - [FB-25-SC-P-005 设计一个插件化的前端应用，支持第三方扩展](../by-domain/25-system-architecture.md#FB-25-SC-P-005)
 - [FB-25-SC-P-009 设计一个支持百万级数据的表格前端架构](../by-domain/25-system-architecture.md#FB-25-SC-P-009)
 - [FB-25-SC-P-010 设计一个前端国际化架构](../by-domain/25-system-architecture.md#FB-25-SC-P-010)
 - [FB-25-SC-P-011 设计一个前端权限架构（RBAC/ABAC）](../by-domain/25-system-architecture.md#FB-25-SC-P-011)
+- [FB-25-SC-P-012 前端如何应对高并发秒杀活动的流量峰值](../by-domain/25-system-architecture.md#FB-25-SC-P-012)
+- [FB-25-SC-P-013 微服务架构下前端的数据一致性策略](../by-domain/25-system-architecture.md#FB-25-SC-P-013)
+- [FB-25-SC-P-014 设计一个支持离线使用的复杂表单系统](../by-domain/25-system-architecture.md#FB-25-SC-P-014)
 - [FB-25-SD-P-001 设计一个低代码/搭建平台的前端架构](../by-domain/25-system-architecture.md#FB-25-SD-P-001)
 - [FB-25-SD-P-008 设计一个金融级前端安全收银台架构](../by-domain/25-system-architecture.md#FB-25-SD-P-008)
 - [FB-25-SD-P-009 设计一个电商系统的前端状态管理方案，说明如何组织状态。](../by-domain/25-system-architecture.md#FB-25-SD-P-009)
@@ -2491,27 +3433,39 @@
 - [FB-25-SS-P-018 如何评估一个项目是否需要引入微前端？](../by-domain/25-system-architecture.md#FB-25-SS-P-018)
 - [FB-25-SS-P-019 你如何处理前端项目中的“技术债”？](../by-domain/25-system-architecture.md#FB-25-SS-P-019)
 
-### 微前端（14 道）
+### 微前端（24 道）
 
 - [FB-26-CD-P-020 手写一个基于 Proxy 的简易 JS 沙箱。](../by-domain/26-micro-frontend.md#FB-26-CD-P-020)
 - [FB-26-CO-P-001 微前端有哪些常见陷阱？如何避免？](../by-domain/26-micro-frontend.md#FB-26-CO-P-001)
 - [FB-26-CO-P-002 微前端中如何保证用户体验一致性？](../by-domain/26-micro-frontend.md#FB-26-CO-P-002)
+- [FB-26-CO-P-003 Module Federation 的工作原理](../by-domain/26-micro-frontend.md#FB-26-CO-P-003)
+- [FB-26-CO-P-004 微前端中的 JS 沙箱实现方式](../by-domain/26-micro-frontend.md#FB-26-CO-P-004)
+- [FB-26-CO-P-005 微前端中的公共状态管理反模式](../by-domain/26-micro-frontend.md#FB-26-CO-P-005)
 - [FB-26-CP-P-023 微前端下的监控和异常隔离应该怎么做？](../by-domain/26-micro-frontend.md#FB-26-CP-P-023)
 - [FB-26-CP-P-024 Module Federation 中，host 和 remote 有什么区别？shared 配置有什么用？](../by-domain/26-micro-frontend.md#FB-26-CP-P-024)
+- [FB-26-CP-P-025 何时应该选择微前端，何时不应该](../by-domain/26-micro-frontend.md#FB-26-CP-P-025)
 - [FB-26-EN-P-021 微前端公共依赖版本冲突如何解决？](../by-domain/26-micro-frontend.md#FB-26-EN-P-021)
+- [FB-26-EN-P-022 微前端子应用的构建产物如何组织](../by-domain/26-micro-frontend.md#FB-26-EN-P-022)
 - [FB-26-FS-P-017 qiankun 沙箱存在哪些逃逸风险？多实例场景下如何处理副作用？](../by-domain/26-micro-frontend.md#FB-26-FS-P-017)
+- [FB-26-FS-P-018 微前端子应用内存泄漏如何定位与治理](../by-domain/26-micro-frontend.md#FB-26-FS-P-018)
 - [FB-26-PE-P-001 请描述 qiankun 的加载和生命周期流程。](../by-domain/26-micro-frontend.md#FB-26-PE-P-001)
+- [FB-26-PE-P-002 微前端如何治理公共依赖版本](../by-domain/26-micro-frontend.md#FB-26-PE-P-002)
 - [FB-26-SC-P-022 如何对微前端子应用做灰度发布？](../by-domain/26-micro-frontend.md#FB-26-SC-P-022)
+- [FB-26-SC-P-023 微前端下如何保障全链路质量](../by-domain/26-micro-frontend.md#FB-26-SC-P-023)
+- [FB-26-SC-P-024 微前端中如何处理第三方脚本与全局组件](../by-domain/26-micro-frontend.md#FB-26-SC-P-024)
 - [FB-26-SD-P-018 微前端下全局状态应该如何设计？单一 Store 还是各自 Store + 事件同步？](../by-domain/26-micro-frontend.md#FB-26-SD-P-018)
 - [FB-26-SD-P-019 微前端路由协调的深入问题有哪些？如何解决？](../by-domain/26-micro-frontend.md#FB-26-SD-P-019)
 - [FB-26-SD-P-020 如果微前端子应用需要共享状态，你会如何设计？](../by-domain/26-micro-frontend.md#FB-26-SD-P-020)
+- [FB-26-SD-P-021 设计微前端下的路由与导航体系](../by-domain/26-micro-frontend.md#FB-26-SD-P-021)
 - [FB-26-SS-P-001 你会如何评估一个项目是否需要引入微前端？](../by-domain/26-micro-frontend.md#FB-26-SS-P-001)
 - [FB-26-SS-P-002 微前端项目中如何做错误隔离和降级？](../by-domain/26-micro-frontend.md#FB-26-SS-P-002)
 
-### 性能工程（14 道）
+### 性能工程（26 道）
 
 - [FB-27-CD-P-004 实现一个基于 requestIdleCallback 的任务调度器](../by-domain/27-performance.md#FB-27-CD-P-004)
 - [FB-27-CO-P-005 实验室数据（Lab Data）和真实用户数据（Field Data / RUM）有什么区别？分别适用于什么场景？](../by-domain/27-performance.md#FB-27-CO-P-005)
+- [FB-27-CO-P-006 Resource Hints 的使用场景](../by-domain/27-performance.md#FB-27-CO-P-006)
+- [FB-27-CO-P-007 浏览器合成器线程与主线程的关系](../by-domain/27-performance.md#FB-27-CO-P-007)
 - [FB-27-EN-P-006 Service Worker 有哪些缓存策略？如何选择？](../by-domain/27-performance.md#FB-27-EN-P-006)
 - [FB-27-PE-P-001 浏览器渲染管线是怎样的？如何利用合成层（Compositor Layer）优化渲染性能？](../by-domain/27-performance.md#FB-27-PE-P-001)
 - [FB-27-PE-P-002 如何优化 JavaScript 执行性能？请从任务调度、长任务拆分、主线程释放等角度说明。](../by-domain/27-performance.md#FB-27-PE-P-002)
@@ -2524,8 +3478,18 @@
 - [FB-27-PE-P-012 如何优化首屏加载时间？](../by-domain/27-performance.md#FB-27-PE-P-012)
 - [FB-27-PE-P-013 什么是长任务（Long Task）？如何优化？](../by-domain/27-performance.md#FB-27-PE-P-013)
 - [FB-27-PE-P-014 你如何制定性能预算（Performance Budget）？](../by-domain/27-performance.md#FB-27-PE-P-014)
+- [FB-27-PE-P-015 如何优化大型列表渲染性能](../by-domain/27-performance.md#FB-27-PE-P-015)
+- [FB-27-PE-P-016 如何减少 JavaScript 执行时间](../by-domain/27-performance.md#FB-27-PE-P-016)
+- [FB-27-PE-P-017 CSS 性能优化与渲染层管理](../by-domain/27-performance.md#FB-27-PE-P-017)
+- [FB-27-PE-P-018 内存泄漏的常见原因与排查](../by-domain/27-performance.md#FB-27-PE-P-018)
+- [FB-27-PE-P-019 前端性能监控指标体系设计](../by-domain/27-performance.md#FB-27-PE-P-019)
+- [FB-27-PE-P-020 如何优化大量 marker 的地图性能](../by-domain/27-performance.md#FB-27-PE-P-020)
+- [FB-27-PE-P-021 Web Worker 在性能优化中的应用](../by-domain/27-performance.md#FB-27-PE-P-021)
+- [FB-27-SC-P-001 如何优化大量 DOM 操作的动画](../by-domain/27-performance.md#FB-27-SC-P-001)
+- [FB-27-SC-P-002 如何设计性能回归测试](../by-domain/27-performance.md#FB-27-SC-P-002)
+- [FB-27-SC-P-003 如何优化可交互大屏的渲染性能](../by-domain/27-performance.md#FB-27-SC-P-003)
 
-### 质量保障（15 道）
+### 质量保障（28 道）
 
 - [FB-28-CA-P-020 分析下面这段 ESLint 配置，指出潜在问题](../by-domain/28-quality.md#FB-28-CA-P-020)
 - [FB-28-CO-P-018 测试覆盖率有哪些常见陷阱？](../by-domain/28-quality.md#FB-28-CO-P-018)
@@ -2533,17 +3497,30 @@
 - [FB-28-CO-P-020 代码覆盖率高是否等于代码质量高？为什么？](../by-domain/28-quality.md#FB-28-CO-P-020)
 - [FB-28-CO-P-021 什么是功能开关（Feature Toggle）？它和质量保障有什么关系？](../by-domain/28-quality.md#FB-28-CO-P-021)
 - [FB-28-CO-P-022 如何度量前端代码质量？](../by-domain/28-quality.md#FB-28-CO-P-022)
+- [FB-28-CO-P-023 什么是测试驱动开发（TDD）](../by-domain/28-quality.md#FB-28-CO-P-023)
+- [FB-28-CO-P-024 什么是 Mutation Testing](../by-domain/28-quality.md#FB-28-CO-P-024)
+- [FB-28-CO-P-025 可访问性测试如何纳入质量保障](../by-domain/28-quality.md#FB-28-CO-P-025)
+- [FB-28-CO-P-026 什么是持续测试](../by-domain/28-quality.md#FB-28-CO-P-026)
+- [FB-28-CO-P-027 什么是左移测试](../by-domain/28-quality.md#FB-28-CO-P-027)
 - [FB-28-CP-P-001 如何选择前端测试框架和工具？](../by-domain/28-quality.md#FB-28-CP-P-001)
 - [FB-28-EN-P-024 如何设计质量门禁？](../by-domain/28-quality.md#FB-28-EN-P-024)
+- [FB-28-EN-P-025 前端单元测试如何设计有效的断言](../by-domain/28-quality.md#FB-28-EN-P-025)
+- [FB-28-EN-P-026 如何防止前端代码中的安全漏洞](../by-domain/28-quality.md#FB-28-EN-P-026)
+- [FB-28-EN-P-027 前端测试数据管理策略](../by-domain/28-quality.md#FB-28-EN-P-027)
 - [FB-28-PE-P-019 如何提升 E2E 测试的稳定性？](../by-domain/28-quality.md#FB-28-PE-P-019)
 - [FB-28-SC-P-021 灰度发布中如何保障前端质量？](../by-domain/28-quality.md#FB-28-SC-P-021)
 - [FB-28-SC-P-022 蓝绿部署与金丝雀部署有什么区别？前端如何选择？](../by-domain/28-quality.md#FB-28-SC-P-022)
 - [FB-28-SC-P-023 故障演练与混沌工程在前端如何落地？](../by-domain/28-quality.md#FB-28-SC-P-023)
 - [FB-28-SC-P-024 线上出现 Bug 后，除了修复，你还应该做什么？](../by-domain/28-quality.md#FB-28-SC-P-024)
+- [FB-28-SC-P-025 前端 E2E 测试不稳定如何治理](../by-domain/28-quality.md#FB-28-SC-P-025)
+- [FB-28-SC-P-026 前端如何做视觉回归测试](../by-domain/28-quality.md#FB-28-SC-P-026)
+- [FB-28-SC-P-027 如何治理前端技术债](../by-domain/28-quality.md#FB-28-SC-P-027)
+- [FB-28-SC-P-028 如何设计前端错误监控的质量闭环](../by-domain/28-quality.md#FB-28-SC-P-028)
+- [FB-28-SC-P-029 如何建立前端 bug 预防机制](../by-domain/28-quality.md#FB-28-SC-P-029)
 - [FB-28-SD-P-001 如何设计一个高效的 Code Review 流程？](../by-domain/28-quality.md#FB-28-SD-P-001)
 - [FB-28-SS-P-017 如何处理代码评审中的分歧？](../by-domain/28-quality.md#FB-28-SS-P-017)
 
-### 数据与状态管理（12 道）
+### 数据与状态管理（23 道）
 
 - [FB-29-CD-P-022 如何手写一个简化的状态管理库（类似 Zustand）？](../by-domain/29-data-state.md#FB-29-CD-P-022)
 - [FB-29-CO-P-019 状态机在前端状态管理中的应用是什么？XState 的核心概念有哪些？](../by-domain/29-data-state.md#FB-29-CO-P-019)
@@ -2552,67 +3529,117 @@
 - [FB-29-CO-P-023 Event Sourcing 和 CQRS 在前端如何应用？](../by-domain/29-data-state.md#FB-29-CO-P-023)
 - [FB-29-CO-P-024 Repository 模式和 Data Mapper 模式在前端数据层有什么区别？](../by-domain/29-data-state.md#FB-29-CO-P-024)
 - [FB-29-CO-P-025 如何处理跨组件、跨页面的状态共享与持久化？](../by-domain/29-data-state.md#FB-29-CO-P-025)
+- [FB-29-CO-P-026 集中式状态与局部状态的边界](../by-domain/29-data-state.md#FB-29-CO-P-026)
+- [FB-29-CO-P-027 乐观更新与悲观更新的取舍](../by-domain/29-data-state.md#FB-29-CO-P-027)
+- [FB-29-CO-P-028 前端状态管理中的派生状态](../by-domain/29-data-state.md#FB-29-CO-P-028)
+- [FB-29-CO-P-029 什么是时间旅行调试](../by-domain/29-data-state.md#FB-29-CO-P-029)
+- [FB-29-CO-P-030 前端状态管理中的副作用处理](../by-domain/29-data-state.md#FB-29-CO-P-030)
+- [FB-29-CO-P-031 状态管理中的selector模式](../by-domain/29-data-state.md#FB-29-CO-P-031)
 - [FB-29-FS-P-017 Redux 中间件原理是什么？请手写一个 logger 中间件](../by-domain/29-data-state.md#FB-29-FS-P-017)
 - [FB-29-FS-P-018 React Query 的缓存和失效机制底层是怎么工作的？](../by-domain/29-data-state.md#FB-29-FS-P-018)
 - [FB-29-SC-P-001 Redux Toolkit、Zustand、Jotai、Recoil 的适用场景分别是什么？](../by-domain/29-data-state.md#FB-29-SC-P-001)
+- [FB-29-SC-P-002 如何处理前端表单复杂状态](../by-domain/29-data-state.md#FB-29-SC-P-002)
+- [FB-29-SC-P-003 如何设计前端权限状态与路由联动](../by-domain/29-data-state.md#FB-29-SC-P-003)
+- [FB-29-SC-P-004 前端如何处理多标签页状态同步](../by-domain/29-data-state.md#FB-29-SC-P-004)
+- [FB-29-SC-P-005 前端如何处理服务端推送状态](../by-domain/29-data-state.md#FB-29-SC-P-005)
 - [FB-29-SD-P-001 设计一个支持离线编辑的协同文档应用的数据层。](../by-domain/29-data-state.md#FB-29-SD-P-001)
 - [FB-29-SD-P-002 如何设计一个大型前端应用的状态管理架构？](../by-domain/29-data-state.md#FB-29-SD-P-002)
+- [FB-29-SD-P-003 设计一个前端配置化表单状态引擎](../by-domain/29-data-state.md#FB-29-SD-P-003)
 
-### 可观测性（11 道）
+### 可观测性（18 道）
 
 - [FB-30-CO-P-018 分布式链路追踪的核心概念是什么？](../by-domain/30-observability.md#FB-30-CO-P-018)
 - [FB-30-CO-P-021 可观测性数据成本通常有哪些？如何优化？](../by-domain/30-observability.md#FB-30-CO-P-021)
+- [FB-30-CO-P-022 Trace 在前端如何与后端关联](../by-domain/30-observability.md#FB-30-CO-P-022)
+- [FB-30-CO-P-023 什么是 SLO、SLI、SLA](../by-domain/30-observability.md#FB-30-CO-P-023)
+- [FB-30-CO-P-024 前端可观测与业务埋点的关系](../by-domain/30-observability.md#FB-30-CO-P-024)
+- [FB-30-CO-P-025 什么是 OpenTelemetry](../by-domain/30-observability.md#FB-30-CO-P-025)
 - [FB-30-CP-P-024 发生线上 P0 故障时，如何利用可观测性数据快速定位根因？](../by-domain/30-observability.md#FB-30-CP-P-024)
 - [FB-30-EN-P-023 日志脱敏与合规（PII/敏感信息）在前端如何处理？](../by-domain/30-observability.md#FB-30-EN-P-023)
 - [FB-30-EN-P-024 如何构建前端稳定性保障体系？](../by-domain/30-observability.md#FB-30-EN-P-024)
 - [FB-30-PE-P-019 如何基于 Web Vitals + Performance API 做首屏/交互性能监控？](../by-domain/30-observability.md#FB-30-PE-P-019)
+- [FB-30-PE-P-020 前端异常如何归因到具体发布](../by-domain/30-observability.md#FB-30-PE-P-020)
 - [FB-30-SC-P-020 告警策略如何设计？如何解决告警风暴与降噪？](../by-domain/30-observability.md#FB-30-SC-P-020)
 - [FB-30-SC-P-022 如何在微前端/跨端场景下统一可观测性？](../by-domain/30-observability.md#FB-30-SC-P-022)
+- [FB-30-SC-P-023 如何设计前端告警策略](../by-domain/30-observability.md#FB-30-SC-P-023)
+- [FB-30-SC-P-024 如何设计监控采样策略](../by-domain/30-observability.md#FB-30-SC-P-024)
 - [FB-30-SD-P-017 设计一个前端全链路可观测平台](../by-domain/30-observability.md#FB-30-SD-P-017)
 - [FB-30-SD-P-018 如何设计前端全链路追踪方案？](../by-domain/30-observability.md#FB-30-SD-P-018)
 - [FB-30-SD-P-019 如何设计前端性能预算和告警体系？](../by-domain/30-observability.md#FB-30-SD-P-019)
 
-### 安全架构（7 道）
+### 安全架构（18 道）
 
 - [FB-31-CD-P-001 如何设计一个前端安全 SDK？](../by-domain/31-security-architecture.md#FB-31-CD-P-001)
 - [FB-31-CO-P-001 什么是安全左移（Shift Left Security）？前端如何落地？](../by-domain/31-security-architecture.md#FB-31-CO-P-001)
 - [FB-31-CO-P-002 前端密钥管理有哪些方案？各自的适用场景是什么？](../by-domain/31-security-architecture.md#FB-31-CO-P-002)
 - [FB-31-CO-P-003 隐私合规（GDPR/个人信息保护法）对前端有哪些技术要求？](../by-domain/31-security-architecture.md#FB-31-CO-P-003)
+- [FB-31-CO-P-004 CORS 与前端安全的关系](../by-domain/31-security-architecture.md#FB-31-CO-P-004)
+- [FB-31-CO-P-005 什么是安全标头及其前端价值](../by-domain/31-security-architecture.md#FB-31-CO-P-005)
+- [FB-31-CO-P-006 HSTS 与前端安全](../by-domain/31-security-architecture.md#FB-31-CO-P-006)
 - [FB-31-SE-P-001 前端零信任架构的核心原则是什么？](../by-domain/31-security-architecture.md#FB-31-SE-P-001)
 - [FB-31-SE-P-002 CSP 有哪些常见绕过方式？如何构建深度防御？](../by-domain/31-security-architecture.md#FB-31-SE-P-002)
 - [FB-31-SE-P-003 什么是前端运行时应用自保护（RASP）？](../by-domain/31-security-architecture.md#FB-31-SE-P-003)
+- [FB-31-SE-P-004 内容安全策略 CSP 如何配置](../by-domain/31-security-architecture.md#FB-31-SE-P-004)
+- [FB-31-SE-P-005 前端供应链安全治理](../by-domain/31-security-architecture.md#FB-31-SE-P-005)
+- [FB-31-SE-P-006 前端如何处理富文本安全](../by-domain/31-security-architecture.md#FB-31-SE-P-006)
+- [FB-31-SE-P-007 前端如何防止敏感信息泄露](../by-domain/31-security-architecture.md#FB-31-SE-P-007)
+- [FB-31-SE-P-008 前端如何防御 DOM Clobbering](../by-domain/31-security-architecture.md#FB-31-SE-P-008)
+- [FB-31-SE-P-009 前端如何做权限校验才安全](../by-domain/31-security-architecture.md#FB-31-SE-P-009)
+- [FB-31-SE-P-010 Web Storage 安全使用指南](../by-domain/31-security-architecture.md#FB-31-SE-P-010)
+- [FB-31-SE-P-011 如何防御 JSONP 相关安全风险](../by-domain/31-security-architecture.md#FB-31-SE-P-011)
 
-### 实时与协同（7 道）
+### 实时与协同（14 道）
 
 - [FB-32-CO-P-001 CRDT 的原理与分类是什么？](../by-domain/32-real-time.md#FB-32-CO-P-001)
 - [FB-32-CO-P-002 协同编辑中的光标/选区同步有什么难点？](../by-domain/32-real-time.md#FB-32-CO-P-002)
 - [FB-32-CO-P-003 消息去重与幂等如何保证？](../by-domain/32-real-time.md#FB-32-CO-P-003)
 - [FB-32-CO-P-004 WebRTC 中 TURN 和媒体协商的作用是什么？](../by-domain/32-real-time.md#FB-32-CO-P-004)
+- [FB-32-CO-P-005 实时系统中的消息顺序与一致性](../by-domain/32-real-time.md#FB-32-CO-P-005)
+- [FB-32-CO-P-006 什么是操作转换 OT 与 CRDT](../by-domain/32-real-time.md#FB-32-CO-P-006)
+- [FB-32-CO-P-007 WebRTC 在前端实时系统中的应用](../by-domain/32-real-time.md#FB-32-CO-P-007)
 - [FB-32-PE-P-001 实时系统如何实现水平扩展？](../by-domain/32-real-time.md#FB-32-PE-P-001)
 - [FB-32-PE-P-002 实时数据流中的背压（Backpressure）如何处理？](../by-domain/32-real-time.md#FB-32-PE-P-002)
+- [FB-32-PE-P-003 实时列表的渲染优化](../by-domain/32-real-time.md#FB-32-PE-P-003)
+- [FB-32-SC-P-001 网络分区对实时系统的影响](../by-domain/32-real-time.md#FB-32-SC-P-001)
+- [FB-32-SC-P-002 实时系统中如何做消息去重](../by-domain/32-real-time.md#FB-32-SC-P-002)
+- [FB-32-SC-P-003 实时系统中的断线补偿策略](../by-domain/32-real-time.md#FB-32-SC-P-003)
 - [FB-32-SE-P-001 实时协同中的安全与权限如何设计？](../by-domain/32-real-time.md#FB-32-SE-P-001)
 
-### 国际化（7 道）
+### 国际化（14 道）
 
 - [FB-33-CO-P-001 微前端与组件库国际化如何协同？](../by-domain/33-internationalization.md#FB-33-CO-P-001)
 - [FB-33-CO-P-002 RTL 与复杂组件（图表、日历）如何支持？](../by-domain/33-internationalization.md#FB-33-CO-P-002)
 - [FB-33-CO-P-003 自动翻译与人工校对流程如何设计？](../by-domain/33-internationalization.md#FB-33-CO-P-003)
 - [FB-33-CO-P-004 设计文案与代码如何解耦？](../by-domain/33-internationalization.md#FB-33-CO-P-004)
+- [FB-33-CO-P-005 RTL 语言布局如何支持](../by-domain/33-internationalization.md#FB-33-CO-P-005)
+- [FB-33-CO-P-006 翻译管理系统如何与前端集成](../by-domain/33-internationalization.md#FB-33-CO-P-006)
+- [FB-33-CO-P-007 货币与数字格式化](../by-domain/33-internationalization.md#FB-33-CO-P-007)
 - [FB-33-CP-P-001 多语言 A/B 测试如何设计？](../by-domain/33-internationalization.md#FB-33-CP-P-001)
 - [FB-33-PE-P-001 语言包体积如何优化？](../by-domain/33-internationalization.md#FB-33-PE-P-001)
+- [FB-33-SC-P-001 如何处理 ICU 复数与插值](../by-domain/33-internationalization.md#FB-33-SC-P-001)
+- [FB-33-SC-P-002 如何设计组件库的多语言支持](../by-domain/33-internationalization.md#FB-33-SC-P-002)
+- [FB-33-SC-P-003 国际化项目的测试策略](../by-domain/33-internationalization.md#FB-33-SC-P-003)
+- [FB-33-SC-P-004 如何处理多语言下的 SEO 与预渲染](../by-domain/33-internationalization.md#FB-33-SC-P-004)
 - [FB-33-SD-P-001 如何设计大规模多语言前端平台？](../by-domain/33-internationalization.md#FB-33-SD-P-001)
 
-### 可视化与图形（7 道）
+### 可视化与图形（14 道）
 
 - [FB-34-CO-P-020 GPU 加速原理是什么？WebGL 中顶点着色器与片元着色器如何协同工作？](../by-domain/34-visualization-graphics.md#FB-34-CO-P-020)
 - [FB-34-CO-P-023 颜色映射、视觉编码与感知均匀性在数据可视化中有何影响？](../by-domain/34-visualization-graphics.md#FB-34-CO-P-023)
+- [FB-34-CO-P-024 D3 与 ECharts 的取舍](../by-domain/34-visualization-graphics.md#FB-34-CO-P-024)
+- [FB-34-CO-P-025 颜色与主题系统在可视化中的设计](../by-domain/34-visualization-graphics.md#FB-34-CO-P-025)
+- [FB-34-CO-P-026 可视化中的坐标系与投影](../by-domain/34-visualization-graphics.md#FB-34-CO-P-026)
 - [FB-34-CP-P-017 为一款 BI 数据产品选择底层渲染技术，如何权衡 Canvas/SVG/WebGL/WebGPU？](../by-domain/34-visualization-graphics.md#FB-34-CP-P-017)
 - [FB-34-FS-P-018 D3.js 的 join 模式、数据绑定与 enter/update/exit 在 v5/v6/v7 中有何演进？](../by-domain/34-visualization-graphics.md#FB-34-FS-P-018)
 - [FB-34-PE-P-019 地理/地图可视化中，如何处理大规模 GeoJSON、投影变换与瓦片化？](../by-domain/34-visualization-graphics.md#FB-34-PE-P-019)
 - [FB-34-PE-P-022 可视化动画与性能：requestAnimationFrame、补间、时间轴与 Web Animations API 如何选型？](../by-domain/34-visualization-graphics.md#FB-34-PE-P-022)
+- [FB-34-PE-P-023 可视化大屏的渲染性能优化](../by-domain/34-visualization-graphics.md#FB-34-PE-P-023)
+- [FB-34-PE-P-024 Canvas 高清屏渲染优化](../by-domain/34-visualization-graphics.md#FB-34-PE-P-024)
 - [FB-34-SC-P-021 实时数据流驱动的可视化大屏每秒新增数千点，如何保证不丢帧？](../by-domain/34-visualization-graphics.md#FB-34-SC-P-021)
+- [FB-34-SC-P-022 如何设计交互式地图应用](../by-domain/34-visualization-graphics.md#FB-34-SC-P-022)
+- [FB-34-SC-P-023 如何设计可视化组件的测试策略](../by-domain/34-visualization-graphics.md#FB-34-SC-P-023)
 
-### Serverless/Edge（7 道）
+### Serverless/Edge（16 道）
 
 - [FB-35-CO-P-001 边缘函数与微服务边界如何划分？](../by-domain/35-serverless-edge.md#FB-35-CO-P-001)
 - [FB-35-CO-P-002 多区域部署与一致性如何权衡？](../by-domain/35-serverless-edge.md#FB-35-CO-P-002)
@@ -2620,9 +3647,18 @@
 - [FB-35-CO-P-004 Serverless 中的隐私合规如何处理？](../by-domain/35-serverless-edge.md#FB-35-CO-P-004)
 - [FB-35-CO-P-005 函数编排与 workflow 在 Serverless 中如何实现？](../by-domain/35-serverless-edge.md#FB-35-CO-P-005)
 - [FB-35-CO-P-006 边缘 AI 推理有哪些应用场景与挑战？](../by-domain/35-serverless-edge.md#FB-35-CO-P-006)
+- [FB-35-CO-P-007 Serverless 冷启动与温启动](../by-domain/35-serverless-edge.md#FB-35-CO-P-007)
+- [FB-35-CO-P-008 Serverless 的供应商锁定如何应对](../by-domain/35-serverless-edge.md#FB-35-CO-P-008)
+- [FB-35-CO-P-009 边缘渲染与中心 SSR 的取舍](../by-domain/35-serverless-edge.md#FB-35-CO-P-009)
+- [FB-35-CO-P-010 什么是分布式跟踪在 Serverless 中的挑战](../by-domain/35-serverless-edge.md#FB-35-CO-P-010)
+- [FB-35-CO-P-011 什么是 OCI 容器与 Serverless 容器](../by-domain/35-serverless-edge.md#FB-35-CO-P-011)
+- [FB-35-SC-P-001 设计一个基于边缘的 SSR 渲染方案](../by-domain/35-serverless-edge.md#FB-35-SC-P-001)
+- [FB-35-SC-P-002 Serverless 下如何管理环境变量和密钥](../by-domain/35-serverless-edge.md#FB-35-SC-P-002)
+- [FB-35-SC-P-003 Serverless 函数的测试策略](../by-domain/35-serverless-edge.md#FB-35-SC-P-003)
+- [FB-35-SC-P-004 Serverless 下的数据库连接管理](../by-domain/35-serverless-edge.md#FB-35-SC-P-004)
 - [FB-35-SE-P-001 Edge 上的认证与授权如何设计？](../by-domain/35-serverless-edge.md#FB-35-SE-P-001)
 
-### 前端数据工程（7 道）
+### 前端数据工程（18 道）
 
 - [FB-36-CD-P-001 如何设计一个前端埋点 SDK？](../by-domain/36-data-engineering.md#FB-36-CD-P-001)
 - [FB-36-CO-P-001 如何保证埋点数据的准确性与完整性？](../by-domain/36-data-engineering.md#FB-36-CO-P-001)
@@ -2630,19 +3666,49 @@
 - [FB-36-CO-P-003 用户画像与标签体系如何设计？](../by-domain/36-data-engineering.md#FB-36-CO-P-003)
 - [FB-36-CO-P-004 实时与离线数据口径不一致怎么办？](../by-domain/36-data-engineering.md#FB-36-CO-P-004)
 - [FB-36-CO-P-005 数据血缘与影响分析在前端数据工程中的作用是什么？](../by-domain/36-data-engineering.md#FB-36-CO-P-005)
+- [FB-36-CO-P-006 数据湖、数据仓库、数据库的区别](../by-domain/36-data-engineering.md#FB-36-CO-P-006)
+- [FB-36-CO-P-007 什么是指标口径与维度](../by-domain/36-data-engineering.md#FB-36-CO-P-007)
+- [FB-36-CO-P-008 什么是数据质量六性](../by-domain/36-data-engineering.md#FB-36-CO-P-008)
+- [FB-36-CO-P-009 什么是数据产品化](../by-domain/36-data-engineering.md#FB-36-CO-P-009)
+- [FB-36-CO-P-010 数据工程中的隐私与合规](../by-domain/36-data-engineering.md#FB-36-CO-P-010)
+- [FB-36-SC-P-001 前端如何做数据清洗与校验](../by-domain/36-data-engineering.md#FB-36-SC-P-001)
+- [FB-36-SC-P-002 前端如何处理大数据表格](../by-domain/36-data-engineering.md#FB-36-SC-P-002)
+- [FB-36-SC-P-003 前端如何做数据导出与下载](../by-domain/36-data-engineering.md#FB-36-SC-P-003)
+- [FB-36-SC-P-004 前端如何支持多维分析（OLAP）](../by-domain/36-data-engineering.md#FB-36-SC-P-004)
+- [FB-36-SC-P-005 如何设计数据权限在前端的体现](../by-domain/36-data-engineering.md#FB-36-SC-P-005)
+- [FB-36-SC-P-006 前端数据异常如何自动发现](../by-domain/36-data-engineering.md#FB-36-SC-P-006)
 - [FB-36-SE-P-001 前端数据隐私合规有哪些深度措施？](../by-domain/36-data-engineering.md#FB-36-SE-P-001)
 
-### 业务洞察（7 道）
+### 业务洞察（26 道）
 
 - [FB-37-CO-P-004 产品生命周期不同阶段的增长策略与前端技术投入重点是什么？](../by-domain/37-business.md#FB-37-CO-P-004)
+- [FB-37-CO-P-005 B2B SaaS 产品的免费试用到期后，如何设计转化与挽留策略？](../by-domain/37-business.md#FB-37-CO-P-005)
+- [FB-37-CO-P-006 如何量化一次前端重构对业务的真实价值？](../by-domain/37-business.md#FB-37-CO-P-006)
+- [FB-37-CO-P-007 平台型业务中，如何防止“薅羊毛”和欺诈行为损害生态？](../by-domain/37-business.md#FB-37-CO-P-007)
+- [FB-37-CO-P-008 如何分析一个产品的“增长飞轮”并找到前端杠杆点？](../by-domain/37-business.md#FB-37-CO-P-008)
+- [FB-37-CO-P-009 多业务线公司中，如何平衡通用中台与业务定制化需求？](../by-domain/37-business.md#FB-37-CO-P-009)
+- [FB-37-CO-P-010 如何利用波特五力模型分析前端技术选型对竞争壁垒的影响？](../by-domain/37-business.md#FB-37-CO-P-010)
+- [FB-37-CO-P-011 什么是护城河？技术如何成为企业的护城河？](../by-domain/37-business.md#FB-37-CO-P-011)
+- [FB-37-CO-P-012 如何理解“技术债”与“业务债”？前端如何管理这两类债务？](../by-domain/37-business.md#FB-37-CO-P-012)
 - [FB-37-CP-P-001 结合一个你熟悉的业务，阐述如何用价值链分析找到前端技术的发力点。](../by-domain/37-business.md#FB-37-CP-P-001)
 - [FB-37-CP-P-003 当业务要求“短期变现”与“长期用户体验”冲突时，前端架构师如何决策？](../by-domain/37-business.md#FB-37-CP-P-003)
 - [FB-37-CP-P-006 在 B2B 与 B2C 业务中，前端架构的差异主要体现在哪些方面？](../by-domain/37-business.md#FB-37-CP-P-006)
 - [FB-37-CP-P-007 如何用“技术驱动业务创新”？请举例说明前端技术如何创造新的商业模式或收入增长点。](../by-domain/37-business.md#FB-37-CP-P-007)
+- [FB-37-CP-P-008 如何设计一套面向业务方的自助式 A/B 实验平台前端？](../by-domain/37-business.md#FB-37-CP-P-008)
+- [FB-37-CP-P-009 如何评估并优化一个多边平台（Two-Sided Marketplace）的匹配效率？](../by-domain/37-business.md#FB-37-CP-P-009)
+- [FB-37-CP-P-010 SaaS 产品的 PLG（产品驱动增长）模式下，前端应重点优化哪些体验？](../by-domain/37-business.md#FB-37-CP-P-010)
+- [FB-37-CP-P-011 如何为一个跨境电商平台设计本地化的前端策略？](../by-domain/37-business.md#FB-37-CP-P-011)
+- [FB-37-CP-P-012 如何向 CFO/CEO 汇报一次前端性能优化的业务价值？](../by-domain/37-business.md#FB-37-CP-P-012)
 - [FB-37-SC-P-002 设计一个支持 A/B 实验的前端实验平台，需要哪些核心模块？](../by-domain/37-business.md#FB-37-SC-P-002)
 - [FB-37-SC-P-005 如何构建面向业务指标的实时数据看板？前端在数据采集与展示上的关键设计是什么？](../by-domain/37-business.md#FB-37-SC-P-005)
+- [FB-37-SC-P-006 作为前端负责人，你如何决定一个创新项目是“加大投入”还是“及时止损”？](../by-domain/37-business.md#FB-37-SC-P-006)
+- [FB-37-SC-P-007 如何为一个内容平台设计创作者经济体系的前端支撑？](../by-domain/37-business.md#FB-37-SC-P-007)
+- [FB-37-SC-P-008 如何利用前端数据帮助业务方识别高价值用户并优化运营策略？](../by-domain/37-business.md#FB-37-SC-P-008)
+- [FB-37-SC-P-009 面对流量红利见顶，前端如何帮助业务实现“存量深耕”？](../by-domain/37-business.md#FB-37-SC-P-009)
+- [FB-37-SC-P-010 如果业务方要求你同时支撑多个战略方向，但资源有限，你如何决策？](../by-domain/37-business.md#FB-37-SC-P-010)
+- [FB-37-SC-P-011 如何设计一个面向销售团队的前端工具，提升成单效率？](../by-domain/37-business.md#FB-37-SC-P-011)
 
-### 团队领导力（7 道）
+### 团队领导力（15 道）
 
 - [FB-38-CP-P-002 团队中资深成员不愿接受新流程，作为 leader 你如何推动变革？](../by-domain/38-team.md#FB-38-CP-P-002)
 - [FB-38-CP-P-005 远程团队跨时区协作，如何平衡异步沟通与同步会议？](../by-domain/38-team.md#FB-38-CP-P-005)
@@ -2650,19 +3716,35 @@
 - [FB-38-SC-P-001 设计一套可量化的前端团队绩效评估体系](../by-domain/38-team.md#FB-38-SC-P-001)
 - [FB-38-SC-P-003 如何搭建人才梯队与继任计划，降低关键岗位单点风险？](../by-domain/38-team.md#FB-38-SC-P-003)
 - [FB-38-SC-P-004 在裁员或低绩效淘汰场景下，如何合法合规并维护团队信任？](../by-domain/38-team.md#FB-38-SC-P-004)
+- [FB-38-SC-P-007 团队内部出现“小团体”现象，影响协作，你怎么处理？](../by-domain/38-team.md#FB-38-SC-P-007)
+- [FB-38-SC-P-008 如何在团队中推广“Ownership”文化？](../by-domain/38-team.md#FB-38-SC-P-008)
+- [FB-38-SC-P-009 你如何管理一位比你资历更深、技术更强的下属？](../by-domain/38-team.md#FB-38-SC-P-009)
 - [FB-38-SS-P-006 冲突管理中的 Thomas-Kilmann 模型如何应用于技术团队？](../by-domain/38-team.md#FB-38-SS-P-006)
+- [FB-38-SS-P-007 作为管理者，你如何判断自己是否应该继续走管理路线还是转回 IC（Individual Contributor）？](../by-domain/38-team.md#FB-38-SS-P-007)
+- [FB-38-SS-P-008 如何在团队中推行“失败复盘”文化而不变成甩锅大会？](../by-domain/38-team.md#FB-38-SS-P-008)
+- [FB-38-SS-P-009 你如何培养团队中的潜在管理者？](../by-domain/38-team.md#FB-38-SS-P-009)
+- [FB-38-SS-P-010 团队扩张过快导致文化稀释，你会如何应对？](../by-domain/38-team.md#FB-38-SS-P-010)
+- [FB-38-SS-P-011 如何在团队中实现真正的 diversity（多样性）与 inclusion（包容）？](../by-domain/38-team.md#FB-38-SS-P-011)
 
-### 技术战略（7 道）
+### 技术战略（15 道）
 
 - [FB-39-CP-P-005 如何量化技术投入对业务的价值？](../by-domain/39-strategy.md#FB-39-CP-P-005)
+- [FB-39-CP-P-006 当公司战略发生重大变化时，你如何快速调整前端技术战略？](../by-domain/39-strategy.md#FB-39-CP-P-006)
+- [FB-39-CP-P-007 如何评估一次大型前端架构升级的必要性和时机？](../by-domain/39-strategy.md#FB-39-CP-P-007)
+- [FB-39-CP-P-008 如何在技术战略中考虑 AI 对前端工作的影响？](../by-domain/39-strategy.md#FB-39-CP-P-008)
+- [FB-39-CP-P-009 如何为前端团队制定有效的技术风险应对策略？](../by-domain/39-strategy.md#FB-39-CP-P-009)
+- [FB-39-CP-P-010 技术战略规划中，如何处理“遗留系统”？](../by-domain/39-strategy.md#FB-39-CP-P-010)
 - [FB-39-EN-P-003 如何在高速迭代中管理技术债，避免系统崩溃？](../by-domain/39-strategy.md#FB-39-EN-P-003)
+- [FB-39-EN-P-004 如何设计前端团队的工程化指标体系？](../by-domain/39-strategy.md#FB-39-EN-P-004)
 - [FB-39-SC-P-002 如何评估一个新技术是否值得引入生产环境？](../by-domain/39-strategy.md#FB-39-SC-P-002)
 - [FB-39-SC-P-006 如何制定企业的开源战略并规避法律与供应链风险？](../by-domain/39-strategy.md#FB-39-SC-P-006)
 - [FB-39-SC-P-007 当核心技术人员离职或关键供应商停止维护时，如何保障技术连续性？](../by-domain/39-strategy.md#FB-39-SC-P-007)
+- [FB-39-SC-P-008 如何设计一个既有技术前瞻性又能落地的年度技术规划？](../by-domain/39-strategy.md#FB-39-SC-P-008)
 - [FB-39-SD-P-001 请设计一套前端技术选型决策框架。](../by-domain/39-strategy.md#FB-39-SD-P-001)
 - [FB-39-SD-P-004 请设计一个前端中台的演进路线与治理机制。](../by-domain/39-strategy.md#FB-39-SD-P-004)
+- [FB-39-SD-P-005 如何为一个快速增长的公司设计可演进的前端架构蓝图？](../by-domain/39-strategy.md#FB-39-SD-P-005)
 
-### 沟通表达（7 道）
+### 沟通表达（12 道）
 
 - [FB-40-SC-P-001 如何准备一场高质量的技术宣讲/分享？](../by-domain/40-communication.md#FB-40-SC-P-001)
 - [FB-40-SC-P-002 跨文化团队出现沟通误解，你如何排查与修复？](../by-domain/40-communication.md#FB-40-SC-P-002)
@@ -2671,8 +3753,13 @@
 - [FB-40-SC-P-006 团队内部出现“谁来做这个脏活”的推诿，你如何推动解决？](../by-domain/40-communication.md#FB-40-SC-P-006)
 - [FB-40-SS-P-005 如何建立可持续的文档写作文化？](../by-domain/40-communication.md#FB-40-SS-P-005)
 - [FB-40-SS-P-007 组织变动期间，如何保持团队士气与信息透明？](../by-domain/40-communication.md#FB-40-SS-P-007)
+- [FB-40-SS-P-008 如何在一次高层汇报中争取前端团队的资源？](../by-domain/40-communication.md#FB-40-SS-P-008)
+- [FB-40-SS-P-009 如何应对高层对前端工作的误解（认为前端只是“做页面”）？](../by-domain/40-communication.md#FB-40-SS-P-009)
+- [FB-40-SS-P-010 如何在技术债务和业务需求之间进行“艰难对话”？](../by-domain/40-communication.md#FB-40-SS-P-010)
+- [FB-40-SS-P-011 如何向团队传达一个不受欢迎但必要的决定？](../by-domain/40-communication.md#FB-40-SS-P-011)
+- [FB-40-SS-P-012 如何在全球化团队中跨越文化和时区差异进行有效沟通？](../by-domain/40-communication.md#FB-40-SS-P-012)
 
-### 项目管理（8 道）
+### 项目管理（18 道）
 
 - [FB-41-CP-P-001 如何在业务交付压力与技术重构之间取得平衡？](../by-domain/41-project-management.md#FB-41-CP-P-001)
 - [FB-41-CP-P-004 项目复盘会议怎么开？如何确保复盘结论真正落地？](../by-domain/41-project-management.md#FB-41-CP-P-004)
@@ -2680,21 +3767,39 @@
 - [FB-41-EN-P-007 如何建立前端工程效能指标体系？请给出指标分层与采集方式。](../by-domain/41-project-management.md#FB-41-EN-P-007)
 - [FB-41-SC-P-003 多项目并行时，如何识别资源冲突并制定优先级策略？](../by-domain/41-project-management.md#FB-41-SC-P-003)
 - [FB-41-SC-P-005 前端项目如何制定并管理项目预算与 ROI？](../by-domain/41-project-management.md#FB-41-SC-P-005)
+- [FB-41-SC-P-006 如何管理一个跨团队、跨地域的大型前端项目？](../by-domain/41-project-management.md#FB-41-SC-P-006)
+- [FB-41-SC-P-007 项目范围不断蔓延（Scope Creep），你如何应对？](../by-domain/41-project-management.md#FB-41-SC-P-007)
+- [FB-41-SC-P-008 如何在敏捷开发中做好版本规划和发布管理？](../by-domain/41-project-management.md#FB-41-SC-P-008)
+- [FB-41-SC-P-009 项目资源不足时，你如何调整项目计划？](../by-domain/41-project-management.md#FB-41-SC-P-009)
 - [FB-41-SD-P-002 设计一个前端技术项目的治理框架（Governance Framework）。](../by-domain/41-project-management.md#FB-41-SD-P-002)
+- [FB-41-SD-P-003 如何从 0 到 1 建立前端项目的风险管理体系？](../by-domain/41-project-management.md#FB-41-SD-P-003)
 - [FB-41-SS-P-006 面对强势干系人（如高管客户）的不合理 deadline，你如何沟通？](../by-domain/41-project-management.md#FB-41-SS-P-006)
+- [FB-41-SS-P-007 如何在项目中管理“不确定性”和“未知风险”？](../by-domain/41-project-management.md#FB-41-SS-P-007)
+- [FB-41-SS-P-008 作为项目经理，你如何处理团队内部对估算的分歧？](../by-domain/41-project-management.md#FB-41-SS-P-008)
+- [FB-41-SS-P-009 如何在高压项目中保持团队士气？](../by-domain/41-project-management.md#FB-41-SS-P-009)
+- [FB-41-SS-P-010 如何在项目中有效管理外部依赖（如第三方服务、其他团队）？](../by-domain/41-project-management.md#FB-41-SS-P-010)
+- [FB-41-SS-P-011 项目成功后，你会如何分配功劳？](../by-domain/41-project-management.md#FB-41-SS-P-011)
 
-### 招聘（8 道）
+### 招聘（16 道）
 
 - [FB-42-CP-P-018 如何构建数据驱动的招聘仪表盘？](../by-domain/42-hiring.md#FB-42-CP-P-018)
 - [FB-42-CP-P-022 校园招聘与社会招聘的策略差异是什么？](../by-domain/42-hiring.md#FB-42-CP-P-022)
+- [FB-42-CP-P-023 如何减少面试中的偏见，提高招聘公平性？](../by-domain/42-hiring.md#FB-42-CP-P-023)
+- [FB-42-CP-P-024 如何设计有效的校招前端人才培养和面试体系？](../by-domain/42-hiring.md#FB-42-CP-P-024)
+- [FB-42-CP-P-025 如何在面试中识别候选人的“Owner 意识”？](../by-domain/42-hiring.md#FB-42-CP-P-025)
+- [FB-42-CP-P-026 如何面试一位比你更资深的前端工程师？](../by-domain/42-hiring.md#FB-42-CP-P-026)
 - [FB-42-SC-P-020 背调与定薪的流程和关键注意点有哪些？](../by-domain/42-hiring.md#FB-42-SC-P-020)
 - [FB-42-SC-P-024 如何在雇主品牌建设中落地技术招聘？](../by-domain/42-hiring.md#FB-42-SC-P-024)
 - [FB-42-SD-P-017 如何设计一套可扩展的面试官认证体系？](../by-domain/42-hiring.md#FB-42-SD-P-017)
 - [FB-42-SD-P-021 如何设计技术面试题库与分级体系？](../by-domain/42-hiring.md#FB-42-SD-P-021)
 - [FB-42-SS-P-019 如何通过面试识别候选人的工程文化和价值观？](../by-domain/42-hiring.md#FB-42-SS-P-019)
 - [FB-42-SS-P-023 如何评估候选人的成长潜力而非只看当前技能？](../by-domain/42-hiring.md#FB-42-SS-P-023)
+- [FB-42-SS-P-024 如何设计针对前端负责人的面试评估？](../by-domain/42-hiring.md#FB-42-SS-P-024)
+- [FB-42-SS-P-025 如何在招聘中识别候选人的团队协作能力？](../by-domain/42-hiring.md#FB-42-SS-P-025)
+- [FB-42-SS-P-026 如何设计面试中的“行为问题”以预测未来表现？](../by-domain/42-hiring.md#FB-42-SS-P-026)
+- [FB-42-SS-P-027 如何评估候选人对前端性能优化的真实经验？](../by-domain/42-hiring.md#FB-42-SS-P-027)
 
-### 技术品牌与布道（7 道）
+### 技术品牌与布道（9 道）
 
 - [FB-43-CP-P-003 一次技术公关危机（如线上故障被外部放大）中，技术品牌团队应如何响应？](../by-domain/43-tech-branding.md#FB-43-CP-P-003)
 - [FB-43-CP-P-006 如何为前端框架/工具设计开发者体验（DX）以提升技术品牌？](../by-domain/43-tech-branding.md#FB-43-CP-P-006)
@@ -2703,49 +3808,76 @@
 - [FB-43-SC-P-005 技术布道的内容如何从“自嗨”变成“对用户/开发者真正有价值”？](../by-domain/43-tech-branding.md#FB-43-SC-P-005)
 - [FB-43-SD-P-001 设计一个“前端团队技术影响力度量体系”。](../by-domain/43-tech-branding.md#FB-43-SD-P-001)
 - [FB-43-SS-P-007 技术 Leader 如何帮助团队成员建立个人技术品牌，同时避免明星个人离开带来的品牌断层？](../by-domain/43-tech-branding.md#FB-43-SS-P-007)
+- [FB-43-SS-P-008 如何策划一场有影响力的技术发布会或产品技术日？](../by-domain/43-tech-branding.md#FB-43-SS-P-008)
+- [FB-43-SS-P-009 如何建立一个可持续的技术布道团队？](../by-domain/43-tech-branding.md#FB-43-SS-P-009)
 
-### 技术治理与合规（7 道）
+### 技术治理与合规（12 道）
 
 - [FB-44-CP-P-001 技术规范如何从制定到失效进行全生命周期管理？](../by-domain/44-tech-governance.md#FB-44-CP-P-001)
 - [FB-44-SC-P-001 如何建立前端开源合规治理体系？](../by-domain/44-tech-governance.md#FB-44-SC-P-001)
 - [FB-44-SC-P-002 如何设计和实施前端 IT 内控？](../by-domain/44-tech-governance.md#FB-44-SC-P-002)
 - [FB-44-SC-P-003 如何处理历史遗留系统的数据治理与隐私合规？](../by-domain/44-tech-governance.md#FB-44-SC-P-003)
 - [FB-44-SC-P-004 如何设计前端审计与风控日志体系？](../by-domain/44-tech-governance.md#FB-44-SC-P-004)
+- [FB-44-SC-P-005 如何设计前端的技术债治理机制？](../by-domain/44-tech-governance.md#FB-44-SC-P-005)
+- [FB-44-SC-P-006 如何建立前端性能的持续治理机制？](../by-domain/44-tech-governance.md#FB-44-SC-P-006)
+- [FB-44-SC-P-007 前端如何实现可访问性（Accessibility）治理？](../by-domain/44-tech-governance.md#FB-44-SC-P-007)
+- [FB-44-SC-P-008 如何建立前端的数据埋点治理机制？](../by-domain/44-tech-governance.md#FB-44-SC-P-008)
+- [FB-44-SC-P-009 如何设计前端架构评审流程？](../by-domain/44-tech-governance.md#FB-44-SC-P-009)
 - [FB-44-SD-P-001 设计一个前端技术治理平台。](../by-domain/44-tech-governance.md#FB-44-SD-P-001)
 - [FB-44-SD-P-002 如何设计前端灾备与业务连续性方案？](../by-domain/44-tech-governance.md#FB-44-SD-P-002)
 
-### 小程序（7 道）
+### 小程序（16 道）
 
 - [FB-45-FS-P-001 小程序 Exparser 组件框架和虚拟 DOM 渲染原理是什么？](../by-domain/45-mini-program.md#FB-45-FS-P-001)
 - [FB-45-FS-P-004 小程序自定义组件的 behaviors、relations 和 slot 实现机制是什么？](../by-domain/45-mini-program.md#FB-45-FS-P-004)
 - [FB-45-FS-P-005 小程序的同层渲染原理是什么？解决了什么问题？](../by-domain/45-mini-program.md#FB-45-FS-P-005)
+- [FB-45-FS-P-006 微信小程序的双线程模型是什么？有什么影响？](../by-domain/45-mini-program.md#FB-45-FS-P-006)
+- [FB-45-FS-P-007 微信小程序的自定义组件渲染机制是什么？](../by-domain/45-mini-program.md#FB-45-FS-P-007)
+- [FB-45-FS-P-008 微信小程序的启动性能优化有哪些手段？](../by-domain/45-mini-program.md#FB-45-FS-P-008)
+- [FB-45-FS-P-009 微信小程序的长列表优化方案有哪些？](../by-domain/45-mini-program.md#FB-45-FS-P-009)
+- [FB-45-FS-P-010 微信小程序的跨平台框架（如 Taro、uni-app）有哪些优缺点？](../by-domain/45-mini-program.md#FB-45-FS-P-010)
 - [FB-45-PE-P-002 小程序启动性能优化和白屏优化有哪些方案？](../by-domain/45-mini-program.md#FB-45-PE-P-002)
 - [FB-45-PE-P-003 小程序包体积优化有哪些手段？如何分析体积？](../by-domain/45-mini-program.md#FB-45-PE-P-003)
 - [FB-45-PE-P-006 小程序 SSR、预渲染和骨架屏的实践方案是什么？](../by-domain/45-mini-program.md#FB-45-PE-P-006)
 - [FB-45-SC-P-007 小程序全局状态管理有哪些方案？如何选择？](../by-domain/45-mini-program.md#FB-45-SC-P-007)
+- [FB-45-SC-P-008 微信小程序如何实现一个复杂的表单页面？](../by-domain/45-mini-program.md#FB-45-SC-P-008)
+- [FB-45-SC-P-009 微信小程序如何做状态管理？](../by-domain/45-mini-program.md#FB-45-SC-P-009)
+- [FB-45-SC-P-010 微信小程序如何实现支付功能？](../by-domain/45-mini-program.md#FB-45-SC-P-010)
+- [FB-45-SC-P-011 微信小程序如何做版本更新处理？](../by-domain/45-mini-program.md#FB-45-SC-P-011)
 
-### 鸿蒙 ArkTS / HarmonyOS（8 道）
+### 鸿蒙 ArkTS / HarmonyOS（14 道）
 
 - [FB-46-CD-P-023 请手写一个鸿蒙网络请求与状态管理结合的示例。](../by-domain/46-harmonyos.md#FB-46-CD-P-023)
 - [FB-46-CO-P-019 鸿蒙中如何进行 NDK / C++ 开发？适用场景有哪些？](../by-domain/46-harmonyos.md#FB-46-CO-P-019)
 - [FB-46-CO-P-020 鸿蒙应用如何做跨设备适配？响应式布局有哪些关键能力？](../by-domain/46-harmonyos.md#FB-46-CO-P-020)
 - [FB-46-CO-P-022 鸿蒙应用状态流转（Continuation）是什么？如何实现？](../by-domain/46-harmonyos.md#FB-46-CO-P-022)
+- [FB-46-CO-P-023 鸿蒙应用如何适配不同设备（手机、平板、折叠屏、车机）？](../by-domain/46-harmonyos.md#FB-46-CO-P-023)
+- [FB-46-CO-P-024 鸿蒙的分布式能力有哪些？前端如何调用？](../by-domain/46-harmonyos.md#FB-46-CO-P-024)
+- [FB-46-CO-P-025 鸿蒙应用如何做性能优化？](../by-domain/46-harmonyos.md#FB-46-CO-P-025)
+- [FB-46-CO-P-026 鸿蒙的方舟编译器有什么特点？](../by-domain/46-harmonyos.md#FB-46-CO-P-026)
 - [FB-46-FS-P-017 ArkUI 的渲染原理是什么？状态变化后如何触发 UI 更新？](../by-domain/46-harmonyos.md#FB-46-FS-P-017)
 - [FB-46-FS-P-024 鸿蒙与 Android / iOS / 小程序 / Flutter 在技术范式上有哪些本质差异？](../by-domain/46-harmonyos.md#FB-46-FS-P-024)
+- [FB-46-FS-P-025 鸿蒙 ArkUI 的声明式 UI 与传统命令式 UI 有什么区别？](../by-domain/46-harmonyos.md#FB-46-FS-P-025)
+- [FB-46-FS-P-026 鸿蒙的服务卡片（Widget）如何开发？](../by-domain/46-harmonyos.md#FB-46-FS-P-026)
 - [FB-46-PE-P-018 鸿蒙应用如何进行性能与功耗优化？](../by-domain/46-harmonyos.md#FB-46-PE-P-018)
 - [FB-46-SE-P-021 鸿蒙应用的安全架构是怎样的？如何做好权限治理？](../by-domain/46-harmonyos.md#FB-46-SE-P-021)
 
-### Flutter（7 道）
+### Flutter（12 道）
 
 - [FB-47-CO-P-007 Flutter 的测试体系是怎样的？Unit、Widget、Integration 测试各负责什么？](../by-domain/47-flutter.md#FB-47-CO-P-007)
 - [FB-47-CP-P-002 Flutter 状态管理方案众多，Provider、Riverpod、BLoC、GetX 各适合什么场景？如何选型？](../by-domain/47-flutter.md#FB-47-CP-P-002)
 - [FB-47-FS-P-001 Impeller 的渲染管线是怎样的？相比 Skia 在哪些环节做了优化？](../by-domain/47-flutter.md#FB-47-FS-P-001)
 - [FB-47-FS-P-005 Platform Channel 的编解码机制是怎样的？如何实现自定义 Codec？](../by-domain/47-flutter.md#FB-47-FS-P-005)
 - [FB-47-FS-P-006 StatefulWidget 的生命周期与 Element 的复用机制是怎样的？](../by-domain/47-flutter.md#FB-47-FS-P-006)
+- [FB-47-FS-P-007 Flutter 的渲染原理是什么？为什么性能高？](../by-domain/47-flutter.md#FB-47-FS-P-007)
+- [FB-47-FS-P-008 Flutter 的 Key 有什么作用？什么时候需要使用 Key？](../by-domain/47-flutter.md#FB-47-FS-P-008)
+- [FB-47-FS-P-009 Flutter 中的 InheritedWidget 是什么？与 Provider 有什么关系？](../by-domain/47-flutter.md#FB-47-FS-P-009)
+- [FB-47-FS-P-010 Flutter 中如何与平台原生代码交互？](../by-domain/47-flutter.md#FB-47-FS-P-010)
+- [FB-47-FS-P-011 Flutter 的热重载（Hot Reload）和热重启（Hot Restart）有什么区别？](../by-domain/47-flutter.md#FB-47-FS-P-011)
 - [FB-47-PE-P-004 Flutter 性能调优实战：如何定位并解决卡顿、掉帧、内存泄漏？](../by-domain/47-flutter.md#FB-47-PE-P-004)
 - [FB-47-SC-P-003 在现有原生 App 中嵌入 Flutter（Add-to-App）有哪些技术方案和挑战？](../by-domain/47-flutter.md#FB-47-SC-P-003)
 
-### Electron（7 道）
+### Electron（11 道）
 
 - [FB-48-CD-P-004 请手写一个带超时控制和类型安全的 IPC 调用封装](../by-domain/48-electron.md#FB-48-CD-P-004)
 - [FB-48-CO-P-005 Electron 如何集成原生模块（Native Addon）？](../by-domain/48-electron.md#FB-48-CO-P-005)
@@ -2753,19 +3885,31 @@
 - [FB-48-FS-P-001 Electron 的进程模型与 Chromium 有什么关系？](../by-domain/48-electron.md#FB-48-FS-P-001)
 - [FB-48-PE-P-003 Electron 如何进行内存管理与泄漏排查？](../by-domain/48-electron.md#FB-48-PE-P-003)
 - [FB-48-SC-P-007 Electron 跨平台兼容性如何处理？](../by-domain/48-electron.md#FB-48-SC-P-007)
+- [FB-48-SC-P-008 Electron 应用的性能优化有哪些方向？](../by-domain/48-electron.md#FB-48-SC-P-008)
+- [FB-48-SC-P-009 Electron 应用如何做进程间状态共享？](../by-domain/48-electron.md#FB-48-SC-P-009)
+- [FB-48-SC-P-010 Electron 如何集成 WebRTC 或音视频能力？](../by-domain/48-electron.md#FB-48-SC-P-010)
+- [FB-48-SC-P-011 Electron 应用如何做国际化（i18n）？](../by-domain/48-electron.md#FB-48-SC-P-011)
 - [FB-48-SE-P-002 preload 与 contextIsolation 的底层安全模型是怎样的？](../by-domain/48-electron.md#FB-48-SE-P-002)
 
-### WebAssembly（7 道）
+### WebAssembly（15 道）
 
 - [FB-49-CP-P-007 WASI 是什么？它和 WebAssembly 有什么关系？](../by-domain/49-webassembly.md#FB-49-CP-P-007)
+- [FB-49-CP-P-008 WebAssembly 如何实现多线程？](../by-domain/49-webassembly.md#FB-49-CP-P-008)
+- [FB-49-CP-P-009 WebAssembly 如何实现异常处理？](../by-domain/49-webassembly.md#FB-49-CP-P-009)
+- [FB-49-CP-P-010 WebAssembly 的 SIMD 是什么？有什么应用？](../by-domain/49-webassembly.md#FB-49-CP-P-010)
+- [FB-49-CP-P-011 WebAssembly 与 WASI 有什么关系？](../by-domain/49-webassembly.md#FB-49-CP-P-011)
 - [FB-49-EN-P-006 如何调试 WebAssembly？有哪些工具和方法？](../by-domain/49-webassembly.md#FB-49-EN-P-006)
 - [FB-49-FS-P-001 WebAssembly 模块的二进制格式结构是怎样的？](../by-domain/49-webassembly.md#FB-49-FS-P-001)
 - [FB-49-FS-P-002 WebAssembly 的验证（Validation）和实例化（Instantiation）过程是怎样的？](../by-domain/49-webassembly.md#FB-49-FS-P-002)
 - [FB-49-FS-P-003 WebAssembly 如何实现动态链接和模块间调用？](../by-domain/49-webassembly.md#FB-49-FS-P-003)
 - [FB-49-FS-P-005 WebAssembly 的内存管理与垃圾回收机制是怎样的？](../by-domain/49-webassembly.md#FB-49-FS-P-005)
+- [FB-49-FS-P-006 WebAssembly 的运行时生命周期是怎样的？](../by-domain/49-webassembly.md#FB-49-FS-P-006)
+- [FB-49-FS-P-007 WebAssembly 的 GC 提案是什么？有什么意义？](../by-domain/49-webassembly.md#FB-49-FS-P-007)
+- [FB-49-FS-P-008 WebAssembly 的 Component Model 是什么？](../by-domain/49-webassembly.md#FB-49-FS-P-008)
+- [FB-49-FS-P-009 WebAssembly 在边缘计算中的应用有哪些？](../by-domain/49-webassembly.md#FB-49-FS-P-009)
 - [FB-49-SE-P-004 WebAssembly 的安全模型与沙箱机制是怎样的？](../by-domain/49-webassembly.md#FB-49-SE-P-004)
 
-### WebGPU / 图形学（7 道）
+### WebGPU / 图形学（12 道）
 
 - [FB-50-CD-P-018 请手写一个 WebGPU Compute Shader 实现矩阵乘法。](../by-domain/50-webgpu-graphics.md#FB-50-CD-P-018)
 - [FB-50-CD-P-023 如何用 WebGPU 实现后处理流程？](../by-domain/50-webgpu-graphics.md#FB-50-CD-P-023)
@@ -2773,29 +3917,54 @@
 - [FB-50-CO-P-019 Compute Shader 中的 Workgroup 与线程模型是怎样的？](../by-domain/50-webgpu-graphics.md#FB-50-CO-P-019)
 - [FB-50-CO-P-020 哪些任务适合用 GPU 计算，哪些仍应留在 CPU？](../by-domain/50-webgpu-graphics.md#FB-50-CO-P-020)
 - [FB-50-CO-P-022 3D 场景中常用的空间索引结构有哪些？如何在 GPU 中使用？](../by-domain/50-webgpu-graphics.md#FB-50-CO-P-022)
+- [FB-50-CO-P-023 WebGPU 的 Render Bundle 是什么？有什么优化作用？](../by-domain/50-webgpu-graphics.md#FB-50-CO-P-023)
+- [FB-50-CO-P-024 WebGPU 中如何处理多采样抗锯齿（MSAA）？](../by-domain/50-webgpu-graphics.md#FB-50-CO-P-024)
+- [FB-50-CO-P-025 WebGPU 的 Occlusion Query 和 Timestamp Query 有什么作用？](../by-domain/50-webgpu-graphics.md#FB-50-CO-P-025)
+- [FB-50-CO-P-026 WebGPU 中如何实现阴影映射（Shadow Mapping）？](../by-domain/50-webgpu-graphics.md#FB-50-CO-P-026)
+- [FB-50-CO-P-027 什么是 PBR 渲染？前端如何实现简化版 PBR？](../by-domain/50-webgpu-graphics.md#FB-50-CO-P-027)
 - [FB-50-PE-P-021 如何用 WebGPU 设计一个高性能粒子系统？](../by-domain/50-webgpu-graphics.md#FB-50-PE-P-021)
 
-### 多媒体（Multimedia）（8 道）
+### 多媒体（Multimedia）（20 道）
 
 - [FB-51-CD-P-020 如何用 requestVideoFrameCallback 实现精确的视频帧处理？](../by-domain/51-multimedia.md#FB-51-CD-P-020)
 - [FB-51-CO-P-019 Widevine、FairPlay、PlayReady 三种 DRM 方案有什么区别？](../by-domain/51-multimedia.md#FB-51-CO-P-019)
+- [FB-51-CO-P-020 什么是音视频同步（A/V Sync）？前端如何保证？](../by-domain/51-multimedia.md#FB-51-CO-P-020)
+- [FB-51-CO-P-021 什么是 CMAF？它如何统一 HLS 和 DASH？](../by-domain/51-multimedia.md#FB-51-CO-P-021)
 - [FB-51-CP-P-024 MSE（Media Source Extensions）在流媒体播放器中的作用是什么？](../by-domain/51-multimedia.md#FB-51-CP-P-024)
+- [FB-51-CP-P-025 如何实现音频可视化效果？](../by-domain/51-multimedia.md#FB-51-CP-P-025)
+- [FB-51-CP-P-026 如何实现浏览器端录音并导出音频文件？](../by-domain/51-multimedia.md#FB-51-CP-P-026)
+- [FB-51-CP-P-027 如何实现视频转码或格式转换？](../by-domain/51-multimedia.md#FB-51-CP-P-027)
+- [FB-51-CP-P-028 如何实现视频直播的低延迟播放？](../by-domain/51-multimedia.md#FB-51-CP-P-028)
+- [FB-51-CP-P-029 浏览器端如何实现视频剪辑功能？](../by-domain/51-multimedia.md#FB-51-CP-P-029)
+- [FB-51-CP-P-030 如何实现 360 度全景视频播放？](../by-domain/51-multimedia.md#FB-51-CP-P-030)
+- [FB-51-CP-P-031 多媒体前端开发中如何处理不同浏览器的格式兼容性？](../by-domain/51-multimedia.md#FB-51-CP-P-031)
 - [FB-51-FS-P-017 HLS 直播低延迟优化方案（LL-HLS）的原理是什么？](../by-domain/51-multimedia.md#FB-51-FS-P-017)
 - [FB-51-FS-P-023 Web Audio 中的 AudioWorklet 和 ScriptProcessorNode 有什么区别？](../by-domain/51-multimedia.md#FB-51-FS-P-023)
+- [FB-51-FS-P-024 如何实现图片/视频的懒加载和预加载策略？](../by-domain/51-multimedia.md#FB-51-FS-P-024)
+- [FB-51-FS-P-025 浏览器端如何处理大文件上传？](../by-domain/51-multimedia.md#FB-51-FS-P-025)
 - [FB-51-PE-P-018 WebRTC 中的延迟、抖动和拥塞控制如何实现？](../by-domain/51-multimedia.md#FB-51-PE-P-018)
 - [FB-51-PE-P-021 图片和视频的前端压缩方案对比？](../by-domain/51-multimedia.md#FB-51-PE-P-021)
 - [FB-51-SC-P-022 如何实现一个支持多音轨切换的视频播放器？](../by-domain/51-multimedia.md#FB-51-SC-P-022)
+- [FB-51-SC-P-023 如何在 Web 端实现音视频剪辑功能？](../by-domain/51-multimedia.md#FB-51-SC-P-023)
 
-### 低代码（8 道）
+### 低代码（16 道）
 
 - [FB-52-CD-P-004 请实现一个 JSON Schema 到 React 组件的简易出码器](../by-domain/52-low-code.md#FB-52-CD-P-004)
 - [FB-52-CO-P-003 低代码平台的出码（Code Generation）和二次开发如何设计？](../by-domain/52-low-code.md#FB-52-CO-P-003)
 - [FB-52-CP-P-008 低代码开发和传统 ProCode 开发的边界在哪里？](../by-domain/52-low-code.md#FB-52-CP-P-008)
+- [FB-52-CP-P-009 低代码平台如何支持逻辑编排？](../by-domain/52-low-code.md#FB-52-CP-P-009)
+- [FB-52-CP-P-010 低代码平台如何保证生成应用的性能？](../by-domain/52-low-code.md#FB-52-CP-P-010)
+- [FB-52-CP-P-011 低代码平台如何版本管理和回滚？](../by-domain/52-low-code.md#FB-52-CP-P-011)
+- [FB-52-CP-P-012 低代码平台如何与现有业务系统集成？](../by-domain/52-low-code.md#FB-52-CP-P-012)
+- [FB-52-CP-P-013 低代码平台中的表达式引擎如何设计？](../by-domain/52-low-code.md#FB-52-CP-P-013)
 - [FB-52-EN-P-007 低代码平台的多人协作与实时同步如何实现？](../by-domain/52-low-code.md#FB-52-EN-P-007)
 - [FB-52-FS-P-001 低代码渲染引擎的核心原理是什么？](../by-domain/52-low-code.md#FB-52-FS-P-001)
 - [FB-52-PE-P-006 如何优化低代码平台中大数据量表格的性能？](../by-domain/52-low-code.md#FB-52-PE-P-006)
 - [FB-52-SC-P-005 如何设计一个低代码流程设计器？](../by-domain/52-low-code.md#FB-52-SC-P-005)
+- [FB-52-SC-P-006 如何保证低代码生成的代码质量和可维护性？](../by-domain/52-low-code.md#FB-52-SC-P-006)
+- [FB-52-SC-P-007 低代码平台如何支持多端渲染？](../by-domain/52-low-code.md#FB-52-SC-P-007)
 - [FB-52-SD-P-002 如何设计一个低代码页面渲染引擎？](../by-domain/52-low-code.md#FB-52-SD-P-002)
+- [FB-52-SD-P-003 低代码平台的数据权限模型如何设计？](../by-domain/52-low-code.md#FB-52-SD-P-003)
 
 ### 计算机基础（7 道）
 
@@ -2807,7 +3976,7 @@
 - [FB-53-CO-P-006 设计模式在前端有哪些常见应用？](../by-domain/53-computer-science.md#FB-53-CO-P-006)
 - [FB-53-CO-P-007 TCP 和 UDP 有什么区别？](../by-domain/53-computer-science.md#FB-53-CO-P-007)
 
-### 行为面试（7 道）
+### 行为面试（18 道）
 
 - [FB-54-SS-P-001 描述一次你带领团队完成目标的经历](../by-domain/54-behavioral.md#FB-54-SS-P-001)
 - [FB-54-SS-P-002 如何处理团队中的低绩效或冲突成员？](../by-domain/54-behavioral.md#FB-54-SS-P-002)
@@ -2816,28 +3985,59 @@
 - [FB-54-SS-P-005 当你的技术方案被推翻或需要重大变更时，你怎么处理？](../by-domain/54-behavioral.md#FB-54-SS-P-005)
 - [FB-54-SS-P-006 你如何建立团队的技术氛围？](../by-domain/54-behavioral.md#FB-54-SS-P-006)
 - [FB-54-SS-P-007 当你准备离职时，如何做好交接和知识沉淀？](../by-domain/54-behavioral.md#FB-54-SS-P-007)
+- [FB-54-SS-P-008 请描述一次你不得不做出艰难决策的经历。](../by-domain/54-behavioral.md#FB-54-SS-P-008)
+- [FB-54-SS-P-009 请描述一次你收到负面反馈后如何改进的经历。](../by-domain/54-behavioral.md#FB-54-SS-P-009)
+- [FB-54-SS-P-010 请描述一次你处理多任务并行的情况。](../by-domain/54-behavioral.md#FB-54-SS-P-010)
+- [FB-54-SS-P-011 请描述一次你帮助团队成员成长的经历。](../by-domain/54-behavioral.md#FB-54-SS-P-011)
+- [FB-54-SS-P-012 你为什么想加入我们公司？](../by-domain/54-behavioral.md#FB-54-SS-P-012)
+- [FB-54-SS-P-013 你最大的优点和缺点分别是什么？](../by-domain/54-behavioral.md#FB-54-SS-P-013)
+- [FB-54-SS-P-014 请描述一次你协调多个团队合作完成复杂项目的经历。](../by-domain/54-behavioral.md#FB-54-SS-P-014)
+- [FB-54-SS-P-015 请描述一次你处理客户或用户投诉的经历。](../by-domain/54-behavioral.md#FB-54-SS-P-015)
+- [FB-54-SS-P-016 请描述一次你如何设定并达成一个具有挑战性的目标。](../by-domain/54-behavioral.md#FB-54-SS-P-016)
+- [FB-54-SS-P-017 请描述一次你在资源有限情况下完成项目的经历。](../by-domain/54-behavioral.md#FB-54-SS-P-017)
+- [FB-54-SS-P-018 请描述一次你建立或被建立信任的经历。](../by-domain/54-behavioral.md#FB-54-SS-P-018)
 
-### 简历与面试技巧（7 道）
+### 简历与面试技巧（17 道）
 
 - [FB-55-CP-P-017 如何在简历和面试中呈现复杂项目的全局贡献？](../by-domain/55-resume-interview.md#FB-55-CP-P-017)
 - [FB-55-CP-P-018 面试中如何展示技术深度而不陷入炫技？](../by-domain/55-resume-interview.md#FB-55-CP-P-018)
 - [FB-55-CP-P-020 如何向面试官解释职业空窗期或频繁跳槽？](../by-domain/55-resume-interview.md#FB-55-CP-P-020)
+- [FB-55-RI-P-001 如果你重新做这个项目，你会在哪些方面做出不同选择？](../by-domain/55-resume-interview.md#FB-55-RI-P-001)
+- [FB-55-RI-P-002 你在这个项目中遇到的最大挑战是什么？你如何带领团队克服的？](../by-domain/55-resume-interview.md#FB-55-RI-P-002)
+- [FB-55-RI-P-003 你简历上提到精通/熟悉某技术，能深入讲一下原理吗？](../by-domain/55-resume-interview.md#FB-55-RI-P-003)
+- [FB-55-RI-P-004 你的项目中有哪些体现你架构能力的点？](../by-domain/55-resume-interview.md#FB-55-RI-P-004)
+- [FB-55-RI-P-005 你在项目中的数据驱动决策有哪些案例？](../by-domain/55-resume-interview.md#FB-55-RI-P-005)
+- [FB-55-RI-P-006 请介绍一下你简历上提到的某个开源贡献或技术分享。](../by-domain/55-resume-interview.md#FB-55-RI-P-006)
+- [FB-55-RI-P-007 你在项目中的角色是如何演变的？](../by-domain/55-resume-interview.md#FB-55-RI-P-007)
+- [FB-55-RI-P-008 你如何评价自己的技术深度和广度？](../by-domain/55-resume-interview.md#FB-55-RI-P-008)
+- [FB-55-RI-P-009 你为什么离开上一家公司？](../by-domain/55-resume-interview.md#FB-55-RI-P-009)
+- [FB-55-RI-P-010 你对我们这个岗位有什么期待？](../by-domain/55-resume-interview.md#FB-55-RI-P-010)
 - [FB-55-SS-P-019 如何准备和应对薪资谈判？](../by-domain/55-resume-interview.md#FB-55-SS-P-019)
 - [FB-55-SS-P-021 如何准备技术演讲或架构汇报型面试？](../by-domain/55-resume-interview.md#FB-55-SS-P-021)
 - [FB-55-SS-P-022 如何在面试中展现跨团队协作能力？](../by-domain/55-resume-interview.md#FB-55-SS-P-022)
 - [FB-55-SS-P-023 模拟面试与复盘的方法有哪些？](../by-domain/55-resume-interview.md#FB-55-SS-P-023)
 
-### 行业特化（7 道）
+### 行业特化（17 道）
 
 - [FB-56-CO-P-005 Web3/区块链对前端开发的影响与挑战](../by-domain/56-industry.md#FB-56-CO-P-005)
 - [FB-56-CP-P-002 如何拆解一个行业标杆产品的技术架构？](../by-domain/56-industry.md#FB-56-CP-P-002)
 - [FB-56-CP-P-007 行业技术生态竞争分析方法](../by-domain/56-industry.md#FB-56-CP-P-007)
+- [FB-56-IN-P-001 你怎么看待前端安全在行业中的重要性？](../by-domain/56-industry.md#FB-56-IN-P-001)
+- [FB-56-IN-P-002 你认为云原生和 Serverless 对前端有什么影响？](../by-domain/56-industry.md#FB-56-IN-P-002)
+- [FB-56-IN-P-003 你怎么看待前端岗位的天花板和职业发展路径？](../by-domain/56-industry.md#FB-56-IN-P-003)
+- [FB-56-IN-P-004 你对我们公司的产品有什么建议？](../by-domain/56-industry.md#FB-56-IN-P-004)
+- [FB-56-IN-P-005 你怎么看待国内互联网行业“35岁危机”这一现象？](../by-domain/56-industry.md#FB-56-IN-P-005)
+- [FB-56-IN-P-006 你如何看待远程办公和分布式团队对前端协作的影响？](../by-domain/56-industry.md#FB-56-IN-P-006)
+- [FB-56-IN-P-007 你如何看待 AI 对前端开发的替代作用？](../by-domain/56-industry.md#FB-56-IN-P-007)
+- [FB-56-IN-P-008 你如何看待前端在医疗健康行业的应用？](../by-domain/56-industry.md#FB-56-IN-P-008)
+- [FB-56-IN-P-009 你怎么看待物联网（IoT）行业对前端的需求？](../by-domain/56-industry.md#FB-56-IN-P-009)
+- [FB-56-IN-P-010 你如何看待前端在内容创作和自媒体行业的角色？](../by-domain/56-industry.md#FB-56-IN-P-010)
 - [FB-56-SC-P-004 电商实时数据大屏的技术方案](../by-domain/56-industry.md#FB-56-SC-P-004)
 - [FB-56-SC-P-006 toB 复杂业务表单配置化方案](../by-domain/56-industry.md#FB-56-SC-P-006)
 - [FB-56-SD-P-001 设计一个支持多行业的低代码平台前端架构](../by-domain/56-industry.md#FB-56-SD-P-001)
 - [FB-56-SE-P-003 金融级前端安全体系设计](../by-domain/56-industry.md#FB-56-SE-P-003)
 
-## 架构题（619 道）{#architect}
+## 架构题（772 道）{#architect}
 
 ### JavaScript（5 道）
 
@@ -2858,8 +4058,9 @@
 - [FB-02-SD-R-003 如何在企业级应用中合理使用 Decorators？](../by-domain/02-typescript.md#FB-02-SD-R-003)
 - [FB-02-SD-R-004 TypeScript Compiler API 可以做什么？请设计一个应用场景。](../by-domain/02-typescript.md#FB-02-SD-R-004)
 
-### Browser（10 道）
+### Browser（11 道）
 
+- [FB-03-SC-R-001 如何设计浏览器端的前端监控与可观测性体系？](../by-domain/03-browser.md#FB-03-SC-R-001)
 - [FB-03-SD-R-001 设计一个大型 SPA 的首屏性能优化体系。](../by-domain/03-browser.md#FB-03-SD-R-001)
 - [FB-03-SD-R-002 如何设计浏览器端的安全架构以防御 XSS、CSRF、点击劫持和数据窃取？](../by-domain/03-browser.md#FB-03-SD-R-002)
 - [FB-03-SD-R-003 设计一个基于 Service Worker 的前端缓存与离线可用架构。](../by-domain/03-browser.md#FB-03-SD-R-003)
@@ -2877,7 +4078,7 @@
 - [FB-04-SD-R-001 如何设计一个面向全球用户的 CDN + 多活静态资源分发架构？](../by-domain/04-network.md#FB-04-SD-R-001)
 - [FB-04-SD-R-002 如何设计一个前端 API 网关 / BFF 层？](../by-domain/04-network.md#FB-04-SD-R-002)
 
-### Web 安全（10 道）
+### Web 安全（13 道）
 
 - [FB-05-SC-R-001 如何设计"零信任"视角下的前端安全架构？](../by-domain/05-security.md#FB-05-SC-R-001)
 - [FB-05-SC-R-002 如何安全地集成第三方脚本、iframe 和广告？](../by-domain/05-security.md#FB-05-SC-R-002)
@@ -2889,6 +4090,9 @@
 - [FB-05-SE-R-002 如何治理前端供应链安全风险？](../by-domain/05-security.md#FB-05-SE-R-002)
 - [FB-05-SE-R-003 前端加密与密钥管理有哪些原则和最佳实践？](../by-domain/05-security.md#FB-05-SE-R-003)
 - [FB-05-SE-R-004 前端隐私合规（GDPR/个保法）需要关注哪些技术点？](../by-domain/05-security.md#FB-05-SE-R-004)
+- [FB-05-SE-R-005 如何建立企业级前端安全运营指标体系？](../by-domain/05-security.md#FB-05-SE-R-005)
+- [FB-05-SE-R-006 如何在团队内建立前端安全红蓝演练机制？](../by-domain/05-security.md#FB-05-SE-R-006)
+- [FB-05-SE-R-007 零信任视角下如何实现前端持续认证与设备绑定？](../by-domain/05-security.md#FB-05-SE-R-007)
 
 ### HTML/CSS（7 道）
 
@@ -2921,17 +4125,18 @@
 - [FB-08-SC-R-004 设计一个虚拟列表的算法方案。](../by-domain/08-algorithms.md#FB-08-SC-R-004)
 - [FB-08-SC-R-005 设计一个 Undo/Redo 系统。](../by-domain/08-algorithms.md#FB-08-SC-R-005)
 
-### 设计模式（7 道）
+### 设计模式（8 道）
 
 - [FB-09-CP-R-001 React 和 Vue 中体现了哪些设计模式？](../by-domain/09-design-patterns.md#FB-09-CP-R-001)
 - [FB-09-CP-R-002 如何根据业务场景选择合适的设计模式？](../by-domain/09-design-patterns.md#FB-09-CP-R-002)
 - [FB-09-CP-R-003 微前端架构中常用哪些设计模式？](../by-domain/09-design-patterns.md#FB-09-CP-R-003)
 - [FB-09-SC-R-001 在设计大型前端组件库时，你会如何运用设计模式？](../by-domain/09-design-patterns.md#FB-09-SC-R-001)
 - [FB-09-SC-R-002 如何将一个继承过深的组件体系重构为组合式架构？](../by-domain/09-design-patterns.md#FB-09-SC-R-002)
+- [FB-09-SC-R-003 如何在大型前端项目中选择与应用设计模式？](../by-domain/09-design-patterns.md#FB-09-SC-R-003)
 - [FB-09-SD-R-001 设计一个前端跨页面/跨 iframe 的事件总线。](../by-domain/09-design-patterns.md#FB-09-SD-R-001)
 - [FB-09-SD-R-002 设计一个前端权限控制系统。](../by-domain/09-design-patterns.md#FB-09-SD-R-002)
 
-### 构建工具（24 道）
+### 构建工具（29 道）
 
 - [FB-10-CO-R-001 Monorepo 场景下的构建方案如何选型？](../by-domain/10-build-tools.md#FB-10-CO-R-001)
 - [FB-10-CO-R-002 模块联邦的架构设计、共享依赖与版本冲突如何解决？](../by-domain/10-build-tools.md#FB-10-CO-R-002)
@@ -2940,26 +4145,32 @@
 - [FB-10-CO-R-005 如何设计跨团队的前端构建规范与最佳实践？](../by-domain/10-build-tools.md#FB-10-CO-R-005)
 - [FB-10-CO-R-006 前端构建体系的演进路线应如何规划？](../by-domain/10-build-tools.md#FB-10-CO-R-006)
 - [FB-10-CO-R-008 下一代构建工具 Rolldown、Farm、Turbopack 的架构有何异同？](../by-domain/10-build-tools.md#FB-10-CO-R-008)
+- [FB-10-CO-R-009 未来前端构建工具的发展趋势是什么？](../by-domain/10-build-tools.md#FB-10-CO-R-009)
 - [FB-10-CP-R-001 如何评估和迁移前端构建工具？](../by-domain/10-build-tools.md#FB-10-CP-R-001)
 - [FB-10-CP-R-002 前端构建工具选型时需要做哪些 POC 和迁移风险评估？](../by-domain/10-build-tools.md#FB-10-CP-R-002)
 - [FB-10-CP-R-011 如何建立前端构建工具选型的决策框架与 ROI 评估？](../by-domain/10-build-tools.md#FB-10-CP-R-011)
+- [FB-10-CP-R-012 如何评估是否值得将 Webpack 迁移到 Rspack？](../by-domain/10-build-tools.md#FB-10-CP-R-012)
 - [FB-10-EN-R-001 CI/CD 中的构建优化与并行化策略。](../by-domain/10-build-tools.md#FB-10-EN-R-001)
 - [FB-10-EN-R-002 如何设计前端构建的标准化流水线？](../by-domain/10-build-tools.md#FB-10-EN-R-002)
 - [FB-10-EN-R-009 如何构建前端产物安全与供应链安全体系？](../by-domain/10-build-tools.md#FB-10-EN-R-009)
+- [FB-10-EN-R-010 如何设计企业级前端构建平台的插件体系？](../by-domain/10-build-tools.md#FB-10-EN-R-010)
 - [FB-10-PE-R-001 如何在组织架构层面推动前端构建性能优化落地？](../by-domain/10-build-tools.md#FB-10-PE-R-001)
 - [FB-10-SC-R-001 设计一个支持多环境、多团队的前端构建平台。](../by-domain/10-build-tools.md#FB-10-SC-R-001)
 - [FB-10-SC-R-002 设计一个支持 A/B 测试的前端构建与发布方案](../by-domain/10-build-tools.md#FB-10-SC-R-002)
 - [FB-10-SC-R-003 设计一个前端依赖治理与构建安全审计流程](../by-domain/10-build-tools.md#FB-10-SC-R-003)
 - [FB-10-SC-R-010 多仓库/多团队统一构建规范与治理机制如何设计？](../by-domain/10-build-tools.md#FB-10-SC-R-010)
+- [FB-10-SC-R-011 如何设计支持微前端的构建方案？](../by-domain/10-build-tools.md#FB-10-SC-R-011)
 - [FB-10-SD-R-001 设计一个企业级前端构建体系。](../by-domain/10-build-tools.md#FB-10-SD-R-001)
 - [FB-10-SD-R-002 设计一个前端产物发布与回滚系统。](../by-domain/10-build-tools.md#FB-10-SD-R-002)
 - [FB-10-SD-R-003 设计一个前端组件库/Monorepo 的构建与发布流程。](../by-domain/10-build-tools.md#FB-10-SD-R-003)
 - [FB-10-SD-R-004 设计一个企业级前端构建产物质量门禁体系](../by-domain/10-build-tools.md#FB-10-SD-R-004)
 - [FB-10-SD-R-005 设计一个支持多构建工具统一配置的前端工程平台](../by-domain/10-build-tools.md#FB-10-SD-R-005)
 - [FB-10-SD-R-007 设计一个企业级 Monorepo 构建平台。](../by-domain/10-build-tools.md#FB-10-SD-R-007)
+- [FB-10-SD-R-008 设计一个前端构建产物分析平台](../by-domain/10-build-tools.md#FB-10-SD-R-008)
 
-### Monorepo（24 道）
+### Monorepo（29 道）
 
+- [FB-11-CO-R-001 Monorepo 与 Polyrepo 在长期演进中的取舍](../by-domain/11-monorepo.md#FB-11-CO-R-001)
 - [FB-11-CP-R-001 比较各家 Monorepo 工具（Turborepo / Nx / Rush / Lerna / Bazel）的适用场景。](../by-domain/11-monorepo.md#FB-11-CP-R-001)
 - [FB-11-CP-R-002 Monorepo 的优劣及何时不应该使用 Monorepo？](../by-domain/11-monorepo.md#FB-11-CP-R-002)
 - [FB-11-CP-R-003 讨论 Monorepo 中"一个仓库"与"多个仓库"的决策框架。](../by-domain/11-monorepo.md#FB-11-CP-R-003)
@@ -2967,6 +4178,9 @@
 - [FB-11-CP-R-013 Monorepo 与平台工程（Platform Engineering）有什么关系？](../by-domain/11-monorepo.md#FB-11-CP-R-013)
 - [FB-11-CP-R-015 如何评估 Monorepo 是否应该拆分为多个仓库？](../by-domain/11-monorepo.md#FB-11-CP-R-015)
 - [FB-11-CP-R-018 Monorepo 中如何平衡技术民主与技术治理？](../by-domain/11-monorepo.md#FB-11-CP-R-018)
+- [FB-11-CP-R-019 大型 Monorepo 中的权限和代码所有权如何设计？](../by-domain/11-monorepo.md#FB-11-CP-R-019)
+- [FB-11-EN-R-001 如何设计 Monorepo 的发布火车？](../by-domain/11-monorepo.md#FB-11-EN-R-001)
+- [FB-11-SC-R-001 如何设计 Monorepo 的文档和示例站点？](../by-domain/11-monorepo.md#FB-11-SC-R-001)
 - [FB-11-SD-R-001 设计一个大型前端 Monorepo 的整体架构。](../by-domain/11-monorepo.md#FB-11-SD-R-001)
 - [FB-11-SD-R-002 如何从 Multirepo 迁移到 Monorepo？](../by-domain/11-monorepo.md#FB-11-SD-R-002)
 - [FB-11-SD-R-003 设计 Monorepo 下的 CI/CD 流水线。](../by-domain/11-monorepo.md#FB-11-SD-R-003)
@@ -2984,15 +4198,20 @@
 - [FB-11-SD-R-017 如何设计 Monorepo 的构建可观测性体系？](../by-domain/11-monorepo.md#FB-11-SD-R-017)
 - [FB-11-SD-R-019 如何设计 Monorepo 下的 AI Coding 辅助策略？](../by-domain/11-monorepo.md#FB-11-SD-R-019)
 - [FB-11-SD-R-020 如何制定 Monorepo 的长期演进路线图？](../by-domain/11-monorepo.md#FB-11-SD-R-020)
+- [FB-11-SD-R-021 设计一个企业级 Monorepo 治理方案](../by-domain/11-monorepo.md#FB-11-SD-R-021)
 
-### CI/CD（24 道）
+### CI/CD（29 道）
 
+- [FB-12-CO-R-001 CI/CD 的未来趋势是什么？](../by-domain/12-ci-cd.md#FB-12-CO-R-001)
 - [FB-12-CP-R-004 如何在持续交付中平衡发布速度与稳定性？](../by-domain/12-ci-cd.md#FB-12-CP-R-004)
 - [FB-12-CP-R-006 如何度量并提升 CI/CD 成熟度？](../by-domain/12-ci-cd.md#FB-12-CP-R-006)
 - [FB-12-CP-R-015 如何看待 AI 在 CI/CD 中的应用？设计智能化流水线需要考虑什么？](../by-domain/12-ci-cd.md#FB-12-CP-R-015)
 - [FB-12-CP-R-017 如何在组织中推动 CI/CD 文化转型？](../by-domain/12-ci-cd.md#FB-12-CP-R-017)
 - [FB-12-CP-R-020 如何评估和选择 CI/CD 工具链？](../by-domain/12-ci-cd.md#FB-12-CP-R-020)
 - [FB-12-CP-R-023 如何在 CI/CD 中落地 FinOps 成本优化？](../by-domain/12-ci-cd.md#FB-12-CP-R-023)
+- [FB-12-CP-R-024 如何实现 CI/CD 中的安全左移？](../by-domain/12-ci-cd.md#FB-12-CP-R-024)
+- [FB-12-EN-R-001 如何设计 CI/CD 的成本优化方案？](../by-domain/12-ci-cd.md#FB-12-EN-R-001)
+- [FB-12-SC-R-001 如何设计 CI/CD 的灾难恢复方案？](../by-domain/12-ci-cd.md#FB-12-SC-R-001)
 - [FB-12-SD-R-001 如何设计基于 GitOps 的前端持续交付系统？](../by-domain/12-ci-cd.md#FB-12-SD-R-001)
 - [FB-12-SD-R-002 如何设计零停机全球前端部署方案？](../by-domain/12-ci-cd.md#FB-12-SD-R-002)
 - [FB-12-SD-R-003 如何为微前端（Micro-Frontend）设计 CI/CD 流水线？](../by-domain/12-ci-cd.md#FB-12-SD-R-003)
@@ -3011,14 +4230,19 @@
 - [FB-12-SD-R-021 如何设计 CI/CD 中的混沌工程实践？](../by-domain/12-ci-cd.md#FB-12-SD-R-021)
 - [FB-12-SD-R-022 如何设计前端全链路可观测与发布联动？](../by-domain/12-ci-cd.md#FB-12-SD-R-022)
 - [FB-12-SD-R-024 如何设计下一代云原生前端交付平台？](../by-domain/12-ci-cd.md#FB-12-SD-R-024)
+- [FB-12-SD-R-025 设计一个多环境、多地域的部署平台](../by-domain/12-ci-cd.md#FB-12-SD-R-025)
 
-### 代码质量与测试（24 道）
+### 代码质量与测试（29 道）
 
+- [FB-13-CO-R-001 代码质量与交付速度如何平衡？](../by-domain/13-code-quality.md#FB-13-CO-R-001)
 - [FB-13-CP-R-001 如何在团队中推动质量左移（Shift-Left）文化？](../by-domain/13-code-quality.md#FB-13-CP-R-001)
 - [FB-13-CP-R-002 作为架构师，如何在业务压力下守住质量底线？](../by-domain/13-code-quality.md#FB-13-CP-R-002)
 - [FB-13-CP-R-003 如何在团队中推动“测试优先”的工程文化？](../by-domain/13-code-quality.md#FB-13-CP-R-003)
 - [FB-13-CP-R-004 历史项目测试覆盖率极低，如何制定分阶段治理方案？](../by-domain/13-code-quality.md#FB-13-CP-R-004)
 - [FB-13-CP-R-005 如何向非技术决策者证明质量投入的价值？](../by-domain/13-code-quality.md#FB-13-CP-R-005)
+- [FB-13-CP-R-006 如何在大型组织中推行代码质量文化？](../by-domain/13-code-quality.md#FB-13-CP-R-006)
+- [FB-13-EN-R-001 如何设计前端自动化回归测试体系？](../by-domain/13-code-quality.md#FB-13-EN-R-001)
+- [FB-13-SC-R-001 如何设计全链路质量度量体系？](../by-domain/13-code-quality.md#FB-13-SC-R-001)
 - [FB-13-SD-R-001 如何为大型前端项目设计一套完整的测试策略？](../by-domain/13-code-quality.md#FB-13-SD-R-001)
 - [FB-13-SD-R-002 Monorepo 中的测试策略与单仓库有什么不同？](../by-domain/13-code-quality.md#FB-13-SD-R-002)
 - [FB-13-SD-R-003 如何建立一个可观测的前端质量度量体系？](../by-domain/13-code-quality.md#FB-13-SD-R-003)
@@ -3038,14 +4262,17 @@
 - [FB-13-SD-R-017 如何设计前端灰度发布与线上质量验证机制？](../by-domain/13-code-quality.md#FB-13-SD-R-017)
 - [FB-13-SD-R-018 如何设计前端全链路可观测的质量保障体系？](../by-domain/13-code-quality.md#FB-13-SD-R-018)
 - [FB-13-SD-R-019 如何为前端低代码平台设计测试策略？](../by-domain/13-code-quality.md#FB-13-SD-R-019)
+- [FB-13-SD-R-032 设计一个前端质量保障平台](../by-domain/13-code-quality.md#FB-13-SD-R-032)
 
-### 设计系统与组件库（19 道）
+### 设计系统与组件库（24 道）
 
 - [FB-14-CP-R-001 展望未来 3-5 年，设计系统与组件库会如何演进？](../by-domain/14-design-system.md#FB-14-CP-R-001)
 - [FB-14-SC-R-001 从 0 到 1 建设组件库，如何进行技术选型？](../by-domain/14-design-system.md#FB-14-SC-R-001)
 - [FB-14-SC-R-002 如何从业务组件沉淀到通用组件库？](../by-domain/14-design-system.md#FB-14-SC-R-002)
 - [FB-14-SC-R-003 如何平衡组件库的一致性与业务灵活性？](../by-domain/14-design-system.md#FB-14-SC-R-003)
 - [FB-14-SC-R-004 组件库团队如何与产品、设计、业务团队协作？](../by-domain/14-design-system.md#FB-14-SC-R-004)
+- [FB-14-SC-R-005 如何从设计系统沉淀业务设计语言？](../by-domain/14-design-system.md#FB-14-SC-R-005)
+- [FB-14-SC-R-006 如何评估组件库的商业价值？](../by-domain/14-design-system.md#FB-14-SC-R-006)
 - [FB-14-SD-R-001 如何设计一个跨框架（React/Vue/Svelte）的组件库？](../by-domain/14-design-system.md#FB-14-SD-R-001)
 - [FB-14-SD-R-002 如何设计一套 DesignOps 与设计系统平台？](../by-domain/14-design-system.md#FB-14-SD-R-002)
 - [FB-14-SD-R-003 如何建设组件库的文档与开发者生态？](../by-domain/14-design-system.md#FB-14-SD-R-003)
@@ -3060,8 +4287,11 @@
 - [FB-14-SD-R-012 如何设计组件库的长期演进与 Deprecation 战略？](../by-domain/14-design-system.md#FB-14-SD-R-012)
 - [FB-14-SD-R-013 如何保障组件库在微前端架构下的样式与行为隔离？](../by-domain/14-design-system.md#FB-14-SD-R-013)
 - [FB-14-SD-R-014 如何设计一套组件库的语义化版本自动化与变更管理？](../by-domain/14-design-system.md#FB-14-SD-R-014)
+- [FB-14-SD-R-015 如何设计组件库的 CI/CD 与发布流水线？](../by-domain/14-design-system.md#FB-14-SD-R-015)
+- [FB-14-SD-R-016 如何构建组件库的开发者体验（DX）？](../by-domain/14-design-system.md#FB-14-SD-R-016)
+- [FB-14-SD-R-017 如何设计组件库的暗色/浅色主题自动切换？](../by-domain/14-design-system.md#FB-14-SD-R-017)
 
-### React（13 道）
+### React（21 道）
 
 - [FB-15-SD-R-027 大型 React 项目中如何选择状态管理方案？](../by-domain/15-react.md#FB-15-SD-R-027)
 - [FB-15-SD-R-028 如何系统地对 React 应用做性能优化？](../by-domain/15-react.md#FB-15-SD-R-028)
@@ -3076,8 +4306,16 @@
 - [FB-15-SD-R-063 如何设计一个基于 React 的 AI 应用前端架构？](../by-domain/15-react.md#FB-15-SD-R-063)
 - [FB-15-SD-R-064 React 跨平台方案如何选型？](../by-domain/15-react.md#FB-15-SD-R-064)
 - [FB-15-SD-R-065 React 项目的可观测性体系如何设计？](../by-domain/15-react.md#FB-15-SD-R-065)
+- [FB-15-SD-R-066 设计一个 React 状态管理方案](../by-domain/15-react.md#FB-15-SD-R-066)
+- [FB-15-SD-R-067 如何设计 React 应用的性能监控体系？](../by-domain/15-react.md#FB-15-SD-R-067)
+- [FB-15-SD-R-068 设计一个 React 组件的低代码平台](../by-domain/15-react.md#FB-15-SD-R-068)
+- [FB-15-SD-R-069 React 项目如何进行微前端改造？](../by-domain/15-react.md#FB-15-SD-R-069)
+- [FB-15-SD-R-070 如何设计 React SSR 的缓存策略？](../by-domain/15-react.md#FB-15-SD-R-070)
+- [FB-15-SD-R-071 React 组件库如何支持多框架？](../by-domain/15-react.md#FB-15-SD-R-071)
+- [FB-15-SD-R-072 如何设计 React 应用的安全体系？](../by-domain/15-react.md#FB-15-SD-R-072)
+- [FB-15-SD-R-073 React 项目如何做国际化架构？](../by-domain/15-react.md#FB-15-SD-R-073)
 
-### Vue（15 道）
+### Vue（23 道）
 
 - [FB-16-SD-R-026 如何设计一个大型的 Vue 前端应用架构？](../by-domain/16-vue.md#FB-16-SD-R-026)
 - [FB-16-SD-R-027 如何设计一个高质量的 Vue 组件库？](../by-domain/16-vue.md#FB-16-SD-R-027)
@@ -3094,8 +4332,16 @@
 - [FB-16-SD-R-038 Vue 服务端渲染（SSR）架构如何设计？](../by-domain/16-vue.md#FB-16-SD-R-038)
 - [FB-16-SD-R-039 Vue 中实现设计系统与主题定制的架构方案是什么？](../by-domain/16-vue.md#FB-16-SD-R-039)
 - [FB-16-SD-R-040 Vue 应用从 0 到 1 的技术选型与演进路线如何规划？](../by-domain/16-vue.md#FB-16-SD-R-040)
+- [FB-16-SD-R-041 Vue 设计系统与组件库架构](../by-domain/16-vue.md#FB-16-SD-R-041)
+- [FB-16-SD-R-042 Vue 应用性能监控体系](../by-domain/16-vue.md#FB-16-SD-R-042)
+- [FB-16-SD-R-043 Vue 微前端改造方案](../by-domain/16-vue.md#FB-16-SD-R-043)
+- [FB-16-SD-R-044 Vue SSR 缓存策略](../by-domain/16-vue.md#FB-16-SD-R-044)
+- [FB-16-SD-R-045 Vue 应用安全架构](../by-domain/16-vue.md#FB-16-SD-R-045)
+- [FB-16-SD-R-046 Vue 低代码平台设计](../by-domain/16-vue.md#FB-16-SD-R-046)
+- [FB-16-SD-R-047 Vue 组件库跨框架支持](../by-domain/16-vue.md#FB-16-SD-R-047)
+- [FB-16-SD-R-048 Vue 项目国际化架构](../by-domain/16-vue.md#FB-16-SD-R-048)
 
-### 跨端技术（16 道）
+### 跨端技术（21 道）
 
 - [FB-17-SD-R-024 如何设计一个大型跨端应用的架构？](../by-domain/17-cross-platform.md#FB-17-SD-R-024)
 - [FB-17-SD-R-025 跨端应用的数据层和状态共享如何设计？](../by-domain/17-cross-platform.md#FB-17-SD-R-025)
@@ -3113,19 +4359,26 @@
 - [FB-17-SD-R-063 跨端应用如何与原生应用形成混合架构？](../by-domain/17-cross-platform.md#FB-17-SD-R-063)
 - [FB-17-SD-R-064 跨端应用如何建立性能度量体系和性能基线？](../by-domain/17-cross-platform.md#FB-17-SD-R-064)
 - [FB-17-SD-R-065 跨端应用的长期演进和技术债务如何治理？](../by-domain/17-cross-platform.md#FB-17-SD-R-065)
+- [FB-17-SD-R-066 跨端应用安全架构](../by-domain/17-cross-platform.md#FB-17-SD-R-066)
+- [FB-17-SD-R-067 跨端应用 CI/CD 与热更新](../by-domain/17-cross-platform.md#FB-17-SD-R-067)
+- [FB-17-SD-R-068 跨端应用性能度量体系](../by-domain/17-cross-platform.md#FB-17-SD-R-068)
+- [FB-17-SD-R-069 跨端应用与原生应用混合架构](../by-domain/17-cross-platform.md#FB-17-SD-R-069)
+- [FB-17-SD-R-070 跨端技术长期演进规划](../by-domain/17-cross-platform.md#FB-17-SD-R-070)
 
-### AI 工程化（26 道）
+### AI 工程化（29 道）
 
 - [FB-18-CO-R-059 作为架构师如何界定大模型能力边界并据此设计前端架构？](../by-domain/18-ai-engineering.md#FB-18-CO-R-059)
 - [FB-18-CP-R-027 如何设计多模型路由与 Fallback 策略？](../by-domain/18-ai-engineering.md#FB-18-CP-R-027)
 - [FB-18-CP-R-030 AI 工程化的技术选型与落地路线如何规划？](../by-domain/18-ai-engineering.md#FB-18-CP-R-030)
 - [FB-18-CP-R-031 如何规划企业级 AI 知识平台的演进路线？](../by-domain/18-ai-engineering.md#FB-18-CP-R-031)
 - [FB-18-CP-R-032 如何设计 AI 应用的定价与商业化策略？](../by-domain/18-ai-engineering.md#FB-18-CP-R-032)
+- [FB-18-CP-R-033 AI 应用的商业化策略](../by-domain/18-ai-engineering.md#FB-18-CP-R-033)
 - [FB-18-CP-R-065 规划传统 Web 应用向 AI 原生应用演进](../by-domain/18-ai-engineering.md#FB-18-CP-R-065)
 - [FB-18-EN-R-028 如何建设 LLM 应用的可观测性体系？](../by-domain/18-ai-engineering.md#FB-18-EN-R-028)
 - [FB-18-EN-R-032 AI 工程化如何做 CI/CD、模型版本管理与合规治理？](../by-domain/18-ai-engineering.md#FB-18-EN-R-032)
 - [FB-18-EN-R-033 如何设计支持百万人同时在线的 AI 流式服务？](../by-domain/18-ai-engineering.md#FB-18-EN-R-033)
 - [FB-18-EN-R-034 如何设计 LLM 应用的异地多活与灾备架构？](../by-domain/18-ai-engineering.md#FB-18-EN-R-034)
+- [FB-18-EN-R-035 AI 工程化的 CI/CD 最佳实践](../by-domain/18-ai-engineering.md#FB-18-EN-R-035)
 - [FB-18-EN-R-062 如何建设企业级 AI 工程化的标准前端组件与平台能力？](../by-domain/18-ai-engineering.md#FB-18-EN-R-062)
 - [FB-18-EN-R-067 如何从治理角度保障企业 AI 工程化可持续发展？](../by-domain/18-ai-engineering.md#FB-18-EN-R-067)
 - [FB-18-PE-R-064 面对亿级 AI 调用，前端如何进行性能与成本治理？](../by-domain/18-ai-engineering.md#FB-18-PE-R-064)
@@ -3139,11 +4392,12 @@
 - [FB-18-SD-R-032 如何设计一个前端智能体的插件化生态？](../by-domain/18-ai-engineering.md#FB-18-SD-R-032)
 - [FB-18-SD-R-033 如何设计一个多模态 AI 中台？](../by-domain/18-ai-engineering.md#FB-18-SD-R-033)
 - [FB-18-SD-R-034 如何设计一个面向金融行业的可信 AI 前端架构？](../by-domain/18-ai-engineering.md#FB-18-SD-R-034)
+- [FB-18-SD-R-035 设计一个企业级 AI Agent 平台](../by-domain/18-ai-engineering.md#FB-18-SD-R-035)
 - [FB-18-SD-R-060 设计一个低延迟实时 AI 协作编辑器前端](../by-domain/18-ai-engineering.md#FB-18-SD-R-060)
 - [FB-18-SD-R-066 设计一个可插拔的多模型适配层](../by-domain/18-ai-engineering.md#FB-18-SD-R-066)
 - [FB-18-SE-R-063 如何设计覆盖全链路的 AI 安全架构？](../by-domain/18-ai-engineering.md#FB-18-SE-R-063)
 
-### Node.js / BFF（16 道）
+### Node.js / BFF（21 道）
 
 - [FB-19-EN-R-030 Node.js 服务如何做容器化部署与 CI/CD？](../by-domain/19-node-bff.md#FB-19-EN-R-030)
 - [FB-19-SD-R-024 如何设计一个高并发、高可用的 BFF 网关？](../by-domain/19-node-bff.md#FB-19-SD-R-024)
@@ -3161,25 +4415,35 @@
 - [FB-19-SD-R-063 BFF 层如何与 API 网关、Service Mesh、鉴权中心协同工作？](../by-domain/19-node-bff.md#FB-19-SD-R-063)
 - [FB-19-SD-R-064 设计一个支持 Serverless / Edge 部署的 BFF 框架需要考虑哪些因素？](../by-domain/19-node-bff.md#FB-19-SD-R-064)
 - [FB-19-SD-R-065 单体 BFF 如何演进为领域驱动的微前端 + 微服务协同架构？](../by-domain/19-node-bff.md#FB-19-SD-R-065)
+- [FB-19-SD-R-066 设计一个多租户 BFF 平台](../by-domain/19-node-bff.md#FB-19-SD-R-066)
+- [FB-19-SD-R-067 Node.js 服务可观测性体系](../by-domain/19-node-bff.md#FB-19-SD-R-067)
+- [FB-19-SD-R-068 BFF 与 Service Mesh 协同](../by-domain/19-node-bff.md#FB-19-SD-R-068)
+- [FB-19-SD-R-069 Node.js 服务容器化与 CI/CD](../by-domain/19-node-bff.md#FB-19-SD-R-069)
+- [FB-19-SD-R-070 BFF 领域驱动设计](../by-domain/19-node-bff.md#FB-19-SD-R-070)
 
-### Git 工作流与变更管理（16 道）
+### Git 工作流与变更管理（21 道）
 
 - [FB-20-CP-R-031 Git 工作流如何与合规审计要求结合？](../by-domain/20-git-workflow.md#FB-20-CP-R-031)
 - [FB-20-CP-R-064 公司并购后，如何整合多代码平台的 Git 工作流？](../by-domain/20-git-workflow.md#FB-20-CP-R-064)
+- [FB-20-CP-R-065 AI 辅助代码生成场景下如何治理 Git 提交和审查？](../by-domain/20-git-workflow.md#FB-20-CP-R-065)
 - [FB-20-EN-R-027 如何构建 Git 工作流中的自动化质量门禁？](../by-domain/20-git-workflow.md#FB-20-EN-R-027)
 - [FB-20-EN-R-030 Git 灾难恢复和备份策略应该如何设计？](../by-domain/20-git-workflow.md#FB-20-EN-R-030)
 - [FB-20-EN-R-059 Git 工作流如何与 DORA 指标联动？](../by-domain/20-git-workflow.md#FB-20-EN-R-059)
 - [FB-20-EN-R-062 GitOps 如何与 Git 工作流结合？](../by-domain/20-git-workflow.md#FB-20-EN-R-062)
 - [FB-20-EN-R-065 AI 辅助代码生成场景下，如何治理 Git 提交和审查？](../by-domain/20-git-workflow.md#FB-20-EN-R-065)
+- [FB-20-EN-R-066 GitOps 如何与 Git 工作流结合？](../by-domain/20-git-workflow.md#FB-20-EN-R-066)
 - [FB-20-SD-R-025 如何为千人规模的前端团队设计 Git 分支策略？](../by-domain/20-git-workflow.md#FB-20-SD-R-025)
 - [FB-20-SD-R-026 Monorepo 和 Polyrepo 如何选型？](../by-domain/20-git-workflow.md#FB-20-SD-R-026)
 - [FB-20-SD-R-028 如何治理大规模 Git 仓库的性能和可维护性？](../by-domain/20-git-workflow.md#FB-20-SD-R-028)
 - [FB-20-SD-R-058 如何为全球多地域团队设计 Git 工作流？](../by-domain/20-git-workflow.md#FB-20-SD-R-058)
 - [FB-20-SD-R-060 多产品线的统一代码仓应该如何治理？](../by-domain/20-git-workflow.md#FB-20-SD-R-060)
 - [FB-20-SD-R-063 微前端仓库应该如何拆分或统一管理？](../by-domain/20-git-workflow.md#FB-20-SD-R-063)
+- [FB-20-SD-R-067 如何为全球多地域团队设计 Git 工作流？](../by-domain/20-git-workflow.md#FB-20-SD-R-067)
+- [FB-20-SD-R-068 多产品线的统一代码仓应该如何治理？](../by-domain/20-git-workflow.md#FB-20-SD-R-068)
 - [FB-20-SS-R-029 如何在团队中建立健康的代码审查文化？](../by-domain/20-git-workflow.md#FB-20-SS-R-029)
 - [FB-20-SS-R-061 如何推动团队从旧工作流迁移到新 Git 工作流？](../by-domain/20-git-workflow.md#FB-20-SS-R-061)
 - [FB-20-SS-R-066 如何在团队中构建 blameless 的提交与发布文化？](../by-domain/20-git-workflow.md#FB-20-SS-R-066)
+- [FB-20-SS-R-067 如何推动团队从旧工作流迁移到新 Git 工作流？](../by-domain/20-git-workflow.md#FB-20-SS-R-067)
 
 ### 开发者体验与工程效能（31 道）
 
@@ -3215,42 +4479,52 @@
 - [FB-21-SS-R-088 作为前端技术负责人，如何构建可传承的技术决策机制？](../by-domain/21-dx.md#FB-21-SS-R-088)
 - [FB-21-SS-R-089 作为技术负责人，你如何推动 Vite + TypeScript 迁移并管理团队的抵触情绪和学习成本](../by-domain/21-dx.md#FB-21-SS-R-089)
 
-### 部署与 SRE（16 道）
+### 部署与 SRE（21 道）
 
 - [FB-22-CA-R-001 下面一段基于版本化策略的资源路由代码输出什么？请从 SRE 角度分析风险。](../by-domain/22-deployment-sre.md#FB-22-CA-R-001)
 - [FB-22-CD-R-001 请手写一个前端资源缓存策略决策函数，根据文件名和环境返回 Cache-Control 头。](../by-domain/22-deployment-sre.md#FB-22-CD-R-001)
 - [FB-22-CO-R-001 什么是自动扩容？它与前端 Web Vitals 性能指标有什么核心区别与联系？](../by-domain/22-deployment-sre.md#FB-22-CO-R-001)
+- [FB-22-CO-R-002 自动扩容与 Web Vitals 的关系](../by-domain/22-deployment-sre.md#FB-22-CO-R-002)
 - [FB-22-CP-R-028 SRE 文化如何在前端团队落地？](../by-domain/22-deployment-sre.md#FB-22-CP-R-028)
 - [FB-22-CP-R-030 从研发效率到稳定性，前端工程化体系如何建设？](../by-domain/22-deployment-sre.md#FB-22-CP-R-030)
 - [FB-22-CP-R-031 结合质量门禁与金丝雀发布，谈谈如何构建前端自动化发布风险控制体系。](../by-domain/22-deployment-sre.md#FB-22-CP-R-031)
+- [FB-22-CP-R-032 前端自动化发布风险控制](../by-domain/22-deployment-sre.md#FB-22-CP-R-032)
 - [FB-22-FS-R-001 请解释 DNS 域名解析的核心原理，及其与前端部署安全（如 RPO、DNS 劫持）的关系。](../by-domain/22-deployment-sre.md#FB-22-FS-R-001)
 - [FB-22-PE-R-001 如何排查并优化前端高可用灰度发布过程中的性能瓶颈？](../by-domain/22-deployment-sre.md#FB-22-PE-R-001)
+- [FB-22-PE-R-002 如何排查并优化前端高可用灰度发布中的性能瓶颈？](../by-domain/22-deployment-sre.md#FB-22-PE-R-002)
 - [FB-22-SC-R-001 在 Kubernetes 容器化场景下，如何为前端服务设计 Error Budget 与发布节奏？](../by-domain/22-deployment-sre.md#FB-22-SC-R-001)
+- [FB-22-SC-R-002 Kubernetes 前端 Error Budget 与发布节奏](../by-domain/22-deployment-sre.md#FB-22-SC-R-002)
 - [FB-22-SD-R-025 设计一个高可用的前端部署平台](../by-domain/22-deployment-sre.md#FB-22-SD-R-025)
 - [FB-22-SD-R-026 设计全球化多区域部署架构](../by-domain/22-deployment-sre.md#FB-22-SD-R-026)
 - [FB-22-SD-R-027 设计零停机前端发布架构](../by-domain/22-deployment-sre.md#FB-22-SD-R-027)
 - [FB-22-SD-R-029 前端灾备与多活架构设计](../by-domain/22-deployment-sre.md#FB-22-SD-R-029)
 - [FB-22-SD-R-031 SSR/SSG/CDN 混合部署架构](../by-domain/22-deployment-sre.md#FB-22-SD-R-031)
 - [FB-22-SD-R-032 如何设计一个支持多区域部署的 SSG 前端系统，兼顾数据合规与访问延迟？](../by-domain/22-deployment-sre.md#FB-22-SD-R-032)
+- [FB-22-SD-R-033 如何设计支持多区域部署的 SSG 前端系统？](../by-domain/22-deployment-sre.md#FB-22-SD-R-033)
 - [FB-22-SS-R-001 请谈谈你在跨地域容灾或 DNS 流量调度方面的架构决策经验。](../by-domain/22-deployment-sre.md#FB-22-SS-R-001)
 
-### 包管理与供应链安全（16 道）
+### 包管理与供应链安全（21 道）
 
 - [FB-23-CA-R-001 分析以下 semver 范围解析代码的输出与原因](../by-domain/23-package-supply-chain.md#FB-23-CA-R-001)
 - [FB-23-CD-R-001 手写一个包管理器选型决策矩阵评分函数](../by-domain/23-package-supply-chain.md#FB-23-CD-R-001)
 - [FB-23-CO-R-001 包管理器选型与 workspace 机制有什么核心区别？](../by-domain/23-package-supply-chain.md#FB-23-CO-R-001)
+- [FB-23-CO-R-002 包管理器选型与 workspace 机制的核心区别](../by-domain/23-package-supply-chain.md#FB-23-CO-R-002)
 - [FB-23-CP-R-028 大前端团队如何进行包管理标准化与工具链建设？](../by-domain/23-package-supply-chain.md#FB-23-CP-R-028)
 - [FB-23-CP-R-029 结合 node_modules 结构与包管理器选型，谈谈实践经验](../by-domain/23-package-supply-chain.md#FB-23-CP-R-029)
+- [FB-23-CP-R-030 包管理器选型实践经验](../by-domain/23-package-supply-chain.md#FB-23-CP-R-030)
 - [FB-23-FS-R-001 前端构建工具链如何处理 node_modules 的 bundle size 优化？](../by-domain/23-package-supply-chain.md#FB-23-FS-R-001)
 - [FB-23-PE-R-001 大型 Monorepo 中 npm install 变慢，如何在保证安全校验的前提下优化性能？](../by-domain/23-package-supply-chain.md#FB-23-PE-R-001)
 - [FB-23-SC-R-026 从 0 开始设计一个 Monorepo 包管理方案](../by-domain/23-package-supply-chain.md#FB-23-SC-R-026)
 - [FB-23-SC-R-029 设计一个依赖漏洞应急响应流程](../by-domain/23-package-supply-chain.md#FB-23-SC-R-029)
 - [FB-23-SC-R-030 如何设计前端构建产物供应链安全方案？](../by-domain/23-package-supply-chain.md#FB-23-SC-R-030)
+- [FB-23-SC-R-031 如何设计前端构建产物供应链安全方案？](../by-domain/23-package-supply-chain.md#FB-23-SC-R-031)
 - [FB-23-SD-R-024 如何设计企业级前端依赖治理体系？](../by-domain/23-package-supply-chain.md#FB-23-SD-R-024)
 - [FB-23-SD-R-025 如何设计前端供应链安全防御体系？](../by-domain/23-package-supply-chain.md#FB-23-SD-R-025)
 - [FB-23-SD-R-027 如何设计 lockfile 安全审计与自动化修复平台？](../by-domain/23-package-supply-chain.md#FB-23-SD-R-027)
 - [FB-23-SD-R-030 如何设计前端构建产物的 SBOM 与可追溯体系？](../by-domain/23-package-supply-chain.md#FB-23-SD-R-030)
 - [FB-23-SD-R-031 设计一个企业级前端依赖管理平台](../by-domain/23-package-supply-chain.md#FB-23-SD-R-031)
+- [FB-23-SD-R-032 设计一个企业级前端依赖管理平台](../by-domain/23-package-supply-chain.md#FB-23-SD-R-032)
+- [FB-23-SD-R-033 大型 Monorepo 中 install 性能优化](../by-domain/23-package-supply-chain.md#FB-23-SD-R-033)
 - [FB-23-SS-R-001 谈谈你在 SemVer 治理与版本发布流程方面的实践经验](../by-domain/23-package-supply-chain.md#FB-23-SS-R-001)
 
 ### 前端运维与监控（7 道）
@@ -3263,13 +4537,14 @@
 - [FB-24-SD-R-006 如何设计从前端到后端的全链路 Trace？](../by-domain/24-frontend-operations.md#FB-24-SD-R-006)
 - [FB-24-SS-R-005 如何让前端 SLO 与业务结果挂钩，并推动可靠性文化？](../by-domain/24-frontend-operations.md#FB-24-SS-R-005)
 
-### 系统架构设计（26 道）
+### 系统架构设计（34 道）
 
 - [FB-25-CO-R-004 架构评审应该关注哪些方面？](../by-domain/25-system-architecture.md#FB-25-CO-R-004)
 - [FB-25-CO-R-015 架构师如何进行风险建模与失效模式分析？](../by-domain/25-system-architecture.md#FB-25-CO-R-015)
 - [FB-25-CO-R-016 什么是演进式架构？如何设计可演进的系统？](../by-domain/25-system-architecture.md#FB-25-CO-R-016)
 - [FB-25-CO-R-017 你在设计前端架构时，如何平衡“交付速度”和“代码质量”？](../by-domain/25-system-architecture.md#FB-25-CO-R-017)
 - [FB-25-CO-R-018 什么是六边形架构？它如何解决前端测试难的问题？](../by-domain/25-system-architecture.md#FB-25-CO-R-018)
+- [FB-25-CO-R-019 什么是反脆弱前端架构](../by-domain/25-system-architecture.md#FB-25-CO-R-019)
 - [FB-25-CP-R-002 如何在大型组织中平衡前端技术栈的统一与团队的差异化需求？](../by-domain/25-system-architecture.md#FB-25-CP-R-002)
 - [FB-25-CP-R-006 在复杂系统架构设计中，如何做权衡与取舍？](../by-domain/25-system-architecture.md#FB-25-CP-R-006)
 - [FB-25-CP-R-012 如何在业务快速迭代中保持架构质量？](../by-domain/25-system-architecture.md#FB-25-CP-R-012)
@@ -3277,7 +4552,10 @@
 - [FB-25-CP-R-014 什么时候应该选择 Server-Driven UI？它和低代码平台有什么区别？](../by-domain/25-system-architecture.md#FB-25-CP-R-014)
 - [FB-25-CP-R-015 微内核架构和微前端有什么区别？](../by-domain/25-system-architecture.md#FB-25-CP-R-015)
 - [FB-25-CP-R-016 面对一个复杂业务系统，你会如何选择前端架构模式？](../by-domain/25-system-architecture.md#FB-25-CP-R-016)
+- [FB-25-CP-R-017 如何在组织中推进前端架构升级](../by-domain/25-system-architecture.md#FB-25-CP-R-017)
+- [FB-25-CP-R-018 前端架构如何应对业务高速变化和不确定性](../by-domain/25-system-architecture.md#FB-25-CP-R-018)
 - [FB-25-EN-R-002 谈谈你对“前端工程化”的理解，它在前端架构中处于什么位置？](../by-domain/25-system-architecture.md#FB-25-EN-R-002)
+- [FB-25-EN-R-003 如何设计前端标准化工具链](../by-domain/25-system-architecture.md#FB-25-EN-R-003)
 - [FB-25-SC-R-003 设计一个大型电商活动搭建平台的前端架构](../by-domain/25-system-architecture.md#FB-25-SC-R-003)
 - [FB-25-SC-R-011 设计一个跨团队协作的组件共建与治理体系](../by-domain/25-system-architecture.md#FB-25-SC-R-011)
 - [FB-25-SC-R-012 如果你发现一个项目的架构严重影响了业务发展，但重写成本极高，你会怎么做？](../by-domain/25-system-architecture.md#FB-25-SC-R-012)
@@ -3288,27 +4566,37 @@
 - [FB-25-SD-R-010 设计一个高可用的大促前端保障体系](../by-domain/25-system-architecture.md#FB-25-SD-R-010)
 - [FB-25-SD-R-011 假设你要从零设计一个日活千万级的内容社区前端架构，你会关注哪些关键点？](../by-domain/25-system-architecture.md#FB-25-SD-R-011)
 - [FB-25-SD-R-012 你如何评价一个前端架构设计的好坏？](../by-domain/25-system-architecture.md#FB-25-SD-R-012)
+- [FB-25-SD-R-013 设计一个支持多终端的 BFF 层](../by-domain/25-system-architecture.md#FB-25-SD-R-013)
+- [FB-25-SD-R-014 设计一个前端组件库/设计系统架构](../by-domain/25-system-architecture.md#FB-25-SD-R-014)
+- [FB-25-SD-R-015 设计一个前端性能监控与预警平台](../by-domain/25-system-architecture.md#FB-25-SD-R-015)
 - [FB-25-SS-R-005 如何推动一个重大技术架构升级在多个业务线落地？](../by-domain/25-system-architecture.md#FB-25-SS-R-005)
 - [FB-25-SS-R-014 如何推动组织级前端工程文化变革？](../by-domain/25-system-architecture.md#FB-25-SS-R-014)
 - [FB-25-SS-R-015 如何在前端团队中推动架构规范的落地？](../by-domain/25-system-architecture.md#FB-25-SS-R-015)
+- [FB-25-SS-R-016 作为前端架构师如何推动架构落地](../by-domain/25-system-architecture.md#FB-25-SS-R-016)
 
-### 微前端（13 道）
+### 微前端（19 道）
 
 - [FB-26-CO-R-001 你如何看待 iframe 作为微前端方案？](../by-domain/26-micro-frontend.md#FB-26-CO-R-001)
 - [FB-26-CO-R-002 在微前端架构中，主应用应该承担哪些职责？子应用应该承担哪些职责？](../by-domain/26-micro-frontend.md#FB-26-CO-R-002)
 - [FB-26-CP-R-026 面对不同业务场景，如何为团队选型 qiankun / Module Federation / Web Components / iframe？](../by-domain/26-micro-frontend.md#FB-26-CP-R-026)
+- [FB-26-CP-R-027 微前端拆分粒度如何把握](../by-domain/26-micro-frontend.md#FB-26-CP-R-027)
 - [FB-26-EN-R-028 微前端团队的 CI/CD 与仓库组织策略应该如何设计？](../by-domain/26-micro-frontend.md#FB-26-EN-R-028)
+- [FB-26-EN-R-029 微前端架构下的监控与可观测体系](../by-domain/26-micro-frontend.md#FB-26-EN-R-029)
 - [FB-26-PE-R-029 如何度量微前端的性能与用户体验？](../by-domain/26-micro-frontend.md#FB-26-PE-R-029)
 - [FB-26-PE-R-030 微前端上线后，如何进行性能优化？](../by-domain/26-micro-frontend.md#FB-26-PE-R-030)
+- [FB-26-PE-R-031 微前端大规模下的性能预算与治理](../by-domain/26-micro-frontend.md#FB-26-PE-R-031)
 - [FB-26-SC-R-001 微前端和 Monorepo 各适合什么场景？可以同时使用吗？](../by-domain/26-micro-frontend.md#FB-26-SC-R-001)
 - [FB-26-SC-R-002 如果未来浏览器原生支持更强大的应用隔离机制，微前端框架会消失吗？](../by-domain/26-micro-frontend.md#FB-26-SC-R-002)
 - [FB-26-SD-R-024 从巨石应用迁移到微前端的策略和步骤是什么？](../by-domain/26-micro-frontend.md#FB-26-SD-R-024)
 - [FB-26-SD-R-025 设计一个企业级微前端平台，需要包含哪些核心模块？](../by-domain/26-micro-frontend.md#FB-26-SD-R-025)
 - [FB-26-SD-R-026 设计一个支持 10 个团队同时开发的微前端平台，你会做哪些关键决策？](../by-domain/26-micro-frontend.md#FB-26-SD-R-026)
+- [FB-26-SD-R-027 设计一个企业级微前端基座](../by-domain/26-micro-frontend.md#FB-26-SD-R-027)
+- [FB-26-SD-R-028 设计一个支持离线能力的微前端应用](../by-domain/26-micro-frontend.md#FB-26-SD-R-028)
+- [FB-26-SD-R-029 设计一个无基座的去中心化微前端方案](../by-domain/26-micro-frontend.md#FB-26-SD-R-029)
 - [FB-26-SE-R-027 微前端安全架构需要考虑哪些风险与防御？](../by-domain/26-micro-frontend.md#FB-26-SE-R-027)
 - [FB-26-SS-R-030 微前端落地中的组织治理：团队边界、发布节奏、技术栈约束、回滚策略。](../by-domain/26-micro-frontend.md#FB-26-SS-R-030)
 
-### 性能工程（13 道）
+### 性能工程（16 道）
 
 - [FB-27-CP-R-004 假设你负责一个大型电商首页的性能优化，请给出整体优化策略。](../by-domain/27-performance.md#FB-27-CP-R-004)
 - [FB-27-CP-R-007 SPA、MPA、Islands 架构在性能上各有什么优劣？如何选择？](../by-domain/27-performance.md#FB-27-CP-R-007)
@@ -3317,6 +4605,9 @@
 - [FB-27-PE-R-003 在团队中如何推动性能优化落地？](../by-domain/27-performance.md#FB-27-PE-R-003)
 - [FB-27-PE-R-005 现代前端框架（如 React 18）提供了哪些性能优化特性？](../by-domain/27-performance.md#FB-27-PE-R-005)
 - [FB-27-PE-R-006 如何平衡性能优化和开发效率？](../by-domain/27-performance.md#FB-27-PE-R-006)
+- [FB-27-PE-R-007 设计一个前端性能治理体系](../by-domain/27-performance.md#FB-27-PE-R-007)
+- [FB-27-PE-R-008 如何优化前端包体积](../by-domain/27-performance.md#FB-27-PE-R-008)
+- [FB-27-PE-R-009 前端性能优化的顶层方法论](../by-domain/27-performance.md#FB-27-PE-R-009)
 - [FB-27-SC-R-005 如何设计 CDN 缓存与边缘计算架构来优化前端性能？](../by-domain/27-performance.md#FB-27-SC-R-005)
 - [FB-27-SD-R-001 如何设计一个前端性能监控与告警系统？](../by-domain/27-performance.md#FB-27-SD-R-001)
 - [FB-27-SD-R-002 如何设计性能预算（Performance Budget）和 CI 门禁系统？](../by-domain/27-performance.md#FB-27-SD-R-002)
@@ -3324,14 +4615,17 @@
 - [FB-27-SD-R-006 如何设计一个前端性能可视化大盘（Performance Dashboard）？](../by-domain/27-performance.md#FB-27-SD-R-006)
 - [FB-27-SD-R-007 设计一个面向百万级 DAU 的内容平台的性能优化体系。](../by-domain/27-performance.md#FB-27-SD-R-007)
 
-### 质量保障（14 道）
+### 质量保障（17 道）
 
 - [FB-28-CO-R-001 你如何平衡“快速迭代”和“高质量”？](../by-domain/28-quality.md#FB-28-CO-R-001)
 - [FB-28-CO-R-002 前端在 DevOps 中应该承担什么角色？](../by-domain/28-quality.md#FB-28-CO-R-002)
 - [FB-28-CO-R-003 前端质量保障中，最容易被忽视但影响巨大的问题是什么？](../by-domain/28-quality.md#FB-28-CO-R-003)
 - [FB-28-CP-R-027 如何评估自动化测试的 ROI？有哪些常见反模式？](../by-domain/28-quality.md#FB-28-CP-R-027)
 - [FB-28-CP-R-029 如何建立全链路质量度量体系？DORA 指标如何应用？](../by-domain/28-quality.md#FB-28-CP-R-029)
+- [FB-28-EN-R-001 设计前端工程化的质量门禁](../by-domain/28-quality.md#FB-28-EN-R-001)
 - [FB-28-SC-R-002 如果团队完全没有测试，你会如何推动测试落地？](../by-domain/28-quality.md#FB-28-SC-R-002)
+- [FB-28-SC-R-003 设计一个前端质量度量体系](../by-domain/28-quality.md#FB-28-SC-R-003)
+- [FB-28-SC-R-004 设计一个前端交付质量保障平台](../by-domain/28-quality.md#FB-28-SC-R-004)
 - [FB-28-SD-R-025 如何为一家中型互联网公司设计前端质量保障体系？](../by-domain/28-quality.md#FB-28-SD-R-025)
 - [FB-28-SD-R-026 微前端或 Monorepo 场景下如何制定测试策略？](../by-domain/28-quality.md#FB-28-SD-R-026)
 - [FB-28-SD-R-028 如何架构大规模 E2E 测试的并行与稳定性？](../by-domain/28-quality.md#FB-28-SD-R-028)
@@ -3341,49 +4635,62 @@
 - [FB-28-SS-R-030 如何设计 Bug 管理与复盘机制？](../by-domain/28-quality.md#FB-28-SS-R-030)
 - [FB-28-SS-R-031 如何建立团队的工程质量文化？](../by-domain/28-quality.md#FB-28-SS-R-031)
 
-### 数据与状态管理（8 道）
+### 数据与状态管理（12 道）
 
 - [FB-29-CP-R-029 如何评估和选择状态管理库？请给出决策矩阵](../by-domain/29-data-state.md#FB-29-CP-R-029)
 - [FB-29-PE-R-032 全局状态管理下如何进行性能优化？](../by-domain/29-data-state.md#FB-29-PE-R-032)
 - [FB-29-SC-R-027 设计一个高并发的购物车状态管理方案](../by-domain/29-data-state.md#FB-29-SC-R-027)
 - [FB-29-SC-R-028 如何设计多端状态同步方案（Web、小程序、App）？](../by-domain/29-data-state.md#FB-29-SC-R-028)
+- [FB-29-SC-R-029 设计一个前端实时协作的状态系统](../by-domain/29-data-state.md#FB-29-SC-R-029)
 - [FB-29-SD-R-025 如何设计一个前端数据层抽象层，支持多数据源切换和缓存？](../by-domain/29-data-state.md#FB-29-SD-R-025)
 - [FB-29-SD-R-026 如何为大型 SPA 设计状态管理架构？](../by-domain/29-data-state.md#FB-29-SD-R-026)
 - [FB-29-SD-R-030 设计一个支持离线优先的协作编辑状态同步系统](../by-domain/29-data-state.md#FB-29-SD-R-030)
 - [FB-29-SD-R-031 如何设计前端 URL 状态管理方案？](../by-domain/29-data-state.md#FB-29-SD-R-031)
+- [FB-29-SD-R-032 设计一个前端数据同步与状态管理方案](../by-domain/29-data-state.md#FB-29-SD-R-032)
+- [FB-29-SD-R-033 设计一个支持 Undo/Redo 的前端状态系统](../by-domain/29-data-state.md#FB-29-SD-R-033)
+- [FB-29-SD-R-034 设计一个跨页面共享的状态层](../by-domain/29-data-state.md#FB-29-SD-R-034)
 
-### 可观测性（8 道）
+### 可观测性（11 道）
 
 - [FB-30-CP-R-027 如何评估并控制可观测性数据的生命周期与成本？](../by-domain/30-observability.md#FB-30-CP-R-027)
 - [FB-30-CP-R-030 请给出从“指标异常”到“根因定位”的完整可观测性工作流](../by-domain/30-observability.md#FB-30-CP-R-030)
+- [FB-30-EN-R-001 前端可观测工程的落地路径](../by-domain/30-observability.md#FB-30-EN-R-001)
 - [FB-30-SC-R-029 如何在大型前端工程中平衡监控覆盖度与性能开销？](../by-domain/30-observability.md#FB-30-SC-R-029)
+- [FB-30-SC-R-030 设计前端监控数据平台架构](../by-domain/30-observability.md#FB-30-SC-R-030)
 - [FB-30-SD-R-025 设计一个前端 RUM 指标体系与 Dashboard](../by-domain/30-observability.md#FB-30-SD-R-025)
 - [FB-30-SD-R-026 如何从零构建前端 SRE 值班（on-call）与事故响应机制？](../by-domain/30-observability.md#FB-30-SD-R-026)
 - [FB-30-SD-R-028 设计一个支持多租户、多环境的前端埋点与可观测中台](../by-domain/30-observability.md#FB-30-SD-R-028)
 - [FB-30-SD-R-031 设计一个前端灰度发布/回滚的可观测性方案](../by-domain/30-observability.md#FB-30-SD-R-031)
+- [FB-30-SD-R-032 设计前端全链路可观测平台](../by-domain/30-observability.md#FB-30-SD-R-032)
 - [FB-30-SS-R-032 作为前端架构师，你如何推动团队建立可观测性文化？](../by-domain/30-observability.md#FB-30-SS-R-032)
 
-### 安全架构（7 道）
+### 安全架构（10 道）
 
+- [FB-31-CO-R-001 前端零信任安全架构实践](../by-domain/31-security-architecture.md#FB-31-CO-R-001)
 - [FB-31-CP-R-002 如何构建组织级前端安全能力平台？](../by-domain/31-security-architecture.md#FB-31-CP-R-002)
 - [FB-31-CP-R-003 安全事件应急响应流程应该如何设计？](../by-domain/31-security-architecture.md#FB-31-CP-R-003)
 - [FB-31-CP-R-004 安全架构评审清单与 ADR 应该怎么写？](../by-domain/31-security-architecture.md#FB-31-CP-R-004)
 - [FB-31-SD-R-001 如何为大型企业设计前端安全架构？](../by-domain/31-security-architecture.md#FB-31-SD-R-001)
 - [FB-31-SD-R-002 微前端场景下如何做好安全隔离？](../by-domain/31-security-architecture.md#FB-31-SD-R-002)
 - [FB-31-SD-R-003 前后端安全边界应该如何划分？](../by-domain/31-security-architecture.md#FB-31-SD-R-003)
+- [FB-31-SE-R-001 设计一个企业级前端安全体系](../by-domain/31-security-architecture.md#FB-31-SE-R-001)
+- [FB-31-SE-R-002 设计前端安全开发生命周期](../by-domain/31-security-architecture.md#FB-31-SE-R-002)
 - [FB-31-SS-R-001 如何推动团队提升安全意识？](../by-domain/31-security-architecture.md#FB-31-SS-R-001)
 
-### 实时与协同（7 道）
+### 实时与协同（10 道）
 
 - [FB-32-CP-R-001 多端实时状态一致性如何保证？](../by-domain/32-real-time.md#FB-32-CP-R-001)
+- [FB-32-CP-R-002 实时系统的架构演进路径](../by-domain/32-real-time.md#FB-32-CP-R-002)
 - [FB-32-SD-R-001 如何设计一个实时协同文档系统？](../by-domain/32-real-time.md#FB-32-SD-R-001)
 - [FB-32-SD-R-002 如何设计一个实时聊天系统？](../by-domain/32-real-time.md#FB-32-SD-R-002)
 - [FB-32-SD-R-003 如何设计一个实时视频会议系统？](../by-domain/32-real-time.md#FB-32-SD-R-003)
 - [FB-32-SD-R-004 实时系统与离线同步如何结合？](../by-domain/32-real-time.md#FB-32-SD-R-004)
 - [FB-32-SD-R-005 如何设计一个实时协同白板？](../by-domain/32-real-time.md#FB-32-SD-R-005)
 - [FB-32-SD-R-006 实时系统的监控与降级策略如何设计？](../by-domain/32-real-time.md#FB-32-SD-R-006)
+- [FB-32-SD-R-007 设计一个实时协作白板](../by-domain/32-real-time.md#FB-32-SD-R-007)
+- [FB-32-SD-R-008 设计一个实时数据可视化大屏](../by-domain/32-real-time.md#FB-32-SD-R-008)
 
-### 国际化（7 道）
+### 国际化（8 道）
 
 - [FB-33-CP-R-001 国际化度量与监控应该关注哪些指标？](../by-domain/33-internationalization.md#FB-33-CP-R-001)
 - [FB-33-CP-R-002 跨团队国际化治理如何推进？](../by-domain/33-internationalization.md#FB-33-CP-R-002)
@@ -3392,31 +4699,37 @@
 - [FB-33-SD-R-002 如何设计一条翻译流水线？](../by-domain/33-internationalization.md#FB-33-SD-R-002)
 - [FB-33-SD-R-003 如何设计国际化组件库？](../by-domain/33-internationalization.md#FB-33-SD-R-003)
 - [FB-33-SD-R-004 多语言内容管理系统（CMS）如何设计？](../by-domain/33-internationalization.md#FB-33-SD-R-004)
+- [FB-33-SD-R-005 设计一个可扩展的国际化架构](../by-domain/33-internationalization.md#FB-33-SD-R-005)
 
-### 可视化与图形（7 道）
+### 可视化与图形（9 道）
 
 - [FB-34-CP-R-027 在大型可视化项目中，如何制定可测试、可维护、可协同的工程规范？](../by-domain/34-visualization-graphics.md#FB-34-CP-R-027)
 - [FB-34-CP-R-030 从 0 到 1 落地一个数据可视化产品，如何在业务价值、性能、团队成本、可维护性之间做权衡？](../by-domain/34-visualization-graphics.md#FB-34-CP-R-030)
+- [FB-34-CP-R-031 可视化系统的性能与体验平衡](../by-domain/34-visualization-graphics.md#FB-34-CP-R-031)
 - [FB-34-EN-R-029 大型可视化应用的构建、CI/CD、产物优化与多版本兼容策略如何设计？](../by-domain/34-visualization-graphics.md#FB-34-EN-R-029)
 - [FB-34-SD-R-024 设计一个 BI 可视化平台的前端架构](../by-domain/34-visualization-graphics.md#FB-34-SD-R-024)
 - [FB-34-SD-R-025 设计一个 3D 数字孪生大屏的渲染架构](../by-domain/34-visualization-graphics.md#FB-34-SD-R-025)
 - [FB-34-SD-R-026 如何设计一个可扩展的可视化组件库？](../by-domain/34-visualization-graphics.md#FB-34-SD-R-026)
 - [FB-34-SD-R-028 游戏图形中的场景图、ECS、渲染循环、LOD 对前端可视化架构有何启发？](../by-domain/34-visualization-graphics.md#FB-34-SD-R-028)
+- [FB-34-SD-R-029 设计一个可视化搭建平台](../by-domain/34-visualization-graphics.md#FB-34-SD-R-029)
 
-### Serverless/Edge（7 道）
+### Serverless/Edge（9 道）
 
 - [FB-35-CP-R-001 组织级 Serverless 治理如何推进？](../by-domain/35-serverless-edge.md#FB-35-CP-R-001)
 - [FB-35-CP-R-002 Serverless 成本控制策略有哪些？](../by-domain/35-serverless-edge.md#FB-35-CP-R-002)
 - [FB-35-CP-R-003 全球化边缘渲染平台如何设计？](../by-domain/35-serverless-edge.md#FB-35-CP-R-003)
+- [FB-35-SC-R-001 设计一个 Serverless 实时数据处理前端展示](../by-domain/35-serverless-edge.md#FB-35-SC-R-001)
 - [FB-35-SD-R-001 如何设计一个 Serverless 前端架构？](../by-domain/35-serverless-edge.md#FB-35-SD-R-001)
 - [FB-35-SD-R-002 如何设计一个 Edge 网关？](../by-domain/35-serverless-edge.md#FB-35-SD-R-002)
 - [FB-35-SD-R-003 Serverless 与容器/传统服务器如何取舍？](../by-domain/35-serverless-edge.md#FB-35-SD-R-003)
 - [FB-35-SD-R-004 如何设计边缘与中心协同架构？](../by-domain/35-serverless-edge.md#FB-35-SD-R-004)
+- [FB-35-SD-R-006 设计一个 Serverless 前端部署架构](../by-domain/35-serverless-edge.md#FB-35-SD-R-006)
 
-### 前端数据工程（8 道）
+### 前端数据工程（9 道）
 
 - [FB-36-CP-R-001 跨团队数据治理如何推进？](../by-domain/36-data-engineering.md#FB-36-CP-R-001)
 - [FB-36-CP-R-002 如何评估前端数据工程的 ROI？](../by-domain/36-data-engineering.md#FB-36-CP-R-002)
+- [FB-36-SC-R-001 设计一个前端自助分析平台](../by-domain/36-data-engineering.md#FB-36-SC-R-001)
 - [FB-36-SD-R-001 如何设计一个前端数据平台？](../by-domain/36-data-engineering.md#FB-36-SD-R-001)
 - [FB-36-SD-R-002 如何设计一个埋点与采集系统？](../by-domain/36-data-engineering.md#FB-36-SD-R-002)
 - [FB-36-SD-R-003 如何设计一个用户行为分析系统？](../by-domain/36-data-engineering.md#FB-36-SD-R-003)
@@ -3434,37 +4747,46 @@
 - [FB-37-SD-R-004 设计一个支持快速试错与灰度发布的增长实验工程平台。](../by-domain/37-business.md#FB-37-SD-R-004)
 - [FB-37-SD-R-006 设计一个面向 SaaS 产品的多租户、可配置、可定价的前端交付架构。](../by-domain/37-business.md#FB-37-SD-R-006)
 
-### 团队领导力（7 道）
+### 团队领导力（10 道）
 
 - [FB-38-CP-R-002 设计一套组织效能度量体系，用于评估前端团队的健康度与产出](../by-domain/38-team.md#FB-38-CP-R-002)
 - [FB-38-CP-R-004 高管要求三个月内人效翻倍，作为前端负责人你如何回应与规划？](../by-domain/38-team.md#FB-38-CP-R-004)
 - [FB-38-CP-R-006 技术骨干晋升管理岗后表现不佳，如何建立管理与专业双通道？](../by-domain/38-team.md#FB-38-CP-R-006)
 - [FB-38-SC-R-003 业务扩张期，如何通过团队结构升级支撑多产品线并行？](../by-domain/38-team.md#FB-38-SC-R-003)
 - [FB-38-SC-R-007 两个子团队各自为政、重复造轮子，如何打破壁垒建立共享平台？](../by-domain/38-team.md#FB-38-SC-R-007)
+- [FB-38-SC-R-008 作为技术 VP / 前端负责人，你如何规划前端团队未来 1-3 年的技术战略？](../by-domain/38-team.md#FB-38-SC-R-008)
 - [FB-38-SD-R-001 为一家 500 人前端组织设计分层技术治理与团队架构](../by-domain/38-team.md#FB-38-SD-R-001)
 - [FB-38-SD-R-005 设计一个面向全球远程团队的技术文化与协作基础设施蓝图](../by-domain/38-team.md#FB-38-SD-R-005)
+- [FB-38-SD-R-006 如何设计一个支撑多业务线、多地域的前端组织架构？](../by-domain/38-team.md#FB-38-SD-R-006)
+- [FB-38-SD-R-007 如何从 0 到 1 搭建一个高绩效前端团队？](../by-domain/38-team.md#FB-38-SD-R-007)
 
-### 技术战略（7 道）
+### 技术战略（10 道）
 
 - [FB-39-CP-R-002 作为前端架构负责人，你如何在降本增效的大背景下制定技术战略？](../by-domain/39-strategy.md#FB-39-CP-R-002)
 - [FB-39-CP-R-004 如何制定云原生前端架构演进战略？](../by-domain/39-strategy.md#FB-39-CP-R-004)
 - [FB-39-CP-R-006 如何通过技术战略形成可持续的竞争壁垒？](../by-domain/39-strategy.md#FB-39-CP-R-006)
 - [FB-39-CP-R-007 请设计一个跨国/多 BU 前端组织的技术治理与协同战略。](../by-domain/39-strategy.md#FB-39-CP-R-007)
+- [FB-39-CP-R-008 作为前端技术负责人，你如何决定未来 3 年技术栈演进方向？](../by-domain/39-strategy.md#FB-39-CP-R-008)
 - [FB-39-SC-R-005 技术战略落地失败时，如何进行复盘与调整？](../by-domain/39-strategy.md#FB-39-SC-R-005)
+- [FB-39-SC-R-006 全球化产品的前端技术战略应包含哪些关键要素？](../by-domain/39-strategy.md#FB-39-SC-R-006)
 - [FB-39-SD-R-001 请设计一个 3 年前端技术战略，支撑业务从 0 到 100 的规模化增长。](../by-domain/39-strategy.md#FB-39-SD-R-001)
 - [FB-39-SD-R-003 如何设计 AI 时代的前端技术战略？](../by-domain/39-strategy.md#FB-39-SD-R-003)
+- [FB-39-SD-R-004 如何在技术战略层面规划前端与 AI、WebAssembly、边缘计算等新兴技术的结合？](../by-domain/39-strategy.md#FB-39-SD-R-004)
 
-### 沟通表达（7 道）
+### 沟通表达（10 道）
 
 - [FB-40-CP-R-001 如何制定组织级的技术沟通标准？](../by-domain/40-communication.md#FB-40-CP-R-001)
 - [FB-40-CP-R-003 如何在大型组织里建立技术影响力网络？](../by-domain/40-communication.md#FB-40-CP-R-003)
 - [FB-40-CP-R-005 如何评估并提升整个工程组织的沟通效能？](../by-domain/40-communication.md#FB-40-CP-R-005)
 - [FB-40-CP-R-006 技术宣讲/布道体系如何支撑组织的技术战略落地？](../by-domain/40-communication.md#FB-40-CP-R-006)
+- [FB-40-CP-R-007 面对媒体或外部演讲，你如何代表团队/公司传递技术品牌？](../by-domain/40-communication.md#FB-40-CP-R-007)
 - [FB-40-SD-R-002 设计一个技术方案评审与决策流程](../by-domain/40-communication.md#FB-40-SD-R-002)
 - [FB-40-SD-R-004 设计一套危机沟通预案](../by-domain/40-communication.md#FB-40-SD-R-004)
 - [FB-40-SD-R-007 设计一个跨部门重大技术项目的治理与沟通框架](../by-domain/40-communication.md#FB-40-SD-R-007)
+- [FB-40-SD-R-008 作为技术负责人，你如何处理与公司其他高管的分歧？](../by-domain/40-communication.md#FB-40-SD-R-008)
+- [FB-40-SD-R-009 如何在组织内建立前端团队的“话语权”？](../by-domain/40-communication.md#FB-40-SD-R-009)
 
-### 项目管理（7 道）
+### 项目管理（8 道）
 
 - [FB-41-CP-R-002 作为前端架构师，你如何推动组织级的敏捷转型？](../by-domain/41-project-management.md#FB-41-CP-R-002)
 - [FB-41-CP-R-004 多项目共用同一前端团队时，如何设计资源池与调度机制？](../by-domain/41-project-management.md#FB-41-CP-R-004)
@@ -3473,6 +4795,7 @@
 - [FB-41-SD-R-001 如何设计一个支持多业务线的前端项目组合管理（Portfolio）体系？](../by-domain/41-project-management.md#FB-41-SD-R-001)
 - [FB-41-SD-R-003 设计一个大型前端项目的技术风险管理与灾备方案。](../by-domain/41-project-management.md#FB-41-SD-R-003)
 - [FB-41-SS-R-007 前端负责人如何培养团队的自组织与持续改进文化？](../by-domain/41-project-management.md#FB-41-SS-R-007)
+- [FB-41-SS-R-008 作为项目总监，你如何同时管理多个前端项目组合？](../by-domain/41-project-management.md#FB-41-SS-R-008)
 
 ### 招聘（8 道）
 
@@ -3495,7 +4818,7 @@
 - [FB-43-SD-R-001 设计一个公司级技术品牌中台：整合博客、公众号、开源、社区、内部分享。](../by-domain/43-tech-branding.md#FB-43-SD-R-001)
 - [FB-43-SD-R-003 设计一个“技术布道师团队”的编制、目标、考核与资源协作机制。](../by-domain/43-tech-branding.md#FB-43-SD-R-003)
 
-### 技术治理与合规（7 道）
+### 技术治理与合规（9 道）
 
 - [FB-44-CP-R-001 如何从 0 到 1 建立技术债治理长效机制？](../by-domain/44-tech-governance.md#FB-44-CP-R-001)
 - [FB-44-CP-R-002 如何在大型前端组织推行架构治理？](../by-domain/44-tech-governance.md#FB-44-CP-R-002)
@@ -3504,6 +4827,8 @@
 - [FB-44-SD-R-001 设计一个企业级前端合规体系。](../by-domain/44-tech-governance.md#FB-44-SD-R-001)
 - [FB-44-SD-R-002 如何设计跨团队技术治理组织与运作机制？](../by-domain/44-tech-governance.md#FB-44-SD-R-002)
 - [FB-44-SD-R-003 设计一个前端安全合规左移体系。](../by-domain/44-tech-governance.md#FB-44-SD-R-003)
+- [FB-44-SD-R-004 如何在一个大型组织中推行统一的前端工程化标准？](../by-domain/44-tech-governance.md#FB-44-SD-R-004)
+- [FB-44-SD-R-005 如何设计前端技术治理的度量指标体系？](../by-domain/44-tech-governance.md#FB-44-SD-R-005)
 
 ### 小程序（7 道）
 
@@ -3515,9 +4840,10 @@
 - [FB-45-SD-R-007 如何设计一个多平台小程序容器架构？](../by-domain/45-mini-program.md#FB-45-SD-R-007)
 - [FB-45-SE-R-006 小程序安全架构应考虑哪些方面？](../by-domain/45-mini-program.md#FB-45-SE-R-006)
 
-### 鸿蒙 ArkTS / HarmonyOS（7 道）
+### 鸿蒙 ArkTS / HarmonyOS（8 道）
 
 - [FB-46-CP-R-029 如何看待鸿蒙生态的发展？作为前端架构师应如何布局？](../by-domain/46-harmonyos.md#FB-46-CP-R-029)
+- [FB-46-CP-R-030 设计一个鸿蒙多端协同的阅读应用架构。](../by-domain/46-harmonyos.md#FB-46-CP-R-030)
 - [FB-46-PE-R-030 如何为鸿蒙应用建立一套完整的性能工程体系？](../by-domain/46-harmonyos.md#FB-46-PE-R-030)
 - [FB-46-SD-R-025 如何设计一个鸿蒙多端协同的阅读应用？](../by-domain/46-harmonyos.md#FB-46-SD-R-025)
 - [FB-46-SD-R-026 一个鸿蒙应用从 0 到 1，你会如何做技术选型？](../by-domain/46-harmonyos.md#FB-46-SD-R-026)
@@ -3525,17 +4851,23 @@
 - [FB-46-SD-R-028 将现有跨平台应用迁移到鸿蒙，你会如何制定策略？](../by-domain/46-harmonyos.md#FB-46-SD-R-028)
 - [FB-46-SD-R-031 设计一个面向企业内部的鸿蒙办公协同平台架构。](../by-domain/46-harmonyos.md#FB-46-SD-R-031)
 
-### Flutter（7 道）
+### Flutter（13 道）
 
 - [FB-47-EN-R-005 Flutter 项目的工程化与 CI/CD 应该如何设计？](../by-domain/47-flutter.md#FB-47-EN-R-005)
 - [FB-47-PE-R-002 Flutter 应用包体积优化有哪些系统性的做法？](../by-domain/47-flutter.md#FB-47-PE-R-002)
 - [FB-47-SC-R-004 Flutter Web 和桌面端（Windows/macOS/Linux）支持有哪些关键考虑？](../by-domain/47-flutter.md#FB-47-SC-R-004)
+- [FB-47-SC-R-005 Flutter 大型项目如何组织代码架构？](../by-domain/47-flutter.md#FB-47-SC-R-005)
+- [FB-47-SC-R-006 Flutter 跨平台开发中如何处理平台差异？](../by-domain/47-flutter.md#FB-47-SC-R-006)
+- [FB-47-SC-R-007 Flutter 项目中如何做状态管理选型？](../by-domain/47-flutter.md#FB-47-SC-R-007)
+- [FB-47-SC-R-008 Flutter 应用的测试策略如何设计？](../by-domain/47-flutter.md#FB-47-SC-R-008)
 - [FB-47-SD-R-001 如何设计一个可维护、可扩展的 Flutter 大型应用架构？](../by-domain/47-flutter.md#FB-47-SD-R-001)
 - [FB-47-SD-R-003 Flutter 国际化（i18n）和无障碍（a11y）应该如何架构？](../by-domain/47-flutter.md#FB-47-SD-R-003)
 - [FB-47-SD-R-006 Flutter 大规模应用中，状态管理应该如何分层与治理？](../by-domain/47-flutter.md#FB-47-SD-R-006)
 - [FB-47-SD-R-007 如何开发一个 Flutter 插件？Federated Plugin 和 PlatformView 分别解决什么问题？](../by-domain/47-flutter.md#FB-47-SD-R-007)
+- [FB-47-SD-R-008 Flutter 混合开发（与原生项目集成）有哪些方案？](../by-domain/47-flutter.md#FB-47-SD-R-008)
+- [FB-47-SD-R-009 Flutter Web 的性能优化和适配有哪些要点？](../by-domain/47-flutter.md#FB-47-SD-R-009)
 
-### Electron（7 道）
+### Electron（10 道）
 
 - [FB-48-CP-R-004 electron-builder 与 electron-forge 如何选型？](../by-domain/48-electron.md#FB-48-CP-R-004)
 - [FB-48-EN-R-006 如何设计 Electron 的 CI/CD、签名、公证与自动发布流水线？](../by-domain/48-electron.md#FB-48-EN-R-006)
@@ -3544,8 +4876,11 @@
 - [FB-48-SD-R-002 如何设计一个安全的 Electron 应用架构？](../by-domain/48-electron.md#FB-48-SD-R-002)
 - [FB-48-SD-R-003 如何设计 Electron 的自动更新与灰度分发策略？](../by-domain/48-electron.md#FB-48-SD-R-003)
 - [FB-48-SS-R-007 作为技术负责人，你如何推动 Electron 项目落地与团队治理？](../by-domain/48-electron.md#FB-48-SS-R-007)
+- [FB-48-SS-R-008 Electron 与 Tauri 相比各有什么优缺点？](../by-domain/48-electron.md#FB-48-SS-R-008)
+- [FB-48-SS-R-009 Electron 应用的未来演进方向有哪些？](../by-domain/48-electron.md#FB-48-SS-R-009)
+- [FB-48-SS-R-010 设计一个 Electron 跨平台 IDE 的核心架构。](../by-domain/48-electron.md#FB-48-SS-R-010)
 
-### WebAssembly（7 道）
+### WebAssembly（9 道）
 
 - [FB-49-CP-R-007 WebAssembly 在前端架构中的取舍：什么时候该用，什么时候不该用？](../by-domain/49-webassembly.md#FB-49-CP-R-007)
 - [FB-49-SC-R-001 如何设计一个前端图像处理系统，引入 WebAssembly 进行计算加速？](../by-domain/49-webassembly.md#FB-49-SC-R-001)
@@ -3553,15 +4888,23 @@
 - [FB-49-SC-R-003 如何在大型前端项目中组织 WASM 模块的构建、加载与版本管理？](../by-domain/49-webassembly.md#FB-49-SC-R-003)
 - [FB-49-SC-R-004 WebAssembly 在游戏引擎/WebGL 渲染管线中如何落地？](../by-domain/49-webassembly.md#FB-49-SC-R-004)
 - [FB-49-SC-R-005 AI/ML 模型前端推理方案中，WASM 与 WebGPU/WebGL 如何协作？](../by-domain/49-webassembly.md#FB-49-SC-R-005)
+- [FB-49-SC-R-006 设计一个基于 WebAssembly 的浏览器端图片编辑器架构。](../by-domain/49-webassembly.md#FB-49-SC-R-006)
+- [FB-49-SC-R-007 WebAssembly 未来可能如何改变前端开发？](../by-domain/49-webassembly.md#FB-49-SC-R-007)
 - [FB-49-SD-R-006 设计一个跨语言的“WASM 插件平台”，支持前端动态加载第三方扩展](../by-domain/49-webassembly.md#FB-49-SD-R-006)
 
-### WebGPU / 图形学（7 道）
+### WebGPU / 图形学（13 道）
 
 - [FB-50-CP-R-026 在新建一个 3D 项目时，如何选择 WebGPU、WebGL、Three.js、Babylon.js 或自研引擎？](../by-domain/50-webgpu-graphics.md#FB-50-CP-R-026)
 - [FB-50-CP-R-029 你怎么看 WebGPU 未来的发展趋势和主要挑战？](../by-domain/50-webgpu-graphics.md#FB-50-CP-R-029)
+- [FB-50-CP-R-030 WebGPU 与 Three.js、Babylon.js 等引擎的关系是什么？](../by-domain/50-webgpu-graphics.md#FB-50-CP-R-030)
+- [FB-50-CP-R-031 设计一个基于 WebGPU 的浏览器端粒子系统。](../by-domain/50-webgpu-graphics.md#FB-50-CP-R-031)
+- [FB-50-CP-R-032 WebGPU 在 AI/机器学习推理中的应用有哪些？](../by-domain/50-webgpu-graphics.md#FB-50-CP-R-032)
+- [FB-50-CP-R-033 WebGPU 的安全性设计有哪些特点？](../by-domain/50-webgpu-graphics.md#FB-50-CP-R-033)
 - [FB-50-PE-R-027 如何对 WebGPU 应用进行 GPU 性能剖析与瓶颈定位？](../by-domain/50-webgpu-graphics.md#FB-50-PE-R-027)
 - [FB-50-SC-R-025 如何优化一个包含百万级对象的大型 3D 场景？](../by-domain/50-webgpu-graphics.md#FB-50-SC-R-025)
 - [FB-50-SC-R-030 如何为一个跨平台 3D 可视化产品选择 WebGPU 与 Native 图形方案？](../by-domain/50-webgpu-graphics.md#FB-50-SC-R-030)
+- [FB-50-SC-R-031 设计一个基于 WebGPU 的浏览器端 3D 数据可视化引擎。](../by-domain/50-webgpu-graphics.md#FB-50-SC-R-031)
+- [FB-50-SC-R-032 WebGPU 的未来发展趋势是什么？](../by-domain/50-webgpu-graphics.md#FB-50-SC-R-032)
 - [FB-50-SD-R-024 如何设计一个基于 WebGPU 的轻量级渲染引擎？](../by-domain/50-webgpu-graphics.md#FB-50-SD-R-024)
 - [FB-50-SD-R-028 如何设计 Three.js 与自研 WebGPU 引擎的集成架构？](../by-domain/50-webgpu-graphics.md#FB-50-SD-R-028)
 
@@ -3575,9 +4918,12 @@
 - [FB-51-SD-R-029 设计一个支持 DRM 的商业视频播放器安全架构](../by-domain/51-multimedia.md#FB-51-SD-R-029)
 - [FB-51-SD-R-030 如何评估和监控一个多媒体前端平台的质量？](../by-domain/51-multimedia.md#FB-51-SD-R-030)
 
-### 低代码（8 道）
+### 低代码（11 道）
 
 - [FB-52-CP-R-006 企业应该自研低代码平台还是采购商业化产品？](../by-domain/52-low-code.md#FB-52-CP-R-006)
+- [FB-52-SC-R-001 低代码平台与 ProCode 开发的边界在哪里？](../by-domain/52-low-code.md#FB-52-SC-R-001)
+- [FB-52-SC-R-002 设计一个可扩展的低代码组件库体系。](../by-domain/52-low-code.md#FB-52-SC-R-002)
+- [FB-52-SC-R-003 低代码平台的常见陷阱有哪些？如何避免？](../by-domain/52-low-code.md#FB-52-SC-R-003)
 - [FB-52-SD-R-001 如何设计一个企业级低代码平台的整体架构？](../by-domain/52-low-code.md#FB-52-SD-R-001)
 - [FB-52-SD-R-002 低代码平台如何与企业现有业务系统集成？](../by-domain/52-low-code.md#FB-52-SD-R-002)
 - [FB-52-SD-R-003 如何建立低代码平台的平台化治理体系？](../by-domain/52-low-code.md#FB-52-SD-R-003)
@@ -3586,15 +4932,22 @@
 - [FB-52-SE-R-008 如何设计低代码平台的安全架构？](../by-domain/52-low-code.md#FB-52-SE-R-008)
 - [FB-52-SS-R-004 作为架构师，你如何推动业务团队使用低代码平台？](../by-domain/52-low-code.md#FB-52-SS-R-004)
 
-### 计算机基础（7 道）
+### 计算机基础（14 道）
 
 - [FB-53-CP-R-001 技术选型中如何权衡算法与数据结构？](../by-domain/53-computer-science.md#FB-53-CP-R-001)
 - [FB-53-CP-R-002 如何评估一个系统的可扩展性？](../by-domain/53-computer-science.md#FB-53-CP-R-002)
+- [FB-53-CP-R-003 前端如何实现 LRU Cache？](../by-domain/53-computer-science.md#FB-53-CP-R-003)
+- [FB-53-CP-R-004 什么是虚拟 DOM？它的优缺点是什么？](../by-domain/53-computer-science.md#FB-53-CP-R-004)
+- [FB-53-CP-R-005 前端如何实现大文件分片上传？](../by-domain/53-computer-science.md#FB-53-CP-R-005)
+- [FB-53-CP-R-006 如何设计一个前端路由系统？](../by-domain/53-computer-science.md#FB-53-CP-R-006)
+- [FB-53-CP-R-007 如何实现一个 Promise.all？](../by-domain/53-computer-science.md#FB-53-CP-R-007)
 - [FB-53-SD-R-001 如何设计一个短链服务？](../by-domain/53-computer-science.md#FB-53-SD-R-001)
 - [FB-53-SD-R-002 从系统架构角度如何设计一个秒杀系统？](../by-domain/53-computer-science.md#FB-53-SD-R-002)
 - [FB-53-SD-R-003 如何设计一个实时排行榜？](../by-domain/53-computer-science.md#FB-53-SD-R-003)
 - [FB-53-SD-R-004 高并发下的限流与降级策略如何设计？](../by-domain/53-computer-science.md#FB-53-SD-R-004)
 - [FB-53-SD-R-005 分布式一致性基础有哪些？](../by-domain/53-computer-science.md#FB-53-SD-R-005)
+- [FB-53-SD-R-007 设计一个前端缓存策略系统。](../by-domain/53-computer-science.md#FB-53-SD-R-007)
+- [FB-53-SD-R-008 前端如何实现一个简单的前端框架（类 React/Vue）？](../by-domain/53-computer-science.md#FB-53-SD-R-008)
 
 ### 行为面试（7 道）
 

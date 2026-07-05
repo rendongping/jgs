@@ -1,10 +1,10 @@
 # 代码分析题
 
 > 本文件按题型收录 **代码分析题** 相关前端面试题索引。
-> 共收录 **75** 道题（基础 26 / 进阶 32 / 深入 14 / 架构 3）。
+> 共收录 **78** 道题（基础 27 / 进阶 34 / 深入 14 / 架构 3）。
 > 每道题都附带完整参考答案与评分维度，点击链接可查看原文。
 
-## 基础题（26 道）{#basic}
+## 基础题（27 道）{#basic}
 
 ### JavaScript（5 道）
 
@@ -24,10 +24,11 @@
 
 - [FB-07-CA-B-001 下面这段代码存在哪些可访问性问题？](../by-domain/07-a11y.md#FB-07-CA-B-001)
 
-### 构建工具（2 道）
+### 构建工具（3 道）
 
 - [FB-10-CA-B-001 分析下面 Webpack 配置中 noParse 和 alias 的作用](../by-domain/10-build-tools.md#FB-10-CA-B-001)
 - [FB-10-CA-B-018 分析下面 Webpack 配置中 chunkFilename 和 publicPath 的作用。](../by-domain/10-build-tools.md#FB-10-CA-B-018)
+- [FB-10-CA-B-019 分析下面 Webpack 配置中 output.library 的作用](../by-domain/10-build-tools.md#FB-10-CA-B-019)
 
 ### 代码质量与测试（3 道）
 
@@ -77,7 +78,7 @@
 
 - [FB-52-CA-B-006 下面 Schema 渲染后的结果是什么？](../by-domain/52-low-code.md#FB-52-CA-B-006)
 
-## 进阶题（32 道）{#advanced}
+## 进阶题（34 道）{#advanced}
 
 ### JavaScript（4 道）
 
@@ -112,11 +113,12 @@
 
 - [FB-07-CA-A-001 分析下面自定义弹窗代码的可访问性问题。](../by-domain/07-a11y.md#FB-07-CA-A-001)
 
-### 构建工具（3 道）
+### 构建工具（4 道）
 
 - [FB-10-CA-A-001 分析下面 Webpack 配置的作用与产物结构。](../by-domain/10-build-tools.md#FB-10-CA-A-001)
 - [FB-10-CA-A-002 分析以下 splitChunks 配置可能产生的问题及优化方向](../by-domain/10-build-tools.md#FB-10-CA-A-002)
 - [FB-10-CA-A-013 分析下面代码中 Tree Shaking 为什么会失效。](../by-domain/10-build-tools.md#FB-10-CA-A-013)
+- [FB-10-CA-A-014 分析下面 Rollup 配置中 external 和 globals 的作用](../by-domain/10-build-tools.md#FB-10-CA-A-014)
 
 ### 代码质量与测试（4 道）
 
@@ -125,9 +127,10 @@
 - [FB-13-CA-A-003 下面 React Testing Library 的测试为什么没有触发 onChange？](../by-domain/13-code-quality.md#FB-13-CA-A-003)
 - [FB-13-CA-A-004 下面这段 Jest 异步测试为什么会出问题？](../by-domain/13-code-quality.md#FB-13-CA-A-004)
 
-### React（1 道）
+### React（2 道）
 
 - [FB-15-CA-A-042 下面代码在输入框快速输入时会出现什么问题？如何修复？](../by-domain/15-react.md#FB-15-CA-A-042)
+- [FB-15-CA-A-043 分析一个 useEffect 依赖问题](../by-domain/15-react.md#FB-15-CA-A-043)
 
 ### Vue（1 道）
 

@@ -17,17 +17,17 @@
 
 - **Q**：下面代码在输入框快速输入时会出现什么问题？如何修复？  
   **A**：见完整参考答案 [FB-15-CA-A-042](../by-domain/15-react.md#FB-15-CA-A-042)
+- **Q**：分析一个 useEffect 依赖问题  
+  **A**：见完整参考答案 [FB-15-CA-A-043](../by-domain/15-react.md#FB-15-CA-A-043)
 - **Q**：如何封装一个 Custom Hook？请写一个 useWindowSize 的示例。  
   **A**：见完整参考答案 [FB-15-CD-A-014](../by-domain/15-react.md#FB-15-CD-A-014)
-- **Q**：请手写一个 useDebounce Hook  
-  **A**：见完整参考答案 [FB-15-CD-A-045](../by-domain/15-react.md#FB-15-CD-A-045)
 
 ## 深入题（2 道）{#proficient}
 
 - **Q**：React 18 新增了哪些 Hooks？useId、useSyncExternalStore、useInsertionEffect 分别解决什么问题？  
   **A**：见完整参考答案 [FB-15-CO-P-022](../by-domain/15-react.md#FB-15-CO-P-022)
-- **Q**：React Fiber 架构解决了什么问题？请简述它的两个阶段。  
-  **A**：见完整参考答案 [FB-15-FS-P-018](../by-domain/15-react.md#FB-15-FS-P-018)
+- **Q**：什么是 React Server Actions？  
+  **A**：见完整参考答案 [FB-15-CO-P-023](../by-domain/15-react.md#FB-15-CO-P-023)
 
 ## 架构题（1 道）{#architect}
 

@@ -1,6 +1,6 @@
 # 构建工具 面试题
 
-> 本题库共收录 **100** 道面试题（基础 24 / 进阶 26 / 深入 26 / 架构 24）。
+> 本题库共收录 **120** 道面试题（基础 29 / 进阶 31 / 深入 31 / 架构 29）。
 > 本文件收录构建工具相关面试题，目标题量 40 道。
 > 题型覆盖：概念题、代码分析题、手写代码题、场景设计题、系统设计题、工程化题、性能优化题。
 > 难度覆盖：基础、进阶、深入、架构。
@@ -3875,7 +3875,7 @@ export default mergeLocalesPlugin;
 
 ---
 
-## 架构题（44 道）{#architect}
+## 架构题（64 道）{#architect}
 
 ### FB-10-SD-R-001：设计一个企业级前端构建体系。
 
@@ -6913,3 +6913,1284 @@ Rolldown 是 Rollup 的 Rust 版，Vite 未来可能用它；Farm 兼容 Vite/We
 
 
 
+
+### FB-10-CO-B-018：什么是构建工具的 dev server？Vite 和 Webpack dev server 有什么区别？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：10 构建工具
+**标签**：dev server、Vite、Webpack、HMR、开发服务器
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释前端构建工具中 dev server 的作用，并对比 Vite 与 Webpack dev server 的核心差异。
+
+**参考答案**：
+
+dev server 是开发阶段启动的本地服务器，用于托管源码、响应浏览器请求、提供 HMR、代理 API、Mock 数据等能力，避免每次改动都手动刷新页面。
+
+核心差异：
+
+| 维度 | Webpack dev server | Vite dev server |
+|------|--------------------|-----------------|
+| 启动方式 | 先打包构建再启动 | 基于原生 ESM，按请求动态编译 |
+| 编译时机 | 构建时编译所有模块 | 请求时按需编译 |
+| HMR | 模块替换需重新打包 | 利用 ESM 边界精准替换 |
+| 启动速度 | 项目越大越慢 | 通常很快，与项目规模关系小 |
+| 预构建 | 无 | 对依赖进行 esbuild 预构建 |
+| 配置 | 在 `webpack.config.js` 的 `devServer` 字段 | 在 `vite.config.js` 的 `server` 字段 |
+
+Vite 的 dev server 使用 `connect`/`koa` 中间件，浏览器直接请求裸模块，Vite 在服务端做路径解析和转译；Webpack dev server 则基于已打包的 bundle 提供服务。
+
+**评分维度**：
+- 说明 dev server 基本职责（30%）
+- 对比启动方式和编译时机（40%）
+- 提及 HMR 和预构建差异（30%）
+
+**常见错误**：
+- 认为 dev server 只是静态文件服务器
+- 认为 Vite 开发时也会打包整个项目
+
+**口头回答版**：
+> dev server 就是开发时跑在本地的服务器，提供页面访问、HMR、接口代理这些能力。Webpack dev server 是先打包再启动，项目大就慢；Vite dev server 是按浏览器请求动态编译，启动快，HMR 也快，还会用 esbuild 预构建依赖。
+
+---
+
+### FB-10-EN-B-020：如何配置 Webpack 的 devServer 实现代理和 HMR？
+
+**题型**：工程化题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：10 构建工具
+**标签**：Webpack、devServer、proxy、HMR、配置
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请写出 Webpack devServer 的常见配置，包括接口代理、HMR、端口和静态资源托管。
+
+**参考答案**：
+
+```js
+module.exports = {
+  devServer: {
+    port: 8080,
+    hot: true,
+    open: true,
+    static: './public',
+    proxy: {
+      '/api': {
+        target: 'https://api.example.com',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' }
+      }
+    },
+    historyApiFallback: true,
+    compress: true
+  }
+};
+```
+
+关键配置说明：
+
+1. **`hot: true`**：开启热模块替换，需配合 `webpack.HotModuleReplacementPlugin`。
+2. **`proxy`**：将 `/api` 开头的请求转发到后端服务，解决开发环境跨域。
+3. **`static`**：指定静态资源目录，默认是 `public`。
+4. **`historyApiFallback`**：SPA 路由刷新时返回 `index.html`。
+5. **`compress`**：启用 gzip 压缩。
+
+HMR 完整配置还需在 `module.hot.accept` 中处理更新，React/Vue 项目通常由框架封装。
+
+**评分维度**：
+- 写出 proxy 配置（35%）
+- 写出 HMR 相关配置（25%）
+- 说明 static 和 historyApiFallback 作用（25%）
+- 提到热更新需要插件配合（15%）
+
+**常见错误**：
+- 只配 `hot: true` 但忘记引入 HMR 插件
+- `changeOrigin` 为 false 导致代理后 host 不一致
+
+**口头回答版**：
+> Webpack devServer 配置主要在 `devServer` 字段里。`proxy` 做接口转发解决跨域；`hot: true` 开 HMR，但一般要配 `HotModuleReplacementPlugin`；`static` 指定静态资源目录；`historyApiFallback` 让 SPA 刷新不 404。React/Vue 项目这些通常框架已经封装好了。
+
+---
+
+### FB-10-CA-B-019：分析下面 Webpack 配置中 output.library 的作用
+
+**题型**：代码分析题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：10 构建工具
+**标签**：Webpack、output.library、UMD、库打包
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+
+```js
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'my-lib.js',
+    library: {
+      name: 'MyLib',
+      type: 'umd'
+    },
+    globalObject: 'this'
+  },
+  externals: {
+    react: 'react'
+  }
+};
+```
+
+请分析上述配置的作用，并说明 `library.type` 和 `externals` 分别控制什么。
+
+**参考答案**：
+
+该配置用于将一个 JS 入口打包成可在多种环境使用的库（library）。
+
+1. **`output.library.name: 'MyLib'`**：库暴露的全局变量名，在浏览器中可通过 `window.MyLib` 访问。
+2. **`output.library.type: 'umd'`**：统一模块定义，支持 CommonJS、AMD 和全局变量三种引入方式。
+3. **`output.globalObject: 'this'`**：指定 UMD 挂载的全局对象，Node 中为 `global`，浏览器中为 `window`。
+4. **`externals: { react: 'react' }`**：打包时排除 `react`，由消费方自行提供，避免库内嵌一份 React。
+
+产物使用方式：
+
+```html
+<script src="my-lib.js"></script>
+<script>MyLib.foo();</script>
+```
+
+```js
+const MyLib = require('my-lib');
+```
+
+**评分维度**：
+- 正确解释 library.name/type 作用（50%）
+- 说明 UMD 的适用场景（25%）
+- 说明 externals 避免重复打包（25%）
+
+**常见错误**：
+- 认为 `library` 只在浏览器环境有效
+- 把 externals 和 Tree Shaking 混淆
+
+**口头回答版**：
+> 这段配置是把项目打包成一个 UMD 库。`library.name` 是全局变量名，比如浏览器里用 `window.MyLib`；`type: 'umd'` 表示同时支持 CommonJS、AMD 和全局变量三种方式；`externals` 是把 react 排除掉，让使用方自己提供，避免库里多一份 React。
+
+---
+
+### FB-10-CD-B-021：手写一个简单的 Webpack Loader
+
+**题型**：手写代码题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：10 构建工具
+**标签**：Webpack、Loader、手写实现、AST
+**出现频率**：低频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请手写一个 Webpack Loader，将源码中所有的 `__BUILD_TIME__` 替换为当前构建时间戳。
+
+**参考答案**：
+
+Loader 是一个函数，接收源码字符串和 source map，返回转换后的字符串或对象。
+
+```js
+// build-time-loader.js
+module.exports = function (source) {
+  const callback = this.async();
+  const buildTime = new Date().toISOString();
+  const result = source.replace(/__BUILD_TIME__/g, JSON.stringify(buildTime));
+  callback(null, result);
+};
+```
+
+使用方式：
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: path.resolve(__dirname, './build-time-loader.js')
+      }
+    ]
+  }
+};
+```
+
+关键点：
+
+- Loader 必须是普通函数，不能用箭头函数（需要访问 `this` 上下文）。
+- 异步场景用 `this.async()` 返回 callback。
+- 简单替换可直接操作字符串；复杂场景可用 `@babel/parser` 改 AST。
+- 通过 `this.query` 可读取 Loader 选项。
+
+**评分维度**：
+- 写出符合 Loader 签名的函数（40%）
+- 正确使用 this.async（30%）
+- 完成字符串替换逻辑（30%）
+
+**常见错误**：
+- 使用箭头函数导致 `this` 丢失
+- 同步和异步混用，返回 undefined
+
+**口头回答版**：
+> 手写 Webpack Loader 就是导出一个函数，接收 source，返回处理后的 source。如果要做异步，用 `this.async()` 返回 callback。比如把 `__BUILD_TIME__` 全局替换成当前时间戳。注意不能用箭头函数，因为要靠 `this` 访问 Loader 上下文。
+
+---
+
+### FB-10-CO-B-019：什么是 Module Federation？它解决了什么问题？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：10 构建工具
+**标签**：Webpack、Module Federation、微前端、模块共享
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 Webpack 5 的 Module Federation 是什么，它主要解决了什么问题。
+
+**参考答案**：
+
+Module Federation 是 Webpack 5 引入的模块联邦能力，允许多个独立构建的应用在运行时互相共享模块，就像本地模块一样 `import`。
+
+解决的问题：
+
+1. **微前端模块共享**：不同微应用可以共享 React/Vue 等公共库，避免重复打包多份框架。
+2. **独立部署**：各应用独立构建、独立部署，但运行时能动态拉取其他应用的模块。
+3. **代码复用**：跨团队/跨仓库共享组件、工具函数，无需发布 npm 包。
+
+核心角色：
+
+- **Host**：消费远程模块的应用。
+- **Remote**：暴露模块供其他应用消费的应用。
+
+配置示例：
+
+```js
+const { ModuleFederationPlugin } = require('webpack').container;
+
+module.exports = {
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'host',
+      remotes: {
+        app1: 'app1@https://app1.example.com/remoteEntry.js'
+      },
+      shared: { react: { singleton: true } }
+    })
+  ]
+};
+```
+
+**评分维度**：
+- 说明 Module Federation 的运行时共享能力（40%）
+- 说明解决的微前端/复用问题（40%）
+- 能区分 Host 和 Remote（20%）
+
+**常见错误**：
+- 认为它只是代码分割的另一种形式
+- 忽略运行时动态加载的特性
+
+**口头回答版**：
+> Module Federation 是 Webpack 5 的模块联邦，让多个独立构建的应用在运行时互相共享模块。比如微前端里 A 应用可以直接 import B 应用暴露的组件，公共库如 React 也只共享一份。它分 Host 消费方和 Remote 提供方，各应用还能独立部署。
+
+---
+
+### FB-10-CO-A-018：esbuild 为什么比传统构建工具快？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：10 构建工具
+**标签**：esbuild、Go、编译速度、打包工具
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明 esbuild 的核心优势，并解释它为什么能显著快于 Webpack、Rollup 等传统 JS 构建工具。
+
+**参考答案**：
+
+esbuild 是用 Go 语言编写的高性能 JavaScript 打包器和压缩器，核心优势来自以下几点：
+
+1. **原生机器码**：Go 编译为机器码，CPU 密集型操作比 Node.js 的 JIT 更快。
+2. **并行化**：充分利用多核 CPU，解析、链接、压缩都尽量并行。
+3. **从头设计的解析器**：自研 JS/CSS 解析器，避免多次 AST 转换。
+4. **单一工具链**：将转译、打包、压缩、Source Map 生成集成在一个进程内，减少跨进程开销。
+5. **最小化内存分配**：Go 的内存管理和大数组操作比 V8 更适合批量处理。
+
+对比：
+
+| 工具 | 语言 | 构建 10k 模块典型耗时 |
+|------|------|----------------------|
+| Webpack | JavaScript | 数分钟 |
+| Rollup | JavaScript | 数十秒到数分钟 |
+| esbuild | Go | 秒级 |
+
+局限性：
+- 插件生态不如 Webpack 丰富。
+- 对非标准需求（复杂代码拆分）支持较弱。
+- 通常作为底层引擎被 Vite、tsup 等工具使用。
+
+**评分维度**：
+- 说明 Go 原生和并行化优势（50%）
+- 说明单一工具链减少开销（30%）
+- 提及局限性和典型使用场景（20%）
+
+**常见错误**：
+- 认为 esbuild 只是 Webpack 的插件
+- 忽略 esbuild 是用 Go 写的这一关键差异
+
+**口头回答版**：
+> esbuild 是用 Go 写的打包压缩工具，最大优势是快。Go 编译成机器码，还能充分利用多核并行；它把解析、链接、压缩都放在一个进程里，减少了跨进程开销。Vite 开发时的依赖预构建、tsup 打包库底层都用它。但生态和复杂代码拆分不如 Webpack。
+
+---
+
+### FB-10-EN-A-017：如何通过 Vite 的 build.rollupOptions 控制高级打包行为？
+
+**题型**：工程化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：10 构建工具
+**标签**：Vite、Rollup、rollupOptions、代码分割、打包配置
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Vite 配置中 `build.rollupOptions` 的作用，并举例说明如何用它实现入口拆分、手动 chunk 和外部化依赖。
+
+**参考答案**：
+
+Vite 生产构建基于 Rollup，`build.rollupOptions` 允许直接透传 Rollup 配置，实现更细粒度的打包控制。
+
+常见用法：
+
+1. **多入口**：
+   ```js
+   export default {
+     build: {
+       rollupOptions: {
+         input: {
+           main: './index.html',
+           admin: './admin.html'
+         }
+       }
+     }
+   };
+   ```
+
+2. **手动分 chunk**：
+   ```js
+   rollupOptions: {
+     output: {
+       manualChunks(id) {
+         if (id.includes('node_modules')) {
+           if (id.includes('react')) return 'react-vendor';
+           if (id.includes('lodash')) return 'lodash';
+           return 'vendor';
+         }
+       }
+     }
+   }
+   ```
+
+3. **外部化依赖**：
+   ```js
+   rollupOptions: {
+     external: ['jquery'],
+     output: {
+       globals: { jquery: '$' }
+     }
+   }
+   ```
+
+注意事项：
+- `manualChunks` 过度拆分可能导致请求数过多。
+- 外部化依赖后需在 HTML 中手动引入 CDN 资源。
+
+**评分维度**：
+- 说明 rollupOptions 是透传 Rollup 配置（30%）
+- 写出多入口或 manualChunks 示例（40%）
+- 说明 external 的使用场景（30%）
+
+**常见错误**：
+- 在 rollupOptions 中写 Vite 自己的配置项
+- manualChunks 返回不稳定导致缓存失效
+
+**口头回答版**：
+> Vite 生产构建底层用 Rollup，`build.rollupOptions` 就是直接传配置给 Rollup。可以做多入口、手动分 chunk，比如把 react、lodash 各自打成 vendor，也可以 external 掉某些依赖从 CDN 加载。注意不要过度拆分，否则请求数会爆炸。
+
+---
+
+### FB-10-PE-A-016：如何分析和优化 Webpack 构建性能？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：10 构建工具
+**标签**：Webpack、构建性能、speed-measure-webpack-plugin、thread-loader
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明分析 Webpack 构建耗时的方法，并列出常见的构建性能优化手段。
+
+**参考答案**：
+
+一、分析方法：
+
+1. **`webpack --profile`**：生成构建性能分析文件。
+2. **`speed-measure-webpack-plugin`**：测量各 Loader 和 Plugin 耗时。
+3. **`webpack-bundle-analyzer`**：分析产物体积，间接发现重复/冗余依赖。
+4. **CI 构建时长监控**：记录每次构建耗时，发现回归。
+
+二、优化手段：
+
+1. **并行处理**：
+   - `thread-loader` 对 babel-loader、ts-loader 做多线程转译。
+   - `parallel-webpack` 或 `swc-loader` 替代 babel-loader。
+
+2. **缓存**：
+   - `cache: { type: 'filesystem' }`（Webpack 5）持久化缓存。
+   - `babel-loader` 的 `cacheDirectory`。
+
+3. **减少解析范围**：
+   - `resolve.modules` 限制查找路径。
+   - `resolve.alias` 减少递归查找。
+   - `module.noParse` 跳过无依赖的大库。
+
+4. **优化 Loader**：
+   - `include` / `exclude` 精确匹配文件，避免遍历 node_modules。
+   - 用 `esbuild-loader` / `swc-loader` 替代 babel-loader。
+
+5. **升级工具**：
+   - Webpack 5 的持久化缓存比 Webpack 4 快很多。
+   - 考虑迁移到 Rspack、Vite 等更快工具。
+
+**评分维度**：
+- 说出 2 种以上分析工具（30%）
+- 列出 4 类以上优化手段（50%）
+- 能说明缓存和多线程的收益（20%）
+
+**常见错误**：
+- 只关注产物体积，忽略构建耗时
+- 无差别对所有 Loader 加 thread-loader（小项目反而更慢）
+
+**口头回答版**：
+> 分析 Webpack 构建性能可以用 `speed-measure-webpack-plugin` 看每个 Loader 和 Plugin 耗时，用 `webpack-bundle-analyzer` 看产物。优化方向有：加 `thread-loader` 多线程转译、开 Webpack 5 的 filesystem 缓存、用 `include/exclude` 缩小 Loader 范围、`noParse` 跳过无依赖的大库、用 esbuild-loader 或 swc-loader 替代 babel-loader。小项目别盲目加 thread-loader，进程开销可能比收益大。
+
+---
+
+### FB-10-SC-A-018：如何设计一个多入口 Webpack 配置？
+
+**题型**：场景设计题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：10 构建工具
+**标签**：Webpack、多入口、多页应用、entry、HtmlWebpackPlugin
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+假设一个项目包含多个独立页面（如首页、管理后台、H5），需要共用部分组件但分别打包。请设计一个 Webpack 多入口方案。
+
+**参考答案**：
+
+方案要点：
+
+1. **多 entry**：
+   ```js
+   entry: {
+     home: './src/home/index.js',
+     admin: './src/admin/index.js',
+     h5: './src/h5/index.js'
+   }
+   ```
+
+2. **每个入口对应一个 HTML**：
+   ```js
+   plugins: [
+     new HtmlWebpackPlugin({
+       template: './src/home/index.html',
+       chunks: ['home'],
+       filename: 'home.html'
+     }),
+     new HtmlWebpackPlugin({
+       template: './src/admin/index.html',
+       chunks: ['admin'],
+       filename: 'admin.html'
+     })
+   ]
+   ```
+
+3. **公共依赖提取**：
+   ```js
+   optimization: {
+     splitChunks: {
+       chunks: 'all',
+       cacheGroups: {
+         vendor: {
+           test: /[\\/]node_modules[\\/]/,
+           name: 'vendor',
+           chunks: 'all'
+         }
+       }
+     }
+   }
+   ```
+
+4. **目录约定**：
+   - `src/{page}/index.js` 为入口。
+   - `src/shared/` 存放公共组件和工具。
+
+5. **路由/导航**：
+   - 各页面通过普通 `<a>` 跳转或后端路由控制。
+
+**评分维度**：
+- 写出多 entry 配置（30%）
+- 说明 HtmlWebpackPlugin 的 chunks 控制（30%）
+- 说明 splitChunks 提取公共依赖（30%）
+- 提到目录约定（10%）
+
+**常见错误**：
+- 所有入口共用同一个 HTML 模板
+- 不控制 chunks 导致页面加载了其他入口的代码
+
+**口头回答版**：
+> 多入口 Webpack 配置就是在 `entry` 里写多个入口，比如 home、admin、h5。然后用多个 `HtmlWebpackPlugin`，每个指定 `chunks` 只引入对应入口的 JS。公共依赖可以用 `splitChunks` 抽成 vendor。目录上按 `src/{page}/index.js` 约定，公共组件放 shared。
+
+---
+
+### FB-10-CA-A-014：分析下面 Rollup 配置中 external 和 globals 的作用
+
+**题型**：代码分析题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：10 构建工具
+**标签**：Rollup、external、globals、库打包
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+
+```js
+export default {
+  input: 'src/index.js',
+  output: [
+    { file: 'dist/index.cjs', format: 'cjs' },
+    { file: 'dist/index.mjs', format: 'es' },
+    { file: 'dist/index.umd.js', format: 'umd', name: 'MyLib' }
+  ],
+  external: ['react', 'react-dom'],
+  globals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
+  }
+};
+```
+
+请分析 `external` 和 `globals` 的作用，并说明三种输出格式各自的适用场景。
+
+**参考答案**：
+
+1. **`external`**：
+   - 打包时排除 `react` 和 `react-dom`。
+   - 这些依赖由消费方提供，避免库内重复打包 React。
+   - 对 CJS/ESM 输出会保留 `require('react')` 或 `import` 语句。
+
+2. **`globals`**：
+   - 仅在 UMD/IIFE 格式下生效。
+   - 告诉 Rollup 如何在浏览器全局对象上找到外部依赖，例如 `window.React`。
+
+3. **输出格式适用场景**：
+   - `cjs`：Node.js 环境或旧版打包工具。
+   - `es`：现代构建工具（Webpack/Vite/Rollup），支持 Tree Shaking。
+   - `umd`：浏览器直接通过 script 标签引入。
+
+**评分维度**：
+- 正确解释 external 排除依赖（40%）
+- 正确解释 globals 映射全局变量（30%）
+- 说明三种格式适用场景（30%）
+
+**常见错误**：
+- 认为 globals 对 ESM/CJS 也生效
+- 把 external 和 peerDependencies 混为一谈
+
+**口头回答版**：
+> `external` 是打包时排除 react 这些依赖，让使用方自己提供；`globals` 只在 UMD/IIFE 格式下有用，告诉 Rollup 浏览器里 React 对应 `window.React`。三种格式里，cjs 给 Node 用，es 给现代打包工具用并且支持 Tree Shaking，umd 给浏览器 script 标签直接引入。
+
+---
+
+### FB-10-CO-P-016：Webpack 的 Module Graph 和 Chunk Graph 有什么区别？
+
+**题型**：概念题
+**难度**：🟠 深入
+**岗位层级**：高级 / 专家
+**面试知识域**：10 构建工具
+**标签**：Webpack、Module Graph、Chunk Graph、构建原理
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请解释 Webpack 构建过程中 Module Graph 和 Chunk Graph 的区别，以及它们如何影响最终产物。
+
+**参考答案**：
+
+Webpack 5 的构建流程中，会生成两棵核心图：
+
+1. **Module Graph（模块图）**：
+   - 描述模块之间的依赖关系。
+   - 节点是 Module（如 NormalModule、CssModule）。
+   - 边是依赖引用（如 `import`、`require`、`url()`）。
+   - 在 seal 阶段之前生成，用于分析依赖、循环依赖、副作用等。
+
+2. **Chunk Graph（代码块图）**：
+   - 描述 Chunk 之间的父子/包含关系。
+   - 节点是 Chunk（如 entry chunk、async chunk、runtime chunk）。
+   - 边是 Chunk 之间的加载依赖（如动态 import 产生的父子关系）。
+   - 在 seal 阶段生成，决定最终输出哪些文件。
+
+关系：
+
+- Module Graph 是输入依赖的抽象，回答“谁依赖谁”。
+- Chunk Graph 是输出产物的抽象，回答“哪些模块会被打包到哪个文件”。
+- 一个 Chunk 包含多个 Module，一个 Module 可能属于多个 Chunk（如 SplitChunks 提取的 vendor）。
+
+影响产物：
+
+- `optimization.splitChunks` 改变 Chunk Graph。
+- `runtimeChunk` 单独提取运行时代码。
+- 动态 import 生成新的 Chunk 节点。
+
+**评分维度**：
+- 区分 Module Graph 和 Chunk Graph 的节点/边（40%）
+- 说明生成时机和作用（30%）
+- 说明对产物的影响（30%）
+
+**常见错误**：
+- 把 Module Graph 和 Chunk Graph 混为一谈
+- 认为 Chunk 就是 Module
+
+**口头回答版**：
+> Webpack 构建时会生成 Module Graph 和 Chunk Graph。Module Graph 描述模块间的依赖关系，节点是模块，边是 import/require；Chunk Graph 描述代码块间的关系，节点是 chunk，边是加载依赖。Module Graph 回答谁依赖谁，Chunk Graph 回答哪些模块最终打到哪个文件。splitChunks、runtimeChunk、动态 import 都会改变 Chunk Graph。
+
+---
+
+### FB-10-EN-P-019：如何编写一个支持 Tree Shaking 的 npm 库？
+
+**题型**：工程化题
+**难度**：🟠 深入
+**岗位层级**：高级 / 专家
+**面试知识域**：10 构建工具
+**标签**：Tree Shaking、Rollup、tsup、ESM、sideEffects
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明开发一个前端工具库时，如何配置打包和 package.json，使其能被消费方正确 Tree Shaking。
+
+**参考答案**：
+
+1. **使用 ESM 输出**：
+   - 优先输出 ES Module，如 `dist/index.mjs`。
+   - 现代打包工具对 ESM 的静态分析能力更强。
+
+2. **配置 `package.json`**：
+   ```json
+   {
+     "main": "dist/index.cjs",
+     "module": "dist/index.mjs",
+     "types": "dist/index.d.ts",
+     "exports": {
+       ".": {
+         "types": "./dist/index.d.ts",
+         "import": "./dist/index.mjs",
+         "require": "./dist/index.cjs"
+       }
+     },
+     "sideEffects": false
+   }
+   ```
+
+3. **避免副作用**：
+   - 全局变量修改、polyfill 注入、CSS import 都属于副作用。
+   - 如果有副作用文件，在 `sideEffects` 数组中显式声明，如 `["*.css", "*.polyfill.js"]`。
+
+4. **使用 Rollup / tsup 打包**：
+   - Rollup 天然对 ESM Tree Shaking 友好。
+   - tsup 基于 esbuild，可一键生成 CJS/ESM/类型声明。
+
+5. **避免整体导出**：
+   - 不推荐 `export default { foo, bar }`。
+   - 推荐命名导出 `export { foo, bar }` 或 `export const foo = ...`。
+
+6. **验证 Tree Shaking**：
+   - 用 `webpack-bundle-analyzer` 或 Rollup 的 `output.exports` 分析产物。
+   - 写一个测试项目只引用一个函数，看最终产物是否包含未引用代码。
+
+**评分维度**：
+- 说明 ESM 输出重要性（30%）
+- 正确配置 package.json 的 sideEffects/exports（30%）
+- 说明副作用处理和命名导出（25%）
+- 提到验证方法（15%）
+
+**常见错误**：
+- 只输出 CJS 却期望良好 Tree Shaking
+- `sideEffects: false` 但代码里有 CSS import 被误删
+
+**口头回答版**：
+> 要写支持 Tree Shaking 的库，首先输出 ESM，比如 `dist/index.mjs`；package.json 里配好 `module`、`exports`、`sideEffects`。sideEffects 默认 false，但如果有 CSS 或 polyfill 文件要在数组里声明。打包用 Rollup 或 tsup，导出用命名导出而不是整体 export default。最后用一个测试项目只引一个函数，验证未引用代码有没有被打包进去。
+
+---
+
+### FB-10-CD-P-017：手写一个 Webpack Plugin，输出构建产物体积报告
+
+**题型**：手写代码题
+**难度**：🟠 深入
+**岗位层级**：高级 / 专家
+**面试知识域**：10 构建工具
+**标签**：Webpack、Plugin、手写实现、产物分析
+**出现频率**：低频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请手写一个 Webpack Plugin，在构建结束后打印每个输出文件的大小，并按从大到小排序。
+
+**参考答案**：
+
+```js
+class AssetSizeReportPlugin {
+  constructor(options = {}) {
+    this.options = options;
+    this.limit = options.limit || 10;
+  }
+
+  apply(compiler) {
+    compiler.hooks.emit.tapAsync('AssetSizeReportPlugin', (compilation, callback) => {
+      const assets = Object.entries(compilation.assets)
+        .map(([name, source]) => ({
+          name,
+          size: source.size()
+        }))
+        .sort((a, b) => b.size - a.size)
+        .slice(0, this.limit);
+
+      console.log('\n📦 Asset Size Report');
+      console.log('-------------------------');
+      assets.forEach(({ name, size }) => {
+        const kb = (size / 1024).toFixed(2);
+        console.log(`${name.padEnd(40)} ${kb.padStart(8)} KB`);
+      });
+      console.log('-------------------------\n');
+
+      callback();
+    });
+  }
+}
+
+module.exports = AssetSizeReportPlugin;
+```
+
+使用方式：
+
+```js
+const AssetSizeReportPlugin = require('./AssetSizeReportPlugin');
+
+module.exports = {
+  plugins: [new AssetSizeReportPlugin({ limit: 15 })]
+};
+```
+
+关键点：
+
+- Plugin 是类，通过 `apply(compiler)` 注册到 Webpack 生命周期。
+- `compiler.hooks.emit` 在输出文件到磁盘前触发，此时可读取 `compilation.assets`。
+- `source.size()` 返回字节数。
+- 异步 hook 用 `tapAsync` 并在最后调用 `callback()`。
+
+**评分维度**：
+- 写出 Plugin 类和 apply 方法（40%）
+- 正确使用 emit hook 和 compilation.assets（30%）
+- 完成排序和格式化输出（30%）
+
+**常见错误**：
+- 在同步 hook 上用 tapAsync
+- 忘记调用 callback 导致构建挂起
+- 在 hook 外读取 compilation.assets
+
+**口头回答版**：
+> 手写 Webpack Plugin 要导出一个类，里面写 `apply(compiler)`，然后 `compiler.hooks.emit.tapAsync` 在输出文件前读取 `compilation.assets`，拿到每个资源的大小排序打印。异步 hook 最后要调 callback。关键就是找对 hook，emit 阶段资源已经生成但还没写磁盘。
+
+---
+
+### FB-10-PE-P-018：如何优化 Vite 生产构建速度？
+
+**题型**：性能优化题
+**难度**：🟠 深入
+**岗位层级**：高级 / 专家
+**面试知识域**：10 构建工具
+**标签**：Vite、生产构建、esbuild、Rollup、构建性能
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Vite 生产构建的瓶颈通常在哪里，以及如何优化。
+
+**参考答案**：
+
+Vite 生产构建使用 Rollup，瓶颈通常在：
+
+1. **大量模块的转译和打包**。
+2. **依赖预构建或大型依赖处理**。
+3. **Source Map 生成**。
+4. **代码压缩（Terser）**。
+
+优化手段：
+
+1. **使用 `esbuild` 进行压缩**：
+   ```js
+   build: {
+     minify: 'esbuild'
+   }
+   ```
+   esbuild 压缩比 Terser 快数倍。
+
+2. **关闭 Source Map**：
+   ```js
+   build: { sourcemap: false }
+   ```
+   或只在 CI 上传 Source Map 时开启。
+
+3. **调整 chunkSizeWarningLimit**：
+   避免过大 chunk 导致打包慢和加载慢。
+
+4. **合理配置 manualChunks**：
+   避免单个 chunk 过大，也不要拆分过细导致请求数过多。
+
+5. **使用 `optimizeDeps` 精确控制预构建**：
+   ```js
+   optimizeDeps: {
+     include: ['lodash-es', 'dayjs'],
+     exclude: ['some-esm-only-pkg']
+   }
+   ```
+
+6. **升级依赖和 Vite 版本**：
+   新版本通常有 Rollup 和 esbuild 的性能改进。
+
+7. **CI 缓存**：
+   缓存 `node_modules/.vite` 和 `dist` 避免重复预构建。
+
+**评分维度**：
+- 识别生产构建瓶颈（30%）
+- 列出 4 类以上优化手段（50%）
+- 说明 esbuild 压缩和 Source Map 取舍（20%）
+
+**常见错误**：
+- 生产构建慢就盲目换构建工具，不做 profiling
+- Source Map 长期开启导致构建和产物体积都变大
+
+**口头回答版**：
+> Vite 生产构建底层是 Rollup，慢 usually 在模块转译、Source Map、代码压缩这些地方。优化可以用 esbuild 做压缩、按需关闭 Source Map、合理配 manualChunks 别让 chunk 太大或太小、用 optimizeDeps 控制预构建、CI 里缓存 `.vite` 目录。先 profile 找到瓶颈再优化，别盲目换工具。
+
+---
+
+### FB-10-SC-P-020：如何为大型项目设计渐进式构建迁移方案？
+
+**题型**：场景设计题
+**难度**：🟠 深入
+**岗位层级**：高级 / 专家
+**面试知识域**：10 构建工具
+**标签**：构建迁移、Webpack、Vite、渐进式、大型项目
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+假设一个大型项目使用 Webpack，构建速度已成为瓶颈。请设计一个渐进式迁移方案，在不影响业务迭代的前提下迁移到 Vite 或 Rspack。
+
+**参考答案**：
+
+迁移原则：先试点、再推广、双轨并行、回滚兜底。
+
+一、评估阶段：
+
+1. **梳理依赖和插件**：列出所有 Webpack Loader/Plugin，评估 Vite/Rspack 兼容度。
+2. **构建 profiling**：量化当前构建耗时，确定最大瓶颈。
+3. **选定目标工具**：
+   - 追求最少改动：选 Rspack（兼容 Webpack API）。
+   - 追求极致体验：选 Vite（改造量更大）。
+
+二、试点阶段：
+
+1. **选一个子项目或独立页面**：先用新工具跑通。
+2. **解决不兼容问题**：
+   - Webpack 特有的 `require.context`、环境变量注入方式。
+   - 第三方库的 CJS/UMD 兼容问题。
+3. **建立对比基线**：构建耗时、产物体积、HMR 速度、CI 稳定性。
+
+三、推广阶段：
+
+1. **按模块/团队逐步迁移**：
+   - 先迁移新功能模块。
+   - 遗留模块保持 Webpack，通过 Monorepo 或多包方式共存。
+2. **统一抽象配置**：
+   - 将公共配置抽成共享 preset，避免每个项目各自维护。
+3. **CI/CD 适配**：
+   - 新工具产物路径、Source Map、缓存 key 需重新验证。
+
+四、收尾阶段：
+
+1. **监控和回滚**：保留旧构建流水线一段时间。
+2. **文档和培训**：更新开发文档，培训团队。
+3. **清理旧配置**：确认稳定后移除 Webpack 配置。
+
+**评分维度**：
+- 方案分阶段清晰（40%）
+- 提到双轨并行和回滚（25%）
+- 能结合 Rspack/Vite 特点选型（25%）
+- 提到 CI/CD 和文档培训（10%）
+
+**常见错误**：
+- 直接全量迁移，没有试点
+- 忽略第三方库兼容性问题
+- 迁移后没有保留回滚能力
+
+**口头回答版**：
+> 大型项目迁移构建工具不能一刀切。先评估现有插件兼容性和瓶颈，选 Rspack 兼容性好、改造小，选 Vite 体验更好但改造大。然后找一个子项目试点，跑通后对比基线。再按模块逐步迁移，用 Monorepo 或多包方式让新旧共存。CI、Source Map、缓存这些都要重新验证，保留回滚能力，最后稳定了再清理旧配置。
+
+---
+
+### FB-10-CO-R-009：未来前端构建工具的发展趋势是什么？
+
+**题型**：概念题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：10 构建工具
+**标签**：构建工具、趋势、Rust、原生 ESM、边缘计算
+**出现频率**：低频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请结合当前技术演进，谈谈前端构建工具未来可能的发展方向。
+
+**参考答案**：
+
+1. **原生语言重写**：
+   - Rust（Rspack、Farm、Turbopack）和 Go（esbuild）成为主流。
+   - JS 工具链逐步被高性能原生实现替代或包裹。
+
+2. **开发/生产统一体验**：
+   - 减少开发时和生产构建的差异，降低“开发能跑、线上不行”的问题。
+   - 工具链更关注一致性而非单纯速度。
+
+3. **原生 ESM 优先**：
+   - 浏览器 ESM 支持成熟，开发服务器直接服务源码模块。
+   - 对 CJS 的兼容成为过渡成本。
+
+4. **Bundless 与 Bundle 融合**：
+   - 开发阶段 Bundless，生产按需 Bundle。
+   - 例如 Vite 的 Dev + Rollup Build 模式。
+
+5. **平台化与云端构建**：
+   - 构建上云、Remote Cache、分布式构建。
+   - Turborepo、Nx Cloud、Vercel 的远程缓存成为标配。
+
+6. **智能化**：
+   - 基于 AST/AI 的自动代码分割、死代码检测、构建配置推荐。
+
+7. **边缘构建**：
+   - 在 CDN 边缘节点完成部分构建和渲染，如 Cloudflare Workers、Vercel Edge。
+
+**评分维度**：
+- 提到原生语言和高性能趋势（30%）
+- 提到 ESM/Bundless 方向（25%）
+- 提到平台化/远程缓存（25%）
+- 能结合具体工具举例（20%）
+
+**常见错误**：
+- 认为未来所有项目都会变成完全 Bundless
+- 忽略兼容性和迁移成本
+
+**口头回答版**：
+> 未来构建工具会往高性能原生语言发展，比如 Rust 的 Rspack、Turbopack，Go 的 esbuild。开发阶段会更原生 ESM、Bundless，生产还是按需打包。平台化和远程缓存也会更普及，比如 Turborepo、Nx Cloud。另外还有云端构建、边缘计算、AI 辅助优化这些方向。
+
+---
+
+### FB-10-CP-R-012：如何评估是否值得将 Webpack 迁移到 Rspack？
+
+**题型**：综合开放题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：10 构建工具
+**标签**：Webpack、Rspack、迁移评估、ROI
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+假设团队正在考虑将 Webpack 项目迁移到 Rspack，请设计一个评估框架，说明需要调研哪些维度、如何验证收益、以及迁移风险。
+
+**参考答案**：
+
+一、评估维度：
+
+| 维度 | 调研内容 |
+|------|---------|
+| 兼容性 | Loader/Plugin/API 兼容度，Rspack 官方兼容列表 |
+| 性能 | 构建耗时、HMR 速度、产物体积 |
+| 生态 | 社区活跃度、 issue 响应、企业内部可维护性 |
+| 成本 | 改造成本、双轨维护成本、人员学习成本 |
+| 稳定性 | 边缘 case 处理、生产运行稳定性 |
+
+二、验证收益：
+
+1. **POC 阶段**：选一个典型项目或子模块，用 Rspack 跑通完整构建流水线。
+2. **指标对比**：记录 dev/build/HMR 耗时、产物大小、内存占用。
+3. **长期观察**：跑 1-2 周，观察 CI 稳定性和开发者反馈。
+
+三、迁移风险：
+
+1. **Plugin/Loader 不兼容**：部分 Webpack 生态插件未迁移。
+2. **产物差异**：hash、Source Map、模块ID 策略变化可能影响缓存和监控。
+3. **构建行为差异**：Tree Shaking、代码分割结果可能与 Webpack 不同。
+4. **回滚成本**：需保留旧构建配置直到稳定。
+
+四、决策建议：
+
+- 如果项目高度依赖 Webpack 特有插件且 Rspack 不支持，暂缓迁移。
+- 如果主要是标准 React/Vue 项目，迁移收益通常明显。
+- 优先在新项目或独立模块试点。
+
+**评分维度**：
+- 评估维度全面（40%）
+- 收益验证方法具体（30%）
+- 风险分析到位（30%）
+
+**常见错误**：
+- 只看构建速度，忽略生态和稳定性
+- 不做 POC 直接全量迁移
+
+**口头回答版**：
+> 评估 Webpack 迁 Rspack 要看兼容性、性能、生态、成本和稳定性。先做 POC，跑通构建流水线，对比构建耗时、HMR、产物体积，再观察一周 CI 稳定性。风险主要是插件不兼容、产物行为差异、Tree Shaking 结果不同，要保留回滚能力。如果是标准 React/Vue 项目通常收益明显，重度依赖特殊插件的项目要慎重。
+
+---
+
+### FB-10-EN-R-010：如何设计企业级前端构建平台的插件体系？
+
+**题型**：工程化题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：10 构建工具
+**标签**：构建平台、插件体系、扩展性、企业级
+**出现频率**：低频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请设计一个企业级前端构建平台的插件体系，要求支持不同业务线的定制需求，同时保持核心稳定。
+
+**参考答案**：
+
+一、设计目标：
+
+- 核心流程稳定，业务定制通过插件扩展。
+- 插件可插拔、可组合、可版本化。
+- 支持构建前、构建中、构建后多个生命周期。
+
+二、插件接口设计：
+
+```ts
+interface BuildPlugin {
+  name: string;
+  enforce?: 'pre' | 'post';
+  setup(api: PluginAPI): void;
+}
+
+interface PluginAPI {
+  onBeforeBuild: (fn: () => void) => void;
+  onTransform: (fn: (code: string, id: string) => string) => void;
+  onAfterBuild: (fn: (stats: BuildStats) => void) => void;
+  config: (partial: BuildConfig) => void;
+}
+```
+
+三、生命周期：
+
+1. **初始化**：加载配置文件、合并默认配置。
+2. **插件注册**：按 `enforce` 排序，`pre` 插件先执行。
+3. **构建前**：校验环境变量、清理产物目录。
+4. **构建中**：转译、打包、代码分割。
+5. **构建后**：产物分析、上传 CDN、生成报告。
+
+四、治理策略：
+
+- **插件白名单**：只允许使用平台审核过的插件。
+- **版本锁定**：插件版本与平台版本配套。
+- **沙箱执行**：插件在受限环境中运行，防止恶意操作。
+- **性能监控**：记录每个插件耗时，发现异常插件。
+
+五、示例插件：
+
+- 自动生成多语言包插件。
+- 根据环境注入埋点代码插件。
+- 产物体积告警插件。
+
+**评分维度**：
+- 插件接口和生命周期设计清晰（40%）
+- 提到治理策略（30%）
+- 能举例说明业务插件（20%）
+- 强调核心稳定与扩展性平衡（10%）
+
+**常见错误**：
+- 插件接口过于灵活导致核心流程不可控
+- 忽略插件版本和安全治理
+
+**口头回答版**：
+> 企业级构建平台插件体系要保证核心稳定、业务通过插件扩展。可以设计 pre/build/post 生命周期，插件通过 setup 注册钩子。还要做白名单、版本锁定、沙箱执行和性能监控，防止插件把构建搞坏。比如业务可以写自动多语言包、注入埋点、产物体积告警这些插件。
+
+---
+
+### FB-10-SC-R-011：如何设计支持微前端的构建方案？
+
+**题型**：场景设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：10 构建工具
+**标签**：微前端、构建方案、Module Federation、公共依赖
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请设计一个微前端架构下的构建方案，解决子应用独立部署、公共依赖共享和运行时隔离的问题。
+
+**参考答案**：
+
+一、架构选择：
+
+1. **Module Federation（Webpack 5）**：
+   - 子应用作为 Remote 暴露模块，基座作为 Host 消费。
+   - 通过 `shared` 配置共享 React/Vue/Router 等公共库。
+
+2. **qiankun / single-spa + 独立构建**：
+   - 每个子应用独立构建，打包成 UMD/SystemJS 格式。
+   - 基座通过路由加载子应用 JS。
+
+二、公共依赖共享：
+
+- 版本一致时共享一份，不一致时各自加载。
+- `shared: { react: { singleton: true, requiredVersion: '^18.0.0' } }`。
+- 避免子应用各自打包一份 React，导致 Hook 上下文断裂。
+
+三、构建输出规范：
+
+- 统一输出 `remoteEntry.js` 或 `index.html`。
+- JS/CSS 文件名加 hash，支持长期缓存。
+- Source Map 单独上传监控平台。
+
+四、运行时隔离：
+
+- CSS 作用域隔离（Shadow DOM / CSS Modules / 命名前缀）。
+- JS 沙箱隔离（proxy window / qiankun 沙箱）。
+- 路由隔离，避免子应用间路由冲突。
+
+五、发布与回滚：
+
+- 子应用独立 CI/CD，独立版本号。
+- 基座配置子应用加载地址，支持灰度切换。
+- 出问题只回滚对应子应用。
+
+**评分维度**：
+- 选择合适微前端方案（30%）
+- 说明公共依赖共享机制（25%）
+- 说明构建输出和隔离策略（25%）
+- 说明独立发布回滚（20%）
+
+**常见错误**：
+- 公共依赖不共享，每个子应用打包一份 React
+- 忽略 CSS/JS 隔离导致子应用互相污染
+
+**口头回答版**：
+> 微前端构建可以用 Webpack Module Federation 做运行时共享，也可以每个子应用独立打包 UMD 由 qiankun 加载。关键要共享 React/Vue 这些公共库，配置 `shared` 和 `singleton`。构建输出要统一规范，文件名加 hash。运行时要做 CSS 和 JS 隔离。每个子应用独立 CI/CD 和回滚，基座通过配置加载不同版本。
+
+---
+
+### FB-10-SD-R-008：设计一个前端构建产物分析平台
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：10 构建工具
+**标签**：构建产物、分析平台、可视化、性能
+**出现频率**：低频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个前端构建产物分析平台，能够收集各项目每次构建的产物信息，并提供可视化分析、趋势对比和告警能力。
+
+**参考答案**：
+
+一、数据采集：
+
+1. **构建钩子**：在 CI 构建完成后上传 `stats.json` 或自定义产物报告。
+2. **采集内容**：
+   - 每个 chunk 的名称、大小、hash、依赖关系。
+   - 构建耗时、构建工具版本。
+   - git commit、分支、构建时间。
+
+二、数据存储：
+
+- 关系型数据（构建记录、项目信息）存 PostgreSQL/MySQL。
+- 产物树、依赖图存 JSON/图数据库。
+- 历史趋势数据存时序数据库或按版本归档。
+
+三、分析能力：
+
+1. **单次构建分析**：
+   - 饼图/树图展示 chunk 体积分布。
+   - 重复依赖检测。
+   - 超大文件告警。
+
+2. **趋势对比**：
+   - 同一项目不同版本的体积变化曲线。
+   - 构建耗时趋势。
+   - 异常增长自动标注。
+
+3. **依赖治理**：
+   - 识别未使用依赖。
+   - 多版本依赖警告。
+   - 许可证合规检查。
+
+四、告警与集成：
+
+- 体积或耗时超过阈值时通知负责人。
+- 与 CI 集成，PR 阶段展示体积变化报告。
+- 与监控系统打通，将版本号与线上错误关联。
+
+五、权限与扩展：
+
+- 按项目/团队隔离数据权限。
+- 提供 Open API 供内部工具调用。
+
+**评分维度**：
+- 数据采集方案完整（30%）
+- 存储和分析设计合理（30%）
+- 趋势对比和告警能力（25%）
+- CI 集成和权限考虑（15%）
+
+**常见错误**：
+- 只关注单次产物大小，忽略历史趋势
+- 数据量估算不足，存储方案不可扩展
+
+**口头回答版**：
+> 产物分析平台首先在 CI 构建后采集 stats.json，记录每个 chunk 大小、hash、依赖、构建耗时和 git 信息。数据存关系型数据库和图数据库。然后做可视化：单次构建看 chunk 分布和重复依赖，趋势对比看体积和耗时变化。还要设告警，PR 阶段展示体积变化。最后和 CI、监控系统打通，按项目隔离权限。
+
+---

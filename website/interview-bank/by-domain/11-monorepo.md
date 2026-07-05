@@ -1,6 +1,6 @@
 # Monorepo 面试题
 
-> 本题库共收录 **100** 道面试题（基础 24 / 进阶 26 / 深入 26 / 架构 24）。
+> 本题库共收录 **120** 道面试题（基础 29 / 进阶 31 / 深入 31 / 架构 29）。
 > 本文件收录 Monorepo 相关面试题，目标题量 80 道。
 > 题型覆盖：概念题、代码分析题、手写代码题、场景设计题、系统设计题、工程化题、综合开放题。
 > 难度覆盖：基础、进阶、深入、架构。
@@ -3520,7 +3520,7 @@ turbo run dev --filter=@scope/web...
 **口头回答版**：
 把 Monorepo 分成 apps、features、ui、shared、config 几层，规定谁可以依赖谁。比如 apps 能依赖下面所有层，features 不能依赖 apps 和其他 features。用 Nx module boundaries 或自定义 CI 脚本自动校验。PR 里新增跨层依赖需要审批，每月做依赖审计，同时保留合理的例外机制。
 
-## 架构题（50 道）{#architect}
+## 架构题（70 道）{#architect}
 
 ### FB-11-SD-R-001：设计一个大型前端 Monorepo 的整体架构。
 
@@ -7703,3 +7703,1293 @@ AI 辅助 Monorepo 首先要增强上下文，比如用 `.cursorrules` 文件说
 制定 Monorepo 演进路线首先要评估现状：规模、痛点、技术债务。然后定 1 年和 3 年目标，比如构建时长和缓存命中率。短期升级工具和清理债务，中期引入 affected 构建和 remote cache，长期做平台化和 AI 辅助。要定义北极星指标，每季度 review，成立工作组推动，并做好沟通和回滚预案。
 
 
+
+### FB-11-CO-B-021：什么是 Monorepo 中的 changeset？有什么作用？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：11 Monorepo
+**标签**：changeset、版本管理、发布、Monorepo
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 Monorepo 中 changeset 的概念，并说明它在版本发布流程中的作用。
+
+**参考答案**：
+
+Changeset 是对一次代码变更的元数据描述，通常包含：
+
+- 影响的包（affected packages）。
+- 变更类型（patch / minor / major）。
+- 变更说明（changelog 内容）。
+
+在 Monorepo 中，changeset 工具（如 `@changesets/cli`）帮助管理多包版本发布：
+
+1. 开发者提交代码时同时提交一个 `.changeset/{id}.md` 文件。
+2. 发布时工具汇总所有未消费的 changeset。
+3. 自动计算每个包的版本升级（patch/minor/major）。
+4. 自动生成 changelog 和版本号。
+5. 更新 `package.json` 版本并发布到 npm。
+
+示例：
+
+```md
+---
+"@scope/utils": minor
+"@scope/ui": patch
+---
+
+Added formatDate utility and fixed Button padding.
+```
+
+**评分维度**：
+- 说明 changeset 的核心字段（40%）
+- 说明在发布流程中的作用（40%）
+- 能写简单 changeset 示例（20%）
+
+**常见错误**：
+- 把 changeset 等同于 commit message
+- 认为 changeset 只记录版本号，不记录变更说明
+
+**口头回答版**：
+> changeset 就是描述一次变更对哪些包有什么影响的元数据文件。它记录 affected packages、版本升级类型和变更说明。发布时工具汇总所有 changeset，自动算出版本号、生成 changelog，然后批量发布。Monorepo 里常用 @changesets/cli 来管理。
+
+---
+
+### FB-11-EN-B-022：如何在 Monorepo 中配置统一的 lint 和 format？
+
+**题型**：工程化题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、ESLint、Prettier、共享配置、代码规范
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请说明在 Monorepo 中如何设计统一的 ESLint、Prettier 配置，并让多个子包继承和覆盖。
+
+**参考答案**：
+
+一、抽成共享配置包：
+
+```text
+packages/eslint-config/
+  package.json
+  index.js
+  react.js
+  node.js
+```
+
+```js
+// packages/eslint-config/index.js
+module.exports = {
+  extends: ['eslint:recommended'],
+  rules: {
+    'no-console': 'warn'
+  }
+};
+```
+
+二、子包继承：
+
+```js
+// apps/web/.eslintrc.js
+module.exports = {
+  extends: ['@scope/eslint-config/react'],
+  rules: {
+    'no-console': 'off' // 覆盖
+  }
+};
+```
+
+三、根目录统一脚本：
+
+```json
+{
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  }
+}
+```
+
+四、配合 lint-staged：
+
+```json
+{
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": ["eslint --fix", "prettier --write"]
+  }
+}
+```
+
+最佳实践：
+- 配置包设为 `private: true`，不发布。
+- 用 `peerDependencies` 声明 ESLint/Prettier 版本。
+- 允许子包按自身类型（React/Node）继承不同预设。
+
+**评分维度**：
+- 说明共享配置包结构（40%）
+- 说明继承和覆盖机制（30%）
+- 提到根目录脚本和 lint-staged（20%）
+- 提到 peerDependencies（10%）
+
+**常见错误**：
+- 每个子包复制一份完整配置
+- 共享配置包没有声明 peerDependencies 导致版本冲突
+
+**口头回答版**：
+> Monorepo 里统一 lint/format 通常把配置抽成共享包，比如 `packages/eslint-config`，然后子包 `extends` 继承，需要时本地覆盖。根目录写统一的 lint/format 脚本，配合 Husky 和 lint-staged 在提交时触发。共享配置包一般不发布，用 peerDependencies 声明 ESLint 版本。
+
+---
+
+### FB-11-CO-B-022：什么是 pnpm 的 catalog 依赖版本管理？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：11 Monorepo
+**标签**：pnpm、catalog、依赖版本、Monorepo
+**出现频率**：中频
+**预计回答时长**：2-3 分钟
+
+**题目描述**：
+请解释 pnpm 的 `catalog:` protocol 是什么，它解决了 Monorepo 中的什么问题。
+
+**参考答案**：
+
+`catalog:` 是 pnpm 9.5+ 引入的依赖版本统一管理协议。它允许在 `pnpm-workspace.yaml` 中定义一个依赖的版本，然后所有子包在 `package.json` 中使用 `catalog:` 引用该版本。
+
+配置示例：
+
+```yaml
+# pnpm-workspace.yaml
+catalog:
+  react: ^18.2.0
+  typescript: ^5.3.0
+```
+
+```json
+// packages/ui/package.json
+{
+  "dependencies": {
+    "react": "catalog:"
+  }
+}
+```
+
+解决的问题：
+
+1. **版本漂移**：避免各子包对同一依赖写不同版本。
+2. **升级成本**：升级时只需改 `pnpm-workspace.yaml` 一处。
+3. **可维护性**：清晰看到所有子包共用哪些依赖版本。
+
+注意：
+- `catalog:` 只在 workspace 内生效，发布时会替换为实际版本。
+- 可对某个 scope 或特定包定义 `catalogs` 多目录。
+
+**评分维度**：
+- 说明 catalog 是统一版本协议（40%）
+- 能写出配置示例（30%）
+- 说明解决的版本漂移问题（30%）
+
+**常见错误**：
+- 认为 catalog 会改变发布后的 package.json
+- 与 workspace: protocol 混淆
+
+**口头回答版**：
+> pnpm 的 `catalog:` 是一种统一版本管理方式。在 `pnpm-workspace.yaml` 里定义 react、typescript 这些依赖的版本，然后各子包的 package.json 里写 `react: "catalog:"`。这样升级时只改一处，避免子包版本漂移。发布时 catalog 会替换成真实版本号。
+
+---
+
+### FB-11-EN-B-023：如何在 Monorepo 中统一版本发布？
+
+**题型**：工程化题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、发布、changeset、CI/CD、npm
+**出现频率**：高频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请描述 Monorepo 中统一版本发布的常见流程和工具。
+
+**参考答案**：
+
+常见工具：@changesets/cli、semantic-release、Turborepo + Changesets、Rush。
+
+基于 Changesets 的发布流程：
+
+1. **开发阶段**：每次有版本影响变更时，开发者执行 `pnpm changeset`，选择 affected packages 和 bump type。
+2. **提交 changeset**：将生成的 `.changeset/*.md` 随代码一起提交。
+3. **CI 校验**：确保 PR 包含必要的 changeset（可用 changeset-bot）。
+4. **版本聚合**：合并到 main 后，运行 `pnpm changeset version`：
+   - 读取所有未消费 changeset。
+   - 更新各包 `package.json` 版本。
+   - 生成/更新 CHANGELOG.md。
+   - 删除已消费的 changeset 文件。
+5. **构建与发布**：运行 `pnpm changeset publish`：
+   - 按拓扑顺序构建。
+   - 发布到 npm registry。
+6. **创建 Release PR/Git Tag**：自动化记录发布版本。
+
+最佳实践：
+- 发布必须由 CI 执行，避免本地发布。
+- 使用 npm automation token 或 OIDC 鉴权。
+- 发布前跑全量测试和类型检查。
+
+**评分维度**：
+- 说明 changeset 提交流程（30%）
+- 说明 version 和 publish 阶段（40%）
+- 提到 CI 自动化和安全（30%）
+
+**常见错误**：
+- 本地手动修改所有 package.json 版本
+- 不生成 changelog 或版本说明
+
+**口头回答版**：
+> Monorepo 统一发布常用 Changesets。开发时每次有版本影响就 `pnpm changeset` 生成一个 md 文件，提交到仓库。合并后主分支跑 `changeset version` 自动算版本、更新 package.json、生成 changelog，然后 `changeset publish` 按拓扑顺序构建发布。发布最好在 CI 里做，用 automation token，避免本地手改版本。
+
+---
+
+### FB-11-CO-B-023：什么是 Monorepo 中 package 的 public API 边界？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级 / 高级
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、public API、package.json、exports、封装
+**出现频率**：中频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 Monorepo 内部包的 public API 边界是什么，为什么要控制它。
+
+**参考答案**：
+
+Public API 边界指一个包对外暴露的模块、类型和函数集合。通过 `package.json` 的 `exports` 字段精确控制后，外部只能访问声明的入口，无法直接引用内部实现文件。
+
+示例：
+
+```json
+{
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    },
+    "./internal": null
+  }
+}
+```
+
+控制边界的意义：
+
+1. **防止外部依赖内部实现**：避免消费方引用临时文件导致重构困难。
+2. **明确版本契约**：Breaking Change 只发生在 public API 变化时。
+3. **支持重构**：内部实现可自由调整而不影响外部。
+4. **Tree Shaking 友好**：精确入口有助于打包工具分析。
+
+违规示例：
+
+```js
+// 不推荐
+import { helper } from '@scope/utils/dist/internal/helper';
+```
+
+**评分维度**：
+- 说明 public API 边界的含义（40%）
+- 说明 exports 字段的控制作用（30%）
+- 说明控制边界的好处（30%）
+
+**常见错误**：
+- 认为 package 内所有文件都可以被外部引用
+- exports 配置过于宽泛，暴露内部实现
+
+**口头回答版**：
+> public API 边界就是一个包对外暴露哪些模块和函数。通过 package.json 的 exports 字段控制，比如只暴露根入口，内部路径设为 null。这样可以防止别人引用内部实现，方便后面重构，也让版本契约更清晰。不要写 `import ... from '@scope/utils/dist/internal/...'` 这种路径。
+
+---
+
+### FB-11-CO-A-002：Monorepo 中如何处理循环依赖？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、循环依赖、依赖关系、重构
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+在 Monorepo 中，内部包之间可能出现循环依赖。请说明如何发现、分析和解决循环依赖问题。
+
+**参考答案**：
+
+一、发现循环依赖：
+
+1. **pnpm**：`pnpm m ls --depth Infinity` 或 `pnpm why <pkg>` 查看依赖图。
+2. **工具分析**：
+   - `madge`：检测 JS/TS 项目循环引用。
+   - `dependency-cruiser`：可视化依赖关系并检查规则。
+   - `nx graph`：查看 Nx workspace 包图。
+3. **CI 拦截**：在 CI 中跑依赖图检查脚本，发现循环依赖即失败。
+
+二、循环依赖的危害：
+
+- 构建时无法确定加载顺序。
+- 增加打包体积（重复引用）。
+- 类型定义互相引用导致声明文件错误。
+- 单测难以独立运行。
+
+三、解决策略：
+
+1. **提取公共包**：把双方都依赖的代码抽到第三个包。
+2. **依赖反转**：上层依赖抽象接口，下层实现接口。
+3. **合并包**：如果两个包耦合过深，考虑合并。
+4. **事件总线/依赖注入**：通过事件或 DI 解耦直接引用。
+
+四、预防措施：
+
+- 定义清晰的包职责边界。
+- 禁止低级包依赖高级包。
+- 使用 `dependency-cruiser` 规则自动检查。
+
+**评分维度**：
+- 提到检测工具（30%）
+- 说明循环依赖危害（20%）
+- 给出具体解决策略（40%）
+- 提到预防措施（10%）
+
+**常见错误**：
+- 只在运行时才发现循环依赖
+- 通过 hack 方式绕过加载顺序而不重构
+
+**口头回答版**：
+> Monorepo 里发现循环依赖可以用 madge、dependency-cruiser 或 nx graph 分析，CI 里跑脚本拦截。循环依赖会导致加载顺序不确定、打包变大、类型出错。解决可以抽公共包、依赖反转、合并包，或者用事件总线解耦。平时要定义清楚包职责，低级包不能依赖高级包。
+
+---
+
+### FB-11-SC-A-023：如何为 Monorepo 设计 CI/CD 流水线？
+
+**题型**：场景设计题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、CI/CD、Turborepo、缓存、Affected
+**出现频率**：高频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请为 Monorepo 设计一条高效的 CI/CD 流水线，要求只构建和测试受影响的包，并充分利用缓存。
+
+**参考答案**：
+
+一、受影响包分析：
+
+使用 `--affected` 或 `turbo run build --filter=[HEAD^1]`，只构建和测试本次变更影响的包及其依赖。
+
+二、Pipeline 阶段：
+
+```json
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["build"]
+    },
+    "lint": {},
+    "typecheck": {}
+  }
+}
+```
+
+三、缓存策略：
+
+1. **Remote Cache**：Turborepo 或 Nx 的远程缓存，团队成员共享构建结果。
+2. **CI 缓存**：缓存 `node_modules`、pnpm store、构建产物。
+3. **输入输出声明**：明确每个任务的 inputs 和 outputs，避免无效缓存命中。
+
+四、并行执行：
+
+- 没有依赖的任务并行跑。
+- 使用矩阵任务充分利用 CI runner。
+
+五、PR 阶段：
+
+- `turbo run lint typecheck test --filter=...[origin/main]`。
+- 生成受影响包报告。
+
+六、发布阶段：
+
+- 合并 main 后跑全量 build。
+- 使用 Changesets 自动发布受影响包。
+
+**评分维度**：
+- 使用 affected/filter 减少构建范围（30%）
+- 设计 pipeline 依赖关系（25%）
+- 缓存策略具体（25%）
+- PR 和发布阶段区分（20%）
+
+**常见错误**：
+- 每次 CI 都全量构建所有包
+- 缓存键设计不当导致命中失败或脏缓存
+
+**口头回答版**：
+> Monorepo CI/CD 要用 affected 分析只构建受影响的包。比如 Turborepo 用 `--filter=[HEAD^1]`。pipeline 里声明 build 依赖上游 build，test 依赖 build。再加上远程缓存和 CI 缓存，没改过的任务直接命中。PR 阶段跑 lint、typecheck、test，发布阶段全量 build 并用 Changesets 发布。
+
+---
+
+### FB-11-CP-A-021：比较 Turborepo、Nx、Rush 的适用场景
+
+**题型**：对比题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：Turborepo、Nx、Rush、Monorepo、选型
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请对比 Turborepo、Nx、Rush 三个 Monorepo 工具的特点和适用场景。
+
+**参考答案**：
+
+| 维度 | Turborepo | Nx | Rush |
+|------|-----------|-----|------|
+| 定位 | 任务运行器 + 构建缓存 | 全功能 Monorepo 平台 | 企业级包管理 + 构建 |
+| 上手成本 | 低 | 中 | 高 |
+| 语言生态 | 前端优先，JS/TS | 前端优先，支持多种语言 | 企业级，.NET/Node 都支持 |
+| 缓存 | 本地/远程缓存，配置简单 | 强大的本地/远程/分布式缓存 | 支持缓存，但更偏包管理 |
+| 依赖管理 | 依赖外部包管理器（pnpm/yarn/npm） | 自洽 | 自带 Rush Stack，控制更严格 |
+| 插件/扩展 | 较少 | 丰富的插件生态和代码生成 | 可配置但生态小 |
+| 适用规模 | 中小型团队，JS/TS 项目 | 中大型团队，复杂前端工程 | 大型企业，多语言、强治理 |
+
+选择建议：
+
+- **Turborepo**：团队规模不大，希望快速提升构建速度，已有 pnpm workspace。
+- **Nx**：需要代码生成、项目图、插件生态、统一工作流。
+- **Rush**：超大企业 Monorepo，需要严格的包管理、版本策略、合并 PR 策略。
+
+**评分维度**：
+- 能列出三者核心差异（40%）
+- 结合团队规模给出建议（30%）
+- 说明缓存和依赖管理差异（30%）
+
+**常见错误**：
+- 认为三者完全等价，只挑一个用
+- 忽略 Rush 在企业级治理的优势
+
+**口头回答版**：
+> Turborepo 更像任务调度器，上手简单，适合中小型前端项目。Nx 是功能完整的 Monorepo 平台，有代码生成、项目图和丰富插件，适合中大型前端工程。Rush 是企业级方案，包管理和版本策略更严格，适合大型多语言 Monorepo。选型看团队规模和治理需求。
+
+---
+
+### FB-11-EN-A-022：如何配置 Monorepo 中的依赖升级策略？
+
+**题型**：工程化题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、依赖升级、Renovate、Dependabot、SemVer
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Monorepo 中如何安全、高效地管理依赖升级，避免多个子包版本不一致。
+
+**参考答案**：
+
+一、统一版本管理：
+
+1. **catalog 协议**（pnpm）：在 `pnpm-workspace.yaml` 中统一管理公共依赖版本。
+2. **共享依赖包**：把一组依赖封装成 `@scope/shared-deps`，子包只依赖这个包。
+
+二、自动化升级工具：
+
+1. **Renovate**：
+   - 支持分组升级、自动合并 patch/minor。
+   - 可配置 monorepo 分组规则，例如所有 React 生态一起升级。
+2. **Dependabot**：GitHub 原生，但分组能力较弱。
+
+Renovate 配置示例：
+
+```json
+{
+  "extends": ["config:base"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^@types/", "^eslint"],
+      "groupName": "dev-deps"
+    }
+  ]
+}
+```
+
+三、升级流程：
+
+1. 自动化工具扫描并创建升级 PR。
+2. PR 触发全量 CI，跑 lint/typecheck/test。
+3. 大版本升级需要人工 review 和回归测试。
+4. 合并后通知各子包负责人关注影响。
+
+四、风险控制：
+
+- patch/minor 自动合并，major 人工审批。
+- 关键依赖升级先在非核心项目试点。
+- 保留 lockfile 历史版本便于回滚。
+
+**评分维度**：
+- 说明统一版本管理方式（30%）
+- 说明自动化工具配置（30%）
+- 说明升级流程和风险控制（40%）
+
+**常见错误**：
+- 各子包各自升级，版本碎片化
+- 大版本升级直接自动合并
+
+**口头回答版**：
+> Monorepo 里升级依赖可以用 pnpm catalog 或共享依赖包统一版本。再用 Renovate 自动扫描创建 PR，按 patch/minor/major 设置不同审批策略。PR 触发全量 CI，大版本升级人工 review。避免每个子包各自升级造成版本不一致。
+
+---
+
+### FB-11-CO-A-003：什么是 pnpm 的 peerDependencyRules？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：pnpm、peerDependencies、peerDependencyRules、依赖解析
+**出现频率**：低频
+**预计回答时长**：3-5 分钟
+
+**题目描述**：
+请解释 pnpm 的 `peerDependencyRules` 是做什么用的，并举一个 Monorepo 中的实际场景。
+
+**参考答案**：
+
+`peerDependencyRules` 是 pnpm 在 `.npmrc` 或 `package.json` 中配置的对等依赖覆盖规则，用于处理 peer dependency 警告或冲突。
+
+常见配置项：
+
+- `ignoreMissing`：忽略某些缺失的 peer dependency 警告。
+- `allowedVersions`：允许某个 peer dependency 的版本范围。
+- `allowAny`：允许任意版本。
+
+Monorepo 场景示例：
+
+一个 UI 库 `@scope/ui` peer 依赖 `react: ^16.8.0 || ^17.0.0 || ^18.0.0`，但测试项目想同时验证 React 17 和 18。可在 `.npmrc` 中：
+
+```ini
+# .npmrc
+strict-peer-dependencies=false
+```
+
+或在 `package.json` 中：
+
+```json
+{
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": ["@types/react"],
+      "allowedVersions": {
+        "react": "17 || 18"
+      }
+    }
+  }
+}
+```
+
+注意：
+- 这是包管理器层面的妥协，不能替代 peerDependency 声明。
+- 应尽量少用，优先让依赖方声明正确的 peer 版本。
+
+**评分维度**：
+- 说明 peerDependencyRules 的作用（40%）
+- 给出 Monorepo 实际场景（40%）
+- 提到应谨慎使用（20%）
+
+**常见错误**：
+- 用 peerDependencyRules 掩盖真正的版本冲突
+- 与 resolutions/overrides 混淆
+
+**口头回答版**：
+> pnpm 的 `peerDependencyRules` 用来处理 peer dependency 的警告和冲突，比如 `ignoreMissing`、`allowedVersions`。Monorepo 里如果 UI 库同时支持 React 17 和 18，测试项目可以配置 allowedVersions 避免安装冲突。但这是妥协方案，不能替代正确的 peerDependency 声明。
+
+---
+
+### FB-11-SC-P-017：Monorepo 中如何设计子包的测试策略？
+
+**题型**：场景设计题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、测试策略、单元测试、集成测试、affected
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请设计 Monorepo 中不同层级包的测试策略，包括单元测试、集成测试和 E2E 测试的组织方式。
+
+**参考答案**：
+
+一、测试分层：
+
+| 层级 | 适用对象 | 工具 | 执行频率 |
+|------|---------|------|---------|
+| 单元测试 | utils、hooks、纯函数 | Vitest/Jest | 每次提交/PR |
+| 集成测试 | UI 组件、服务组合 | Vitest + Testing Library | 每次提交/PR |
+| E2E 测试 | 完整应用链路 | Playwright/Cypress | PR + 夜间 |
+
+二、组织方式：
+
+1. **测试文件紧邻源码**：`src/utils.ts` 与 `src/utils.test.ts` 同目录。
+2. **应用级 E2E 独立目录**：`apps/web/e2e/`。
+3. **共享测试工具**：`packages/test-utils` 提供 mock、render wrapper。
+
+三、Affected 测试：
+
+- PR 阶段只跑受影响包的测试：`turbo run test --filter=...[origin/main]`。
+- 受影响的包的下游依赖也要跑测试，确保兼容性。
+
+四、CI 策略：
+
+1. **PR**：lint -> typecheck -> affected unit/integration tests。
+2. **main 合并后**：全量单元/集成测试 + E2E 抽检。
+3. **夜间**：全量 E2E、性能回归测试。
+
+五、测试环境一致性：
+
+- 使用 `turbo run test --parallel` 并行执行无依赖任务。
+- 数据库/服务依赖用 Testcontainers 或 mock 服务。
+- 快照测试集中管理，避免跨包污染。
+
+**评分维度**：
+- 测试分层清晰（30%）
+- 组织方式合理（25%）
+- affected 测试策略（25%）
+- CI 策略完整（20%）
+
+**常见错误**：
+- 所有测试都全量跑，CI 极慢
+- 子包测试依赖真实外部服务，不稳定
+
+**口头回答版**：
+> Monorepo 里测试按层分：工具函数跑单元，组件跑集成，应用跑 E2E。测试文件跟源码放一起，E2E 放应用目录下。PR 用 affected 只跑受影响的包和下游依赖的测试，main 合并后跑全量，夜间跑完整 E2E。还可以抽 test-utils 共享 mock 和 render wrapper。
+
+---
+
+### FB-11-EN-P-022：如何优化 Monorepo 的 install 和 build 性能？
+
+**题型**：工程化题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、性能优化、缓存、并行、依赖
+**出现频率**：高频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请从 install 和 build 两个角度，谈谈如何优化 Monorepo 的性能。
+
+**参考答案**：
+
+一、Install 优化：
+
+1. **包管理器选择**：
+   - pnpm：内容寻址存储、硬链接，节省磁盘和 install 时间。
+2. **锁定 lockfile**：使用 `pnpm-lock.yaml`，避免重复解析。
+3. **CI 缓存**：
+   - 缓存 `~/.pnpm-store`。
+   - 缓存 `node_modules/.modules.yaml` 或 `node_modules`（视 CI 而定）。
+4. **减少依赖数量**：
+   - 合并重复依赖、清理未使用依赖。
+   - 用 `pnpm catalogs` 统一版本，避免多版本共存。
+
+二、Build 优化：
+
+1. **任务调度器**：
+   - Turborepo/Nx：声明任务依赖，并行无依赖任务。
+2. **远程缓存**：
+   - Turborepo Remote Cache / Nx Cloud，团队共享构建结果。
+3. **Affected 构建**：
+   - 只构建本次变更影响的包：`turbo run build --filter=...[origin/main]`。
+4. **按需构建**：
+   - 纯类型包只做类型生成，不打包。
+   - 大型包拆分为更细粒度子包。
+5. **资源限制**：
+   - 限制并发进程数，避免 OOM。
+   - 对大型构建任务分片。
+
+三、监控：
+
+- 记录每次 CI 的 install 和 build 耗时。
+- 设置性能回归告警。
+
+**评分维度**：
+- install 优化措施具体（35%）
+- build 优化措施具体（35%）
+- 提到缓存和 affected（20%）
+- 提到性能监控（10%）
+
+**常见错误**：
+- 不缓存 pnpm store 导致每次全量下载
+- 每次 CI 全量构建所有包
+
+**口头回答版**：
+> 优化 Monorepo install 用 pnpm、缓存 store、统一版本、清理无用依赖。Build 用 Turborepo 或 Nx 调度任务，加远程缓存，跑 affected 只构建受影响包。大项目限制并发避免 OOM，并监控 install/build 耗时趋势，发现回归及时告警。
+
+---
+
+### FB-11-SD-P-020：如何设计 Monorepo 的变更影响分析？
+
+**题型**：系统设计题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、影响分析、依赖图、CI、Turborepo
+**出现频率**：低频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请设计一个 Monorepo 变更影响分析机制，能够自动识别一次代码变更会影响哪些包和应用。
+
+**参考答案**：
+
+一、数据收集：
+
+1. **依赖图构建**：
+   - 解析每个子包 `package.json` 的 dependencies/devDependencies。
+   - 解析源码级 import 关系（用 `dependency-cruiser` 或 TypeScript AST）。
+2. **版本控制数据**：
+   - 获取当前 PR 与目标分支的 diff。
+   - 识别变更的文件和目录。
+
+二、影响范围计算：
+
+1. **直接变更**：文件所在目录对应的包。
+2. **间接影响**：依赖该包的其他包和应用。
+3. **构建依赖**：如果变更影响共享构建配置，所有包都可能受影响。
+
+三、工具实现：
+
+- **Turborepo/Nx**：内置 `--filter=...[origin/main]` 和依赖图。
+- **Nx**：提供 `affected` 命令，基于 git diff 和影响图。
+- **自定义脚本**：用 `glob` + `git diff` + 依赖图算法（DFS/BFS）计算。
+
+四、输出与集成：
+
+1. **PR 报告**：列出受影响的包、应用和推荐执行的测试。
+2. **CI 任务**：只构建和测试受影响部分。
+3. **风险评分**：
+   - 核心包变更影响范围大，需要更严格的 review。
+   - 纯文档变更可跳过构建。
+
+五、边界处理：
+
+- 根目录配置变更（eslint、tsconfig）通常影响全部。
+- lockfile 变更需重新 install 全量。
+
+**评分维度**：
+- 依赖图和 diff 分析思路（35%）
+- 工具选择合理（25%）
+- 输出和 CI 集成（25%）
+- 边界情况考虑（15%）
+
+**常见错误**：
+- 只分析直接变更，忽略间接依赖
+- 根目录配置变更没有触发全量构建
+
+**口头回答版**：
+> 变更影响分析要先构建包依赖图和源码 import 图，然后拿 PR diff 对比，找到直接变更的包，再用依赖图算间接影响。Turborepo、Nx 都有 affected 命令可以做。输出受影响包列表和推荐测试任务给 PR 和 CI。根目录配置变更通常影响全量，要单独处理。
+
+---
+
+### FB-11-CP-P-023：Monorepo 中如何处理 Breaking Change？
+
+**题型**：综合开放题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、Breaking Change、SemVer、Migration、兼容性
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请说明 Monorepo 中发布内部包时，如何管理 Breaking Change，并保证消费方平滑迁移。
+
+**参考答案**：
+
+一、版本策略：
+
+- 严格遵循 SemVer，Breaking Change 必须升 major。
+- 使用 Changesets 标记变更类型为 `major`。
+
+二、变更发布流程：
+
+1. **RFC 或 ADR**：在变更前说明变更原因、影响范围和迁移方案。
+2. **Codemod**：提供自动化迁移脚本，批量替换旧 API。
+3. **双版本共存**：
+   - 临时允许旧 API 和新 API 共存一个版本周期。
+   - 旧 API 标记 `@deprecated`。
+4. **升级指南**：写清楚迁移步骤、示例代码和回滚方案。
+
+三、消费方迁移：
+
+1. **按包逐步升级**：不要一次性把所有消费方都升级。
+2. **CI 拦截**：旧 API 使用 warning 或 lint rule 禁止新增。
+3. **灰度验证**：先在边缘项目试点，确认稳定后再推广。
+
+四、工具支持：
+
+- `jscodeshift` 写 codemod。
+- `eslint-plugin-deprecation` 标红废弃 API。
+- Changesets 自动生成升级说明。
+
+五、回滚机制：
+
+- 保留旧版本 tag，必要时可快速降级。
+- 如果迁移出现大面积问题，及时发布 patch 修复。
+
+**评分维度**：
+- SemVer 和版本策略（25%）
+- 迁移方案具体（35%）
+- 工具支持（20%）
+- 回滚机制（20%）
+
+**常见错误**：
+- Breaking Change 只升 minor 或 patch
+- 不提供迁移文档或 codemod
+
+**口头回答版**：
+> Breaking Change 必须升 major，用 Changesets 标记。变更前写 RFC，提供迁移文档和 jscodeshift 脚本。可以让新旧 API 共存一个版本，旧 API 标 deprecated。消费方逐步升级，CI 用 lint 禁止新增旧 API。保留旧版本 tag 方便回滚。
+
+---
+
+### FB-11-CO-P-001：Monorepo 中的版本一致性策略有哪些？
+
+**题型**：概念题
+**难度**：🟠 高级
+**岗位层级**：高级 / 专家
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、版本策略、fixed、independent、SemVer
+**出现频率**：中频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请对比 Monorepo 中 Fixed Versioning 和 Independent Versioning 两种版本策略的优缺点和适用场景。
+
+**参考答案**：
+
+一、Fixed Versioning（固定版本）：
+
+- 所有子包共享同一个版本号。
+- 任何一个包有变更，所有包一起升级版本。
+- 工具：Lerna fixed mode、Changesets 默认行为。
+
+优点：
+- 版本号简单，便于记忆和沟通。
+- 发布流程简单。
+
+缺点：
+- 没有变更的包也被迫升级，changelog 有噪音。
+- 不适合包之间差异大的场景。
+
+适用：
+- 内部工具库、UI 组件库等耦合紧密的 Monorepo。
+
+二、Independent Versioning（独立版本）：
+
+- 每个子包独立维护自己的版本号。
+- 只有真正变更的包才升级。
+
+优点：
+- 版本语义精确，changelog 干净。
+- 适合对外发布的独立包。
+
+缺点：
+- 版本管理复杂，依赖关系需要小心维护。
+- 发布流程更复杂。
+
+适用：
+- 通用工具集合，如 lodash 分包、babel 插件集。
+
+**评分维度**：
+- 说明两种策略含义（40%）
+- 优缺点对比清晰（35%）
+- 适用场景正确（25%）
+
+**常见错误**：
+- 认为 Fixed Versioning 适合所有 Monorepo
+- 忽略 Independent 版本下的依赖同步问题
+
+**口头回答版**：
+> Fixed Versioning 是所有包共享一个版本号，发布简单但会有没变更的包也被升级。适合内部组件库这种耦合紧的。Independent 是每个包自己维护版本，精确但复杂，适合对外发布的独立工具包集合。
+
+---
+
+### FB-11-SD-R-021：设计一个企业级 Monorepo 治理方案
+
+**题型**：系统设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、治理、架构、标准化、自动化
+**出现频率**：低频
+**预计回答时长**：10-15 分钟
+
+**题目描述**：
+请设计一个企业级 Monorepo 治理方案，包括目录结构、包规范、CI/CD、发布流程和权限管理。
+
+**参考答案**：
+
+一、目录结构：
+
+```text
+root/
+  apps/           # 业务应用
+  packages/       # 共享库和工具
+  tools/          # 构建脚本、代码生成器
+  docs/           # 文档
+  scripts/        # 根目录脚本
+  .github/
+  pnpm-workspace.yaml
+  turbo.json
+```
+
+二、包规范：
+
+1. 每个包必须有 `package.json`、`README.md`、`CHANGELOG.md`。
+2. 统一命名规则：`@company/{scope}-{name}`。
+3. 通过 `exports` 字段严格控制 public API。
+4. 必须声明 `repository`、`license`、`engines`。
+
+三、CI/CD：
+
+1. PR 阶段：affected lint/typecheck/test/build。
+2. main 阶段：全量构建 + E2E + 产物分析。
+3. 发布阶段：Changesets 自动 version/publish。
+
+四、代码质量：
+
+- 共享 ESLint/Prettier/TSConfig 配置包。
+- Husky + lint-staged 提交拦截。
+- 依赖图检查，禁止循环依赖。
+
+五、权限与所有权：
+
+- CODEOWNERS 文件分配每个目录的 owner。
+- 核心包变更需要架构师 review。
+- npm publish 权限通过 CI 自动化 token 控制。
+
+六、文档与新人引导：
+
+- 贡献指南 CONTRIBUTING.md。
+- 每个包有 README 和 API 文档。
+- 新包创建使用脚手架生成，保证结构一致。
+
+七、度量与改进：
+
+- 监控 install/build 耗时趋势。
+- 定期清理无人维护的包。
+- 收集开发者满意度，持续优化工具链。
+
+**评分维度**：
+- 目录结构设计合理（20%）
+- 包规范完整（20%）
+- CI/CD 和发布流程清晰（25%）
+- 权限和质量治理（20%）
+- 度量和持续改进（15%）
+
+**常见错误**：
+- 只有规范没有自动化检查
+- 权限划分不清导致任何人都能发布核心包
+
+**口头回答版**：
+> 企业级 Monorepo 治理要统一目录结构，比如 apps、packages、tools。每个包统一命名、严格 exports、配 README 和 CHANGELOG。CI 分 PR、main、发布三阶段，PR 跑 affected 检查，发布用 Changesets 自动处理。用 CODEOWNERS 分权限，核心包变更要架构师 review。还要监控构建耗时，定期清理无用包。
+
+---
+
+### FB-11-CP-R-019：大型 Monorepo 中的权限和代码所有权如何设计？
+
+**题型**：综合开放题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、权限、CODEOWNERS、代码所有权、治理
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请说明大型 Monorepo 中如何设计代码所有权、权限控制和 review 策略，避免协作混乱。
+
+**参考答案**：
+
+一、代码所有权（CODEOWNERS）：
+
+```text
+# .github/CODEOWNERS
+*                        @platform-team
+/apps/web/               @web-team
+/apps/admin/             @admin-team
+/packages/ui/            @design-system-team
+/packages/shared-utils/  @platform-team @architects
+```
+
+规则：
+- 通用目录由平台团队兜底。
+- 业务应用由业务团队负责。
+- 共享库由专门团队或架构师共同维护。
+
+二、权限控制：
+
+1. **Git 分支保护**：
+   - main 分支禁止直接 push。
+   - 必须至少一个 owner 审批。
+2. **PR 大小限制**：
+   - 使用 Danger.js 或 GitHub Action 限制 PR 行数，防止超大 PR。
+3. **发布权限**：
+   - npm publish 由 CI 自动化执行，不授予个人 publish 权限。
+   - 核心包发布需要额外的审批流程。
+
+三、Review 策略：
+
+- 影响多个包的核心变更需跨团队 review。
+- Breaking Change 必须有升级文档和架构师审批。
+- 安全相关代码由安全团队 mandatory review。
+
+四、工具集成：
+
+- GitHub CODEOWNERS 自动分配 reviewer。
+- Danger.js / custom action 检查 PR 规范。
+- Changeset-bot 确保有版本影响的 PR 包含 changeset。
+
+五、文档与培训：
+
+- 明确每个包的 owner 和 SLA。
+- 新成员入职学习贡献指南和 review 规范。
+
+**评分维度**：
+- CODEOWNERS 使用正确（25%）
+- 权限控制策略具体（25%）
+- Review 策略合理（25%）
+- 工具和培训考虑（25%）
+
+**常见错误**：
+- 全仓库只有一个 owner 团队
+- 没有分支保护和发布审批
+
+**口头回答版**：
+> 大型 Monorepo 用 CODEOWNERS 给不同目录分配 owner，通用目录平台团队兜底，业务目录业务团队负责。main 分支要保护，PR 至少一个 owner 审批，核心包发布要架构师审批。可以 Danger.js 限制 PR 大小，Changeset-bot 检查版本变更。发布权限交给 CI，不给个人 npm publish 权限。
+
+---
+
+### FB-11-SC-R-001：如何设计 Monorepo 的文档和示例站点？
+
+**题型**：场景设计题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、文档、Storybook、Docusaurus、示例
+**出现频率**：低频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请设计一个 Monorepo 内部的文档和示例站点方案，帮助开发者快速理解和使用各个子包。
+
+**参考答案**：
+
+一、文档分层：
+
+1. **根目录文档**：项目介绍、贡献指南、架构概览、快速开始。
+2. **包级文档**：每个 `packages/{name}/README.md` 说明 API 和用法。
+3. **API 文档**：通过 TypeDoc 自动生成类型文档。
+4. **示例文档**：`apps/docs` 或 `examples/` 提供可运行示例。
+
+二、技术选型：
+
+- **静态站点**：Docusaurus、VitePress、Nextra。
+- **组件文档**：Storybook，支持组件交互和视觉回归。
+- **API 文档**：TypeDoc、API Extractor。
+- **搜索**：Algolia DocSearch。
+
+三、自动化：
+
+1. **文档构建纳入 CI**：每次 PR 检查文档是否能正常构建。
+2. **自动部署**：main 分支合并后自动部署到内部文档站点。
+3. **示例代码可执行**：examples 目录作为独立应用，CI 中跑构建验证。
+4. **文档与代码同步**：API 文档从源码类型自动生成，避免手工维护。
+
+四、内容规范：
+
+- 每个组件/工具必须有：功能说明、使用示例、Props/API 列表、变更记录。
+- 文档站点支持版本切换，便于查看历史版本用法。
+
+五、互动与反馈：
+
+- 文档页面支持一键跳转到源码。
+- 提供问题反馈入口，收集文档改进建议。
+
+**评分维度**：
+- 文档分层清晰（30%）
+- 技术选型合理（25%）
+- 自动化程度高（25%）
+- 内容规范和反馈机制（20%）
+
+**常见错误**：
+- 文档和源码分离，长期不同步
+- 示例代码不可运行，误导使用者
+
+**口头回答版**：
+> Monorepo 文档分三层：根目录写整体介绍和贡献指南，每个包写 README，再用 Storybook 做组件文档，TypeDoc 自动生成 API 文档。示例放 examples 目录，作为独立应用跑 CI。文档站点用 Docusaurus 或 VitePress，每次 main 合并自动部署。还要让文档页面能跳转到源码，方便维护。
+
+---
+
+### FB-11-CO-R-001：Monorepo 与 Polyrepo 在长期演进中的取舍
+
+**题型**：概念题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、Polyrepo、架构演进、取舍
+**出现频率**：中频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请对比 Monorepo 和 Polyrepo 在长期演进中的优缺点，并说明什么情况下应该考虑从一种转向另一种。
+
+**参考答案**：
+
+一、Monorepo 优势：
+
+1. 代码共享容易，公共库修改可原子提交。
+2. 全局重构成本低，一次改动影响所有消费方。
+3. 统一工具链和 CI/CD，便于治理。
+4. 依赖关系清晰，便于做 affected 分析和全局优化。
+
+二、Monorepo 劣势：
+
+1. 规模大了后 install/build 成本高。
+2. 权限和所有权管理复杂。
+3. 一个包的 bug 可能影响整个仓库 CI。
+4. 对工具链要求高（缓存、任务调度）。
+
+三、Polyrepo 优势：
+
+1. 团队自治，独立发布节奏。
+2. 仓库规模小，构建快。
+3. 权限清晰，团队边界明确。
+
+四、Polyrepo 劣势：
+
+1. 跨仓库改动需要协调多个 PR/发布。
+2. 公共库升级慢，版本碎片化。
+3. 工具链重复建设。
+
+五、迁移时机：
+
+- **Polyrepo → Monorepo**：
+  - 公共代码大量重复，升级困难。
+  - 需要频繁跨项目重构。
+  - 团队愿意统一工具链。
+
+- **Monorepo → Polyrepo**：
+  - 仓库过大，工具链无法支撑。
+  - 业务线差异大，需要完全独立演进。
+  - 团队对权限和自治要求极高。
+
+六、折中方案：
+
+- 按业务线拆分子 Monorepo（multi-monorepo）。
+- 核心公共库独立仓库，通过 npm 版本化发布。
+
+**评分维度**：
+- 优劣势分析全面（40%）
+- 迁移时机判断合理（30%）
+- 能提出折中方案（30%）
+
+**常见错误**：
+- 绝对化地认为 Monorepo 一定优于 Polyrepo
+- 忽略团队规模和工具链成熟度
+
+**口头回答版**：
+> Monorepo 方便代码共享和全局重构，统一工具链，但规模大后构建和权限管理复杂。Polyrepo 团队自治、构建快，但公共库升级和跨项目改动麻烦。选择看团队规模、代码共享需求和工具链成熟度。折中可以按业务线拆分子 Monorepo，核心库单独仓库发布。
+
+---
+
+### FB-11-EN-R-001：如何设计 Monorepo 的发布火车？
+
+**题型**：工程化题
+**难度**：🔴 架构
+**岗位层级**：专家 / 架构
+**面试知识域**：11 Monorepo
+**标签**：Monorepo、发布火车、CI/CD、版本管理
+**出现频率**：低频
+**预计回答时长**：8-12 分钟
+
+**题目描述**：
+请设计一个 Monorepo 的发布火车机制，实现定期、可预测、低风险的版本发布。
+
+**参考答案**：
+
+一、发布火车概念：
+
+发布火车（Release Train）是按固定节奏（如每周、每两周）将累积的变更打包发布。所有要上车的变更必须在发车前合并并通过验证。
+
+二、Monorepo 发布火车设计：
+
+1. **发布周期**：
+   - 每周二固定发版，周四前截止上车。
+   - 紧急 hotfix 可随时发车。
+
+2. **发布分支**：
+   - `main` 为日常开发分支。
+   - `release/{date}` 为发布分支，从 main 切出后冻结非发布变更。
+
+3. **变更收集**：
+   - 通过 Changesets 统计周期内所有未消费 changeset。
+   - 自动计算版本升级和生成 changelog。
+
+4. **验证阶段**：
+   - 在 release 分支跑全量测试、E2E、性能回归。
+   - 生成发布候选版（RC），供业务方验证。
+
+5. **发布执行**：
+   - RC 验证通过后，合并到 `stable` 或打 tag。
+   - CI 自动 publish 到 npm 并部署文档。
+
+6. **回滚机制**：
+   - 保留上一个稳定版本的 tag。
+   - 如发现问题，可快速基于上一个 tag 重新发布。
+
+三、工具支持：
+
+- Changesets 管理版本和 changelog。
+- GitHub Actions 调度发布流程。
+- Slack/企业微信通知发布状态。
+
+四、风险控制：
+
+- 发布前必须有发布负责人审批。
+- 核心包 Breaking Change 不能随常规火车发布，需单独安排迁移窗口。
+
+**评分维度**：
+- 发布周期和分支策略清晰（30%）
+- 变更收集和验证流程具体（30%）
+- 发布执行和回滚机制（25%）
+- 风险控制和工具集成（15%）
+
+**常见错误**：
+- 发布火车没有固定节奏，变成“想发就发”
+- 紧急修复和常规发布混用同一流程
+
+**口头回答版**：
+> 发布火车就是按固定周期把变更打包发布。比如每周二发版，周四截止上车。从 main 切 release 分支，用 Changesets 汇总变更、算版本、生成 changelog，然后跑全量测试和 RC 验证。通过后用 CI publish 到 npm，保留上一个稳定 tag 方便回滚。紧急 hotfix 单独发车，不要和常规火车混在一起。
+
+---

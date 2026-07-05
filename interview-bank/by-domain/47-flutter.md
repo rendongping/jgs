@@ -1,6 +1,6 @@
 # Flutter 面试题
 
-> 本题库共收录 **30** 道面试题（基础 8 / 进阶 8 / 深入 7 / 架构 7）。
+> 本题库共收录 **55** 道面试题（基础 12 / 进阶 18 / 深入 12 / 架构 13）。
 > 本文件收录 Flutter 相关面试题，目标题量 30 道。
 > 题型覆盖：概念题、代码分析题、手写代码题、场景设计题、系统设计题、框架原理题、性能优化题、工程化题、综合开放题。
 > 难度覆盖：基础、进阶、深入、架构。
@@ -1980,7 +1980,7 @@ Golden Test：
 
 ---
 
-## 架构题（7 道）{#architect}
+## 架构题（32 道）{#architect}
 
 ### FB-47-SD-R-001：如何设计一个可维护、可扩展的 Flutter 大型应用架构？
 
@@ -2708,3 +2708,1663 @@ PlatformView：原生 MapView 嵌入 Flutter 树
 
 
 
+
+### FB-47-CO-A-009：Flutter 的 Widget、Element、RenderObject 三棵树是什么关系？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、Widget、Element、RenderObject、三棵树
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 中 Widget、Element、RenderObject 三者的关系和作用。
+
+**参考答案**：
+Flutter 三棵树：
+
+1. **Widget 树**
+   - Widget 是 UI 的描述，不可变（immutable）。
+   - 每次状态变化都会重建 Widget 树。
+   - 轻量，创建成本低。
+
+2. **Element 树**
+   - Element 是 Widget 的实例，可变。
+   - 负责 Widget 的生命周期和状态管理。
+   - 框架通过比较新旧 Widget 决定复用或重建 Element。
+
+3. **RenderObject 树**
+   - RenderObject 负责真正的布局和绘制。
+   - 与 Element 一一对应（部分 Element 无 RenderObject）。
+   - 是渲染管线中的实际节点。
+
+关系：
+- Widget 描述配置 → Element 管理实例和生命周期 → RenderObject 执行布局绘制。
+- 状态变化时，Widget 重建，Element 尽量复用，RenderObject 按需更新。
+
+为什么这样设计？
+- Widget 轻量，重建成本低。
+- Element 复用减少对象创建。
+- RenderObject 专注渲染性能。
+
+示例：
+```dart
+Text('hello') // Widget
+```
+框架会为它创建对应 Element 和 RenderParagraph。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 有 Widget、Element、RenderObject 三棵树。Widget 是不可变的 UI 描述，Element 是可变的实例管生命周期，RenderObject 负责布局绘制。Widget 重建，Element 复用，RenderObject 按需更新。
+
+---
+
+### FB-47-CO-A-010：Flutter 中 StatefulWidget 和 StatelessWidget 有什么区别？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、StatefulWidget、StatelessWidget、状态
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 StatefulWidget 和 StatelessWidget 的区别及使用场景。
+
+**参考答案**：
+区别：
+
+| 特性 | StatelessWidget | StatefulWidget |
+|------|----------------|---------------|
+| 状态 | 无内部状态 | 有内部状态 |
+| 重建 | 依赖外部传入数据 | 依赖外部数据和内部状态 |
+| 生命周期 | 简单，build 即可 | 有 createState、initState、didUpdateWidget、dispose 等 |
+| 使用场景 | 展示型 UI | 交互型、动态变化 UI |
+
+使用建议：
+- 优先使用 StatelessWidget，更轻量、易维护。
+- 需要响应用户交互、动画、数据变化时用 StatefulWidget。
+- 状态管理复杂时，考虑 Provider、Riverpod、Bloc 等方案。
+
+示例：
+```dart
+class MyText extends StatelessWidget {
+  final String text;
+  MyText(this.text);
+  @override
+  Widget build(BuildContext context) => Text(text);
+}
+
+class Counter extends StatefulWidget {
+  @override
+  _CounterState createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  int count = 0;
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => setState(() => count++),
+      child: Text('$count'),
+    );
+  }
+}
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> StatelessWidget 无状态轻量，适合展示；StatefulWidget 有内部状态，有完整生命周期，适合交互和动态 UI。优先 Stateless，复杂状态用状态管理库。
+
+---
+
+### FB-47-CO-A-011：Flutter 的 setState 有什么作用和注意事项？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、setState、状态、重建
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 中 setState 的作用及使用注意事项。
+
+**参考答案**：
+`setState` 作用：
+- 通知框架当前 State 对象的内部状态发生变化。
+- 框架会标记该 State 对应的 Element 为 dirty，在下一帧重建 build 方法。
+
+使用注意事项：
+
+1. **只更新必要状态**
+   - setState 会重建整个 build 方法下的 Widget 树。
+   - 应尽量把 setState 放在最小作用域内。
+
+2. **避免频繁调用**
+   - 动画等高频场景应使用 AnimationController，而非 setState。
+
+3. **不要在 build 中调用 setState**
+   - 会导致无限循环重建。
+
+4. **setState 内只做状态变更**
+   - 不要在 setState 中做耗时操作或网络请求。
+
+5. **异步操作注意 context**
+   - await 后调用 setState 前检查 mounted 状态。
+
+示例：
+```dart
+setState(() {
+  count++;
+});
+```
+
+替代方案：
+- 简单局部状态：StatefulWidget + setState。
+- 跨组件状态：Provider、Riverpod、Bloc、GetX。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> setState 通知框架状态变化并重建 UI。要注意放在最小作用域，避免频繁调用，不在 build 中调用，setState 内只做状态变更，异步操作后检查 mounted。
+
+---
+
+### FB-47-CO-A-012：Flutter 中的 BuildContext 是什么？有什么作用？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、BuildContext、上下文、定位
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请解释 BuildContext 的概念和常见用途。
+
+**参考答案**：
+BuildContext 是 Widget 在 Element 树中的位置句柄。
+
+作用：
+
+1. **定位 Widget 树**
+   - 通过 context 可以找到祖先节点。
+   - 如 `Navigator.of(context)`、`Theme.of(context)`。
+
+2. **访问 InheritedWidget**
+   - 通过 context 获取最近的 InheritedWidget 数据。
+   - 如 Theme、MediaQuery、Localizations。
+
+3. **导航**
+   - `Navigator.push(context, route)`。
+
+4. **获取 RenderObject**
+   - `context.findRenderObject()` 可获取 RenderBox，用于测量或动画。
+
+5. **查找祖先/子孙 Element**
+   - `context.findAncestorWidgetOfExactType<T>()`。
+   - `context.visitChildElements()`。
+
+注意事项：
+- BuildContext 与 Element 关联，不要在异步操作后直接使用旧的 context（需检查 mounted）。
+- 不要在 State 的 initState 中直接使用 context，因为此时 Element 未挂载完成。
+- 谨慎使用 `BuildContext` 跨异步边界。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> BuildContext 是 Widget 在 Element 树中的位置句柄。用于定位 Widget 树、访问 InheritedWidget、导航、获取 RenderObject、查找祖先。异步操作后要检查 mounted，initState 中不能直接用 context。
+
+---
+
+### FB-47-CO-A-013：Flutter 的 pubspec.yaml 文件主要配置哪些内容？
+
+**题型**：概念题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、pubspec、依赖、配置
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 项目中 pubspec.yaml 文件的主要配置项。
+
+**参考答案**：
+pubspec.yaml 主要配置：
+
+```yaml
+name: my_app
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.0.0
+  provider: ^6.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/data.json
+  fonts:
+    - family: MyFont
+      fonts:
+        - asset: assets/fonts/MyFont-Regular.ttf
+```
+
+主要配置项：
+- `name`：包名。
+- `version`：应用版本号。
+- `environment`：Dart/Flutter SDK 版本约束。
+- `dependencies`：生产依赖。
+- `dev_dependencies`：开发依赖。
+- `flutter`：资源、字体、主题等 Flutter 专属配置。
+
+注意：
+- 修改 pubspec.yaml 后需运行 `flutter pub get`。
+- 依赖版本约束要谨慎，避免冲突。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> pubspec.yaml 配置项目名、版本、SDK 约束、依赖、开发依赖、Flutter 资源和字体等。修改后需要 flutter pub get。
+
+---
+
+### FB-47-CO-B-009：Flutter 中的路由管理有哪些方式？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：Flutter
+**标签**：Flutter、路由、Navigator、路由管理
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 中页面路由跳转的几种方式。
+
+**参考答案**：
+Flutter 路由管理方式：
+
+1. **匿名路由**
+   - `Navigator.push(context, MaterialPageRoute(builder: (_) => PageB()))`
+   - `Navigator.pop(context)`
+   - 适合简单场景。
+
+2. **命名路由**
+   - 在 MaterialApp 中配置 routes。
+   - `Navigator.pushNamed(context, '/detail')`
+   - 适合页面较少的应用。
+
+3. **onGenerateRoute**
+   - 自定义路由生成逻辑。
+   - 适合需要传递参数或做权限校验的场景。
+
+4. **第三方路由库**
+   - go_router、auto_route、fluro。
+   - 适合大型应用，支持深层链接、声明式路由。
+
+5. **Navigator 2.0**
+   - 声明式路由 API。
+   - 通过 Router、RouteInformationParser、RouterDelegate 控制路由栈。
+   - 适合需要与系统 URL 同步的复杂应用。
+
+示例（go_router）：
+```dart
+final _router = GoRouter(
+  routes: [
+    GoRoute(path: '/', builder: (context, state) => HomePage()),
+    GoRoute(path: '/detail/:id', builder: (context, state) => DetailPage(id: state.pathParameters['id'])),
+  ],
+);
+```
+
+选择建议：
+- 小型项目：匿名路由或命名路由。
+- 中大型项目：go_router 或 auto_route。
+- 需要与 Web URL 同步：Navigator 2.0 / go_router。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 路由有匿名路由、命名路由、onGenerateRoute、第三方库如 go_router、Navigator 2.0 声明式路由。小项目用匿名/命名路由，中大型用 go_router。
+
+---
+
+### FB-47-CO-B-010：Flutter 如何实现异步编程？Future 和 Stream 有什么区别？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：Flutter
+**标签**：Flutter、Future、Stream、异步
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter/Dart 中 Future 和 Stream 的区别及使用场景。
+
+**参考答案**：
+Dart 异步编程：
+
+**Future**：
+- 代表一个将来会完成的单一异步结果。
+- 类似 JavaScript Promise。
+- 用 `async/await` 处理。
+
+**Stream**：
+- 代表一系列异步事件的序列。
+- 可以监听多个事件。
+- 用 `await for` 或 Stream API（listen、map、where 等）处理。
+
+区别：
+
+| 特性 | Future | Stream |
+|------|--------|--------|
+| 结果数量 | 一个 | 多个 |
+| 监听 | 一次 then/await | 持续 listen |
+| 使用场景 | 单次异步请求 | 实时数据、事件流 |
+
+示例：
+```dart
+// Future
+Future<String> fetchData() async {
+  await Future.delayed(Duration(seconds: 1));
+  return 'data';
+}
+
+// Stream
+Stream<int> countStream() async* {
+  for (int i = 0; i < 5; i++) {
+    await Future.delayed(Duration(seconds: 1));
+    yield i;
+  }
+}
+```
+
+Stream 类型：
+- Single subscription：只能被一个 listener 订阅。
+- Broadcast：可被多个 listener 订阅。
+
+常用 Stream 场景：
+- WebSocket、蓝牙数据、传感器、用户输入事件。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Future 是单一异步结果，类似 Promise；Stream 是异步事件序列，可监听多个事件。Future 适合单次请求，Stream 适合实时数据。
+
+---
+
+### FB-47-CO-B-011：Flutter 中如何处理网络请求？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：Flutter
+**标签**：Flutter、网络请求、http、dio
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 中常见的网络请求方案。
+
+**参考答案**：
+Flutter 网络请求方案：
+
+1. **http 包**
+   - Dart 官方提供的 HTTP 客户端。
+   - 轻量，适合简单请求。
+
+2. **dio**
+   - 强大的 Dart HTTP 客户端。
+   - 支持拦截器、请求取消、文件上传下载、全局配置等。
+   - 中大型项目首选。
+
+3. **retrofit / chopper**
+   - 类型安全的 REST API 客户端生成器。
+   - 类似 Android Retrofit。
+
+4. **graphql_flutter**
+   - 用于 GraphQL API 请求。
+
+网络请求最佳实践：
+- 封装网络层，统一处理错误、token、loading。
+- 使用模型类序列化 JSON（json_serializable、freezed）。
+- 处理超时和重试。
+- 注意异步操作后的 Widget 状态检查（mounted）。
+
+示例（dio）：
+```dart
+final dio = Dio();
+final response = await dio.get('https://api.example.com/items');
+```
+
+注意：
+- Android 需要配置 internet 权限。
+- iOS 需要配置 ATS（允许 HTTP 需配置）。
+- Web 有 CORS 限制。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 网络请求常用 http 包和 dio，dio 功能更强大支持拦截器等。复杂项目可用 retrofit 或 graphql。建议封装网络层，处理错误超时，JSON 序列化，检查 mounted。
+
+---
+
+### FB-47-CO-B-012：Flutter 中如何加载本地资源图片？
+
+**题型**：概念题
+**难度**：🟢 基础
+**岗位层级**：初级
+**面试知识域**：Flutter
+**标签**：Flutter、资源、图片、assets
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 中如何配置和使用本地图片资源。
+
+**参考答案**：
+Flutter 加载本地资源：
+
+1. **配置 pubspec.yaml**
+   ```yaml
+   flutter:
+     assets:
+       - assets/images/
+       - assets/logo.png
+   ```
+
+2. **使用 Image.asset 加载**
+   ```dart
+   Image.asset('assets/images/logo.png')
+   ```
+
+3. **使用不同分辨率图片**
+   - 按 `assets/images/2.0x/logo.png`、`3.0x/logo.png` 组织。
+   - Flutter 自动按设备密度选择。
+
+4. **加载其他资源**
+   - JSON：`DefaultAssetBundle.of(context).loadString('assets/data.json')`
+   - 字体：在 pubspec.yaml 中配置 fonts。
+
+注意事项：
+- 资源路径相对于项目根目录。
+- 目录资源需列出目录或具体文件。
+- 修改 pubspec 后需重新运行 `flutter pub get`。
+- Web 平台资源加载方式略有不同。
+
+示例完整配置：
+```yaml
+flutter:
+  assets:
+    - assets/images/
+  fonts:
+    - family: CustomFont
+      fonts:
+        - asset: assets/fonts/CustomFont.ttf
+```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 在 pubspec.yaml 的 flutter.assets 下配置资源路径，用 Image.asset 加载，支持 2.0x/3.0x 密度图，JSON 用 DefaultAssetBundle 加载，字体在 fonts 下配置。
+
+---
+
+### FB-47-FS-P-007：Flutter 的渲染原理是什么？为什么性能高？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：Flutter
+**标签**：Flutter、渲染、Skia、Impeller、性能
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 的渲染原理及其性能优势来源。
+
+**参考答案**：
+Flutter 渲染原理：
+
+1. **自绘引擎**
+   - Flutter 使用自己的渲染层，不依赖平台原生控件。
+   - 早期使用 Skia，现在逐步切换到 Impeller（iOS 已默认）。
+
+2. **渲染流程**
+   - Widget 描述 UI → Element 管理 → RenderObject 布局和绘制。
+   - 渲染层将绘制指令提交给 Skia/Impeller。
+   - 引擎将位图输出到屏幕。
+
+3. **统一 UI**
+   - 同一套代码在 iOS、Android、Web、桌面渲染一致。
+   - 避免平台差异导致的适配成本。
+
+性能优势：
+
+1. **直接控制渲染管线**
+   - 减少与平台原生 View 的通信开销。
+   - 动画和高频刷新更高效。
+
+2. **高效布局**
+   - 一次性布局约束传递（layout pass）。
+   - 避免传统 View 系统的多次 measure/layout。
+
+3. **GPU 加速**
+   - 绘制指令直接提交 GPU。
+   - Impeller 预编译 shader，减少 jank。
+
+4. **热重载**
+   - 开发阶段快速迭代，不直接提升运行时性能，但提升开发效率。
+
+5. **可控的刷新**
+   - 通过 SchedulerBinding 控制帧率和重绘范围。
+
+总结：Flutter 通过自绘引擎和统一的渲染管线，实现了接近原生的性能和多端一致性。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 自绘渲染，Widget 到 Element 到 RenderObject，再用 Skia/Impeller 绘制。性能高是因为直接控制渲染管线、减少平台通信、一次性布局、GPU 加速、Impeller 预编译 shader。
+
+---
+
+### FB-47-FS-P-008：Flutter 的 Key 有什么作用？什么时候需要使用 Key？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：Flutter
+**标签**：Flutter、Key、Widget、Element、复用
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 中 Key 的作用及使用场景。
+
+**参考答案**：
+Key 的作用：
+- Key 是 Widget 的标识，帮助框架在 Widget 树变化时识别哪些 Widget 应该复用对应的 Element。
+- 没有 Key 时，框架按位置比较 Widget。
+- 有 Key 时，框架按 Key 比较，可以跨位置复用 Element。
+
+使用场景：
+
+1. **列表项重排**
+   - 当列表顺序变化时，给 item 加 Key 可以保持每个 item 的状态。
+   - 否则框架可能错误复用 Element，导致状态错乱。
+
+2. **表单字段动态增删**
+   - 动态表单项需要 Key 来保持焦点和状态。
+
+3. **AnimatedSwitcher**
+   - 不同子 Widget 切换时，用 Key 区分动画对象。
+
+4. **跨状态保持**
+   - 当 Widget 在树中位置变化但希望保持状态时。
+
+Key 类型：
+- `ValueKey`：用值作为标识。
+- `ObjectKey`：用对象作为标识。
+- `UniqueKey`：每次创建唯一，适合一次性 Widget。
+- `GlobalKey`：全局唯一，可跨树访问 State。
+
+示例：
+```dart
+ListView.builder(
+  itemCount: items.length,
+  itemBuilder: (context, index) => ListTile(
+    key: ValueKey(items[index].id),
+    title: Text(items[index].name),
+  ),
+)
+```
+
+注意：不要滥用 Key，只在需要状态复用或跨位置匹配时使用。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Key 帮助框架在 Widget 树变化时按标识复用 Element。列表重排、动态表单、AnimatedSwitcher、跨状态保持时用 Key。有 ValueKey、ObjectKey、UniqueKey、GlobalKey。不要滥用。
+
+---
+
+### FB-47-FS-P-009：Flutter 中的 InheritedWidget 是什么？与 Provider 有什么关系？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：Flutter
+**标签**：Flutter、InheritedWidget、Provider、状态共享
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请解释 InheritedWidget 的作用，以及 Provider 如何基于它实现状态管理。
+
+**参考答案**：
+InheritedWidget：
+- 是 Flutter 中用于在 Widget 树中向下共享数据的机制。
+- 子 Widget 可以通过 `context.dependOnInheritedWidgetOfExactType<T>()` 获取数据。
+- 数据变化时，依赖它的子 Widget 会自动重建。
+
+Provider：
+- 是基于 InheritedWidget 封装的状态管理库。
+- 简化了 InheritedWidget 的使用，提供更友好的 API。
+
+关系：
+- Provider 内部使用 InheritedWidget 实现数据传递。
+- Provider 让开发者无需手动写 InheritedWidget。
+
+Provider 常用类：
+- `ChangeNotifierProvider`：配合 ChangeNotifier 使用。
+- `Provider`：提供不可变对象。
+- `Consumer`：监听并重建部分 UI。
+- `Selector`：选择部分数据监听，减少重建。
+
+示例：
+```dart
+ChangeNotifierProvider(
+  create: (_) => CounterModel(),
+  child: MyApp(),
+)
+
+// 读取
+context.watch<CounterModel>()
+context.read<CounterModel>()
+```
+
+ InheritedWidget 适合：
+- 主题、语言、配置等全局数据共享。
+- 底层机制理解。
+
+Provider 适合：
+- 日常状态管理，代码更简洁。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> InheritedWidget 是 Flutter 向下共享数据的机制，子 Widget 依赖它，数据变化自动重建。Provider 基于 InheritedWidget 封装，简化状态管理。
+
+---
+
+### FB-47-FS-P-010：Flutter 中如何与平台原生代码交互？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：Flutter
+**标签**：Flutter、Platform Channel、原生交互、MethodChannel
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 调用 Android/iOS 原生能力的方式。
+
+**参考答案**：
+Flutter 与原生交互方式：
+
+1. **Platform Channel**
+   - MethodChannel：方法调用，最常用的通道。
+   - BasicMessageChannel：传递字符串/二进制消息。
+   - EventChannel：原生向 Flutter 发送事件流。
+
+2. **PlatformView**
+   - 在 Flutter 中嵌入原生 View。
+   - 适合需要原生控件的场景，如地图、广告、摄像头。
+
+3. **FFI（Foreign Function Interface）**
+   - Dart 2.12+ 支持直接调用 C/C++ 库。
+   - 高性能场景可用，避免 Platform Channel 序列化开销。
+
+4. **插件（Plugin）**
+   - 将原生代码封装为 Flutter 插件，便于复用。
+   - 可发布到 pub.dev。
+
+MethodChannel 示例：
+```dart
+const platform = MethodChannel('com.example/channel');
+final result = await platform.invokeMethod('getBatteryLevel');
+```
+
+注意事项：
+- 通道名要唯一，避免冲突。
+- 原生代码中需处理主线程切换。
+- 数据传递需要可序列化。
+- 错误处理要完善。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 与原生交互有 Platform Channel（MethodChannel、BasicMessageChannel、EventChannel）、PlatformView 嵌入原生 View、FFI 调用 C/C++、插件封装。MethodChannel 最常用。
+
+---
+
+### FB-47-FS-P-011：Flutter 的热重载（Hot Reload）和热重启（Hot Restart）有什么区别？
+
+**题型**：框架原理题
+**难度**：🔴 深入
+**岗位层级**：专家
+**面试知识域**：Flutter
+**标签**：Flutter、Hot Reload、Hot Restart、开发效率
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 热重载和热重启的区别及使用场景。
+
+**参考答案**：
+区别：
+
+| 特性 | Hot Reload | Hot Restart |
+|------|-----------|-------------|
+| 速度 | 快，通常毫秒级 | 较慢，秒级 |
+| 状态保留 | 保留应用状态 | 不保留，重新初始化 |
+| 生效范围 | 修改的代码 | 全部代码 |
+| 适用场景 | UI 调整、小逻辑修改 | 全局状态、初始化逻辑变化 |
+| 触发方式 | r / 保存 | R |
+
+Hot Reload 原理：
+- 将修改后的 Dart 代码注入到运行中的 VM。
+- Widget 树重建，但 State 对象保留。
+
+Hot Restart 原理：
+- 重新编译并启动应用。
+- 所有 State 重置。
+
+使用建议：
+- UI 调整、事件处理修改：Hot Reload。
+- main 函数、全局变量、initState 修改：Hot Restart。
+- 原生代码修改：需要重新编译安装（Cold Restart）。
+
+限制：
+- Hot Reload 不会重新执行 main 和 initState。
+- 类结构重大变化可能需要 Hot Restart。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Hot Reload 快且保留状态，适合 UI 和小逻辑调整。Hot Restart 慢且不保留状态，重新初始化，适合全局状态变化。原生代码改后需冷启动。
+
+---
+
+### FB-47-PE-A-008：Flutter 应用启动慢如何优化？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、启动优化、性能、包体积
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 应用启动慢的优化方向。
+
+**参考答案**：
+Flutter 启动优化方向：
+
+1. **减小包体积**
+   - 压缩图片、删除无用资源。
+   - 使用 `--split-debug-info` 和 `--obfuscate`。
+   - 按需引入依赖，避免过度依赖。
+
+2. **延迟初始化**
+   - 非必要服务在首帧后初始化。
+   - 避免 main 函数中同步做大量工作。
+
+3. **优化首屏 Widget**
+   - 减少首屏构建复杂度。
+   - 使用 splash 屏占位。
+
+4. **减少 Shader 编译耗时**
+   - 使用 Impeller（iOS 默认）减少 shader 编译 jank。
+   - Android 可尝试开启 Impeller。
+   - 预缓存 shader（旧方案）。
+
+5. **网络请求优化**
+   - 首屏所需数据并行请求。
+   - 使用缓存先展示再更新。
+
+6. **Dart VM 启动优化**
+   - 减少主 isolate 初始化工作。
+   - 延后大对象创建。
+
+7. **原生层优化**
+   - Android：优化 Application onCreate。
+   - iOS：优化 AppDelegate 启动逻辑。
+
+8. **使用性能工具**
+   - Flutter DevTools  timeline 分析启动耗时。
+   - 原生 profiler 分析平台启动时间。
+
+9. **AOT 编译**
+   - release 模式使用 AOT，启动比 debug 快很多。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 启动优化要减小包体积、延迟初始化、优化首屏 Widget、用 Impeller 减少 shader 编译、网络请求并行和缓存、减少 isolate 初始化、优化原生层启动、用 DevTools 分析。
+
+---
+
+### FB-47-PE-A-009：Flutter 列表性能优化有哪些手段？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、ListView、性能、优化
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 中长列表的性能优化方案。
+
+**参考答案**：
+Flutter 长列表优化：
+
+1. **使用 ListView.builder**
+   - 懒加载，只构建可视区 item。
+   - 避免一次性构建所有 item。
+
+2. **设置 itemExtent**
+   - 固定高度列表设置 `itemExtent`，框架无需计算高度。
+   - 大幅提升滚动性能。
+
+3. **使用 const 构造函数**
+   - item Widget 尽量用 const，减少重建。
+
+4. **给 item 加 Key**
+   - 列表数据变化时正确复用 Element。
+
+5. **避免嵌套 ListView**
+   - 嵌套滚动容易导致性能问题和手势冲突。
+   - 可用 CustomScrollView + Sliver 组合。
+
+6. **图片优化**
+   - 列表图片懒加载、缓存、合适尺寸。
+   - 使用 cached_network_image。
+
+7. **减少 rebuild 范围**
+   - 列表项内部状态变化只重建局部。
+   - 使用 Selector、Consumer 等精确监听。
+
+8. **分页加载**
+   - 触底加载更多，避免一次性大数据。
+
+9. **避免复杂 item**
+   - 简化每个 item 的 UI 结构。
+
+10. **使用 RepaintBoundary**
+    - 对复杂 item 加 RepaintBoundary，减少重绘范围。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 长列表用 ListView.builder 懒加载，设置 itemExtent，item 用 const 和 Key，避免嵌套 ListView，图片优化，减少 rebuild 范围，分页加载，复杂 item 加 RepaintBoundary。
+
+---
+
+### FB-47-PE-A-010：Flutter 如何减少 Widget 重建？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、Widget、重建、性能、优化
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 中减少不必要 Widget 重建的方法。
+
+**参考答案**：
+减少 Widget 重建的方法：
+
+1. **const 构造函数**
+   - 对不依赖状态的子 Widget 使用 const。
+   - 父 Widget 重建时 const 子 Widget 不会重建。
+
+2. **细化状态作用域**
+   - 把状态放到最小需要它的 Widget 中。
+   - 避免高层 Widget 状态变化导致整树重建。
+
+3. **使用 Selector / Consumer**
+   - Provider 中 Selector 只监听部分数据变化。
+   - 减少依赖大范围状态的重建。
+
+4. **拆分 Widget**
+   - 将大 Widget 拆分为多个小 Widget。
+   - 每个小 Widget 独立管理状态和重建。
+
+5. **使用 const 集合**
+   - List、Map 等用 const 避免重复创建。
+
+6. **避免在 build 中创建对象**
+   - 避免每次 build 都创建新的对象或回调。
+   - 缓存 callback 和对象。
+
+7. **shouldRebuild 控制**
+   - CustomPainter、SliverChildBuilderDelegate 等可控制是否重建。
+
+8. **ValueNotifier + ValueListenableBuilder**
+   - 局部状态变化只重建监听部分。
+
+9. **合理设计 InheritedWidget**
+   -  InheritedWidget 更新时，只重建依赖它的子树。
+
+10. **使用 DevTools 分析**
+    - 用 Flutter Performance 工具查看重建情况。
+    - 针对性优化高频重建的 Widget。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> 减少 Widget 重建要 const 构造函数、细化状态作用域、Selector 监听部分数据、拆分 Widget、避免 build 中创建对象、ValueNotifier 局部刷新、用 DevTools 分析。
+
+---
+
+### FB-47-PE-A-011：Flutter 包体积如何优化？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、包体积、APK、IPA、优化
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 应用包体积优化的常见方法。
+
+**参考答案**：
+Flutter 包体积优化：
+
+1. **压缩图片资源**
+   - 使用 WebP 格式。
+   - 删除无用图片，使用合适分辨率。
+
+2. **移除未使用资源**
+   - 清理 pubspec 中引用的无用资源。
+   - 使用 flutter_asset_utils 等工具检查。
+
+3. **代码混淆**
+   - release 构建使用 `--obfuscate --split-debug-info`。
+   - 减小产物体积。
+
+4. **移除未使用依赖**
+   - 定期检查 pubspec，删除无用包。
+   - 使用 dependency_validator 等工具。
+
+5. **使用 deferred components**
+   - Android 支持延迟加载组件。
+   - 按需下载功能模块。
+
+6. **分平台构建**
+   - 分别构建 arm64、arm32、x86 版本。
+   - 避免一个包包含所有 ABI so。
+
+7. **字体优化**
+   - 只打包需要的字体字重。
+   - 使用系统字体替代自定义字体。
+
+8. **原生库优化**
+   - 检查原生依赖体积。
+   - 使用更轻量的替代方案。
+
+9. **分析包体积**
+   - 使用 `flutter build apk --analyze-size`。
+   - 使用 DevTools 的 App Size 工具。
+
+10. **资源 CDN 化**
+    - 大资源放 CDN，运行时下载。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 包体积优化要压缩图片、移除未用资源、代码混淆、移除未用依赖、延迟组件、分平台构建、字体优化、分析包体积、大资源 CDN 化。
+
+---
+
+### FB-47-PE-A-012：Flutter 中如何优化图片加载和内存？
+
+**题型**：性能优化题
+**难度**：🟡 进阶
+**岗位层级**：高级
+**面试知识域**：Flutter
+**标签**：Flutter、图片、内存、优化、缓存
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 中图片加载和内存优化的策略。
+
+**参考答案**：
+Flutter 图片优化策略：
+
+1. **使用合适尺寸**
+   - 不要加载远超显示尺寸的大图。
+   - 服务端支持按尺寸裁剪。
+
+2. **图片格式**
+   - 优先使用 WebP，体积更小。
+   - SVG 适合图标。
+
+3. **缓存策略**
+   - 使用 `cached_network_image` 包管理网络图片缓存。
+   - 控制内存和磁盘缓存大小。
+
+4. **懒加载**
+   - ListView 中图片默认懒加载。
+   - 避免首屏加载过多图片。
+
+5. **释放不可见图片**
+   - 长列表中图片离开可视区后可释放内存。
+   - 使用 `VisibilityDetector` 控制加载。
+
+6. **避免图片放大**
+   - Image 组件 fit 方式要合理。
+   - 内存中不要保存超过显示尺寸的图片。
+
+7. **占位图和淡入**
+   - 使用 placeholder 和 fade-in 提升体验。
+
+8. **本地图片优化**
+   - 使用 2.0x/3.0x 分辨率适配。
+   - 压缩资源图片。
+
+9. **内存监控**
+   - 使用 DevTools Memory 工具。
+   - 定位图片内存占用。
+
+10. **RepaintBoundary**
+    - 对复杂图片区域加 RepaintBoundary，减少重绘。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 图片优化要用合适尺寸、WebP、缓存网络图片、懒加载、释放不可见图片、合理 fit、占位图、内存监控、RepaintBoundary。
+
+---
+
+### FB-47-SC-R-005：Flutter 大型项目如何组织代码架构？
+
+**题型**：场景设计题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：Flutter
+**标签**：Flutter、架构、大型项目、分层
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 大型项目的代码组织方式和架构设计。
+
+**参考答案**：
+Flutter 大型项目架构：
+
+1. **分层架构**
+   - Presentation 层：UI、Widget、State。
+   - Domain 层：业务逻辑、实体、用例。
+   - Data 层：数据源、模型、仓库实现。
+
+2. **状态管理**
+   - 选择 Provider、Riverpod、Bloc、GetX 等。
+   - 统一状态管理方案，避免混用。
+
+3. **路由管理**
+   - 使用 go_router 或 auto_route。
+   - 集中管理路由和深层链接。
+
+4. **依赖注入**
+   - 使用 get_it、injectable 或 Riverpod 的依赖注入。
+   - 便于测试和解耦。
+
+5. **模块拆分**
+   - 按功能模块拆分为多个 package。
+   - 使用 melos 管理多包仓库。
+
+6. **代码生成**
+   - 使用 freezed、json_serializable、retrofit_generator。
+   - 减少样板代码。
+
+7. **测试策略**
+   - 单元测试、widget 测试、集成测试分层。
+   - 核心逻辑必须有测试覆盖。
+
+8. **CI/CD**
+   - 自动化构建、测试、代码质量检查、发布。
+
+9. **代码规范**
+   - lint 规则、Code Review、架构守卫。
+
+10. **示例结构**：
+    ```
+    lib/
+      main.dart
+      app.dart
+      features/
+        auth/
+          data/
+          domain/
+          presentation/
+        home/
+          ...
+      core/
+        utils/
+        theme/
+        router/
+    ```
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 大型项目用分层架构（Presentation/Domain/Data），统一状态管理，go_router 路由，依赖注入，功能模块拆包，代码生成，分层测试，CI/CD，代码规范。
+
+---
+
+### FB-47-SC-R-006：Flutter 跨平台开发中如何处理平台差异？
+
+**题型**：场景设计题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：Flutter
+**标签**：Flutter、跨平台、平台差异、适配
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 开发中处理 iOS/Android/Web/桌面平台差异的策略。
+
+**参考答案**：
+处理平台差异策略：
+
+1. **条件编译/平台判断**
+   ```dart
+   import 'dart:io' show Platform;
+   if (Platform.isIOS) { ... }
+   ```
+   或使用 `defaultTargetPlatform`。
+
+2. **PlatformView**
+   - 需要原生控件时用 PlatformView 嵌入。
+   - 如地图、视频播放器、广告。
+
+3. **插件抽象**
+   - 对平台能力封装统一接口。
+   - 内部用 Platform Channel 调用原生。
+
+4. **UI 适配**
+   - 使用 Material 和 Cupertino 组件。
+   - 根据平台选择合适风格。
+
+5. **响应式布局**
+   - 用 LayoutBuilder、MediaQuery 适配不同屏幕。
+   - Web 和桌面需要特别考虑大屏布局。
+
+6. **平台特定资源**
+   - Android 和 iOS 分别配置图标、启动图、权限。
+
+7. **功能降级**
+   - 某平台不支持的功能提供替代方案。
+   - 如 Web 不支持某些原生 API。
+
+8. **统一测试**
+   - 在不同平台模拟器和真机上测试。
+   - 关注手势、输入法、生命周期差异。
+
+9. **分支代码最小化**
+   - 尽量把平台差异封装在底层，业务代码保持统一。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> 处理平台差异用 Platform 判断、PlatformView 嵌入原生控件、插件抽象、Material/Cupertino UI、响应式布局、平台资源、功能降级、多平台测试、把差异封装在底层。
+
+---
+
+### FB-47-SC-R-007：Flutter 项目中如何做状态管理选型？
+
+**题型**：场景设计题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：Flutter
+**标签**：Flutter、状态管理、选型、Provider、Bloc、Riverpod
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 常见状态管理方案及选型建议。
+
+**参考答案**：
+Flutter 常见状态管理方案：
+
+| 方案 | 特点 | 适用场景 |
+|------|------|---------|
+| setState | 简单，内聚 | 局部简单状态 |
+| InheritedWidget | 底层共享机制 | 主题、配置等 |
+| Provider | 基于 InheritedWidget，易用 | 中小型项目 |
+| Riverpod | 编译安全，依赖注入 | 中大型项目 |
+| Bloc/Cubit | 事件驱动，可预测 | 复杂业务逻辑 |
+| GetX | 功能全面，学习曲线低 | 快速开发 |
+| MobX | 响应式 | 喜欢响应式编程 |
+
+选型建议：
+- 小项目：setState + Provider。
+- 中大型项目：Riverpod 或 Bloc。
+- 团队有响应式经验：MobX。
+- 快速原型：GetX。
+
+考虑因素：
+- 团队熟悉度。
+- 项目规模和复杂度。
+- 测试友好性。
+- 社区活跃度和长期维护。
+- 是否与其他架构（如 Clean Architecture）兼容。
+
+最佳实践：
+- 不要在一个项目中混用多种状态管理方案。
+- 状态管理要分层，UI 层只负责展示。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 状态管理有 setState、Provider、Riverpod、Bloc、GetX、MobX。小项目用 Provider，中大型用 Riverpod 或 Bloc，快速原型用 GetX。不要混用，状态管理分层。
+
+---
+
+### FB-47-SC-R-008：Flutter 应用的测试策略如何设计？
+
+**题型**：场景设计题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：Flutter
+**标签**：Flutter、测试、单元测试、Widget 测试、集成测试
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter 应用中单元测试、Widget 测试、集成测试的分工和实践。
+
+**参考答案**：
+Flutter 测试分层：
+
+1. **单元测试**
+   - 测试纯函数、业务逻辑、数据转换。
+   - 不依赖 UI。
+   - 使用 `flutter_test` 和 `mockito`。
+   - 运行快，覆盖率高。
+
+2. **Widget 测试**
+   - 测试单个 Widget 的渲染和交互。
+   - 验证 UI 状态变化、点击事件等。
+   - 使用 `tester.pumpWidget`、`tester.tap`。
+
+3. **集成测试**
+   - 测试完整用户流程。
+   - 在真机或模拟器上运行。
+   - 使用 `integration_test` 包。
+
+测试策略：
+- 单元测试覆盖核心业务逻辑。
+- Widget 测试覆盖关键交互组件。
+- 集成测试覆盖核心用户路径。
+- 测试金字塔：单元测试最多，集成测试最少。
+
+CI 集成：
+- 每次 PR 自动跑单元测试和 Widget 测试。
+-  nightly 或发布前跑集成测试。
+
+最佳实践：
+- 业务逻辑与 UI 解耦，便于单元测试。
+- 使用依赖注入，方便 mock。
+- 避免过度测试 UI 细节。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 测试分单元测试、Widget 测试、集成测试。单元测纯逻辑，Widget 测单个组件渲染交互，集成测完整流程。金字塔结构，CI 自动跑，业务逻辑与 UI 解耦便于测试。
+
+---
+
+### FB-47-SD-R-008：Flutter 混合开发（与原生项目集成）有哪些方案？
+
+**题型**：系统设计题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：Flutter
+**标签**：Flutter、混合开发、原生集成、Flutter Module
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明在现有 Android/iOS 项目中集成 Flutter 的方案。
+
+**参考答案**：
+Flutter 混合开发方案：
+
+1. **Flutter Module**
+   - 将 Flutter 作为模块集成到现有原生项目中。
+   - Android 通过 `flutter attach` 或 aar 依赖。
+   - iOS 通过 pod 或 framework 依赖。
+   - 适合逐步迁移。
+
+2. **Flutter Engine 复用**
+   - 多个 Flutter 页面共享同一个 FlutterEngine。
+   - 减少引擎启动开销。
+   - 需要管理引擎生命周期。
+
+3. **PlatformView**
+   - 原生 View 嵌入 Flutter。
+   - 或 Flutter View 嵌入原生页面。
+
+4. **多 Flutter 引擎**
+   - 每个 Flutter 页面独立引擎。
+   - 简单但内存开销大。
+
+集成步骤：
+1. 创建 Flutter module：`flutter create --template module my_flutter_module`。
+2. 原生项目配置依赖。
+3. 原生代码中创建 FlutterView 或 FlutterFragment/FlutterViewController。
+4. 通过 Platform Channel 通信。
+
+挑战：
+- 包体积增加。
+- 原生与 Flutter 页面跳转和生命周期协调。
+- 状态共享和路由管理。
+- 构建流程复杂。
+
+建议：
+- 新项目优先纯 Flutter。
+- 老项目逐步迁移，先独立模块。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter 混合开发主要用 Flutter Module 集成到原生项目，可复用 FlutterEngine。PlatformView 嵌入原生 View。集成要注意包体积、生命周期、状态共享、构建流程。
+
+---
+
+### FB-47-SD-R-009：Flutter Web 的性能优化和适配有哪些要点？
+
+**题型**：系统设计题
+**难度**：🔵 架构
+**岗位层级**：架构师
+**面试知识域**：Flutter
+**标签**：Flutter Web、性能、适配、优化
+**出现频率**：高频
+**预计回答时长**：5-8 分钟
+
+**题目描述**：
+请说明 Flutter Web 项目中的性能优化和浏览器适配要点。
+
+**参考答案**：
+Flutter Web 优化要点：
+
+1. **渲染模式选择**
+   - html renderer：文件小，适合移动端。
+   - canvaskit renderer：性能好，适合桌面，但需下载 wasm。
+   - 根据场景选择或自动切换。
+
+2. **首屏加载优化**
+   - 压缩 main.dart.js。
+   - 使用 CDN、Gzip/Brotli。
+   - 添加 loading 占位。
+
+3. **SEO 优化**
+   - Flutter Web 默认对 SEO 不友好。
+   - 使用 `flutter_seo` 或 SSR 方案（如 flutter_rust_bridge + 服务端渲染）。
+   - 关键页面使用静态 HTML。
+
+4. **浏览器兼容**
+   - 测试主流浏览器 Chrome、Safari、Edge、Firefox。
+   - 注意 WebGL、触摸事件差异。
+
+5. **响应式布局**
+   - Web 屏幕尺寸多样，用 LayoutBuilder、MediaQuery 适配。
+
+6. **滚动和手势**
+   - Web 滚动行为与移动端不同。
+   - 注意 hover、右键菜单等桌面交互。
+
+7. **资源优化**
+   - 图片、字体按需加载。
+   - 使用 Web 友好的资源格式。
+
+8. **减少 rebuild**
+   - Web 上 Widget 重建成本更高，需更注意性能。
+
+9. **测试**
+   - 多浏览器、多分辨率测试。
+   - 关注加载时间和交互流畅度。
+
+**评分维度**：
+- 能准确理解问题并给出结构化回答（40%）
+- 能结合实际案例或数据说明（30%）
+- 能体现业务思维与技术落地的结合（30%）
+
+**常见错误**：
+- 回答过于空泛，缺乏具体做法。
+- 只谈技术实现，忽略业务目标和约束。
+- 没有考虑风险和可执行性。
+
+**口头回答版**：
+> Flutter Web 要选对渲染模式，压缩 JS，CDN 加速，做 SEO，浏览器兼容测试，响应式布局，适配桌面交互，资源优化，减少 rebuild，多浏览器测试。
+
+---
