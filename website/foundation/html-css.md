@@ -91,10 +91,10 @@ CSS 工程化不是让 CSS 更像 JS，而是建立一套**可预测、可复用
 ### 2.4 不要用 div 模拟一切
 
 ```html
-<!-- ❌ 不推荐 -->
+<!-- 不推荐 -->
 <div class="button" onclick="submit()">提交</div>
 
-<!-- ✅ 推荐 -->
+<!-- 推荐 -->
 <button type="submit">提交</button>
 ```
 
@@ -254,7 +254,7 @@ Subgrid 允许子网格继承父网格的轨道定义：
 .margin-inline-start: 1rem;
 ```
 
-这对 RTL（从右到左）语言布局至关重要（参见 A09 国际化与本地化架构）。
+这对 RTL（从右到左）语言布局至关重要。
 
 ---
 
@@ -277,11 +277,11 @@ Subgrid 允许子网格继承父网格的轨道定义：
 - 批量读写布局属性，避免强制同步布局（Forced Synchronous Layout）。
 
 ```js
-// ❌ 强制同步布局
+// 强制同步布局
 const width = element.offsetWidth;
 element.style.width = width + 10 + 'px';
 
-// ✅ 批量处理
+// 批量处理
 const width = element.offsetWidth;
 requestAnimationFrame(() => {
   element.style.width = width + 10 + 'px';
@@ -293,14 +293,14 @@ requestAnimationFrame(() => {
 现代浏览器对选择器匹配优化得很好，但仍需避免：
 
 ```css
-/* ❌ 过度具体且低效 */
+/* 过度具体且低效 */
 body div.container ul li a span { }
 
-/* ✅ 简洁明确 */
+/* 简洁明确 */
 .card-link { }
 ```
 
-### 5.3  will-change 与合成层
+### 5.3 will-change 与合成层
 
 ```css
 .animated-element {
@@ -402,11 +402,6 @@ document.documentElement.style.setProperty('--color-primary', '#ef4444');
 - 🟡 [Tailwind CSS 文档](https://tailwindcss.com/docs)
 - 🔴 [CSSWG 规范](https://www.w3.org/Style/CSS/specs.en.html)
 
----
-
-**标签**：`#html` `#css` `#响应式设计` `#css架构` `#design-tokens` `#性能优化`
-
-> **最后更新**：2026-06-25
 
 
 ---

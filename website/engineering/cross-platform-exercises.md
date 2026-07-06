@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
 ::: details 查看答案与解析
 **答案：**
 
-```wxml
+```xml
 <!-- pages/index/index.wxml -->
 <view class="container">
   <text>&#123;&#123; message &#125;&#125;</text>

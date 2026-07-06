@@ -44,6 +44,57 @@ const interviewLevelMap = {
   'architect': '前端架构师',
 };
 
+const textMap = {
+  'javascript': 'JavaScript 语言基础',
+  'typescript': 'TypeScript 类型系统',
+  'browser': '浏览器原理',
+  'network': '计算机网络',
+  'security': 'Web 安全',
+  'html-css': 'HTML/CSS 工程化',
+  'a11y': 'Web 无障碍',
+  'data-structures-algorithms': '数据结构与算法',
+  'design-patterns': '设计模式与软件工程基础',
+  'build-tools': '构建工具',
+  'monorepo': 'Monorepo 工程管理',
+  'ci-cd': 'CI/CD 与 DevOps',
+  'code-quality': '代码质量与测试体系',
+  'design-system': '设计体系与组件库',
+  'react': 'React 原理与生态',
+  'vue': 'Vue 原理与生态',
+  'cross-platform': '跨端技术',
+  'ai-engineering': 'AI 工程化',
+  'node-bff': 'Node.js / BFF 服务端',
+  'git-workflow': 'Git 工作流与版本控制',
+  'developer-experience': 'Developer Experience',
+  'deployment-sre': '前端部署与运维（SRE）',
+  'package-supply-chain': '前端包管理与供应链安全',
+  'system-architecture': '系统架构设计',
+  'micro-frontend': '微前端',
+  'performance': '性能工程',
+  'quality': '质量保障',
+  'data-state': '数据与状态管理',
+  'observability': '可观测性与稳定性工程',
+  'security-architecture': '前端安全架构',
+  'real-time': '实时与协同架构',
+  'internationalization': '国际化与本地化架构',
+  'visualization-graphics': '前端可视化与图形架构',
+  'serverless-edge': 'Serverless / Edge 架构',
+  'data-engineering': '前端数据工程',
+  'business': '业务洞察',
+  'team': '团队领导力',
+  'strategy': '技术战略',
+  'communication': '沟通表达与影响力',
+  'project-management': '项目管理与交付',
+  'hiring': '招聘培养与组织发展',
+  'tech-branding': '技术品牌与社区影响力',
+  'tech-governance': '技术治理与变革管理',
+  'adr-001-monorepo-adoption': 'ADR-001：Monorepo 采用',
+  'adr-002-ai-sdk-selection': 'ADR-002：AI SDK 选型',
+  'code-review-sample': 'Code Review 示例',
+  'performance-sop-sample': '性能优化 SOP 示例',
+  'tech-debt-sample': '技术债登记册示例',
+};
+
 function getFiles(dir) {
   const fullDir = path.join(websiteDir, dir);
   if (!fs.existsSync(fullDir)) return [];
@@ -65,51 +116,6 @@ function getFiles(dir) {
     })
     .map(f => {
       const name = f.replace('.md', '');
-      const textMap = {
-        'javascript': 'JavaScript 语言基础',
-        'typescript': 'TypeScript 类型系统',
-        'browser': '浏览器原理',
-        'network': '计算机网络',
-        'security': 'Web 安全',
-        'html-css': 'HTML/CSS 工程化',
-        'a11y': 'Web 无障碍',
-        'data-structures-algorithms': '数据结构与算法',
-        'design-patterns': '设计模式与软件工程基础',
-        'build-tools': '构建工具',
-        'monorepo': 'Monorepo 工程管理',
-        'ci-cd': 'CI/CD 与 DevOps',
-        'code-quality': '代码质量与测试体系',
-        'design-system': '设计体系与组件库',
-        'react': 'React 原理与生态',
-        'vue': 'Vue 原理与生态',
-        'cross-platform': '跨端技术',
-        'ai-engineering': 'AI 工程化',
-        'node-bff': 'Node.js / BFF 服务端',
-        'git-workflow': 'Git 工作流与版本控制',
-        'developer-experience': 'Developer Experience',
-        'deployment-sre': '前端部署与运维（SRE）',
-        'package-supply-chain': '前端包管理与供应链安全',
-        'system-architecture': '系统架构设计',
-        'micro-frontend': '微前端',
-        'performance': '性能工程',
-        'quality': '质量保障',
-        'data-state': '数据与状态管理',
-        'observability': '可观测性与稳定性工程',
-        'security-architecture': '前端安全架构',
-        'real-time': '实时与协同架构',
-        'internationalization': '国际化与本地化架构',
-        'visualization-graphics': '前端可视化与图形架构',
-        'serverless-edge': 'Serverless / Edge 架构',
-        'data-engineering': '前端数据工程',
-        'business': '业务洞察',
-        'team': '团队领导力',
-        'strategy': '技术战略',
-        'communication': '沟通表达与影响力',
-        'project-management': '项目管理与交付',
-        'hiring': '招聘培养与组织发展',
-        'tech-branding': '技术品牌与社区影响力',
-        'tech-governance': '技术治理与变革管理',
-      };
 
       let text = textMap[name] || name;
       if (isInterviewBank) {
@@ -124,6 +130,26 @@ function getFiles(dir) {
 
       return { text, link: `/${dir}/${name}` };
     });
+}
+
+function getGroupedFiles(dir) {
+  const files = getFiles(dir);
+  const docs = [];
+  const exercises = [];
+  const interviews = [];
+
+  for (const item of files) {
+    const name = item.link.split('/').pop();
+    if (name.endsWith('-exercises')) exercises.push(item);
+    else if (name.endsWith('-interview')) interviews.push(item);
+    else docs.push(item);
+  }
+
+  return [
+    { text: '学习文档', collapsed: false, items: docs },
+    { text: '练习册', collapsed: true, items: exercises },
+    { text: '面试题', collapsed: true, items: interviews },
+  ].filter(group => group.items.length > 0);
 }
 
 const sidebar = {
@@ -143,28 +169,28 @@ const sidebar = {
     {
       text: 'Level 01 基础层',
       collapsed: false,
-      items: getFiles('foundation')
+      items: getGroupedFiles('foundation')
     }
   ],
   '/engineering/': [
     {
       text: 'Level 02 工程化层',
       collapsed: false,
-      items: getFiles('engineering')
+      items: getGroupedFiles('engineering')
     }
   ],
   '/architecture/': [
     {
       text: 'Level 03 架构层',
       collapsed: false,
-      items: getFiles('architecture')
+      items: getGroupedFiles('architecture')
     }
   ],
   '/leadership/': [
     {
       text: 'Level 04 领导力层',
       collapsed: false,
-      items: getFiles('leadership')
+      items: getGroupedFiles('leadership')
     }
   ],
   '/resources/': [
@@ -204,6 +230,11 @@ const sidebar = {
         { text: '性能优化 SOP', link: '/templates/performance-sop' },
         { text: '技术债登记册', link: '/templates/tech-debt' },
       ]
+    },
+    {
+      text: '示例',
+      collapsed: true,
+      items: getFiles('templates/examples')
     }
   ],
   '/contribute/': [

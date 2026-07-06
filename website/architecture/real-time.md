@@ -25,13 +25,61 @@
 
 | 方案 | 方向 | 实时性 | 适用场景 |
 |------|------|--------|---------|
-| 轮询 | 客户端主动 | 低 | 简单查询 |
+| 短轮询 | 客户端主动 | 低 | 简单查询 |
 | 长轮询 | 客户端主动 | 中 | 聊天室早期实现 |
-| SSE | 服务端 → 客户端 | 高 | 股票行情、通知推送 |
+| SSE | 服务端 -> 客户端 | 高 | 股票行情、通知推送 |
 | WebSocket | 双向 | 高 | 即时通讯、游戏、协同编辑 |
 | WebRTC | P2P 双向 | 高 | 音视频通话、文件传输 |
 
-### 1.1 WebSocket
+### 1.1 短轮询 vs 长轮询
+
+**短轮询（Short Polling）**
+
+客户端按固定间隔向服务器发起 HTTP 请求，服务端立即返回响应（无论是否有新数据）。
+
+```js
+// 短轮询示例
+setInterval(async () => {
+  const res = await fetch('/api/messages');
+  const data = await res.json();
+  if (data.length > 0) {
+    updateUI(data);
+  }
+}, 3000); // 每 3 秒轮询一次
+```
+
+优缺点：
+- 优点：实现最简单，兼容性最好。
+- 缺点：大量空请求浪费带宽，延迟取决于轮询间隔，实时性差。
+
+**长轮询（Long Polling）**
+
+客户端发起请求后，服务端保持连接打开，直到有新数据或超时才返回。客户端收到响应后立即发起新的请求。
+
+```js
+// 长轮询示例
+async function longPoll() {
+  try {
+    const res = await fetch('/api/poll');
+    const data = await res.json();
+    updateUI(data);
+  } catch (e) {
+    // 超时或错误后重新连接
+  }
+  longPoll(); // 收到响应后立即发起下一次
+}
+longPoll();
+```
+
+| 特性 | 短轮询 | 长轮询 |
+|------|--------|--------|
+| 请求频率 | 固定间隔 | 有数据时触发 |
+| 实时性 | 低（取决于间隔） | 中（取决于服务端响应速度） |
+| 服务端压力 | 高（大量空请求） | 中（连接保持但减少空响应） |
+| 实现复杂度 | 低 | 中 |
+| 适用场景 | 不重要、低频查询 | 实时性要求中等的场景 |
+
+### 1.2 WebSocket
 
 ```js
 const ws = new WebSocket('wss://api.example.com/chat');
@@ -44,18 +92,273 @@ ws.onclose = () => reconnect();
 优点：全双工、低延迟、头部开销小。
 缺点：需要单独协议和基础设施，代理/防火墙可能干扰。
 
-### 1.2 SSE
+#### WebSocket 协议深度解析
 
-```js
-const source = new EventSource('/api/events');
-source.onmessage = (event) => console.log(event.data);
-source.onerror = () => console.error('SSE error');
+WebSocket 协议（RFC 6455）在 HTTP 握手后升级为独立的帧协议。
+
+**帧结构**
+
+```
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-------+-+-------------+-------------------------------+
+|F|R|R|R| opcode|M| Payload len |    Extended payload length    |
+|I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |
+|N|V|V|V|       |S|             |   (if payload len==126/127)   |
+| |1|2|3|       |K|             |                               |
++-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
+|     Extended payload length continued, if payload len == 127  |
++ - - - - - - - - - - - - - - - +-------------------------------+
+|                               |Masking-key, if MASK set to 1  |
++-------------------------------+-------------------------------+
+| Masking-key (continued)       |          Payload Data         |
++-------------------------------- - - - - - - - - - - - - - - - +
+:                     Payload Data continued ...                :
++ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
+|                     Payload Data (continued)                  |
++---------------------------------------------------------------+
 ```
 
-优点：基于 HTTP，自动重连，适合服务端推送。
-缺点：仅支持服务端到客户端单向。
+关键字段：
+- **FIN**：标记是否为最后一帧（可分段传输）。
+- **Opcode**：帧类型 — 0x1（文本）、0x2（二进制）、0x8（关闭）、0x9（Ping）、0xA（Pong）。
+- **MASK**：客户端发往服务端的数据必须掩码，服务端发往客户端不需要。
+- **Payload Length**：7/16/64 位变长编码，126 表示后续 2 字节，127 表示后续 8 字节。
 
-### 1.3 选型建议
+**WebSocket 扩展**
+
+- **permessage-deflate**：对消息载荷进行压缩（RFC 7692），可显著减少带宽。
+- **multiplexing**：在一个 TCP 连接上复用多个 WebSocket 子通道。
+
+**Ping/Pong 帧**
+
+WebSocket 协议内置心跳，无需在应用层发送心跳消息：
+
+```
+客户端 -> 服务端：Ping 帧（opcode 0x9）
+服务端 -> 客户端：Pong 帧（opcode 0xA）回复
+```
+
+如果服务端未收到 Pong，则判定连接断开。
+
+```js
+// 服务端 Ping 示例（Node.js ws 库）
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on('connection', (ws) => {
+  ws.isAlive = true;
+  ws.on('pong', () => { ws.isAlive = true; });
+});
+
+// 定时检测
+const interval = setInterval(() => {
+  wss.clients.forEach((ws) => {
+    if (ws.isAlive === false) return ws.terminate();
+    ws.isAlive = false;
+    ws.ping();
+  });
+}, 30000);
+
+wss.on('close', () => clearInterval(interval));
+```
+
+### 1.3 SSE（Server-Sent Events）
+
+SSE 是 HTML5 规范的一部分，允许服务端通过 HTTP 连接持续推送数据。
+
+```js
+// 基础 SSE 使用
+const source = new EventSource('/api/events');
+
+source.addEventListener('open', () => {
+  console.log('SSE 连接已建立');
+});
+
+source.addEventListener('message', (event) => {
+  const data = JSON.parse(event.data);
+  updateUI(data);
+});
+
+source.addEventListener('error', (err) => {
+  console.error('SSE 连接错误', err);
+});
+
+// 自定义事件类型
+source.addEventListener('stock-update', (event) => {
+  updateStock(JSON.parse(event.data));
+});
+
+source.addEventListener('notification', (event) => {
+  showNotification(event.data);
+});
+```
+
+**SSE 服务端实现（Node.js）**
+
+```js
+const http = require('http');
+
+http.createServer((req, res) => {
+  if (req.url === '/api/events') {
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*'
+    });
+
+    // 发送初始数据
+    res.write('data: {\"status\": \"connected\"}
+
+');
+
+    // 定期推送
+    const intervalId = setInterval(() => {
+      const data = JSON.stringify({ time: Date.now(), value: Math.random() });
+      res.write('event: stock-update
+');
+      res.write('id: ' + Date.now() + '
+');
+      res.write('data: ' + data + '
+
+');
+    }, 1000);
+
+    req.on('close', () => {
+      clearInterval(intervalId);
+      res.end();
+    });
+  }
+}).listen(3000);
+```
+
+**SSE 消息格式**
+
+每条 SSE 消息由一行或多行组成，以双换行分隔：
+
+```
+event: notification    # 事件类型（可选）
+id: msg-001           # 事件 ID（可选，用于断线续传）
+retry: 3000           # 重连间隔（毫秒，可选）
+data: {\"text\": \"hi\"}  # 数据内容（必需）
+
+: 注释行（客户端忽略）
+
+```
+
+**SSE 完整重连逻辑**
+
+虽然 EventSource 浏览器原生支持自动重连，但可自定义增强：
+
+```js
+class ReconnectingEventSource {
+  constructor(url, options = {}) {
+    this.url = url;
+    this.options = options;
+    this.reconnectInterval = options.reconnectInterval || 3000;
+    this.maxReconnectInterval = options.maxReconnectInterval || 30000;
+    this.reconnectAttempts = 0;
+    this.lastEventId = null;
+    this.connect();
+  }
+
+  connect() {
+    const url = this.lastEventId
+      ? this.url + '?lastEventId=' + this.lastEventId
+      : this.url;
+
+    this.source = new EventSource(url);
+
+    this.source.onopen = () => {
+      this.reconnectAttempts = 0;
+      console.log('SSE 已连接');
+    };
+
+    this.source.onmessage = (event) => {
+      this.lastEventId = event.lastEventId || this.lastEventId;
+      if (this.options.onMessage) {
+        this.options.onMessage(event.data);
+      }
+    };
+
+    this.source.onerror = () => {
+      this.source.close();
+      const delay = Math.min(
+        this.reconnectInterval * Math.pow(2, this.reconnectAttempts),
+        this.maxReconnectInterval
+      );
+      this.reconnectAttempts++;
+      console.log('SSE 第 ' + this.reconnectAttempts + ' 次重连，延迟 ' + delay + 'ms');
+      setTimeout(() => this.connect(), delay);
+    };
+  }
+
+  close() {
+    this.source.close();
+  }
+}
+```
+
+优点：基于 HTTP 协议，浏览器原生支持自动重连，头部开销小，实现简单。
+缺点：仅支持服务端到客户端单向；浏览器同源限制（需 CORS）；连接数有限制（HTTP/1.1 每个域名 6 个连接）。
+
+### 1.4 WebRTC DataChannel
+
+WebRTC 不仅支持音视频，还支持 P2P 数据传输（DataChannel）。
+
+```js
+// 信令服务器（简化）
+const signalingServer = new WebSocket('wss://signaling.example.com');
+
+// 创建 RTCPeerConnection
+const pc = new RTCPeerConnection({
+  iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+});
+
+// 创建 DataChannel
+const dataChannel = pc.createDataChannel('chat', {
+  ordered: false,          // 无序传输以提高性能
+  maxRetransmits: 3        // 最大重传次数
+});
+
+dataChannel.onopen = () => {
+  dataChannel.send(JSON.stringify({ text: 'Hello P2P!' }));
+};
+
+dataChannel.onmessage = (event) => {
+  console.log('接收到 P2P 消息:', event.data);
+};
+
+dataChannel.onerror = (err) => console.error('DataChannel 错误:', err);
+
+// ICE 候选和 SDP 交换通过信令服务器进行
+pc.onicecandidate = (event) => {
+  if (event.candidate) {
+    signalingServer.send(JSON.stringify({
+      type: 'ice-candidate', candidate: event.candidate
+    }));
+  }
+};
+
+pc.onnegotiationneeded = async () => {
+  const offer = await pc.createOffer();
+  await pc.setLocalDescription(offer);
+  signalingServer.send(JSON.stringify({
+    type: 'offer', sdp: pc.localDescription
+  }));
+};
+```
+
+| 特性 | WebRTC DataChannel | WebSocket |
+|------|--------------------|-----------|
+| 架构 | P2P，无需服务器中转 | 需要服务器 |
+| 延迟 | 极低（直连） | 低（服务器中转） |
+| 适用场景 | 文件传输、实时游戏 | 即时通讯、协同编辑 |
+| 复杂度 | 高（需要 STUN/TURN/信令） | 低 |
+| 穿透 NAT | 需要 STUN/TURN | 不需要（服务器中转） |
+
+### 1.5 选型建议
 
 - 单向通知/推送：SSE。
 - 双向高频交互：WebSocket。
@@ -104,18 +407,18 @@ function reconnect() {
 
 ```
 单一 WebSocket 连接
-    ├── 消息路由到聊天模块
-    ├── 消息路由到通知模块
-    └── 消息路由到协同编辑模块
+    |-> 消息路由到聊天模块
+    |-> 消息路由到通知模块
+    |-> 消息路由到协同编辑模块
 ```
 
 ### 2.4 服务端架构
 
 ```
-客户端 → Load Balancer → WebSocket 服务器集群
-                              ↓
+客户端 -> Load Balancer -> WebSocket 服务器集群
+                              |
                          Redis Pub/Sub（房间状态广播）
-                              ↓
+                              |
                          业务服务（消息持久化）
 ```
 
@@ -124,54 +427,335 @@ function reconnect() {
 - 水平扩展 WebSocket 服务器。
 - 消息持久化用于断线重连补发。
 
----
+### 3.2 OT（Operational Transformation）算法深入
 
-## 三、协同编辑架构
+OT 的核心思想：当多个用户同时编辑文档时，服务端将并发的操作进行变换，使得不同顺序应用操作也能得到一致的结果。
 
-### 3.1 核心问题
+**OT 基本原理**
 
-多人同时编辑同一文档时，需要解决：
-- 操作冲突
-- 顺序不一致
-- 最终一致性
-
-### 3.2 OT（Operational Transformation）
-
-OT 通过变换操作来保持文档一致性：
+假设用户 A 在位置 3 插入字符 "x"，用户 B 在位置 5 删除字符 "y"。服务端收到 A 的操作后，B 的操作位置需要根据 A 的插入进行调整：
 
 ```
-用户 A：在位置 3 插入 "x"
-用户 B：在位置 5 删除 "y"
-服务端根据操作顺序变换，保证最终一致
+原始文档: "hello world"
+用户 A: insert(3, 'x')  -> "hexllo world"
+用户 B: delete(5, 'y')  -> "hello world"
+
+如果先应用 A 再应用 B（不对 B 变换）:
+"hexllo world" -> delete(5, 'y') 删除的是位置 5 的 'l'，而不是 'y' -> 错误！
+
+正确做法：对 B 的 delete(5, 'y') 进行变换：
+B 的操作在 A 之后应用，由于 A 在位置 3 插入了字符，位置 5 变为位置 6
+变换后 B': delete(6, 'y')  -> "hexlo world"
+
+**OT 核心函数**
+
+```
+transform(op_a, op_b) -> (op_a', op_b')
 ```
 
-优点：成熟，Google Docs 等使用。
-缺点：实现复杂，对离线支持较弱。
+对两个并发操作进行变换，使得无论以何种顺序应用变换后的操作，结果一致。
 
-### 3.3 CRDT（Conflict-free Replicated Data Type）
+**简单 OT 实现示例**
 
-CRDT 通过数据结构本身的数学特性保证最终一致，无需中央协调。
+```js
+class Operation {
+  constructor(type, pos, chars) {
+    this.type = type;    // 'insert' | 'delete' | 'retain'
+    this.pos = pos;
+    this.chars = chars;
+  }
+}
 
-优点：
-- 天然支持离线编辑。
-- 实现相对简单。
-- 去中心化。
+function transformInsert(op1, op2) {
+  if (op2.type === 'insert' && op2.pos <= op1.pos) {
+    return new Operation('insert', op1.pos + op2.chars.length, op1.chars);
+  }
+  if (op2.type === 'delete' && op2.pos < op1.pos) {
+    return new Operation('insert',
+      op1.pos - Math.min(op1.pos - op2.pos, op2.chars.length), op1.chars);
+  }
+  return op1;
+}
 
-代表库：Yjs、Automerge。
+function transformDelete(op1, op2) {
+  if (op2.type === 'insert' && op2.pos <= op1.pos) {
+    return new Operation('delete', op1.pos + op2.chars.length, op1.chars);
+  }
+  if (op2.type === 'delete') {
+    if (op2.pos < op1.pos) {
+      const shift = Math.min(op1.pos - op2.pos, op2.chars.length);
+      return new Operation('delete', op1.pos - shift, op1.chars);
+    }
+    if (op2.pos === op1.pos) {
+      return new Operation('delete', op1.pos,
+        op1.chars.length > op2.chars.length ? op1.chars : '');
+    }
+  }
+  return op1;
+}
+```
 
-### 3.4 选型建议
+**OT 的优缺点**
+- 优点：响应速度快（本地操作无需等待服务端确认），带宽占用小，Google Docs 等产品验证成熟。
+- 缺点：实现极其复杂（需要处理所有边缘情况），对离线支持较弱，需要中心化服务端协调。
 
-| 场景 | 推荐 |
-|------|------|
-| 中心化、强一致 | OT |
-| 去中心化、离线优先 | CRDT |
-| 快速实现 | CRDT（Yjs） |
+### 3.3 CRDT（Conflict-free Replicated Data Type）深入
+
+CRDT 通过数据结构本身的数学特性保证最终一致性。每个副本独立修改，合并时自动解决冲突，无需中央协调。
+
+**CRDT 的两种类型**
+
+1. **State-based CRDT (CvRDT)**：定期交换完整状态，合并函数满足交换律、结合律、幂等律。
+2. **Operation-based CRDT (CmRDT)**：广播操作（而非状态），操作满足交换律。
+
+**使用 Yjs 实现协同编辑**
+
+```js
+// 安装: npm install yjs y-websocket
+
+import * as Y from 'yjs';
+
+// 创建 Yjs 文档
+const ydoc = new Y.Doc();
+
+// 创建共享文本类型
+const ytext = ydoc.getText('content');
+
+// 监听变化
+ytext.observe((event) => {
+  console.log('文本变更:', event.delta);
+  updateEditorContent(ytext.toString());
+});
+
+// 本地修改
+ytext.insert(0, 'Hello ');
+ytext.insert(6, 'World!');
+ytext.delete(0, 6); // 删除 "Hello "
+
+// 连接到同步提供者
+import { WebsocketProvider } from 'y-websocket';
+
+const wsProvider = new WebsocketProvider(
+  'wss://yjs-server.example.com',
+  'my-room-name',
+  ydoc
+);
+
+wsProvider.on('sync', (isSynced) => {
+  console.log('同步状态:', isSynced ? '已同步' : '未同步');
+});
+
+// 与 Quill 编辑器集成
+import { QuillBinding } from 'y-quill';
+const binding = new QuillBinding(ytext, quillEditor);
+
+// 与 Monaco Editor 集成
+import { MonacoBinding } from 'y-monaco';
+const monacoBinding = new MonacoBinding(ytext, monacoEditor);
+```
+
+**使用 Automerge 实现协同编辑**
+
+```js
+// 安装: npm install @automerge/automerge
+
+import * as Automerge from '@automerge/automerge';
+
+// 创建文档
+let doc = Automerge.init();
+
+// 修改文档
+doc = Automerge.change(doc, '初始内容', (d) => {
+  d.text = 'Hello World';
+  d.counter = 0;
+  d.items = [];
+});
+
+// 添加变更
+doc = Automerge.change(doc, '添加项目', (d) => {
+  d.items.push({ id: '1', text: 'Task 1', done: false });
+  d.counter += 1;
+});
+
+// 合并两个副本
+const doc1 = Automerge.change(Automerge.init(), 'A的修改', (d) => {
+  d.text = 'Hello from A';
+});
+
+const doc2 = Automerge.change(Automerge.init(), 'B的修改', (d) => {
+  d.text = 'Hello from B';
+});
+
+// 合并后自动解决冲突
+const merged = Automerge.merge(doc1, doc2);
+console.log(merged.text); // 根据 LWW 策略决定最终值
+```
+
+**CRDT 的优缺点**
+- 优点：天然支持离线编辑和 P2P 同步，无中心化瓶颈，实现相对 OT 简单。
+- 缺点：状态增长可能较大（需垃圾回收），消息体积可能较大，计算开销随文档大小增长。
+
+### 3.4 冲突解决策略
+
+| 策略 | 说明 | 适用场景 |
+|------|------|---------|
+| LWW (Last Writer Wins) | 以最后写入的值为准 | 简单键值同步，配置同步 |
+| CRDT | 数据结构保证最终一致 | 协同编辑，去中心化系统 |
+| OT (Operational Transformation) | 操作变换保证一致性 | 中心化协同编辑，强一致要求 |
+| 三路合并 (Three-way Merge) | 基于共同祖先的差异合并 | 版本控制（Git 风格） |
+| 手动解决 | 标记冲突让用户选择 | 复杂语义冲突 |
+
+**LWW 实现示例**
+
+```js
+class LWWRegister {
+  constructor() {
+    this.value = null;
+    this.timestamp = 0;
+    this.id = Math.random().toString(36).slice(2);
+  }
+
+  set(value, timestamp) {
+    if (timestamp > this.timestamp ||
+        (timestamp === this.timestamp && this.id > this.id)) {
+      this.value = value;
+      this.timestamp = timestamp;
+      return true;
+    }
+    return false;
+  }
+
+  merge(other) {
+    this.set(other.value, other.timestamp);
+  }
+}
+
+class LWWDoc {
+  constructor() {
+    this.data = {};
+  }
+
+  set(key, value, timestamp) {
+    if (!this.data[key]) {
+      this.data[key] = new LWWRegister();
+    }
+    return this.data[key].set(value, timestamp);
+  }
+
+  merge(other) {
+    for (const key of Object.keys(other.data)) {
+      if (!this.data[key]) {
+        this.data[key] = new LWWRegister();
+      }
+      this.data[key].merge(other.data[key]);
+    }
+  }
+}
+```
+
+### 3.5 选型建议
+
+| 场景 | 推荐 | 原因 |
+|------|------|------|
+| 中心化、强一致 | OT | Google Docs 验证，实时性强 |
+| 去中心化、离线优先 | CRDT（Yjs） | 天然支持离线，无需中心服务 |
+| 快速实现 | CRDT（Yjs） | 生态成熟，开箱即用 |
+| 简单键值同步 | LWW | 实现简单，足够满足场景 |
+| 版本控制 | 三路合并 | Git 模式，有共同祖先 |
 
 ---
 
-## 四、实时数据同步
+## 四、实时同步架构设计
 
-### 4.1 状态同步模式
+### 4.1 同步架构模式
+
+| 模式 | 拓扑 | 优点 | 缺点 |
+|------|------|------|------|
+| 客户端-服务端 | 星型 | 易于管理，一致性可控 | 单点瓶颈 |
+| P2P | 网状 | 去中心化，低延迟 | 复杂度高，NAT 穿透 |
+| 混合（Hybrid） | 服务端 + P2P | 兼顾可靠性和性能 | 实现复杂 |
+
+**混合架构**
+
+```
+客户端 A <--WebSocket--> 服务端 <--WebSocket--> 客户端 B
+   |                                                  |
+   +----------- WebRTC DataChannel (P2P) -------------+
+```
+
+混合架构中，小数据（如编辑操作）走服务端保证可靠性，大数据（如文件传输）走 P2P 降低延迟。
+
+### 4.2 Presence 系统设计（在线状态）
+
+```js
+class PresenceService {
+  constructor(redis) {
+    this.redis = redis;
+    this.channel = 'presence';
+  }
+
+  async userOnline(userId, sessionInfo) {
+    const key = 'presence:' + userId;
+    await this.redis.set(key, JSON.stringify({
+      status: 'online',
+      lastSeen: Date.now(),
+      session: sessionInfo
+    }), 'EX', 60); // 60 秒 TTL
+
+    await this.redis.publish(this.channel, JSON.stringify({
+      type: 'online', userId, timestamp: Date.now()
+    }));
+  }
+
+  async heartbeat(userId) {
+    await this.redis.expire('presence:' + userId, 60);
+  }
+
+  async getOnlineUsers(userIds) {
+    const results = {};
+    for (const uid of userIds) {
+      const data = await this.redis.get('presence:' + uid);
+      if (data) results[uid] = JSON.parse(data);
+    }
+    return results;
+  }
+
+  async userOffline(userId) {
+    const key = 'presence:' + userId;
+    const data = await this.redis.get(key);
+    if (!data) return;
+
+    const parsed = JSON.parse(data);
+    parsed.status = 'offline';
+    parsed.lastSeen = Date.now();
+    await this.redis.set(key, JSON.stringify(parsed));
+    await this.redis.expire(key, 300);
+
+    await this.redis.publish(this.channel, JSON.stringify({
+      type: 'offline', userId, timestamp: Date.now()
+    }));
+  }
+}
+```
+
+**Presence 设计要点**
+- 心跳续期：客户端每 30 秒发送心跳，服务端更新 TTL。
+- 最终一致：TTL 到期自动标记离线，无需精确检测。
+- 广播通知：用户上线/离线时广播给同房间其他用户。
+- Session 管理：同一用户多个设备视为多个 session。
+
+### 4.3 消息可靠性
+
+- 消息确认机制（ACK）。
+- 消息去重（唯一消息 ID）。
+- 断线重连后补发未确认消息。
+
+### 4.4 顺序保证
+
+- 服务端统一分配序列号。
+- 或使用向量时钟（Vector Clock）处理并发。
+
+### 4.5 状态同步模式
 
 | 模式 | 说明 | 示例 |
 |------|------|------|
@@ -179,22 +763,370 @@ CRDT 通过数据结构本身的数学特性保证最终一致，无需中央协
 | 增量同步 | 只同步变更操作 | 协同编辑 |
 | 快照 + 增量 | 定期快照 + 持续增量 | 游戏状态 |
 
-### 4.2 消息可靠性
+---
 
-- 消息确认机制（ACK）。
-- 消息去重（唯一消息 ID）。
-- 断线重连后补发未确认消息。
+## 五、WebSocket 扩展策略
 
-### 4.3 顺序保证
+### 5.1 Sticky Session 方案
 
-- 服务端统一分配序列号。
-- 或使用向量时钟（Vector Clock）处理并发。
+在负载均衡器启用粘性会话，将同一用户的 WebSocket 连接始终路由到同一节点：
+
+```
+客户端 -> Nginx（ip_hash）-> WebSocket 节点 1
+                                     |
+                               Redis Pub/Sub
+                                     |
+                               WebSocket 节点 2
+```
+
+Nginx 配置：
+```nginx
+upstream ws_cluster {
+    ip_hash;
+    server 10.0.0.1:8080;
+    server 10.0.0.2:8080;
+    server 10.0.0.3:8080;
+}
+
+server {
+    listen 80;
+    location /ws {
+        proxy_pass http://ws_cluster;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_read_timeout 86400s;
+    }
+}
+```
+
+### 5.2 Redis Pub/Sub 跨节点广播
+
+```js
+const redis = require('redis');
+
+// 每个节点订阅频道
+const subscriber = redis.createClient();
+subscriber.subscribe('room:chat:room-123');
+
+subscriber.on('message', (channel, message) => {
+  const msg = JSON.parse(message);
+  const roomConnections = connections.get(msg.roomId) || [];
+  roomConnections.forEach((ws) => {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(message);
+    }
+  });
+});
+
+// 发布消息
+const publisher = redis.createClient();
+function broadcastToRoom(roomId, message) {
+  publisher.publish('room:chat:' + roomId, JSON.stringify(message));
+}
+```
+
+### 5.3 Consistent Hashing
+
+当 WebSocket 节点扩缩容时，一致哈希最小化受影响的连接数：
+
+```
+一致性哈希环:
+    节点 A -> 哈希值 100
+    节点 B -> 哈希值 300
+    节点 C -> 哈希值 600
+
+用户 ID 哈希后落在环上，顺时针找到最近的节点。
+当添加节点 D（哈希值 450）时，只影响原来路由到 C 的一部分用户。
+```
 
 ---
 
-## 五、可观测性与稳定性
+## 六、Real-time 与前端框架集成
 
-### 5.1 关键指标
+### 6.1 React：useSyncExternalStore + WebSocket
+
+```jsx
+import { useSyncExternalStore, useCallback, useRef } from 'react';
+
+function createRealTimeStore(url) {
+  let listeners = new Set();
+  let state = { connected: false, messages: [], users: [] };
+  let ws = null;
+
+  function connect() {
+    ws = new WebSocket(url);
+    ws.onopen = () => { state = { ...state, connected: true }; emitChange(); };
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      state = { ...state, messages: [...state.messages, data] };
+      emitChange();
+    };
+    ws.onclose = () => { state = { ...state, connected: false }; emitChange(); };
+  }
+
+  function emitChange() { listeners.forEach((l) => l()); }
+  function subscribe(listener) { listeners.add(listener); return () => listeners.delete(listener); }
+  function getSnapshot() { return state; }
+
+  function send(message) {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify(message));
+    }
+  }
+
+  connect();
+  return { subscribe, getSnapshot, send };
+}
+
+function useRealtime(url) {
+  const storeRef = useRef(null);
+  if (!storeRef.current) storeRef.current = createRealTimeStore(url);
+  const state = useSyncExternalStore(
+    storeRef.current.subscribe, storeRef.current.getSnapshot
+  );
+  const send = useCallback((msg) => storeRef.current.send(msg), []);
+  return { state, send };
+}
+
+// 使用
+function ChatRoom() {
+  const { state, send } = useRealtime('wss://chat.example.com/ws');
+  const { messages, connected } = state;
+  return (
+    <div>
+      <div>状态: {connected ? '在线' : '离线'}</div>
+      {messages.map((msg, i) => (<div key={i}>{msg.text}</div>))}
+      <button onClick={() => send({ type: 'message', text: 'Hello' })}>发送</button>
+    </div>
+  );
+}
+```
+
+### 6.2 Vue：Composable WebSocket 模式
+
+```vue
+<template>
+  <div>
+    <div>{{ connected ? '已连接' : '连接中...' }}</div>
+    <div v-for="msg in messages" :key="msg.id">{{ msg.text }}</div>
+    <button @click="send('Hello')">发送</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
+function useWebSocket(url) {
+  const connected = ref(false);
+  const messages = ref([]);
+  let ws = null;
+  let reconnectTimer = null;
+  let reconnectAttempts = 0;
+
+  function connect() {
+    ws = new WebSocket(url);
+
+    ws.onopen = () => {
+      connected.value = true;
+      reconnectAttempts = 0;
+    };
+
+    ws.onmessage = (event) => {
+      messages.value.push(JSON.parse(event.data));
+    };
+
+    ws.onclose = () => {
+      connected.value = false;
+      scheduleReconnect();
+    };
+
+    ws.onerror = () => { ws.close(); };
+  }
+
+  function scheduleReconnect() {
+    const delay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000);
+    reconnectAttempts++;
+    reconnectTimer = setTimeout(connect, delay);
+  }
+
+  function send(data) {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify(data));
+    }
+  }
+
+  function cleanup() {
+    if (ws) ws.close();
+    if (reconnectTimer) clearTimeout(reconnectTimer);
+  }
+
+  onMounted(() => connect());
+  onUnmounted(() => cleanup());
+
+  return { connected, messages, send, cleanup };
+}
+
+const { connected, messages, send } = useWebSocket('wss://chat.example.com/ws');
+</script>
+```
+
+---
+
+## 七、连接管理深度实践
+
+### 7.1 完整重连管理
+
+```js
+class ConnectionManager {
+  constructor(url, options = {}) {
+    this.url = url;
+    this.options = {
+      maxRetries: options.maxRetries || Infinity,
+      baseDelay: options.baseDelay || 1000,
+      maxDelay: options.maxDelay || 30000,
+      heartbeatInterval: options.heartbeatInterval || 30000,
+      ...options
+    };
+    this.retryCount = 0;
+    this.pendingMessages = [];
+    this.messageId = 0;
+    this.callbacks = new Map();
+    this.connect();
+  }
+
+  connect() {
+    this.ws = new WebSocket(this.url);
+
+    this.ws.onopen = () => {
+      this.retryCount = 0;
+      this.startHeartbeat();
+      this.flushPending();
+      this.emit('connected');
+    };
+
+    this.ws.onmessage = (event) => {
+      const msg = JSON.parse(event.data);
+      if (msg.type === 'ack') {
+        this.callbacks.delete(msg.inReplyTo);
+        return;
+      }
+      if (msg.type === 'pong') {
+        this.lastPong = Date.now();
+        return;
+      }
+      this.emit('message', msg);
+    };
+
+    this.ws.onclose = () => {
+      this.stopHeartbeat();
+      this.scheduleReconnect();
+      this.emit('disconnected');
+    };
+
+    this.ws.onerror = () => { this.emit('error', new Error('WebSocket error')); };
+  }
+
+  scheduleReconnect() {
+    if (this.retryCount >= this.options.maxRetries) {
+      this.emit('failed', new Error('Max retries exceeded'));
+      return;
+    }
+    const delay = Math.min(
+      this.options.baseDelay * Math.pow(2, this.retryCount),
+      this.options.maxDelay
+    );
+    const jitter = delay * (0.5 + Math.random() * 0.5);
+    this.retryCount++;
+    console.log('重连 (' + this.retryCount + '), 延迟 ' + jitter + 'ms');
+    setTimeout(() => this.connect(), jitter);
+  }
+
+  send(type, payload) {
+    const id = ++this.messageId;
+    const msg = { id, type, payload, timestamp: Date.now() };
+    return new Promise((resolve, reject) => {
+      this.callbacks.set(id, { resolve, reject, timeout: setTimeout(() => {
+        this.callbacks.delete(id);
+        reject(new Error('ACK timeout'));
+      }, 5000) });
+      if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        this.ws.send(JSON.stringify(msg));
+      } else {
+        this.pendingMessages.push(msg);
+      }
+    });
+  }
+
+  flushPending() {
+    while (this.pendingMessages.length > 0) {
+      this.ws.send(JSON.stringify(this.pendingMessages.shift()));
+    }
+  }
+
+  startHeartbeat() {
+    this.lastPong = Date.now();
+    this.heartbeatTimer = setInterval(() => {
+      if (Date.now() - this.lastPong > this.options.heartbeatInterval * 2) {
+        this.ws.close();
+        return;
+      }
+      this.ws.send(JSON.stringify({ type: 'ping' }));
+    }, this.options.heartbeatInterval);
+  }
+
+  stopHeartbeat() {
+    if (this.heartbeatTimer) {
+      clearInterval(this.heartbeatTimer);
+      this.heartbeatTimer = null;
+    }
+  }
+
+  on(event, callback) {
+    if (!this._handlers) this._handlers = {};
+    if (!this._handlers[event]) this._handlers[event] = [];
+    this._handlers[event].push(callback);
+  }
+
+  emit(event, data) {
+    if (!this._handlers || !this._handlers[event]) return;
+    this._handlers[event].forEach((cb) => cb(data));
+  }
+
+  disconnect() {
+    this.options.maxRetries = 0;
+    this.ws.close();
+  }
+}
+
+// 使用
+const cm = new ConnectionManager('wss://chat.example.com/ws');
+cm.on('connected', () => console.log('已连接'));
+cm.on('message', (msg) => {
+  if (msg.type === 'chat') showMessage(msg.payload);
+});
+cm.send('chat', { text: 'Hello' }).then(() => {
+  console.log('消息已送达');
+}).catch((err) => {
+  console.error('消息发送失败', err);
+});
+```
+
+### 7.2 指数退避与抖动（Jitter）
+
+```
+基础退避: delay = baseDelay * 2^attempt
+带抖动: delay = baseDelay * 2^attempt * (0.5 + random() * 0.5)
+```
+
+抖动防止"惊群效应"（thundering herd problem），即大量断线客户端同时重连压垮服务端。
+
+---
+
+## 八、可观测性与稳定性
+
+### 8.1 关键指标
 
 | 指标 | 说明 |
 |------|------|
@@ -203,16 +1135,54 @@ CRDT 通过数据结构本身的数学特性保证最终一致，无需中央协
 | 断线率 | 单位时间内异常断开比例 |
 | 重连成功率 | 断线后成功恢复比例 |
 | 消息丢失率 | 未送达消息比例 |
+| 消息吞吐量 | 单位时间处理消息数 |
+| P99 延迟 | 99% 的消息在多少毫秒内送达 |
 
-### 5.2 监控与告警
+### 8.2 监控与告警
 
 - WebSocket 服务端埋点。
 - 客户端上报连接质量和延迟。
 - 设置断线率、延迟阈值告警。
 
+### 8.3 客户端质量上报
+
+```js
+class ConnectionMonitor {
+  constructor(connectionManager) {
+    this.cm = connectionManager;
+    this.metrics = {
+      connectTime: [],
+      messageLatency: [],
+      disconnects: 0,
+      reconnects: 0
+    };
+
+    this.cm.on('connected', () => { this.metrics.reconnects++; });
+    this.cm.on('disconnected', () => { this.metrics.disconnects++; });
+
+    setInterval(() => this.report(), 60000);
+  }
+
+  report() {
+    const avgLatency = this.metrics.messageLatency.length > 0
+      ? this.metrics.messageLatency.reduce((a, b) => a + b) / this.metrics.messageLatency.length
+      : 0;
+
+    navigator.sendBeacon('/api/metrics', JSON.stringify({
+      avgLatency, disconnects: this.metrics.disconnects,
+      reconnects: this.metrics.reconnects, timestamp: Date.now()
+    }));
+
+    this.metrics.disconnects = 0;
+    this.metrics.reconnects = 0;
+    this.metrics.messageLatency = [];
+  }
+}
+```
+
 ---
 
-## 六、常见误区与反模式
+## 九、常见误区与反模式
 
 | 误区 | 说明 | 正确做法 |
 |------|------|---------|
@@ -220,10 +1190,13 @@ CRDT 通过数据结构本身的数学特性保证最终一致，无需中央协
 | "忽略重连和消息丢失" | 网络不稳定时用户体验差 | 设计完善的重连和补发机制 |
 | "不考虑服务端扩展" | 单节点无法支撑大规模连接 | 设计集群和共享状态 |
 | "协同编辑直接覆盖" | 会丢失用户操作 | 使用 OT 或 CRDT |
+| "心跳越快越可靠" | 过快心跳浪费带宽和 CPU | 30-60 秒间隔即可 |
+| "WebSocket 可以替代一切" | 大文件传输不如 WebRTC | 按场景选择合适方案 |
+| "重连后从零开始" | 丢失上下文，用户需重新操作 | 保存状态，断线续传 |
 
 ---
 
-## 七、最佳实践
+## 十、最佳实践
 
 1. **按场景选型**：SSE 单向、WebSocket 双向、WebRTC P2P。
 2. **心跳保活**：防止连接被中间设备断开。
@@ -231,10 +1204,14 @@ CRDT 通过数据结构本身的数学特性保证最终一致，无需中央协
 4. **消息确认与去重**：保证消息可靠性。
 5. **连接复用**：减少资源消耗。
 6. **监控先行**：实时系统需要全面的可观测性。
+7. **抖动（Jitter）**：防止惊群效应。
+8. **离线支持**：设计本地缓存和离线操作队列。
+9. **渐进增强**：WebSocket 不可用时降级到 SSE 或长轮询。
+10. **安全**：WSS 替代 WS，校验消息来源，防止注入。
 
 ---
 
-## 八、相关领域
+## 十一、相关领域
 
 - [F04 Network](../foundation/network)：TCP、HTTP、WebSocket 协议
 - [E10 Node.js/BFF](../engineering/node-bff)：服务端实现、消息队列
@@ -243,18 +1220,21 @@ CRDT 通过数据结构本身的数学特性保证最终一致，无需中央协
 
 ---
 
-## 九、延伸阅读
+## 十二、延伸阅读
 
-- 🟢 [MDN：WebSocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)
-- 🟡 [SSE 规范](https://html.spec.whatwg.org/multipage/server-sent-events.html)
-- 🟡 [Yjs 文档](https://docs.yjs.dev/)
-- 🔴 [CRDT 论文与资源](https://crdt.tech/)
+- [MDN：WebSocket](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)
+- [SSE 规范](https://html.spec.whatwg.org/multipage/server-sent-events.html)
+- [Yjs 文档](https://docs.yjs.dev/)
+- [CRDT 论文与资源](https://crdt.tech/)
+- [RFC 6455 - WebSocket 协议](https://datatracker.ietf.org/doc/html/rfc6455)
+- [WebSocket 扩展：permessage-deflate](https://datatracker.ietf.org/doc/html/rfc7692)
+- [Automerge](https://automerge.org/)
 
 ---
 
-**标签**：`#real-time` `#websocket` `#sse` `#crdt` `#ot` `#collaborative-editing`
+**标签**：`#real-time` `#websocket` `#sse` `#crdt` `#ot` `#collaborative-editing` `#webrtc` `#presence` `#connection-management` `#scaling`
 
-> **最后更新**：2026-06-25
+> **最后更新**：2026-07-06
 
 
 ---

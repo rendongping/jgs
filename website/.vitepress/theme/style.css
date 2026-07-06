@@ -117,6 +117,23 @@
   transition: width 0.3s ease;
 }
 
+/* 顶部菜单过多时的横向滚动处理，防止菜单项被截断 */
+@media (min-width: 768px) and (max-width: 1280px) {
+  .VPNavBarMenu {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-width: 100%;
+  }
+  .VPNavBarMenu::-webkit-scrollbar {
+    display: none;
+  }
+  .VPNavBarMenu .VPNavBarMenuLink,
+  .VPNavBarMenu .VPNavBarMenuGroup {
+    flex-shrink: 0;
+  }
+}
+
 /* 移动端适配 */
 @media (max-width: 768px) {
   .VPHero .name {

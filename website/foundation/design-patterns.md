@@ -11,156 +11,1334 @@
 - 前端高频模式：单例、工厂、观察者、策略、装饰器、适配器、代理、模块模式。
 - 设计模式的核心价值是降低耦合、提高复用、增强可测试性。
 - 重构是持续改进代码结构的必要手段。
+- 理解模式的适用场景比记住实现更重要。
+- 不要为了用模式而用模式，简单性是第一优先级。
 
 ---
 
 ## 1. SOLID 原则
 
-| 原则 | 含义 | 前端示例 |
-|------|------|---------|
-| SRP 单一职责 | 一个模块只做一件事 | 组件只负责展示，逻辑抽成 Hook |
-| OCP 开闭原则 | 对扩展开放，对修改关闭 | 通过 props/slot 扩展组件 |
-| LSP 里氏替换 | 子类可替换父类 | 抽象组件接口 |
-| ISP 接口隔离 | 不依赖不需要的接口 | 拆分大而全的 props |
-| DIP 依赖倒置 | 依赖抽象而非具体实现 | 依赖注入、接口驱动 |
+### 1.1 SRP — 单一职责原则
+
+> 一个类或模块应当有且只有一个引起它变化的原因。
+
+**含义**：每个组件、函数或模块只负责一项职责。当一个模块承担多个职责时，修改其中一个职责可能会意外影响其他职责。
+
+**反例**：一个组件同时负责数据获取、数据格式化、UI渲染和事件处理。
+
+**前端优化**：将数据获取逻辑抽入自定义 Hook，格式化逻辑抽入工具函数，组件只负责渲染。
+
+```tsx
+// 反例：一个组件做太多事
+function UserProfile({ userId }: { userId: string }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetch(`/api/users/${userId}`)
+      .then(r => r.json())
+      .then(data => {
+        const formatted = { ...data, fullName: `${data.firstName} ${data.lastName}` };
+        setUser(formatted);
+      })
+      .finally(() => setLoading(false));
+  }, [userId]);
+  if (loading) return <Skeleton />;
+  return <div>{user.fullName} - {user.email}</div>;
+}
+
+// 正例：职责分离
+function useUser(userId: string) {
+  const [state, setState] = useState({ user: null, loading: true });
+  useEffect(() => {
+    fetch(`/api/users/${userId}`)
+      .then(r => r.json())
+      .then(data => setState({ user: formatUser(data), loading: false }));
+  }, [userId]);
+  return state;
+}
+function formatUser(data) {
+  return { ...data, fullName: `${data.firstName} ${data.lastName}` };
+}
+function UserProfile({ userId }) {
+  const { user, loading } = useUser(userId);
+  if (loading) return <Skeleton />;
+  return <UserCard user={user} />;
+}
+function UserCard({ user }) {
+  return <div>{user.fullName} - {user.email}</div>;
+}
+```
+
+**SRP 识别技巧**：如果一个组件描述中出现了"和"字（如"获取用户数据并显示"），它很可能违反了 SRP。
 
 ---
 
-## 2. 创建型模式
+### 1.2 OCP — 开闭原则
 
-### 2.1 单例模式
+> 对扩展开放，对修改关闭。
 
-确保一个类只有一个实例。
+**含义**：模块的行为应当能够被扩展，而不需要修改其源代码。在前端中，通过 props、slots、组合式 API 实现。
 
-```js
-class Singleton {
-  static instance;
-  constructor() {
-    if (Singleton.instance) return Singleton.instance;
-    Singleton.instance = this;
+```tsx
+// 基础组件：可扩展的按钮
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  variant?: "primary" | "secondary" | "danger";
+  renderPrefix?: () => React.ReactNode;
+  renderSuffix?: () => React.ReactNode;
+}
+function Button({ label, onClick, variant = "primary", renderPrefix, renderSuffix }: ButtonProps) {
+  return (
+    <button className={`btn btn-${variant}`} onClick={onClick}>
+      {renderPrefix?.()}{label}{renderSuffix?.()}
+    </button>
+  );
+}
+// 通过组合扩展，无需修改 Button 本身
+function IconButton({ icon, label, ...rest }: ButtonProps & { icon: string }) {
+  return (
+    <Button
+      {...rest}
+      label={label}
+      renderPrefix={() => <i className={icon} />}
+    />
+  );
+}
+```
+
+**要点**：不修改 Button 源码即可创建 IconButton、LoadingButton 等变体。
+
+---
+
+### 1.3 LSP — 里氏替换原则
+
+> 子类（或实现类）应当可以替换其父类（或接口）而不影响程序正确性。
+
+**含义**：任何使用基类的地方，都应该能透明地使用其子类。
+
+**前端场景**：当多个组件实现相同接口时，它们应该可以互换使用。
+
+```tsx
+interface DataSource {
+  fetch(): Promise<DataItem[]>;
+}
+class ApiDataSource implements DataSource {
+  async fetch() {
+    const res = await fetch("/api/data");
+    return res.json();
   }
 }
-```
-
-### 2.2 工厂模式
-
-封装对象创建逻辑。
-
-```js
-function createComponent(type) {
-  const map = { button: Button, input: Input };
-  return new map[type]();
+class LocalDataSource implements DataSource {
+  async fetch() {
+    return Promise.resolve(mockData);
+  }
+}
+// 任何使用 DataSource 的地方都可以替换实现
+function useData(source: DataSource) {
+  // ...
 }
 ```
 
-### 2.3 建造者模式
+**反例**：子类重写方法时抛出基类未定义的异常，或返回不同类型。
 
-分步骤构建复杂对象，如表单配置器。
+---
+
+### 1.4 ISP — 接口隔离原则
+
+> 客户端不应该依赖它不需要的接口。
+
+**含义**：大的接口应该拆分为更小、更具体的接口。前端中最常见的问题是"巨型 props 接口"。
+
+```tsx
+// 反例：一个庞大的 props 接口
+interface UserProfileProps {
+  user: User;
+  onEdit: () => void;
+  onDelete: () => void;
+  onShare: () => void;
+  onReport: () => void;
+  showAvatar: boolean;
+  showBio: boolean;
+  showStats: boolean;
+  theme: "light" | "dark";
+  locale: string;
+}
+// 正例：按职责拆分
+interface UserCardProps {
+  user: { name: string; avatar: string };
+  showAvatar?: boolean;
+  showBio?: boolean;
+}
+interface UserActionsProps {
+  onEdit?: () => void;
+  onDelete?: () => void;
+}
+interface ThemeProps {
+  theme: "light" | "dark";
+  locale: string;
+}
+```
+
+---
+
+### 1.5 DIP — 依赖倒置原则
+
+> 高层模块不应依赖低层模块，两者都应依赖抽象。
+
+**含义**：依赖于接口或抽象类，而非具体实现。前端通过依赖注入（DI）和 IoC 容器实现。
+
+```tsx
+// 抽象
+interface Logger {
+  log(message: string): void;
+}
+// 具体实现
+class ConsoleLogger implements Logger {
+  log(message: string) { console.log(message); }
+}
+class RemoteLogger implements Logger {
+  log(message: string) { fetch("/api/log", { method: "POST", body: message }); }
+}
+// 业务代码依赖抽象而非具体实现
+function processOrder(order: Order, logger: Logger) {
+  // ... 业务逻辑
+  logger.log(`Order ${order.id} processed`);
+}
+```
+
+**DIP 与 React**：通过 props 传递回调函数替代硬编码实现，本质是依赖注入。
+
+---
+## 2. 创建型模式
+
+### 2.1 单例模式（Singleton）
+
+> 确保一个类只有一个实例，并提供全局访问点。
+
+**实现**：通过模块级变量缓存实例，或利用 ES Module 的模块缓存机制。
+
+```ts
+// 实现一：ES6 Class
+class Singleton {
+  private static instance: Singleton;
+  private constructor() {}
+  static getInstance(): Singleton {
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton();
+    }
+    return Singleton.instance;
+  }
+}
+
+// 实现二：ES Module（推荐）
+// store.ts
+class Store {
+  state = new Map();
+  get(key: string) { return this.state.get(key); }
+  set(key: string, value: unknown) { this.state.set(key, value); }
+}
+export const store = new Store(); // 模块内部已保证单例
+
+// 实现三：闭包
+const createSingleton = (() => {
+  let instance: any = null;
+  return () => {
+    if (!instance) instance = { id: Math.random() };
+    return instance;
+  };
+})();
+```
+
+**前端应用**：
+- Vue/Pinia store 实例
+- 全局配置管理器
+- 浏览器全局的站内消息总线
+- 缓存管理（LRU Cache）
+
+**优点**：节省内存、保证一致性、全局访问方便。
+
+**缺点**：隐藏依赖关系、不利于测试（全局状态污染）、违反 SRP（同时管理自身实例和业务逻辑）。
+
+---
+
+### 2.2 工厂模式（Factory）
+
+> 定义一个创建对象的接口，让子类决定实例化哪个类。
+
+```ts
+// 简单工厂
+interface Component {
+  render(): void;
+}
+class Button implements Component {
+  render() { console.log("render button"); }
+}
+class Input implements Component {
+  render() { console.log("render input"); }
+}
+class ComponentFactory {
+  static create(type: "button" | "input"): Component {
+    const map = { button: Button, input: Input };
+    const Cls = map[type];
+    if (!Cls) throw new Error(`Unknown type: ${type}`);
+    return new Cls();
+  }
+}
+
+// React 中的工厂模式
+function createElement(type: string, props: any, children: ReactNode) {
+  return { type, props, children };
+}
+```
+
+**前端应用**：
+- React.createElement / createElement API
+- 对话框/弹窗管理器（根据类型创建不同的 Modal）
+- 图表组件工厂（根据图表类型切换渲染器）
+
+**优点**：解耦客户端代码与具体类、添加新类型时符合 OCP。
+
+**缺点**：产品结构复杂时工厂本身会膨胀。
+
+---
+
+### 2.3 建造者模式（Builder）
+
+> 分步骤构建复杂对象，将构建过程与最终表示分离。
+
+```ts
+class FormBuilder {
+  private fields: Field[] = [];
+
+  addText(name: string, label: string) {
+    this.fields.push({ type: "text", name, label });
+    return this; // 链式调用
+  }
+  addSelect(name: string, label: string, options: string[]) {
+    this.fields.push({ type: "select", name, label, options });
+    return this;
+  }
+  addCheckbox(name: string, label: string) {
+    this.fields.push({ type: "checkbox", name, label });
+    return this;
+  }
+  build(): FormConfig {
+    return { fields: this.fields, onSubmit: this.onSubmit };
+  }
+}
+
+// 使用
+const form = new FormBuilder()
+  .addText("username", "用户名")
+  .addText("email", "邮箱")
+  .addSelect("role", "角色", ["admin", "user"])
+  .build();
+```
+
+**前端应用**：
+- 复杂表单配置构建
+- 查询条件构造器
+- 富文本编辑器的工具栏配置
+
+---
+
+### 2.4 原型模式（Prototype）
+
+> 通过克隆已有对象创建新对象，而非通过构造函数。
+
+```ts
+const baseConfig = {
+  theme: "light",
+  locale: "zh-CN",
+  features: ["search", "filter"],
+};
+// 浅拷贝克隆
+const user1Config = { ...baseConfig, theme: "dark" };
+// 深拷贝克隆（避免引用共享）
+const user2Config = JSON.parse(JSON.stringify(baseConfig));
+user2Config.features.push("export");
+```
+
+**JS 原生支持**：
+- Object.create(proto)
+- 展开运算符 ...
+- structuredClone()
+
+**前端应用**：
+- Vue/React 中的默认 props 克隆
+- 富文本编辑器的文档模板克隆
+- 复杂状态初始化（避免重复构造）
 
 ---
 
 ## 3. 结构型模式
 
-### 3.1 适配器模式
+### 3.1 适配器模式（Adapter）
 
-转换接口以兼容旧系统。
+> 将一个接口转换成客户端期望的另一个接口。
 
-### 3.2 装饰器模式
+```ts
+// 旧 API 返回格式
+interface OldUserAPI {
+  getUsers(): Array<{ first_name: string; last_name: string; email_addr: string }>;
+}
+// 新系统期望格式
+interface NewUser {
+  fullName: string;
+  email: string;
+}
+// 适配器
+class UserAdapter {
+  constructor(private oldApi: OldUserAPI) {}
+  getUsers(): NewUser[] {
+    return this.oldApi.getUsers().map(u => ({
+      fullName: `${u.first_name} ${u.last_name}`,
+      email: u.email_addr,
+    }));
+  }
+}
+```
 
-在不修改原对象的情况下增强功能，如高阶组件 HOC。
+**前端应用**：
+- 兼容旧版浏览器 API（如 fetch polyfill）
+- 数据格式转换（后端接口版本迁移）
+- 第三方库接口封装（如不同图表库的配置适配）
 
-### 3.3 代理模式
+**优点**：让不兼容的接口协同工作、符合 OCP。
 
-控制对象访问，如 Vue 响应式 Proxy、图片懒加载代理。
-
-### 3.4 外观模式
-
-提供统一接口隐藏复杂子系统，如统一 API 封装层。
-
----
-
-## 4. 行为型模式
-
-### 4.1 观察者模式
-
-一对多依赖，状态变化通知订阅者。事件监听、Redux、Vue 响应式。
-
-### 4.2 策略模式
-
-封装一系列算法，使其可互相替换。如表单校验规则、主题切换。
-
-### 4.3 命令模式
-
-将请求封装为对象，支持撤销/重做。
-
-### 4.4 迭代器模式
-
-统一遍历接口，如 for...of、Generator。
-
-### 4.5 状态模式
-
-状态机管理复杂状态流转，如订单状态、表单步骤。
+**缺点**：增加额外层、过度使用会使系统结构复杂。
 
 ---
 
-## 5. 前端特有模式
+### 3.2 装饰器模式（Decorator）
 
-### 5.1 组件组合模式
+> 动态地为对象添加新行为，而不改变其结构。
 
-组合优于继承，React/Vue 都推崇组合。
+```ts
+// 基础组件
+interface Coffee {
+  cost(): number;
+  description(): string;
+}
+class SimpleCoffee implements Coffee {
+  cost() { return 10; }
+  description() { return "咖啡"; }
+}
+// 装饰器
+class MilkDecorator implements Coffee {
+  constructor(private coffee: Coffee) {}
+  cost() { return this.coffee.cost() + 3; }
+  description() { return this.coffee.description() + ", 加奶"; }
+}
+class SugarDecorator implements Coffee {
+  constructor(private coffee: Coffee) {}
+  cost() { return this.coffee.cost() + 2; }
+  description() { return this.coffee.description() + ", 加糖"; }
+}
+// 使用
+let coffee: Coffee = new SimpleCoffee();
+coffee = new MilkDecorator(coffee);
+coffee = new SugarDecorator(coffee);
+console.log(coffee.description(), coffee.cost()); // 咖啡, 加奶, 加糖 15
+```
 
-### 5.2 高阶组件（HOC）
-
-复用组件逻辑。
-
-### 5.3 Render Props / Slot
-
-组件间共享渲染逻辑。
-
-### 5.4 Hooks / Composables
-
-逻辑复用的新范式。
-
-### 5.5 容器/展示组件
-
-分离业务逻辑与 UI 展示。
+**前端应用**：
+- React HOC（withAuth, withLogger, withErrorBoundary）
+- 高阶函数（节流/防抖装饰）
+- 中间件模式（Koa/Express 中间件）
 
 ---
 
-## 6. 重构技巧
+### 3.3 代理模式（Proxy）
 
-- 提取函数/组件
-- 消除重复代码
-- 简化条件表达式
-- 引入对象替代基本类型
-- 拆分大类/大组件
+> 为另一个对象提供替身或占位符以控制对它的访问。
+
+```ts
+// 图片懒加载代理
+class ImageLoader {
+  private img: HTMLImageElement;
+  constructor(private url: string) {
+    this.img = new Image();
+  }
+  load() {
+    console.log("开始加载图片:", this.url);
+    this.img.src = this.url;
+  }
+}
+class ImageProxy {
+  private realImage: ImageLoader | null = null;
+  constructor(private url: string) {}
+  load() {
+    if (!this.realImage) {
+      this.realImage = new ImageLoader(this.url);
+    }
+    // 可添加权限校验、缓存检查等
+    this.realImage.load();
+  }
+}
+
+// Proxy API（ES6）
+const validator = {
+  set(obj: any, prop: string, value: any) {
+    if (prop === "age" && (typeof value !== "number" || value < 0)) {
+      throw new Error("Age must be a positive number");
+    }
+    obj[prop] = value;
+    return true;
+  },
+};
+const person = new Proxy({}, validator);
+person.age = 25; // OK
+// person.age = -1; // Error
+```
+
+**前端应用**：
+- Vue 3 响应式系统（reactive() 基于 Proxy）
+- 图片懒加载
+- 缓存代理（避免重复请求）
+- 权限控制代理
+
+**优点**：职责清晰、控制访问、延迟初始化。
+
+**缺点**：增加间接层可能影响性能。
 
 ---
 
-## 常见误区
+### 3.4 外观模式（Facade）
+
+> 为子系统的一组接口提供统一的高层接口。
+
+```ts
+// 复杂子系统
+class AuthAPI {
+  login(user: string, pwd: string) { /* ... */ }
+  logout() { /* ... */ }
+}
+class UserAPI {
+  getProfile() { /* ... */ }
+  updateProfile(data: any) { /* ... */ }
+}
+class NotificationAPI {
+  send(msg: string) { /* ... */ }
+}
+
+// 外观
+class AppFacade {
+  private auth = new AuthAPI();
+  private user = new UserAPI();
+  private notify = new NotificationAPI();
+
+  async login(user: string, pwd: string) {
+    await this.auth.login(user, pwd);
+    const profile = await this.user.getProfile();
+    await this.notify.send(`欢迎回来, ${profile.name}`);
+    return profile;
+  }
+}
+```
+
+**前端应用**：
+- axios 实例封装统一请求/响应拦截
+- 统一 API 入口层（API Gateway）
+- 组件库中的统一导出（index.ts barrel export）
+
+---
+
+### 3.5 组合模式（Composite）
+
+> 将对象组合成树形结构以表示部分-整体层次结构。
+
+```ts
+interface Component {
+  render(): string;
+  add?(child: Component): void;
+}
+class Leaf implements Component {
+  constructor(private text: string) {}
+  render() { return `<span>${this.text}</span>`; }
+}
+class Container implements Component {
+  private children: Component[] = [];
+  add(child: Component) { this.children.push(child); }
+  render() {
+    return `<div>${this.children.map(c => c.render()).join("")}</div>`;
+  }
+}
+
+// 构建树
+const root = new Container();
+root.add(new Leaf("Item 1"));
+const sub = new Container();
+sub.add(new Leaf("Sub 1"));
+root.add(sub);
+```
+
+**前端应用**：
+- React/Vue 组件树本身就是组合模式
+- 菜单/树形控件
+- 文件目录浏览器
+
+---## 4. 行为型模式
+
+### 4.1 观察者模式 / 发布-订阅模式（Observer / Pub-Sub）
+
+> 定义对象间的一对多依赖关系，当对象状态变化时，所有依赖者自动收到通知。
+
+**两者的区别**：观察者模式中观察者直接订阅主题；发布-订阅模式通过事件通道解耦发布者和订阅者。
+
+```ts
+// 发布-订阅实现
+type EventHandler = (...args: any[]) => void;
+
+class EventBus {
+  private handlers: Map<string, EventHandler[]> = new Map();
+
+  on(event: string, handler: EventHandler) {
+    if (!this.handlers.has(event)) {
+      this.handlers.set(event, []);
+    }
+    this.handlers.get(event)!.push(handler);
+    return () => this.off(event, handler); // 返回取消订阅函数
+  }
+  off(event: string, handler: EventHandler) {
+    const handlers = this.handlers.get(event);
+    if (handlers) {
+      this.handlers.set(event, handlers.filter(h => h !== handler));
+    }
+  }
+  emit(event: string, ...args: any[]) {
+    this.handlers.get(event)?.forEach(h => h(...args));
+  }
+  once(event: string, handler: EventHandler) {
+    const wrapper = (...args: any[]) => {
+      handler(...args);
+      this.off(event, wrapper);
+    };
+    this.on(event, wrapper);
+  }
+}
+
+// useEventBus Hook
+function useEventBus() {
+  const bus = useMemo(() => new EventBus(), []);
+  useEffect(() => () => {
+    // 清理所有订阅
+    (bus as any).handlers.clear();
+  }, []);
+  return bus;
+}
+```
+
+**前端应用**：
+- addEventListener / dispatchEvent
+- Vue 响应式系统（reactive -> effect）
+- Redux / Zustand（store.subscribe）
+- 组件间跨层级通信
+
+**优点**：降低耦合、支持广播通信。
+
+**缺点**：订阅者无法得知发布者何时出错、事件过多导致调试困难。
+
+---
+
+### 4.2 策略模式（Strategy）
+
+> 定义一系列算法，将它们一个个封装起来，使它们可以互相替换。
+
+```ts
+interface Validator {
+  validate(value: string): boolean;
+  message: string;
+}
+
+const validators: Record<string, Validator> = {
+  required: {
+    message: "此项必填",
+    validate: (v: string) => v.trim().length > 0,
+  },
+  email: {
+    message: "请输入有效邮箱",
+    validate: (v: string) => /^[^@]+@[^@]+\.[^@]+$/.test(v),
+  },
+  phone: {
+    message: "请输入11位手机号",
+    validate: (v: string) => /^1[3-9]\d{9}$/.test(v),
+  },
+  minLength: (min: number): Validator => ({
+    message: `最少${min}个字符`,
+    validate: (v: string) => v.length >= min,
+  }),
+  maxLength: (max: number): Validator => ({
+    message: `最多${max}个字符`,
+    validate: (v: string) => v.length <= max,
+  }),
+};
+
+function validateField(value: string, rules: string[]) {
+  for (const rule of rules) {
+    const validator = validators[rule];
+    if (validator && !validator.validate(value)) {
+      return validator.message;
+    }
+  }
+  return null;
+}
+```
+
+**前端应用**：
+- 表单校验规则（如上例）
+- 主题切换（不同主题策略）
+- 动画缓动函数（easing functions）
+- 排序/过滤策略
+
+---
+
+### 4.3 责任链模式（Chain of Responsibility）
+
+> 将请求的发送者和接收者解耦，多个接收对象组成链，请求沿链传递直到被处理。
+
+```ts
+interface Handler {
+  setNext(handler: Handler): Handler;
+  handle(request: string): string | null;
+}
+
+abstract class AbstractHandler implements Handler {
+  private nextHandler: Handler | null = null;
+
+  setNext(handler: Handler): Handler {
+    this.nextHandler = handler;
+    return handler; // 支持链式调用
+  }
+  handle(request: string): string | null {
+    if (this.nextHandler) {
+      return this.nextHandler.handle(request);
+    }
+    return null;
+  }
+}
+
+class AuthHandler extends AbstractHandler {
+  handle(request: string) {
+    if (request.includes("token")) return "Auth: 通过";
+    return super.handle(request);
+  }
+}
+class LogHandler extends AbstractHandler {
+  handle(request: string) {
+    console.log("Request:", request);
+    return super.handle(request);
+  }
+}
+class CacheHandler extends AbstractHandler {
+  handle(request: string) {
+    if (request === "cached-response") return "Cache: 命中";
+    return super.handle(request);
+  }
+}
+
+// 构建链
+const chain = new AuthHandler();
+chain.setNext(new LogHandler()).setNext(new CacheHandler());
+chain.handle("request with token"); // Auth: 通过
+```
+
+**前端应用**：
+- 中间件链（Express/Koa/Redux middleware）
+- 表单校验链（依次执行校验规则）
+- HTTP 请求拦截器链
+
+---
+
+### 4.4 命令模式（Command）
+
+> 将请求封装为对象，支持参数化、队列化、日志化和撤销操作。
+
+```ts
+interface Command {
+  execute(): void;
+  undo(): void;
+}
+
+class AddCommand implements Command {
+  constructor(private state: number[], private value: number) {}
+  execute() { this.state.push(this.value); }
+  undo() { this.state.pop(); }
+}
+class EditCommand implements Command {
+  constructor(private state: any[], private index: number, private newValue: any) {}
+  private oldValue: any;
+  execute() {
+    this.oldValue = this.state[this.index];
+    this.state[this.index] = this.newValue;
+  }
+  undo() { this.state[this.index] = this.oldValue; }
+}
+
+class CommandHistory {
+  private history: Command[] = [];
+  private pointer = -1;
+
+  execute(command: Command) {
+    command.execute();
+    this.history = this.history.slice(0, this.pointer + 1);
+    this.history.push(command);
+    this.pointer++;
+  }
+  undo() {
+    if (this.pointer < 0) return;
+    this.history[this.pointer].undo();
+    this.pointer--;
+  }
+  redo() {
+    if (this.pointer >= this.history.length - 1) return;
+    this.pointer++;
+    this.history[this.pointer].execute();
+  }
+}
+```
+
+**前端应用**：
+- 在线编辑器撤销/重做
+- 宏录制（一系列操作打包执行）
+- 事务性操作（批量更新状态）
+
+---
+
+### 4.5 迭代器模式（Iterator）
+
+> 提供一种顺序访问聚合对象内部元素的方法，而不暴露其内部表示。
+
+```ts
+// 实现自定义迭代器
+class TreeNode {
+  constructor(public value: number, public left?: TreeNode, public right?: TreeNode) {}
+
+  *inOrderTraversal(): Generator<number> {
+    if (this.left) yield* this.left.inOrderTraversal();
+    yield this.value;
+    if (this.right) yield* this.right.inOrderTraversal();
+  }
+}
+
+// 可迭代对象
+class PaginatedList<T> {
+  constructor(private items: T[], private pageSize: number = 10) {}
+
+  *[Symbol.iterator]() {
+    for (let i = 0; i < this.items.length; i += this.pageSize) {
+      yield this.items.slice(i, i + this.pageSize);
+    }
+  }
+}
+
+// 使用
+const pages = new PaginatedList([1,2,3,4,5,6,7,8,9,10,11,12], 5);
+for (const page of pages) {
+  console.log(page); // [1,2,3,4,5], [6,7,8,9,10], [11,12]
+}
+```
+
+**前端应用**：
+- Array / Map / Set 的 for...of 遍历
+- Generator 函数控制异步流程
+- 自定义数据结构遍历
+
+---
+
+### 4.6 状态模式（State）
+
+> 允许对象在内部状态改变时改变其行为，看起来似乎修改了其所属的类。
+
+```ts
+interface OrderState {
+  name: string;
+  pay(order: Order): void;
+  ship(order: Order): void;
+  cancel(order: Order): void;
+}
+
+class PendingState implements OrderState {
+  name = "待支付";
+  pay(order: Order) { order.setState(new PaidState()); }
+  ship(order: Order) { throw new Error("未支付不能发货"); }
+  cancel(order: Order) { order.setState(new CancelledState()); }
+}
+class PaidState implements OrderState {
+  name = "已支付";
+  pay(order: Order) { throw new Error("已支付"); }
+  ship(order: Order) { order.setState(new ShippedState()); }
+  cancel(order: Order) { order.setState(new RefundingState()); }
+}
+class ShippedState implements OrderState {
+  name = "已发货";
+  pay(order: Order) { throw new Error("已支付"); }
+  ship(order: Order) { throw new Error("已发货"); }
+  cancel(order: Order) { throw new Error("已发货不可取消"); }
+}
+class CancelledState implements OrderState {
+  name = "已取消";
+  pay(order: Order) { throw new Error("已取消"); }
+  ship(order: Order) { throw new Error("已取消"); }
+  cancel(order: Order) { throw new Error("已取消"); }
+}
+class RefundingState implements OrderState {
+  name = "退款中";
+  // ...
+}
+
+class Order {
+  private state: OrderState = new PendingState();
+  setState(state: OrderState) {
+    this.state = state;
+    console.log(`订单状态变更为: ${state.name}`);
+  }
+  pay() { this.state.pay(this); }
+  ship() { this.state.ship(this); }
+  cancel() { this.state.cancel(this); }
+}
+```
+
+**前端应用**：
+- 复杂表单步骤（草稿 -> 填写 -> 提交 -> 审核）
+- 播放器状态（播放/暂停/停止/缓冲）
+- 请求状态机（idle/loading/success/error）
+
+---
+
+### 4.7 模板方法模式（Template Method）
+
+> 在父类中定义算法的骨架，将某些步骤延迟到子类中实现。
+
+```ts
+abstract class DataExporter {
+  // 模板方法：定义算法骨架
+  async export(data: any): Promise<void> {
+    const processed = this.process(data);
+    const formatted = this.format(processed);
+    await this.save(formatted);
+    this.afterExport();
+  }
+
+  protected abstract process(data: any): any;
+  protected abstract format(data: any): string;
+  protected abstract save(formatted: string): Promise<void>;
+  protected afterExport() {} // 可选钩子
+}
+
+class CSVExporter extends DataExporter {
+  protected process(data: any[]) { return data; }
+  protected format(data: any[]) {
+    const header = Object.keys(data[0]).join(",");
+    const rows = data.map(r => Object.values(r).join(","));
+    return [header, ...rows].join("\n");
+  }
+  protected async save(formatted: string) {
+    await navigator.clipboard.writeText(formatted);
+  }
+}
+
+class PDFExporter extends DataExporter {
+  protected process(data: any) { return data; }
+  protected format(data: any) { return JSON.stringify(data); }
+  protected async save(formatted: string) {
+    // 调用 PDF 库生成文件
+  }
+  protected afterExport() {
+    console.log("PDF 导出完成");
+  }
+}
+```
+
+**前端应用**：
+- React 生命周期的 Hook 顺序
+- 组件库的基类组件
+- 数据处理流水线
+
+---
+## 5. 前端框架中的设计模式
+
+### 5.1 React 中的设计模式
+
+#### 5.1.1 HOC（高阶组件）— 装饰器模式
+
+```tsx
+// withAuth: 认证装饰
+function withAuth<P>(Component: React.ComponentType<P>) {
+  return function AuthenticatedComponent(props: P) {
+    const { user, loading } = useAuth();
+    if (loading) return <Spinner />;
+    if (!user) return <Redirect to="/login" />;
+    return <Component {...props} user={user} />;
+  };
+}
+
+// withLogger: 日志装饰
+function withLogger<P>(Component: React.ComponentType<P>) {
+  return function LoggedComponent(props: P) {
+    useEffect(() => {
+      console.log(`${Component.displayName} mounted`);
+      return () => console.log(`${Component.displayName} unmounted`);
+    }, []);
+    return <Component {...props} />;
+  };
+}
+
+// 组合使用
+const EnhancedDashboard = withAuth(withLogger(Dashboard)));
+```
+
+**HOC 的优缺点**：
+- 优点：逻辑复用、不侵入组件内部。
+- 缺点：props 命名冲突、多层嵌套导致调试困难（wrapper hell）。
+
+#### 5.1.2 Hooks — 策略模式
+
+```tsx
+// 主题策略：通过 Hook 切换实现
+function useTheme() {
+  const [theme, setTheme] = useState<Theme>("light");
+  const toggle = useCallback(() => {
+    setTheme(t => t === "light" ? "dark" : "light");
+  }, []);
+  return { theme, toggle };
+}
+
+// 数据获取策略
+function useDataFetch<T>(fetchFn: () => Promise<T>, deps: any[]) {
+  const [state, setState] = useState<AsyncState<T>>({
+    data: null, loading: true, error: null,
+  });
+  useEffect(() => {
+    let cancelled = false;
+    setState(s => ({ ...s, loading: true }));
+    fetchFn()
+      .then(data => !cancelled && setState({ data, loading: false, error: null }))
+      .catch(error => !cancelled && setState({ data: null, loading: false, error }));
+    return () => { cancelled = true; };
+  }, deps);
+  return state;
+}
+```
+
+**Hooks 优势**：没有 HOC 的嵌套问题、按需组合、类型安全。
+
+#### 5.1.3 Context — 观察者/发布-订阅
+
+```tsx
+const ThemeContext = createContext<ThemeContextType>({
+  theme: "light",
+  toggle: () => {},
+});
+
+function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState("light");
+  const toggle = useCallback(() => setTheme(t => t === "light" ? "dark" : "light"), []);
+  // 当 theme 变化时，所有消费者自动重新渲染（类似观察者通知）
+  return (
+    <ThemeContext.Provider value=&#123;&#123; theme, toggle &#125;&#125;>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+// 消费者
+function ThemedButton() {
+  const { theme, toggle } = useContext(ThemeContext);
+  return <button className={`btn-${theme}`} onClick={toggle}>切换主题</button>;
+}
+```
+
+#### 5.1.4 复合组件模式（Compound Components）
+
+```tsx
+function Tabs({ children }: { children: ReactNode }) {
+  const [active, setActive] = useState(0);
+  return (
+    <TabsContext.Provider value=&#123;&#123; active, setActive &#125;&#125;>
+      {children}
+    </TabsContext.Provider>
+  );
+}
+Tabs.Tab = function Tab({ index, label }: { index: number; label: string }) {
+  const { active, setActive } = useContext(TabsContext);
+  return (
+    <button className={active === index ? "active" : ""} onClick={() => setActive(index)}>
+      {label}
+    </button>
+  );
+};
+Tabs.Panel = function Panel({ index, children }: { index: number; children: ReactNode }) {
+  const { active } = useContext(TabsContext);
+  return active === index ? <div>{children}</div> : null;
+};
+
+// 使用
+<Tabs>
+  <Tabs.Tab index={0} label="首页" />
+  <Tabs.Tab index={1} label="设置" />
+  <Tabs.Panel index={0}>首页内容</Tabs.Panel>
+  <Tabs.Panel index={1}>设置内容</Tabs.Panel>
+</Tabs>
+```
+
+#### 5.1.5 Render Props — 策略模式变体
+
+```tsx
+interface MouseTrackerProps {
+  render: (pos: { x: number; y: number }) => ReactNode;
+}
+function MouseTracker({ render }: MouseTrackerProps) {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  return <div onMouseMove={e => setPos({ x: e.clientX, y: e.clientY })}>
+    {render(pos)}
+  </div>;
+}
+```
+
+---
+
+### 5.2 Vue 中的设计模式
+
+#### 5.2.1 Composables — 策略模式 / 组合模式
+
+```ts
+// useCounter Composable
+export function useCounter(initialValue = 0) {
+  const count = ref(initialValue);
+  const increment = () => count.value++;
+  const decrement = () => count.value--;
+  const reset = () => count.value = initialValue;
+  return { count, increment, decrement, reset };
+}
+
+// useDebounce Composable
+export function useDebounce<T>(value: Ref<T>, delay: number) {
+  const debounced = ref(value.value) as Ref<T>;
+  let timer: ReturnType<typeof setTimeout>;
+  watch(value, (newVal) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { debounced.value = newVal; }, delay);
+  });
+  return debounced;
+}
+```
+
+#### 5.2.2 Provide/Inject — 依赖注入 / 观察者
+
+```ts
+// 祖先组件
+const themeKey = Symbol("theme");
+provide(themeKey, {
+  theme: ref("dark"),
+  toggleTheme: () => { /* ... */ },
+});
+
+// 后代组件
+const themeCtx = inject(themeKey);
+```
+
+**与 React Context 对比**：Vue 的 provide/inject 是非响应式的（除非传入 ref/reactive），React Context 在值变化时触发重渲染。
+
+#### 5.2.3 Vue 响应式系统 — 观察者模式
+
+```ts
+// Vue 3 响应式核心（简化）
+const targetMap = new WeakMap<object, Map<string, Set<EffectFn>>>();
+let activeEffect: EffectFn | null = null;
+
+function track(target: object, key: string) {
+  if (!activeEffect) return;
+  let depsMap = targetMap.get(target);
+  if (!depsMap) targetMap.set(target, (depsMap = new Map()));
+  let deps = depsMap.get(key);
+  if (!deps) depsMap.set(key, (deps = new Set()));
+  deps.add(activeEffect); // 订阅
+}
+
+function trigger(target: object, key: string) {
+  const depsMap = targetMap.get(target);
+  if (!depsMap) return;
+  depsMap.get(key)?.forEach(effect => effect()); // 通知
+}
+```
+
+---
+
+### 5.3 状态管理中的设计模式
+
+#### 5.3.1 Redux — 多个模式的融合
+
+| 模式 | Redux 应用 |
+|------|-----------|
+| 观察者模式 | connect() / useSelector 订阅 store 变化 |
+| 命令模式 | action = { type, payload } 封装操作 |
+| 策略模式 | reducer 根据 action.type 执行不同逻辑 |
+| 责任链模式 | 中间件链式处理 action |
+| 单例模式 | 单一 store 实例 |
+
+#### 5.3.2 MobX — 观察者模式 + 装饰器模式
+
+```ts
+class TodoStore {
+  @observable todos: Todo[] = [];
+  @computed get unfinishedTodos() {
+    return this.todos.filter(t => !t.done);
+  }
+  @action addTodo(text: string) {
+    this.todos.push({ id: Date.now(), text, done: false });
+  }
+}
+```
+
+#### 5.3.3 Zustand — 精简观察者模式
+
+```ts
+const useStore = create(set => ({
+  count: 0,
+  increment: () => set(state => ({ count: state.count + 1 })),
+}));
+// 自动订阅，仅在使用者引用的切片变化时重渲染
+```
+
+---
+
+## 6. 设计模式反模式
+
+### 6.1 过度工程化（Over-Engineering）
+
+当解决方案的复杂度远超问题本身时，就产生了过度工程化。一个简单的 TODO 应用不需要抽象工厂模式或事件溯源架构。
+
+**症状**：
+- 为未来"可能"的需求提前构建抽象层。
+- 大量接口/抽象类只有唯一实现。
+- 配置系统比业务逻辑还要复杂。
+
+**建议**：遵循 YAGNI（You Ain't Gonna Need It）原则，只在确实需要时引入模式。
+
+### 6.2 模式狂热（Pattern Obsession）
+
+强行在所有地方套用设计模式，忽视问题的具体特性。例如用策略模式包装一个简单的 if-else，用单例模式管理一个纯函数工具库。
+
+**症状**：
+- 代码中充满不必要的类层次结构。
+- "这个可以用 XX 模式重构"是修改代码的主要原因。
+- 新成员需要大量时间理解架构。
+
+**建议**：模式是工具，不是目标。最简单的解决方案通常是最好的。
+
+### 6.3 错误的抽象层次
+
+**反例**：将所有组件中的重复代码直接提取到一个"超级工具库"中，导致工具函数之间存在隐秘的耦合关系。
+
+**更好的方式**：渐进式抽象——在三次重复后才考虑提取公共代码。
+
+### 6.4 全局可变状态（Global Mutable State）
+
+单例模式如果被滥用为存储可变全局状态，会带来测试困难和不可预测的行为。
+
+**改进**：使用依赖注入让状态的作用域可见，或在需要时创建新实例。
+
+---
+
+## 7. 重构与代码味道
+
+### 7.1 常见代码味道（Code Smells）
+
+| 味道 | 问题 | 重构方案 |
+|------|------|---------|
+| 过长函数 | 一个函数做太多事 | 拆分为多个小函数 |
+| 过长参数列表 | 参数过多难以理解 | 引入参数对象或 Builder |
+| 重复代码 | 相同逻辑出现多处 | 提取函数/组件/Hook |
+| 巨型类/组件 | 组件超过200行 | 拆分为子组件 + Hook |
+| 霰弹式修改 | 改一个需求需改多处 | 封装变化点 |
+| 依恋情结 | 方法过度依赖其他类 | 将方法移到合适的类 |
+| 数据泥团 | 数据项总是一起出现 | 提取为值对象 |
+| 夸夸其谈通用性 | 为未来预留的抽象 | YAGNI，移除 |
+| 临时字段 | 字段只在特定情况下使用 | 提取为子类或状态对象 |
+| 消息链 | A.B().C().D() 过长 | 拆解或引入委托方法 |
+
+### 7.2 重构到模式
+
+将代码味道重构为适当的设计模式是常见的演进路径：
+
+| 代码味道 -> 设计模式 | 说明 |
+|----------------------|------|
+| 过长条件语句 -> 策略模式 | 将每个分支封装为策略 |
+| 大量 switch-case -> 工厂模式 | 用工厂创建对应对象 |
+| 复杂状态流转 -> 状态模式 | 用状态对象管理转换 |
+| 对象间紧耦合 -> 观察者模式 | 通过事件解耦 |
+| 类职责过多 -> 装饰器模式 | 用装饰器动态添加功能 |
+| 接口不兼容 -> 适配器模式 | 添加适配层转换 |
+| 嵌套条件回调 -> 责任链模式 | 链式处理替代嵌套 |
+|  undo/redo 需求 -> 命令模式 | 将操作封装为命令对象 |
+
+### 7.3 渐进式重构策略
+
+1. **先保证测试覆盖**：没有测试的重构是盲目的。
+2. **小步提交**：每次只做一个小改动，保持可运行。
+3. **预备性重构**：添加新功能前，先把代码重构到适合添加的状态。
+4. **理解性重构**：看不懂的代码先重命名为有意义的名称，再提取逻辑。
+5. **捡垃圾规则**：每次修改代码时，顺手改善一点附近的代码质量。
+
+---
+
+## 8. 常见误区
 
 | 误区 | 正确理解 |
 |------|---------|
-| 过度设计 | 简单场景不需要复杂模式 |
-| 生搬硬套 | 模式应服务于问题解决 |
-| 忽视可测试性 | 设计时要考虑单元测试 |
-| 模式越多越好 | 代码可读性优先 |
+| 过度设计 | 简单场景不需要复杂模式，YAGNI |
+| 生搬硬套 | 模式应服务于问题解决，不是反过来 |
+| 忽视可测试性 | 设计时要考虑单元测试，模式应降低测试难度 |
+| 模式越多越好 | 代码可读性优先，引入模式应降低而非增加复杂度 |
+| 模式是终极方案 | 模式有适用边界，反模式同样重要 |
+| 前端不需要模式 | 前端复杂度日益增长，模式同样不可或缺 |
+| 单例方便就多用 | 单例隐藏依赖、不利于测试，应谨慎使用 |
+| 继承比组合好 | 组合优于继承是设计模式的核心原则之一 |
 
 ---
 
-## 相关领域
+## 9. 相关领域
 
-- F01 JavaScript：语言特性实现模式。
-- E04 Code Quality：测试与代码质量。
-- A01 System Architecture：系统级设计原则。
-- E06/E07 React/Vue：框架中的设计模式。
+- **F01 JavaScript**：语言特性实现模式，如 Module 模式、Prototype、Proxy。
+- **E04 Code Quality**：测试驱动开发（TDD）与代码质量工具。
+- **A01 System Architecture**：系统级设计原则与架构模式（MVC、MVVM、微前端）。
+- **E06/E07 React / Vue**：框架中的设计模式实践。
+- **F02 TypeScript**：利用 TypeScript 的类型系统实现类型安全的模式（如泛型工厂）。
+- **D01 Data Structures**：迭代器模式与数据结构遍历的关系。
+- **F08 Algorithm**：策略模式在算法选择中的应用。
 
 ---
 
-**标签**：`#design-patterns` `#solid` `#refactoring` `#software-engineering`
+## 10. 学习路线建议
 
-> **最后更新**：2026-06-25
+1. **入门**：先理解 SOLID 原则，这是所有模式的基础。
+2. **熟悉**：从单例、工厂、观察者、策略四个高频模式开始，在日常编码中识别和应用。
+3. **进阶**：学习适配器、装饰器、代理、命令、状态等模式，理解它们的适用场景。
+4. **融通**：观察框架源码（Vue/React/Redux）中设计模式的应用，理解模式的"真实形态"。
+5. **内化**：在进行 Code Review 时思考"这里用什么模式可以改善"，但也要识别什么时候不需要模式。
 
+---
+
+## 11. 面试高频问题
+
+| 问题 | 考察点 |
+|------|--------|
+| 请解释 SOLID 原则在前端的应用 | 对 OOP 和设计原则的理解 |
+| 单例模式在前端的实现与问题 | 模块缓存、测试困难 |
+| 观察者模式和发布-订阅的区别 | 解耦程度、调度机制 |
+| React HOC 和 Hooks 的对比 | 装饰器 vs 组合的思想演变 |
+| Vue 响应式原理涉及哪些模式 | 观察者 + 代理 + 策略 |
+| 什么是反模式？举例说明 | 对模式适用边界的认知 |
+| Redux 中用了哪些设计模式 | 观察者 + 命令 + 策略 + 责任链 |
+| 如何重构一个500行的组件 | 对重构技巧和模式应用的实践 |
+
+---
+
+**标签**：`#design-patterns` `#solid` `#refactoring` `#software-engineering` `#frontend-architecture`
+
+> **最后更新**：2026-07-06
 
 ---
 

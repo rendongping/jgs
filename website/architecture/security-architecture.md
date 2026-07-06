@@ -93,110 +93,705 @@
 
 ---
 
-## 三、安全开发生命周期（SDL）
+## 三、安全开发生命周期（SDL）深度实践
 
-### 3.1 SDL 阶段
+### 3.1 SDL 是什么？
 
+SDL（Security Development Lifecycle）是微软提出的安全开发方法论，将安全融入软件开发的每个阶段。SDL的核心原则是"安全左移"（Shift Left），即在开发早期发现和修复安全问题，而非在上线前集中处理。
+
+### 3.2 需求分析阶段：识别安全需求
+
+在新功能立项时，安全架构师需要与产品经理一起识别关键安全问题：
+
+- **数据分类**：功能涉及哪些数据？哪些是敏感数据（PII、支付信息）？
+- **信任边界**：数据从用户的浏览器流向哪些系统？哪些环节可能被攻破？
+- **合规要求**：是否需要满足 GDPR、CCPA、个保法等法规要求？
+- **第三方依赖**：功能是否依赖第三方 SDK 或 CDN 资源？
+
+### 3.3 设计阶段：威胁建模
+
+在技术设计阶段，团队应进行威胁建模：
+
+1. 绘制架构图和数据流图
+2. 使用 STRIDE 逐项分析威胁
+3. 记录威胁清单并分配缓解措施
+4. 设计评审时安全架构师签字确认
+
+### 3.4 编码阶段：安全编码规范
+
+```javascript
+// 错误：使用 innerHTML 插入用户内容
+element.innerHTML = userInput;
+
+// 正确：使用 textContent 或安全的 DOM API
+element.textContent = userInput;
+
+// 正确：使用 DOMPurify 清洗后再插入
+import DOMPurify from 'dompurify';
+element.innerHTML = DOMPurify.sanitize(userInput);
+
+// 错误：使用 eval
+const result = eval(code);
 ```
-需求分析 → 安全设计 → 安全编码 → 安全测试 → 安全发布 → 安全运营
-```
 
-### 3.2 前端 SDL 实践
+### 3.5 测试阶段：安全测试矩阵
 
-| 阶段 | 实践 |
-|------|------|
-| 需求分析 | 识别敏感数据、合规要求、信任边界 |
-| 安全设计 | 威胁建模、选择安全控制措施 |
-| 安全编码 | 安全编码规范、输入校验、输出编码 |
-| 安全测试 | SAST、DAST、依赖审计、渗透测试 |
-| 安全发布 | CSP、SRI、安全响应头、签名验证 |
-| 安全运营 | 漏洞响应、安全监控、事件复盘 |
+| 测试类型 | 覆盖范围 | 工具 |
+|----------|---------|------|
+| SAST（静态分析） | 代码中的安全漏洞模式 | CodeQL、Semgrep、SonarQube |
+| SCA（组件分析） | 依赖中的已知漏洞 | npm audit、Snyk、Dependabot |
+| 密钥扫描 | 硬编码的密钥和 Token | GitLeaks、truffleHog |
+| DAST（动态分析） | 运行时安全测试 | OWASP ZAP |
+| 渗透测试 | 人工挖掘复杂漏洞 | 专业安全团队 |
+
+### 3.6 发布阶段：上线安全检查清单
+
+- [ ] CSP 策略配置正确且无绕过
+- [ ] 所有第三方资源已配置 SRI
+- [ ] 安全响应头已生效（HSTS、XFO、CSP）
+- [ ] 无敏感信息泄露（console.log、注释中的密钥）
+- [ ] 依赖无已知高危漏洞
+- [ ] 权限配置最小化
+
+### 3.7 运营阶段：持续监控
+
+- 收集 CSP 违规报告并分析
+- 监控异常请求模式
+- 订阅安全公告，及时更新依赖
+- 建立应急响应流程
 
 ---
 
-## 四、供应链安全
+## 四、CSP 深度实践
 
-### 4.1 npm 生态的风险
+### 4.1 CSP 指令分类
 
-- 包被恶意 takeover。
-- 依赖传递过多，难以审计。
-- lockfile 被篡改。
+| 类别 | 关键指令 | 说明 |
+|------|---------|------|
+| 获取指令 | default-src, script-src, style-src, img-src, connect-src, font-src, media-src, object-src | 控制各类资源的加载来源 |
+| 文档指令 | base-uri, plugin-types, sandbox | 控制页面行为 |
+| 导航指令 | form-action, frame-ancestors, navigate-to | 控制导航和嵌入 |
+| 报告指令 | report-uri, report-to | 违规报告 |
 
-### 4.2 防护措施
+### 4.2 script-src 详细配置
 
-```bash
-# 审计依赖
-npm audit
-pnpm audit
+```http
+# 最严格：仅同源脚本
+Content-Security-Policy: script-src 'self'
 
-# 检查许可证
-pnpm licenses list
+# 允许特定 CDN
+Content-Security-Policy: script-src 'self' https://cdn.example.com
 
-# 依赖签名验证
-npm audit signatures
+# 使用 nonce（推荐）
+Content-Security-Policy: script-src 'self' 'nonce-abc123'
+
+# 使用 hash（适合内联脚本）
+Content-Security-Policy: script-src 'self' 'sha256-xyz789='
+
+# 严格 CSP（Strict CSP）—— 推荐方案
+Content-Security-Policy: script-src 'self' 'strict-dynamic' 'nonce-abc123'
 ```
 
-**工程实践**：
-- 固定依赖版本，使用 lockfile。
-- 定期更新依赖，关注安全公告。
-- 使用私有 registry 和内部审批流程。
-- 对关键依赖做源码审查。
-- 使用 SRI（Subresource Integrity）校验 CDN 资源。
+### 4.3 Nonce 模式 vs Hash 模式
+
+**Nonce 模式**：服务端为每个请求生成唯一的随机数。
+
+```html
+<!-- 服务端生成 nonce 并注入 -->
+<script nonce="a1b2c3d4">
+  initApp();
+</script>
+
+<script src="app.js" nonce="a1b2c3d4"></script>
+```
+
+**Hash 模式**：对脚本内容计算哈希，适合静态内联脚本。
+
+```http
+Content-Security-Policy: script-src 'sha256-abc123def456='
+```
+
+```html
+<!-- 只有内容完全匹配的脚本才能执行 -->
+<script>console.log('hello')</script>
+```
+
+**对比**：
+
+| 特性 | Nonce | Hash |
+|------|-------|------|
+| 动态内容 | 适合 | 不适合 |
+| 性能 | 需服务端生成 | 无运行时开销 |
+| 安全性 | 需保证 nonce 不可预测 | 依赖哈希碰撞难度 |
+| 维护成本 | 中 | 低（静态内容） |
+
+### 4.4 报告端点配置
+
+```http
+# 仅报告不阻断（用于灰度验证）
+Content-Security-Policy-Report-Only: default-src 'self'; report-uri /csp-report
+
+# 生产环境，报告并阻断
+Content-Security-Policy: default-src 'self'; report-uri /csp-report
+
+# 使用新的 Report-To API（CSP Level 3）
+Content-Security-Policy: default-src 'self'; report-to csp-endpoint
+Report-To: {"group":"csp-endpoint","max_age":10886400,"endpoints":[{"url":"/csp-report"}]}
+```
+
+前端收集 CSP 违规的示例：
+
+```javascript
+// 使用 ReportingObserver 捕获 CSP 违规（Chrome）
+const observer = new ReportingObserver((reports) => {
+  for (const report of reports) {
+    console.log('CSP Violation:', report);
+    sendToAnalytics(report.toJSON());
+  }
+}, { types: ['csp-violation'] });
+observer.observe();
+```
+
+### 4.5 CSP 常见陷阱
+
+```http
+# 危险：'unsafe-inline' 使 script-src 形同虚设
+Content-Security-Policy: script-src 'self' 'unsafe-inline'
+
+# 危险：'unsafe-eval' 允许 eval() 执行
+Content-Security-Policy: script-src 'self' 'unsafe-eval'
+
+# 危险：通配符过于宽泛
+Content-Security-Policy: script-src https://*.cdn.com  # 子域名可能不安全
+
+# 正确：精确指定来源
+Content-Security-Policy: script-src 'self' https://cdn.example.com
+```
+
+### 4.6 CSP Evaluator 工具
+
+推荐使用 Google 的 CSP Evaluator（https://csp-evaluator.withgoogle.com/）验证策略安全性：
+- 检查是否存在已知的 CSP 绕过
+- 评估配置的严格程度
+- 提供改进建议
+
+---
+
+## 五、CORS 深度实践
+
+### 5.1 CORS 基础流
+
+```
+简单请求：
+ 浏览器 → Origin: https://app.example.com → 服务器
+ 浏览器 ← Access-Control-Allow-Origin: https://app.example.com ← 服务器
+
+预检请求（Preflight）：
+ 浏览器 → OPTIONS /api/data (Preflight) → 服务器
+ 浏览器 ← Access-Control-Allow-Origin, Allow-Methods, Allow-Headers ← 服务器
+ 浏览器 → GET /api/data (实际请求) → 服务器
+```
+
+### 5.2 预检请求详解
+
+满足以下条件的请求会触发预检：
+- 使用 PUT、DELETE、CONNECT、OPTIONS、TRACE、PATCH 方法
+- 请求头包含非简单头（如 Authorization、X-Custom-Header）
+- Content-Type 不是 application/x-www-form-urlencoded、multipart/form-data 或 text/plain
+
+### 5.3 凭据（Credentials）处理
+
+```http
+# 服务端必须明确指定，不能使用通配符
+Access-Control-Allow-Origin: https://app.example.com
+Access-Control-Allow-Credentials: true
+```
+
+```javascript
+// 前端设置
+fetch('https://api.example.com/data', {
+  credentials: 'include',
+});
+
+const xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+```
+
+**重要限制**：当 `Access-Control-Allow-Credentials: true` 时，`Access-Control-Allow-Origin` 不能为 `*`。
+
+### 5.4 CORS 最佳实践
+
+- **不要使用 `Access-Control-Allow-Origin: *`**，应精确指定白名单
+- **限制允许的方法**：只暴露必要的 HTTP 方法
+- **限制允许的请求头**：只暴露必要的请求头
+- **合理设置 Max-Age**：减少预检请求频次，但不直过长（建议 24h）
+- **不要在允许的 Header 中包含敏感头**（如 Cookie）
+
+---
+
+## 六、安全响应头体系
+
+### 6.1 完整的响应头配置模板
+
+```nginx
+# Nginx 配置示例
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-Frame-Options "DENY" always;
+add_header X-XSS-Protection "0" always;
+add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()" always;
+add_header Content-Security-Policy "default-src 'self'; script-src 'self'" always;
+```
+
+### 6.2 HSTS（HTTP Strict Transport Security）
+
+```http
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+```
+
+- `max-age`：强制使用 HTTPS 的时长（单位秒）
+- `includeSubDomains`：对所有子域名生效
+- `preload`：提交到浏览器预加载列表
+
+**注意事项**：先用低 `max-age` 验证，逐步增加。确保所有子域名都支持 HTTPS。
+
+### 6.3 X-Frame-Options
+
+```http
+# 禁止所有嵌入
+X-Frame-Options: DENY
+
+# 仅同源嵌入
+X-Frame-Options: SAMEORIGIN
+
+# 更细粒度的 CSP 方案
+Content-Security-Policy: frame-ancestors 'self' https://trusted-site.com
+```
+
+### 6.4 Permissions-Policy
+
+```http
+# 禁用所有敏感权限
+Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+# 仅允许特定来源获取位置
+Permissions-Policy: geolocation=(self "https://maps.example.com")
+```
+
+---
+
+## 七、身份认证与授权
+
+### 7.1 Token 存储策略对比
+
+| 存储方式 | 优点 | 缺点 |
+|----------|------|------|
+| HttpOnly Cookie | 不可被 JS 读取，防 XSS 窃取 | 易受 CSRF 攻击（需配合 SameSite） |
+| memory（变量） | 最安全，XSS 无法窃取 | 页面刷新后丢失，需配合 Refresh Token |
+| localStorage | 使用方便 | 任何 XSS 都可读取 |
+| sessionStorage | 仅当前标签页有效 | 作用域有限 |
+
+**推荐方案**：Access Token 存内存，Refresh Token 存 HttpOnly Secure SameSite Cookie。
+
+```javascript
+// BFF 模式下，Token 完全由服务端管理
+async function fetchWithAuth(url, options = {}) {
+  const response = await fetch(url, { ...options, credentials: 'include' });
+  if (response.status === 401) {
+    // BFF 会自动刷新 Token，前端无需处理
+  }
+  return response;
+}
+```
+
+### 7.2 Refresh Token 轮转
+
+```javascript
+async function refreshToken(oldRefreshToken) {
+  const response = await fetch('/api/auth/refresh', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ refreshToken: oldRefreshToken }),
+  });
+  const { accessToken, refreshToken: newRefreshToken } = await response.json();
+  // 旧的 refreshToken 已被服务端标记为无效
+  return { accessToken, refreshToken: newRefreshToken };
+}
+```
+
+### 7.3 BFF（Backend for Frontend）模式
+
+BFF 是前端认证的最佳实践架构：
+
+```
+浏览器 → [HttpOnly Cookie] → BFF → [Access Token] → 后端 API
+```
+
+**BFF 的优势**：
+1. Token 对浏览器不可见，消除 XSS 窃取风险
+2. Token 刷新逻辑集中管理
+3. 可以添加请求签名、IP 校验等额外安全层
+4. 减少前后端耦合
+
+```javascript
+// BFF 代理示例（Node.js）
+app.post('/api/auth/login', async (req, res) => {
+  const { username, password } = req.body;
+  const tokenResponse = await fetchAuthServer('/oauth/token', {
+    username, password, grant_type: 'password',
+  });
+  req.session.accessToken = tokenResponse.access_token;
+  req.session.refreshToken = tokenResponse.refresh_token;
+  res.json({ success: true });
+});
+
+app.get('/api/user/profile', async (req, res) => {
+  const response = await fetch('https://api.example.com/user/profile', {
+    headers: { Authorization: `Bearer ${req.session.accessToken}` },
+  });
+  const data = await response.json();
+  res.json(data);
+});
+```
+
+---
+
+## 八、OAuth 2.0 / OIDC 前端实践
+
+### 8.1 PKCE 流程详解
+
+PKCE（Proof Key for Code Exchange）是 SPA 的推荐 OAuth 流程：
+
+```
+1. 前端生成 code_verifier（随机字符串）
+2. 前端计算 code_challenge = SHA256(code_verifier)
+3. 前端重定向到授权服务器：
+   /authorize?response_type=code&client_id=app
+            &redirect_uri=https://app/callback
+            &code_challenge=<SHA256(verifier)>
+            &code_challenge_method=S256
+4. 授权服务器返回 authorization code
+5. 前端用 authorization code + code_verifier 换取 Token
+6. 授权服务器验证 code_verifier 与 code_challenge 匹配后返回 Token
+```
+
+```javascript
+async function generatePKCE() {
+  const verifier = generateRandomString(128);
+  const challenge = await sha256(verifier);
+  return { verifier, challenge };
+}
+
+function generateRandomString(length) {
+  const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  const array = new Uint8Array(length);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => charset[byte % charset.length]).join('');
+}
+
+async function sha256(plain) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(plain);
+  const hash = await crypto.subtle.digest('SHA-256', data);
+  return base64URLEncode(hash);
+}
+
+function base64URLEncode(buffer) {
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+```
+
+### 8.2 为什么隐式流程（Implicit Flow）被废弃
+
+OAuth 2.0 Security BCP（RFC 9700）明确废弃了 Implicit Flow：
+
+| 问题 | 说明 |
+|------|------|
+| Token 在 URL 中暴露 | 可能被浏览器历史、服务器日志记录 |
+| 无法使用 Refresh Token | 无法安全地刷新令牌 |
+| 没有客户端认证 | 无法验证客户端身份 |
+| 无法使用 PKCE | 隐式流程不支持 PKCE 扩展 |
+| 浏览器安全问题 | Token 暴露给 JavaScript 环境 |
+
+**结论**：SPA 应始终使用 Authorization Code + PKCE 流程。
+
+### 8.3 OIDC（OpenID Connect）
+
+OIDC 在 OAuth 2.0 基础上增加身份认证层：
+- **ID Token**：JWT 格式，包含用户身份信息（sub、name、email）
+- **UserInfo Endpoint**：获取用户详细信息的 API
+- **Discovery**：通过 .well-known/openid-configuration 获取配置
+
+---
+
+## 九、WebAuthn / Passkeys
+
+### 9.1 注册流程
+
+```javascript
+// 1. 服务端生成注册选项
+const publicKeyCredentialCreationOptions = {
+  challenge: await fetchChallenge(),
+  rp: { name: 'My App', id: 'example.com' },
+  user: {
+    id: new TextEncoder().encode(userId),
+    name: 'user@example.com',
+    displayName: 'User Name',
+  },
+  pubKeyCredParams: [
+    { type: 'public-key', alg: -7 },    // ES256
+    { type: 'public-key', alg: -257 },  // RS256
+  ],
+  authenticatorSelection: {
+    authenticatorAttachment: 'platform',
+    residentKey: 'preferred',
+    userVerification: 'preferred',
+  },
+  timeout: 60000,
+  attestation: 'none',
+};
+
+// 2. 浏览器调用 WebAuthn API
+const credential = await navigator.credentials.create({
+  publicKey: publicKeyCredentialCreationOptions,
+});
+
+// 3. 将认证器响应发送给服务端验证
+const attestationResponse = {
+  id: credential.id,
+  rawId: arrayBufferToBase64(credential.rawId),
+  type: credential.type,
+  response: {
+    clientDataJSON: arrayBufferToBase64(credential.response.clientDataJSON),
+    attestationObject: arrayBufferToBase64(credential.response.attestationObject),
+  },
+};
+```
+
+### 9.2 认证流程
+
+```javascript
+// 1. 服务端生成认证选项
+const publicKeyCredentialRequestOptions = {
+  challenge: await fetchChallenge(),
+  timeout: 60000,
+  rpId: 'example.com',
+  allowCredentials: [{
+    id: base64ToArrayBuffer(credentialId),
+    type: 'public-key',
+  }],
+  userVerification: 'preferred',
+};
+
+// 2. 浏览器调用 WebAuthn API
+const assertion = await navigator.credentials.get({
+  publicKey: publicKeyCredentialRequestOptions,
+});
+
+// 3. 将断言发送给服务端验证
+const assertionResponse = {
+  id: assertion.id,
+  rawId: arrayBufferToBase64(assertion.rawId),
+  type: assertion.type,
+  response: {
+    clientDataJSON: arrayBufferToBase64(assertion.response.clientDataJSON),
+    authenticatorData: arrayBufferToBase64(assertion.response.authenticatorData),
+    signature: arrayBufferToBase64(assertion.response.signature),
+    userHandle: arrayBufferToBase64(assertion.response.userHandle),
+  },
+};
+```
+
+---
+
+## 十、SRI（Subresource Integrity）
+
+### 10.1 工作原理
+
+SRI 确保 CDN 资源未被篡改：浏览器下载资源后计算哈希，与 integrity 属性比较，不匹配则拒绝执行。
 
 ```html
 <script
-  src="https://cdn.example.com/lib.js"
-  integrity="sha384-..."
+  src="https://cdn.example.com/vue@3.4.js"
+  integrity="sha384-ABC123..."
   crossorigin="anonymous"
 ></script>
 ```
 
----
-
-## 五、运行时安全控制
-
-### 5.1 内容安全策略（CSP）
-
-CSP 是防御 XSS 和数据注入的强大工具：
-
-```http
-Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted.cdn.com; style-src 'self' 'unsafe-inline'
+```bash
+# 生成 SRI 哈希
+openssl dgst -sha384 -binary file.js | openssl base64 -A
 ```
 
-### 5.2 安全响应头
+### 10.2 工程化集成
 
-| 响应头 | 作用 |
-|--------|------|
-| `X-Content-Type-Options: nosniff` | 禁止 MIME 嗅探 |
-| `X-Frame-Options: DENY` | 防止点击劫持 |
-| `Strict-Transport-Security` | 强制 HTTPS |
-| `Referrer-Policy` | 控制 Referrer 信息 |
-| `Permissions-Policy` | 限制浏览器特性（摄像头、麦克风等） |
+```javascript
+// webpack 中使用 webpack-subresource-integrity 插件自动生成 SRI
+import SriPlugin from 'webpack-subresource-integrity';
 
-### 5.3 输入输出安全
-
-- 所有用户输入默认不可信。
-- 输出到 DOM 前必须转义或使用安全 API。
-- 避免使用 `innerHTML`、`eval`、`new Function`。
-
-### 5.4 第三方脚本治理
-
-- 使用 CSP 限制脚本来源。
-- 对第三方脚本使用 iframe 或 Shadow DOM 隔离。
-- 使用 Partytown 将第三方脚本移到 Web Worker。
+export default {
+  output: { crossOriginLoading: 'anonymous' },
+  plugins: [
+    new SriPlugin({
+      hashFuncNames: ['sha384'],
+      enabled: process.env.NODE_ENV === 'production',
+    }),
+  ],
+};
+```
 
 ---
 
-## 六、隐私架构
+## 十一、Trusted Types
 
-### 6.1 隐私设计原则
+### 11.1 什么是 Trusted Types？
+
+Trusted Types 是浏览器级别的 XSS 防御机制，强制要求所有 DOM 赋值操作使用安全的类型对象。
+
+```http
+Content-Security-Policy: require-trusted-types-for 'script'
+```
+
+### 11.2 使用示例
+
+```javascript
+// 启用后，以下操作会被阻止：
+element.innerHTML = userInput;
+
+// 必须使用 Trusted Types
+const sanitizePolicy = TrustedTypes.createPolicy('default', {
+  createHTML: (input) => DOMPurify.sanitize(input),
+  createScriptURL: (input) => {
+    const url = new URL(input, window.location.origin);
+    if (url.origin === window.location.origin) return url.href;
+    throw new Error('Blocked');
+  },
+});
+
+element.innerHTML = sanitizePolicy.createHTML(userInput);
+```
+
+---
+
+## 十二、iframe 安全
+
+### 12.1 sandbox 属性
+
+```html
+<!-- 完全沙箱化 -->
+<iframe src="https://third-party.com" sandbox></iframe>
+
+<!-- 选择性启用 -->
+<iframe
+  src="https://third-party.com"
+  sandbox="allow-scripts allow-same-origin allow-forms"
+></iframe>
+```
+
+**sandbox 选项**：allow-scripts, allow-same-origin, allow-forms, allow-popups, allow-modals, allow-top-navigation
+
+> **安全警告**：同时启用 allow-scripts 和 allow-same-origin 会使沙箱失效。
+
+### 12.2 frame-ancestors CSP
+
+```http
+Content-Security-Policy: frame-ancestors 'none'        # 禁止嵌入
+Content-Security-Policy: frame-ancestors 'self'         # 仅同源
+Content-Security-Policy: frame-ancestors https://trusted-app.com  # 白名单
+```
+
+### 12.3 postMessage 安全验证
+
+```javascript
+window.addEventListener('message', (event) => {
+  if (event.origin !== 'https://trusted-app.com') return;
+  if (typeof event.data !== 'object' || !event.data.type) return;
+
+  switch (event.data.type) {
+    case 'RESIZE':
+      handleResize(event.data.payload);
+      break;
+    case 'NAVIGATE':
+      // 使用白名单，不要直接使用 event.data.url
+      navigateTo(event.data.payload);
+      break;
+  }
+});
+```
+
+---
+
+## 十三、常见误区与反模式
+
+| 误区 | 说明 | 正确做法 |
+|------|------|---------|
+| "前端没有敏感逻辑" | 前端仍有权限、凭证、业务规则 | 前端做体验层控制，服务端做最终控制 |
+| "HTTPS 就够了" | HTTPS 只是传输安全 | 配合 CSP、HSTS、SRI 等多层防御 |
+| "依赖不用审计" | 供应链攻击频发 | 定期审计和更新依赖 |
+| "安全是安全团队的事" | 安全需要全员参与 | 建立 SDL 和安全文化 |
+| "上线前扫描即可" | 安全应左移 | 从需求和设计阶段介入 |
+| "CSP 配置了就行" | CSP 需要持续维护和调试 | 使用 report-only 模式验证，监控违规 |
+| "OAuth 隐式流程没问题" | Token 暴露在 URL 中 | 使用 Authorization Code + PKCE |
+
+---
+
+## 十四、最佳实践
+
+1. **威胁建模先行**：新功能设计前进行 STRIDE 分析。
+2. **安全左移**：将安全扫描纳入 CI 和 Code Review。
+3. **最小权限**：前端只拥有必要的权限和数据。
+4. **纵深防御**：不依赖单一安全控制。
+5. **供应链治理**：固定版本、审计依赖、SRI 校验。
+6. **隐私默认**：收集数据前明确目的并获得同意。
+7. **CSP Strict Dynamic**：优先使用 nonce + strict-dynamic 方案。
+8. **BFF 模式**：前端不直接管理 Token。
+9. **Trusted Types**：启用浏览器级别的 XSS 防御。
+10. **应急响应**：建立漏洞响应流程和回滚机制。
+
+---
+
+## 十五、相关领域
+
+- [F05 Web 安全](../foundation/security)：XSS、CSRF、CSP 基础
+- [F04 Network](../foundation/network)：HTTPS、TLS、DNS
+- [E10 Node.js/BFF](../engineering/node-bff)：服务端安全、鉴权
+- [A01 System Architecture](./system-architecture)：架构设计、信任边界
+- [A06 Observability](./observability)：安全事件监控
+- [L03 Strategy](../leadership/strategy)：安全投入与成本权衡
+
+---
+
+## 十六、延伸阅读
+
+- :green_circle: [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- :yellow_circle: [OWASP Threat Modeling](https://owasp.org/www-community/Application_Threat_Modeling)
+- :yellow_circle: [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security)
+- :red_circle: [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- :yellow_circle: [CSP Evaluator](https://csp-evaluator.withgoogle.com/)
+- :yellow_circle: [WebAuthn Guide](https://webauthn.guide/)
+- :green_circle: [Auth0: OAuth 2.0 for Browser-Based Apps](https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow-with-pkce)
+- :red_circle: [Trusted Types Specification](https://w3c.github.io/webappsec-trusted-types/dist/spec/)
+
+---
+
+**标签**：`#security` `#security-architecture` `#threat-modeling` `#supply-chain` `#privacy` `#sdl` `#csp` `#cors` `#oauth` `#webauthn` `#trusted-types`
+
+> **最后更新**：2026-07-06
+
+## 十七、隐私架构
+
+### 17.1 隐私设计原则
 
 - **数据最小化**：只收集必要数据。
 - **目的限制**：数据仅用于声明目的。
 - **默认隐私**：默认开启最高隐私保护。
 - **透明可控**：用户知晓数据用途，可撤回同意。
 
-### 6.2 前端隐私实践
+### 17.2 前端隐私实践
 
 - 敏感数据不存储在 localStorage。
 - 埋点数据脱敏。
@@ -204,7 +799,7 @@ Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted.c
 - 用户注销后清除客户端缓存。
 - 使用 DNT（Do Not Track）和 GPC（Global Privacy Control）。
 
-### 6.3 合规要求
+### 17.3 合规要求
 
 | 法规 | 关键要求 |
 |------|---------|
@@ -214,29 +809,7 @@ Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted.c
 
 ---
 
-## 七、身份认证与授权
-
-### 7.1 Token 安全
-
-- Access Token 短期有效。
-- Refresh Token 安全存储（HttpOnly、Secure、SameSite）。
-- 避免将 Token 暴露给前端可访问存储。
-
-### 7.2 OAuth 2.0 / OIDC
-
-- 使用 PKCE 扩展保护移动端和 SPA。
-- 授权码流程比隐式授权更安全。
-- Token 验证在服务端完成。
-
-### 7.3 权限控制
-
-- 前端做 UI 权限控制（可见性）。
-- 服务端做 API 权限控制（不可绕过）。
-- 避免将权限规则硬编码在前端。
-
----
-
-## 八、安全测试与监控
+## 十八、安全测试与监控
 
 ### 8.1 自动化安全测试
 
@@ -256,53 +829,6 @@ Content-Security-Policy: default-src 'self'; script-src 'self' https://trusted.c
 
 ---
 
-## 九、常见误区与反模式
-
-| 误区 | 说明 | 正确做法 |
-|------|------|---------|
-| "前端没有敏感逻辑" | 前端仍有权限、凭证、业务规则 | 前端做体验层控制，服务端做最终控制 |
-| "HTTPS 就够了" | HTTPS 只是传输安全 | 配合 CSP、HSTS、SRI 等多层防御 |
-| "依赖不用审计" | 供应链攻击频发 | 定期审计和更新依赖 |
-| "安全是安全团队的事" | 安全需要全员参与 | 建立 SDL 和安全文化 |
-| "上线前扫描即可" | 安全应左移 | 从需求和设计阶段介入 |
-
----
-
-## 十、最佳实践
-
-1. **威胁建模先行**：新功能设计前进行 STRIDE 分析。
-2. **安全左移**：将安全扫描纳入 CI 和 Code Review。
-3. **最小权限**：前端只拥有必要的权限和数据。
-4. **纵深防御**：不依赖单一安全控制。
-5. **供应链治理**：固定版本、审计依赖、SRI 校验。
-6. **隐私默认**：收集数据前明确目的并获得同意。
-7. **应急响应**：建立漏洞响应流程和回滚机制。
-
----
-
-## 十一、相关领域
-
-- [F05 Web 安全](../foundation/security)：XSS、CSRF、CSP 基础
-- [F04 Network](../foundation/network)：HTTPS、TLS、DNS
-- [E10 Node.js/BFF](../engineering/node-bff)：服务端安全、鉴权
-- [A01 System Architecture](./system-architecture)：架构设计、信任边界
-- [A06 Observability](./observability)：安全事件监控
-- [L03 Strategy](../leadership/strategy)：安全投入与成本权衡
-
----
-
-## 十二、延伸阅读
-
-- 🟢 [OWASP Top 10](https://owasp.org/www-project-top-ten/)
-- 🟡 [OWASP Threat Modeling](https://owasp.org/www-community/Application_Threat_Modeling)
-- 🟡 [Mozilla Web Security Guidelines](https://infosec.mozilla.org/guidelines/web_security)
-- 🔴 [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-
----
-
-**标签**：`#security` `#security-architecture` `#threat-modeling` `#supply-chain` `#privacy` `#sdl`
-
-> **最后更新**：2026-06-25
 
 
 ---
