@@ -6,8 +6,16 @@
   --vp-c-brand-3: #8288ff;
   --vp-c-brand-soft: rgba(100, 108, 255, 0.14);
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
-  --vp-home-hero-image-background-image: linear-gradient(-45deg, #bd34fe 50%, #47caff 50%);
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #bd34fe 30%,
+    #41d1ff
+  );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #bd34fe 50%,
+    #47caff 50%
+  );
   --vp-home-hero-image-filter: blur(44px);
 }
 
@@ -117,17 +125,57 @@
   transition: width 0.3s ease;
 }
 
-/* 顶部菜单过多时的横向滚动处理，防止菜单项被截断 */
-@media (min-width: 768px) and (max-width: 1280px) {
+/* ========== 导航下拉菜单遮挡修复 ========== */
+
+/*
+ * 根本原因：
+ * 1. .VPNav 和 .VPContent 是兄弟节点，.VPContent 在 DOM 顺序上排在后面。
+ *    当 .VPContent 内的元素形成新的层叠上下文时，可能覆盖导航下拉菜单。
+ * 2. .VPNavBarMenu 的 overflow-x: auto 会隐式把 overflow-y 计算为 auto，
+ *    导致向下溢出的下拉菜单被父级裁剪。
+ *
+ * 解决方案：
+ * 1. 提升 .VPNav 的 z-index，并确保 .VPContent 处于更低的层叠上下文。
+ * 2. 保持下拉菜单相关元素 overflow: visible，避免被父级裁剪。
+ * 3. 不使用 position: fixed 劫持下拉菜单，避免破坏其相对于触发项的水平位置。
+ * 4. 移除 .VPNavBarMenu 的 overflow-x: auto，彻底消除裁剪上下文。
+ */
+
+/* 提升导航整体层级；不修改 position，保留 VitePress 默认 fixed/relative 行为 */
+.VPNav {
+  z-index: 100 !important;
+}
+
+/* 下拉菜单容器保持可见溢出 */
+.VPNavBarMenuGroup,
+.VPNavBarMenuGroup .VPFlyout,
+.VPNavBarMenuGroup .VPFlyout .VPMenu {
+  overflow: visible !important;
+}
+
+/* 下拉菜单弹出层保持默认绝对定位，仅提升层级 */
+.VPNavBarMenuGroup .VPFlyout .VPMenu {
+  z-index: 101 !important;
+}
+
+/* 让内容区形成独立的低层叠上下文，确保不会遮挡导航下拉 */
+.VPContent {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * 顶部菜单过多时不再使用 overflow-x: auto，因为它会同时裁剪下拉菜单。
+ * 如需支持大量菜单项，建议：
+ *   - 减少顶层菜单数量或合并为下拉项
+ *   - 使用 VitePress 默认的 VPNavBarExtra 折叠
+ *   - 自定义导航组件并将下拉菜单 teleport 到 body
+ */
+@media (min-width: 768px) {
   .VPNavBarMenu {
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    max-width: 100%;
+    flex-wrap: nowrap;
   }
-  .VPNavBarMenu::-webkit-scrollbar {
-    display: none;
-  }
+
   .VPNavBarMenu .VPNavBarMenuLink,
   .VPNavBarMenu .VPNavBarMenuGroup {
     flex-shrink: 0;

@@ -28,620 +28,596 @@
   ],
   "/foundation/": [
     {
-      "text": "Level 01 基础层",
+      "text": "Level 01 基础层 — 学习文档",
       "collapsed": false,
       "items": [
         {
-          "text": "学习文档",
-          "collapsed": false,
-          "items": [
-            {
-              "text": "Web 无障碍",
-              "link": "/foundation/a11y"
-            },
-            {
-              "text": "浏览器原理",
-              "link": "/foundation/browser"
-            },
-            {
-              "text": "数据结构与算法",
-              "link": "/foundation/data-structures-algorithms"
-            },
-            {
-              "text": "设计模式与软件工程基础",
-              "link": "/foundation/design-patterns"
-            },
-            {
-              "text": "HTML/CSS 工程化",
-              "link": "/foundation/html-css"
-            },
-            {
-              "text": "JavaScript 语言基础",
-              "link": "/foundation/javascript"
-            },
-            {
-              "text": "计算机网络",
-              "link": "/foundation/network"
-            },
-            {
-              "text": "Web 安全",
-              "link": "/foundation/security"
-            },
-            {
-              "text": "TypeScript 类型系统",
-              "link": "/foundation/typescript"
-            }
-          ]
+          "text": "Web 无障碍",
+          "link": "/foundation/a11y"
         },
         {
-          "text": "练习册",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "Web 无障碍 — 练习册",
-              "link": "/foundation/a11y-exercises"
-            },
-            {
-              "text": "浏览器原理 — 练习册",
-              "link": "/foundation/browser-exercises"
-            },
-            {
-              "text": "数据结构与算法 — 练习册",
-              "link": "/foundation/data-structures-algorithms-exercises"
-            },
-            {
-              "text": "设计模式与软件工程基础 — 练习册",
-              "link": "/foundation/design-patterns-exercises"
-            },
-            {
-              "text": "HTML/CSS 工程化 — 练习册",
-              "link": "/foundation/html-css-exercises"
-            },
-            {
-              "text": "JavaScript 语言基础 — 练习册",
-              "link": "/foundation/javascript-exercises"
-            },
-            {
-              "text": "计算机网络 — 练习册",
-              "link": "/foundation/network-exercises"
-            },
-            {
-              "text": "Web 安全 — 练习册",
-              "link": "/foundation/security-exercises"
-            },
-            {
-              "text": "TypeScript 类型系统 — 练习册",
-              "link": "/foundation/typescript-exercises"
-            }
-          ]
+          "text": "浏览器原理",
+          "link": "/foundation/browser"
         },
         {
-          "text": "面试题",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "Web 无障碍 — 面试题",
-              "link": "/foundation/a11y-interview"
-            },
-            {
-              "text": "浏览器原理 — 面试题",
-              "link": "/foundation/browser-interview"
-            },
-            {
-              "text": "数据结构与算法 — 面试题",
-              "link": "/foundation/data-structures-algorithms-interview"
-            },
-            {
-              "text": "设计模式与软件工程基础 — 面试题",
-              "link": "/foundation/design-patterns-interview"
-            },
-            {
-              "text": "HTML/CSS 工程化 — 面试题",
-              "link": "/foundation/html-css-interview"
-            },
-            {
-              "text": "JavaScript 语言基础 — 面试题",
-              "link": "/foundation/javascript-interview"
-            },
-            {
-              "text": "计算机网络 — 面试题",
-              "link": "/foundation/network-interview"
-            },
-            {
-              "text": "Web 安全 — 面试题",
-              "link": "/foundation/security-interview"
-            },
-            {
-              "text": "TypeScript 类型系统 — 面试题",
-              "link": "/foundation/typescript-interview"
-            }
-          ]
+          "text": "数据结构与算法",
+          "link": "/foundation/data-structures-algorithms"
+        },
+        {
+          "text": "设计模式与软件工程基础",
+          "link": "/foundation/design-patterns"
+        },
+        {
+          "text": "HTML/CSS 工程化",
+          "link": "/foundation/html-css"
+        },
+        {
+          "text": "JavaScript 语言基础",
+          "link": "/foundation/javascript"
+        },
+        {
+          "text": "计算机网络",
+          "link": "/foundation/network"
+        },
+        {
+          "text": "Web 安全",
+          "link": "/foundation/security"
+        },
+        {
+          "text": "TypeScript 类型系统",
+          "link": "/foundation/typescript"
+        }
+      ]
+    },
+    {
+      "text": "Level 01 基础层 — 练习册",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "Web 无障碍 — 练习册",
+          "link": "/foundation/a11y-exercises"
+        },
+        {
+          "text": "浏览器原理 — 练习册",
+          "link": "/foundation/browser-exercises"
+        },
+        {
+          "text": "数据结构与算法 — 练习册",
+          "link": "/foundation/data-structures-algorithms-exercises"
+        },
+        {
+          "text": "设计模式与软件工程基础 — 练习册",
+          "link": "/foundation/design-patterns-exercises"
+        },
+        {
+          "text": "HTML/CSS 工程化 — 练习册",
+          "link": "/foundation/html-css-exercises"
+        },
+        {
+          "text": "JavaScript 语言基础 — 练习册",
+          "link": "/foundation/javascript-exercises"
+        },
+        {
+          "text": "计算机网络 — 练习册",
+          "link": "/foundation/network-exercises"
+        },
+        {
+          "text": "Web 安全 — 练习册",
+          "link": "/foundation/security-exercises"
+        },
+        {
+          "text": "TypeScript 类型系统 — 练习册",
+          "link": "/foundation/typescript-exercises"
+        }
+      ]
+    },
+    {
+      "text": "Level 01 基础层 — 面试题",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "Web 无障碍 — 面试题",
+          "link": "/foundation/a11y-interview"
+        },
+        {
+          "text": "浏览器原理 — 面试题",
+          "link": "/foundation/browser-interview"
+        },
+        {
+          "text": "数据结构与算法 — 面试题",
+          "link": "/foundation/data-structures-algorithms-interview"
+        },
+        {
+          "text": "设计模式与软件工程基础 — 面试题",
+          "link": "/foundation/design-patterns-interview"
+        },
+        {
+          "text": "HTML/CSS 工程化 — 面试题",
+          "link": "/foundation/html-css-interview"
+        },
+        {
+          "text": "JavaScript 语言基础 — 面试题",
+          "link": "/foundation/javascript-interview"
+        },
+        {
+          "text": "计算机网络 — 面试题",
+          "link": "/foundation/network-interview"
+        },
+        {
+          "text": "Web 安全 — 面试题",
+          "link": "/foundation/security-interview"
+        },
+        {
+          "text": "TypeScript 类型系统 — 面试题",
+          "link": "/foundation/typescript-interview"
         }
       ]
     }
   ],
   "/engineering/": [
     {
-      "text": "Level 02 工程化层",
+      "text": "Level 02 工程化层 — 学习文档",
       "collapsed": false,
       "items": [
         {
-          "text": "学习文档",
-          "collapsed": false,
-          "items": [
-            {
-              "text": "AI 工程化",
-              "link": "/engineering/ai-engineering"
-            },
-            {
-              "text": "构建工具",
-              "link": "/engineering/build-tools"
-            },
-            {
-              "text": "CI/CD 与 DevOps",
-              "link": "/engineering/ci-cd"
-            },
-            {
-              "text": "代码质量与测试体系",
-              "link": "/engineering/code-quality"
-            },
-            {
-              "text": "跨端技术",
-              "link": "/engineering/cross-platform"
-            },
-            {
-              "text": "前端部署与运维（SRE）",
-              "link": "/engineering/deployment-sre"
-            },
-            {
-              "text": "设计体系与组件库",
-              "link": "/engineering/design-system"
-            },
-            {
-              "text": "Developer Experience",
-              "link": "/engineering/developer-experience"
-            },
-            {
-              "text": "Git 工作流与版本控制",
-              "link": "/engineering/git-workflow"
-            },
-            {
-              "text": "Monorepo 工程管理",
-              "link": "/engineering/monorepo"
-            },
-            {
-              "text": "Node.js / BFF 服务端",
-              "link": "/engineering/node-bff"
-            },
-            {
-              "text": "前端包管理与供应链安全",
-              "link": "/engineering/package-supply-chain"
-            },
-            {
-              "text": "React 原理与生态",
-              "link": "/engineering/react"
-            },
-            {
-              "text": "Vue 原理与生态",
-              "link": "/engineering/vue"
-            }
-          ]
+          "text": "AI 工程化",
+          "link": "/engineering/ai-engineering"
         },
         {
-          "text": "练习册",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "AI 工程化 — 练习册",
-              "link": "/engineering/ai-engineering-exercises"
-            },
-            {
-              "text": "构建工具 — 练习册",
-              "link": "/engineering/build-tools-exercises"
-            },
-            {
-              "text": "CI/CD 与 DevOps — 练习册",
-              "link": "/engineering/ci-cd-exercises"
-            },
-            {
-              "text": "代码质量与测试体系 — 练习册",
-              "link": "/engineering/code-quality-exercises"
-            },
-            {
-              "text": "跨端技术 — 练习册",
-              "link": "/engineering/cross-platform-exercises"
-            },
-            {
-              "text": "前端部署与运维（SRE） — 练习册",
-              "link": "/engineering/deployment-sre-exercises"
-            },
-            {
-              "text": "设计体系与组件库 — 练习册",
-              "link": "/engineering/design-system-exercises"
-            },
-            {
-              "text": "Developer Experience — 练习册",
-              "link": "/engineering/developer-experience-exercises"
-            },
-            {
-              "text": "Git 工作流与版本控制 — 练习册",
-              "link": "/engineering/git-workflow-exercises"
-            },
-            {
-              "text": "Monorepo 工程管理 — 练习册",
-              "link": "/engineering/monorepo-exercises"
-            },
-            {
-              "text": "Node.js / BFF 服务端 — 练习册",
-              "link": "/engineering/node-bff-exercises"
-            },
-            {
-              "text": "前端包管理与供应链安全 — 练习册",
-              "link": "/engineering/package-supply-chain-exercises"
-            },
-            {
-              "text": "React 原理与生态 — 练习册",
-              "link": "/engineering/react-exercises"
-            },
-            {
-              "text": "Vue 原理与生态 — 练习册",
-              "link": "/engineering/vue-exercises"
-            }
-          ]
+          "text": "构建工具",
+          "link": "/engineering/build-tools"
         },
         {
-          "text": "面试题",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "AI 工程化 — 面试题",
-              "link": "/engineering/ai-engineering-interview"
-            },
-            {
-              "text": "构建工具 — 面试题",
-              "link": "/engineering/build-tools-interview"
-            },
-            {
-              "text": "CI/CD 与 DevOps — 面试题",
-              "link": "/engineering/ci-cd-interview"
-            },
-            {
-              "text": "代码质量与测试体系 — 面试题",
-              "link": "/engineering/code-quality-interview"
-            },
-            {
-              "text": "跨端技术 — 面试题",
-              "link": "/engineering/cross-platform-interview"
-            },
-            {
-              "text": "前端部署与运维（SRE） — 面试题",
-              "link": "/engineering/deployment-sre-interview"
-            },
-            {
-              "text": "设计体系与组件库 — 面试题",
-              "link": "/engineering/design-system-interview"
-            },
-            {
-              "text": "Developer Experience — 面试题",
-              "link": "/engineering/developer-experience-interview"
-            },
-            {
-              "text": "Git 工作流与版本控制 — 面试题",
-              "link": "/engineering/git-workflow-interview"
-            },
-            {
-              "text": "Monorepo 工程管理 — 面试题",
-              "link": "/engineering/monorepo-interview"
-            },
-            {
-              "text": "Node.js / BFF 服务端 — 面试题",
-              "link": "/engineering/node-bff-interview"
-            },
-            {
-              "text": "前端包管理与供应链安全 — 面试题",
-              "link": "/engineering/package-supply-chain-interview"
-            },
-            {
-              "text": "React 原理与生态 — 面试题",
-              "link": "/engineering/react-interview"
-            },
-            {
-              "text": "Vue 原理与生态 — 面试题",
-              "link": "/engineering/vue-interview"
-            }
-          ]
+          "text": "CI/CD 与 DevOps",
+          "link": "/engineering/ci-cd"
+        },
+        {
+          "text": "代码质量与测试体系",
+          "link": "/engineering/code-quality"
+        },
+        {
+          "text": "跨端技术",
+          "link": "/engineering/cross-platform"
+        },
+        {
+          "text": "前端部署与运维（SRE）",
+          "link": "/engineering/deployment-sre"
+        },
+        {
+          "text": "设计体系与组件库",
+          "link": "/engineering/design-system"
+        },
+        {
+          "text": "Developer Experience",
+          "link": "/engineering/developer-experience"
+        },
+        {
+          "text": "Git 工作流与版本控制",
+          "link": "/engineering/git-workflow"
+        },
+        {
+          "text": "Monorepo 工程管理",
+          "link": "/engineering/monorepo"
+        },
+        {
+          "text": "Node.js / BFF 服务端",
+          "link": "/engineering/node-bff"
+        },
+        {
+          "text": "前端包管理与供应链安全",
+          "link": "/engineering/package-supply-chain"
+        },
+        {
+          "text": "React 原理与生态",
+          "link": "/engineering/react"
+        },
+        {
+          "text": "Vue 原理与生态",
+          "link": "/engineering/vue"
+        }
+      ]
+    },
+    {
+      "text": "Level 02 工程化层 — 练习册",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "AI 工程化 — 练习册",
+          "link": "/engineering/ai-engineering-exercises"
+        },
+        {
+          "text": "构建工具 — 练习册",
+          "link": "/engineering/build-tools-exercises"
+        },
+        {
+          "text": "CI/CD 与 DevOps — 练习册",
+          "link": "/engineering/ci-cd-exercises"
+        },
+        {
+          "text": "代码质量与测试体系 — 练习册",
+          "link": "/engineering/code-quality-exercises"
+        },
+        {
+          "text": "跨端技术 — 练习册",
+          "link": "/engineering/cross-platform-exercises"
+        },
+        {
+          "text": "前端部署与运维（SRE） — 练习册",
+          "link": "/engineering/deployment-sre-exercises"
+        },
+        {
+          "text": "设计体系与组件库 — 练习册",
+          "link": "/engineering/design-system-exercises"
+        },
+        {
+          "text": "Developer Experience — 练习册",
+          "link": "/engineering/developer-experience-exercises"
+        },
+        {
+          "text": "Git 工作流与版本控制 — 练习册",
+          "link": "/engineering/git-workflow-exercises"
+        },
+        {
+          "text": "Monorepo 工程管理 — 练习册",
+          "link": "/engineering/monorepo-exercises"
+        },
+        {
+          "text": "Node.js / BFF 服务端 — 练习册",
+          "link": "/engineering/node-bff-exercises"
+        },
+        {
+          "text": "前端包管理与供应链安全 — 练习册",
+          "link": "/engineering/package-supply-chain-exercises"
+        },
+        {
+          "text": "React 原理与生态 — 练习册",
+          "link": "/engineering/react-exercises"
+        },
+        {
+          "text": "Vue 原理与生态 — 练习册",
+          "link": "/engineering/vue-exercises"
+        }
+      ]
+    },
+    {
+      "text": "Level 02 工程化层 — 面试题",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "AI 工程化 — 面试题",
+          "link": "/engineering/ai-engineering-interview"
+        },
+        {
+          "text": "构建工具 — 面试题",
+          "link": "/engineering/build-tools-interview"
+        },
+        {
+          "text": "CI/CD 与 DevOps — 面试题",
+          "link": "/engineering/ci-cd-interview"
+        },
+        {
+          "text": "代码质量与测试体系 — 面试题",
+          "link": "/engineering/code-quality-interview"
+        },
+        {
+          "text": "跨端技术 — 面试题",
+          "link": "/engineering/cross-platform-interview"
+        },
+        {
+          "text": "前端部署与运维（SRE） — 面试题",
+          "link": "/engineering/deployment-sre-interview"
+        },
+        {
+          "text": "设计体系与组件库 — 面试题",
+          "link": "/engineering/design-system-interview"
+        },
+        {
+          "text": "Developer Experience — 面试题",
+          "link": "/engineering/developer-experience-interview"
+        },
+        {
+          "text": "Git 工作流与版本控制 — 面试题",
+          "link": "/engineering/git-workflow-interview"
+        },
+        {
+          "text": "Monorepo 工程管理 — 面试题",
+          "link": "/engineering/monorepo-interview"
+        },
+        {
+          "text": "Node.js / BFF 服务端 — 面试题",
+          "link": "/engineering/node-bff-interview"
+        },
+        {
+          "text": "前端包管理与供应链安全 — 面试题",
+          "link": "/engineering/package-supply-chain-interview"
+        },
+        {
+          "text": "React 原理与生态 — 面试题",
+          "link": "/engineering/react-interview"
+        },
+        {
+          "text": "Vue 原理与生态 — 面试题",
+          "link": "/engineering/vue-interview"
         }
       ]
     }
   ],
   "/architecture/": [
     {
-      "text": "Level 03 架构层",
+      "text": "Level 03 架构层 — 学习文档",
       "collapsed": false,
       "items": [
         {
-          "text": "学习文档",
-          "collapsed": false,
-          "items": [
-            {
-              "text": "前端数据工程",
-              "link": "/architecture/data-engineering"
-            },
-            {
-              "text": "数据与状态管理",
-              "link": "/architecture/data-state"
-            },
-            {
-              "text": "国际化与本地化架构",
-              "link": "/architecture/internationalization"
-            },
-            {
-              "text": "微前端",
-              "link": "/architecture/micro-frontend"
-            },
-            {
-              "text": "可观测性与稳定性工程",
-              "link": "/architecture/observability"
-            },
-            {
-              "text": "性能工程",
-              "link": "/architecture/performance"
-            },
-            {
-              "text": "质量保障",
-              "link": "/architecture/quality"
-            },
-            {
-              "text": "实时与协同架构",
-              "link": "/architecture/real-time"
-            },
-            {
-              "text": "前端安全架构",
-              "link": "/architecture/security-architecture"
-            },
-            {
-              "text": "Serverless / Edge 架构",
-              "link": "/architecture/serverless-edge"
-            },
-            {
-              "text": "系统架构设计",
-              "link": "/architecture/system-architecture"
-            },
-            {
-              "text": "前端可视化与图形架构",
-              "link": "/architecture/visualization-graphics"
-            }
-          ]
+          "text": "前端数据工程",
+          "link": "/architecture/data-engineering"
         },
         {
-          "text": "练习册",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "前端数据工程 — 练习册",
-              "link": "/architecture/data-engineering-exercises"
-            },
-            {
-              "text": "数据与状态管理 — 练习册",
-              "link": "/architecture/data-state-exercises"
-            },
-            {
-              "text": "国际化与本地化架构 — 练习册",
-              "link": "/architecture/internationalization-exercises"
-            },
-            {
-              "text": "微前端 — 练习册",
-              "link": "/architecture/micro-frontend-exercises"
-            },
-            {
-              "text": "可观测性与稳定性工程 — 练习册",
-              "link": "/architecture/observability-exercises"
-            },
-            {
-              "text": "性能工程 — 练习册",
-              "link": "/architecture/performance-exercises"
-            },
-            {
-              "text": "质量保障 — 练习册",
-              "link": "/architecture/quality-exercises"
-            },
-            {
-              "text": "实时与协同架构 — 练习册",
-              "link": "/architecture/real-time-exercises"
-            },
-            {
-              "text": "前端安全架构 — 练习册",
-              "link": "/architecture/security-architecture-exercises"
-            },
-            {
-              "text": "Serverless / Edge 架构 — 练习册",
-              "link": "/architecture/serverless-edge-exercises"
-            },
-            {
-              "text": "系统架构设计 — 练习册",
-              "link": "/architecture/system-architecture-exercises"
-            },
-            {
-              "text": "前端可视化与图形架构 — 练习册",
-              "link": "/architecture/visualization-graphics-exercises"
-            }
-          ]
+          "text": "数据与状态管理",
+          "link": "/architecture/data-state"
         },
         {
-          "text": "面试题",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "前端数据工程 — 面试题",
-              "link": "/architecture/data-engineering-interview"
-            },
-            {
-              "text": "数据与状态管理 — 面试题",
-              "link": "/architecture/data-state-interview"
-            },
-            {
-              "text": "国际化与本地化架构 — 面试题",
-              "link": "/architecture/internationalization-interview"
-            },
-            {
-              "text": "微前端 — 面试题",
-              "link": "/architecture/micro-frontend-interview"
-            },
-            {
-              "text": "可观测性与稳定性工程 — 面试题",
-              "link": "/architecture/observability-interview"
-            },
-            {
-              "text": "性能工程 — 面试题",
-              "link": "/architecture/performance-interview"
-            },
-            {
-              "text": "质量保障 — 面试题",
-              "link": "/architecture/quality-interview"
-            },
-            {
-              "text": "实时与协同架构 — 面试题",
-              "link": "/architecture/real-time-interview"
-            },
-            {
-              "text": "前端安全架构 — 面试题",
-              "link": "/architecture/security-architecture-interview"
-            },
-            {
-              "text": "Serverless / Edge 架构 — 面试题",
-              "link": "/architecture/serverless-edge-interview"
-            },
-            {
-              "text": "系统架构设计 — 面试题",
-              "link": "/architecture/system-architecture-interview"
-            },
-            {
-              "text": "前端可视化与图形架构 — 面试题",
-              "link": "/architecture/visualization-graphics-interview"
-            }
-          ]
+          "text": "国际化与本地化架构",
+          "link": "/architecture/internationalization"
+        },
+        {
+          "text": "微前端",
+          "link": "/architecture/micro-frontend"
+        },
+        {
+          "text": "可观测性与稳定性工程",
+          "link": "/architecture/observability"
+        },
+        {
+          "text": "性能工程",
+          "link": "/architecture/performance"
+        },
+        {
+          "text": "质量保障",
+          "link": "/architecture/quality"
+        },
+        {
+          "text": "实时与协同架构",
+          "link": "/architecture/real-time"
+        },
+        {
+          "text": "前端安全架构",
+          "link": "/architecture/security-architecture"
+        },
+        {
+          "text": "Serverless / Edge 架构",
+          "link": "/architecture/serverless-edge"
+        },
+        {
+          "text": "系统架构设计",
+          "link": "/architecture/system-architecture"
+        },
+        {
+          "text": "前端可视化与图形架构",
+          "link": "/architecture/visualization-graphics"
+        }
+      ]
+    },
+    {
+      "text": "Level 03 架构层 — 练习册",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "前端数据工程 — 练习册",
+          "link": "/architecture/data-engineering-exercises"
+        },
+        {
+          "text": "数据与状态管理 — 练习册",
+          "link": "/architecture/data-state-exercises"
+        },
+        {
+          "text": "国际化与本地化架构 — 练习册",
+          "link": "/architecture/internationalization-exercises"
+        },
+        {
+          "text": "微前端 — 练习册",
+          "link": "/architecture/micro-frontend-exercises"
+        },
+        {
+          "text": "可观测性与稳定性工程 — 练习册",
+          "link": "/architecture/observability-exercises"
+        },
+        {
+          "text": "性能工程 — 练习册",
+          "link": "/architecture/performance-exercises"
+        },
+        {
+          "text": "质量保障 — 练习册",
+          "link": "/architecture/quality-exercises"
+        },
+        {
+          "text": "实时与协同架构 — 练习册",
+          "link": "/architecture/real-time-exercises"
+        },
+        {
+          "text": "前端安全架构 — 练习册",
+          "link": "/architecture/security-architecture-exercises"
+        },
+        {
+          "text": "Serverless / Edge 架构 — 练习册",
+          "link": "/architecture/serverless-edge-exercises"
+        },
+        {
+          "text": "系统架构设计 — 练习册",
+          "link": "/architecture/system-architecture-exercises"
+        },
+        {
+          "text": "前端可视化与图形架构 — 练习册",
+          "link": "/architecture/visualization-graphics-exercises"
+        }
+      ]
+    },
+    {
+      "text": "Level 03 架构层 — 面试题",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "前端数据工程 — 面试题",
+          "link": "/architecture/data-engineering-interview"
+        },
+        {
+          "text": "数据与状态管理 — 面试题",
+          "link": "/architecture/data-state-interview"
+        },
+        {
+          "text": "国际化与本地化架构 — 面试题",
+          "link": "/architecture/internationalization-interview"
+        },
+        {
+          "text": "微前端 — 面试题",
+          "link": "/architecture/micro-frontend-interview"
+        },
+        {
+          "text": "可观测性与稳定性工程 — 面试题",
+          "link": "/architecture/observability-interview"
+        },
+        {
+          "text": "性能工程 — 面试题",
+          "link": "/architecture/performance-interview"
+        },
+        {
+          "text": "质量保障 — 面试题",
+          "link": "/architecture/quality-interview"
+        },
+        {
+          "text": "实时与协同架构 — 面试题",
+          "link": "/architecture/real-time-interview"
+        },
+        {
+          "text": "前端安全架构 — 面试题",
+          "link": "/architecture/security-architecture-interview"
+        },
+        {
+          "text": "Serverless / Edge 架构 — 面试题",
+          "link": "/architecture/serverless-edge-interview"
+        },
+        {
+          "text": "系统架构设计 — 面试题",
+          "link": "/architecture/system-architecture-interview"
+        },
+        {
+          "text": "前端可视化与图形架构 — 面试题",
+          "link": "/architecture/visualization-graphics-interview"
         }
       ]
     }
   ],
   "/leadership/": [
     {
-      "text": "Level 04 领导力层",
+      "text": "Level 04 领导力层 — 学习文档",
       "collapsed": false,
       "items": [
         {
-          "text": "学习文档",
-          "collapsed": false,
-          "items": [
-            {
-              "text": "业务洞察",
-              "link": "/leadership/business"
-            },
-            {
-              "text": "沟通表达与影响力",
-              "link": "/leadership/communication"
-            },
-            {
-              "text": "招聘培养与组织发展",
-              "link": "/leadership/hiring"
-            },
-            {
-              "text": "项目管理与交付",
-              "link": "/leadership/project-management"
-            },
-            {
-              "text": "技术战略",
-              "link": "/leadership/strategy"
-            },
-            {
-              "text": "团队领导力",
-              "link": "/leadership/team"
-            },
-            {
-              "text": "技术品牌与社区影响力",
-              "link": "/leadership/tech-branding"
-            },
-            {
-              "text": "技术治理与变革管理",
-              "link": "/leadership/tech-governance"
-            }
-          ]
+          "text": "业务洞察",
+          "link": "/leadership/business"
         },
         {
-          "text": "练习册",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "业务洞察 — 练习册",
-              "link": "/leadership/business-exercises"
-            },
-            {
-              "text": "沟通表达与影响力 — 练习册",
-              "link": "/leadership/communication-exercises"
-            },
-            {
-              "text": "招聘培养与组织发展 — 练习册",
-              "link": "/leadership/hiring-exercises"
-            },
-            {
-              "text": "项目管理与交付 — 练习册",
-              "link": "/leadership/project-management-exercises"
-            },
-            {
-              "text": "技术战略 — 练习册",
-              "link": "/leadership/strategy-exercises"
-            },
-            {
-              "text": "团队领导力 — 练习册",
-              "link": "/leadership/team-exercises"
-            },
-            {
-              "text": "技术品牌与社区影响力 — 练习册",
-              "link": "/leadership/tech-branding-exercises"
-            },
-            {
-              "text": "技术治理与变革管理 — 练习册",
-              "link": "/leadership/tech-governance-exercises"
-            }
-          ]
+          "text": "沟通表达与影响力",
+          "link": "/leadership/communication"
         },
         {
-          "text": "面试题",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "业务洞察 — 面试题",
-              "link": "/leadership/business-interview"
-            },
-            {
-              "text": "沟通表达与影响力 — 面试题",
-              "link": "/leadership/communication-interview"
-            },
-            {
-              "text": "招聘培养与组织发展 — 面试题",
-              "link": "/leadership/hiring-interview"
-            },
-            {
-              "text": "项目管理与交付 — 面试题",
-              "link": "/leadership/project-management-interview"
-            },
-            {
-              "text": "技术战略 — 面试题",
-              "link": "/leadership/strategy-interview"
-            },
-            {
-              "text": "团队领导力 — 面试题",
-              "link": "/leadership/team-interview"
-            },
-            {
-              "text": "技术品牌与社区影响力 — 面试题",
-              "link": "/leadership/tech-branding-interview"
-            },
-            {
-              "text": "技术治理与变革管理 — 面试题",
-              "link": "/leadership/tech-governance-interview"
-            }
-          ]
+          "text": "招聘培养与组织发展",
+          "link": "/leadership/hiring"
+        },
+        {
+          "text": "项目管理与交付",
+          "link": "/leadership/project-management"
+        },
+        {
+          "text": "技术战略",
+          "link": "/leadership/strategy"
+        },
+        {
+          "text": "团队领导力",
+          "link": "/leadership/team"
+        },
+        {
+          "text": "技术品牌与社区影响力",
+          "link": "/leadership/tech-branding"
+        },
+        {
+          "text": "技术治理与变革管理",
+          "link": "/leadership/tech-governance"
+        }
+      ]
+    },
+    {
+      "text": "Level 04 领导力层 — 练习册",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "业务洞察 — 练习册",
+          "link": "/leadership/business-exercises"
+        },
+        {
+          "text": "沟通表达与影响力 — 练习册",
+          "link": "/leadership/communication-exercises"
+        },
+        {
+          "text": "招聘培养与组织发展 — 练习册",
+          "link": "/leadership/hiring-exercises"
+        },
+        {
+          "text": "项目管理与交付 — 练习册",
+          "link": "/leadership/project-management-exercises"
+        },
+        {
+          "text": "技术战略 — 练习册",
+          "link": "/leadership/strategy-exercises"
+        },
+        {
+          "text": "团队领导力 — 练习册",
+          "link": "/leadership/team-exercises"
+        },
+        {
+          "text": "技术品牌与社区影响力 — 练习册",
+          "link": "/leadership/tech-branding-exercises"
+        },
+        {
+          "text": "技术治理与变革管理 — 练习册",
+          "link": "/leadership/tech-governance-exercises"
+        }
+      ]
+    },
+    {
+      "text": "Level 04 领导力层 — 面试题",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "业务洞察 — 面试题",
+          "link": "/leadership/business-interview"
+        },
+        {
+          "text": "沟通表达与影响力 — 面试题",
+          "link": "/leadership/communication-interview"
+        },
+        {
+          "text": "招聘培养与组织发展 — 面试题",
+          "link": "/leadership/hiring-interview"
+        },
+        {
+          "text": "项目管理与交付 — 面试题",
+          "link": "/leadership/project-management-interview"
+        },
+        {
+          "text": "技术战略 — 面试题",
+          "link": "/leadership/strategy-interview"
+        },
+        {
+          "text": "团队领导力 — 面试题",
+          "link": "/leadership/team-interview"
+        },
+        {
+          "text": "技术品牌与社区影响力 — 面试题",
+          "link": "/leadership/tech-branding-interview"
+        },
+        {
+          "text": "技术治理与变革管理 — 面试题",
+          "link": "/leadership/tech-governance-interview"
         }
       ]
     }
@@ -816,348 +792,348 @@
         {
           "text": "题库首页",
           "link": "/interview-bank/"
+        }
+      ]
+    },
+    {
+      "text": "按岗位层级",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "前端架构师",
+          "link": "/interview-bank/by-level/architect"
         },
         {
-          "text": "按岗位层级",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "前端架构师",
-              "link": "/interview-bank/by-level/architect"
-            },
-            {
-              "text": "前端专家",
-              "link": "/interview-bank/by-level/expert"
-            },
-            {
-              "text": "初级前端工程师",
-              "link": "/interview-bank/by-level/junior"
-            },
-            {
-              "text": "高级前端工程师",
-              "link": "/interview-bank/by-level/senior"
-            }
-          ]
+          "text": "前端专家",
+          "link": "/interview-bank/by-level/expert"
         },
         {
-          "text": "按题型",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "概念题",
-              "link": "/interview-bank/by-type/01-concept"
-            },
-            {
-              "text": "代码分析题",
-              "link": "/interview-bank/by-type/02-code-analysis"
-            },
-            {
-              "text": "手写代码题",
-              "link": "/interview-bank/by-type/03-coding"
-            },
-            {
-              "text": "场景设计题",
-              "link": "/interview-bank/by-type/04-scenario"
-            },
-            {
-              "text": "系统设计题",
-              "link": "/interview-bank/by-type/05-system-design"
-            },
-            {
-              "text": "框架原理题",
-              "link": "/interview-bank/by-type/06-framework-source"
-            },
-            {
-              "text": "性能优化题",
-              "link": "/interview-bank/by-type/07-performance"
-            },
-            {
-              "text": "安全题",
-              "link": "/interview-bank/by-type/08-security"
-            },
-            {
-              "text": "工程化题",
-              "link": "/interview-bank/by-type/09-engineering"
-            },
-            {
-              "text": "软技能题",
-              "link": "/interview-bank/by-type/10-soft-skill"
-            },
-            {
-              "text": "综合开放题",
-              "link": "/interview-bank/by-type/11-comprehensive"
-            }
-          ]
+          "text": "初级前端工程师",
+          "link": "/interview-bank/by-level/junior"
         },
         {
-          "text": "按面试知识域",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "JavaScript",
-              "link": "/interview-bank/by-domain/01-javascript"
-            },
-            {
-              "text": "TypeScript",
-              "link": "/interview-bank/by-domain/02-typescript"
-            },
-            {
-              "text": "浏览器原理",
-              "link": "/interview-bank/by-domain/03-browser"
-            },
-            {
-              "text": "计算机网络",
-              "link": "/interview-bank/by-domain/04-network"
-            },
-            {
-              "text": "Web 安全",
-              "link": "/interview-bank/by-domain/05-security"
-            },
-            {
-              "text": "HTML / CSS",
-              "link": "/interview-bank/by-domain/06-html-css"
-            },
-            {
-              "text": "可访问性",
-              "link": "/interview-bank/by-domain/07-a11y"
-            },
-            {
-              "text": "数据结构与算法",
-              "link": "/interview-bank/by-domain/08-algorithms"
-            },
-            {
-              "text": "设计模式",
-              "link": "/interview-bank/by-domain/09-design-patterns"
-            },
-            {
-              "text": "构建工具",
-              "link": "/interview-bank/by-domain/10-build-tools"
-            },
-            {
-              "text": "Monorepo",
-              "link": "/interview-bank/by-domain/11-monorepo"
-            },
-            {
-              "text": "CI/CD",
-              "link": "/interview-bank/by-domain/12-ci-cd"
-            },
-            {
-              "text": "代码质量与测试",
-              "link": "/interview-bank/by-domain/13-code-quality"
-            },
-            {
-              "text": "设计体系与组件库",
-              "link": "/interview-bank/by-domain/14-design-system"
-            },
-            {
-              "text": "React",
-              "link": "/interview-bank/by-domain/15-react"
-            },
-            {
-              "text": "Vue",
-              "link": "/interview-bank/by-domain/16-vue"
-            },
-            {
-              "text": "跨端技术",
-              "link": "/interview-bank/by-domain/17-cross-platform"
-            },
-            {
-              "text": "AI 工程化",
-              "link": "/interview-bank/by-domain/18-ai-engineering"
-            },
-            {
-              "text": "Node.js / BFF",
-              "link": "/interview-bank/by-domain/19-node-bff"
-            },
-            {
-              "text": "Git 工作流",
-              "link": "/interview-bank/by-domain/20-git-workflow"
-            },
-            {
-              "text": "开发者体验",
-              "link": "/interview-bank/by-domain/21-dx"
-            },
-            {
-              "text": "部署与 SRE",
-              "link": "/interview-bank/by-domain/22-deployment-sre"
-            },
-            {
-              "text": "包管理与供应链安全",
-              "link": "/interview-bank/by-domain/23-package-supply-chain"
-            },
-            {
-              "text": "前端运维与监控",
-              "link": "/interview-bank/by-domain/24-frontend-operations"
-            },
-            {
-              "text": "系统架构设计",
-              "link": "/interview-bank/by-domain/25-system-architecture"
-            },
-            {
-              "text": "微前端",
-              "link": "/interview-bank/by-domain/26-micro-frontend"
-            },
-            {
-              "text": "性能工程",
-              "link": "/interview-bank/by-domain/27-performance"
-            },
-            {
-              "text": "质量保障",
-              "link": "/interview-bank/by-domain/28-quality"
-            },
-            {
-              "text": "数据与状态管理",
-              "link": "/interview-bank/by-domain/29-data-state"
-            },
-            {
-              "text": "可观测性",
-              "link": "/interview-bank/by-domain/30-observability"
-            },
-            {
-              "text": "安全架构",
-              "link": "/interview-bank/by-domain/31-security-architecture"
-            },
-            {
-              "text": "实时与协同",
-              "link": "/interview-bank/by-domain/32-real-time"
-            },
-            {
-              "text": "国际化",
-              "link": "/interview-bank/by-domain/33-internationalization"
-            },
-            {
-              "text": "可视化与图形",
-              "link": "/interview-bank/by-domain/34-visualization-graphics"
-            },
-            {
-              "text": "Serverless / Edge",
-              "link": "/interview-bank/by-domain/35-serverless-edge"
-            },
-            {
-              "text": "前端数据工程",
-              "link": "/interview-bank/by-domain/36-data-engineering"
-            },
-            {
-              "text": "业务洞察",
-              "link": "/interview-bank/by-domain/37-business"
-            },
-            {
-              "text": "团队领导力",
-              "link": "/interview-bank/by-domain/38-team"
-            },
-            {
-              "text": "技术战略",
-              "link": "/interview-bank/by-domain/39-strategy"
-            },
-            {
-              "text": "沟通表达",
-              "link": "/interview-bank/by-domain/40-communication"
-            },
-            {
-              "text": "项目管理",
-              "link": "/interview-bank/by-domain/41-project-management"
-            },
-            {
-              "text": "招聘与组织",
-              "link": "/interview-bank/by-domain/42-hiring"
-            },
-            {
-              "text": "技术品牌",
-              "link": "/interview-bank/by-domain/43-tech-branding"
-            },
-            {
-              "text": "技术治理",
-              "link": "/interview-bank/by-domain/44-tech-governance"
-            },
-            {
-              "text": "小程序",
-              "link": "/interview-bank/by-domain/45-mini-program"
-            },
-            {
-              "text": "鸿蒙 ArkTS / HarmonyOS",
-              "link": "/interview-bank/by-domain/46-harmonyos"
-            },
-            {
-              "text": "Flutter",
-              "link": "/interview-bank/by-domain/47-flutter"
-            },
-            {
-              "text": "Electron",
-              "link": "/interview-bank/by-domain/48-electron"
-            },
-            {
-              "text": "WebAssembly",
-              "link": "/interview-bank/by-domain/49-webassembly"
-            },
-            {
-              "text": "WebGPU / 图形学",
-              "link": "/interview-bank/by-domain/50-webgpu-graphics"
-            },
-            {
-              "text": "音视频前端",
-              "link": "/interview-bank/by-domain/51-multimedia"
-            },
-            {
-              "text": "低代码 / 搭建",
-              "link": "/interview-bank/by-domain/52-low-code"
-            },
-            {
-              "text": "计算机基础",
-              "link": "/interview-bank/by-domain/53-computer-science"
-            },
-            {
-              "text": "行为面试",
-              "link": "/interview-bank/by-domain/54-behavioral"
-            },
-            {
-              "text": "简历与面试技巧",
-              "link": "/interview-bank/by-domain/55-resume-interview"
-            },
-            {
-              "text": "行业特化",
-              "link": "/interview-bank/by-domain/56-industry"
-            }
-          ]
+          "text": "高级前端工程师",
+          "link": "/interview-bank/by-level/senior"
+        }
+      ]
+    },
+    {
+      "text": "按题型",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "概念题",
+          "link": "/interview-bank/by-type/01-concept"
         },
         {
-          "text": "模拟试卷",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "architect-system-design-120min",
-              "link": "/interview-bank/mock-papers/architect-system-design-120min"
-            },
-            {
-              "text": "junior-frontend-60min",
-              "link": "/interview-bank/mock-papers/junior-frontend-60min"
-            },
-            {
-              "text": "senior-frontend-90min",
-              "link": "/interview-bank/mock-papers/senior-frontend-90min"
-            }
-          ]
+          "text": "代码分析题",
+          "link": "/interview-bank/by-type/02-code-analysis"
         },
         {
-          "text": "快问快答",
-          "collapsed": true,
-          "items": [
-            {
-              "text": "browser-core",
-              "link": "/interview-bank/flashcards/browser-core"
-            },
-            {
-              "text": "js-core",
-              "link": "/interview-bank/flashcards/js-core"
-            },
-            {
-              "text": "performance-core",
-              "link": "/interview-bank/flashcards/performance-core"
-            },
-            {
-              "text": "react-core",
-              "link": "/interview-bank/flashcards/react-core"
-            }
-          ]
+          "text": "手写代码题",
+          "link": "/interview-bank/by-type/03-coding"
+        },
+        {
+          "text": "场景设计题",
+          "link": "/interview-bank/by-type/04-scenario"
+        },
+        {
+          "text": "系统设计题",
+          "link": "/interview-bank/by-type/05-system-design"
+        },
+        {
+          "text": "框架原理题",
+          "link": "/interview-bank/by-type/06-framework-source"
+        },
+        {
+          "text": "性能优化题",
+          "link": "/interview-bank/by-type/07-performance"
+        },
+        {
+          "text": "安全题",
+          "link": "/interview-bank/by-type/08-security"
+        },
+        {
+          "text": "工程化题",
+          "link": "/interview-bank/by-type/09-engineering"
+        },
+        {
+          "text": "软技能题",
+          "link": "/interview-bank/by-type/10-soft-skill"
+        },
+        {
+          "text": "综合开放题",
+          "link": "/interview-bank/by-type/11-comprehensive"
+        }
+      ]
+    },
+    {
+      "text": "按面试知识域",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "JavaScript",
+          "link": "/interview-bank/by-domain/01-javascript"
+        },
+        {
+          "text": "TypeScript",
+          "link": "/interview-bank/by-domain/02-typescript"
+        },
+        {
+          "text": "浏览器原理",
+          "link": "/interview-bank/by-domain/03-browser"
+        },
+        {
+          "text": "计算机网络",
+          "link": "/interview-bank/by-domain/04-network"
+        },
+        {
+          "text": "Web 安全",
+          "link": "/interview-bank/by-domain/05-security"
+        },
+        {
+          "text": "HTML / CSS",
+          "link": "/interview-bank/by-domain/06-html-css"
+        },
+        {
+          "text": "可访问性",
+          "link": "/interview-bank/by-domain/07-a11y"
+        },
+        {
+          "text": "数据结构与算法",
+          "link": "/interview-bank/by-domain/08-algorithms"
+        },
+        {
+          "text": "设计模式",
+          "link": "/interview-bank/by-domain/09-design-patterns"
+        },
+        {
+          "text": "构建工具",
+          "link": "/interview-bank/by-domain/10-build-tools"
+        },
+        {
+          "text": "Monorepo",
+          "link": "/interview-bank/by-domain/11-monorepo"
+        },
+        {
+          "text": "CI/CD",
+          "link": "/interview-bank/by-domain/12-ci-cd"
+        },
+        {
+          "text": "代码质量与测试",
+          "link": "/interview-bank/by-domain/13-code-quality"
+        },
+        {
+          "text": "设计体系与组件库",
+          "link": "/interview-bank/by-domain/14-design-system"
+        },
+        {
+          "text": "React",
+          "link": "/interview-bank/by-domain/15-react"
+        },
+        {
+          "text": "Vue",
+          "link": "/interview-bank/by-domain/16-vue"
+        },
+        {
+          "text": "跨端技术",
+          "link": "/interview-bank/by-domain/17-cross-platform"
+        },
+        {
+          "text": "AI 工程化",
+          "link": "/interview-bank/by-domain/18-ai-engineering"
+        },
+        {
+          "text": "Node.js / BFF",
+          "link": "/interview-bank/by-domain/19-node-bff"
+        },
+        {
+          "text": "Git 工作流",
+          "link": "/interview-bank/by-domain/20-git-workflow"
+        },
+        {
+          "text": "开发者体验",
+          "link": "/interview-bank/by-domain/21-dx"
+        },
+        {
+          "text": "部署与 SRE",
+          "link": "/interview-bank/by-domain/22-deployment-sre"
+        },
+        {
+          "text": "包管理与供应链安全",
+          "link": "/interview-bank/by-domain/23-package-supply-chain"
+        },
+        {
+          "text": "前端运维与监控",
+          "link": "/interview-bank/by-domain/24-frontend-operations"
+        },
+        {
+          "text": "系统架构设计",
+          "link": "/interview-bank/by-domain/25-system-architecture"
+        },
+        {
+          "text": "微前端",
+          "link": "/interview-bank/by-domain/26-micro-frontend"
+        },
+        {
+          "text": "性能工程",
+          "link": "/interview-bank/by-domain/27-performance"
+        },
+        {
+          "text": "质量保障",
+          "link": "/interview-bank/by-domain/28-quality"
+        },
+        {
+          "text": "数据与状态管理",
+          "link": "/interview-bank/by-domain/29-data-state"
+        },
+        {
+          "text": "可观测性",
+          "link": "/interview-bank/by-domain/30-observability"
+        },
+        {
+          "text": "安全架构",
+          "link": "/interview-bank/by-domain/31-security-architecture"
+        },
+        {
+          "text": "实时与协同",
+          "link": "/interview-bank/by-domain/32-real-time"
+        },
+        {
+          "text": "国际化",
+          "link": "/interview-bank/by-domain/33-internationalization"
+        },
+        {
+          "text": "可视化与图形",
+          "link": "/interview-bank/by-domain/34-visualization-graphics"
+        },
+        {
+          "text": "Serverless / Edge",
+          "link": "/interview-bank/by-domain/35-serverless-edge"
+        },
+        {
+          "text": "前端数据工程",
+          "link": "/interview-bank/by-domain/36-data-engineering"
+        },
+        {
+          "text": "业务洞察",
+          "link": "/interview-bank/by-domain/37-business"
+        },
+        {
+          "text": "团队领导力",
+          "link": "/interview-bank/by-domain/38-team"
+        },
+        {
+          "text": "技术战略",
+          "link": "/interview-bank/by-domain/39-strategy"
+        },
+        {
+          "text": "沟通表达",
+          "link": "/interview-bank/by-domain/40-communication"
+        },
+        {
+          "text": "项目管理",
+          "link": "/interview-bank/by-domain/41-project-management"
+        },
+        {
+          "text": "招聘与组织",
+          "link": "/interview-bank/by-domain/42-hiring"
+        },
+        {
+          "text": "技术品牌",
+          "link": "/interview-bank/by-domain/43-tech-branding"
+        },
+        {
+          "text": "技术治理",
+          "link": "/interview-bank/by-domain/44-tech-governance"
+        },
+        {
+          "text": "小程序",
+          "link": "/interview-bank/by-domain/45-mini-program"
+        },
+        {
+          "text": "鸿蒙 ArkTS / HarmonyOS",
+          "link": "/interview-bank/by-domain/46-harmonyos"
+        },
+        {
+          "text": "Flutter",
+          "link": "/interview-bank/by-domain/47-flutter"
+        },
+        {
+          "text": "Electron",
+          "link": "/interview-bank/by-domain/48-electron"
+        },
+        {
+          "text": "WebAssembly",
+          "link": "/interview-bank/by-domain/49-webassembly"
+        },
+        {
+          "text": "WebGPU / 图形学",
+          "link": "/interview-bank/by-domain/50-webgpu-graphics"
+        },
+        {
+          "text": "音视频前端",
+          "link": "/interview-bank/by-domain/51-multimedia"
+        },
+        {
+          "text": "低代码 / 搭建",
+          "link": "/interview-bank/by-domain/52-low-code"
+        },
+        {
+          "text": "计算机基础",
+          "link": "/interview-bank/by-domain/53-computer-science"
+        },
+        {
+          "text": "行为面试",
+          "link": "/interview-bank/by-domain/54-behavioral"
+        },
+        {
+          "text": "简历与面试技巧",
+          "link": "/interview-bank/by-domain/55-resume-interview"
+        },
+        {
+          "text": "行业特化",
+          "link": "/interview-bank/by-domain/56-industry"
+        }
+      ]
+    },
+    {
+      "text": "模拟试卷",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "architect-system-design-120min",
+          "link": "/interview-bank/mock-papers/architect-system-design-120min"
+        },
+        {
+          "text": "junior-frontend-60min",
+          "link": "/interview-bank/mock-papers/junior-frontend-60min"
+        },
+        {
+          "text": "senior-frontend-90min",
+          "link": "/interview-bank/mock-papers/senior-frontend-90min"
+        }
+      ]
+    },
+    {
+      "text": "快问快答",
+      "collapsed": true,
+      "items": [
+        {
+          "text": "browser-core",
+          "link": "/interview-bank/flashcards/browser-core"
+        },
+        {
+          "text": "js-core",
+          "link": "/interview-bank/flashcards/js-core"
+        },
+        {
+          "text": "performance-core",
+          "link": "/interview-bank/flashcards/performance-core"
+        },
+        {
+          "text": "react-core",
+          "link": "/interview-bank/flashcards/react-core"
         }
       ]
     }

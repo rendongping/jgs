@@ -152,6 +152,16 @@ function getGroupedFiles(dir) {
   ].filter(group => group.items.length > 0);
 }
 
+// 将分组结果拆为独立侧边栏段落（每个子分组提升为一级段落），
+// 避免多级嵌套导致子项无法正常展示
+function makeLevelSidebar(levelLabel, dir) {
+  return getGroupedFiles(dir).map(group => ({
+    text: `${levelLabel} — ${group.text}`,
+    collapsed: group.collapsed,
+    items: group.items
+  }));
+}
+
 const sidebar = {
   '/guide/': [
     {
@@ -165,34 +175,10 @@ const sidebar = {
       ]
     }
   ],
-  '/foundation/': [
-    {
-      text: 'Level 01 基础层',
-      collapsed: false,
-      items: getGroupedFiles('foundation')
-    }
-  ],
-  '/engineering/': [
-    {
-      text: 'Level 02 工程化层',
-      collapsed: false,
-      items: getGroupedFiles('engineering')
-    }
-  ],
-  '/architecture/': [
-    {
-      text: 'Level 03 架构层',
-      collapsed: false,
-      items: getGroupedFiles('architecture')
-    }
-  ],
-  '/leadership/': [
-    {
-      text: 'Level 04 领导力层',
-      collapsed: false,
-      items: getGroupedFiles('leadership')
-    }
-  ],
+  '/foundation/': makeLevelSidebar('Level 01 基础层', 'foundation'),
+  '/engineering/': makeLevelSidebar('Level 02 工程化层', 'engineering'),
+  '/architecture/': makeLevelSidebar('Level 03 架构层', 'architecture'),
+  '/leadership/': makeLevelSidebar('Level 04 领导力层', 'leadership'),
   '/resources/': [
     {
       text: '资源与工具',
@@ -276,35 +262,35 @@ const sidebar = {
       text: '前端面试题总库',
       collapsed: false,
       items: [
-        { text: '题库首页', link: '/interview-bank/' },
-        {
-          text: '按岗位层级',
-          collapsed: true,
-          items: getFiles('interview-bank/by-level')
-        },
-        {
-          text: '按题型',
-          collapsed: true,
-          items: getFiles('interview-bank/by-type')
-        },
-        {
-          text: '按面试知识域',
-          collapsed: true,
-          items: getFiles('interview-bank/by-domain')
-        },
-        {
-          text: '模拟试卷',
-          collapsed: true,
-          items: getFiles('interview-bank/mock-papers')
-        },
-        {
-          text: '快问快答',
-          collapsed: true,
-          items: getFiles('interview-bank/flashcards')
-        }
+        { text: '题库首页', link: '/interview-bank/' }
       ]
+    },
+    {
+      text: '按岗位层级',
+      collapsed: true,
+      items: getFiles('interview-bank/by-level')
+    },
+    {
+      text: '按题型',
+      collapsed: true,
+      items: getFiles('interview-bank/by-type')
+    },
+    {
+      text: '按面试知识域',
+      collapsed: true,
+      items: getFiles('interview-bank/by-domain')
+    },
+    {
+      text: '模拟试卷',
+      collapsed: true,
+      items: getFiles('interview-bank/mock-papers')
+    },
+    {
+      text: '快问快答',
+      collapsed: true,
+      items: getFiles('interview-bank/flashcards')
     }
-  ],
+  ].filter(g => g.items.length > 0),
 };
 
 const outputPath = path.join(__dirname, '../sidebar.json');
